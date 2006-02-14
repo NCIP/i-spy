@@ -1,0 +1,6 @@
+This file contains the gene annotation data for the Agilent 44K array.
+The format is as follows:
+
+ReporterName	GeneSymbol	GenbankAccession	LocusLinkId	Pathway(PipeDelimited)	GO(PipeDelimited)
+
+
