@@ -2,13 +2,14 @@ package gov.nih.nci.ispy.service.annotation;
 
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.HashMap;
 import java.util.ArrayList;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import java.util.regex.*;
 
 import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
@@ -18,7 +19,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 
 	private String annotationFileName;  //full path name to the annotation file.
 	private static GeneExprFileBasedAnnotationService instance = null;
-	private Map<String, ReporterResultset> reporterMap = new HashMap();
+	private Map<String, ReporterResultset> reporterMap = new HashMap<String, ReporterResultset>();
 	private boolean annotationFileSet = false;
 	
 	
@@ -26,8 +27,6 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-
 	
 	/**
 	 * Loads the specified annotation file and sets the instance variable.
@@ -46,72 +45,82 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	  String locusLinkIdsStr = null;
 	  String pathwaysStr = null;
 	  String goIdsStr = null;
-	  StringTokenizer t = null;
 	  ReporterResultset reporterAnnotation = null;
+	   
+	  //Annotation file has the format 
+	  //ReporterName\tGeneSymbol\tGenbankAcc\tLocusLinkId\tPathway\tGO
 	  
-	  List<String> geneSymbols = new ArrayList<String>();
-	  List<String> genbankAccessions = new ArrayList<String>();
-	  List<String> locusLinkIds = new ArrayList<String>();
-	  List<String> pathways = new ArrayList<String>();
-	  List<String> goIds = new ArrayList<String>();
-	  
+	  Pattern pattern = Pattern.compile("(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)");
 	  
 	  //reset the map
 	  reporterMap.clear();
+	  Matcher matcher = null;
+	  
+	  List<String> geneSymbols = null;
+	  List<String> genbankAccessions = null;
+	  List<String> locusLinkIds = null;
+	  List<String> pathways = null;
+	  List<String> goIds = null;
 	  
 	  while ((line=in.readLine())!= null) {
-	    t = new StringTokenizer(line, "\t");
+	    
+		//System.out.println("processing line=" + line);
+		  
+		matcher = pattern.matcher(line);
 		
-	    reporterName = t.nextToken();
-	    
-	    geneSymbolsStr = null;
-	    if (t.hasMoreTokens()) {
-	      geneSymbolsStr = t.nextToken();
-	    }
+		if (!matcher.find()) {
+		  throw new IOException("Annotation file has a format problem.");
+		}
+		
+	    reporterName = matcher.group(1);
+	    geneSymbolsStr = matcher.group(2);
+	    genbankAccsStr = matcher.group(3);
+	    locusLinkIdsStr = matcher.group(4); 
+	    pathwaysStr = matcher.group(5);
+	    goIdsStr = matcher.group(6);
 	   
-	    
-	    genbankAccsStr = null;
-	    if (t.hasMoreTokens()) {
-	      genbankAccsStr = t.nextToken();
-	    }
-	    
-	    locusLinkIdsStr = null;
-	    if (t.hasMoreTokens()) {
-	      locusLinkIdsStr = t.nextToken();
-	    }
-	    
-	    pathwaysStr = null;
-	    if (t.hasMoreTokens()) {
-	      pathwaysStr = t.nextToken();
-	    }
-	    
-	    goIdsStr = null;
-	    if (t.hasMoreTokens()) {
-	      goIdsStr = t.nextToken();
-	    }
-	    
 	    reporterAnnotation = new ReporterResultset(new DatumDE(DatumDE.PROBESET_ID, reporterName));
 	
-		geneSymbols.clear();
-	    extractTokens(geneSymbols, geneSymbolsStr, "|");
-	    reporterAnnotation.setAssociatedGeneSymbols(geneSymbols);
+	    //System.out.println(">> Setting data for reporter reporterName=" + reporterName);
+	    
+	
+	    geneSymbols = extractTokens(geneSymbolsStr, "\\|");
+	    if (!geneSymbols.isEmpty()) {
+	      reporterAnnotation.setAssociatedGeneSymbols(geneSymbols);
+	    }
+	    //System.out.println("   geneSymbols:  " + geneSymbolsStr);
+	    
+	 
+	    genbankAccessions = extractTokens(genbankAccsStr, "\\|");
+	    if (!genbankAccessions.isEmpty()) {
+	      reporterAnnotation.setAssiciatedGenBankAccessionNos(genbankAccessions);
+	    }
+	    //System.out.println("    genbankAcc: " + genbankAccsStr);
 	    
 	    
-	    genbankAccessions.clear();
-	    extractTokens(genbankAccessions, genbankAccsStr, "|");
-	    reporterAnnotation.setAssiciatedGenBankAccessionNos(genbankAccessions);
+	  
+	    locusLinkIds = extractTokens(locusLinkIdsStr, "\\|");
+	    if (!locusLinkIds.isEmpty()) {
+	      reporterAnnotation.setAssociatedLocusLinkIDs(locusLinkIds);
+	    }
+	    //System.out.println("   locusLinkIds: " + locusLinkIdsStr);
 	    
-	    locusLinkIds.clear();
-	    extractTokens(locusLinkIds, locusLinkIdsStr, "|");
-	    reporterAnnotation.setAssociatedLocusLinkIDs(locusLinkIds);
 	    
-	    pathways.clear();
-	    extractTokens(pathways, pathwaysStr, "|");
-	    reporterAnnotation.setAssociatedPathways(pathways);
+	  
+	    pathways = extractTokens(pathwaysStr, "\\|");
+	    if (!pathways.isEmpty()) {
+	      reporterAnnotation.setAssociatedPathways(pathways);
+	    }
+	    //System.out.println("   pathwaysStr: " + pathwaysStr);
 	    
-	    goIds.clear();
-	    extractTokens(goIds, goIdsStr, "|");
-	    reporterAnnotation.setAssociatedGOIds(goIds);
+	    
+	
+	    goIds = extractTokens(goIdsStr, "\\|");
+	    if (!goIds.isEmpty()) {
+	      reporterAnnotation.setAssociatedGOIds(goIds);
+	    }
+	    //System.out.println("  goIdsStr: " + goIdsStr);
+	    
 	    
 	    reporterMap.put(reporterName, reporterAnnotation);
 		  
@@ -130,12 +139,16 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	 * @param tokenStr
 	 * @param delimeter
 	 */
-	private void extractTokens(List<String> tokenCollection, String tokenStr, String delimeter) {
-	  if (tokenStr == null) return;
-	  StringTokenizer t = new StringTokenizer(tokenStr, delimeter);
-	  while (t.hasMoreTokens()) {
-	    tokenCollection.add(t.nextToken().trim());
+	private List<String> extractTokens(String line, String delim) {
+	  List<String> tokenCollection = new ArrayList<String>();
+	  if (line != null) {
+	    String[] tokens = line.split(delim);
+	  
+	    for (int i=0; i < tokens.length; i++) {
+	      tokenCollection.add(tokens[i].trim());
+	    }
 	  }
+	  return tokenCollection;
 	}
 
 
@@ -156,7 +169,20 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 		  throw new IllegalStateException("Must call setAnnotationFile() before calling getAnnotationsMapForReporters().");
 		}
 		
-		return reporterMap;
+		Map<String, ReporterResultset> returnMap = new HashMap<String, ReporterResultset>();
+		
+	
+		ReporterResultset reporterAnnotation;
+		for (String reporterId: reporterIDs) {
+		  reporterAnnotation = reporterMap.get(reporterId);
+		  
+		  if (reporterAnnotation != null) {
+		    returnMap.put(reporterId, reporterAnnotation);
+		  }
+		}
+		
+		
+		return returnMap;
 	}
 
 }
