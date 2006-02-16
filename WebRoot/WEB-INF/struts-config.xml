@@ -26,16 +26,29 @@
     
   <action-mappings>
   
-  	
+   <action path="/loginHome"
+    forward="ispy.login" />
+    
    <action path="/login"
            type="gov.nih.nci.ispy.web.struts.action.LoginAction"
            name="loginForm"
            scope="request"
-           input="/login.jsp">
-    <forward name="success" path="ispy.classComparison"/>    
-    </action>    
+           input="ispy.login">
+    <forward name="success" path="ispy.analysisHome"/> 
+    <forward name="failure" path="ispy.login"/>    
+    </action> 
     
-   
+    <action path="/logout"
+           type="gov.nih.nci.ispy.web.struts.action.LogoutAction"
+           scope="request"
+           input="ispy.analysisHome">
+    <forward name="logout" path="ispy.login"/>
+    <forward name="dontLogout" path="ispy.analysisHome"/>
+    </action>   
+    
+    <action path="/analysisHome"
+		forward="ispy.analysisHome"/>
+	   
 	<!-- <action path="/classComparison"
          forward="ispy.classComparison" />-->
          

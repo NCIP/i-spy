@@ -8,20 +8,14 @@
 </table>
 
 <div align="center" style="padding:0px;">
-<!--<p style="text-align:right; padding:0px">
-Welcome&nbsp;
-<B><% out.println(session.getAttribute("name")); %></b>&nbsp;|&nbsp;
-<a href="logout.jsp">Logout</a>
-</p>-->
 
 
-
-<!--header REMBRANDT image map-->
+<!--header ispy image map-->
 <div style="width:765px; border-bottom: 1px solid #000000; margin:0px;">
-<map name="headerMap">
-<area alt="REMBRANDT application logo" coords="7,8,272,50" href="login.do">
+<map name="ispyPortalMap">
+<area alt="I-SPY Application Logo" coords="5,3,236,61" href="loginHome.do">
 </map>
-<img src="/images/header.jpg" width="765" height="65" alt="REMBRANDT application logo" border="0" usemap="#headerMap">
+<img src="images/ispyPortalHeader.gif" width="765" height="65" border="0" usemap="#ispyPortalMap">
 </div>
 <!--end all headers-->
 

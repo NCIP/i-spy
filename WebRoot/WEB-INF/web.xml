@@ -57,7 +57,7 @@
 
 	<!-- The Welcome File List -->
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/jsp/login.jsp</welcome-file>
+		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
 	</welcome-file-list>
 	
 	<!-- Struts Tag Library Descriptors -->

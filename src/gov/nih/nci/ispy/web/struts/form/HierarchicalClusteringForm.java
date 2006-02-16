@@ -1,10 +1,13 @@
 package gov.nih.nci.ispy.web.struts.form;
 
-import gov.nih.nci.caintegrator.enumeration.MultiGroupComparisonAdjustmentType;
-import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
+
+
+
+import gov.nih.nci.caintegrator.enumeration.DistanceMatrixType;
+import gov.nih.nci.caintegrator.enumeration.LinkageMethodType;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,6 +16,8 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.util.LabelValueBean;
+
+
 
 
 
@@ -74,126 +79,51 @@ import org.apache.struts.util.LabelValueBean;
 * 
 */
 
-public class ClassComparisonForm extends BaseForm {
+public class HierarchicalClusteringForm extends ActionForm {
     
  // -------------INSTANCE VARIABLES-----------------------------//
-    //private static Logger logger = Logger.getLogger(BaseForm.class);
+    private static Logger logger = Logger.getLogger(BaseForm.class);
 	
-    private String [] existingGroups;
-    
-    private List existingGroupsList;
-    
-    private String [] selectedGroups;
-    
-    private String baselineGroup;
-    
     private String analysisResultName = "";
     
-    private String statistic = "default";
+    private String distanceMatrix = "Correlation";
     
-    private String statisticalMethod = "TTest";
+    private Collection distanceMatrixCollection = new ArrayList();
     
-    private ArrayList statisticalMethodCollection = new ArrayList();
+    private String linkageMethod = "Average";
     
-    private String comparisonAdjustment = "NONE";
+    private Collection linkageMethodCollection = new ArrayList();
     
-    private ArrayList comparisonAdjustmentCollection = new ArrayList();
+    private int variancePercentile = 95;
     
-    private String foldChange = "list";
+    private String filterType = "default";
     
-    private String foldChangeAuto = "2";
+    private String geneSetName = "";
     
-    private List foldChangeAutoList = new ArrayList();
+    private String reporterSetName = "";
     
-    private String foldChangeManual;
-    
-    private Double statisticalSignificance = .05;
+    private String clusterBy = "Samples";
     
     private String arrayPlatform = "";
     
-   
+    private String diffExpGenes = "diffExpGenes";
+    
+    private String diffExpReporters = "diffExpReporters";
+    
+    private String constraintVariance = "constraintVariance";
 
-	public ClassComparisonForm(){
-			
-		// Create Lookups for ClassComparisonForm screens 
-        for (MultiGroupComparisonAdjustmentType multiGroupComparisonAdjustmentType : MultiGroupComparisonAdjustmentType.values()){
-            comparisonAdjustmentCollection.add(new LabelValueBean(multiGroupComparisonAdjustmentType.toString(),multiGroupComparisonAdjustmentType.name()));
+	public HierarchicalClusteringForm(){
+       
+        //set up lookups for  HierarchicalClusteringForm
+        
+        for (DistanceMatrixType distanceMatrixType : DistanceMatrixType.values()){
+            distanceMatrixCollection.add(new LabelValueBean(distanceMatrixType.toString(),distanceMatrixType.name()));
+        }
+        for (LinkageMethodType linkageMethodType : LinkageMethodType.values()){
+            linkageMethodCollection.add(new LabelValueBean(linkageMethodType.toString(),linkageMethodType.name()));
         }
         
-        
-        for (StatisticalMethodType statisticalMethodType : StatisticalMethodType.values()){
-            statisticalMethodCollection.add(new LabelValueBean(statisticalMethodType.toString(),statisticalMethodType.name()));  
-        }
-        
-//        for (int i=0; i<RembrandtConstants.FOLD_CHANGE_DEFAULTS.length;i++){
-//            foldChangeAutoList.add(new LabelValueBean(RembrandtConstants.FOLD_CHANGE_DEFAULTS[i],RembrandtConstants.FOLD_CHANGE_DEFAULTS[i]));
-//        }
-        
     }
-
-
-
-    /**
-     * @return Returns the existingGroups.
-     */
-    public String[] getExistingGroups() {
-        return existingGroups;
-    }
-
-
-
-    /**
-     * @param existingGroups The existingGroups to set.
-     */
-    public void setExistingGroups(String [] existingGroups) {
-        this.existingGroups = existingGroups;
-    }
-
-
-
-    /**
-     * @return Returns the existingGroupsList.
-     */
-    public List getExistingGroupsList() {
-        return this.existingGroupsList;
-    }
-
-
-
-    /**
-     * @param existingGroupsList The existingGroupsList to set.
-     */
-    public void setExistingGroupsList(List existingGroupsList) {
-        this.existingGroupsList = existingGroupsList;
-    }
-
-
-
-    /**
-     * @return Returns the selectedGroups.
-     */
-    public String [] getSelectedGroups() {
-        return selectedGroups;
-    }
-
-
-
-    /**
-     * @param selectedGroups The selectedGroups to set.
-     */
-    public void setSelectedGroups(String [] selectedGroups) {
-        this.selectedGroups = selectedGroups;
-    }
-
-	public String getBaselineGroup() {
-		return baselineGroup;
-	}
-
-
-
-	public void setBaselineGroup(String baselineGroup) {
-		this.baselineGroup = baselineGroup;
-	}
 
     /**
      * @return Returns the analysisResultName.
@@ -229,178 +159,204 @@ public class ClassComparisonForm extends BaseForm {
         this.arrayPlatform = arrayPlatform;
     }
 
+   
+    /**
+     * @return Returns the clusterBy.
+     */
+    public String getClusterBy() {
+    	logger.debug("cluserBy selection is: "+clusterBy);
+        return clusterBy;
+    }
+
+
 
 
     /**
-     * @return Returns the comparisonAdjustment.
+     * @param clusterBy The clusterBy to set.
      */
-    public String getComparisonAdjustment() {
-        return comparisonAdjustment;
+    public void setClusterBy(String clusterBy) {
+        this.clusterBy = clusterBy;
+    }
+
+
+
+
+    /**
+     * @return Returns the distanceMatrix.
+     */
+    public String getDistanceMatrix() {
+        return distanceMatrix;
+    }
+
+
+
+
+    /**
+     * @param distanceMatrix The distanceMatrix to set.
+     */
+    public void setDistanceMatrix(String distanceMatrix) {
+    	logger.debug("Setting distanceMatrix to "+distanceMatrix);
+        this.distanceMatrix = distanceMatrix;
     }
 
 
 
     /**
-     * @param comparisonAdjustment The comparisonAdjustment to set.
+     * @return Returns the linkageMethod.
      */
-    public void setComparisonAdjustment(String comparisonAdjustment) {
-        this.comparisonAdjustment = comparisonAdjustment;
+    public String getLinkageMethod() {
+        return linkageMethod;
     }
 
 
 
+
     /**
-     * @return Returns the foldChange.
+     * @param linkageMethod The linkageMethod to set.
      */
-    public String getFoldChange() {
-        return foldChange;
+    public void setLinkageMethod(String linkageMethod) {
+        this.linkageMethod = linkageMethod;
+    }
+
+    /**
+     * @return Returns the variancePercentile.
+     */
+    public int getVariancePercentile() {
+        return variancePercentile;
+    }
+
+    /**
+     * @param variancePercentile The variancePercentile to set.
+     */
+    public void setVariancePercentile(int variancePercentile) {
+        this.variancePercentile = variancePercentile;
     }
 
 
-
     /**
-     * @param foldChange The foldChange to set.
+     * @return Returns the constraintVariance.
      */
-    public void setFoldChange(String foldChange) {
-        this.foldChange = foldChange;
+    public String getConstraintVariance() {
+        return constraintVariance;
     }
 
 
     /**
-     * @return Returns the statistic.
+     * @param constraintVariance The constraintVariance to set.
      */
-    public String getStatistic() {
-        return statistic;
+    public void setConstraintVariance(String constraintVariance) {
+        this.constraintVariance = constraintVariance;
     }
 
 
-
     /**
-     * @param statistic The statistic to set.
+     * @return Returns the diffExpGenes.
      */
-    public void setStatistic(String statistic) {
-        this.statistic = statistic;
+    public String getDiffExpGenes() {
+        return diffExpGenes;
     }
 
 
-
     /**
-     * @return Returns the statisticalMethod.
+     * @param diffExpGenes The diffExpGenes to set.
      */
-    public String getStatisticalMethod() {
-        return statisticalMethod;
+    public void setDiffExpGenes(String diffExpGenes) {
+        this.diffExpGenes = diffExpGenes;
     }
 
 
+    /**
+     * @return Returns the diffExpReporters.
+     */
+    public String getDiffExpReporters() {
+        return diffExpReporters;
+    }
+
 
     /**
-     * @param statisticalMethod The statisticalMethod to set.
+     * @param diffExpReporters The diffExpReporters to set.
      */
-    public void setStatisticalMethod(String statisticalMethod) {
-        this.statisticalMethod = statisticalMethod;
+    public void setDiffExpReporters(String diffExpReporters) {
+        this.diffExpReporters = diffExpReporters;
+    }
+
+
+    /**
+     * @return Returns the filterType.
+     */
+    public String getFilterType() {
+        return filterType;
+    }
+
+
+    /**
+     * @param filterType The filterType to set.
+     */
+    public void setFilterType(String filterType) {
+        this.filterType = filterType;
+    }
+
+
+    /**
+     * @return Returns the geneSetName.
+     */
+    public String getGeneSetName() {
+        return geneSetName;
+    }
+
+
+    /**
+     * @param geneSetName The geneSetName to set.
+     */
+    public void setGeneSetName(String geneSetName) {
+        this.geneSetName = geneSetName;
+    }
+
+
+    /**
+     * @return Returns the reporterSetName.
+     */
+    public String getReporterSetName() {
+        return reporterSetName;
+    }
+
+
+    /**
+     * @param reporterSetName The reporterSetName to set.
+     */
+    public void setReporterSetName(String reporterSetName) {
+        this.reporterSetName = reporterSetName;
     }
     
     /**
-     * @return Returns the comparisonAdjustmentCollection.
+     * @return Returns the distanceMatrixCollection.
      */
-    public ArrayList getComparisonAdjustmentCollection() {
-        return comparisonAdjustmentCollection;
+    public Collection getDistanceMatrixCollection() {
+        return distanceMatrixCollection;
     }
-
-
 
     /**
-     * @param comparisonAdjustmentCollection The comparisonAdjustmentCollection to set.
+     * @param distanceMatrixCollection The distanceMatrixCollection to set.
      */
-    public void setComparisonAdjustmentCollection(
-            ArrayList comparisonAdjustmentCollection) {
-        this.comparisonAdjustmentCollection = comparisonAdjustmentCollection;
+    public void setDistanceMatrixCollection(Collection distanceMatrixCollection) {
+        this.distanceMatrixCollection = distanceMatrixCollection;
     }
-
-
 
     /**
-     * @return Returns the statisticalMethodCollection.
+     * @return Returns the linkageMethodCollection.
      */
-    public ArrayList getStatisticalMethodCollection() {
-        return statisticalMethodCollection;
+    public Collection getLinkageMethodCollection() {
+        return linkageMethodCollection;
     }
-
-
 
     /**
-     * @param statisticalMethodCollection The statisticalMethodCollection to set.
+     * @param linkageMethodCollection The linkageMethodCollection to set.
      */
-    public void setStatisticalMethodCollection(ArrayList statisticalMethodCollection) {
-        this.statisticalMethodCollection = statisticalMethodCollection;
-    }
-    
-    /**
-     * @return Returns the foldChangeAuto.
-     */
-    public String getFoldChangeAuto() {
-        return foldChangeAuto;
+    public void setLinkageMethodCollection(Collection linkageMethodCollection) {
+        this.linkageMethodCollection = linkageMethodCollection;
     }
 
 
-
-    /**
-     * @param foldChangeAuto The foldChangeAuto to set.
-     */
-    public void setFoldChangeAuto(String foldChangeAuto) {
-        this.foldChangeAuto = foldChangeAuto;
-    }
-
-
-
-    /**
-     * @return Returns the foldChangeManual.
-     */
-    public String getFoldChangeManual() {
-        return foldChangeManual;
-    }
-
-
-
-    /**
-     * @param foldChangeManual The foldChangeManual to set.
-     */
-    public void setFoldChangeManual(String foldChangeManual) {
-        this.foldChangeManual = foldChangeManual;
-    }
-    
-    /**
-     * @return Returns the statisticalSignificance.
-     */
-    public Double getStatisticalSignificance() {
-        return statisticalSignificance;
-    }
-
-
-
-    /**
-     * @param statisticalSignificance The statisticalSignificance to set.
-     */
-    public void setStatisticalSignificance(Double statisticalSignificance) {
-        this.statisticalSignificance = statisticalSignificance;
-    }
-    
-    /**
-     * @return Returns the foldChangeAutoList.
-     */
-    public List getFoldChangeAutoList() {
-        return foldChangeAutoList;
-    }
-
-
-
-    /**
-     * @param foldChangeAutoList The foldChangeAutoList to set.
-     */
-    public void setFoldChangeAutoList(List foldChangeAutoList) {
-        this.foldChangeAutoList = foldChangeAutoList;
-    }
-        
 
     /**
      * Method validate
@@ -416,19 +372,14 @@ public class ClassComparisonForm extends BaseForm {
 
         ActionErrors errors = new ActionErrors();
         
-        
-        
-//        //Analysis Query Name cannot be blank
-//        errors = UIFormValidator.validateAnalysisName(analysisResultName, errors);
-//        
-//        //User must select exactly 2 comparison Groups
-//        errors = UIFormValidator.validateSelectedGroups(selectedGroups, errors);
-//        
-
+        //Analysis name cannot be blank
+        //errors = UIFormValidator.validateQueryName(analysisResultName, errors);   
+       
+       
         return errors;
     }
     
-   
+  
     /**
      * Method reset
      * 
@@ -438,15 +389,9 @@ public class ClassComparisonForm extends BaseForm {
      *            request
      */
     public void reset(ActionMapping mapping, HttpServletRequest request) {
-        analysisResultName = "";        
-        statistic = "default";        
-        comparisonAdjustment = "NONE";        
-        foldChange = "list";      
-        foldChangeAuto = "2"; 
-        statisticalSignificance = .05;        
+        analysisResultName = "";           
         arrayPlatform = "";             
-        statisticalMethod = "TTest";
+      
     }
 
-    
 }
