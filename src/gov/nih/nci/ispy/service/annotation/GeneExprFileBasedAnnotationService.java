@@ -11,6 +11,8 @@ import java.io.IOException;
 
 import java.util.regex.*;
 
+import gov.nih.nci.caintegrator.application.util.StringUtils;
+
 import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
 import gov.nih.nci.caintegrator.dto.de.DatumDE;
@@ -84,14 +86,14 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	    //System.out.println(">> Setting data for reporter reporterName=" + reporterName);
 	    
 	
-	    geneSymbols = extractTokens(geneSymbolsStr, "\\|");
+	    geneSymbols = StringUtils.extractTokens(geneSymbolsStr, "\\|");
 	    if (!geneSymbols.isEmpty()) {
 	      reporterAnnotation.setAssociatedGeneSymbols(geneSymbols);
 	    }
 	    //System.out.println("   geneSymbols:  " + geneSymbolsStr);
 	    
 	 
-	    genbankAccessions = extractTokens(genbankAccsStr, "\\|");
+	    genbankAccessions = StringUtils.extractTokens(genbankAccsStr, "\\|");
 	    if (!genbankAccessions.isEmpty()) {
 	      reporterAnnotation.setAssiciatedGenBankAccessionNos(genbankAccessions);
 	    }
@@ -99,7 +101,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	    
 	    
 	  
-	    locusLinkIds = extractTokens(locusLinkIdsStr, "\\|");
+	    locusLinkIds = StringUtils.extractTokens(locusLinkIdsStr, "\\|");
 	    if (!locusLinkIds.isEmpty()) {
 	      reporterAnnotation.setAssociatedLocusLinkIDs(locusLinkIds);
 	    }
@@ -107,7 +109,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	    
 	    
 	  
-	    pathways = extractTokens(pathwaysStr, "\\|");
+	    pathways = StringUtils.extractTokens(pathwaysStr, "\\|");
 	    if (!pathways.isEmpty()) {
 	      reporterAnnotation.setAssociatedPathways(pathways);
 	    }
@@ -115,7 +117,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	    
 	    
 	
-	    goIds = extractTokens(goIdsStr, "\\|");
+	    goIds = StringUtils.extractTokens(goIdsStr, "\\|");
 	    if (!goIds.isEmpty()) {
 	      reporterAnnotation.setAssociatedGOIds(goIds);
 	    }
@@ -131,28 +133,6 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	}
 	
 	
-
-	/**
-	 * This method will extract tokens from a string containing multiple tokens 
-	 * and place the tokens in a collection.  This is used for example, to parse strings containing multiple GO or PATHWAY ids.
-	 * @param tokenCollection
-	 * @param tokenStr
-	 * @param delimeter
-	 */
-	private List<String> extractTokens(String line, String delim) {
-	  List<String> tokenCollection = new ArrayList<String>();
-	  if (line != null) {
-	    String[] tokens = line.split(delim);
-	  
-	    for (int i=0; i < tokens.length; i++) {
-	      tokenCollection.add(tokens[i].trim());
-	    }
-	  }
-	  return tokenCollection;
-	}
-
-
-
 	@Override
 	public static GeneExprAnnotationService getInstance() {
 		
