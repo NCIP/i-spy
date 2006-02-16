@@ -29,7 +29,7 @@ public class ClinicalFileBasedQueryService {
 	   return Collections.EMPTY_SET;
 	}
 	
-	public Collection<String> getLabtrackIdsForPatientResponse(PatientResponseType responseType) {
+	public Collection<String> getLabtrackIdsForPatientResponse(ClinicalResponseType responseType) {
 	  return Collections.EMPTY_SET;
 	}
 	
