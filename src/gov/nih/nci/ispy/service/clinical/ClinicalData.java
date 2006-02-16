@@ -3,9 +3,14 @@ package gov.nih.nci.ispy.service.clinical;
 import java.util.ArrayList;
 import java.util.List;
 
+import gov.nih.nci.caintegrator.application.util.StringUtils;
+
 /**
  * This class will hold the clinical data returned by the
  * ClinicalDataQueryService.   
+ * 
+ * It represents the clinical data corresponding to a given
+ * patient a specific timepoint.
  * 
  * @author harrismic
  *
@@ -18,25 +23,26 @@ public class ClinicalData {
 	private int timepoint;
 	private DiseaseStageType diseaseStage;
 	private ERstatusType erStatus;
-	private double erValue;     //the summary ER score
-	private double prValue;     //the summary PR score
-	private double her2Value;   //the summary HER2 score
+	private double erValue = Double.MIN_VALUE;     //the summary ER score
+	private double prValue = Double.MIN_VALUE;     //the summary PR score
+	private double her2Value = Double.MIN_VALUE;   //the summary HER2 score
 	private PRstatusType prStatus;
 	private HER2statusType HER2status;
 	private ClinicalResponseType clinicalResponse;
-	private double longestDiameter;
+	private double longestDiameter = Double.MIN_VALUE;
 	private String tumorMorphology;
 	private String primaryTumorNuclearGrade;
 	private String primaryTumorHistologyType;
-	private double grossTumorSizeInCM; //Need to check units
-	private double microscopeTumorSizeInCM;
+	private double grossTumorSizeInCM = Double.MIN_VALUE; //Need to check units
+	private double microscopeTumorSizeInCM = Double.MIN_VALUE;
 	private List<String> chemicalAgents = new ArrayList<String>();
-	private double MRIpctChange;  //change in tumor size (measured by MRI) wrt the baseline measurement
+	private double MRIpctChange = Double.MIN_VALUE;  //change in tumor size (measured by MRI) wrt the baseline measurement
 
 
-	public ClinicalData() {
-		super();
-		// TODO Auto-generated constructor stub
+	public ClinicalData(String labtrackId, String patientId, int timepoint) {
+	  this.labtrackId = labtrackId;
+	  this.patientId = patientId;
+	  this.timepoint = timepoint;
 	}
 
 
@@ -75,18 +81,8 @@ public class ClinicalData {
 	}
 
 
-	public void setLabtrackId(String labtrackId) {
-		this.labtrackId = labtrackId;
-	}
-
-
 	public String getPatientId() {
 		return patientId;
-	}
-
-
-	public void setPatientId(String patientId) {
-		this.patientId = patientId;
 	}
 
 
@@ -137,6 +133,13 @@ public class ClinicalData {
 
 	public void setErValue(double erValue) {
 		this.erValue = erValue;
+		
+		if (erValue > 0.0) {
+		  setErStatus(ERstatusType.ER_Pos);
+		}
+		else {
+		  setErStatus(ERstatusType.ER_Neg);
+		}
 	}
 
 
@@ -157,6 +160,14 @@ public class ClinicalData {
 
 	public void setHer2Value(double her2Value) {
 		this.her2Value = her2Value;
+		
+		if (her2Value > 0.0) {
+		  setHER2status(HER2statusType.HER2_Pos);
+		}
+		else {
+		  setHER2status(HER2statusType.HER2_Neg);
+		}
+		
 	}
 
 
@@ -217,16 +228,18 @@ public class ClinicalData {
 
 	public void setPrValue(double prValue) {
 		this.prValue = prValue;
+		
+		if (prValue > 0.0) {
+		  setPrStatus(PRstatusType.PR_Pos);
+		}
+		else {
+		  setPrStatus(PRstatusType.PR_Neg);
+		}
 	}
 
 
 	public int getTimepoint() {
 		return timepoint;
-	}
-
-
-	public void setTimepoint(int timepoint) {
-		this.timepoint = timepoint;
 	}
 
 
@@ -238,5 +251,35 @@ public class ClinicalData {
 	public void setTumorMorphology(String tumorMorphology) {
 		this.tumorMorphology = tumorMorphology;
 	}
+
+    public void setDiseaseStageFromString(String diseaseStage) {
+    	if ((diseaseStage==null)||(diseaseStage.trim().length()==0)) {
+  		  setDiseaseStage(DiseaseStageType.Missing);
+  		}
+    	else {
+    	  setDiseaseStage(DiseaseStageType.valueOf(diseaseStage));	
+    	}
+    }
+
+	public void setClinicalResponseFromString(String responseStr) {
+		
+		if (StringUtils.isEmptyStr(responseStr)) {
+		  setClinicalResponse(ClinicalResponseType.Missing);
+		}
+		else if (responseStr.length() == 2) {
+		  setClinicalResponse(ClinicalResponseType.valueOf(responseStr));
+		}
+		else if (responseStr.equalsIgnoreCase("Progressive Disease")) {
+		  setClinicalResponse(ClinicalResponseType.PD);
+		}
+		else if (responseStr.equalsIgnoreCase("Stable Disease")) {
+		  setClinicalResponse(ClinicalResponseType.SD);	
+		}
+		else {
+		  setClinicalResponse(ClinicalResponseType.Unknown);	
+		}
+		
+	}
+
 
 }

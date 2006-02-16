@@ -7,5 +7,5 @@ package gov.nih.nci.ispy.service.clinical;
  *
  */
 public enum DiseaseStageType {
-	Stage1, Stage2,Stage3,Stage4,Unknown,Missing
+	II_All,II_A,II_B,III_All,III_A,III_B,Unknown,Missing
 }
