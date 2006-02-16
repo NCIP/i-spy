@@ -4,11 +4,16 @@ import java.util.List;
 import java.util.Collection;
 import java.util.Collections;
 
-public class ClinicalDataFileBasedQueryService {
+public class ClinicalFileBasedQueryService {
 
-	public ClinicalDataFileBasedQueryService() {
+	public ClinicalFileBasedQueryService() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void setClinicalDataFile(String clinicalDataFileName) {
+		
+		
 	}
 	
 	/**
