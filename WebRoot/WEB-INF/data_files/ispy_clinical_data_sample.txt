@@ -1,0 +1,46 @@
+LAB_TRACK_ID	PATIENT_DID	TIME_POINT	DISEASE_STAGE	CLINICAL_RESPONSE	LD	ER	PR	HER2	TUMOR_MORPHOLOGY	PRITUM_NUCLEAR_GRADE	PRIMTUMAR_HISTOTYPE	GROSS_TUMOR_SZ	MICRO_TUMOR_SZ	AGENT_NAME	MRI_PERCENTAGE_CHANGE
+209515	1001	1	IIIA		88	7	2	1.3	Patchy Enhancement: Mass sparsely populated with enhancement					ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+209521	1001	2	IIB	Stable Disease	78	7	2	1.3	Patchy Enhancement: Mass sparsely populated with enhancement					ADRIAMYCIN|CYTOXAN|TAXOTERE	-11.36
+209534	1002	1	IIB		29	8	8	1.3	Tissue displacing mass with irregular borders and nodular patterns	Grade III (high)	Necrosis	2	2	ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+209389	1004	1	IIIA		91	0	0	2	Diffuse infiltration into tissue	Grade III (high)	Necrosis	5	1.5	ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+209500	1004	2	IIIA	Progressive Disease	68	0	0	2	Diffuse infiltration into tissue	Grade III (high)	Necrosis	5	1.5	ADRIAMYCIN|CYTOXAN|TAXOTERE	-25.27
+209633	1005	1	IIIA		98			0	Septal spreading	Grade III (high)	Necrosis	2.7	2.7	ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+210832	1009	1	IIB		75	0	0	2	Tissue displacing mass with irregular borders and nodular patterns	Grade III (high)	Lobular carcinoma		1.3	ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+210841	1009	2		PR	66	0	0	2	Tissue displacing mass with irregular borders and nodular patterns	Grade III (high)	Lobular carcinoma		1.3	ADRIAMYCIN|CYTOXAN|TAXOTERE	-12
+211754	1011	1	IIB		68	0	0	1	Tissue displacing mass with irregular borders and nodular patterns					ADRIAMYCIN|CYTOXAN|TAXOL	0
+211739	1012	1	IIIB		78	8	7	1	Diffuse infiltration into tissue	Indeterminate	Ductal carcinoma	6		ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+211746	1012	2		PR	84	8	7	1	Diffuse infiltration into tissue	Indeterminate	Ductal carcinoma	6		ADRIAMYCIN|CYTOXAN|TAXOTERE	7.69
+210891	1016	1	IIIA		73	6	6	0	Tissue displacing mass with irregular borders and nodular patterns	Grade II (intermediate)	Lobular carcinoma	1.5	1.5	ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+210965	1016	2		Stable Disease	60	6	6	0	Tissue displacing mass with irregular borders and nodular patterns	Grade II (intermediate)	Lobular carcinoma	1.5	1.5	ADRIAMYCIN|CYTOXAN|TAXOTERE	-17.81
+211158	1019	1	IIIB		115	0	0	0	Single predominant mass with a defined circumference	Grade III (high)	Lobular carcinoma	7.5	7.5	ADRIAMYCIN|CYTOXAN|TZSOTERE	0
+211230	1019	2		PR	68	0	0	0	Single predominant mass with a defined circumference	Grade III (high)	Lobular carcinoma	7.5	7.5	ADRIAMYCIN|CYTOXAN|TZSOTERE	-40.87
+211643	1021	1	IIIB		63	6	3	7.5	Diffuse infiltration into tissue	Grade III (high)	Lobular carcinoma	2.4	0.8	ADRIAMYCIN|CYTOXA|CYTOXAN|TAXOTERE	0
+214441	1022	1	IIIA		98	8	0	0	Septal spreading	Grade II (intermediate)	Ductal carcinoma	0	0	ADRIAMYCIN|CYCLOPHOSPHAMID|TAXOL	0
+214453	1022	2		Stable Disease		8	0	0	Septal spreading	Grade II (intermediate)	Ductal carcinoma	0	0	ADRIAMYCIN|CYCLOPHOSPHAMID|TAXOL	
+211629	1026	1	IIB		32			18.7	Single predominant mass with a defined circumference					ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+214699	1027	1	IIA		40	2	0	2	Single predominant mass with a defined circumference					ADRIAMYCIN|CYTOXAN	0
+212312	1028	1		Stable Disease	60	0	0	1	Tissue displacing mass with irregular borders and nodular patterns		Ductal carcinoma	0.4	0	ADRIAMYCIN|CYTOXAN|PACLITAXEL|VANCOMYCIN	0
+212619	1031	1	IIIA	Stable Disease	43				Tissue displacing mass with irregular borders and nodular patterns	Grade II (intermediate)	Ductal carcinoma		3	ADRIAMYCIN|CYTOXAN|TAXOL	0
+213088	1034	1	IIIC		88	0	0	0	Patchy Enhancement: Mass sparsely populated with enhancement	Indeterminate	Ductal carcinoma		0.2	ADRIAMYCIN|CYTOXAN|TAXOL	0
+213158	1034	2	IIIC	PR	82	0	0	0	Patchy Enhancement: Mass sparsely populated with enhancement	Indeterminate	Ductal carcinoma		0.2	ADRIAMYCIN|CYTOXAN|TAXOL	-6.82
+213782	1035	1	IIIC		100	5	4	3.3	Patchy Enhancement: Mass sparsely populated with enhancement					CYCLOPHOSPHAMID|DOXORUBICIN|PACLITAXEL	0
+214064	1035	2		Stable Disease	90	5	4	3.3	Patchy Enhancement: Mass sparsely populated with enhancement					CYCLOPHOSPHAMID|DOXORUBICIN|PACLITAXEL	-10
+214474	1037	1	IIIA		92	0	0	2	Single predominant mass with a defined circumference	Grade III (high)	Ductal carcinoma	0.4		ADRIAMYCIN|CYTOXAN|TAXOL|U	0
+214493	1037	2		Stable Disease		0	0	2	Single predominant mass with a defined circumference	Grade III (high)	Ductal carcinoma	0.4		ADRIAMYCIN|CYTOXAN|TAXOL|U	
+214462	1038	1	IIIA		36	0	0	0	Single predominant mass with a defined circumference					ADRIAMYCIN|CYTOXAN|TAXOL	0
+214485	1038	2		Stable Disease		0	0	0	Single predominant mass with a defined circumference					ADRIAMYCIN|CYTOXAN|TAXOL	
+214987	1039	2	IIA	Stable Disease	20	0	0	3	Patchy Enhancement: Mass sparsely populated with enhancement					CYCLOPHOSPHAMID|DOXORUBICIN|PACLITAXEL	0
+217144	1041	1	IIIC		90			3	Tissue displacing mass with irregular borders and nodular patterns	Grade III (high)	Ductal carcinoma	5.2	5.2	ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+217155	1041	2	IIIC	Stable Disease	86			3	Tissue displacing mass with irregular borders and nodular patterns	Grade III (high)	Ductal carcinoma	5.2	5.2	ADRIAMYCIN|CYTOXAN|TAXOTERE	-4.44
+215309	1042	1	IIA		93	7	3	0	Diffuse infiltration into tissue	Indeterminate	Ductal carcinoma	0	0.2	ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+215397	1042	2		Progressive Disease	19	7	3	0	Diffuse infiltration into tissue	Indeterminate	Ductal carcinoma	0	0.2	ADRIAMYCIN|CYTOXAN|TAXOTERE	-79.57
+215630	1043	1	IIIB		138	0	4		Patchy Enhancement: Mass sparsely populated with enhancement	Grade III (high)	Lobular carcinoma		0.8	ADRIAMYCIN|CYTOXAN|TAXOTERE	0
+215655	1043	2		Stable Disease	146	0	4		Patchy Enhancement: Mass sparsely populated with enhancement	Grade III (high)	Lobular carcinoma		0.8	ADRIAMYCIN|CYTOXAN|TAXOTERE	5.8
+216826	1044	1			154	0	0	0	Diffuse infiltration into tissue					ADRIAMYCIN|CYTOXAN	0
+216719	1045	1			120				Patchy Enhancement: Mass sparsely populated with enhancement					CYCLOPHOSPHAMID|DOXORUBICIN|PACLITAXEL	0
+216803	1045	2	IIB		42				Patchy Enhancement: Mass sparsely populated with enhancement					CYCLOPHOSPHAMID|DOXORUBICIN|PACLITAXEL	-65
+217408	1049	1			41	0	0	0	Single predominant mass with a defined circumference	Grade III (high)	Ductal carcinoma	2		ADRIAMYCIN|CYTOXAN|TAXOL|~	0
+217594	1049	2	IIIB		34	0	0	0	Single predominant mass with a defined circumference	Grade III (high)	Ductal carcinoma	2		ADRIAMYCIN|CYTOXAN|TAXOL|~	-17.07
+217419	1050	1			127	0	0	0	Diffuse infiltration into tissue					ADRIAMYCIN|CYTOXAN|TAXOL	0
+218564	1055	1	IIA		50	8	8	0	Tissue displacing mass with irregular borders and nodular patterns	Grade II (intermediate)	Lobular carcinoma	3	3	CYCLOPHOSPHAMID|DOXORUBICIN|PACLITAXEL	0
+218367	1057	1	IIIB		105	0	0	0	Septal spreading	Indeterminate	Ductal carcinoma	0	0.1	ADRIAMYCIN|CYOTAXAN|TAXOL	0
