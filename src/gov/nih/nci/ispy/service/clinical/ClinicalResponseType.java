@@ -1,7 +1,7 @@
 package gov.nih.nci.ispy.service.clinical;
 
 /**
- * Patient Response Type:
+ * Clinical Response Type:
  * 	CR  -  Complete Response
  *  PR  -  Partial Response
  *  SD  -  Stable Disease
@@ -10,6 +10,6 @@ package gov.nih.nci.ispy.service.clinical;
  * @author harrismic
  *
  */
-public enum PatientResponseType {
+public enum ClinicalResponseType {
   CR,PR,SD,PD,Unknown,Missing
 }
