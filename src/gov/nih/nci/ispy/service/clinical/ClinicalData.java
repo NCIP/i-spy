@@ -280,6 +280,32 @@ public class ClinicalData {
 		}
 		
 	}
+	
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		
+		sb.append("LabtrackId:").append("\t").append(labtrackId).append("\n");
+		sb.append("PatiendId:").append("\t").append(patientId).append("\n");
+		sb.append("Timepoint:").append("\t").append(timepoint).append("\n");
+		sb.append("DiseaseStage:").append("\t").append(diseaseStage).append("\n");
+		sb.append("ERstatus:").append("\t").append(erStatus).append("\n");		
+		sb.append("erValue:").append("\t").append(erValue).append("\n");
+		sb.append("prStatus:").append("\t").append(prStatus).append("\n");
+		sb.append("prValue:").append("\t").append(prValue).append("\n");
+		sb.append("HER2status:").append("\t").append(HER2status).append("\n");
+		sb.append("HER2Value:").append("\t").append(her2Value).append("\n");
+		sb.append("ClinicalResponse:").append("\t").append(clinicalResponse).append("\n");
+		sb.append("LongestDiameter:").append("\t").append(longestDiameter).append("\n");
+		sb.append("TumorMorphology").append("\t").append(tumorMorphology).append("\n");
+		sb.append("PrimaryTumorNuclearGrade:").append("\t").append(primaryTumorNuclearGrade).append("\n");
+		sb.append("PrimaryTumorHistologyType:").append("\t").append(primaryTumorHistologyType).append("\n");
+		sb.append("GrossTumorSizeInCM:").append("\t").append(grossTumorSizeInCM).append("\n");
+		sb.append("MicroscopeTumorSizeInCM").append("\t").append(microscopeTumorSizeInCM).append("\n");
+		sb.append("ChemicalAgents:").append("\t").append(StringUtils.concatinateStrings(chemicalAgents, "|")).append("\n");
+		sb.append("MRIpctChange:").append("\t").append(MRIpctChange).append("\n");
+		
+		return sb.toString();
+	}
 
 
 }

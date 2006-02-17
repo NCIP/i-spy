@@ -1,17 +1,14 @@
 package gov.nih.nci.ispy.service.clinical;
 
-import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
 import gov.nih.nci.caintegrator.application.util.StringUtils;
-import gov.nih.nci.caintegrator.dto.de.DatumDE;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,10 +17,19 @@ public class ClinicalFileBasedQueryService {
 
 	private Map<String, ClinicalData> clinicalDataMap = new HashMap<String,ClinicalData>();
 	private boolean clinicalDataFileSet = false;
+	private static ClinicalFileBasedQueryService instance = null;
 	
-	public ClinicalFileBasedQueryService() {
+	private ClinicalFileBasedQueryService() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public static ClinicalFileBasedQueryService getInstance() {
+		
+		  if (instance == null) {
+		    instance = new ClinicalFileBasedQueryService();
+		  }
+		  return instance;
 	}
 	
 	public void setClinicalDataFile(String clinicalDataFileName) throws IOException {
@@ -38,7 +44,8 @@ public class ClinicalFileBasedQueryService {
 		  //LAB_TRACK_ID	PATIENT_DID	TIME_POINT	DISEASE_STAGE	CLINICAL_RESPONSE	LD	ER	PR	HER2	TUMOR_MORPHOLOGY	PRITUM_NUCLEAR_GRADE	PRIMTUMAR_HISTOTYPE	GROSS_TUMOR_SZ	MICRO_TUMOR_SZ	AGENT_NAME	MRI_PERCENTAGE_CHANGE
 		  //
 		  
-		  Pattern pattern = Pattern.compile("(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)");
+		  //Pattern pattern = Pattern.compile("(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t([\\S|x0B]*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)");
+		  Pattern pattern = Pattern.compile("([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)");		  
 		  
 		  //reset the map
 		  clinicalDataMap.clear();
@@ -55,7 +62,13 @@ public class ClinicalFileBasedQueryService {
 			}
 			
 		    String labtrackId = matcher.group(1);
+		    
+		    //System.out.println("labtrackId=" + labtrackId);
+		    
 		    String patientId = matcher.group(2);
+		    
+		    //System.out.println("patientId=" + patientId);
+		    
 		    int timepoint = Integer.parseInt(matcher.group(3));
 		    
 		    clinicalData = new ClinicalData(labtrackId, patientId, timepoint);
@@ -89,6 +102,8 @@ public class ClinicalFileBasedQueryService {
 		    }
 		    
 		    clinicalData.setTumorMorphology(matcher.group(10));
+		    
+		    //System.out.println("tumorMorphology=" + matcher.group(10));
 		    
 		    clinicalData.setPrimaryTumorNuclearGrade(matcher.group(11));
 		    
