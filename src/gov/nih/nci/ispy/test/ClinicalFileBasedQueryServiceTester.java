@@ -41,6 +41,9 @@ public static void main(String[] args) {
 	try {
 	  List<ClinicalData> clinicalDataList = clinicalQS.getClinicalDataForLabtrackIds(labtrackIds);
 	  System.out.println("clinicalDataList=" + clinicalDataList.size());
+	  for (ClinicalData cd : clinicalDataList) {
+	     dumpClinicalData(cd);
+	  }
 	}
 	catch (Exception ex) {
 	  ex.printStackTrace(System.out);
