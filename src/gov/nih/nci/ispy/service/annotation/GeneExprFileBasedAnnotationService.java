@@ -52,8 +52,8 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	  //Annotation file has the format 
 	  //ReporterName\tGeneSymbol\tGenbankAcc\tLocusLinkId\tPathway\tGO
 	  
-	  Pattern pattern = Pattern.compile("(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)");
-	  
+	  //Pattern pattern = Pattern.compile("(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)");
+	  Pattern pattern = Pattern.compile("([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)");
 	  //reset the map
 	  reporterMap.clear();
 	  Matcher matcher = null;
