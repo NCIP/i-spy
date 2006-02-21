@@ -4,14 +4,16 @@
 
 <fieldset class="gray">
 <legend class="red">
-Cluster By
+Select Timepoint
 </legend>
 	
 <br>
+Timepoint:
+&nbsp;&nbsp;<html:select property="timepoint">
+					<html:optionsCollection property="timepointCollection" /> 
+			</html:select>
+			&nbsp;&nbsp;
 
-			<html:radio styleClass="radio" property="clusterBy" value="Samples"/>
-			&nbsp;Samples<br />
-			<html:radio styleClass="radio" property="clusterBy" value="Genes"/>
-			&nbsp;Genes<br />			
+			
 			
 </fieldset>

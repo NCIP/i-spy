@@ -5,6 +5,7 @@ package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.caintegrator.enumeration.DistanceMatrixType;
 import gov.nih.nci.caintegrator.enumeration.LinkageMethodType;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -86,6 +87,10 @@ public class HierarchicalClusteringForm extends ActionForm {
 	
     private String analysisResultName = "";
     
+    private String timepoint = "T1";
+    
+    private Collection timepointCollection = new ArrayList();
+    
     private String distanceMatrix = "Correlation";
     
     private Collection distanceMatrixCollection = new ArrayList();
@@ -121,6 +126,9 @@ public class HierarchicalClusteringForm extends ActionForm {
         }
         for (LinkageMethodType linkageMethodType : LinkageMethodType.values()){
             linkageMethodCollection.add(new LabelValueBean(linkageMethodType.toString(),linkageMethodType.name()));
+        }
+        for (TimepointType timepointType : TimepointType.values()){
+            timepointCollection.add(new LabelValueBean(timepointType.toString(),timepointType.name()));
         }
         
     }
@@ -356,7 +364,33 @@ public class HierarchicalClusteringForm extends ActionForm {
         this.linkageMethodCollection = linkageMethodCollection;
     }
 
+    /**
+     * @return Returns the timepoint.
+     */
+    public String getTimepoint() {
+        return timepoint;
+    }
 
+    /**
+     * @param timepoint The timepoint to set.
+     */
+    public void setTimepoint(String timepoint) {
+        this.timepoint = timepoint;
+    }
+    
+    /**
+     * @return Returns the timepointCollection.
+     */
+    public Collection getTimepointCollection() {
+        return timepointCollection;
+    }
+
+    /**
+     * @param timepointCollection The timepointCollection to set.
+     */
+    public void setTimepointCollection(Collection timepointCollection) {
+        this.timepointCollection = timepointCollection;
+    }
 
     /**
      * Method validate
@@ -393,5 +427,6 @@ public class HierarchicalClusteringForm extends ActionForm {
         arrayPlatform = "";             
       
     }
+    
 
 }

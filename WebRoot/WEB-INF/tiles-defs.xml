@@ -65,11 +65,11 @@
     </definition>
     
      <definition name="ispy.hierarchicalClustering" extends="baseDef">
-      <put name="mainForm" value="/jsp/formBody.jsp?s=hierarchicalClustering" />
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=hierarchicalClustering" />
 	  <put name="title" value="Hierarchical Clustering Analysis Form" />
-	  <put name="sideBar" value="/jsp/tiles/sideBarAnalysis_tile.jsp" />
-	  <put name="reqdFieldsMsg" value="/jsp/tiles/empty_tile.jsp" />
-	   <put name="tabs" value="/jsp/tiles/tabs_tile.jsp?s=4" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
     </definition>
     
 	<definition name="ispy.menu" extends="baseDef">
@@ -81,18 +81,12 @@
 	
 	
 	
-	<definition name="ispy.viewResults" path="/jsp/homeLayout.jsp">
-		<put name="title" value="View Results" />
-		<!--  the common criteria  -->
-		<put name="htmlHead" value="/jsp/tiles/htmlHead_tile.jsp" />
-		<put name="overlib" value="/jsp/tiles/overlib_tile.jsp" />
-		<put name="header" value="/jsp/header.jsp" />
-	    <put name="crumbMenu" value="/jsp/tiles/crumbMenu_tile.jsp" />
-	    <put name="sideBar" value="/jsp/tiles/blankSidebar_tile.jsp" />
-		<!-- <put name="sideBar" value="/jsp/tiles/advSearch_tile.jsp" /> -->
-		<put name="footer" value="/jsp/footer.jsp" />
-		<put name="mainForm" value="/jsp/viewResults.jsp" />
-		<put name="tabs" value="/jsp/tiles/tabs_tile.jsp?s=3" />		
+	<definition name="ispy.viewResults" extends="baseDef">
+		<put name="title" value="I-SPY View Results" />
+		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="mainForm" value="/WEB-INF/jsp/viewResults.jsp" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=4" />
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
     </definition>    
 	  
     <definition name="graph" path="/jsp/layoutGraph.jsp">

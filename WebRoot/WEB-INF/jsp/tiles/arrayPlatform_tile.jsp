@@ -5,25 +5,14 @@
 <fieldset class="gray">
 <legend class="red">
 
-<logic:present name="geneexpressionForm">
-Array Platform
-</logic:present>
-<logic:present name="principalComponentForm">
-Step 3: Select Array Platform
-</logic:present>
-<logic:present name="classComparisonForm">
-Step 3: Select Array Platform
-</logic:present>
+
 <logic:present name="hierarchicalClusteringForm">
-Step 4: Select Array Platform
+Select Array Platform
 </logic:present>
 
 
-<app:help help="Select array platform (Affymetrix Oligo arrays or cDNA array platform) from the pick list"/>
 </legend>
-<%
-	String act = request.getParameter("act");
-%>
+
 	
 <br>	
 &nbsp;&nbsp;<html:select property="arrayPlatform">

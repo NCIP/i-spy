@@ -5,9 +5,7 @@
 
 
 <fieldset class="gray">
-<legend class="red">
-
-		
+<legend class="red">		
 		Name Analysis Result
 <b class="req">*</b>
 </legend>
