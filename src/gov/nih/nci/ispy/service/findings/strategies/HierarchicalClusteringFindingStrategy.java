@@ -33,6 +33,7 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -123,7 +124,7 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 	private HierarchicalClusteringRequest hcRequest;
 	private HCAFinding hcFinding;
 	private AnalysisServerClientManager analysisServerClientManager;
-	private BusinessTierCache cacheManager = (BusinessTierCache)ApplicationContext.getApplicationService("BUSINESS_TIER_CACHE");
+	private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
 	
 	public HierarchicalClusteringFindingStrategy(String sessionId, String taskId, HierarchicalClusteringQueryDTO queryDTO) throws ValidationException {
 		//Check if the passed query is valid
@@ -178,6 +179,11 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 	 * this methods queries the database to get back sample Ids for the groups
 	 */
 	public boolean executeQuery() throws FindingsQueryException {
+		
+		
+		//Get the samples to cluster
+	
+		
 		//Get Sample Ids from DB
 //		if(clinicalDataQuery != null){
 //			CompoundQuery compoundQuery;
