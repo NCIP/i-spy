@@ -6,6 +6,7 @@ package gov.nih.nci.ispy.web.struts.form;
 import gov.nih.nci.caintegrator.enumeration.DistanceMatrixType;
 import gov.nih.nci.caintegrator.enumeration.LinkageMethodType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.web.helper.UIFormValidator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -87,7 +88,7 @@ public class HierarchicalClusteringForm extends ActionForm {
 	
     private String analysisResultName = "";
     
-    private String timepoint = "T1";
+    private String[] timepoints;
     
     private Collection timepointCollection = new ArrayList();
     
@@ -367,15 +368,15 @@ public class HierarchicalClusteringForm extends ActionForm {
     /**
      * @return Returns the timepoint.
      */
-    public String getTimepoint() {
-        return timepoint;
+    public String[] getTimepoints() {
+        return timepoints;
     }
 
     /**
      * @param timepoint The timepoint to set.
      */
-    public void setTimepoint(String timepoint) {
-        this.timepoint = timepoint;
+    public void setTimepoints(String [] timepoints) {
+        this.timepoints = timepoints;
     }
     
     /**
@@ -407,9 +408,10 @@ public class HierarchicalClusteringForm extends ActionForm {
         ActionErrors errors = new ActionErrors();
         
         //Analysis name cannot be blank
-        //errors = UIFormValidator.validateQueryName(analysisResultName, errors);   
-       
-       
+        errors = UIFormValidator.validateQueryName(analysisResultName, errors);   
+       //Timepoints cannot be blank
+        errors = UIFormValidator.validateHCTimepoints(timepoints, errors);
+        
         return errors;
     }
     
@@ -424,8 +426,8 @@ public class HierarchicalClusteringForm extends ActionForm {
      */
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         analysisResultName = "";           
-        arrayPlatform = "";             
-      
+        arrayPlatform = ""; 
+       
     }
     
 

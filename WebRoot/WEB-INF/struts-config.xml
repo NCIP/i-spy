@@ -104,7 +104,7 @@
          forward="ispy.hierarchicalClustering" />
 	
 	<action path="/hierarchicalclustering"
-	    input="nautilus.hierarchicalClustering"
+	    input="ispy.hierarchicalClustering"
 		type="gov.nih.nci.ispy.web.struts.action.HierarchicalClusteringAction"
 		name="hierarchicalClusteringForm"
 		scope="request"

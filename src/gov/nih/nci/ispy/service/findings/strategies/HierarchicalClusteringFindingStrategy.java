@@ -33,6 +33,7 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
+import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.Collection;
@@ -332,16 +333,13 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 		boolean _valid = false;
 		if(queryDTO instanceof HierarchicalClusteringQueryDTO){
 			_valid = true;
-            HierarchicalClusteringQueryDTO hcQueryDTO = (HierarchicalClusteringQueryDTO)queryDTO;
+            ISPYHierarchicalClusteringQueryDTO hcQueryDTO = (ISPYHierarchicalClusteringQueryDTO)queryDTO;
 				
 			try {
-						ValidationUtility.checkForNull(hcQueryDTO.getInstitutionDEs());
-						ValidationUtility.checkForNull(hcQueryDTO.getArrayPlatformDE()) ;
+						ValidationUtility.checkForNull(hcQueryDTO.getTimepoints());
 						ValidationUtility.checkForNull(hcQueryDTO.getQueryName());
 					
-					if( hcQueryDTO.getGeneVectorPercentileDE() == null && 
-							hcQueryDTO.getGeneIdentifierDEs()== null &&
-							hcQueryDTO.getReporterIdentifierDEs() == null){
+					if( hcQueryDTO.getGeneVectorPercentileDE() == null){
 						throw new ValidationException("HC query should be contrained by atleast one of the following: GeneVector, Genes or Reporters");
 					}
 				} catch (ValidationException ex) {

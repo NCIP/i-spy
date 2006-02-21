@@ -1,8 +1,16 @@
-package gov.nih.nci.ispy.service.clinical;
+package gov.nih.nci.ispy.web.helper;
 
-import java.io.Serializable;
-import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionError;
+import org.apache.struts.action.ActionErrors;
+
+/**
+ * @author BauerD 
+ * Dec 15, 2004 
+ * This class is used to validate input fields from the UI
+ *  
+ */
 
 
 /**
@@ -62,7 +70,26 @@ import java.util.List;
 * 
 */
 
-public enum TimepointType implements Serializable {
-	T1, T2, T3, T4;
+public class UIFormValidator {
+    private static Logger logger = Logger.getLogger(UIFormValidator.class);
+    
+   
+	public static ActionErrors validateQueryName(String queryName,
+			ActionErrors errors) {
+		if ((queryName == null || queryName.length() < 1)) {
+			errors.add("analysisResultName", new ActionError(
+					"gov.nih.nci.nautilus.ui.struts.form.analysisResultName.no.error"));
+		}
+		return errors;
+	}
+    
+    public static ActionErrors validateHCTimepoints(String[] timepoints,
+            ActionErrors errors) {
+        if ((timepoints == null || timepoints.length < 1)) {
+            errors.add("timepoints", new ActionError(
+                    "gov.nih.nci.nautilus.ui.struts.form.timepoints.no.error"));
+        }
+        return errors;
+    }
+    
 }
-

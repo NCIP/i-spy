@@ -1,12 +1,13 @@
 <%@ taglib uri="/WEB-INF/struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
+<%@ taglib uri="/WEB-INF/rembrandt.tld" prefix="app" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean" %>
 <%@ taglib uri="/WEB-INF/struts-nested.tld" prefix="nested" %>
 
 <%@ page import="java.util.*, java.lang.*, java.io.*, java.net.URLEncoder " %>
-<%@ page import="gov.nih.nci.ispy.web.factory.ApplicationFactory" %>
-<%@ page import="gov.nih.nci.caintegrator.application.cache.*" %>
+<%@ page import="gov.nih.nci.rembrandt.web.factory.ApplicationFactory" %>
+<%@ page import="gov.nih.nci.rembrandt.cache.*" %>
 <%@ page import="gov.nih.nci.caintegrator.service.findings.*" %>
 <%@ page import="gov.nih.nci.caintegrator.enumeration.*" %>
 <%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
@@ -27,7 +28,6 @@ String helpLinkClose = "', 350, 500);\">"+
 <tr class="report">
   <td>
     <br />
-    
     <form action="#">
       
       
@@ -76,7 +76,7 @@ String helpLinkClose = "', 350, 500);\">"+
         
      </fieldset>
      <br /><br />
-     <form> 
+     <!--  <form> -->
      
      <fieldset>
      	<legend>High Order Analysis</legend>

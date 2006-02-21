@@ -8,12 +8,14 @@ Select Timepoint
 </legend>
 	
 <br>
-Timepoint:
-&nbsp;&nbsp;<html:select property="timepoint">
-					<html:optionsCollection property="timepointCollection" /> 
-			</html:select>
-			&nbsp;&nbsp;
-
+<html:errors property="timepoints"/><br />
+<table border="0">
+	<tr><td valign="top">Timepoint:</td>
+		<td>&nbsp;&nbsp;<html:select multiple="true" property="timepoints">
+						<html:optionsCollection property="timepointCollection" /> 
+				</html:select>
+				&nbsp;&nbsp;</td>
+</table>
 			
 			
 </fieldset>
