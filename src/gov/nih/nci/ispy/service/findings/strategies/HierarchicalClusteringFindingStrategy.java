@@ -35,9 +35,12 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.jms.JMSException;
@@ -112,7 +115,7 @@ import org.apache.log4j.Logger;
 public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 	private static Logger logger = Logger.getLogger(HierarchicalClusteringFindingStrategy.class);	
 	@SuppressWarnings("unused")
-	private HierarchicalClusteringQueryDTO myQueryDTO;
+	private ISPYHierarchicalClusteringQueryDTO myQueryDTO;
 	private ReporterGroup reporterGroup; 
 	private SampleGroup sampleGroup;
 	private String sessionId;
@@ -126,11 +129,12 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 	private HCAFinding hcFinding;
 	private AnalysisServerClientManager analysisServerClientManager;
 	private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
+	private List<String> labtrackIds = Collections.EMPTY_LIST;
 	
 	public HierarchicalClusteringFindingStrategy(String sessionId, String taskId, HierarchicalClusteringQueryDTO queryDTO) throws ValidationException {
 		//Check if the passed query is valid
 		if(validate(queryDTO)){
-			myQueryDTO = queryDTO;
+			myQueryDTO = (ISPYHierarchicalClusteringQueryDTO) queryDTO;
 			this.sessionId = sessionId;
 			this.taskId = taskId;
 			hcRequest = new HierarchicalClusteringRequest(this.sessionId,this.taskId);
@@ -182,6 +186,11 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 	public boolean executeQuery() throws FindingsQueryException {
 		
 		
+		
+		ClinicalFileBasedQueryService qs = ClinicalFileBasedQueryService.getInstance();
+		
+		sampleGroup = new SampleGroup("HCSamples");
+		sampleGroup.addAll(qs.getLabtrackIdsForTimepoints(myQueryDTO.getTimepoints()));
 		//Get the samples to cluster
 	
 		
