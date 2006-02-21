@@ -8,7 +8,6 @@ import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.de.GeneVectorPercentileDE;
 import gov.nih.nci.caintegrator.dto.de.InstitutionDE;
 import gov.nih.nci.caintegrator.dto.de.LinkageMethodTypeDE;
-import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
 
 import java.util.Collection;
 
@@ -75,7 +74,7 @@ import java.util.Collection;
 * 
 */
 
-public class HierarchicalClusteringQueryDTOImpl implements HierarchicalClusteringQueryDTO {
+public class HierarchicalClusteringQueryDTOImpl implements ISPYHierarchicalClusteringQueryDTO {
 	private String queryName;
 	private Collection<GeneIdentifierDE> geneIdentifierDEs;
 	private Collection<CloneIdentifierDE> reporterIdentifierDEs;
@@ -85,6 +84,10 @@ public class HierarchicalClusteringQueryDTOImpl implements HierarchicalClusterin
 	private DistanceMatrixTypeDE distanceMatrixTypeDE;
 	private LinkageMethodTypeDE linkageMethodTypeDE;
 	private ClusterTypeDE clusterTypeDE;
+	
+	//New fields for timepoint analysis
+	private int timepoint;
+	
 	/**
 	 * 
 	 */
@@ -244,7 +247,13 @@ public class HierarchicalClusteringQueryDTOImpl implements HierarchicalClusterin
 	public void setLinkageMethodTypeDE(LinkageMethodTypeDE linkageMethodTypeDE) {
 		this.linkageMethodTypeDE = linkageMethodTypeDE;
 	}
-
-
+	
+	public void setTimepoint(int timepoint) {
+		this.timepoint = timepoint;
+	}
+	
+	public int getTimepoint() {
+	  return timepoint;
+	}
 
 }
