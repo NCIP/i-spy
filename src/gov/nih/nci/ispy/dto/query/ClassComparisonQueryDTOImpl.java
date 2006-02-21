@@ -6,14 +6,11 @@ import gov.nih.nci.caintegrator.dto.de.InstitutionDE;
 import gov.nih.nci.caintegrator.dto.de.MultiGroupComparisonAdjustmentTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticalSignificanceDE;
-import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.Collection;
 import java.util.List;
-/**
- * @author sahnih
- */
 
 
 /**
@@ -73,7 +70,7 @@ import java.util.List;
 * 
 */
 
-public class ClassComparisonQueryDTOImpl implements ClassComparisonQueryDTO {
+public class ClassComparisonQueryDTOImpl implements ISPYClassComparisonQueryDTO {
 	
 	/**
 	 * This class captures the significance and/or magnitude of the difference between groups of biological
@@ -97,6 +94,8 @@ public class ClassComparisonQueryDTOImpl implements ClassComparisonQueryDTO {
 	private ExprFoldChangeDE exprFoldChangeDE;
 	private List<ClinicalQueryDTO> comparisonGroups;
 	private Collection<InstitutionDE> institutionDEs;
+	private List<TimepointType> baselineTimepoints;
+	private List<TimepointType> comparisonGrpTimepoints;
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.caintegrator.dto.critieria.ClassComparisonQueryDTO#getMultiGroupComparisonAdjustmentTypeDE()
@@ -191,6 +190,21 @@ public class ClassComparisonQueryDTOImpl implements ClassComparisonQueryDTO {
 	 */
 	public void setInstitutionDEs(Collection<InstitutionDE> institutionDEs) {
 		this.institutionDEs = institutionDEs;
+	}
+	public List<TimepointType> getBaselineTimepoints() {
+	  return baselineTimepoints;	
+	}
+	public List<TimepointType> getComparisonGroupTimepoints() {
+	  return comparisonGrpTimepoints;
+	}
+	public void setBaselineTimepoints(List<TimepointType> baselineTimepoints) {
+	  this.baselineTimepoints = baselineTimepoints;
+		
+	}
+	
+	public void setComparisonGroupTimepoints(List<TimepointType> comparisonGrpTimepoints) {
+	  this.comparisonGrpTimepoints = comparisonGrpTimepoints;
+		
 	}
 
 

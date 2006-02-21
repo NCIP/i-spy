@@ -10,11 +10,13 @@ import gov.nih.nci.caintegrator.dto.de.GeneVectorPercentileDE;
 import gov.nih.nci.caintegrator.dto.de.InstitutionDE;
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.PrincipalComponentAnalysisQueryDTO;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
- * @author sahnih
+ * 
  *
  */
 
@@ -76,7 +78,7 @@ import java.util.Collection;
 * 
 */
 
-public class PrincipalComponentAnalysisQueryDTOImpl implements PrincipalComponentAnalysisQueryDTO {
+public class PrincipalComponentAnalysisQueryDTOImpl implements ISPYPrincipalComponentAnalysisQueryDTO {
 	private String queryName;
 	private ClinicalQueryDTO comparisonGroup;
     private Collection<ClinicalQueryDTO> comparisonGroups;
@@ -85,6 +87,8 @@ public class PrincipalComponentAnalysisQueryDTOImpl implements PrincipalComponen
 	private ArrayPlatformDE arrayPlatformDE;
 	private Collection<InstitutionDE> institutionDEs;
 	private GeneVectorPercentileDE geneVectorPercentileDE;
+	private List<TimepointType> timepoints;
+	
 	/**
 	 * 
 	 */
@@ -224,6 +228,16 @@ public class PrincipalComponentAnalysisQueryDTOImpl implements PrincipalComponen
 	 */
 	public void setInstitutionDEs(Collection<InstitutionDE> institutionDEs) {
 		this.institutionDEs = institutionDEs;
+	}
+
+
+	public List<TimepointType> getTimepoints() {
+	  return timepoints;
+	}
+
+
+	public void setTimepoints(List<TimepointType> timepoints) {
+		this.timepoints = timepoints;
 	}
 
 

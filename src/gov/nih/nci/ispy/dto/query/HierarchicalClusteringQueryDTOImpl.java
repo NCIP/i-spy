@@ -8,11 +8,13 @@ import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.de.GeneVectorPercentileDE;
 import gov.nih.nci.caintegrator.dto.de.InstitutionDE;
 import gov.nih.nci.caintegrator.dto.de.LinkageMethodTypeDE;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
- * @author sahnih
+ * 
  *
  */
 
@@ -86,7 +88,7 @@ public class HierarchicalClusteringQueryDTOImpl implements ISPYHierarchicalClust
 	private ClusterTypeDE clusterTypeDE;
 	
 	//New fields for timepoint analysis
-	private int timepoint;
+	private List<TimepointType> timepoints;
 	
 	/**
 	 * 
@@ -248,12 +250,14 @@ public class HierarchicalClusteringQueryDTOImpl implements ISPYHierarchicalClust
 		this.linkageMethodTypeDE = linkageMethodTypeDE;
 	}
 	
-	public void setTimepoint(int timepoint) {
-		this.timepoint = timepoint;
-	}
 	
-	public int getTimepoint() {
-	  return timepoint;
+	public List<TimepointType> getTimepoints() {
+		return timepoints;
+	}
+
+
+	public void setTimepoints(List<TimepointType> timepoints) {
+		this.timepoints = timepoints;
 	}
 
 }
