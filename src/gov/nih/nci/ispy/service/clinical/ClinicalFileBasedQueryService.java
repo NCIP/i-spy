@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,7 +71,7 @@ public class ClinicalFileBasedQueryService {
 		    
 		    //System.out.println("patientId=" + patientId);
 		    
-		    int timepoint = Integer.parseInt(matcher.group(3));
+		    TimepointType timepoint = TimepointType.valueOf(matcher.group(3));
 		    
 		    clinicalData = new ClinicalData(labtrackId, patientId, timepoint);
 		    
@@ -139,7 +141,7 @@ public class ClinicalFileBasedQueryService {
 	 * taken at the specified timepoint.
 	 * @param timepoint
 	 */
-	public Collection<String> getLabtrackIdsForTimepoint(int timepoint) {
+	public Collection<String> getLabtrackIdsForTimepoint(TimepointType timepoint) {
 		List<String> labtrackIds = new ArrayList<String>();
 		ClinicalData clinData;
 		for (String labtrackId:clinicalDataMap.keySet()) {
@@ -241,6 +243,14 @@ public class ClinicalFileBasedQueryService {
 		  clinicalDataList.add(clinData);
 		}
 		return clinicalDataList;
+	}
+
+	public Collection<String> getLabtrackIdsForTimepoints(List<TimepointType> timepoints) {
+		Set<String> ids = new HashSet<String>();
+		for (TimepointType tp:timepoints) {
+		  ids.addAll(getLabtrackIdsForTimepoint(tp));
+		}
+		return ids;
 	}
 
 }

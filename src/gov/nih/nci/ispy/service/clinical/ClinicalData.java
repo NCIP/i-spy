@@ -20,7 +20,7 @@ public class ClinicalData {
 
 	private String patientId;
 	private String labtrackId;
-	private int timepoint;
+	private TimepointType timepoint;
 	private DiseaseStageType diseaseStage;
 	private ERstatusType erStatus;
 	private double erValue = Double.MIN_VALUE;     //the summary ER score
@@ -39,7 +39,7 @@ public class ClinicalData {
 	private double MRIpctChange = Double.MIN_VALUE;  //change in tumor size (measured by MRI) wrt the baseline measurement
 
 
-	public ClinicalData(String labtrackId, String patientId, int timepoint) {
+	public ClinicalData(String labtrackId, String patientId, TimepointType timepoint) {
 	  this.labtrackId = labtrackId;
 	  this.patientId = patientId;
 	  this.timepoint = timepoint;
@@ -238,7 +238,7 @@ public class ClinicalData {
 	}
 
 
-	public int getTimepoint() {
+	public TimepointType getTimepoint() {
 		return timepoint;
 	}
 
