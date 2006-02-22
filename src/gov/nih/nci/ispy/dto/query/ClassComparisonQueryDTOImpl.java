@@ -7,7 +7,6 @@ import gov.nih.nci.caintegrator.dto.de.MultiGroupComparisonAdjustmentTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticalSignificanceDE;
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
-import gov.nih.nci.ispy.service.clinical.ClinicalDataSpecifier;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.Collection;
@@ -97,8 +96,8 @@ public class ClassComparisonQueryDTOImpl implements ISPYClassComparisonQueryDTO 
 	private Collection<InstitutionDE> institutionDEs;
 	
 	
-	private ClinicalDataSpecifier baselineGrpSpecifier;
-	private ClinicalDataSpecifier comparisonGrpSpecifier;
+	private ISPYclinicalDataQueryDTO baselineGrpSpecifier;
+	private ISPYclinicalDataQueryDTO comparisonGrpSpecifier;
 	
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.caintegrator.dto.critieria.ClassComparisonQueryDTO#getMultiGroupComparisonAdjustmentTypeDE()
@@ -194,22 +193,22 @@ public class ClassComparisonQueryDTOImpl implements ISPYClassComparisonQueryDTO 
 	public void setInstitutionDEs(Collection<InstitutionDE> institutionDEs) {
 		this.institutionDEs = institutionDEs;
 	}
-	public ClinicalDataSpecifier getBaselineGrpSpecifier() {
-		return baselineGrpSpecifier;
-	}
-	
-	public void setBaselineGrpSpecifier(ClinicalDataSpecifier baselineGrpSpecifier) {
-		this.baselineGrpSpecifier = baselineGrpSpecifier;
-	}
-	
-	public ClinicalDataSpecifier getComparisonGrpSpecifier() {
-		return comparisonGrpSpecifier;
-	}
-	
-	public void setComparisonGrpSpecifier(
-			ClinicalDataSpecifier comparisonGrpSpecifier) {
-		this.comparisonGrpSpecifier = comparisonGrpSpecifier;
-	}
+//	public ISPYclinicalDataQueryDTO getBaselineGrpSpecifier() {
+//		return baselineGrpSpecifier;
+//	}
+//	
+//	public void setBaselineGrpSpecifier(ISPYclinicalDataQueryDTO baselineGrpSpecifier) {
+//		this.baselineGrpSpecifier = baselineGrpSpecifier;
+//	}
+//	
+//	public ISPYclinicalDataQueryDTO getComparisonGrpSpecifier() {
+//		return comparisonGrpSpecifier;
+//	}
+//	
+//	public void setComparisonGrpSpecifier(
+//			ISPYclinicalDataQueryDTO comparisonGrpSpecifier) {
+//		this.comparisonGrpSpecifier = comparisonGrpSpecifier;
+//	}
 	
 	
 
