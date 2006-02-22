@@ -255,7 +255,7 @@ public class ClinicalFileBasedQueryService {
 		return ids;
 	}
 	
-	public Collection<String> getLabtrackIds(ClinicalDataSpecifier specifier) {
+	public Collection<String> getLabtrackIds(ISPYclinicalDataQueryDTO clinicalDataQueryDTO) {
 		return Collections.EMPTY_LIST;
 	}
 
