@@ -9,4 +9,8 @@
 
 	<LINK href="css/bigStyle.css" rel="stylesheet" type="text/css">
 	<script language="javascript" src="js/caIntScript.js"></script>
+	
+	<script language="javascript" src="js/prototype.js"></script>
+	<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>
+	
 	<style type="text/css" media="screen">@import "css/tabs.css";</style>
