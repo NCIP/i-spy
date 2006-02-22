@@ -7,6 +7,7 @@ import gov.nih.nci.caintegrator.dto.de.MultiGroupComparisonAdjustmentTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticalSignificanceDE;
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataSpecifier;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.Collection;
@@ -94,9 +95,11 @@ public class ClassComparisonQueryDTOImpl implements ISPYClassComparisonQueryDTO 
 	private ExprFoldChangeDE exprFoldChangeDE;
 	private List<ClinicalQueryDTO> comparisonGroups;
 	private Collection<InstitutionDE> institutionDEs;
-	private List<TimepointType> baselineTimepoints;
-	private List<TimepointType> comparisonGrpTimepoints;
-
+	
+	
+	private ClinicalDataSpecifier baselineGrpSpecifier;
+	private ClinicalDataSpecifier comparisonGrpSpecifier;
+	
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.caintegrator.dto.critieria.ClassComparisonQueryDTO#getMultiGroupComparisonAdjustmentTypeDE()
 	 */
@@ -191,24 +194,27 @@ public class ClassComparisonQueryDTOImpl implements ISPYClassComparisonQueryDTO 
 	public void setInstitutionDEs(Collection<InstitutionDE> institutionDEs) {
 		this.institutionDEs = institutionDEs;
 	}
-	public List<TimepointType> getBaselineTimepoints() {
-	  return baselineTimepoints;	
-	}
-	public List<TimepointType> getComparisonGroupTimepoints() {
-	  return comparisonGrpTimepoints;
-	}
-	public void setBaselineTimepoints(List<TimepointType> baselineTimepoints) {
-	  this.baselineTimepoints = baselineTimepoints;
-		
+	public ClinicalDataSpecifier getBaselineGrpSpecifier() {
+		return baselineGrpSpecifier;
 	}
 	
-	public void setComparisonGroupTimepoints(List<TimepointType> comparisonGrpTimepoints) {
-	  this.comparisonGrpTimepoints = comparisonGrpTimepoints;
-		
+	public void setBaselineGrpSpecifier(ClinicalDataSpecifier baselineGrpSpecifier) {
+		this.baselineGrpSpecifier = baselineGrpSpecifier;
 	}
+	
+	public ClinicalDataSpecifier getComparisonGrpSpecifier() {
+		return comparisonGrpSpecifier;
+	}
+	
+	public void setComparisonGrpSpecifier(
+			ClinicalDataSpecifier comparisonGrpSpecifier) {
+		this.comparisonGrpSpecifier = comparisonGrpSpecifier;
+	}
+	
+	
 
-
-
+	
+	
 
     
 

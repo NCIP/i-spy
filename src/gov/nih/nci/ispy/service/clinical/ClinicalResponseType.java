@@ -1,5 +1,7 @@
 package gov.nih.nci.ispy.service.clinical;
 
+import java.io.Serializable;
+
 /**
  * Clinical Response Type:
  * 	CR  -  Complete Response
@@ -10,6 +12,6 @@ package gov.nih.nci.ispy.service.clinical;
  * @author harrismic
  *
  */
-public enum ClinicalResponseType {
+public enum ClinicalResponseType implements Serializable{
   CR,PR,SD,PD,Unknown,Missing
 }
