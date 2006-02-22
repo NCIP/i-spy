@@ -5,6 +5,7 @@ import gov.nih.nci.caintegrator.dto.query.QueryType;
 import gov.nih.nci.caintegrator.service.findings.FindingsFactory;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.application.cache.BusinessCacheManager;
+import gov.nih.nci.caintegrator.application.cache.CacheFactory;
 import gov.nih.nci.caintegrator.application.cache.PresentationCacheManager;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.ispy.dto.query.ClassComparisonQueryDTOImpl;
@@ -85,11 +86,11 @@ public class ApplicationFactory{
         }
 	}
 	public static PresentationTierCache getPresentationTierCache() {
-		return PresentationCacheManager.getInstance();
+		return CacheFactory.getPresentationTierCache();
 	}
 	
 	public static BusinessTierCache getBusinessTierCache() {
-		return BusinessCacheManager.getInstance();
+		return CacheFactory.getBusinessTierCache();
 	}
 	
 	public static FindingsFactory getFindingsFactory() {
