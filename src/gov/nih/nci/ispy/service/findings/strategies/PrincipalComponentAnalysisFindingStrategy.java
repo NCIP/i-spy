@@ -33,6 +33,8 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
+import gov.nih.nci.ispy.dto.query.ISPYPrincipalComponentAnalysisQueryDTO;
+import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -111,7 +113,7 @@ import org.apache.log4j.Logger;
 public class PrincipalComponentAnalysisFindingStrategy implements FindingStrategy {
 	private static Logger logger = Logger.getLogger(PrincipalComponentAnalysisFindingStrategy.class);	
 	@SuppressWarnings("unused")
-	private PrincipalComponentAnalysisQueryDTO myQueryDTO;
+	private ISPYPrincipalComponentAnalysisQueryDTO myQueryDTO;
 	private ReporterGroup reporterGroup; 
 	private SampleGroup sampleGroup = new SampleGroup("validatedSamples");
 	private String sessionId;
@@ -130,7 +132,7 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 	public PrincipalComponentAnalysisFindingStrategy(String sessionId, String taskId, PrincipalComponentAnalysisQueryDTO queryDTO) throws ValidationException {
 		//Check if the passed query is valid
 		if(validate(queryDTO)){
-			myQueryDTO = queryDTO;
+			myQueryDTO = (ISPYPrincipalComponentAnalysisQueryDTO) queryDTO;
 			this.sessionId = sessionId;
 			this.taskId = taskId;
 			pcaRequest = new PrincipalComponentAnalysisRequest(this.sessionId,this.taskId);
@@ -180,7 +182,15 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 	 * this methods queries the database to get back sample Ids for the groups
 	 */
 	public boolean executeQuery() throws FindingsQueryException {
-		//Get Sample Ids from DB
+        
+        ClinicalFileBasedQueryService qs = ClinicalFileBasedQueryService.getInstance();
+        
+        sampleGroup = new SampleGroup("PCASamples");
+        sampleGroup.addAll(qs.getLabtrackIdsForTimepoints(myQueryDTO.getTimepoints()));
+        
+        
+        
+        //Get Sample Ids from DB
 //		if(clinicalQueries != null){
 //			CompoundQuery compoundQuery;
 //            for (ClinicalDataQuery clinicalDataQuery: clinicalQueries){
@@ -351,12 +361,11 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 		boolean _valid = false;
 		if(queryDTO instanceof PrincipalComponentAnalysisQueryDTO){
 			_valid = true;
-			PrincipalComponentAnalysisQueryDTO pcaQueryDTO = (PrincipalComponentAnalysisQueryDTO)queryDTO;
+			ISPYPrincipalComponentAnalysisQueryDTO pcaQueryDTO = (ISPYPrincipalComponentAnalysisQueryDTO)queryDTO;
 				
 			try {
-						ValidationUtility.checkForNull(pcaQueryDTO.getInstitutionDEs());
+						ValidationUtility.checkForNull(pcaQueryDTO.getTimepoints());
 						ValidationUtility.checkForNull(pcaQueryDTO.getArrayPlatformDE()) ;
-						ValidationUtility.checkForNull(pcaQueryDTO.getComparisonGroups());
 						ValidationUtility.checkForNull(pcaQueryDTO.getQueryName());
 					
 					if( pcaQueryDTO.getGeneVectorPercentileDE() == null && 

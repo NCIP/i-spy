@@ -49,8 +49,8 @@
     <action path="/analysisHome"
 		forward="ispy.analysisHome"/>
 	   
-	<!-- <action path="/classComparison"
-         forward="ispy.classComparison" />-->
+	<action path="/classComparison"
+         forward="ispy.classComparison" />
          
     <action path="/classcomparisonInit"    	    
 	    type="gov.nih.nci.ispy.web.struts.action.ClassComparisonAction"
@@ -84,7 +84,7 @@
 		scope="request"
 		validate="false"
 		parameter="method">
-		<forward name="backToPrincipalComponent" path="nautilus.principalComponent" />
+		<forward name="backToPrincipalComponent" path="ispy.principalComponent" />
 		<forward name="principalComponentSetup" path="/principalcomponentInit.do?method=setup" />
 	</action>
 	
@@ -95,7 +95,7 @@
 		scope="request"
 		validate="true"
 		parameter="method">
-		<forward name="backToPrincipalComponent" path="nautilus.principalComponent" />
+		<forward name="backToPrincipalComponent" path="ispy.principalComponent" />
 		<forward name="principalComponentSetup" path="/principalcomponentInit.do?method=setup" />
 		<forward name="viewResults" path="/viewResults.do" />
 	</action>

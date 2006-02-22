@@ -83,6 +83,16 @@ public class UIFormValidator {
 		return errors;
 	}
     
+    public static ActionErrors validateSelectedGroups(String[] selectedGroups, ActionErrors errors){
+        if (selectedGroups == null || selectedGroups.length != 2){
+            errors.add("selectedGroups", new ActionError(
+                    "gov.nih.nci.nautilus.ui.struts.form.groups.more.error"));
+        }
+       
+
+        return errors;
+    }
+    
     public static ActionErrors validateHCTimepoints(String[] timepoints,
             ActionErrors errors) {
         if ((timepoints == null || timepoints.length < 1)) {

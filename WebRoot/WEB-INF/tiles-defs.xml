@@ -53,15 +53,15 @@
 	  <put name="title" value="Class Comparison Analysis Form" />
 	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBarAnalysis_tile.jsp" />
 	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
-	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=4" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
     </definition>
     
     <definition name="ispy.principalComponent" extends="baseDef">
-      <put name="mainForm" value="/jsp/formBody.jsp?s=principalComponent" />
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=principalComponent" />
 	  <put name="title" value="Principal Component Analysis (PCA) Form" />
-	  <put name="sideBar" value="/jsp/tiles/sideBarAnalysis_tile.jsp" />
-	  <put name="reqdFieldsMsg" value="/jsp/tiles/empty_tile.jsp" />
-	   <put name="tabs" value="/jsp/tiles/tabs_tile.jsp?s=4" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBarAnalysis_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
     </definition>
     
      <definition name="ispy.hierarchicalClustering" extends="baseDef">

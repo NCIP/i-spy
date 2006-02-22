@@ -135,13 +135,13 @@ public class HierarchicalClusteringAction extends DispatchAction {
        HierarchicalClusteringQueryDTO hierarchicalClusteringQueryDTO = createHierarchicalClusteringQueryDTO(hierarchicalClusteringForm,sessionId); 
         
        
-       ISPYFindingsFactory factory = new ISPYFindingsFactory();
-       Finding finding = null;
-       try {
-           finding = factory.createHCAFinding(hierarchicalClusteringQueryDTO,sessionId,hierarchicalClusteringQueryDTO.getQueryName());
-       } catch (FrameworkException e) {
-           e.printStackTrace();
-       }
+//       ISPYFindingsFactory factory = new ISPYFindingsFactory();
+//       Finding finding = null;
+//       try {
+//           finding = factory.createHCAFinding(hierarchicalClusteringQueryDTO,sessionId,hierarchicalClusteringQueryDTO.getQueryName());
+//       } catch (FrameworkException e) {
+//           e.printStackTrace();
+//       }
         
         return mapping.findForward("viewResults");
     }

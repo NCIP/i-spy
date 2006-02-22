@@ -4,7 +4,7 @@
 
 
 <fieldset class="gray">
-<legend class="red">Step 1: Select Group<b class="req">*</b>
+<legend class="red">Select Group<b class="req">*</b>
 
 <logic:present name="principalComponentForm">
 </legend>
@@ -16,7 +16,7 @@
       <td>Existing Groups
         <br/>
         <html:select styleId="nonselectedGroups" size="5" multiple="true" style="width:200px" property="existingGroups">
-           <!--<html:optionsCollection property="existingGroupsList"/>-->
+             <html:optionsCollection property="existingGroupsList"/>
 		</html:select>
       </td>
       <td style="vertical-align:middle">
@@ -44,7 +44,7 @@
       <td>Existing Groups
         <br/>
         <html:select styleId="nonselectedGroups" size="5" multiple="true" style="width:200px" property="existingGroups">
-           <!--<html:optionsCollection property="existingGroupsList"/>-->
+           <html:optionsCollection property="existingGroupsList"/>
 		</html:select>
       </td>
       <td style="vertical-align:middle">
