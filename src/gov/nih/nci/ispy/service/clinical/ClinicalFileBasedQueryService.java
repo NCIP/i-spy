@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.service.clinical;
 
 import gov.nih.nci.caintegrator.application.util.StringUtils;
+import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
