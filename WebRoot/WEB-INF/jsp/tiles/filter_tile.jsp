@@ -9,9 +9,10 @@
 </legend>
 <span id="confirm"></span>
 
-<html:radio styleClass="radio" property="filterType" value="default" onclick="tdiv(this);;return false;" />Default
+<br/>
+<html:radio styleClass="radio" property="filterType" value="default" onclick="tdiv(this);" />Default
 &nbsp;
-<html:radio styleClass="radio" property="filterType" value="advanced" onclick="tdiv(this);;return false;"/>Advanced
+<html:radio styleClass="radio" property="filterType" value="advanced" onclick="tdiv(this);"/>Advanced
 
 <script language="javascript">
 
@@ -35,7 +36,7 @@
 <a href="#" onclick="Effect.SlideUp('advFilter');;return false;">Default</a>
 <a href="#" onclick="Effect.SlideDown('advFilter');;return false;">Advanced</a>
 -->
-	<div id="advFilter" style="display:none">
+	<div id="advFilter" style="display:none; margin-left:20px;">
 	<br /><br />
 			<logic:present name="principalComponentForm"> 
 			<html:checkbox styleClass="radio" property="constraintVariance" value="constraintVariance" />Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
