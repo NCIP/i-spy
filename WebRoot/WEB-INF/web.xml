@@ -8,13 +8,13 @@
 	<!--Register SessionListener
 		This is used by the gov.nih.nci.ispy.cache package to 
 		watch for dead sessions and remove the caches.  For more
-		more information check the java files for comments. 
+		more information check the java files for comments. -->
 	
 	<listener>
 		<listener-class>
 			gov.nih.nci.caintegrator.application.cache.SessionTracker
 		</listener-class>
-	</listener>-->
+	</listener>
 	
 	<!-- Register ContextListener
 		notifies the SessionListener whenever the context is loaded or
