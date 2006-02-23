@@ -8,7 +8,9 @@ import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
+import java.util.Collections;
 import java.util.EnumSet;
+import java.util.Set;
 
 public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 
@@ -19,17 +21,17 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 
 	private String queryName;
 	
-	private EnumSet<TimepointType> timepointValues;
+	private EnumSet<TimepointType> timepointValues = EnumSet.noneOf(TimepointType.class);
 	
-	private EnumSet<ClinicalResponseType> clinicalResponseValues;
+	private EnumSet<ClinicalResponseType> clinicalResponseValues = null;
 	
-	private EnumSet<DiseaseStageType> diseaseStageValues;
+	private EnumSet<DiseaseStageType> diseaseStageValues = null;
 	
-	private EnumSet<ERstatusType> erStatusValues;
+	private EnumSet<ERstatusType> erStatusValues = null;
 	
-	private EnumSet<HER2statusType> her2StatusValues;
+	private EnumSet<HER2statusType> her2StatusValues = null;
 	
-	private EnumSet<PRstatusType> prStatusValues;
+	private EnumSet<PRstatusType> prStatusValues = null;
 	
 	
 	public ISPYclinicalDataQueryDTO() {
@@ -38,7 +40,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	}
 
 
-	public EnumSet<ClinicalResponseType> getClinicalResponseValues() {
+	public Set<ClinicalResponseType> getClinicalResponseValues() {
 		return clinicalResponseValues;
 	}
 
@@ -49,7 +51,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	}
 
 
-	public EnumSet<DiseaseStageType> getDiseaseStageValues() {
+	public Set<DiseaseStageType> getDiseaseStageValues() {
 		return diseaseStageValues;
 	}
 
@@ -59,7 +61,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	}
 
 
-	public EnumSet<ERstatusType> getErStatusValues() {
+	public Set<ERstatusType> getErStatusValues() {
 		return erStatusValues;
 	}
 
@@ -69,7 +71,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	}
 
 
-	public EnumSet<HER2statusType> getHer2StatusValues() {
+	public Set<HER2statusType> getHer2StatusValues() {
 		return her2StatusValues;
 	}
 
@@ -79,7 +81,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	}
 
 
-	public EnumSet<PRstatusType> getPrStatusValues() {
+	public Set<PRstatusType> getPrStatusValues() {
 		return prStatusValues;
 	}
 
@@ -89,7 +91,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	}
 
 
-	public EnumSet<TimepointType> getTimepointValues() {
+	public Set<TimepointType> getTimepointValues() {
 		return timepointValues;
 	}
 
