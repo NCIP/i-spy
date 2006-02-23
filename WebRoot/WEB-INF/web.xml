@@ -5,6 +5,26 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
 	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	
+	<!--Register SessionListener
+		This is used by the gov.nih.nci.ispy.cache package to 
+		watch for dead sessions and remove the caches.  For more
+		more information check the java files for comments. 
+	
+	<listener>
+		<listener-class>
+			gov.nih.nci.caintegrator.application.cache.SessionTracker
+		</listener-class>
+	</listener>-->
+	
+	<!-- Register ContextListener
+		notifies the SessionListener whenever the context is loaded or
+		unloaded in the ApplicationServer
+	-->
+	<listener>
+		<listener-class>
+			gov.nih.nci.ispy.cache.ISPYContextListener
+		</listener-class>
+	</listener>
 	
 	<!-- Action Servlet Configuration -->
 	<servlet>
