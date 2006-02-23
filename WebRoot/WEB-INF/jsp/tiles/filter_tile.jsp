@@ -22,11 +22,11 @@
 		var bigflag = document.getElementsByName("filterType")[0].checked;
 		
 		if(!bigflag)	{
-			if(win)	{ Effect.SlideDown('advFilter'); }
+			if(win)	{ Effect.BlindDown('advFilter'); }
 			else	{ $('advFilter').style.display = "block"; }
 		}
 		else	{
-			if(win)	{ Effect.SlideUp('advFilter'); }
+			if(win)	{ Effect.BlindUp('advFilter'); }
 			else	{ $("advFilter").style.display = "none"; } 
 		}
 			
