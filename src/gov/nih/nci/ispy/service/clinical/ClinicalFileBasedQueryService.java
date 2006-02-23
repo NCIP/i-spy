@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 public class ClinicalFileBasedQueryService {
 
 	private Map<String, ClinicalData> clinicalDataMap = new HashMap<String,ClinicalData>();
+	private Map<TimepointType, Set<ClinicalData>> timepointMap = new HashMap<TimepointType, Set<ClinicalData>>(); 
 	private boolean clinicalDataFileSet = false;
 	private static ClinicalFileBasedQueryService instance = null;
 	
@@ -132,7 +133,14 @@ public class ClinicalFileBasedQueryService {
 		    }
 		     
 		    clinicalDataMap.put(labtrackId, clinicalData);
-			  
+		    
+		    Set<ClinicalData> timepointDataSet= timepointMap.get(clinicalData.getTimepoint());
+		    if (timepointDataSet == null) {
+		      timepointDataSet = new HashSet<ClinicalData>();
+		      timepointMap.put(clinicalData.getTimepoint(), timepointDataSet);
+		    }
+		    timepointDataSet.add(clinicalData);
+		    
 		  }
 		  
 		  clinicalDataFileSet = true;
@@ -144,81 +152,98 @@ public class ClinicalFileBasedQueryService {
 	 * taken at the specified timepoint.
 	 * @param timepoint
 	 */
-	public Collection<String> getLabtrackIdsForTimepoint(TimepointType timepoint) {
-		List<String> labtrackIds = new ArrayList<String>();
+	public Set<String> getLabtrackIdsForTimepoint(TimepointType timepoint) {
+		Set<String> labtrackIds = new HashSet<String>();
+		
+		Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
+		if (clinDataSet != null) {
+			for (ClinicalData cd:clinDataSet) {
+			  labtrackIds.add(cd.getLabtrackId());
+			}
+		}
+		return labtrackIds;
+	}
+	
+	public Set<String> getLabtrackIdsForDiseaseStage(TimepointType timepoint, Set<DiseaseStageType> diseaseStageSet) {
+		Set<String> labtrackIds = new HashSet<String>();
 		ClinicalData clinData;
-		for (String labtrackId:clinicalDataMap.keySet()) {
+		
+		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint); 
+		
+		for (String labtrackId:idsToCheck) {
 		  clinData = clinicalDataMap.get(labtrackId);
-		  if (clinData.getTimepoint()==timepoint) {
+		  for (DiseaseStageType ds:diseaseStageSet) {
+			  if (ds==clinData.getDiseaseStage()) {
+			    labtrackIds.add(labtrackId);
+			  }
+			  else if (ds.name().endsWith("All")) {
+			     //check the prefix if it matches then add the labtrackId
+				 String cdDiseaseStage = clinData.getDiseaseStage().name();
+				 String[] cdStgTokens = cdDiseaseStage.split("_");
+				 String[] stgTokens = ds.name().split("_");
+				 if (cdStgTokens[0].equals(stgTokens[0])) {
+				   labtrackIds.add(labtrackId);
+				 }
+			  }
+		  }
+		}
+		return labtrackIds;
+	}
+	
+	public Set<String> getLabtrackIdsForClinicalResponse(TimepointType timepoint, Set<ClinicalResponseType> clinicalResponseSet) {
+		Set<String> labtrackIds = new HashSet<String>();
+		ClinicalData clinData;
+		
+		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+		
+		for (String labtrackId:idsToCheck) {
+		  clinData = clinicalDataMap.get(labtrackId);
+		  if (clinicalResponseSet.contains(clinData.getClinicalResponse())) {
 		    labtrackIds.add(labtrackId);
 		  }
 		}
 		return labtrackIds;
 	}
 	
-	public Collection<String> getLabtrackIdsForDiseaseStage(DiseaseStageType stage) {
-		List<String> labtrackIds = new ArrayList<String>();
+	public Collection<String> getLabtrackIdsForERstatus(TimepointType timepoint, Set<ERstatusType> erStatusSet) {
+		Set<String> labtrackIds = new HashSet<String>();
 		ClinicalData clinData;
-		for (String labtrackId:clinicalDataMap.keySet()) {
+		
+		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+		
+		for (String labtrackId:idsToCheck) {
 		  clinData = clinicalDataMap.get(labtrackId);
-		  if (clinData.getDiseaseStage()==stage) {
-		    labtrackIds.add(labtrackId);
-		  }
-		  else if (stage.name().endsWith("All")) {
-		     //check the prefix if it matches then add the labtrackId
-			 String cdDiseaseStage = clinData.getDiseaseStage().name();
-			 String[] cdStgTokens = cdDiseaseStage.split("_");
-			 String[] stgTokens = stage.name().split("_");
-			 if (cdStgTokens[0].equals(stgTokens[0])) {
-			   labtrackIds.add(labtrackId);
-			 }
-		  }
-		}
-		return labtrackIds;
-	}
-	
-	public Collection<String> getLabtrackIdsForPatientResponse(ClinicalResponseType clinicalResponse) {
-		List<String> labtrackIds = new ArrayList<String>();
-		ClinicalData clinData;
-		for (String labtrackId:clinicalDataMap.keySet()) {
-		  clinData = clinicalDataMap.get(labtrackId);
-		  if (clinData.getClinicalResponse()==clinicalResponse) {
+		  if (erStatusSet.contains(clinData.getErStatus())) {
 		    labtrackIds.add(labtrackId);
 		  }
 		}
 		return labtrackIds;
 	}
 	
-	public Collection<String> getLabtrackIdsForERstatus(ERstatusType erStatus) {
-		List<String> labtrackIds = new ArrayList<String>();
+	public Set<String> getLabtrackIdsForPRstatus(TimepointType timepoint, Set<PRstatusType> prStatusSet) {
+		Set<String> labtrackIds = new HashSet<String>();
 		ClinicalData clinData;
-		for (String labtrackId:clinicalDataMap.keySet()) {
+		
+		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+		
+		for (String labtrackId:idsToCheck) {
 		  clinData = clinicalDataMap.get(labtrackId);
-		  if (clinData.getErStatus()==erStatus) {
+		  if (prStatusSet.contains(clinData.getPrStatus())) {
 		    labtrackIds.add(labtrackId);
 		  }
 		}
 		return labtrackIds;
 	}
 	
-	public Collection<String> getLabtrackIdsForPRstatus(PRstatusType prStatus) {
-		List<String> labtrackIds = new ArrayList<String>();
+	public Set<String> getLabtrackIdsForHER2status(TimepointType timepoint, Set<HER2statusType> her2StatusSet) {
+		Set<String> labtrackIds = new HashSet<String>();
 		ClinicalData clinData;
-		for (String labtrackId:clinicalDataMap.keySet()) {
+		
+		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+		
+		for (String labtrackId:idsToCheck) {
 		  clinData = clinicalDataMap.get(labtrackId);
-		  if (clinData.getPrStatus()==prStatus) {
-		    labtrackIds.add(labtrackId);
-		  }
-		}
-		return labtrackIds;
-	}
-	
-	public Collection<String> getLabtrackIdsForHER2status(HER2statusType her2Status) {
-		List<String> labtrackIds = new ArrayList<String>();
-		ClinicalData clinData;
-		for (String labtrackId:clinicalDataMap.keySet()) {
-		  clinData = clinicalDataMap.get(labtrackId);
-		  if (clinData.getHER2status()==her2Status) {
+		  if (her2StatusSet.contains(clinData.getHER2status())) {
 		    labtrackIds.add(labtrackId);
 		  }
 		}
@@ -248,7 +273,7 @@ public class ClinicalFileBasedQueryService {
 		return clinicalDataList;
 	}
 
-	public Collection<String> getLabtrackIdsForTimepoints(List<TimepointType> timepoints) {
+	public Set<String> getLabtrackIdsForTimepoints(List<TimepointType> timepoints) {
 		Set<String> ids = new HashSet<String>();
 		for (TimepointType tp:timepoints) {
 		  ids.addAll(getLabtrackIdsForTimepoint(tp));
@@ -256,8 +281,41 @@ public class ClinicalFileBasedQueryService {
 		return ids;
 	}
 	
-	public Collection<String> getLabtrackIds(ISPYclinicalDataQueryDTO clinicalDataQueryDTO) {
-		return Collections.EMPTY_LIST;
+	
+	/**
+	 * Will get the labtrack ids associated with the parameters set in the ISPYclinicalDataQueryDTO
+	 * @param clinicalDataQueryDTO
+	 * @return
+	 */
+	public Set<String> getLabtrackIds(ISPYclinicalDataQueryDTO cDTO) {
+	
+		Set<TimepointType> timepoints = cDTO.getTimepointValues();
+		Set<String> labtrackIds = new HashSet<String>();
+		for (TimepointType tp:timepoints) {
+		  
+			if (cDTO.getClinicalResponseValues()!= null) {
+		      labtrackIds.addAll(getLabtrackIdsForClinicalResponse(tp,cDTO.getClinicalResponseValues()));
+		    }
+			
+			if (cDTO.getDiseaseStageValues() != null) {
+			  labtrackIds.addAll(getLabtrackIdsForDiseaseStage(tp,cDTO.getDiseaseStageValues()));
+			}
+			
+			if (cDTO.getErStatusValues() != null) {
+			  labtrackIds.addAll(getLabtrackIdsForERstatus(tp, cDTO.getErStatusValues()));
+			}
+			
+			if (cDTO.getHer2StatusValues() != null) {
+			  labtrackIds.addAll(getLabtrackIdsForHER2status(tp, cDTO.getHer2StatusValues()));
+			}
+			
+			if (cDTO.getPrStatusValues() != null) {
+			  labtrackIds.addAll(getLabtrackIdsForPRstatus(tp, cDTO.getPrStatusValues()));			
+			}
+				
+		}
+		
+		return labtrackIds;
 	}
 
 }
