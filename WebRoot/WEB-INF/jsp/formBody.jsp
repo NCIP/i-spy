@@ -54,8 +54,7 @@ action = param.toLowerCase();
   	for (int t=1; t<props.size()+1; t++)	{
   		strIncFile = "/WEB-INF/jsp/tiles/"+props.getProperty(String.valueOf(t))+"_tile.jsp";
  	%>
-  <div class="report" style="padding:3px">
-
+  	<div class="report" style="padding:3px">
       <tiles:insert page="<%= strIncFile %>" flush="false" />
 	</div>
   <%

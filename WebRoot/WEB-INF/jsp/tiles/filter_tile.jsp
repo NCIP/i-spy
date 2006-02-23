@@ -31,9 +31,10 @@
 			
 	}
 </script>
+<!-- 
 <a href="#" onclick="Effect.SlideUp('advFilter');;return false;">Default</a>
 <a href="#" onclick="Effect.SlideDown('advFilter');;return false;">Advanced</a>
-
+-->
 	<div id="advFilter" style="display:none">
 	<br /><br />
 			<logic:present name="principalComponentForm"> 
