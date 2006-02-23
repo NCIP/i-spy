@@ -1,13 +1,18 @@
 package gov.nih.nci.ispy.test;
 
 import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
+import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
+import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +39,27 @@ public static void main(String[] args) {
 	  ex.printStackTrace(System.out);
 	}
 	
-	List<String> labtrackIds = new ArrayList<String>();
-	labtrackIds.add("209515");
-	labtrackIds.add("209521");
+//	List<String> labtrackIds = new ArrayList<String>();
+//	labtrackIds.add("209515");
+//	labtrackIds.add("209521");
+//	labtrackIds.add("212619");
+	
+	
 	
 	try {
-	  List<ClinicalData> clinicalDataList = clinicalQS.getClinicalDataForLabtrackIds(labtrackIds);
+		
+	  ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
+	  dto.setTimepointValues(EnumSet.of(TimepointType.T2));
+	  dto.setDiseaseStageValues(EnumSet.of(DiseaseStageType.II_A, DiseaseStageType.II_B));
+	  dto.setClinicalResponseValues(EnumSet.of(ClinicalResponseType.PD, ClinicalResponseType.SD));
+	  
+	  Set<String> labtrackIds = clinicalQS.getLabtrackIds(dto);
+	  
+	  
+	  
+	  //List<ClinicalData> clinicalDataList = clinicalQS.getClinicalDataForLabtrackIds(labtrackIds);
+	  //Set<String> labtrackIds = clinicalQS.getLabtrackIdsForTimepoint(TimepointType.T1);
+	  List<ClinicalData> clinicalDataList = clinicalQS.getClinicalDataForLabtrackIds(new ArrayList(labtrackIds));
 	  System.out.println("clinicalDataList=" + clinicalDataList.size());
 	  for (ClinicalData cd : clinicalDataList) {
 	     dumpClinicalData(cd);
