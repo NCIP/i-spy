@@ -9,7 +9,7 @@
 
 	<LINK href="css/bigStyle.css" rel="stylesheet" type="text/css">
 	<script language="javascript" src="js/caIntScript.js"></script>
-	
+	<script language="javascript" src="js/box/browserSniff.js"></script>
 	<script language="javascript" src="js/prototype.js"></script>
 	<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>
 	
