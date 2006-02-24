@@ -2,11 +2,17 @@ package gov.nih.nci.ispy.util;
 
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
 import gov.nih.nci.caintegrator.application.util.PropertyLoader;
+import gov.nih.nci.ispy.cache.ISPYContextListener;
+import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
+import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+import java.io.*;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -119,9 +125,26 @@ public class ApplicationContext{
 //	      } catch(Throwable t) {
 //	         logger.error(new IllegalStateException("Error parsing deToBeanAttrMappings.xml file: Exception: " + t));
 //	      }
-      //Start the JMS Lister
+     
         try {
-		@SuppressWarnings("unused") AnalysisServerClientManager analysisServerClientManager = AnalysisServerClientManager.getInstance();
+        	
+           //initialize the ClinicalFileBasedQueryService
+           ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
+           String clinicalDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_sample.txt";
+           cqs.setClinicalDataFile(clinicalDataFileName);
+        	
+        	
+           @SuppressWarnings("unused") AnalysisServerClientManager analysisServerClientManager = AnalysisServerClientManager.getInstance();
+		   analysisServerClientManager.setCache(ApplicationFactory.getBusinessTierCache());
+		   analysisServerClientManager.setMessagingProperties(messagingProps);
+		   
+		   //create the file based annotation service
+		   //GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
+		   String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
+		   //gxAnnotService.setAnnotationFile(annotFileName);
+		   //analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
+		   analysisServerClientManager.establishQueueConnection();
+		   
 		} catch (NamingException e) {
 	        logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
 			logger.error(e.getMessage());
@@ -130,7 +153,11 @@ public class ApplicationContext{
 	        logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
 			logger.error(e.getMessage());
 			logger.error(e);
+		} catch (IOException e) {
+			logger.error(e.getMessage());
+			logger.error(e);
 		} catch(Throwable t) {
+		
 			logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
 			logger.error(t.getMessage());
 			logger.error(t);
