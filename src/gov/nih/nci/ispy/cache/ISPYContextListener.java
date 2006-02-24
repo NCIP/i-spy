@@ -76,6 +76,7 @@ import javax.servlet.ServletContextListener;
 
 public class ISPYContextListener implements ServletContextListener {
 	private static String contextPath;
+	private static String dataFilesDirectoryPath;
 	/** 
 	 * this method is fired whenever the application server loads the context
 	 * that this listener is added to in the web.xml
@@ -83,6 +84,7 @@ public class ISPYContextListener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent contextEvent) {
 		ServletContext context = contextEvent.getServletContext();
 		contextPath = context.getRealPath("/");
+		dataFilesDirectoryPath = context.getRealPath("/WEB-INF/data_files/");
 		SessionTracker.setAppplicationRunning(true);
 		ApplicationContext.init();
 		
@@ -101,4 +103,7 @@ public class ISPYContextListener implements ServletContextListener {
 		return contextPath;
 	}
 
+	public static String getDataFilesDirectoryPath() { 
+	  return dataFilesDirectoryPath;
+	}
 }
