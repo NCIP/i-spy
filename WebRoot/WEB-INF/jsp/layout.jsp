@@ -24,7 +24,7 @@
 		<table cellspacing="0" cellpadding="0" border="0" width="100%">
 			<tr>
 				<td width="575"> 
-					<Table cellpadding="4" cellspacing="2" border="0" width="100%"> 
+					<table cellpadding="4" cellspacing="2" border="0" width="100%"> 
 						<tr class="report"><td><h3><tiles:getAsString name="title"/></h3></td></tr>   
 						<tr><td>
 						<tiles:insert attribute="tabs"/>
@@ -35,7 +35,7 @@
 						</td></tr>	
 						<tr><td align="left" width="100%">
 							<%-- include required message note --%>
-							<tiles:insert attribute="reqdFieldsMsg"/><br>
+							<tiles:insert attribute="reqdFieldsMsg"/><br/>
 						</td></tr>
 					</table>
 				</td>
