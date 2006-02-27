@@ -1005,6 +1005,9 @@ function saveMe(tbox,fbox) {
 
 var strValues = "";
 
+if(tbox == null || fbox == null || !tbox.length || !fbox.length)
+	return;
+	
 var boxLength = 0;
 if(tbox.length)	{ boxLength = tbox.length; }
 

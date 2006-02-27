@@ -165,4 +165,25 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 		return returnMap;
 	}
 
+	public List<ReporterResultset> getAnnotationsListForReporters(List<String> reporterIDs) throws Exception {
+		
+		if (!annotationFileSet) {
+		  throw new IllegalStateException("Must call setAnnotationFile() before calling getAnnotationsMapForReporters().");
+		}
+		
+		List<ReporterResultset> returnList = new ArrayList<ReporterResultset>();
+		
+	
+		ReporterResultset reporterAnnotation;
+		for (String reporterId: reporterIDs) {
+		  reporterAnnotation = reporterMap.get(reporterId);
+		  
+		  if (reporterAnnotation != null) {
+		    returnList.add(reporterAnnotation);
+		  }
+		}
+		
+		
+		return returnList;
+	}
 }

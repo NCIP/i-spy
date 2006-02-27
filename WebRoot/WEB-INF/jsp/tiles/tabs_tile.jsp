@@ -1,4 +1,18 @@
+<script language="javascript">
 
+	function setStatus(txt)	{
+		document.getElementById("statusMsg").innerHTML = txt;
+		setTimeout("clearStatus()", 2000);
+	}
+	function clearStatus()	{
+		document.getElementById("statusMsg").innerHTML = "<br/>";
+	}
+</script>
+<script type='text/javascript' src='/ispyportal/dwr/interface/Inbox.js'></script>
+<script type='text/javascript' src='/ispyportal/dwr/engine.js'></script>
+
+
+<span id="statusMsg"><br/></span>
 <% 
 	//default settings for tabs
 	String simple = "";

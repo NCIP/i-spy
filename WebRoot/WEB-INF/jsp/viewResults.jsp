@@ -24,11 +24,7 @@ String helpLinkClose = "', 350, 500);\">"+
 				"</a><br clear=\"all\">";
 %> 
 <%=helpLink%>?sect=viewResults<%=helpLinkClose%>
-<tr class="report">
-  <td>
-    <br />
-    <form action="#">
-      
+
       
       <fieldset>
         <legend>
@@ -80,6 +76,7 @@ String helpLinkClose = "', 350, 500);\">"+
      <fieldset>
      	<legend>High Order Analysis</legend>
        	<div id="loadingMsg" style="color:red;font-weight:bold;">&nbsp;</div>
+       	<ul>
      <%
      	//get the finding related HOA's
      	//will use scriptlet, as we arent accessing a Struts related form
@@ -164,6 +161,7 @@ String helpLinkClose = "', 350, 500);\">"+
      
      
      %>
+     </ul>
      <br/><br/>
      <div style="font-size:9px;text-align:center;">
      (CC) Class Comparison | 

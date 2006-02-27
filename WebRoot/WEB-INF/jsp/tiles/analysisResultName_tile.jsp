@@ -16,4 +16,14 @@
 <html:errors property="queryName"/><br />
 </fieldset>
 
+<script language="javascript">
+	//legacy stub from P.shah's code
+	function checkQueryName()	{
+		return true;
+	}
+</script>
+
+
+
+
 

@@ -12,7 +12,7 @@
 	<tiles:insert attribute="htmlHead"/> <%-- include html head --%>
 </head>
 
-<body onload="javascript:checkForm();">
+<body>
 
 	 <%-- include div for overlib --%>
     <tiles:insert attribute="overlib"/>

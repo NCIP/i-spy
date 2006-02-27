@@ -15,7 +15,10 @@
 		<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 
 		<script language="JavaScript" type="text/javascript" src="XSL/js.js"></script>
 		<script language="JavaScript" type="text/javascript" src="XSL/a_js.js"></script>
-		<script language="JavaScript" type="text/javascript" src="js/JSFX_ImageZoom.js"></script>  
+
+		<script language="JavaScript" type="text/javascript" src="js/prototype.js"></script>
+		<script language="JavaScript" type="text/javascript" src="js/scriptaculous/scriptaculous.js"></script>
+
 	 	<LINK href="XSL/css.css" rel="stylesheet" type="text/css" />
 	</head>
 <body>
@@ -28,7 +31,7 @@
 	<a href="#" onclick="javascript:window.print();"><img align="right" src="images/print.png" border="0" onmouseover="return overlib('Print this report.', CAPTION, 'Help', CSSCLASS,TEXTFONTCLASS,'fontClass',FGCLASS,'fgClass',BGCLASS,'bgClass',CAPTIONFONTCLASS,'capfontClass', OFFSETX, -50);" onmouseout="return nd();"/> </a> 	
 </span>
 
-<div style="background-color: #ffffff"><img src="images/smallHead.jpg" /></div>
+<div style="background-color: #ffffff"><img src="images/ispyPortalHeader.gif" /></div>
 
 
 <%
@@ -37,16 +40,50 @@ if(request.getParameter("key")!=null)
 	key = (String) request.getParameter("key");
 %>
 Image Control: 
+<!-- 
 <a href="#" onclick="fullsize()">fullsize</a> |
 <a href="#" onclick="shrink()">small</a> 
+-->
 <!-- 
 <a href="#" onmouseover="grow()" onmouseout="stop()">grow</a> |
 <a href="#" onmouseover="small()" onmouseout="stop()">shrink</a> |
 <a href="#" onclick="stop()">stop</a> 
 -->
-<br clear="all"/>
-<graphing:HCPlot taskId="<%=key%>" />
 
+<div id="track1" style="background-image: url('images/scaler_slider_track.gif');margin: 4px 0pt 0pt 10px; width: 200px; background-repeat: repeat-x; background-position: left center; height: 18px;">
+	<div class="selected" id="handle1" style="width: 18px; height: 18px; position: relative; left: 196px;"><img src="images/scaler_slider.gif"></div>
+</div>
+<script language="javascript">
+function scaleIt(v) {
+  var scalePhotos = document.getElementsByClassName('scale-image');
+
+  floorSize = .26;
+  ceilingSize = 10.0;
+  v = floorSize + (v * (ceilingSize - floorSize));
+
+  for (i=0; i < scalePhotos.length; i++) {
+    scalePhotos[i].style.width = (v*190)+'px';
+  }
+} 
+
+var demoSlider = new Control.Slider('handle1','track1',
+{axis:'horizontal', alignX: 2, sliderValue:.5, increment: 50, maximum: 1000});
+
+demoSlider.options.onSlide = function(value){
+  scaleIt(value);
+}
+
+demoSlider.options.onChange = function(value){
+  scaleIt(value);
+} 
+
+demoSlider.setValue('.5');
+demoSlider.setValue('.1');
+</script> 
+<br clear="all"/>
+<div class="scale-image" style="width:400px">
+<graphing:HCPlot taskId="<%=key%>" />
+</div>
 <script language="javascript">
 var rbt_image = document.getElementById("rbt_image");
 
@@ -66,37 +103,9 @@ function fullsize()	{
 	rbt_image.style.width = "";
 }
 
-/*
-var step = 200;
-var gr = "";
-
-function grow()	{
-	gr = setInterval("growIt()", 100);
-}
-function small()	{
-	gr = setInterval("smallIt()", 100);
-}
-
-function stop()	{
-	clearInterval(gr);
-}
-function growIt()	{
-	i.setAttribute("height", i.height+step);
-	i.setAttribute("width", i.width+step);	
-}
-function smallIt()	{
-	if(i.height-step > 0 && i.width-step > 0)	{
-		i.setAttribute("height", i.height-step);
-		i.setAttribute("width", i.width-step);	
-	}
-}
-*/
-
 //init
 rbt_image_init();
 
-//rbt_image.style.border = "1px solid red";
-//rbt_image.style.width = "100%";
 </script>
 
 
