@@ -68,7 +68,7 @@
       <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=hierarchicalClustering" />
 	  <put name="title" value="Hierarchical Clustering Analysis Form" />
 	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
-	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
 	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
     </definition>
     

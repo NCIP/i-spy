@@ -1,11 +1,11 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-<%@ page import="gov.nih.nci.caintegrator.dto.critieria.Constants"%>
+
 
 <fieldset class="gray">
 <legend class="red">
-Select Timepoint <logic:present name="hierarchicalClusteringForm">(s)</logic:present>
-</legend>
+Select Timepoint 
+<b class="req">*</b></legend>
 
 <html:errors property="timepoints"/><br />
 <table border="0">
