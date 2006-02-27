@@ -2,7 +2,6 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ page import="java.util.*, java.lang.*, java.io.*" %>
 <%@ page import="java.io.FileInputStream" %>
-
 <% 	/*
 		This page receives the section identifier in the query string (s)
 		Read properties file based on this ID, then assembles the
@@ -24,7 +23,7 @@ String action = "";
 String param = request.getParameter("s");
 action = param.toLowerCase();
 %>
-<Br>
+<br/>
 
 <div class="setQuery">
 <html:errors property="org.apache.struts.action.GLOBAL_ERROR"/>

@@ -19,7 +19,7 @@
 	function tdiv(el)	{
 
 		//look at the 1st radio...this wont work with more than 2 options
-		var bigflag = document.getElementsByName("filterType")[0].checked;
+		var bigflag = document.getElementsByName("filterType")[0] ? document.getElementsByName("filterType")[0].checked : true;
 		
 		if(!bigflag)	{
 			if(win)	{ Effect.BlindDown('advFilter'); }
