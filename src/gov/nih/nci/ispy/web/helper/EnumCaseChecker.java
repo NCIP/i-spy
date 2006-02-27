@@ -109,4 +109,31 @@ public class EnumCaseChecker {
         }
         return myStrings;
     }
+    
+    public static void main(String[] args) {
+    	gov.nih.nci.ispy.service.clinical.ERstatusType er = gov.nih.nci.ispy.service.clinical.ERstatusType.ER_Pos;
+    	String name = er.getClass().getCanonicalName();
+    	System.out.println("className=" + name );
+    	//System.out.println("declClassName=" + er.getDeclaringClass().getCanonicalName());
+    	try {
+    	Class er2 = Class.forName(name);
+    	System.out.println("er2className=" + er2.getCanonicalName());
+    	Enum en2instance = Enum.valueOf(er2, "ER_Pos");
+    	
+    	if (en2instance == gov.nih.nci.ispy.service.clinical.ERstatusType.ER_Pos) {
+    	  System.out.println("Success");
+    	  
+    	}
+    	else {
+    	  System.out.println("Failure");
+    	}
+    	
+    	}
+    	catch(Exception ex) {
+    	  ex.printStackTrace(System.out);
+    	}
+    	
+    }
+    
+    
 }
