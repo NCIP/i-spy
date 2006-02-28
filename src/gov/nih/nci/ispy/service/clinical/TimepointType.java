@@ -1,5 +1,6 @@
 package gov.nih.nci.ispy.service.clinical;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.List;
 
@@ -63,6 +64,11 @@ import java.util.List;
 */
 
 public enum TimepointType implements Serializable {
-	T1, T2, T3, T4;
+	T1 { public Color getColor() { return Color.GREEN; }},
+	T2 { public Color getColor() { return Color.GREEN; }},
+	T3 { public Color getColor() { return Color.GREEN; }},
+	T4 { public Color getColor() { return Color.GREEN; }};
+	
+	public abstract Color getColor();
 }
 
