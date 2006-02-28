@@ -45,7 +45,7 @@
 
 
 <%
-String colorBy = request.getParameter("colorBy")!=null ? (String) request.getParameter("colorBy") : "Disease"; 
+String colorBy = request.getParameter("colorBy")!=null ? (String) request.getParameter("colorBy") : "ClinicalResponse"; 
 String key = request.getParameter("key")!=null ? (String) request.getParameter("key") : "taskId";
 String pcaView = request.getParameter("pcaView")!=null ? (String) request.getParameter("pcaView") : "PC1vsPC2";
 %>
@@ -81,17 +81,25 @@ String pcaView = request.getParameter("pcaView")!=null ? (String) request.getPar
 <div style="margin-left:10px">
 <b>Color By: </b>
 <%
-if(colorBy.equals("Gender"))
-	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=Disease\">Disease</a>");		
+if(colorBy.equals("ClinicalResponse"))
+	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=ClinicalResponse\">Clinical Response</a>");		
 else
-	out.write("Disease");
+	out.write("Clinical Response");
 	
-out.write(" | ");
+out.write("&nbsp; | &nbsp;");
 
-if(colorBy.equals("Disease"))
-	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=Gender\">Gender</a>");		
+if(colorBy.equals("DiseaseStage"))
+	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=DiseaseStage\">Disease Stage</a>");		
 else
-	out.write("Gender");
+	out.write("Disease Stage");
+	
+out.write("&nbsp; | &nbsp;");
+
+if(colorBy.equals("Timepoint"))
+	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=Timepoint\">Timepoint</a>");		
+else
+	out.write("Timepoint");
+
 %>
 <br/>
 </div>

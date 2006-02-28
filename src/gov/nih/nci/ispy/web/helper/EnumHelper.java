@@ -115,12 +115,12 @@ public class EnumHelper {
         return myStrings;
     }
     
-    public static Enum createType(String[] parsedTypeString){
+    public static Enum createType(String className, String valueName){
         Enum classInstance = null;
         
         try {
-            Class enumClass = Class.forName(parsedTypeString[0]);
-            classInstance = Enum.valueOf(enumClass, parsedTypeString[1].toUpperCase());
+            Class enumClass = Class.forName(className);
+            classInstance = Enum.valueOf(enumClass, valueName.toUpperCase());
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

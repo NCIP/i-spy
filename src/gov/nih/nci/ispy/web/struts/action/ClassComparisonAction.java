@@ -163,12 +163,7 @@ public class ClassComparisonAction extends DispatchAction {
         classComparisonQueryDTO.setQueryName(classComparisonQueryForm.getAnalysisResultName());
         
         String[] mySelectedGroups = classComparisonQueryForm.getSelectedGroups();
-        EnumSet<TimepointType> timepoints = EnumSet.noneOf(TimepointType.class);
-        EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
-        EnumSet<DiseaseStageType> diseaseStages = EnumSet.noneOf(DiseaseStageType.class);
-        EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
-        EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
-        EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
+        
         List<ClinicalQueryDTO> clinicalQueryCollection = new ArrayList<ClinicalQueryDTO>();
         
         
@@ -191,10 +186,15 @@ public class ClassComparisonAction extends DispatchAction {
          * comparison dto for groups to compare-
          * -KR
          */
-        if(classComparisonQueryForm.getTimepointRange().equals("fixed") && mySelectedGroups.length == 2){
-            
+        if(classComparisonQueryForm.getTimepointRange().equals("fixed") && mySelectedGroups.length == 2){           
             
             for (int i = 0;i<mySelectedGroups.length;i++){
+                EnumSet<TimepointType> timepoints = EnumSet.noneOf(TimepointType.class);
+                EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
+                EnumSet<DiseaseStageType> diseaseStages = EnumSet.noneOf(DiseaseStageType.class);
+                EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
+                EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
+                EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
                 ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTO = new ISPYclinicalDataQueryDTO();
                 TimepointType fixedTimepoint;
                 String fixedTimepointString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointBaseFixed(),TimepointType.values());
@@ -205,8 +205,10 @@ public class ClassComparisonAction extends DispatchAction {
                 ispyClinicalDataQueryDTO.setTimepointValues(timepoints);           
                 
                 String[] uiDropdownString = mySelectedGroups[i].split("#");
+                String myClassName = uiDropdownString[0];
+                String myValueName = uiDropdownString[1];
                 
-                Enum myType = EnumHelper.createType(uiDropdownString);
+                Enum myType = EnumHelper.createType(myClassName,myValueName);
                 if (myType.getClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
                     clinicalResponses.add((ClinicalResponseType) myType);
                 }
@@ -229,7 +231,7 @@ public class ClassComparisonAction extends DispatchAction {
                 ispyClinicalDataQueryDTO.setPrStatusValues(prStatus);
                 clinicalQueryCollection.add(ispyClinicalDataQueryDTO);
             }
-           
+            classComparisonQueryDTO.setComparisonGroups(clinicalQueryCollection);
         }
         
         else if(classComparisonQueryForm.getTimepointRange().equals("across") && classComparisonQueryForm.getSelectedGroups().length == 2){
