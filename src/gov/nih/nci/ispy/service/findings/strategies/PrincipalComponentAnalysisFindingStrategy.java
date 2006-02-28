@@ -32,9 +32,11 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.resultset.Resultant;
 //import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
-import gov.nih.nci.caintegrator.application.util.ApplicationContext;
+//import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYPrincipalComponentAnalysisQueryDTO;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -126,7 +128,7 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 	private PrincipalComponentAnalysisRequest pcaRequest;
 	private PrincipalComponentAnalysisFinding pcaFinding;
 	private AnalysisServerClientManager analysisServerClientManager;
-	private BusinessTierCache cacheManager = (BusinessTierCache)ApplicationContext.getApplicationService("BUSINESS_TIER_CACHE");
+	private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
 	
 	
 	public PrincipalComponentAnalysisFindingStrategy(String sessionId, String taskId, PrincipalComponentAnalysisQueryDTO queryDTO) throws ValidationException {
