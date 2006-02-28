@@ -7,6 +7,7 @@ import gov.nih.nci.caintegrator.application.cache.*;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.web.reports.quick.QuickClinicalReport;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
 
 import java.util.ArrayList;
@@ -221,6 +222,8 @@ public class HCPlotReport extends TagSupport {
 		return html.append(document.asXML());
 	}
 	public StringBuffer quickSampleReport(List<String> sampleIds){
+		return QuickClinicalReport.quickSampleReport(sampleIds);
+		/*
 		StringBuffer html = new StringBuffer();
 		Document document = DocumentHelper.createDocument();
 		
@@ -254,13 +257,13 @@ public class HCPlotReport extends TagSupport {
 							String dis = cd.getDiseaseStage() != null ? cd.getDiseaseStage().toString() : dv;
 							td = tr.addElement("td").addText(dis);
 							
-						/*
-							String age = cd.get() != null && cd.getAgeGroup().getValue() != null ? cd.getAgeGroup().getValue().toString() : dv;
-							td = tr.addElement("td").addText(age);
+						
+							//String age = cd.get() != null && cd.getAgeGroup().getValue() != null ? cd.getAgeGroup().getValue().toString() : dv;
+							//td = tr.addElement("td").addText(age);
 							
-							String slength = cd.getSurvivalLength() != null ? String.valueOf(cd.getSurvivalLength()) : dv;
-							td = tr.addElement("td").addText(slength);
-						*/	
+							//String slength = cd.getSurvivalLength() != null ? String.valueOf(cd.getSurvivalLength()) : dv;
+							//td = tr.addElement("td").addText(slength);
+							
 						}
 						
 					}
@@ -271,6 +274,8 @@ public class HCPlotReport extends TagSupport {
 			}
 		}
 		return html.append(document.asXML());
+		
+		*/
 	}
 	
 }

@@ -19,7 +19,7 @@
 		<script language="JavaScript" type="text/javascript" src="js/prototype.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/scriptaculous/scriptaculous.js"></script>
 
-	 	<LINK href="XSL/css.css" rel="stylesheet" type="text/css" />
+	 	<LINK href="xsl/css.css" rel="stylesheet" type="text/css" />
 	</head>
 <body>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>

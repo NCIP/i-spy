@@ -30,14 +30,14 @@ function addToPending(sample)	{
 		//add this to the JS array
 		pendingSamples[pendingSamples.length] = sample;
 		//add to array list
-		A_saveTmpSample(sample);
+		//A_saveTmpSample(sample);
 	}
 }		
 function clearPending()	{
 	//clear the JS array
 	pendingSamples = new Array();
 	//clear the array list and a_js arrays
-	A_clearTmpSamples();
+	//A_clearTmpSamples();
 	writePendings();
 }		
 
@@ -215,6 +215,7 @@ function mapshow (city) {
   
 
 startup();
-A_initSaveSample();
+
+//A_initSaveSample();
 
 

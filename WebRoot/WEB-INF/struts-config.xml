@@ -131,6 +131,8 @@
 	
 	<action path="/hcReport" forward="/WEB-INF/jsp/hcReport.jsp" />
 
+	<action path="/quickClinical" forward="/WEB-INF/jsp/quickClinical.jsp" />
+	
 	
 	<action path="/viewResults"
 	    input="ispy.viewResults"

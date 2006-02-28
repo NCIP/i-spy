@@ -19,8 +19,9 @@
 //   <script type='text/javascript' src='dwr/interface/DynamicReport.js'></script>
 //	<script type='text/javascript' src='dwr/engine.js'></script>
 //	<script type='text/javascript' src='dwr/util.js'></script>
-%>  
-    <script language="JavaScript" src="js/a_saveSamples.js"></script>
+ 
+//    <script language="JavaScript" src="js/a_saveSamples.js"></script>
+%> 
 	<script language="JavaScript" src="js/box/x_core.js"></script>
 	<script language="JavaScript" src="js/box/x_event.js"></script>
 	<script language="JavaScript" src="js/box/x_dom.js"></script>
@@ -124,11 +125,14 @@ else
 		</div>
 		<br/>
 		<div style="margin-left:10px; text-align:center">
-			<input type="text" id="sampleGroupName" name="sampleGroupName" style="width:95px"/><br/>
-			<input type="button" style="width:95px" value="save samples" onclick="javascript:A_saveSamples();" /><br/>			
+		<%
+			//<input type="text" id="sampleGroupName" name="sampleGroupName" style="width:95px"/><br/>
+			//<input type="button" style="width:95px" value="save samples" onclick="javascript:A_saveSamples();" /><br/>			
+		%>
+			<a href="#" onclick="processQuickClinical(); return false;">view clinical data</a><br/><br/>		
 		</div>
 		<div style="margin-left:10px; font-size:11px; text-decoration:none; text-align:center;">
-			<a href="#" onclick="javascript: if(confirm('clear samples?')) { clearPending(); } ">[clear samples]</a><br/>
+			<a href="#" onclick="javascript: if(confirm('clear samples?')) { clearPending();return false; } ">[clear samples]</a><br/>
 		</div>
 		</td>
 	</tr>
@@ -136,6 +140,34 @@ else
 </div>
 
 <script language="javascript" src="js/box/lassoHelper.js"></script>
+
+
+<!--  translate samples to clinical report -->
+<form id="quickClinicalWrapper"></form>
+
+<script language="javascript">
+
+	function processQuickClinical()	{
+		var f = document.getElementById("quickClinicalWrapper");
+		
+		if(!f)	{ return; }
+		//set up the form
+		f.setAttribute("method", "post");
+		f.setAttribute("action", "quickClinical.do");
+		f.setAttribute("name", "quickClinicalWrapper");
+		
+		for(var i=0; i<pendingSamples.length; i++)	{
+			var hid = document.createElement("input");
+			hid.setAttribute("type", "hidden");
+			hid.setAttribute("name", "sampleList");
+			hid.setAttribute("value", pendingSamples[i]);
+			f.appendChild(hid);
+		}
+		
+		f.submit();
+	}
+</script>
+
 
 </body>
 </html>
