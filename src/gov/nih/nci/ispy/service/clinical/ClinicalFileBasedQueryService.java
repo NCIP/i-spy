@@ -84,7 +84,7 @@ public class ClinicalFileBasedQueryService {
 			
 		    
 		    if (StringUtils.isEmptyStr(matcher.group(4))) {
-		      clinicalData.setDiseaseStage(DiseaseStageType.Missing);
+		      clinicalData.setDiseaseStage(DiseaseStageType.MISSING);
 		    }
 		    else {
 		      clinicalData.setDiseaseStage(DiseaseStageType.valueOf(matcher.group(4)));

@@ -254,7 +254,7 @@ public class ClinicalData {
 
     public void setDiseaseStageFromString(String diseaseStage) {
     	if ((diseaseStage==null)||(diseaseStage.trim().length()==0)) {
-  		  setDiseaseStage(DiseaseStageType.Missing);
+  		  setDiseaseStage(DiseaseStageType.MISSING);
   		}
     	else {
     	  setDiseaseStage(DiseaseStageType.valueOf(diseaseStage));	
