@@ -1,15 +1,16 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 
-
 <fieldset class="gray">
-<legend class="red">Select Statistic
+	<legend class="red">
+		Select Statistic
+	</legend>
+	<app:help help="Leave Default as is or select Advanced by click­ing the pertinent radio button. If you choose Advanced, click the + to access the fol­lowing options: 1.Statistical Method: Choose a test (t-test:two sample test or Wilcoxin Test: Mann-Whitney Test) from the drop-down list. 2. Multiple Comparison Adjustment: Choose an adjustment (Family-wise Error Rate (FWER): Bonferroni or False Discovery Rate (FDR): Benjamini-Hochberg) from the drop-down list. 3.Select Constraint: Select the Fold Change (2, 3, 4, 5, 6, 7, 8, 9 or 10) from the drop-down list or enter another fold change into the adjacent text box. Enter the p-value into the text box." />
+	<br /><br />
+	<input type="radio" class="radio" name="statistic" value="default" checked />Default
+	<br /><br />
 
-<app:help help="Leave Default as is or select Advanced by click­ing the pertinent radio button. If you choose Advanced, click the + to access the fol­lowing options: 1.Statistical Method: Choose a test (t-test:two sample test or Wilcoxin Test: Mann-Whitney Test) from the drop-down list. 2. Multiple Comparison Adjustment: Choose an adjustment (Family-wise Error Rate (FWER): Bonferroni or False Discovery Rate (FDR): Benjamini-Hochberg) from the drop-down list. 3.Select Constraint: Select the Fold Change (2, 3, 4, 5, 6, 7, 8, 9 or 10) from the drop-down list or enter another fold change into the adjacent text box. Enter the p-value into the text box." />
-</legend><br /><br />
-<input type="radio" class="radio" name="statistic" value="default" checked />Default<br /><br />
-
-<input type="radio" class="radio" name="statistic" value="advanced" />Advanced
-&nbsp;&nbsp;<a href='#' id="pm" class="exp" onclick="javascript:toggleSDiv('advStatistic','pm');return false;">&nbsp;+&nbsp;</a>
+	<input type="radio" class="radio" name="statistic" value="advanced" />Advanced
+	&nbsp;&nbsp;<a href='#' id="pm" class="exp" onclick="javascript:toggleSDiv('advStatistic','pm');return false;">&nbsp;+&nbsp;</a>
 
 
 <div id="advStatistic" class="divHide">
@@ -29,9 +30,9 @@ Multiple Comparison Adjustment
 	</fieldset>
 	
 	<fieldset class="gray">
-<legend class="red">b) Select Constraint
-<a href="javascript:void(0);" onmouseover="return overlib('Future implementation', CAPTION, 'Help');" onmouseout="return nd();">[?]</a>
-</legend>
+	<legend class="red">b) Select Constraint
+		<a href="javascript:void(0);" onmouseover="return overlib('Future implementation', CAPTION, 'Help');" onmouseout="return nd();">[?]</a>
+	</legend>
 
 	<html:radio property="foldChange" value="list" styleClass="radio"/>
 	&nbsp;&nbsp;Fold Change&nbsp;&ge;

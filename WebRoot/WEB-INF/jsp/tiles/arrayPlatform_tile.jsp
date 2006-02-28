@@ -4,17 +4,11 @@
 
 <fieldset class="gray">
 <legend class="red">
-
-
-<logic:present name="hierarchicalClusteringForm">
-Select Array Platform
-</logic:present>
-
-
+	Select Array Platform
 </legend>
 
 	
-<br>	
+<br/>	
 &nbsp;&nbsp;<html:select property="arrayPlatform">
 					<html:option value="<%=Constants.ALL_PLATFROM%>">All</html:option>
 					<html:option value="<%=Constants.AFFY_OLIGO_PLATFORM%>">Oligo (Affymetrix)</html:option>
