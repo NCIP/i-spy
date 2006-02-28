@@ -11,7 +11,16 @@ import java.util.List;
  *
  */
 public enum PRstatusType implements Serializable {
-  PR_POS,PR_NEG,Unknown,Missing;
+  PR_POS{
+      public String toString()
+      { 
+          return "PR+";
+      }},
+      PR_NEG{
+          public String toString()
+          { 
+              return "PR-";
+          }},Unknown,Missing;
   
   public static List<PRstatusType>getDisplayValues(){
       List<PRstatusType> displayValues = new ArrayList<PRstatusType>();

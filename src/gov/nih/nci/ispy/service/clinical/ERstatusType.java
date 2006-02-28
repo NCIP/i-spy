@@ -11,7 +11,16 @@ import java.util.List;
  *
  */
 public enum ERstatusType implements Serializable {
-  ER_POS,ER_NEG,Unknown,Missing;
+  ER_POS{
+      public String toString()
+      { 
+          return "ER+";
+      }},
+      ER_NEG{
+          public String toString()
+          { 
+              return "ER-";
+          }},Unknown,Missing;
   
   public static List<ERstatusType>getDisplayValues(){
       List<ERstatusType> displayValues = new ArrayList<ERstatusType>();

@@ -209,10 +209,10 @@ public class ClassComparisonAction extends DispatchAction {
                 String myValueName = uiDropdownString[1];
                 
                 Enum myType = EnumHelper.createType(myClassName,myValueName);
-                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
                     clinicalResponses.add((ClinicalResponseType) myType);
                 }
-                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
                     diseaseStages.add((DiseaseStageType) myType);
                 }
                 if (myType.getClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {

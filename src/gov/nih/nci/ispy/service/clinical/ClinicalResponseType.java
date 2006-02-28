@@ -16,7 +16,27 @@ import java.util.List;
  */
 
 public enum ClinicalResponseType implements Serializable{
-  CR,PR,SD,PD,Unknown,Missing;
+    CR{
+    public String toString()
+    { 
+        return "Complete Response";
+    }},
+        PR{
+        public String toString()
+        { 
+            return "Partial Response";
+        }},
+            SD{
+            public String toString()
+            { 
+                return "Stable Disease";
+            }},
+                PD{
+                    public String toString()
+                    { 
+                        return "Progressive Disease";
+                    }},
+                        Unknown,Missing;
   /**
    * This method displays only the permissiable values for display purposes
    *

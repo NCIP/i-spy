@@ -11,7 +11,42 @@ import java.util.List;
  *
  */
 public enum DiseaseStageType implements Serializable {
-	II_All,II_A,II_B,III_All,III_A,III_B,III_C,Unknown,Missing;
+	II_All{
+        public String toString()
+        { 
+            return "Stage 2_All";
+        }},
+        II_A{
+            public String toString()
+            { 
+                return "Stage 2_A";
+            }},
+            II_B{
+                public String toString()
+                { 
+                    return "Stage 2_B";
+                }},
+                III_All{
+                    public String toString()
+                    { 
+                        return "Stage 3_All";
+                    }},
+                    III_A{
+                        public String toString()
+                        { 
+                            return "Stage 3_A";
+                        }},
+                        III_B{
+                            public String toString()
+                            { 
+                                return "Stage 3_B";
+                            }},
+                            III_C{
+                                public String toString()
+                                { 
+                                    return "Stage 3_C";
+                                }},
+                                Unknown,Missing;
     
     public static List<DiseaseStageType>getDisplayValues(){
           List<DiseaseStageType> displayValues = new ArrayList<DiseaseStageType>();
