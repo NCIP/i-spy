@@ -14,11 +14,12 @@
 	<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 
 	
 	<script language="JavaScript" src="js/box/browserSniff.js"></script>
-		
-    <script type='text/javascript' src='dwr/interface/DynamicReport.js'></script>
-	<script type='text/javascript' src='dwr/engine.js'></script>
-	<script type='text/javascript' src='dwr/util.js'></script>
-    
+
+<%		
+//   <script type='text/javascript' src='dwr/interface/DynamicReport.js'></script>
+//	<script type='text/javascript' src='dwr/engine.js'></script>
+//	<script type='text/javascript' src='dwr/util.js'></script>
+%>  
     <script language="JavaScript" src="js/a_saveSamples.js"></script>
 	<script language="JavaScript" src="js/box/x_core.js"></script>
 	<script language="JavaScript" src="js/box/x_event.js"></script>

@@ -126,11 +126,7 @@
 	</action>
 	
 	
-	<action path="/pcaReport"
-		type="gov.nih.nci.ispy.web.struts.action.DoFirst"
-		name="noForm">
-		<forward name="success" path="/jsp/pcaReport.jsp" />
-	</action>
+	<action path="/pcaReport" forward="/WEB-INF/jsp/pcaReport.jsp" />
 	
 	
 	<action path="/hcReport" forward="/WEB-INF/jsp/hcReport.jsp" />
