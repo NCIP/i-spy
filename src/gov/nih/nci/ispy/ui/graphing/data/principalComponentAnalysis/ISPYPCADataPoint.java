@@ -112,5 +112,18 @@ public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 	public void setTumorMRIpctChange(double tumorMRIpctChange) {
 		this.tumorMRIpctChange = tumorMRIpctChange;
 	}
+	
+	public String toString() {
+		
+	   StringBuffer sb = new StringBuffer();
+	   
+	   sb.append("SampleId: " + this.getSampleId() + "\n");
+	   sb.append("Timepoint: " + this.getTimepoint() + "\n");
+	   sb.append("ClinicalResponse: " + this.getClinicalResponse() + "\n");
+	   sb.append("DiseaseStage: " + this.getDiseaseStage() + "\n");
+	   sb.append("TumorMRIpctChange: " + this.getTumorMRIpctChange() + "\n");
+		
+	   return sb.toString();
+	}
 
 }

@@ -1,32 +1,24 @@
 package gov.nih.nci.ispy.web.taglib;
 
 import gov.nih.nci.caintegrator.analysis.messaging.PCAresultEntry;
-import gov.nih.nci.caintegrator.dto.de.GenderDE;
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.enumeration.ClinicalFactorType;
-import gov.nih.nci.caintegrator.enumeration.DiseaseType;
 import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
-import gov.nih.nci.caintegrator.ui.graphing.chart.CaIntegratorChartFactory;
-import gov.nih.nci.caintegrator.ui.graphing.chart.plot.PrincipalComponentAnalysisPlot.PCAcolorByType;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint.PCAcomponent;
 import gov.nih.nci.caintegrator.ui.graphing.util.ImageMapUtil;
-import gov.nih.nci.caintegrator.enumeration.GenderType;
-import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
-import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
-//import gov.nih.nci.rembrandt.queryservice.resultset.sample.SampleResultset;
-//import gov.nih.nci.rembrandt.queryservice.validation.ClinicalDataValidator;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPCAcolorByType;
+import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPrincipalComponentAnalysisPlot;
 import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ISPYImageFileHandler;
-import gov.nih.nci.caintegrator.dto.de.DatumDE;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -174,17 +166,18 @@ public class PCAPlotTag extends AbstractGraphingTag {
             }
           
             
-            
-            
             //check the components to see which graph to get
-			if(components.equalsIgnoreCase("PC1vsPC2")){
-                chart = (JFreeChart) CaIntegratorChartFactory.getPrincipalComponentAnalysisGraph(pcaData,PCAcomponent.PC2,PCAcomponent.PC1,PCAcolorByType.valueOf(PCAcolorByType.class,colorBy));
+			if(components.equalsIgnoreCase("PC1vsPC2")){                 
+                ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC2, PCAcomponent.PC1, ISPYPCAcolorByType.valueOf(ISPYPCAcolorByType.class,colorBy.toUpperCase()));
+            	chart = plot.getChart();                
             }
-            if(components.equalsIgnoreCase("PC1vsPC3")){
-                chart = (JFreeChart) CaIntegratorChartFactory.getPrincipalComponentAnalysisGraph(pcaData,PCAcomponent.PC3,PCAcomponent.PC1,PCAcolorByType.valueOf(PCAcolorByType.class,colorBy));
+            if(components.equalsIgnoreCase("PC1vsPC3")){            	
+                ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC3, PCAcomponent.PC1, ISPYPCAcolorByType.valueOf(ISPYPCAcolorByType.class,colorBy.toUpperCase()));
+            	chart = plot.getChart();                
             }
             if(components.equalsIgnoreCase("PC2vsPC3")){
-                chart = (JFreeChart) CaIntegratorChartFactory.getPrincipalComponentAnalysisGraph(pcaData,PCAcomponent.PC3,PCAcomponent.PC2,PCAcolorByType.valueOf(PCAcolorByType.class,colorBy));
+            	ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC3, PCAcomponent.PC2, ISPYPCAcolorByType.valueOf(ISPYPCAcolorByType.class,colorBy.toUpperCase()));
+            	chart = plot.getChart();
             }
             
             ISPYImageFileHandler imageHandler = new ISPYImageFileHandler(session.getId(),"png",650,600);
