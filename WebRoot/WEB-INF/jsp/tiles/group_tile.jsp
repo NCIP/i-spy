@@ -115,7 +115,9 @@
 			baseline.text += bltag;
 			baseline.style.color="red";
 			baseline.style.border="1px solid";
-			document.getElementById("baseline").innerHTML = baseline.value.length > 10 ? baseline.value.substring(0, 10)+"..." : baseline.value ;
+			var cleanbaseline = baseline.text.substring(0, baseline.text.indexOf(bltag));
+			
+			document.getElementById("baseline").innerHTML = cleanbaseline.length > 10 ? cleanbaseline.substring(0, 10)+"..." : cleanbaseline ;
 			document.getElementById("baselineGroup").value = baseline.value;
 		}
 		
