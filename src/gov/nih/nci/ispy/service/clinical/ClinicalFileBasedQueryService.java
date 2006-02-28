@@ -8,15 +8,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
 
 public class ClinicalFileBasedQueryService {
 
@@ -24,6 +24,7 @@ public class ClinicalFileBasedQueryService {
 	private Map<TimepointType, Set<ClinicalData>> timepointMap = new HashMap<TimepointType, Set<ClinicalData>>(); 
 	private boolean clinicalDataFileSet = false;
 	private static ClinicalFileBasedQueryService instance = null;
+	private static Logger logger = Logger.getLogger(ClinicalFileBasedQueryService.class);
 	
 	private ClinicalFileBasedQueryService() {
 		super();
@@ -268,9 +269,30 @@ public class ClinicalFileBasedQueryService {
 		ClinicalData clinData = null;
 		for (String labtrackId:labtrackIds) {
 		  clinData = clinicalDataMap.get(labtrackId);
-		  clinicalDataList.add(clinData);
+		  if (clinData != null) {
+		    clinicalDataList.add(clinData);
+		  }
+		  else {
+		    logger.warn("No clinical data found for labtrackId=" + labtrackId);
+		  }
 		}
 		return clinicalDataList;
+	}
+	
+	
+	public Map<String, ClinicalData> getClinicalDataMapForLabtrackIds(Collection<String> labtrackIds) {
+	  Map<String, ClinicalData> retMap = new HashMap<String, ClinicalData>();
+	  ClinicalData clinData = null;
+	  for (String id:labtrackIds) {
+	    clinData = clinicalDataMap.get(id);
+	    if (clinData != null) {
+	      retMap.put(id, clinData);
+	    }
+	    else {
+	      logger.warn("No clinical data found for labtrackId=" + id);
+	    }
+	  }
+	  return retMap;
 	}
 
 	public Set<String> getLabtrackIdsForTimepoints(List<TimepointType> timepoints) {
