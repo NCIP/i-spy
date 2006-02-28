@@ -16,7 +16,7 @@ import gov.nih.nci.ispy.dto.query.ISPYPrincipalComponentAnalysisQueryDTO;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-import gov.nih.nci.ispy.web.helper.EnumCaseChecker;
+import gov.nih.nci.ispy.web.helper.EnumHelper;
 import gov.nih.nci.ispy.web.struts.form.PrincipalComponentForm;
 
 import java.util.ArrayList;
@@ -156,11 +156,11 @@ public class PrincipalComponentAction extends DispatchAction {
         //create timepointList
         /*
         * This code is here to deal with an observed problem with the changing 
-       * of case in request parameters.  See the class EnumCaseChecker for 
+       * of case in request parameters.  See the class EnumChecker for 
         * enlightenment.
        */
        List<TimepointType> timepointTypes = new ArrayList();
-       String[] timepointTypeNames = EnumCaseChecker.getEnumTypeNames(principalComponentForm.getTimepoints(),TimepointType.values());
+       String[] timepointTypeNames = EnumHelper.getEnumTypeNames(principalComponentForm.getTimepoints(),TimepointType.values());
            if(timepointTypeNames!=null) {
               for(int i =0;i<timepointTypeNames.length;i++){
                   timepointTypes.add(TimepointType.valueOf(timepointTypeNames[i]));

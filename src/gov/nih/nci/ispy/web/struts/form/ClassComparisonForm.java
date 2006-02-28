@@ -83,7 +83,9 @@ public class ClassComparisonForm extends ActionForm {
  // -------------INSTANCE VARIABLES-----------------------------//
     private static Logger logger = Logger.getLogger(BaseForm.class);
 	
-    private String timepointBase;
+    private String timepointBaseFixed;
+    
+    private String timepointBaseAcross;
     
     private String timepointComparison;
     
@@ -134,8 +136,7 @@ public class ClassComparisonForm extends ActionForm {
         
         for (MultiGroupComparisonAdjustmentType multiGroupComparisonAdjustmentType : MultiGroupComparisonAdjustmentType.values()){
             comparisonAdjustmentCollection.add(new LabelValueBean(multiGroupComparisonAdjustmentType.toString(),multiGroupComparisonAdjustmentType.name()));
-        }
-        
+        }        
         
         for (StatisticalMethodType statisticalMethodType : StatisticalMethodType.values()){
             statisticalMethodCollection.add(new LabelValueBean(statisticalMethodType.toString(),statisticalMethodType.name()));  
@@ -457,8 +458,8 @@ public class ClassComparisonForm extends ActionForm {
     /**
      * @return Returns the timepointBase.
      */
-    public String getTimepointBase() {
-        return timepointBase;
+    public String getTimepointBaseFixed() {
+        return timepointBaseFixed;
     }
 
 
@@ -466,8 +467,8 @@ public class ClassComparisonForm extends ActionForm {
     /**
      * @param timepointBase The timepointBase to set.
      */
-    public void setTimepointBase(String timepointBase) {
-        this.timepointBase = timepointBase;
+    public void setTimepointBaseFixed(String timepointBaseFixed) {
+        this.timepointBaseFixed = timepointBaseFixed;
     }
 
     
@@ -486,6 +487,24 @@ public class ClassComparisonForm extends ActionForm {
      */
     public void setTimepointComparison(String timepointComparison) {
         this.timepointComparison = timepointComparison;
+    }
+
+    
+
+    /**
+     * @return Returns the timepointBaseAcross.
+     */
+    public String getTimepointBaseAcross() {
+        return timepointBaseAcross;
+    }
+
+
+
+    /**
+     * @param timepointBaseAcross The timepointBaseAcross to set.
+     */
+    public void setTimepointBaseAcross(String timepointBaseAcross) {
+        this.timepointBaseAcross = timepointBaseAcross;
     }
 
 

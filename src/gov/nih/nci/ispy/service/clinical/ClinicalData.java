@@ -135,10 +135,10 @@ public class ClinicalData {
 		this.erValue = erValue;
 		
 		if (erValue > 0.0) {
-		  setErStatus(ERstatusType.ER_Pos);
+		  setErStatus(ERstatusType.ER_POS);
 		}
 		else {
-		  setErStatus(ERstatusType.ER_Neg);
+		  setErStatus(ERstatusType.ER_NEG);
 		}
 	}
 
@@ -162,10 +162,10 @@ public class ClinicalData {
 		this.her2Value = her2Value;
 		
 		if (her2Value > 0.0) {
-		  setHER2status(HER2statusType.HER2_Pos);
+		  setHER2status(HER2statusType.HER2_POS);
 		}
 		else {
-		  setHER2status(HER2statusType.HER2_Neg);
+		  setHER2status(HER2statusType.HER2_NEG);
 		}
 		
 	}
@@ -230,10 +230,10 @@ public class ClinicalData {
 		this.prValue = prValue;
 		
 		if (prValue > 0.0) {
-		  setPrStatus(PRstatusType.PR_Pos);
+		  setPrStatus(PRstatusType.PR_POS);
 		}
 		else {
-		  setPrStatus(PRstatusType.PR_Neg);
+		  setPrStatus(PRstatusType.PR_NEG);
 		}
 	}
 

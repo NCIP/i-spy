@@ -1,5 +1,10 @@
 package gov.nih.nci.ispy.web.struts.action;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.List;
+
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
 import gov.nih.nci.caintegrator.dto.de.MultiGroupComparisonAdjustmentTypeDE;
@@ -7,6 +12,7 @@ import gov.nih.nci.caintegrator.dto.de.StatisticTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticalSignificanceDE;
 import gov.nih.nci.caintegrator.dto.de.ExprFoldChangeDE.UpRegulation;
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
+import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.QueryType;
 import gov.nih.nci.caintegrator.enumeration.MultiGroupComparisonAdjustmentType;
 import gov.nih.nci.caintegrator.enumeration.Operator;
@@ -14,9 +20,16 @@ import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
 import gov.nih.nci.caintegrator.enumeration.StatisticalSignificanceType;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.ispy.dto.query.ISPYClassComparisonQueryDTO;
+import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
+import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ERstatusType;
+import gov.nih.nci.ispy.service.clinical.HER2statusType;
+import gov.nih.nci.ispy.service.clinical.PRstatusType;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
-import gov.nih.nci.ispy.web.helper.EnumCaseChecker;
+import gov.nih.nci.ispy.web.helper.EnumHelper;
 import gov.nih.nci.ispy.web.struts.form.ClassComparisonForm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -149,6 +162,16 @@ public class ClassComparisonAction extends DispatchAction {
         ISPYClassComparisonQueryDTO classComparisonQueryDTO = (ISPYClassComparisonQueryDTO)ApplicationFactory.newQueryDTO(QueryType.CLASS_COMPARISON_QUERY);
         classComparisonQueryDTO.setQueryName(classComparisonQueryForm.getAnalysisResultName());
         
+        String[] mySelectedGroups = classComparisonQueryForm.getSelectedGroups();
+        EnumSet<TimepointType> timepoints = EnumSet.noneOf(TimepointType.class);
+        EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
+        EnumSet<DiseaseStageType> diseaseStages = EnumSet.noneOf(DiseaseStageType.class);
+        EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
+        EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
+        EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
+        List<ClinicalQueryDTO> clinicalQueryCollection = new ArrayList<ClinicalQueryDTO>();
+        
+        
         /**TODO decide how to set timepoints and groups into one "set" method?
          *    if fixed timepoints selected
          *      2 groups are needed for comparison, with one being the baseline clinical group
@@ -163,6 +186,57 @@ public class ClassComparisonAction extends DispatchAction {
          *      convert groups???
          *      -KR
          */
+        /*Create the clinical query DTO collection from the selected groups in the form
+         * and the timepoints..either fixed or across. Set these querys in the class
+         * comparison dto for groups to compare-
+         * -KR
+         */
+        if(classComparisonQueryForm.getTimepointRange().equals("fixed") && mySelectedGroups.length == 2){
+            
+            
+            for (int i = 0;i<mySelectedGroups.length;i++){
+                ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTO = new ISPYclinicalDataQueryDTO();
+                TimepointType fixedTimepoint;
+                String fixedTimepointString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointBaseFixed(),TimepointType.values());
+                if(fixedTimepointString!=null){
+                    fixedTimepoint = TimepointType.valueOf(fixedTimepointString);
+                    timepoints.add(fixedTimepoint);
+                }
+                ispyClinicalDataQueryDTO.setTimepointValues(timepoints);           
+                
+                String[] uiDropdownString = mySelectedGroups[i].split("#");
+                
+                Enum myType = EnumHelper.createType(uiDropdownString);
+                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
+                    clinicalResponses.add((ClinicalResponseType) myType);
+                }
+                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
+                    diseaseStages.add((DiseaseStageType) myType);
+                }
+                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
+                    erStatus.add((ERstatusType) myType);
+                }
+                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
+                    her2Status.add((HER2statusType) myType);
+                }
+                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
+                    prStatus.add((PRstatusType) myType);
+                } 
+                ispyClinicalDataQueryDTO.setClinicalResponseValues(clinicalResponses);
+                ispyClinicalDataQueryDTO.setDiseaseStageValues(diseaseStages);
+                ispyClinicalDataQueryDTO.setErStatusValues(erStatus);
+                ispyClinicalDataQueryDTO.setHer2StatusValues(her2Status);
+                ispyClinicalDataQueryDTO.setPrStatusValues(prStatus);
+                clinicalQueryCollection.add(ispyClinicalDataQueryDTO);
+            }
+           
+        }
+        
+        else if(classComparisonQueryForm.getTimepointRange().equals("across") && classComparisonQueryForm.getSelectedGroups().length == 2){
+            
+        }
+        
+        
         /*Create the clinical query DTO collection from the selected groups in the form
         List<ClinicalQueryDTO> clinicalQueryCollection = new ArrayList<ClinicalQueryDTO>();
         
@@ -211,11 +285,11 @@ public class ClassComparisonAction extends DispatchAction {
            //Create class comparison DEs
             /*
              * This following code is here to deal with an observed problem with the changing 
-             * of case in request parameters.  See the class EnumCaseChecker for 
+             * of case in request parameters.  See the class EnumChecker for 
              * enlightenment.
              */
            MultiGroupComparisonAdjustmentType mgAdjustmentType; 
-           String multiGroupComparisonAdjustmentTypeString= EnumCaseChecker.getEnumTypeName(classComparisonQueryForm.getComparisonAdjustment(),MultiGroupComparisonAdjustmentType.values());
+           String multiGroupComparisonAdjustmentTypeString= EnumHelper.getEnumTypeName(classComparisonQueryForm.getComparisonAdjustment(),MultiGroupComparisonAdjustmentType.values());
            if(multiGroupComparisonAdjustmentTypeString!=null) {
         	   mgAdjustmentType = MultiGroupComparisonAdjustmentType.valueOf(multiGroupComparisonAdjustmentTypeString);
            }else {
@@ -240,11 +314,11 @@ public class ClassComparisonAction extends DispatchAction {
             if(classComparisonQueryForm.getStatisticalMethod() != "" || classComparisonQueryForm.getStatisticalMethod().length() != 0){
             	/*
                  * This following code is here to deal with an observed problem with the changing 
-                 * of case in request parameters.  See the class EnumCaseChecker for 
+                 * of case in request parameters.  See the class EnumChecker for 
                  * enlightenment.
                  */
             	StatisticalMethodType statisticalMethodType; 
-            	String statisticalMethodTypeString= EnumCaseChecker.getEnumTypeName(classComparisonQueryForm.getStatisticalMethod(),StatisticalMethodType.values());
+            	String statisticalMethodTypeString= EnumHelper.getEnumTypeName(classComparisonQueryForm.getStatisticalMethod(),StatisticalMethodType.values());
                  if(statisticalMethodTypeString!=null) {
                 	 statisticalMethodType = StatisticalMethodType.valueOf(statisticalMethodTypeString);
                  }else {

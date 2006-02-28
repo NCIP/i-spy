@@ -23,20 +23,20 @@ public class ClinicalGroupRetriever {
     public List<LabelValueBean> getClinicalGroupsCollection(){
         
         
-        for (DiseaseStageType diseaseStageType : DiseaseStageType.values()){
-            clinicalGroupsCollection.add(new LabelValueBean(diseaseStageType.toString(),diseaseStageType.name()));
+        for (DiseaseStageType diseaseStageType : DiseaseStageType.getDisplayValues()){
+            clinicalGroupsCollection.add(new LabelValueBean(diseaseStageType.toString(),diseaseStageType.getClass().getCanonicalName() + "#" + diseaseStageType.name()));
         }
-        for (ClinicalResponseType clinicalResponseType : ClinicalResponseType.values()){
-            clinicalGroupsCollection.add(new LabelValueBean(clinicalResponseType.toString(),clinicalResponseType.name()));
+        for (ClinicalResponseType clinicalResponseType : ClinicalResponseType.getDisplayValues()){
+            clinicalGroupsCollection.add(new LabelValueBean(clinicalResponseType.toString(),clinicalResponseType.getClass().getCanonicalName() + "#" + clinicalResponseType.name()));
         }
-        for (ERstatusType erStatusType : ERstatusType.values()){
-            clinicalGroupsCollection.add(new LabelValueBean(erStatusType.toString(),erStatusType.name()));
+        for (ERstatusType erStatusType : ERstatusType.getDisplayValues()){
+            clinicalGroupsCollection.add(new LabelValueBean(erStatusType.toString(),erStatusType.getClass().getCanonicalName() + "#" + erStatusType.name()));
         }
-        for (PRstatusType prStatusType : PRstatusType.values()){
-            clinicalGroupsCollection.add(new LabelValueBean(prStatusType.toString(),prStatusType.name()));
+        for (PRstatusType prStatusType : PRstatusType.getDisplayValues()){
+            clinicalGroupsCollection.add(new LabelValueBean(prStatusType.toString(),prStatusType.getClass().getCanonicalName() + "#" + prStatusType.name()));
         }
-        for (HER2statusType her2StatusType : HER2statusType.values()){
-            clinicalGroupsCollection.add(new LabelValueBean(her2StatusType.toString(),her2StatusType.name()));
+        for (HER2statusType her2StatusType : HER2statusType.getDisplayValues()){
+            clinicalGroupsCollection.add(new LabelValueBean(her2StatusType.toString(),her2StatusType.getClass().getCanonicalName() + "#" + her2StatusType.name()));
         }
         
         return clinicalGroupsCollection;

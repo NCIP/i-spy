@@ -1,4 +1,9 @@
 package gov.nih.nci.ispy.web.helper;
+
+import gov.nih.nci.ispy.service.clinical.TimepointType;
+
+import java.util.EnumSet;
+
 /**
  * This class was written to deal with a bug found when running on the dev
  * server (Linux, JBoss 4, etc, etc) that changed the case of the parameter
@@ -13,7 +18,7 @@ package gov.nih.nci.ispy.web.helper;
  * It allows the user to avoid a messy Switch statement where they would need to 
  * know in advance all possible Enum Types.
  * 
- * @author BauerD, HarrisM
+ * @author BauerD, HarrisM, RossoK
  *
  */
 
@@ -75,7 +80,7 @@ package gov.nih.nci.ispy.web.helper;
 * 
 */
 
-public class EnumCaseChecker {
+public class EnumHelper {
 	/**
 	 * This helper method will return the exact Enum type name if a match, 
 	 * ignoring the case of the value, is found between the passed value
@@ -110,30 +115,17 @@ public class EnumCaseChecker {
         return myStrings;
     }
     
-    public static void main(String[] args) {
-    	gov.nih.nci.ispy.service.clinical.ERstatusType er = gov.nih.nci.ispy.service.clinical.ERstatusType.ER_Pos;
-    	String name = er.getClass().getCanonicalName();
-    	System.out.println("className=" + name );
-    	//System.out.println("declClassName=" + er.getDeclaringClass().getCanonicalName());
-    	try {
-    	Class er2 = Class.forName(name);
-    	System.out.println("er2className=" + er2.getCanonicalName());
-    	Enum en2instance = Enum.valueOf(er2, "ER_Pos");
-    	
-    	if (en2instance == gov.nih.nci.ispy.service.clinical.ERstatusType.ER_Pos) {
-    	  System.out.println("Success");
-    	  
-    	}
-    	else {
-    	  System.out.println("Failure");
-    	}
-    	
-    	}
-    	catch(Exception ex) {
-    	  ex.printStackTrace(System.out);
-    	}
-    	
+    public static Enum createType(String[] parsedTypeString){
+        Enum classInstance = null;
+        
+        try {
+            Class enumClass = Class.forName(parsedTypeString[0]);
+            classInstance = Enum.valueOf(enumClass, parsedTypeString[1].toUpperCase());
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return classInstance;
     }
-    
-    
 }

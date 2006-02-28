@@ -10,19 +10,12 @@ Select Timepoint
 <html:errors property="timepoints"/><br />
 <table border="0">
 	<tr><td valign="top">Timepoint:</td>
-	    <logic:present name="hierarchicalClusteringForm"> 
+	    
 			<td>&nbsp;&nbsp;<html:select multiple="true" property="timepoints">
 								<html:optionsCollection property="timepointCollection" /> 
 							</html:select>
 			&nbsp;&nbsp;</td>
-		</logic:present>
-		
-		<logic:present name="principalComponentForm"> 
-			<td>&nbsp;&nbsp;<html:select property="timepoints">
-								<html:optionsCollection property="timepointCollection" /> 
-							</html:select>
-			&nbsp;&nbsp;</td>
-		</logic:present>
+	
 	</tr>	
 </table>
 			

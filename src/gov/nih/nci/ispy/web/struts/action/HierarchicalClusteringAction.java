@@ -21,7 +21,7 @@ import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-import gov.nih.nci.ispy.web.helper.EnumCaseChecker;
+import gov.nih.nci.ispy.web.helper.EnumHelper;
 import gov.nih.nci.ispy.web.struts.form.HierarchicalClusteringForm;
 
 import java.util.ArrayList;
@@ -163,11 +163,11 @@ public class HierarchicalClusteringAction extends DispatchAction {
         //create timepointList
           /*
           * This code is here to deal with an observed problem with the changing 
-         * of case in request parameters.  See the class EnumCaseChecker for 
+         * of case in request parameters.  See the class EnumChecker for 
           * enlightenment.
          */
          List<TimepointType> timepointTypes = new ArrayList();
-         String[] timepointTypeNames = EnumCaseChecker.getEnumTypeNames(hierarchicalClusteringForm.getTimepoints(),TimepointType.values());
+         String[] timepointTypeNames = EnumHelper.getEnumTypeNames(hierarchicalClusteringForm.getTimepoints(),TimepointType.values());
          if(timepointTypeNames!=null) {
             for(int i =0;i<timepointTypeNames.length;i++){
                 timepointTypes.add(TimepointType.valueOf(timepointTypeNames[i]));
@@ -217,11 +217,11 @@ public class HierarchicalClusteringAction extends DispatchAction {
          logger.debug("Selected DistanceMatrixType in ActionForm:"+hierarchicalClusteringForm.getDistanceMatrix());
         /*
          * This code is here to deal with an observed problem with the changing 
-         * of case in request parameters.  See the class EnumCaseChecker for 
+         * of case in request parameters.  See the class EnumChecker for 
          * enlightenment.
          */
         DistanceMatrixType distanceMatrixType = null;
-        String myTypeString = EnumCaseChecker.getEnumTypeName(hierarchicalClusteringForm.getDistanceMatrix(),DistanceMatrixType.values());
+        String myTypeString = EnumHelper.getEnumTypeName(hierarchicalClusteringForm.getDistanceMatrix(),DistanceMatrixType.values());
         if(myTypeString!=null) {
         	distanceMatrixType = DistanceMatrixType.valueOf(myTypeString);
         }else {
@@ -236,11 +236,11 @@ public class HierarchicalClusteringAction extends DispatchAction {
         // create linkageMethodDEs
          /*
          * This code is here to deal with an observed problem with the changing 
-        * of case in request parameters.  See the class EnumCaseChecker for 
+        * of case in request parameters.  See the class EnumChecker for 
          * enlightenment.
         */
         LinkageMethodType linkageMethodType = null;
-        String linkageMethodTypeName = EnumCaseChecker.getEnumTypeName(hierarchicalClusteringForm.getLinkageMethod(),LinkageMethodType.values());
+        String linkageMethodTypeName = EnumHelper.getEnumTypeName(hierarchicalClusteringForm.getLinkageMethod(),LinkageMethodType.values());
         if(linkageMethodTypeName!=null) {
         	linkageMethodType = LinkageMethodType.valueOf(linkageMethodTypeName);
         }else {
@@ -261,11 +261,11 @@ public class HierarchicalClusteringAction extends DispatchAction {
         if(!hierarchicalClusteringForm.getClusterBy().equals("")){
         	 /*
              * This code is here to deal with an observed problem with the changing 
-             * of case in request parameters.  See the class EnumCaseChecker for 
+             * of case in request parameters.  See the class EnumChecker for 
             * enlightenment.
             */
         	ClusterByType clusterByType = null;
-            String clusterByTypeName = EnumCaseChecker.getEnumTypeName(hierarchicalClusteringForm.getClusterBy(),ClusterByType.values());
+            String clusterByTypeName = EnumHelper.getEnumTypeName(hierarchicalClusteringForm.getClusterBy(),ClusterByType.values());
             if(clusterByTypeName!=null) {
             	clusterByType = ClusterByType.valueOf(clusterByTypeName);
             }else {
