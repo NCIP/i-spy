@@ -1,5 +1,6 @@
 package gov.nih.nci.ispy.service.clinical;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,27 +17,24 @@ import java.util.List;
  */
 
 public enum ClinicalResponseType implements Serializable{
-    CR{
-    public String toString()
-    { 
-        return "Complete Response";
-    }},
-        PR{
-        public String toString()
-        { 
-            return "Partial Response";
-        }},
-            SD{
-            public String toString()
-            { 
-                return "Stable Disease";
-            }},
-                PD{
-                    public String toString()
-                    { 
-                        return "Progressive Disease";
-                    }},
-                        Unknown,Missing;
+
+  
+  CR { public Color getColor() { return Color.GREEN; }
+  	   public String toString() { return "Complete Response"; }},
+  	   
+  PR { public Color getColor() { return Color.YELLOW; }
+       public String toString() {return "Partial Response"; }},
+       
+  SD { public Color getColor() { return Color.BLUE; }
+       public String toString() {return "Stable Disease"; }},
+       
+  PD { public Color getColor() { return Color.RED; }
+       public String toString() { return "Progressive Disease";}},
+       
+  Unknown { public Color getColor() { return Color.GRAY; }},
+  
+  Missing { public Color getColor() { return Color.GRAY; }};
+  
   /**
    * This method displays only the permissiable values for display purposes
    *
@@ -53,5 +51,7 @@ public enum ClinicalResponseType implements Serializable{
       }
       return displayValues;
   }
+  
+  public abstract Color getColor();
   
 }
