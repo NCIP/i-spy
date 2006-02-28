@@ -18,7 +18,9 @@ import gov.nih.nci.caintegrator.enumeration.MultiGroupComparisonAdjustmentType;
 import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
 import gov.nih.nci.caintegrator.enumeration.StatisticalSignificanceType;
+import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.security.UserCredentials;
+import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.ISPYClassComparisonQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
@@ -27,6 +29,7 @@ import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
@@ -134,14 +137,14 @@ public class ClassComparisonAction extends DispatchAction {
         ClassComparisonQueryDTO classComparisonQueryDTO = createClassComparisonQueryDTO(classComparisonForm,sessionId);
         
         
-//        ISPYFindingsFactory factory = new ISPYFindingsFactory();
-//        Finding finding = null;
-//        try {
-//            finding = factory.createClassComparisonFinding(classComparisonQueryDTO,sessionId,classComparisonQueryDTO.getQueryName());
-//        } catch (FrameworkException e) {
-//            e.printStackTrace();
-//        }
-//        
+        ISPYFindingsFactory factory = new ISPYFindingsFactory();
+        Finding finding = null;
+        try {
+            finding = factory.createClassComparisonFinding(classComparisonQueryDTO,sessionId,classComparisonQueryDTO.getQueryName());
+        } catch (FrameworkException e) {
+            e.printStackTrace();
+        }
+        
         return mapping.findForward("viewResults");
     }
     
@@ -160,51 +163,81 @@ public class ClassComparisonAction extends DispatchAction {
     private ClassComparisonQueryDTO createClassComparisonQueryDTO(ClassComparisonForm classComparisonQueryForm, String sessionId){
 
         ISPYClassComparisonQueryDTO classComparisonQueryDTO = (ISPYClassComparisonQueryDTO)ApplicationFactory.newQueryDTO(QueryType.CLASS_COMPARISON_QUERY);
-        classComparisonQueryDTO.setQueryName(classComparisonQueryForm.getAnalysisResultName());
+        classComparisonQueryDTO.setQueryName(classComparisonQueryForm.getAnalysisResultName());        
+        List<ClinicalQueryDTO> clinicalQueryCollection = new ArrayList<ClinicalQueryDTO>();        
         
-        String[] mySelectedGroups = classComparisonQueryForm.getSelectedGroups();
-        
-        List<ClinicalQueryDTO> clinicalQueryCollection = new ArrayList<ClinicalQueryDTO>();
-        
-        
-        /**TODO decide how to set timepoints and groups into one "set" method?
-         *    if fixed timepoints selected
-         *      2 groups are needed for comparison, with one being the baseline clinical group
-         *      baseline timepoint will be set to whatever value fixed timepoint is.
-         *      one clinical group is sent with the tp and then the other with the same tp.
-         *    if across timepoints selected
-         *      one or more groups can be used for comparison with NO baseline clinical group
-         *      baseline timepoint is set to first value and comparison timepoint is set to other value
-         *      selected groups are both sent with each timepoint.
-         *      
-         *      convert timepoints to timepoint types
-         *      convert groups???
-         *      -KR
-         */
-        /*Create the clinical query DTO collection from the selected groups in the form
+       
+        /**Create the clinical query DTO collection from the selected groups in the form
          * and the timepoints..either fixed or across. Set these querys in the class
          * comparison dto for groups to compare-
+         * 
+         * NOTE: Many comments as this is a long process. The workflow is as follows--
+         *  1)If the user decides to use a fixed timepoint:
+         *      -Cycle through the "selected groups"(e.g. - Complete Response, Partial Response, 
+         *       etc), making as many ispyClinicalQueryDTOs as there are "selected groups". As we
+         *       cycle through the groups, we decide which "type" the current, selected
+         *       group is part of, and add values to their respective EnumSets accordingly.
+         *       We then add to the QueryDTO all of the EnumSets and their selected types. 
+         *       Finally we add this QueryDTO to the QueryDTOCollection.
+         *      
+         *      -We set the timepoint of BOTH QueryDTOs the same, fixed value(e.g. T1).
+         *      
+         *      -Once the loop is completed, we add the QueryDTOCollection, with its 2
+         *       QueryDTOs to the ClassComparisonQueryDTO to be sent to the strategy.
+         *   
+         *   2)If the user decides to compare across timepoints:
+         *      -Cycle through the "selected groups"(e.g. - Complete Response, Partial Response, 
+         *       etc), making as many ispyClinicalQueryDTOs as there are "selected groups". As we
+         *       cycle through the groups, we decide which "type" the current, selected
+         *       group is part of, and add values to their respective EnumSets accordingly. These
+         *       EnumSets will be used twice, once for each QueryDTO we create.
+         *       
+         *      -We create 2 QueryDTOs. We set the baseline timepoint value to one and add
+         *       the EnumSets we created above. Then we set the comparison timepoint to the other 
+         *       and add the SAME EnumSets to it. In this way, the comparison is based on the timepoint
+         *       selection and NOT the "selected groups" selection. We add each to 
+         *       the queryDTOCollection.
+         *       
+         *      -We add the QueryDTOCollection, with its 2
+         *       QueryDTOs to the ClassComparisonQueryDTO to be sent to the strategy.
+         * 
+         * 
          * -KR
          */
-        if(classComparisonQueryForm.getTimepointRange().equals("fixed") && mySelectedGroups.length == 2){           
-            
-            for (int i = 0;i<mySelectedGroups.length;i++){
+        if(classComparisonQueryForm.getTimepointRange().equals("fixed") && classComparisonQueryForm.getSelectedGroups().length == 2){           
+            for (int i = 0;i<classComparisonQueryForm.getSelectedGroups().length;i++){
+                /*
+                 * instantiate blank EnumSets
+                 */
                 EnumSet<TimepointType> timepoints = EnumSet.noneOf(TimepointType.class);
                 EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
                 EnumSet<DiseaseStageType> diseaseStages = EnumSet.noneOf(DiseaseStageType.class);
                 EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
                 EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
                 EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
-                ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTO = new ISPYclinicalDataQueryDTO();
-                TimepointType fixedTimepoint;
-                String fixedTimepointString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointBaseFixed(),TimepointType.values());
-                if(fixedTimepointString!=null){
-                    fixedTimepoint = TimepointType.valueOf(fixedTimepointString);
-                    timepoints.add(fixedTimepoint);
-                }
-                ispyClinicalDataQueryDTO.setTimepointValues(timepoints);           
                 
-                String[] uiDropdownString = mySelectedGroups[i].split("#");
+                ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTO = new ISPYclinicalDataQueryDTO();
+                
+                /*
+                 * set timepoints
+                 */
+                TimepointType fixedTimepointBase;//timepoint for both queryDTOs        
+                String fixedTimepointString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointBaseFixed(),TimepointType.values());
+                    if(fixedTimepointString!=null){
+                        fixedTimepointBase = TimepointType.valueOf(fixedTimepointString);
+                        timepoints.add(fixedTimepointBase);
+                    }
+                    if(i==1){//the second group is always baseline
+                        ispyClinicalDataQueryDTO.setBaseline(true);
+                    }
+                ispyClinicalDataQueryDTO.setTimepointValues(timepoints); 
+                
+                
+                /*
+                 * parse the selected groups, create the appropriate EnumType and add it
+                 * to its respective EnumSet
+                 */
+                String[] uiDropdownString = classComparisonQueryForm.getSelectedGroups()[i].split("#");
                 String myClassName = uiDropdownString[0];
                 String myValueName = uiDropdownString[1];
                 
@@ -231,39 +264,97 @@ public class ClassComparisonAction extends DispatchAction {
                 ispyClinicalDataQueryDTO.setPrStatusValues(prStatus);
                 clinicalQueryCollection.add(ispyClinicalDataQueryDTO);
             }
+            /*
+             * set the QueryDTO in the collection and move on to the next one
+             */
             classComparisonQueryDTO.setComparisonGroups(clinicalQueryCollection);
         }
         
-        else if(classComparisonQueryForm.getTimepointRange().equals("across") && classComparisonQueryForm.getSelectedGroups().length == 2){
+        else if(classComparisonQueryForm.getTimepointRange().equals("across")){
+            TimepointType acrossTimepointBase;
+            TimepointType timepointComparison;
             
+            /*
+             * instantiate blank EnumSets
+             */
+            EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
+            EnumSet<DiseaseStageType> diseaseStages = EnumSet.noneOf(DiseaseStageType.class);
+            EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
+            EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
+            EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
+            EnumSet<TimepointType> timepointsBase = EnumSet.noneOf(TimepointType.class); 
+            EnumSet<TimepointType> timepointsComp = EnumSet.noneOf(TimepointType.class);
+           
+            /*
+             * parse the selected groups, create the appropriate EnumType and add it
+             * to its respective EnumSet. Do this once as the same EnumSets are used
+             * in both QueryDTOs.
+             */
+            for (int i = 0;i<classComparisonQueryForm.getSelectedGroups().length; i++){
+                    String[] uiDropdownString = classComparisonQueryForm.getSelectedGroups()[i].split("#");
+                    String myClassName = uiDropdownString[0];
+                    String myValueName = uiDropdownString[1];
+                    
+                    Enum myType = EnumHelper.createType(myClassName,myValueName);
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
+                        clinicalResponses.add((ClinicalResponseType) myType);
+                    }
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
+                        diseaseStages.add((DiseaseStageType) myType);
+                    }
+                    if (myType.getClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
+                        erStatus.add((ERstatusType) myType);
+                    }
+                    if (myType.getClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
+                        her2Status.add((HER2statusType) myType);
+                    }
+                    if (myType.getClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
+                        prStatus.add((PRstatusType) myType);
+                    } 
+                }
+               
+               /*
+                * create the basline QueryDTO
+                */
+               ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTOBase = new ISPYclinicalDataQueryDTO();
+               String acrossTimepointBaseString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointBaseAcross(),TimepointType.values());
+                        if(acrossTimepointBaseString!=null){
+                            acrossTimepointBase = TimepointType.valueOf(acrossTimepointBaseString);
+                            timepointsBase.add(acrossTimepointBase);
+                        }
+               ispyClinicalDataQueryDTOBase.setBaseline(true);                       
+               ispyClinicalDataQueryDTOBase.setTimepointValues(timepointsBase); 
+               ispyClinicalDataQueryDTOBase.setClinicalResponseValues(clinicalResponses);
+               ispyClinicalDataQueryDTOBase.setDiseaseStageValues(diseaseStages);
+               ispyClinicalDataQueryDTOBase.setErStatusValues(erStatus);
+               ispyClinicalDataQueryDTOBase.setHer2StatusValues(her2Status);
+               ispyClinicalDataQueryDTOBase.setPrStatusValues(prStatus);
+               clinicalQueryCollection.add(ispyClinicalDataQueryDTOBase);
+                
+               /*
+                * create the comparison QueryDTO
+                */
+               ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTOComparison = new ISPYclinicalDataQueryDTO();
+               String timepointComparisonString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointComparison(),TimepointType.values());
+               if(timepointComparisonString!=null){
+                    timepointComparison = TimepointType.valueOf(timepointComparisonString);
+                    timepointsComp.add(timepointComparison);
+               }
+               ispyClinicalDataQueryDTOComparison.setTimepointValues(timepointsComp); 
+               ispyClinicalDataQueryDTOComparison.setClinicalResponseValues(clinicalResponses);
+               ispyClinicalDataQueryDTOComparison.setDiseaseStageValues(diseaseStages);
+               ispyClinicalDataQueryDTOComparison.setErStatusValues(erStatus);
+               ispyClinicalDataQueryDTOComparison.setHer2StatusValues(her2Status);
+               ispyClinicalDataQueryDTOComparison.setPrStatusValues(prStatus);
+               clinicalQueryCollection.add(ispyClinicalDataQueryDTOComparison);
+                
+               /*
+                * add both QueryDTOs to the classComparisonQueryDTO
+                */
+               classComparisonQueryDTO.setComparisonGroups(clinicalQueryCollection);            
         }
         
         
-        /*Create the clinical query DTO collection from the selected groups in the form
-        List<ClinicalQueryDTO> clinicalQueryCollection = new ArrayList<ClinicalQueryDTO>();
-        
-            if(classComparisonQueryForm.getSelectedGroups() != null && classComparisonQueryForm.getSelectedGroups().length == 2 ){
-                SampleBasedQueriesRetriever sampleBasedQueriesRetriever = new SampleBasedQueriesRetriever();
-            	
-                ClinicalDataQuery clinicalDataQuery = null;
-            	
-                for(int i=0; i<classComparisonQueryForm.getSelectedGroups().length; i++){
-                    
-                    //lets ensure the that the baseline is added last
-                    if(!classComparisonQueryForm.getSelectedGroups()[i].equals(classComparisonQueryForm.getBaselineGroup()))	{
-                    	clinicalDataQuery = sampleBasedQueriesRetriever.getQuery(sessionId, classComparisonQueryForm.getSelectedGroups()[i]);
-                        //add logic to if there is no predefined query.. use the given samples from the user
-                        	
-                    	//bag and construct a clinical query to add into the collection
-                        clinicalQueryCollection.add(clinicalDataQuery);
-                    }  
-                }
-                //now process the baseline
-            	clinicalDataQuery = sampleBasedQueriesRetriever.getQuery(sessionId, classComparisonQueryForm.getBaselineGroup());
-            	clinicalQueryCollection.add(clinicalDataQuery);
-
-                classComparisonQueryDTO.setComparisonGroups(clinicalQueryCollection);
-            }*/
         
         //Create the foldChange DEs
        

@@ -20,6 +20,8 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	private static final long serialVersionUID = 1L;
 
 	private String queryName;
+    
+    private boolean isBaseline = false;
 	
 	private EnumSet<TimepointType> timepointValues = EnumSet.noneOf(TimepointType.class);
 	
@@ -110,5 +112,21 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	public String getQueryName() {
 	  return queryName;
 	}
+
+
+    /**
+     * @return Returns the isBaseline.
+     */
+    public boolean isBaseline() {
+        return isBaseline;
+    }
+
+
+    /**
+     * @param isBaseline The isBaseline to set.
+     */
+    public void setBaseline(boolean isBaseline) {
+        this.isBaseline = isBaseline;
+    }
 
 }
