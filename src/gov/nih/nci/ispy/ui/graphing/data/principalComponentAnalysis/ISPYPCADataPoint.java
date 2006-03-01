@@ -117,10 +117,10 @@ public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 	   StringBuffer sb = new StringBuffer();
 	   
 	   sb.append(getSampleId() + " ");
-	   sb.append("Timepoint: " + this.getTimepoint() + " ");
-	   sb.append("ClinicalResponse: " + this.getClinicalResponse() + " ");
-	   sb.append("DiseaseStage: " + this.getDiseaseStage() + " ");
-	   sb.append("TumorMRIpctChange: " + this.getTumorMRIpctChange());
+	   sb.append(getTimepoint() + " ");
+	   sb.append("CR: " +getClinicalResponse() + " ");
+	   sb.append("DS: " + getDiseaseStage() + " ");
+	   sb.append("MRI_%: " + getTumorMRIpctChange());
 		
 	   return sb.toString();
 	}
