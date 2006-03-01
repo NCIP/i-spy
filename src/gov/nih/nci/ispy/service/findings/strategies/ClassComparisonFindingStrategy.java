@@ -31,10 +31,15 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
+import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +51,7 @@ import javax.naming.OperationNotSupportedException;
 import org.apache.log4j.Logger;
 
 /**
- * @author sahnih
+ * @author sahnih, harrismic
  *
  */
 
@@ -115,7 +120,7 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 	//@SuppressWarnings("unused")
 	//private Collection<ClinicalDataQuery> clinicalQueries;
 	//@SuppressWarnings({"unchecked"})
-	private Collection<SampleGroup> sampleGroups = new ArrayList<SampleGroup>(); 
+	private List<SampleGroup> sampleGroups = new ArrayList<SampleGroup>(); 
 	private Collection<SampleIDDE> samplesNotFound = new HashSet<SampleIDDE>(); 
 	private String sessionId;
 	private String taskId;
@@ -191,11 +196,34 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 		return false;
 	}
 
+	
+	
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.caintegrator.service.findings.strategies.FindingStrategy#executeQuery()
 	 * this methods queries the database to get back sample Ids for the groups
 	 */
 	public boolean executeQuery() throws FindingsQueryException {
+		
+		
+		List<ClinicalQueryDTO> clinicalQueries = myQueryDTO.getComparisonGroups();
+		
+		Set<String> labtrackIds = new HashSet<String>();
+		ClinicalFileBasedQueryService qs = ClinicalFileBasedQueryService.getInstance();
+		
+		for (ClinicalQueryDTO cq : clinicalQueries) {
+		  ISPYclinicalDataQueryDTO icq = (ISPYclinicalDataQueryDTO) cq;
+		  //labtrackIds.addAll(qs.getLabtrackIds(icq));
+		  SampleGroup sg = new SampleGroup(icq.getQueryName());
+		  sg.addAll(qs.getLabtrackIds(icq));
+		  
+		  if (icq.isBaseline()) {
+		    classComparisonRequest.setBaselineGroup(sg);
+		  }
+		  else {
+		    classComparisonRequest.setGroup1(sg);
+		  }
+		}
+		
 //		if(clinicalQueries != null){
 //		CompoundQuery compoundQuery;
 //			    for (ClinicalDataQuery clinicalDataQuery: clinicalQueries){
@@ -282,13 +310,14 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 					//Covert ArrayPlatform String to Enum -Himanso 10/15/05
 						classComparisonRequest.setArrayPlatform(myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()); 
 
-					// set SampleGroups
-                    Object[] obj = sampleGroups.toArray();
-					//SampleGroup[] sampleGroupObjects =  (SampleGroup[]) sampleGroups.toArray();				
-					if (obj.length >= 2) {
-						classComparisonRequest.setGroup1((SampleGroup)obj[0]);
-						classComparisonRequest.setBaselineGroup((SampleGroup)obj[1]);
-					}
+//					// set SampleGroups
+//                    Object[] obj = sampleGroups.toArray();
+//					//SampleGroup[] sampleGroupObjects =  (SampleGroup[]) sampleGroups.toArray();				
+//					if (obj.length >= 2) {
+//						classComparisonRequest.setGroup1((SampleGroup)obj[0]);
+//						classComparisonRequest.setBaselineGroup((SampleGroup)obj[1]);
+//					}
+						
 					// set PvalueThreshold
 					classComparisonRequest.setPvalueThreshold(myQueryDTO.getStatisticalSignificanceDE().getValueObject());
                     analysisServerClientManager.sendRequest(classComparisonRequest);
