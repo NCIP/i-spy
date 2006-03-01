@@ -2,14 +2,12 @@ package gov.nih.nci.ispy.ui.graphing.chart.plot;
 
 
 import gov.nih.nci.caintegrator.ui.graphing.data.DataRange;
-import gov.nih.nci.caintegrator.ui.graphing.data.clinical.ClinicalDataPoint;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint.PCAcomponent;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
-
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -217,21 +215,30 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	  LegendItem item = null;
 	    
 	  //Rect=survival less than 10 months
-	  item = new LegendItem("% Tumor reduction (MRI): Unknown", null, null, null, new Rectangle2D.Double(0,0,8,8), Color.BLACK);
+	  item = new LegendItem("Tumor size change (MRI): Unknown", null, null, null, new Rectangle2D.Double(0,0,8,8), Color.BLACK);
 	  legendSrc.addLegendItem(item);
 	  
-	  //Triangle if data if survival data is missing
-	  GeneralPath triangle = new GeneralPath();
-//	  triangle.moveTo(1.0f,0.0f);
-//	  triangle.moveTo(0.0f,1.0f);
-//	  triangle.moveTo(1.0f,1.0f);
-	  triangle.moveTo(0.0f, -4.0f);
-	  triangle.lineTo(4.0f, 4.0f);
-	  triangle.lineTo(-4.0f, 4.0f);
-	  triangle.closePath();
-	  //triangle.closePath();
-	  item = new LegendItem("% Tumor reduction (MRI): < 30%", null, null, null, triangle, Color.BLACK);
+	 
+	  GeneralPath downtriangle = new GeneralPath();
+	  downtriangle.moveTo(-4.0f, -4.0f);
+	  downtriangle.lineTo(4.0f, -4.0f);
+	  downtriangle.lineTo(0.0f, 4.0f);
+	  downtriangle.closePath();
+	  item = new LegendItem("Tumor size reduced by 30% or more (MRI)", null, null, null, downtriangle, Color.BLACK);
 	  legendSrc.addLegendItem(item);  
+	  
+	  item = new LegendItem("Tumor size reduced less than 30% or no change (MRI)", null, null, null,new Ellipse2D.Double(0,0,8,8) , Color.BLACK);
+	  legendSrc.addLegendItem(item);  
+	  
+	  
+	  GeneralPath uptriangle = new GeneralPath();
+	  uptriangle.moveTo(0.0f, -4.0f);
+	  uptriangle.lineTo(4.0f, 4.0f);
+	  uptriangle.lineTo(-4.0f, 4.0f);
+	  uptriangle.closePath();
+	  item = new LegendItem("Tumor size increased (MRI)", null, null, null, uptriangle, Color.BLACK);
+	  legendSrc.addLegendItem(item);
+	  
 	  
 	  if (colorBy == ISPYPCAcolorByType.CLINICALRESPONSE) {
 	    
@@ -283,22 +290,40 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	    
 	    if ((mriPctChange <= -30.0)&&(mriPctChange > -99999999.0)) {
 
-         //tumor shrank by more than 30%
+         //tumor shrank by more than 30% (down arrow)
          GeneralPath gp = new GeneralPath();
 		 float xf = (float)x;
 	     float yf = (float)y;
 	      //make a triangle
 	     gp.moveTo(xf,yf);
-	     gp.lineTo(xf+3.0f,yf-3.0f);
-	     gp.lineTo(xf-3.0f,yf-3.0f);
+	     gp.lineTo(xf-3.0f,yf+3.0f);
+	     gp.lineTo(xf+3.0f,yf+3.0f);
 	     gp.closePath();
 	     glyphShape = gp;
 	    }
-	    else if (mriPctChange > -30.0) {
-	      //tumor did not shrink by 30 % or more
+	    else if ((mriPctChange > 0.0)&&(mriPctChange < 99999999.0)) {
+	      //tumor size increased (up arrow)
+
+	      GeneralPath gp = new GeneralPath();
+		  float xf = (float)x;
+		  float yf = (float)y;
+	      //make a triangle
+	      gp.moveTo(xf,yf);
+	      gp.lineTo(xf+3.0f,yf-3.0f);
+	      gp.lineTo(xf-3.0f,yf-3.0f);
+	      gp.closePath();
+	      glyphShape = gp;
+	      	
+//	      Ellipse2D.Double circle = new Ellipse2D.Double();
+//	      circle.setFrameFromCenter(x,y, x+2, y+2);
+	      
+	    }
+	    else if ((mriPctChange > -30.0) && (mriPctChange <= 0.0)) {
+	      //no change or reduction in tumor size but less than 30% reduction
 	      Ellipse2D.Double circle = new Ellipse2D.Double();
-	      circle.setFrameFromCenter(x,y, x+2, y+2);
-	      glyphShape = circle;
+	      circle.setFrameFromCenter(x,y,x+2,y+2);
+	      glyphShape = circle;	
+	    	
 	    }
 	    else  if ((mriPctChange > 99999999.0)||(mriPctChange < -99999999.0)){
 	      //data is missing
