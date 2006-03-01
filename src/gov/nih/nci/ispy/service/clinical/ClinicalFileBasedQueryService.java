@@ -313,26 +313,38 @@ public class ClinicalFileBasedQueryService {
 	
 		Set<TimepointType> timepoints = cDTO.getTimepointValues();
 		Set<String> labtrackIds = new HashSet<String>();
+		Boolean executedQuery = false;
+		
 		for (TimepointType tp:timepoints) {
+			executedQuery = false;
 		  
-			if (cDTO.getClinicalResponseValues()!= null) {
+			if ((cDTO.getClinicalResponseValues()!= null)&&(!cDTO.getClinicalResponseValues().isEmpty())) {
 		      labtrackIds.addAll(getLabtrackIdsForClinicalResponse(tp,cDTO.getClinicalResponseValues()));
+		      executedQuery = true;
 		    }
 			
-			if (cDTO.getDiseaseStageValues() != null) {
+			if ((cDTO.getDiseaseStageValues() != null)&&(!cDTO.getDiseaseStageValues().isEmpty())) {
 			  labtrackIds.addAll(getLabtrackIdsForDiseaseStage(tp,cDTO.getDiseaseStageValues()));
+			  executedQuery = true;
 			}
 			
-			if (cDTO.getErStatusValues() != null) {
+			if ((cDTO.getErStatusValues() != null)&&(!cDTO.getErStatusValues().isEmpty())) {
 			  labtrackIds.addAll(getLabtrackIdsForERstatus(tp, cDTO.getErStatusValues()));
+			  executedQuery = true;
 			}
 			
-			if (cDTO.getHer2StatusValues() != null) {
+			if ((cDTO.getHer2StatusValues() != null)&&(!cDTO.getHer2StatusValues().isEmpty())) {
 			  labtrackIds.addAll(getLabtrackIdsForHER2status(tp, cDTO.getHer2StatusValues()));
+			  executedQuery = true;
 			}
 			
-			if (cDTO.getPrStatusValues() != null) {
-			  labtrackIds.addAll(getLabtrackIdsForPRstatus(tp, cDTO.getPrStatusValues()));			
+			if ((cDTO.getPrStatusValues() != null)&&(!cDTO.getPrStatusValues().isEmpty())) {
+			  labtrackIds.addAll(getLabtrackIdsForPRstatus(tp, cDTO.getPrStatusValues()));		
+			  executedQuery = true;
+			}
+			
+			if (!executedQuery) {
+			  labtrackIds.addAll(getLabtrackIdsForTimepoint(tp));
 			}
 				
 		}
