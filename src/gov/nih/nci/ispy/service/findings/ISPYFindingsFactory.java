@@ -26,6 +26,7 @@ import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.PrincipalComponentAnalysisFindingStrategy;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 
 import org.apache.log4j.Logger;
@@ -95,7 +96,7 @@ import org.apache.log4j.Logger;
 
 public class ISPYFindingsFactory implements FindingsFactory {
 	private static Logger logger = Logger.getLogger(ISPYFindingsFactory.class);
-	private BusinessTierCache cacheManager = (BusinessTierCache) ApplicationContext.getApplicationService("BUSINESS_TIER_CACHE");
+	private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
 
 
 	/* (non-Javadoc)
