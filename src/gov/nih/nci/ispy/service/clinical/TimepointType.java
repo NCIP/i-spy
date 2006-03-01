@@ -65,9 +65,9 @@ import java.util.List;
 
 public enum TimepointType implements Serializable {
 	T1 { public Color getColor() { return Color.GREEN; }},
-	T2 { public Color getColor() { return Color.GREEN; }},
-	T3 { public Color getColor() { return Color.GREEN; }},
-	T4 { public Color getColor() { return Color.GREEN; }};
+	T2 { public Color getColor() { return Color.YELLOW; }},
+	T3 { public Color getColor() { return Color.RED; }},
+	T4 { public Color getColor() { return Color.BLUE; }};
 	
 	public abstract Color getColor();
 }
