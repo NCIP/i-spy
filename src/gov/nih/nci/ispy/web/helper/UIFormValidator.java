@@ -83,12 +83,31 @@ public class UIFormValidator {
 		return errors;
 	}
     
-    public static ActionErrors validateSelectedGroups(String[] selectedGroups, ActionErrors errors){
-        if (selectedGroups == null || selectedGroups.length != 2){
-            errors.add("selectedGroups", new ActionError(
-                    "gov.nih.nci.nautilus.ui.struts.form.groups.more.error"));
-        }
-       
+    public static ActionErrors validateSelectedGroups(String[] selectedGroups, String timepointRange, String timepointBaseAcross, String timepointComparison, ActionErrors errors){
+            if(timepointRange.equalsIgnoreCase("fixed")){
+                if (selectedGroups == null || selectedGroups.length != 2){
+                    errors.add("selectedGroups1", new ActionError(
+                            "gov.nih.nci.nautilus.ui.struts.form.groups.two.error"));
+                }
+                String[] comparisonGroup = selectedGroups[0].split("#");
+                String comparisonClass = comparisonGroup[0];
+                String[] baselineGroup = selectedGroups[1].split("#");
+                String baselineClass = baselineGroup[0];
+                if(!comparisonClass.equals(baselineClass)){
+                    errors.add("selectedGroups2", new ActionError(
+                    "gov.nih.nci.nautilus.ui.struts.form.groups.class.error")); 
+                }
+            }
+            else if(timepointRange.equalsIgnoreCase("across")){
+                if (selectedGroups == null || selectedGroups.length < 1){
+                    errors.add("selectedGroups3", new ActionError(
+                            "gov.nih.nci.nautilus.ui.struts.form.groups.more.error"));
+                }
+                if (timepointBaseAcross.equals(timepointComparison)){
+                    errors.add("timepoints", new ActionError(
+                    "gov.nih.nci.nautilus.ui.struts.form.timepoints.same.error"));
+                }
+            }
 
         return errors;
     }

@@ -14,7 +14,7 @@ import java.awt.Color;
  */
 public enum DiseaseStageType implements Serializable {
 
-	II_All { public Color getColor() { return Color.YELLOW; }
+	II_ALL { public Color getColor() { return Color.YELLOW; }
 	         public String toString() { return "Stage 2_All";}},
 	         
 	II_A { public Color getColor() { return Color.ORANGE; }
@@ -23,7 +23,7 @@ public enum DiseaseStageType implements Serializable {
 	II_B { public Color getColor() { return Color.GREEN; }
 	       public String toString() { return "Stage 2_B";}},
 	
-	III_All { public Color getColor() { return Color.RED; }
+	III_ALL { public Color getColor() { return Color.RED; }
 	          public String toString() { return "Stage 3_All"; }},
 	
 	III_A { public Color getColor() { return Color.MAGENTA; }

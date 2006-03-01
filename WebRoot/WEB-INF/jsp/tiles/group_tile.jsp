@@ -35,7 +35,9 @@
 
 <logic:present name="classComparisonForm">
 	<em>choose 2 groups</em>
-	<html:errors property="selectedGroups"/>
+	<html:errors property="selectedGroups1"/>
+	<html:errors property="selectedGroups2"/>
+	<html:errors property="selectedGroups3"/>
 	<table align="center" border="0">
     	<tr style="vertical-align:top">
 		<td>Existing Groups
