@@ -83,23 +83,23 @@ String pcaView = request.getParameter("pcaView")!=null ? (String) request.getPar
 <b>Color By: </b>
 <%
 if(colorBy.equals("ClinicalResponse"))
-	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=ClinicalResponse\">Clinical Response</a>");		
+	out.write("Clinical Response");	
 else
-	out.write("Clinical Response");
+	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=ClinicalResponse\">Clinical Response</a>");	
 	
 out.write("&nbsp; | &nbsp;");
 
 if(colorBy.equals("DiseaseStage"))
-	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=DiseaseStage\">Disease Stage</a>");		
-else
 	out.write("Disease Stage");
+else	
+	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=DiseaseStage\">Disease Stage</a>");	
 	
 out.write("&nbsp; | &nbsp;");
 
 if(colorBy.equals("Timepoint"))
-	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=Timepoint\">Timepoint</a>");		
-else
-	out.write("Timepoint");
+	out.write("Timepoint");	
+else	
+	out.write("<a href=\"pcaReport.do?key="+key+"&pcaView="+pcaView+"&colorBy=Timepoint\">Timepoint</a>");	
 
 %>
 <br/>
