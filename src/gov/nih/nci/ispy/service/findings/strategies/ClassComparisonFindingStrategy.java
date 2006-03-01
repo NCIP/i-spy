@@ -31,6 +31,7 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -121,11 +122,12 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 	private ClassComparisonRequest classComparisonRequest = null;
 	private ClassComparisonFinding classComparisonFinding;
 	private AnalysisServerClientManager analysisServerClientManager;
-	private BusinessTierCache cacheManager = (BusinessTierCache) ApplicationContext.getApplicationService("BUSINESS_TIER_CACHE");
+	private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
 	
 	public ClassComparisonFindingStrategy(String sessionId, String taskId, ClassComparisonQueryDTO queryDTO) throws ValidationException {
 		//Check if the passed query is valid
-		if(validate(queryDTO)){
+		
+		//if(validate(queryDTO)){
 			myQueryDTO = queryDTO;
 			this.sessionId = sessionId;
 			this.taskId = taskId;
@@ -141,7 +143,7 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
                 logger.error(e.getMessage());
                 logger.error(e);
             }
-		}
+		//}
 		/*
 		 * Set the Finding into the cache! YOU HAVE TO DO THIS!
 		 */
