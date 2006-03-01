@@ -1,6 +1,5 @@
 package gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis;
 
-import gov.nih.nci.caintegrator.enumeration.GenderType;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
@@ -117,11 +116,11 @@ public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 		
 	   StringBuffer sb = new StringBuffer();
 	   
-	   sb.append("SampleId: " + this.getSampleId() + "\n");
-	   sb.append("Timepoint: " + this.getTimepoint() + "\n");
-	   sb.append("ClinicalResponse: " + this.getClinicalResponse() + "\n");
-	   sb.append("DiseaseStage: " + this.getDiseaseStage() + "\n");
-	   sb.append("TumorMRIpctChange: " + this.getTumorMRIpctChange() + "\n");
+	   sb.append(getSampleId() + " ");
+	   sb.append("Timepoint: " + this.getTimepoint() + " ");
+	   sb.append("ClinicalResponse: " + this.getClinicalResponse() + " ");
+	   sb.append("DiseaseStage: " + this.getDiseaseStage() + " ");
+	   sb.append("TumorMRIpctChange: " + this.getTumorMRIpctChange());
 		
 	   return sb.toString();
 	}
