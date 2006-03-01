@@ -6,25 +6,19 @@
 	StringBuffer sb = new StringBuffer();
 	
 	if(sampleArray != null && sampleArray.length > 0)	{
-	/*
-		for(int i=0; i<sampleArray.length; i++)	{
-			out.println(sampleArray[i] + "<br/>");
-		}
-	*/	
-		List samples = Arrays.asList(sampleArray);
-		
+		List samples = Arrays.asList(sampleArray);		
 		sb = QuickClinicalReport.quickSampleReport(samples);
 	}
 
 %>
 <html>
-<head>
-	<LINK href="xsl/css.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-<div>
-	<a href="javascript:history.back()">&lt;&lt;&lt;back</a><br/>
-</div>
-	<%= sb.toString() %>
-</body>
+	<head>
+		<link href="xsl/css.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div>
+			<a href="javascript:history.back()">&lt;&lt;&lt;back</a><br/>
+		</div>
+		<%= sb.toString() %>
+	</body>
 </html>
