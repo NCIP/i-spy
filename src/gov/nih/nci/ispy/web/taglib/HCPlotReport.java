@@ -8,6 +8,7 @@ import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.web.reports.quick.QuickClinicalReport;
+import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
 
 import java.util.ArrayList;
@@ -164,16 +165,16 @@ public class HCPlotReport extends TagSupport {
 		
 		if(reporters != null)	{
 			try {
-				List<ReporterResultset> reporterResultsets = GeneExprFileBasedAnnotationService.getInstance().getAnnotationsListForReporters(reporters);
-				for(ReporterResultset reporterResultset: reporterResultsets){
-					if(reporterResultset != null){
+				List<ReporterAnnotation> reporterAnnotations = GeneExprFileBasedAnnotationService.getInstance().getAnnotationsListForReporters(reporters);
+				for(ReporterAnnotation reporterAnnotation: reporterAnnotations){
+					if(reporterAnnotation != null){
 						
 						tr = table.addElement("tr").addAttribute("class", "data");
 						
-						String reporter = reporterResultset.getReporter()!=null ? reporterResultset.getReporter().getValue().toString() : "N/A";
-						td = tr.addElement("td").addText(reporter);
+						//String reporter = reporterAnnotation.getReporter()!=null ? reporterAnnotation.getReporter().getValue().toString() : "N/A";
+						td = tr.addElement("td").addText(reporterAnnotation.getReporterId());
 						//html.append("ReporterID :" +reporterResultset.getReporter().getValue().toString() + "<br/>");
-						Collection<String> geneSymbols = (Collection<String>)reporterResultset.getAssociatedGeneSymbols();
+						Collection<String> geneSymbols = (Collection<String>)reporterAnnotation.getGeneSymbols();
 						String genes = "";
 						if(geneSymbols != null){
 							genes = StringUtils.join(geneSymbols.toArray(), ",");
@@ -181,7 +182,7 @@ public class HCPlotReport extends TagSupport {
 						
 						td = tr.addElement("td").addText(genes);
 						
-						Collection<String> genBank_AccIDS = (Collection<String>)reporterResultset.getAssiciatedGenBankAccessionNos();
+						Collection<String> genBank_AccIDS = (Collection<String>)reporterAnnotation.getGenbankAccessions();
 						String accs = "";
 						if(genBank_AccIDS != null){
 							accs = StringUtils.join(genBank_AccIDS.toArray(), ",");
@@ -189,7 +190,7 @@ public class HCPlotReport extends TagSupport {
 						
 						td = tr.addElement("td").addText(accs);
 						
-						Collection<String> locusLinkIDs = (Collection<String>)reporterResultset.getAssociatedLocusLinkIDs();
+						Collection<String> locusLinkIDs = (Collection<String>)reporterAnnotation.getLocusLinkIds();
 						String ll = "";
 						if(locusLinkIDs != null){
 							ll = StringUtils.join(locusLinkIDs.toArray(), ",");
