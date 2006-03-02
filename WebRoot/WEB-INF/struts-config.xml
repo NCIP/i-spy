@@ -74,6 +74,8 @@
 		<forward name="viewResults" path="/viewResults.do" />
 	</action>
 	
+	<action path="/testReport" forward="/WEB-INF/jsp/ccReport.jsp" />
+	
 	
 	<action path="/principalComponent"
          forward="nautilus.principalComponent" />

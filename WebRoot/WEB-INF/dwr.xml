@@ -6,10 +6,11 @@
     <create creator="new" javascript="Inbox">
       <param name="class" value="gov.nih.nci.caintegrator.application.inbox.QueryInbox"/>
     </create>
-    <!-- 
+    
     <create creator="new" javascript="DynamicReport">
-      <param name="class" value="gov.nih.nci.rembrandt.web.ajax.DynamicReportGenerator"/>
+      <param name="class" value="gov.nih.nci.ispy.web.ajax.DynamicReportGenerator"/>
     </create>
+    <!-- 
     <create creator="new" javascript="UserPreferences">
       <param name="class" value="gov.nih.nci.rembrandt.web.helper.UserPreferencesHelper"/>
     </create>
