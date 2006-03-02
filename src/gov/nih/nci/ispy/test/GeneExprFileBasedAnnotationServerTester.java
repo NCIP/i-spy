@@ -1,8 +1,9 @@
 package gov.nih.nci.ispy.test;
 
+import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
-import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
-import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
+//import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
+import gov.nih.nci.ispy.service.annotation.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,7 +28,10 @@ public class GeneExprFileBasedAnnotationServerTester {
 		
 		GeneExprFileBasedAnnotationService gxannot = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
 		try {
+		  long startTime = System.currentTimeMillis();
 		  gxannot.setAnnotationFile("C:\\eclipse\\workspace\\ispyportal\\WebRoot\\WEB-INF\\data_files\\ispy_gene_annotations.txt");
+		  long elapsedTime = System.currentTimeMillis() - startTime;
+		  System.out.println("elapsed time=" + elapsedTime);
 		}
 		catch (IOException ex) {
 		  ex.printStackTrace(System.out);
@@ -41,7 +45,7 @@ public class GeneExprFileBasedAnnotationServerTester {
 		
 		
 		try {
-		  Map<String, ReporterResultset> gxannotMap = gxannot.getAnnotationsMapForReporters(reporterIds);
+		  Map<String, ReporterAnnotation> gxannotMap = gxannot.getAnnotationsMapForReporters(reporterIds);
 		  dumpMap(gxannotMap);
 		  System.out.println("mapSize=" + gxannotMap.size());
 		}
@@ -51,10 +55,10 @@ public class GeneExprFileBasedAnnotationServerTester {
 
 	}
 	
-	public static void dumpMap(Map<String,ReporterResultset> geneAnnotMap) {
+	public static void dumpMap(Map<String,ReporterAnnotation> geneAnnotMap) {
 	
 		Set<String> keys = geneAnnotMap.keySet();
-		ReporterResultset reporterAnnotation;
+		ReporterAnnotation reporterAnnotation;
 		for (String key:keys) {
 		  reporterAnnotation = geneAnnotMap.get(key);
 		  dumpReporterAnnotation(reporterAnnotation);
@@ -71,26 +75,26 @@ public class GeneExprFileBasedAnnotationServerTester {
 		
 	}
 	
-	private static void dumpReporterAnnotation(ReporterResultset reporterAnnotation) {
-	  System.out.println("ReporterName=" +reporterAnnotation.getReporter().getValue());
+	private static void dumpReporterAnnotation(ReporterAnnotation reporterAnnotation) {
+	  System.out.println("ReporterName=" +reporterAnnotation.getReporterId());
 	  System.out.print("  GeneSymbols:");
-	  dumpStringCollection(reporterAnnotation.getAssociatedGeneSymbols());
+	  dumpStringCollection(reporterAnnotation.getGeneSymbols());
 	  System.out.println();
 	  
 	  System.out.print("  GenbankAcc:");
-	  dumpStringCollection(reporterAnnotation.getAssiciatedGenBankAccessionNos());
+	  dumpStringCollection(reporterAnnotation.getGenbankAccessions());
 	  System.out.println();
 	  
 	  System.out.print("  LocusLink: ");
-	  dumpStringCollection(reporterAnnotation.getAssociatedLocusLinkIDs());
+	  dumpStringCollection(reporterAnnotation.getLocusLinkIds());
 	  System.out.println();
 	  
 	  System.out.print("  Pathways");
-	  dumpStringCollection(reporterAnnotation.getAssociatedPathways());
+	  dumpStringCollection(reporterAnnotation.getPathwayIds());
 	  System.out.println();
 	  
 	  System.out.print("  GO:");
-	  dumpStringCollection(reporterAnnotation.getAssociatedGOIds());
+	  dumpStringCollection(reporterAnnotation.getGOIds());
 	  System.out.println();
 	  System.out.println("=============================");
 	}

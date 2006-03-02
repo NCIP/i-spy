@@ -11,17 +11,20 @@ import java.io.IOException;
 
 import java.util.regex.*;
 
+import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
 import gov.nih.nci.caintegrator.application.util.StringUtils;
 
 import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
-import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
-import gov.nih.nci.caintegrator.dto.de.DatumDE;
+import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
+//import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
+//import gov.nih.nci.caintegrator.dto.de.DatumDE;
 
-public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationService  {
+public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationService {
 
 	private String annotationFileName;  //full path name to the annotation file.
 	private static GeneExprFileBasedAnnotationService instance = null;
-	private Map<String, ReporterResultset> reporterMap = new HashMap<String, ReporterResultset>();
+	//private Map<String, ReporterResultset> reporterMap = new HashMap<String, ReporterResultset>(55000);
+	private Map<String, ReporterAnnotation> reporterMap = new HashMap<String, ReporterAnnotation>(55000);
 	private boolean annotationFileSet = false;
 	
 	
@@ -47,8 +50,10 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	  String locusLinkIdsStr = null;
 	  String pathwaysStr = null;
 	  String goIdsStr = null;
-	  ReporterResultset reporterAnnotation = null;
-	   
+	  //ReporterResultset reporterAnnotation = null;
+	  ReporterAnnotation reporterAnnotation = null; 
+	  
+	  
 	  //Annotation file has the format 
 	  //ReporterName\tGeneSymbol\tGenbankAcc\tLocusLinkId\tPathway\tGO
 	  
@@ -81,21 +86,23 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	    pathwaysStr = matcher.group(5);
 	    goIdsStr = matcher.group(6);
 	   
-	    reporterAnnotation = new ReporterResultset(new DatumDE(DatumDE.PROBESET_ID, reporterName));
+	    reporterAnnotation = new ReporterAnnotation(reporterName);
+	    
+	    //reporterAnnotation = new ReporterResultset(new DatumDE(DatumDE.PROBESET_ID, reporterName));
 	
 	    //System.out.println(">> Setting data for reporter reporterName=" + reporterName);
 	    
 	
 	    geneSymbols = StringUtils.extractTokens(geneSymbolsStr, "\\|");
 	    if (!geneSymbols.isEmpty()) {
-	      reporterAnnotation.setAssociatedGeneSymbols(geneSymbols);
+	      reporterAnnotation.setGeneSymbols(geneSymbols);
 	    }
 	    //System.out.println("   geneSymbols:  " + geneSymbolsStr);
 	    
 	 
 	    genbankAccessions = StringUtils.extractTokens(genbankAccsStr, "\\|");
 	    if (!genbankAccessions.isEmpty()) {
-	      reporterAnnotation.setAssiciatedGenBankAccessionNos(genbankAccessions);
+	      reporterAnnotation.setGenbankAccessions(genbankAccessions);
 	    }
 	    //System.out.println("    genbankAcc: " + genbankAccsStr);
 	    
@@ -103,7 +110,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	  
 	    locusLinkIds = StringUtils.extractTokens(locusLinkIdsStr, "\\|");
 	    if (!locusLinkIds.isEmpty()) {
-	      reporterAnnotation.setAssociatedLocusLinkIDs(locusLinkIds);
+	      reporterAnnotation.setLocusLinkIds(locusLinkIds);
 	    }
 	    //System.out.println("   locusLinkIds: " + locusLinkIdsStr);
 	    
@@ -111,7 +118,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	  
 	    pathways = StringUtils.extractTokens(pathwaysStr, "\\|");
 	    if (!pathways.isEmpty()) {
-	      reporterAnnotation.setAssociatedPathways(pathways);
+	      reporterAnnotation.setPathwayIds(pathways);
 	    }
 	    //System.out.println("   pathwaysStr: " + pathwaysStr);
 	    
@@ -119,7 +126,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	
 	    goIds = StringUtils.extractTokens(goIdsStr, "\\|");
 	    if (!goIds.isEmpty()) {
-	      reporterAnnotation.setAssociatedGOIds(goIds);
+	      reporterAnnotation.setGOIds(goIds);
 	    }
 	    //System.out.println("  goIdsStr: " + goIdsStr);
 	    
@@ -133,7 +140,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	}
 	
 	
-	@Override
+
 	public static GeneExprAnnotationService getInstance() {
 		
 	  if (instance == null) {
@@ -142,17 +149,17 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	  return instance;
 	}
 
-	@Override
-	public Map<String, ReporterResultset> getAnnotationsMapForReporters(List<String> reporterIDs) throws Exception {
+
+	public Map<String, ReporterAnnotation> getAnnotationsMapForReporters(List<String> reporterIDs) throws Exception {
 		
 		if (!annotationFileSet) {
 		  throw new IllegalStateException("Must call setAnnotationFile() before calling getAnnotationsMapForReporters().");
 		}
 		
-		Map<String, ReporterResultset> returnMap = new HashMap<String, ReporterResultset>();
+		Map<String, ReporterAnnotation> returnMap = new HashMap<String, ReporterAnnotation>();
 		
 	
-		ReporterResultset reporterAnnotation;
+		ReporterAnnotation reporterAnnotation;
 		for (String reporterId: reporterIDs) {
 		  reporterAnnotation = reporterMap.get(reporterId);
 		  
@@ -165,16 +172,16 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 		return returnMap;
 	}
 
-	public List<ReporterResultset> getAnnotationsListForReporters(List<String> reporterIDs) throws Exception {
+	public List<ReporterAnnotation> getAnnotationsListForReporters(List<String> reporterIDs) throws Exception {
 		
 		if (!annotationFileSet) {
 		  throw new IllegalStateException("Must call setAnnotationFile() before calling getAnnotationsMapForReporters().");
 		}
 		
-		List<ReporterResultset> returnList = new ArrayList<ReporterResultset>();
+		List<ReporterAnnotation> returnList = new ArrayList<ReporterAnnotation>();
 		
 	
-		ReporterResultset reporterAnnotation;
+		ReporterAnnotation reporterAnnotation;
 		for (String reporterId: reporterIDs) {
 		  reporterAnnotation = reporterMap.get(reporterId);
 		  
