@@ -1,11 +1,13 @@
 package gov.nih.nci.ispy.util;
 
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.util.PropertyLoader;
 import gov.nih.nci.ispy.cache.ISPYContextListener;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +19,6 @@ import java.io.*;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -139,10 +140,17 @@ public class ApplicationContext{
 		   analysisServerClientManager.setMessagingProperties(messagingProps);
 		   
 		   //create the file based annotation service
-		   //GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
+		   logger.info("Initializing GeneExprAnnotationService");
+		   long startTime = System.currentTimeMillis();
+		   GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
 		   String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
-		   //gxAnnotService.setAnnotationFile(annotFileName);
-		   //analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
+		   gxAnnotService.setAnnotationFile(annotFileName);
+		   analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
+		   
+		   long elapsedTime = System.currentTimeMillis() - startTime;
+		   logger.info("Finished initializing GeneExprAnnotationService time=" + elapsedTime);
+		   
+		   
 		   analysisServerClientManager.establishQueueConnection();
 		   
 		} catch (NamingException e) {
