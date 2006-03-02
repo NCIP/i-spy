@@ -42,7 +42,7 @@
 
   <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;">Help</div>
 
-  <div style="background-color: #ffffff"><img src="images/smallHead.jpg" /></div>
+  <div style="background-color: #ffffff"><img src="images/ispyPortalHeader.gif" /></div>
   <p align="center" style="background:red; color:#ffffff; font-size:12px; font-weight:bold;"><xsl:value-of select="$statusMsg" /></p>
  
    <xsl:for-each select="Report">
@@ -163,7 +163,8 @@
 			</form>
 		</div>
 	  
-			<div class="filterForm">
+	  
+			<div class="filterForm" style="display:none">
 				<b><span class="lb">Select Reporters:</span></b> 
 				<xsl:text>&#160;</xsl:text>
 				<input type="text" size="30" id="tmp_prb_queryName" name="tmp_prb_queryName" value="{$key}" />
@@ -188,7 +189,7 @@
 			 	<a href="#" onclick="javascript:A_clearTmpReporters(); return false;" onmouseover="javascript:return showHelp('Clear these reporters');" onmouseout="return nd();">[clear reporters]</a>
 			 	
 		  	</div>
-	 
+
 	  
 	  <div class="pageControl" style="padding-bottom:1px;margin-bottom:0px;">
 	  <!-- <xsl:value-of select="$recordCount" /> records returned. -->
@@ -306,7 +307,7 @@
 		      					<a href="#" onclick="javascript:spawnAnnot('gene', this); return false;"><xsl:value-of select="Data"/></a>
 		      				</xsl:when>
 		      				<xsl:when test="($styleclass = 'reporter' or $styleclass = 'cytoband') and $theData != '-'">
-		      						<input type="checkbox" class="checkorradio" id="tmpReporter" name="tmpReporter" value="{$theData}" onclick="javascript:A_saveTmpReporter(this);" /><a href="#" onclick="javascript:spawnAnnot('reporterFromCC',this); return false;"><xsl:value-of select="Data"/></a>	
+		      					<!-- 	<input type="checkbox" class="checkorradio" id="tmpReporter" name="tmpReporter" value="{$theData}" onclick="javascript:A_saveTmpReporter(this);" /> --><a href="#" onclick="javascript:spawnAnnot('reporterFromCC',this); return false;"><xsl:value-of select="Data"/></a>	
 		      				</xsl:when>
 			      			<xsl:when test="$class = 'sample'">
 			      				<xsl:variable name="sample" select="Data"  />
