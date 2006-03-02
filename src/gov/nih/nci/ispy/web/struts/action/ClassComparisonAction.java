@@ -248,13 +248,13 @@ public class ClassComparisonAction extends DispatchAction {
                 if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
                     diseaseStages.add((DiseaseStageType) myType);
                 }
-                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
                     erStatus.add((ERstatusType) myType);
                 }
-                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
                     her2Status.add((HER2statusType) myType);
                 }
-                if (myType.getClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
                     prStatus.add((PRstatusType) myType);
                 } 
                 ispyClinicalDataQueryDTO.setClinicalResponseValues(clinicalResponses);
@@ -302,13 +302,13 @@ public class ClassComparisonAction extends DispatchAction {
                     if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
                         diseaseStages.add((DiseaseStageType) myType);
                     }
-                    if (myType.getClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
                         erStatus.add((ERstatusType) myType);
                     }
-                    if (myType.getClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
                         her2Status.add((HER2statusType) myType);
                     }
-                    if (myType.getClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
                         prStatus.add((PRstatusType) myType);
                     } 
                 }
