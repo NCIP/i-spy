@@ -212,7 +212,7 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 		
 		for (ClinicalQueryDTO cq : clinicalQueries) {
 		  ISPYclinicalDataQueryDTO icq = (ISPYclinicalDataQueryDTO) cq;
-		  //labtrackIds.addAll(qs.getLabtrackIds(icq));
+
 		  SampleGroup sg = new SampleGroup(icq.getQueryName());
 		  sg.addAll(qs.getLabtrackIds(icq));
 		  
