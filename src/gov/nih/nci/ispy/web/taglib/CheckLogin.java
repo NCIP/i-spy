@@ -1,17 +1,15 @@
-package gov.nih.nci.ispy.web.helper;
+package gov.nih.nci.ispy.web.taglib;
 
+import gov.nih.nci.ispy.util.ispyConstants;
 
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionError;
-import org.apache.struts.action.ActionErrors;
+import java.io.IOException;
 
-/**
- * @author BauerD 
- * Dec 15, 2004 
- * This class is used to validate input fields from the UI
- *  
- */
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.TagSupport;
 
+import org.apache.struts.config.ModuleConfig;
 
 /**
 * caIntegrator License
@@ -70,58 +68,75 @@ import org.apache.struts.action.ActionErrors;
 * 
 */
 
-public class UIFormValidator {
-    private static Logger logger = Logger.getLogger(UIFormValidator.class);
-    
-   
-	public static ActionErrors validateQueryName(String queryName,
-			ActionErrors errors) {
-		if ((queryName == null || queryName.length() < 1)) {
-			errors.add("analysisResultName", new ActionError(
-					"gov.nih.nci.nautilus.ui.struts.form.analysisResultName.no.error"));
-		}
-		return errors;
-	}
-    
-    public static ActionErrors validateSelectedGroups(String[] selectedGroups, String timepointRange, String timepointBaseAcross, String timepointComparison, ActionErrors errors){
-            if(timepointRange.equalsIgnoreCase("fixed")){
-                if (selectedGroups == null || selectedGroups.length != 2){
-                    errors.add("selectedGroups1", new ActionError(
-                            "gov.nih.nci.nautilus.ui.struts.form.groups.two.error"));
-                    return errors;
-                }
-                String[] comparisonGroup = selectedGroups[0].split("#");
-                String comparisonClass = comparisonGroup[0];
-                String[] baselineGroup = selectedGroups[1].split("#");
-                String baselineClass = baselineGroup[0];
-                if(!comparisonClass.equals(baselineClass)){
-                    errors.add("selectedGroups2", new ActionError(
-                    "gov.nih.nci.nautilus.ui.struts.form.groups.class.error")); 
-                }
-            }
-            else if(timepointRange.equalsIgnoreCase("across")){
-                if (timepointBaseAcross.equals(timepointComparison)){
-                    errors.add("timepoints", new ActionError(
-                    "gov.nih.nci.nautilus.ui.struts.form.timepoints.same.error"));
-                }
-                if (selectedGroups == null || selectedGroups.length < 1){
-                    errors.add("selectedGroups3", new ActionError(
-                            "gov.nih.nci.nautilus.ui.struts.form.groups.no.error"));
-                    return errors;
-                }
-                
-            }
 
-        return errors;
+public final class CheckLogin extends TagSupport
+{
+
+    public CheckLogin()
+    {
+        name = "logged";
+        page = "/index.jsp";
     }
-    
-    public static ActionErrors validateHCTimepoints(String[] timepoints,
-            ActionErrors errors) {
-        if ((timepoints == null || timepoints.length < 1)) {
-            errors.add("timepoints", new ActionError(
-                    "gov.nih.nci.nautilus.ui.struts.form.timepoints.no.error"));
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getPage()
+    {
+        return page;
+    }
+
+    public void setPage(String page)
+    {
+        this.page = page;
+    }
+
+    public int doStartTag()
+        throws JspException
+    {
+        return 0;
+    }
+
+    public int doEndTag()
+        throws JspException
+    {
+        boolean valid = false;
+        HttpSession session = pageContext.getSession();
+        if(session != null && session.getAttribute("logged")!=null && session.getAttribute("logged").equals("yes"))
+            valid = true;
+        if(valid)
+            return 6;
+        //ModuleConfig config = (ModuleConfig)pageContext.getServletContext().getAttribute("org.apache.struts.action.MODULE");
+        try
+        {
+          pageContext.forward(page);
         }
-        return errors;
+        catch(ServletException e)
+        {
+            throw new JspException(e.toString());
+        }
+        catch(IOException e)
+        {
+            throw new JspException(e.toString());
+        }
+        return 5;
     }
-    
+
+    public void release()
+    {
+        
+        super.release();
+        name = "test";
+        page = "/index.jsp";
+    }
+
+    private String name;
+    private String page;
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" %>
-<%@ taglib uri="/WEB-INF/rembrandt.tld" prefix="app" %>
+<%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <%@ page buffer="none" %>
 <%@ page import="gov.nih.nci.caintegrator.application.cache.*" %>
 

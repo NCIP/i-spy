@@ -2,8 +2,7 @@
 <%@ taglib uri="/WEB-INF/struts-tiles.tld" prefix="tiles" %>
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
-
-
+<%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <%
 /*
  *		this is the main tiles template for the form based pages

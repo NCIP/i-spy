@@ -29,7 +29,7 @@ public class ClinicalGroupRetriever {
         for (ClinicalResponseType clinicalResponseType : ClinicalResponseType.getDisplayValues()){
             clinicalGroupsCollection.add(new LabelValueBean(clinicalResponseType.toString(),clinicalResponseType.getDeclaringClass().getCanonicalName() + "#" + clinicalResponseType.name()));
         }
-        for (ERstatusType erStatusType : ERstatusType.values()){
+        for (ERstatusType erStatusType : ERstatusType.getDisplayValues()){
             clinicalGroupsCollection.add(new LabelValueBean(erStatusType.toString(),erStatusType.getDeclaringClass().getCanonicalName() + "#" + erStatusType.name()));
         }
         for (PRstatusType prStatusType : PRstatusType.getDisplayValues()){

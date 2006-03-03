@@ -1,10 +1,13 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html" %>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
+<%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <%@ page import="java.util.*, gov.nih.nci.ispy.web.struts.form.*" %> 
 
 
 <fieldset class="gray">
-<legend class="red">Select Group<b class="req">*</b></legend>
+<legend class="red">Select Group<b class="req">*</b>
+<app:help help="If you have chosen to compare groups with ONE fixed timepoint, only move two groups into the selected groups box. Your baseline group will be determined by the second group in the box. If you have chosen to compare groups ACROSS timepoints, you can move as many groups as you wish into the selected groups box. Your baseline group is now determined by the first timepoint you have chosen." />
+</legend>
 
 <logic:present name="principalComponentForm">
 
@@ -34,7 +37,7 @@
 
 
 <logic:present name="classComparisonForm">
-	<em>choose 2 groups</em>
+	<span id="instruction">&nbsp;</span>
 	<html:errors property="selectedGroups1"/>
 	<html:errors property="selectedGroups2"/>
 	<html:errors property="selectedGroups3"/>
@@ -75,12 +78,16 @@
 	var bltag = " (baseline)";
 
 	function initBaseline()	{
-	
+		
 		//assumes two choices only for now
 		var _timepoint = "";
 		if(document.getElementsByName('timepointRange') && document.getElementsByName('timepointRange').length > 0)	{
 			_timepoint = document.getElementsByName('timepointRange')[0].checked ? "fixed" : "across";
 		}
+		
+		//changes instruction text
+		var instruction = (_timepoint == "across") ? "<em>choose one or more groups</em>" : "<em>choose 2 groups</em>";
+		document.getElementById("instruction").innerHTML = instruction;
 					
 		var baseline = lst[lst.length-1];
 		

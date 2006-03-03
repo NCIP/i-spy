@@ -29,11 +29,7 @@
 		<put name="mainForm" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
 	</definition>
 	
-	<definition name="ispy.login" extends="noSidebar">
-		<put name="mainForm" value="/WEB-INF/jsp/tiles/login_tile.jsp" />
-		<put name="title" value="ISPY Post Analysis Portal-Login" />		
-	</definition>
-	
+		
 	<definition name="ispy.analysisHome" extends="baseDef">
 		<put name="title" value="I-SPY High Order Analysis" />
 		<!--  the common criteria  -->

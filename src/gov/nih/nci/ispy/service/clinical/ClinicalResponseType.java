@@ -31,9 +31,9 @@ public enum ClinicalResponseType implements Serializable{
   PD { public Color getColor() { return Color.RED; }
        public String toString() { return "Progressive Disease";}},
        
-  Unknown { public Color getColor() { return Color.GRAY; }},
+  UNKNOWN { public Color getColor() { return Color.GRAY; }},
   
-  Missing { public Color getColor() { return Color.GRAY; }};
+  MISSING { public Color getColor() { return Color.GRAY; }};
   
   /**
    * This method displays only the permissiable values for display purposes
@@ -43,8 +43,8 @@ public enum ClinicalResponseType implements Serializable{
       List<ClinicalResponseType> displayValues = new ArrayList<ClinicalResponseType>();
       ClinicalResponseType[] values = ClinicalResponseType.values();
       for(int i =0; i < values.length; i++){
-          if(!values[i].equals(ClinicalResponseType.Missing) &&
-                  !values[i].equals(ClinicalResponseType.Unknown)){
+          if(!values[i].equals(ClinicalResponseType.MISSING) &&
+                  !values[i].equals(ClinicalResponseType.UNKNOWN)){
               displayValues.add(values[i]);
               
           }

@@ -1,5 +1,4 @@
 <!-- Start Footer Table -->
-<div class="content" style="border-top:1px solid silver;border-bottom:1px solid silver;width:100%">
 	<div style="padding:5px" align="left">
 		<img src="images/caIntegratorLogoPower.png" alt="powered by caIntegrator" />
 	</div>
@@ -14,4 +13,4 @@
 		</tr>
 	</table>
 <!-- End Footer table -->
-</div>
+

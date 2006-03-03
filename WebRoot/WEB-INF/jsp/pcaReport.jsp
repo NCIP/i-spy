@@ -1,5 +1,5 @@
 <%@ page language="java" %>
-<%@ taglib uri="/WEB-INF/rembrandt.tld" prefix="app" %>
+<%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <%@ page buffer="none" %>
 <%@ taglib uri='/WEB-INF/caintegrator-graphing.tld' prefix='graphing' %>
 <%@ taglib uri="/WEB-INF/struts-tiles.tld" prefix="tiles"%>

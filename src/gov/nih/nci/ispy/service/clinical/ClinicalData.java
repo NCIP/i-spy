@@ -264,7 +264,7 @@ public class ClinicalData {
 	public void setClinicalResponseFromString(String responseStr) {
 		
 		if (StringUtils.isEmptyStr(responseStr)) {
-		  setClinicalResponse(ClinicalResponseType.Missing);
+		  setClinicalResponse(ClinicalResponseType.MISSING);
 		}
 		else if (responseStr.length() == 2) {
 		  setClinicalResponse(ClinicalResponseType.valueOf(responseStr));
@@ -276,7 +276,7 @@ public class ClinicalData {
 		  setClinicalResponse(ClinicalResponseType.SD);	
 		}
 		else {
-		  setClinicalResponse(ClinicalResponseType.Unknown);	
+		  setClinicalResponse(ClinicalResponseType.UNKNOWN);	
 		}
 		
 	}

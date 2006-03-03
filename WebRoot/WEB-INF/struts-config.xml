@@ -25,24 +25,21 @@
     <!-- ========== Action Mapping Definitions ============================ -->
     
   <action-mappings>
-  
-   <action path="/loginHome"
-    forward="ispy.login" />
-    
+      
    <action path="/login"
            type="gov.nih.nci.ispy.web.struts.action.LoginAction"
            name="loginForm"
            scope="request"
-           input="ispy.login">
+           input="/index.jsp">
     <forward name="success" path="ispy.analysisHome"/> 
-    <forward name="failure" path="ispy.login"/>    
+    <forward name="failure" path="/index.jsp"/>    
     </action> 
     
     <action path="/logout"
            type="gov.nih.nci.ispy.web.struts.action.LogoutAction"
            scope="request"
            input="ispy.analysisHome">
-    <forward name="logout" path="ispy.login"/>
+    <forward name="logout" path="/index.jsp"/>
     <forward name="dontLogout" path="ispy.analysisHome"/>
     </action>   
     
