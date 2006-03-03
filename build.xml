@@ -1,4 +1,4 @@
-<project name="ispyPortal" default="build_war" basedir=".">
+<project name="ispyPortal" default="build_war_anthill" basedir=".">
 	<property file="build.properties" />
 
 	<!--
@@ -15,6 +15,9 @@
 				</fileset>
 				<fileset dir="${source.nondeploy.lib.dir}">
 					<include name="*.jar"/>
+				</fileset>
+				<fileset dir="${anthill.dependency.artifacts.dir}">
+					<include name="*.jar"/>					
 				</fileset>
 			</classpath>
 		</javac>
@@ -76,18 +79,18 @@
 		This will build the war file and should be used instead of the 
 		build_war_anthill task (which is intended to be used by SCM)
 	-->
-	<target name="build_war" depends="copy_resources">
+	<target name="build_war_anthill" depends="copy_resources">
 		<delete file="${app.war.name}.war"/>
 		<war destfile="${app.war.name}.war" webxml="${webapp.dir}/WEB-INF/web.xml">
 			<fileset file="${webapp.dir}/*.*"/>
-			<zipfileset dir="${webapp.dir}/docs" prefix="docs"/>
+			<!-- <zipfileset dir="${webapp.dir}/docs" prefix="docs"/> need for user manual-->
 			<zipfileset dir="${webapp.dir}/css" prefix="css"/>
 			<zipfileset dir="${webapp.dir}/images" prefix="images"/>
 			<zipfileset dir="${webapp.dir}/js" prefix="js"/>
-			<zipfileset dir="${webapp.dir}/jsp" prefix="jsp"/>
-			<zipfileset dir="${webapp.dir}/log" prefix="log"/>
-			<zipfileset dir="${webapp.dir}/tutorials" prefix="tutorials"/>
-			<zipfileset dir="${webapp.dir}/XSL" prefix="XSL"/>
+			<zipfileset dir="${webapp.dir}/WEB-INF/jsp" prefix="/WEB-INF/jsp"/>
+			<zipfileset dir="${webapp.dir}/WEB-INF/data_files" prefix="/WEB-INF/data_files"/>
+			<!-- <zipfileset dir="${webapp.dir}/tutorials" prefix="tutorials"/> needed for later -->
+			<zipfileset dir="${webapp.dir}/xsl" prefix="xsl"/>
 			<webinf dir="${webapp.dir}/WEB-INF"/>
 		</war>
 	</target>
