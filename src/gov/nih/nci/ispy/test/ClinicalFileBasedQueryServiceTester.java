@@ -33,7 +33,7 @@ public static void main(String[] args) {
 	ClinicalFileBasedQueryService clinicalQS = (ClinicalFileBasedQueryService) ClinicalFileBasedQueryService.getInstance();
 	
 	try {
-	  clinicalQS.setClinicalDataFile("C:\\dev\\ispyportal\\WebRoot\\WEB-INF\\data_files\\ispy_clinical_data_sample.txt");
+	  clinicalQS.setClinicalDataFile("C:\\eclipse\\workspace\\ispyportal\\WebRoot\\WEB-INF\\data_files\\ispy_clinical_data_sample.txt");
 	}
 	catch (IOException ex) {
 	  ex.printStackTrace(System.out);
