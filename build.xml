@@ -37,7 +37,7 @@
 	-->
 	<target name="config_cache">
 		<delete file="src/ehcache.xml"/>
-		<copy file="src/ehcache.xml.templates" tofile="src/ehcache.xml"/>
+		<copy file="src/ehcache.xml.template" tofile="src/ehcache.xml"/>
 		<replaceregexp file="src/ehcache.xml" match="@echache_path@" replace="${jboss.install.dir}server/${jboss.server.name}/tmp/${app.war.name}" flags="g"/>
 	</target>
 	<!--
@@ -60,7 +60,7 @@
 		<copy todir="${build.classes.dir}">
 			<fileset dir="${source.dir}">
 				<include name="*.xml"/>
-				<exclude name="rembrandt-jbossmq-destinations-service.xml"/>
+				<exclude name="ispy-jbossmq-destinations-service.xml"/>
 				<include name="*.properties"/>
 				<include name="*.dtd"/>
 				<include name="*.xsd"/>
@@ -69,7 +69,7 @@
 	</target>
 		
 		<target name="config-jbossmq">
-			<copy file="${source.dir}\rembrandt-jbossmq-destinations-service.xml" todir="${jboss.deploy.dir}"/>
+			<copy file="${source.dir}\ispy-jbossmq-destinations-service.xml" todir="${jboss.deploy.dir}"/>
 		</target>
 	<!--
 		TARGET: build_war
@@ -91,5 +91,4 @@
 			<webinf dir="${webapp.dir}/WEB-INF"/>
 		</war>
 	</target>
-	
 </project>
