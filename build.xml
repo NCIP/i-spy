@@ -52,6 +52,8 @@
 		<delete file="src/jms.properties"/>
 		<copy file="src/jms.properties.template" tofile="src/jms.properties"/>
 		<replaceregexp file="src/jms.properties" match="@JBOSS_URL@" replace="${analytical.jboss.jndi}" flags="g"/>
+		<replaceregexp file="src/jms.properties" match="@ANALYSIS_REQUEST_QUEUE@" replace="${analytical.jms.requestQueue}" flags="g"/>
+		<replaceregexp file="src/jms.properties" match="@ANALYSIS_RESPONSE_QUEUE@" replace="${analytical.jms.responseQueue}" flags="g"/>
 	</target>
 	
 	
