@@ -101,6 +101,8 @@ public class ISPYImageFileHandler {
 			 * out later).  If the expanded archive is not found, then it just sets
 			 * the temp directory to the Context.  
 			 */
+			
+			/*
 			String jbossTempDirPath = System.getProperty("jboss.server.temp.dir");
 	    	String jbossTempDeployDirPath = jbossTempDirPath+SEPERATOR+"deploy"+SEPERATOR;
 	    	File directory = new File(jbossTempDeployDirPath);
@@ -114,6 +116,7 @@ public class ISPYImageFileHandler {
 					}
 				}
 			}
+			*/
 			
 			if(tempDir.equals("")) {
 				tempDir = ISPYContextListener.getContextPath();
