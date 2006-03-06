@@ -8,8 +8,8 @@
 		document.getElementById("statusMsg").innerHTML = "<br/>";
 	}
 </script>
-<script type='text/javascript' src='/ispyportal/dwr/interface/Inbox.js'></script>
-<script type='text/javascript' src='/ispyportal/dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/interface/Inbox.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
 
 
 <span id="statusMsg"><br/></span>

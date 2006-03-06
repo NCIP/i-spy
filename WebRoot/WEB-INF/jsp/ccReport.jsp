@@ -5,7 +5,7 @@
 
 <html>
 	<head>
-		<title>Rembrandt Report</title>
+		<title>ISPY Report</title>
 		<script language="JavaScript" src="js/box/browserSniff.js"></script>
 		
 		<script language="JavaScript" type="text/javascript" src="js/overlib.js"></script>
@@ -20,9 +20,9 @@
 	</head>
 <body>
 
-<script type='text/javascript' src='/ispyportal/dwr/interface/DynamicReport.js'></script>
-<script type='text/javascript' src='/ispyportal/dwr/engine.js'></script>
-<script type='text/javascript' src='/ispyportal/dwr/util.js'></script>
+<script type='text/javascript' src='dwr/interface/DynamicReport.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/util.js'></script>
 
 <%
 
