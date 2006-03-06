@@ -1,5 +1,7 @@
 package gov.nih.nci.ispy.cache;
 
+import java.io.File;
+
 import gov.nih.nci.caintegrator.application.cache.SessionTracker;
 import gov.nih.nci.ispy.util.ApplicationContext;
 import javax.servlet.ServletContext;
@@ -77,14 +79,15 @@ import javax.servlet.ServletContextListener;
 public class ISPYContextListener implements ServletContextListener {
 	private static String contextPath;
 	private static String dataFilesDirectoryPath;
+    private static String SEPERATOR = File.separator;
 	/** 
 	 * this method is fired whenever the application server loads the context
 	 * that this listener is added to in the web.xml
 	 */
 	public void contextInitialized(ServletContextEvent contextEvent) {
 		ServletContext context = contextEvent.getServletContext();
-		contextPath = context.getRealPath("/");
-		dataFilesDirectoryPath = context.getRealPath("/WEB-INF/data_files/");
+		contextPath = context.getRealPath(SEPERATOR);
+		dataFilesDirectoryPath = context.getRealPath(SEPERATOR+"WEB-INF" + SEPERATOR + "data_files" + SEPERATOR);
 		SessionTracker.setAppplicationRunning(true);
 		ApplicationContext.init();
 		

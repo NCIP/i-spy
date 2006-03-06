@@ -60,21 +60,21 @@
 				break;
 			case 3:
 			    //3 is high order analysis
-				simple = "<a href=\"home.do\">Simple Search</a>";
-				adv = "<a href=\"menu.do\">Advanced Search</a>";
+				simple = "<a href=\"#\">Simple Search</a>";
+				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<span>High Order Analysis</span>\n" + analysisSecondary;
 				break;
 			case 4:
 			    //4 is view results
-				simple = "<a href=\"home.do\">Simple Search</a>";
-				adv = "<a href=\"menu.do\">Advanced Search</a>";
+				simple = "<a href=\"#\">Simple Search</a>";
+				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<span>View Results&nbsp;&nbsp;</span>\n";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				break;
 			default:
 				simple = "<span>Simple Search</span>\n" + simpleSecondary;
-				adv = "<a href=\"menu.do\">Advanced Search</a>";
+				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				break;

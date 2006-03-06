@@ -4,6 +4,7 @@ package gov.nih.nci.ispy.web.struts.action;
 import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.struts.form.LoginForm;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -22,6 +23,8 @@ import org.apache.struts.action.ActionMapping;
 public final class LoginAction extends Action
 {
     private static Logger logger = Logger.getLogger(ispyConstants.LOGGER);
+    private static String SEPERATOR = File.separator;
+    
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
@@ -37,7 +40,7 @@ public final class LoginAction extends Action
         FileInputStream fsi = null;
         
 	    try {
-            fsi = new FileInputStream(context.getRealPath("WEB-INF")+"/users.properties"); 
+            fsi = new FileInputStream(context.getRealPath("WEB-INF")+ SEPERATOR + "users.properties"); 
 	        logger.debug("loading props...");
 	   		props.load(fsi);
 	   		logger.debug("props file length: " + props.size());	
