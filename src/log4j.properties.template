@@ -4,12 +4,12 @@
 log4j.threshold=DEBUG
 
 #------------------------------------------------------------------------------
-#This is the default Rembrandt logger and assignes the RembrandtLogger appender
+#This is the default Ispy logger and assignes the IspyLogger appender
 #	Set the level to OFF if you want to just turn off all loggers
 #	but the one specific to your package.
 #------------------------------------------------------------------------------
-log4j.logger.gov.nih.nci.rembrandt=DEBUG,RembrandtLogger
-log4j.logger.gov.nih.nci.caintegrator=DEBUG,RembrandtLogger
+log4j.logger.gov.nih.nci.ispy=DEBUG,IspyLogger
+log4j.logger.gov.nih.nci.caintegrator=DEBUG,IspyLogger
 
 #This is specifying the appender, stdout as a ConsoleAppender
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
@@ -20,25 +20,25 @@ log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 # Pattern to output the caller's file name and line number.
 log4j.appender.stdout.layout.ConversionPattern=%5p [%t] (%F:%L) - %m%n
 
-#Sets the Rembrandt Appender as a RollingFileAppender
-log4j.appender.RembrandtLogger=org.apache.log4j.RollingFileAppender
-log4j.appender.RembrandtXMLLogger=org.apache.log4j.RollingFileAppender
+#Sets the Ispy Appender as a RollingFileAppender
+log4j.appender.IspyLogger=org.apache.log4j.RollingFileAppender
+log4j.appender.IspyXMLLogger=org.apache.log4j.RollingFileAppender
 
 #This must be filtered by the ant build script to set the LOGDIR
-log4j.appender.RembrandtLogger.File=@LOGDIR@/rembrandt.log
-log4j.appender.RembrandtLogger.MaxFileSize=500KB
+log4j.appender.IspyLogger.File=@LOGDIR@/ispy.log
+log4j.appender.IspyLogger.MaxFileSize=500KB
 
-log4j.appender.RembrandtXMLLogger.File=@LOGDIR@/reportXML.log
-log4j.appender.RembrandtXMLLogger.MaxFileSize=500KB
+log4j.appender.IspyXMLLogger.File=@LOGDIR@/IspyReportXML.log
+log4j.appender.IspyXMLLogger.MaxFileSize=500KB
 
 # Keep five backup files
-log4j.appender.RembrandtLogger.MaxBackupIndex=5
-log4j.appender.RembrandtLogger.layout=org.apache.log4j.PatternLayout
-log4j.appender.RembrandtLogger.layout.ConversionPattern=%d %-5p %c - %m%n
+log4j.appender.IspyLogger.MaxBackupIndex=5
+log4j.appender.IspyLogger.layout=org.apache.log4j.PatternLayout
+log4j.appender.IspyLogger.layout.ConversionPattern=%d %-5p %c - %m%n
 
-log4j.appender.RembrandtXMLLogger.MaxBackupIndex=4
-log4j.appender.RembrandtXMLLogger.layout=org.apache.log4j.PatternLayout
-log4j.appender.RembrandtXMLLogger.layout.ConversionPattern=%d %-5p %c - %m%n
+log4j.appender.IspyXMLLogger.MaxBackupIndex=4
+log4j.appender.IspyXMLLogger.layout=org.apache.log4j.PatternLayout
+log4j.appender.IspyXMLLogger.layout.ConversionPattern=%d %-5p %c - %m%n
 
 #------------------------------------------------------------------------
 # Define your specific logger information under here.
@@ -50,34 +50,34 @@ log4j.appender.RembrandtXMLLogger.layout.ConversionPattern=%d %-5p %c - %m%n
 #OJB Logging
 #----------------------------------------------------------------------------------------
 # Logger for PersistenceBrokerImpl class
-log4j.logger.org.apache.ojb.broker.core.PersistenceBrokerImpl=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.core.PersistenceBrokerImpl=WARN,IspyLogger
 
 # Logger for PersistenceBrokerFactory class
-log4j.logger.org.apache.ojb.broker.PersistenceBrokerFactory=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.PersistenceBrokerFactory=WARN,IspyLogger
 
 # Logger for RepositoryXmlHandler, useful for debugging parsing of repository.xml!
-log4j.logger.org.apache.ojb.broker.metadata.RepositoryXmlHandler=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.metadata.RepositoryXmlHandler=WARN,IspyLogger
 
 # Logger for JdbcAccess, useful for debugging JDBC related problems
-log4j.logger.org.apache.ojb.broker.accesslayer.JdbcAccessImpl=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.accesslayer.JdbcAccessImpl=WARN,IspyLogger
 
 # Logger for RsIterator, useful for debugging problems with Object materialization
-log4j.logger.org.apache.ojb.broker.accesslayer.RsIterator=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.accesslayer.RsIterator=WARN,IspyLogger
 
 # Logger for StatementsForClass, useful for debugging JDBC Connection related problems
-log4j.logger.org.apache.ojb.broker.accesslayer.StatementsForClassImpl=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.accesslayer.StatementsForClassImpl=WARN,IspyLogger
 
 # Logger for SqlGenerator, useful for debugging generation of SQL
-log4j.logger.org.apache.ojb.broker.accesslayer.sql.SqlGeneratorDefaultImpl=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.accesslayer.sql.SqlGeneratorDefaultImpl=WARN,IspyLogger
 
 # Logger for RepositoryPersistor
-log4j.logger.org.apache.ojb.broker.metadata.RepositoryPersistor=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.metadata.RepositoryPersistor=WARN,IspyLogger
 
 # Logger for PersistenceBrokerFactoryDefaultImpl
-log4j.logger.org.apache.ojb.broker.core.PersistenceBrokerFactoryDefaultImpl=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.core.PersistenceBrokerFactoryDefaultImpl=WARN,IspyLogger
 
 # Logger for ConnectionFactory
-log4j.logger.org.apache.ojb.broker.accesslayer.ConnectionFactoryAbstractImpl=WARN,RembrandtLogger
+log4j.logger.org.apache.ojb.broker.accesslayer.ConnectionFactoryAbstractImpl=WARN,IspyLogger
 
 #--------------------------------------------------------------
 # Special Logger categories used in test suite and tutorials
@@ -95,4 +95,4 @@ ConfigurableFactory.LogLevel=WARN
 #--------------------------------------------------------------
 # ehCache properties
 #--------------------------------------------------------------
-log4j.logger.net.sf.ehcache=DEBUG,RembrandtLogger
+log4j.logger.net.sf.ehcache=DEBUG,IspyLogger
