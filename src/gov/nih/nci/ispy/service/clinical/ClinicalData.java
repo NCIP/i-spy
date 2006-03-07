@@ -1,5 +1,6 @@
 package gov.nih.nci.ispy.service.clinical;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,10 @@ import gov.nih.nci.caintegrator.application.util.StringUtils;
  *
  */
 
-public class ClinicalData {
+public class ClinicalData implements Serializable{
 
+	
+	private static final long serialVersionUID = 1L;
 	private String patientId;
 	private String labtrackId;
 	private TimepointType timepoint;
