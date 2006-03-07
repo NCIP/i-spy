@@ -322,7 +322,6 @@ public class PrincipalComponentForm extends ActionForm {
      *            request
      */
     public void reset(ActionMapping mapping, HttpServletRequest request) {
-        analysisResultName = "";           
         arrayPlatform = ""; 
         filterType = "default";
       

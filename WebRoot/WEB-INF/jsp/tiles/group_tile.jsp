@@ -37,7 +37,7 @@
 
 
 <logic:present name="classComparisonForm">
-	<span id="instruction">&nbsp;</span>
+	<span id="instruction"><b>&nbsp;</b></span>
 	<html:errors property="selectedGroups1"/>
 	<html:errors property="selectedGroups2"/>
 	<html:errors property="selectedGroups3"/>
@@ -86,7 +86,7 @@
 		}
 		
 		//changes instruction text
-		var instruction = (_timepoint == "across") ? "<em>choose one or more groups</em>" : "<em>choose 2 groups</em>";
+		var instruction = (_timepoint == "across") ? "<em><b>choose one or more groups</b></em>" : "<em><b>choose 2 groups</b></em>";
 		document.getElementById("instruction").innerHTML = instruction;
 					
 		var baseline = lst[lst.length-1];

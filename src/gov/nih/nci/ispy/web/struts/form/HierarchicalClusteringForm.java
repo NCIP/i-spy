@@ -425,7 +425,7 @@ public class HierarchicalClusteringForm extends ActionForm {
      *            request
      */
     public void reset(ActionMapping mapping, HttpServletRequest request) {
-        analysisResultName = "";           
+          
         arrayPlatform = ""; 
        
     }

@@ -87,7 +87,7 @@ public class ClassComparisonForm extends ActionForm {
     
     private String timepointBaseAcross;
     
-    private String timepointComparison;
+    private String timepointComparison = "T2";
     
     private Collection timepointCollection = new ArrayList();
     
@@ -545,7 +545,6 @@ public class ClassComparisonForm extends ActionForm {
      *            request
      */
     public void reset(ActionMapping mapping, HttpServletRequest request) {
-        analysisResultName = "";        
         statistic = "default";        
         comparisonAdjustment = "NONE";        
         foldChange = "list";      
