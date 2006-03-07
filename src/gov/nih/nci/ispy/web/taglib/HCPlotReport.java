@@ -1,20 +1,16 @@
 package gov.nih.nci.ispy.web.taglib;
 
-import gov.nih.nci.caintegrator.enumeration.ClusterByType;
-import gov.nih.nci.caintegrator.service.findings.HCAFinding;
-import gov.nih.nci.caintegrator.application.cache.*;
-
-import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
-import gov.nih.nci.ispy.service.clinical.ClinicalData;
-import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
-import gov.nih.nci.ispy.web.reports.quick.QuickClinicalReport;
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.application.cache.CacheFactory;
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
-import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
+import gov.nih.nci.caintegrator.service.findings.HCAFinding;
+import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
+import gov.nih.nci.ispy.web.reports.quick.QuickClinicalReport;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
