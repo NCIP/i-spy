@@ -95,23 +95,24 @@ public class QuickClinicalReport {
 							td = tr.addElement("td").addText(tmp);
 							
 							//double
-							tmp = String.valueOf(cd.getGrossTumorSizeInCM());
+							tmp = cd.getGrossTumorSizeInCM() != null ? String.valueOf(cd.getGrossTumorSizeInCM()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							//enum
 							tmp = cd.getHER2status() != null ? cd.getHER2status().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
+							
 							//double
-							tmp = String.valueOf(cd.getHer2Value());
+							tmp = cd.getHer2Value() != null ? String.valueOf(cd.getHer2Value()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
-							tmp = String.valueOf(cd.getLongestDiameter());
+							tmp = cd.getLongestDiameter() != null ? String.valueOf(cd.getLongestDiameter()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
-							tmp = String.valueOf(cd.getMicroscopeTumorSizeInCM());
+							tmp = cd.getMicroscopeTumorSizeInCM() != null ? String.valueOf(cd.getMicroscopeTumorSizeInCM()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
-							tmp = String.valueOf(cd.getMRIpctChange());
+							tmp = cd.getMRIpctChange() != null ? String.valueOf(cd.getMRIpctChange()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							tmp = cd.getPatientResponse() != null ? cd.getPatientResponse().toString() : dv;
@@ -120,7 +121,7 @@ public class QuickClinicalReport {
 							tmp = cd.getPrStatus() != null ? cd.getPrStatus().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 							
-							tmp = String.valueOf(cd.getPrValue());
+							tmp = cd.getPrValue() != null ? String.valueOf(cd.getPrValue()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							tmp = cd.getTimepoint() != null ? cd.getTimepoint().toString() : dv;
