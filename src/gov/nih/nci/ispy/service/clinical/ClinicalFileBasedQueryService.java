@@ -177,7 +177,7 @@ public class ClinicalFileBasedQueryService {
 			  if (ds==clinData.getDiseaseStage()) {
 			    labtrackIds.add(labtrackId);
 			  }
-			  else if (ds.name().endsWith("All")) {
+			  else if (ds.name().endsWith("ALL")) {
 			     //check the prefix if it matches then add the labtrackId
 				 String cdDiseaseStage = clinData.getDiseaseStage().name();
 				 String[] cdStgTokens = cdDiseaseStage.split("_");
