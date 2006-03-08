@@ -26,20 +26,20 @@ public class ClinicalData implements Serializable{
 	private TimepointType timepoint;
 	private DiseaseStageType diseaseStage;
 	private ERstatusType erStatus;
-	private double erValue = Double.MIN_VALUE;     //the summary ER score
-	private double prValue = Double.MIN_VALUE;     //the summary PR score
-	private double her2Value = Double.MIN_VALUE;   //the summary HER2 score
+	private Double erValue = null;     //the summary ER score
+	private Double prValue = null;     //the summary PR score
+	private Double her2Value = null;   //the summary HER2 score
 	private PRstatusType prStatus;
 	private HER2statusType HER2status;
 	private ClinicalResponseType clinicalResponse;
-	private double longestDiameter = Double.MIN_VALUE;
+	private Double longestDiameter = null;
 	private String tumorMorphology;
 	private String primaryTumorNuclearGrade;
 	private String primaryTumorHistologyType;
-	private double grossTumorSizeInCM = Double.MIN_VALUE; //Need to check units
-	private double microscopeTumorSizeInCM = Double.MIN_VALUE;
+	private Double grossTumorSizeInCM = null; //Need to check units
+	private Double microscopeTumorSizeInCM = null;
 	private List<String> chemicalAgents = new ArrayList<String>();
-	private double MRIpctChange = Double.MIN_VALUE;  //change in tumor size (measured by MRI) wrt the baseline measurement
+	private Double MRIpctChange = null;  //change in tumor size (measured by MRI) wrt the baseline measurement
 
 
 	public ClinicalData(String labtrackId, String patientId, TimepointType timepoint) {
@@ -129,15 +129,18 @@ public class ClinicalData implements Serializable{
 	}
 
 
-	public double getErValue() {
+	public Double getErValue() {
 		return erValue;
 	}
 
 
-	public void setErValue(double erValue) {
+	public void setErValue(Double erValue) {
 		this.erValue = erValue;
 		
-		if (erValue > 0.0) {
+		if (erValue == null) {
+		  setErStatus(ERstatusType.MISSING);
+		}
+		else if (erValue > 0.0) {
 		  setErStatus(ERstatusType.ER_POS);
 		}
 		else {
@@ -146,25 +149,28 @@ public class ClinicalData implements Serializable{
 	}
 
 
-	public double getGrossTumorSizeInCM() {
+	public Double getGrossTumorSizeInCM() {
 		return grossTumorSizeInCM;
 	}
 
 
-	public void setGrossTumorSizeInCM(double grossTumorSizeInCM) {
+	public void setGrossTumorSizeInCM(Double grossTumorSizeInCM) {
 		this.grossTumorSizeInCM = grossTumorSizeInCM;
 	}
 
 
-	public double getHer2Value() {
+	public Double getHer2Value() {
 		return her2Value;
 	}
 
 
-	public void setHer2Value(double her2Value) {
+	public void setHer2Value(Double her2Value) {
 		this.her2Value = her2Value;
 		
-		if (her2Value > 0.0) {
+		if (her2Value == null) {
+		  setHER2status(HER2statusType.MISSING);
+		}
+		else if (her2Value > 0.0) {
 		  setHER2status(HER2statusType.HER2_POS);
 		}
 		else {
@@ -174,32 +180,32 @@ public class ClinicalData implements Serializable{
 	}
 
 
-	public double getLongestDiameter() {
+	public Double getLongestDiameter() {
 		return longestDiameter;
 	}
 
 
-	public void setLongestDiameter(double longestDiameter) {
+	public void setLongestDiameter(Double longestDiameter) {
 		this.longestDiameter = longestDiameter;
 	}
 
 
-	public double getMicroscopeTumorSizeInCM() {
+	public Double getMicroscopeTumorSizeInCM() {
 		return microscopeTumorSizeInCM;
 	}
 
 
-	public void setMicroscopeTumorSizeInCM(double microscopeTumorSizeInCM) {
+	public void setMicroscopeTumorSizeInCM(Double microscopeTumorSizeInCM) {
 		this.microscopeTumorSizeInCM = microscopeTumorSizeInCM;
 	}
 
 
-	public double getMRIpctChange() {
+	public Double getMRIpctChange() {
 		return MRIpctChange;
 	}
 
 
-	public void setMRIpctChange(double ipctChange) {
+	public void setMRIpctChange(Double ipctChange) {
 		MRIpctChange = ipctChange;
 	}
 
@@ -224,15 +230,18 @@ public class ClinicalData implements Serializable{
 	}
 
 
-	public double getPrValue() {
+	public Double getPrValue() {
 		return prValue;
 	}
 
 
-	public void setPrValue(double prValue) {
+	public void setPrValue(Double prValue) {
 		this.prValue = prValue;
 		
-		if (prValue > 0.0) {
+		if (prValue == null) {
+		  setPrStatus(PRstatusType.MISSING);
+		}
+		else if (prValue > 0.0) {
 		  setPrStatus(PRstatusType.PR_POS);
 		}
 		else {
