@@ -41,7 +41,7 @@ function A_saveTmpReporter_cb(txt)	{
 }
 
 function A_initSaveReporter()	{
-	DynamicReport.saveTmpReporter("", A_initTmpReporter_cb);
+	//DynamicReport.saveTmpReporter("", A_initTmpReporter_cb);
 }
 
 function A_initTmpReporter_cb(txt)	{

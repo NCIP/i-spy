@@ -12,7 +12,7 @@
 	<script language="javascript" src="js/box/browserSniff.js"></script>
 	<script language="javascript" src="js/prototype.js"></script>
 	<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>
-	
+	<script language="javascript" src="js/moveUpDown.js"></script>
 	<script language="javascript" src="js/overlib.js"></script>
 	<script language="javascript" src="js/overlib_hideform.js"></script>
 	
