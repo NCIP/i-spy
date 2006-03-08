@@ -286,9 +286,16 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	    x = pcaPoint.getComponentValue(component1);
 	    y = pcaPoint.getComponentValue(component2);
 	    
-	    double mriPctChange = pcaPoint.getTumorMRIpctChange();
+	    Double mriPctChange = pcaPoint.getTumorMRIpctChange();
 	    
-	    if ((mriPctChange <= -30.0)&&(mriPctChange > -99999999.0)) {
+	    
+	    if (mriPctChange == null) {
+		      //data is missing
+		      Rectangle2D.Double rect = new Rectangle2D.Double();
+			  rect.setFrameFromCenter(x,y, x+2,y+2);
+			  glyphShape = rect;
+		}
+	    else if (mriPctChange <= -30.0) {
 
          //tumor shrank by more than 30% (down arrow)
          GeneralPath gp = new GeneralPath();
@@ -301,7 +308,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	     gp.closePath();
 	     glyphShape = gp;
 	    }
-	    else if ((mriPctChange > 0.0)&&(mriPctChange < 99999999.0)) {
+	    else if (mriPctChange > 0.0) {
 	      //tumor size increased (up arrow)
 
 	      GeneralPath gp = new GeneralPath();
@@ -325,12 +332,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	      glyphShape = circle;	
 	    	
 	    }
-	    else  if ((mriPctChange > 99999999.0)||(mriPctChange < -99999999.0)){
-	      //data is missing
-	      Rectangle2D.Double rect = new Rectangle2D.Double();
-		  rect.setFrameFromCenter(x,y, x+2,y+2);
-		  glyphShape = rect;
-	    }
+	   
 	    
 	    glyphColor = getColorForDataPoint(pcaPoint); 
 	    glyph = new XYShapeAnnotation(glyphShape, new BasicStroke(1.0f), Color.BLACK, glyphColor);
