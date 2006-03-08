@@ -40,12 +40,12 @@
 	<br /><br />
 			<logic:present name="principalComponentForm"> 
 			<html:checkbox styleClass="radio" property="constraintVariance" value="constraintVariance" />Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
-				<input type="text" name="variancePercentile" id="variancePercentile" size="4" value="99"/>&nbsp;&nbsp;%
+				<html:text property="variancePercentile" size="4"/>&nbsp;&nbsp;%
 			</logic:present>
 			
 			<logic:present name="hierarchicalClusteringForm"> 
 			<html:checkbox styleClass="radio" property="constraintVariance" value="constraintVariance" />Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
-				<input type="text" name="variancePercentile" id="variancePercentile" size="4" value="95"/>&nbsp;&nbsp;%
+				<html:text property="variancePercentile" size="4"/>&nbsp;&nbsp;%
 			</logic:present>
 	<br /><br />
 	</div>	

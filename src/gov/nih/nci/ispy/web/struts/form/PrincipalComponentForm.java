@@ -91,7 +91,7 @@ public class PrincipalComponentForm extends ActionForm {
     
     private String analysisResultName = "";    
         
-    private int variancePercentile = 95;
+    private int variancePercentile = 70;
     
     private String filterType = "default";
     

@@ -32,7 +32,7 @@ DIV.content { background-color: #ffffff; width: 768px; padding: 0px; /* border: 
 div.compound {padding: 2px; width: 768px; }
 div.pOptions { margin-left: 30px; width:80%; background: #f9f9f9; padding:5px;}
 
-div.crumb {padding:5px; background: /* #e9e9e9 */ #D5E0E9; text-align:right;}
+div.crumb {padding:5px; background: /* #e9e9e9 */ #C5D1CF; text-align:right;}
 
 .message {color: #000000; text-decoration: none; font-size:10px; font-weight: normal}
 div.message {color: #000000; text-decoration: none; font-size:10px; font-weight: normal; margin-top:8px;}
@@ -60,7 +60,7 @@ div.queryRows	{
 
 .sideBar {
 
- background: /* #F1F5F8 */ /* #e9e9e9 */ #D5E0E9;  
+ background: /* #F1F5F8 */ /* #e9e9e9 */ #C5D1CF;  
  height:100%; 
  vertical-align:top;
  margin-left:0px; 
