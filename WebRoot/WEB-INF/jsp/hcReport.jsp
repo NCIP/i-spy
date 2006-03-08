@@ -58,7 +58,7 @@ function scaleIt(v) {
   var scalePhotos = document.getElementsByClassName('scale-image');
 
   floorSize = .26;
-  ceilingSize = 10.0;
+  ceilingSize = 30.0;
   v = floorSize + (v * (ceilingSize - floorSize));
 
   for (i=0; i < scalePhotos.length; i++) {
@@ -86,7 +86,6 @@ demoSlider.setValue('.1');
 </div>
 <script language="javascript">
 var rbt_image = document.getElementById("rbt_image");
-
 
 function rbt_image_init()	{
 	rbt_image.style.width = "100%";
