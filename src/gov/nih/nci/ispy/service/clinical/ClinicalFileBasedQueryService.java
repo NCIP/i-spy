@@ -92,21 +92,13 @@ public class ClinicalFileBasedQueryService {
 		    
 		    clinicalData.setClinicalResponseFromString(matcher.group(5));
 		    
-		    if (!StringUtils.isEmptyStr(matcher.group(6))) {
-		      clinicalData.setLongestDiameter(Double.parseDouble(matcher.group(6)));
-		    }
-		    
-		    if (!StringUtils.isEmptyStr(matcher.group(7))) {
-		      clinicalData.setErValue(Double.parseDouble(matcher.group(7)));
-		    }
-		    
-		    if (!StringUtils.isEmptyStr(matcher.group(8))) {
-		      clinicalData.setPrValue(Double.parseDouble(matcher.group(8)));
-		    }
-		    
-		    if (!StringUtils.isEmptyStr(matcher.group(9))) {
-		      clinicalData.setHer2Value(Double.parseDouble(matcher.group(9)));
-		    }
+		    clinicalData.setLongestDiameter(StringUtils.getDouble(matcher.group(6)));
+		 
+		    clinicalData.setErValue(StringUtils.getDouble(matcher.group(7)));
+		  
+		    clinicalData.setPrValue(StringUtils.getDouble(matcher.group(8)));
+		   
+		    clinicalData.setHer2Value(StringUtils.getDouble(matcher.group(9)));
 		    
 		    clinicalData.setTumorMorphology(matcher.group(10));
 		    
@@ -115,24 +107,21 @@ public class ClinicalFileBasedQueryService {
 		    clinicalData.setPrimaryTumorNuclearGrade(matcher.group(11));
 		    
 		    clinicalData.setPrimaryTumorHistologyType(matcher.group(12));
+		    		   
+		    clinicalData.setGrossTumorSizeInCM(StringUtils.getDouble(matcher.group(13)));
+		  
+		    clinicalData.setMicroscopeTumorSizeInCM(StringUtils.getDouble(matcher.group(14)));
 		    
-		    if (!StringUtils.isEmptyStr(matcher.group(13))) {
-		      clinicalData.setGrossTumorSizeInCM(Double.parseDouble(matcher.group(13)));
-		    }
-		    
-		    if (!StringUtils.isEmptyStr(matcher.group(14))) {
-		      clinicalData.setMicroscopeTumorSizeInCM(Double.parseDouble(matcher.group(14)));
-		    }
 		    
 		    if (!StringUtils.isEmptyStr(matcher.group(15))) {
 		      List<String> chemAgents = StringUtils.extractTokens(matcher.group(15),"\\|" );
 		      clinicalData.setChemicalAgents(chemAgents);
 		    }
 		    
-		    if (!StringUtils.isEmptyStr(matcher.group(16))) {
-		      clinicalData.setMRIpctChange(Double.parseDouble(matcher.group(16)));
-		    }
-		     
+		
+		    clinicalData.setMRIpctChange(StringUtils.getDouble(matcher.group(16)));
+		    
+		   
 		    clinicalDataMap.put(labtrackId, clinicalData);
 		    
 		    Set<ClinicalData> timepointDataSet= timepointMap.get(clinicalData.getTimepoint());
