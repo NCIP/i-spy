@@ -362,8 +362,16 @@ public class ClassComparisonReport{
 			        cell = null;
 			        cell = dataRow.addElement("Cell").addAttribute("type", "pval").addAttribute("class", "data").addAttribute("group", "data");
 			        	//String pv = (ccre.getPvalue() == null) ? String.valueOf(ccre.getPvalue()) : "N/A";
-			        	BigDecimal bigd = new BigDecimal(ccre.getPvalue());
-			        	data = cell.addElement("Data").addAttribute("type", "header").addText(bigd.toPlainString());
+			        	String pv = defaultV;
+			        	BigDecimal bigd;
+			        	try	{
+			        		bigd = new BigDecimal(ccre.getPvalue());
+			        		pv = bigd.toPlainString();
+			        	}
+			        	catch (Exception e) {
+			        		//missing value
+						}
+			        	data = cell.addElement("Data").addAttribute("type", "header").addText(pv);
 			        	data = null;
 			        cell = null;
 			        cell = dataRow.addElement("Cell").addAttribute("type", "data").addAttribute("class", "data").addAttribute("group", "data");
@@ -399,29 +407,31 @@ public class ClassComparisonReport{
 								ReporterAnnotation ra = (ReporterAnnotation) reporterResultsetMap.get(reporterId);
 								
 								//Collection<String> geneSymbols = (Collection<String>)reporterResultset.getAssiciatedGeneSymbols();
-								List geneSymbols = ra.getGeneSymbols();
-								//if(geneSymbols != null)	
-								//	genes = geneSymbols.toString();
-								
-								if(geneSymbols != null){
-									genes = StringUtils.join(geneSymbols.toArray(), delim);
-								}
-								
-								Collection<String> genBank_AccIDS = (Collection<String>)ra.getGenbankAccessions();
-								if(genBank_AccIDS != null){
-									accIds = StringUtils.join(genBank_AccIDS.toArray(), delim);
-								}
-								Collection<String> locusLinkIDs = (Collection<String>)ra.getLocusLinkIds();
-								if(locusLinkIDs != null){
-									llink = StringUtils.join(locusLinkIDs.toArray(), delim);
-								}
-								Collection<String> goIds = (Collection<String>)ra.getGOIds();
-								if(goIds != null){
-									go = StringUtils.join(goIds.toArray(), delim);
-								}
-								Collection<String> pathways = (Collection<String>)ra.getPathwayIds();
-								if(pathways != null){
-									pw = StringUtils.join(pathways.toArray(), delim);
+								if(ra!=null){
+									List geneSymbols = ra.getGeneSymbols();
+									//if(geneSymbols != null)	
+									//	genes = geneSymbols.toString();
+									
+									if(geneSymbols != null){
+										genes = StringUtils.join(geneSymbols.toArray(), delim);
+									}
+									
+									Collection<String> genBank_AccIDS = (Collection<String>)ra.getGenbankAccessions();
+									if(genBank_AccIDS != null){
+										accIds = StringUtils.join(genBank_AccIDS.toArray(), delim);
+									}
+									Collection<String> locusLinkIDs = (Collection<String>)ra.getLocusLinkIds();
+									if(locusLinkIDs != null){
+										llink = StringUtils.join(locusLinkIDs.toArray(), delim);
+									}
+									Collection<String> goIds = (Collection<String>)ra.getGOIds();
+									if(goIds != null){
+										go = StringUtils.join(goIds.toArray(), delim);
+									}
+									Collection<String> pathways = (Collection<String>)ra.getPathwayIds();
+									if(pathways != null){
+										pw = StringUtils.join(pathways.toArray(), delim);
+									}
 								}
 							}
 	
