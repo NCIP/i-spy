@@ -117,8 +117,8 @@
 			 	</div>
  	
  				<div id="hideme">
-
-					<div class="filterForm">
+				<!-- 
+					<div class="filterForm" style="display:none">
 						<form style="margin-bottom:0;" action="testReport.do?key={$key}" method="post" name="pval_filter_form">
 							<b><span class="lb">Filter:</span></b> 
 							<xsl:text>&#160;</xsl:text>
@@ -136,10 +136,10 @@
 							<input type="submit" name="filter_submit" value="Reset (Show All)" onclick="javascript:document.pval_filter_form.p_pval_filter_value.value='';" />
 						</form>
 					</div>
-		
+		-->
 						
-							  
-		<div class="filterForm">
+			<!-- 				  
+		<div class="filterForm" style="display:none">
 			<form style="margin-bottom:0;" action="testReport.do?key={$key}" method="post" name="highlight_form">
 				<b><span class="lb">Highlight:</span></b> 
 				<xsl:text>&#160;</xsl:text>
@@ -162,7 +162,7 @@
 				<input type="submit" name="filter_submit" value="Clear Highlighting" onclick="javascript:document.highlight_form.p_highlight.value='';" />
 			</form>
 		</div>
-	  
+	  -->
 	  
 			<div class="filterForm" style="display:none">
 				<b><span class="lb">Select Reporters:</span></b> 
