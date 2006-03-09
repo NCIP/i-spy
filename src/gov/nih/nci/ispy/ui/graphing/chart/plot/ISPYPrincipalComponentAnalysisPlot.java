@@ -251,8 +251,10 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	  else if (colorBy == ISPYPCAcolorByType.DISEASESTAGE) {
 		  
 		  for (DiseaseStageType ds : DiseaseStageType.values()) {
-		    item = new LegendItem(ds.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ds.getColor());
-		    legendSrc.addLegendItem(item);
+			if (!ds.name().endsWith("ALL")) {
+		      item = new LegendItem(ds.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ds.getColor());
+		      legendSrc.addLegendItem(item);
+			}
 		  }
 	  }
 	  else if (colorBy == ISPYPCAcolorByType.TIMEPOINT) {
