@@ -198,7 +198,8 @@ function spawnAnnot(type, element)	{
 			annotLink = "http://genome.ucsc.edu/cgi-bin/hgTracks?clade=vertebrate&org=Human&db=hg17&pix=620&hgsid=40518963&Submit=submit&position=";
 		}
 		else if(type == 'reporterFromGene' || type == 'reporterFromCC')	{
-			annotLink = "http://lpgws.nci.nih.gov/cgi-bin/AffyViewer.cgi?st=1&org=1&query=";
+			//annotLink = "http://lpgws.nci.nih.gov/cgi-bin/AffyViewer.cgi?st=1&org=1&query=";
+			annotLink = "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Search&db=Nucleotide&term=";
 		}
 		else	{
 			//annotLink = "http://lpgws.nci.nih.gov/cgi-bin/AffyViewer.cgi?st=1&org=1&query=";

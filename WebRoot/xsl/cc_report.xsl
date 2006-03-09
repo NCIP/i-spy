@@ -291,6 +291,7 @@
 			<xsl:sort select="(Cell[3]/Data) [$p_sort_element = '3'] | (Cell[4]/Data) [$p_sort_element = '4'] | (Cell[1]/Data) [$p_sort_element = '1'] | (Cell[5]/Data) [$p_sort_element = '5'] | (Cell[2]/Data) [$p_sort_element = '2'] | (Cell[1]/Data) [$p_sort_element = '']" order="{$p_sort_method}" data-type="{$dtype}" />
 	
 			<xsl:variable name="pvalue" select="Cell[3]/Data"/>
+			<xsl:variable name="theAcc" select="Cell[6]/Data" />
 
 			<xsl:if test="$p_step + ($p_step * $p_page)>=position() and position() > ($p_page * $p_step)">	
 				
@@ -300,6 +301,8 @@
 		  	  			<xsl:variable name="styleclass" select="@class" />
 		  	  			<xsl:variable name="theData" select="Data"/>
 		  	  			<xsl:variable name="theType" select="@type"/>
+		  	  			
+		  	  			
 		      			<td class="{$class}" id="{$theType}" name="{$theType}">
 						
 		      			<xsl:choose>
@@ -307,7 +310,8 @@
 		      					<a href="#" onclick="javascript:spawnAnnot('gene', this); return false;"><xsl:value-of select="Data"/></a>
 		      				</xsl:when>
 		      				<xsl:when test="($styleclass = 'reporter' or $styleclass = 'cytoband') and $theData != '-'">
-		      					<!-- 	<input type="checkbox" class="checkorradio" id="tmpReporter" name="tmpReporter" value="{$theData}" onclick="javascript:A_saveTmpReporter(this);" /> --><a href="#" onclick="javascript:spawnAnnot('reporterFromCC',this); return false;"><xsl:value-of select="Data"/></a>	
+		      					<!-- 	<input type="checkbox" class="checkorradio" id="tmpReporter" name="tmpReporter" value="{$theData}" onclick="javascript:A_saveTmpReporter(this);" /> -->
+		      					<a href="#{$theAcc}" id="{$theAcc}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>	
 		      				</xsl:when>
 			      			<xsl:when test="$class = 'sample'">
 			      				<xsl:variable name="sample" select="Data"  />
