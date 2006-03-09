@@ -49,7 +49,7 @@
 <script language="javascript">
 	
 	function checkQueryName()	{		
-			alert("yog");
+			//alert("yog");
 			var thisQueryName = document.forms[0].analysisResultName.value;
 			
 			<%
