@@ -1,6 +1,7 @@
-function checkNull(text)
-{
+function checkNull(text){
+	
 	if(text.value == "")	{
+		
 		scroll(0,0);
 		text.focus();
 		text.style.border = "2px solid red";
@@ -8,6 +9,7 @@ function checkNull(text)
 		return false;
 	}
 	else	{
+	alert("yoyo56");
 		return checkQueryName();
 	}
 }

@@ -105,7 +105,7 @@ public class PrincipalComponentForm extends ActionForm {
     
     private String diffExpReporters = "diffExpReporters";
     
-    private String constraintVariance = "constraintVariance";
+    private String constraintVariance = "constrain";
 
 	public PrincipalComponentForm(){
         
@@ -324,6 +324,7 @@ public class PrincipalComponentForm extends ActionForm {
     public void reset(ActionMapping mapping, HttpServletRequest request) {
         arrayPlatform = ""; 
         filterType = "default";
+        
       
     }
 

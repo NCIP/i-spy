@@ -169,9 +169,9 @@ public class PrincipalComponentAction extends DispatchAction {
        principalComponentAnalysisQueryDTO.setTimepoints(timepointTypes);   
         
         //create GeneVectorPercentileDE
-        if(principalComponentForm.getConstraintVariance().equalsIgnoreCase("constraintVariance") && principalComponentForm.getConstraintVariance()!=null){
+        
             principalComponentAnalysisQueryDTO.setGeneVectorPercentileDE(new GeneVectorPercentileDE(new Double(principalComponentForm.getVariancePercentile()),Operator.GE));
-        }
+        
         
         /*create GeneIdentifierDEs by looking in the cache for 
         the specified GeneIdentifierDECollection. The key is 

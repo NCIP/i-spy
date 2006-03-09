@@ -39,12 +39,12 @@
 	<div id="advFilter" style="display:none; margin-left:20px;">
 	<br /><br />
 			<logic:present name="principalComponentForm"> 
-			<html:checkbox styleClass="radio" property="constraintVariance" value="constraintVariance" />Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
+			Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
 				<html:text property="variancePercentile" size="4"/>&nbsp;&nbsp;%
 			</logic:present>
 			
 			<logic:present name="hierarchicalClusteringForm"> 
-			<html:checkbox styleClass="radio" property="constraintVariance" value="constraintVariance" />Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
+			Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
 				<html:text property="variancePercentile" size="4"/>&nbsp;&nbsp;%
 			</logic:present>
 	<br /><br />

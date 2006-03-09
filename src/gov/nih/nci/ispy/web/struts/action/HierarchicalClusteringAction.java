@@ -179,9 +179,8 @@ public class HierarchicalClusteringAction extends DispatchAction {
         
           
          // create GeneVectorPercentileDE
-         if(hierarchicalClusteringForm.getConstraintVariance().equalsIgnoreCase("constraintVariance") && hierarchicalClusteringForm.getConstraintVariance()!=null){
             hierarchicalClusteringQueryDTO.setGeneVectorPercentileDE(new GeneVectorPercentileDE(new Double(hierarchicalClusteringForm.getVariancePercentile()),Operator.GE));
-         }
+        
        
 //        /*create GeneIdentifierDEs by looking in the cache for 
 //        the specified GeneIdentifierDECollection. The key is 

@@ -116,7 +116,7 @@ public class HierarchicalClusteringForm extends ActionForm {
     
     private String diffExpReporters = "diffExpReporters";
     
-    private String constraintVariance = "constraintVariance";
+    private String constraintVariance = "constrain";
 
 	public HierarchicalClusteringForm(){
        
