@@ -9,7 +9,7 @@ function checkNull(text){
 		return false;
 	}
 	else	{
-	alert("yoyo56");
+	
 		return checkQueryName();
 	}
 }
