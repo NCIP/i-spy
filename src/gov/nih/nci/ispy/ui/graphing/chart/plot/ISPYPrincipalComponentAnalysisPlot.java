@@ -184,7 +184,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
         
         maxAbsVal = Math.max(maxAbsVal, pc3AbsMax);
         
-        maxAbsVal = Math.max(150.0, maxAbsVal);
+        maxAbsVal = Math.max(100.0, maxAbsVal);
         
         domainAxis.setAutoRangeIncludesZero(false);
          
@@ -288,11 +288,10 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	    
 	    Double mriPctChange = pcaPoint.getTumorMRIpctChange();
 	    
-	    
 	    if (mriPctChange == null) {
 		      //data is missing
 		      Rectangle2D.Double rect = new Rectangle2D.Double();
-			  rect.setFrameFromCenter(x,y, x+2,y+2);
+			  rect.setFrameFromCenter(x,y, x+1.25,y+1.25);
 			  glyphShape = rect;
 		}
 	    else if (mriPctChange <= -30.0) {
@@ -303,8 +302,8 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	     float yf = (float)y;
 	      //make a triangle
 	     gp.moveTo(xf,yf);
-	     gp.lineTo(xf-3.0f,yf+3.0f);
-	     gp.lineTo(xf+3.0f,yf+3.0f);
+	     gp.lineTo(xf-1.5f,yf+1.5f);
+	     gp.lineTo(xf+1.5f,yf+1.5f);
 	     gp.closePath();
 	     glyphShape = gp;
 	    }
@@ -316,8 +315,8 @@ public class ISPYPrincipalComponentAnalysisPlot {
 		  float yf = (float)y;
 	      //make a triangle
 	      gp.moveTo(xf,yf);
-	      gp.lineTo(xf+3.0f,yf-3.0f);
-	      gp.lineTo(xf-3.0f,yf-3.0f);
+	      gp.lineTo(xf+1.5f,yf-1.5f);
+	      gp.lineTo(xf-1.5f,yf-1.5f);
 	      gp.closePath();
 	      glyphShape = gp;
 	      	
@@ -328,7 +327,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	    else if ((mriPctChange > -30.0) && (mriPctChange <= 0.0)) {
 	      //no change or reduction in tumor size but less than 30% reduction
 	      Ellipse2D.Double circle = new Ellipse2D.Double();
-	      circle.setFrameFromCenter(x,y,x+2,y+2);
+	      circle.setFrameFromCenter(x,y,x+1.25,y+1.25);
 	      glyphShape = circle;	
 	    	
 	    }
