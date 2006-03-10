@@ -909,7 +909,7 @@ function showQueryDetail(selectName){
   
 if(confirm("This will eliminate all data currently entered in the form and will not add a query"))
 {
-location.href='menu.do';
+location.href='analysisHome.do';
 }
 
   
