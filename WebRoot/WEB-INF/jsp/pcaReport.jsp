@@ -16,11 +16,11 @@
 	<script language="JavaScript" src="js/box/browserSniff.js"></script>
 
 <%		
-//   <script type='text/javascript' src='dwr/interface/DynamicReport.js'></script>
+//	<script type='text/javascript' src='dwr/interface/DynamicReport.js'></script>
 //	<script type='text/javascript' src='dwr/engine.js'></script>
 //	<script type='text/javascript' src='dwr/util.js'></script>
  
-//    <script language="JavaScript" src="js/a_saveSamples.js"></script>
+//	<script language="JavaScript" src="js/a_saveSamples.js"></script>
 %> 
 	<script language="JavaScript" src="js/box/x_core.js"></script>
 	<script language="JavaScript" src="js/box/x_event.js"></script>
@@ -149,6 +149,9 @@ else
 
 	function processQuickClinical()	{
 		var f = document.getElementById("quickClinicalWrapper");
+		
+		//quickly clear the node, so we dont get duplicate elements when the back button is used
+		while(f.firstChild) f.removeChild(f.firstChild);
 		
 		if(!f)	{ return; }
 		//set up the form
