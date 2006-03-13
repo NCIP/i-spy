@@ -3,7 +3,9 @@ package gov.nih.nci.ispy.web.reports.quick;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -13,6 +15,14 @@ public class QuickClinicalReport {
 	
 	
 	public static StringBuffer quickSampleReport(List<String> sampleIds){
+		Set set = new HashSet();
+		set.addAll(sampleIds);
+		 
+		if(set.size() < sampleIds.size()) {
+			sampleIds.clear();
+			sampleIds.addAll(set);
+		}
+
 		String dv = "-";
 		StringBuffer html = new StringBuffer();
 		Document document = DocumentHelper.createDocument();
