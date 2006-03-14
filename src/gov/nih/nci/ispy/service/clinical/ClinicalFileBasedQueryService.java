@@ -45,6 +45,7 @@ public class ClinicalFileBasedQueryService {
 		  String line = null;
 		  
 		  ClinicalData clinicalData = null;
+		  int recordCount = 0;
 		   
 		  //Clinical Data file format:
 		  //
@@ -130,10 +131,11 @@ public class ClinicalFileBasedQueryService {
 		      timepointMap.put(clinicalData.getTimepoint(), timepointDataSet);
 		    }
 		    timepointDataSet.add(clinicalData);
-		    
+		    recordCount++;
 		  }
 		  
 		  clinicalDataFileSet = true;
+		  logger.info("Successfully loaded clinicalDataFile=" + clinicalDataFileName + " numRecords=" + recordCount );
 		
 	}
 	
