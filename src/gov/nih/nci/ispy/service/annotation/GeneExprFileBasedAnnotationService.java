@@ -11,11 +11,14 @@ import java.io.IOException;
 
 import java.util.regex.*;
 
+import org.apache.log4j.Logger;
+
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
 import gov.nih.nci.caintegrator.application.util.StringUtils;
 
 import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
+import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 //import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
 //import gov.nih.nci.caintegrator.dto.de.DatumDE;
 
@@ -26,7 +29,8 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	//private Map<String, ReporterResultset> reporterMap = new HashMap<String, ReporterResultset>(55000);
 	private Map<String, ReporterAnnotation> reporterMap = new HashMap<String, ReporterAnnotation>(55000);
 	private boolean annotationFileSet = false;
-	
+	private static Logger logger = Logger.getLogger(GeneExprFileBasedAnnotationService.class);
+
 	
 	private GeneExprFileBasedAnnotationService() {
 		super();
@@ -68,6 +72,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	  List<String> locusLinkIds = null;
 	  List<String> pathways = null;
 	  List<String> goIds = null;
+	  int recordCount = 0;
 	  
 	  while ((line=in.readLine())!= null) {
 	    
@@ -132,10 +137,12 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	    
 	    
 	    reporterMap.put(reporterName, reporterAnnotation);
+	    recordCount++;
 		  
 	  }
 	  
 	  annotationFileSet = true;
+	  logger.info("Successfully loaded gene expression annotation fileName=" + annotationFileName + " recordCount=" + recordCount);
 	  
 	}
 	
