@@ -56,7 +56,7 @@
 	        
 			<logic:present name="principalComponentForm"> 
 			Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
-				<html:text property="variancePercentile" onblur="checkPercentile()" size="4"/>&nbsp;&nbsp;%
+				<html:text styleId="variancePercentile" property="variancePercentile" onblur="checkPercentile()" size="4"/>&nbsp;&nbsp;%
 			</logic:present>
 			
 			<logic:present name="hierarchicalClusteringForm"> 
