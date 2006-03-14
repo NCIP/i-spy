@@ -102,7 +102,8 @@ public class DynamicReportGenerator {
 		ArrayList jobs = session.getAttribute("xmlJobs")!=null ? (ArrayList) session.getAttribute("xmlJobs") : new ArrayList();
 		
 		//only generate XML if its not already cached...leave off for debug
-		if(ptc.getPersistableObjectFromSessionCache(session.getId(), key) == null && !jobs.contains(key))	{
+		//RCL - remove this constraint for now, to avoid caching for tasks with the same key/id
+		//if(ptc.getPersistableObjectFromSessionCache(session.getId(), key) == null && !jobs.contains(key))	{
 			Object o = btc.getObjectFromSessionCache(session.getId(), key);
 			Finding finding = (Finding) o; 
 			//generate the XML and cached it
@@ -110,7 +111,7 @@ public class DynamicReportGenerator {
 			if(!jobs.contains(key))
 				jobs.add(key);
 			session.setAttribute("xmlJobs", jobs);
-		}
+		//}
 		Object ob = ptc.getPersistableObjectFromSessionCache(session.getId(), key);
 		if(ob != null && ob instanceof FindingReportBean)	{
 			try	{
