@@ -143,7 +143,7 @@ public class ApplicationContext{
 		   logger.info("Initializing GeneExprAnnotationService");
 		   long startTime = System.currentTimeMillis();
 		   GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
-		   String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_14MARCH06.txt";
+		   String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
 		   gxAnnotService.setAnnotationFile(annotFileName);
 		   analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
 		   
