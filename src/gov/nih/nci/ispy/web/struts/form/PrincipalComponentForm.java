@@ -91,7 +91,7 @@ public class PrincipalComponentForm extends ActionForm {
     
     private String analysisResultName = "";    
         
-    private int variancePercentile = 70;
+    private float variancePercentile = 70;
     
     private String filterType = "default";
     
@@ -148,14 +148,14 @@ public class PrincipalComponentForm extends ActionForm {
        /**
      * @return Returns the variancePercentile.
      */
-    public int getVariancePercentile() {
+    public float getVariancePercentile() {
         return variancePercentile;
     }
 
     /**
      * @param variancePercentile The variancePercentile to set.
      */
-    public void setVariancePercentile(int variancePercentile) {
+    public void setVariancePercentile(float variancePercentile) {
         this.variancePercentile = variancePercentile;
     }
 

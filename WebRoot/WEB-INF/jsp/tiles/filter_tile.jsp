@@ -37,7 +37,7 @@
 	   //look at percentile make sure it is between 0 and 100
 	   var percentile = document.getElementById("variancePercentile").value;
 	   
-	   if(percentile >= 0 && percentile <=100 && percentile != ""){
+	   if(percentile >= 0 && percentile < 100 && percentile != ""){
 	   	return true;
 	   }
 	   else{

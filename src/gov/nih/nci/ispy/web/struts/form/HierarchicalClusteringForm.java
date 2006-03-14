@@ -100,7 +100,7 @@ public class HierarchicalClusteringForm extends ActionForm {
     
     private Collection linkageMethodCollection = new ArrayList();
     
-    private int variancePercentile = 95;
+    private float variancePercentile = 95;
     
     private String filterType = "default";
     
@@ -230,14 +230,14 @@ public class HierarchicalClusteringForm extends ActionForm {
     /**
      * @return Returns the variancePercentile.
      */
-    public int getVariancePercentile() {
+    public float getVariancePercentile() {
         return variancePercentile;
     }
 
     /**
      * @param variancePercentile The variancePercentile to set.
      */
-    public void setVariancePercentile(int variancePercentile) {
+    public void setVariancePercentile(float variancePercentile) {
         this.variancePercentile = variancePercentile;
     }
 
