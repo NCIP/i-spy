@@ -14,6 +14,14 @@
 <html>
 	<head>
 		<link href="xsl/css.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/stripeScript.js"></script>
+		<script type="text/javascript">
+		
+			window.onload = function()	{
+				Stripe.stripe('reportTable');
+			};
+		
+		</script>
 	</head>
 	<body>
 		<div>
