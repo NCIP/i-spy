@@ -2,6 +2,12 @@ package gov.nih.nci.ispy.web.reports.quick;
 
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
+import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ERstatusType;
+import gov.nih.nci.ispy.service.clinical.HER2statusType;
+import gov.nih.nci.ispy.service.clinical.PRstatusType;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.HashSet;
 import java.util.List;
@@ -74,16 +80,16 @@ public class QuickClinicalReport {
 							String sid = cd.getLabtrackId()!=null  ? cd.getLabtrackId() : dv;
 							td = tr.addElement("td").addText(sid);
 							
-							String dis = cd.getDiseaseStage() != null ? cd.getDiseaseStage().toString() : dv;
+							String dis = cd.getDiseaseStage() != null && cd.getDiseaseStage() != DiseaseStageType.MISSING ? cd.getDiseaseStage().toString() : dv;
 							td = tr.addElement("td").addText(dis);
 
 							tmp = cd.getLabtrackId() != null ? cd.getLabtrackId().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 							
-							tmp = cd.getPrimaryTumorHistologyType() != null ? cd.getPrimaryTumorHistologyType().toString() : dv;
+							tmp = cd.getPrimaryTumorHistologyType() != null && !cd.getPrimaryTumorHistologyType().trim().equals("")? cd.getPrimaryTumorHistologyType().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 
-							tmp = cd.getPrimaryTumorNuclearGrade() != null ? cd.getPrimaryTumorNuclearGrade().toString() : dv;
+							tmp = cd.getPrimaryTumorNuclearGrade() != null && !cd.getPrimaryTumorNuclearGrade().trim().equals("") ? cd.getPrimaryTumorNuclearGrade().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							tmp = cd.getTumorMorphology() != null ? cd.getTumorMorphology().toString() : dv;
@@ -94,10 +100,10 @@ public class QuickClinicalReport {
 							td = tr.addElement("td").addText(tmp);
 							
 							//this ones an enum?
-							tmp = cd.getClinicalResponse() != null ? cd.getClinicalResponse().toString() : dv;
+							tmp = cd.getClinicalResponse() != null && cd.getClinicalResponse() != ClinicalResponseType.MISSING ? cd.getClinicalResponse().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 							//enum
-							tmp = cd.getErStatus() != null ? cd.getErStatus().toString() : dv;
+							tmp = cd.getErStatus() != null && cd.getErStatus() != ERstatusType.MISSING ? cd.getErStatus().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							//double
@@ -109,7 +115,7 @@ public class QuickClinicalReport {
 							td = tr.addElement("td").addText(tmp);
 							
 							//enum
-							tmp = cd.getHER2status() != null ? cd.getHER2status().toString() : dv;
+							tmp = cd.getHER2status() != null && cd.getHER2status() != HER2statusType.MISSING ? cd.getHER2status().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							//double
@@ -125,10 +131,10 @@ public class QuickClinicalReport {
 							tmp = cd.getMRIpctChange() != null ? String.valueOf(cd.getMRIpctChange()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
-							tmp = cd.getPatientResponse() != null ? cd.getPatientResponse().toString() : dv;
+							tmp = cd.getPatientResponse() != null && cd.getPatientResponse() != ClinicalResponseType.MISSING ? cd.getPatientResponse().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 							
-							tmp = cd.getPrStatus() != null ? cd.getPrStatus().toString() : dv;
+							tmp = cd.getPrStatus() != null && cd.getPrStatus() != PRstatusType.MISSING ? cd.getPrStatus().toString() : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							tmp = cd.getPrValue() != null ? String.valueOf(cd.getPrValue()) : dv;
