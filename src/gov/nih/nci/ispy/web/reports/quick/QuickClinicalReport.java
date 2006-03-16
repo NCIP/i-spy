@@ -107,7 +107,7 @@ public class QuickClinicalReport {
 							td = tr.addElement("td").addText(tmp);
 							
 							//double
-							tmp = String.valueOf(cd.getErValue()).length() > 0 ? String.valueOf(cd.getErValue()) : dv;
+							tmp = cd.getErValue() != null && String.valueOf(cd.getErValue()).length() > 0 ? String.valueOf(cd.getErValue()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							//double
