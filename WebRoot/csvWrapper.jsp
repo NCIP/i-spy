@@ -13,7 +13,7 @@ String key = request.getParameter("key")!=null ? (String) request.getParameter("
 	if(key != null)	{
 	
 		String csv = "";
-	
+		long randomness = System.currentTimeMillis();
 		PresentationTierCache ptc = CacheFactory.getPresentationTierCache();
 		FindingReportBean frb = (FindingReportBean) ptc.getPersistableObjectFromSessionCache(session.getId(), key);
 		if(frb!=null && frb.getFinding()!=null)	{
@@ -36,7 +36,7 @@ String key = request.getParameter("key")!=null ? (String) request.getParameter("
 			
 				//generate the CSV
 				response.setContentType("application/csv");
-				response.setHeader("Content-Disposition", "attachment; filename=report.csv");
+				response.setHeader("Content-Disposition", "attachment; filename=report_"+randomness+".csv");
 				try{	
 					//ReportGeneratorHelper.renderReport(request, xmlDocument,"csv.xsl",out);
 					out.println(ReportGeneratorHelper.renderReport(new HashMap(), xmlDocument,"csv.xsl"));
