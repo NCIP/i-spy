@@ -46,7 +46,7 @@ public class QuickClinicalReport {
 					Element tr = null;
 					Element td = null;
 					tr = table.addElement("tr").addAttribute("class", "header");
-					td = tr.addElement("td").addAttribute("class", "header").addText("Sample ID");
+					td = tr.addElement("td").addAttribute("class", "header").addText("Patient DID");
 					td = tr.addElement("td").addAttribute("class", "header").addText("Disease");
 
 					td = tr.addElement("td").addAttribute("class", "header").addText("LabTrack ID");
@@ -77,7 +77,7 @@ public class QuickClinicalReport {
 							tr = table.addElement("tr").addAttribute("class", "data");
 							
 							String tmp = "";
-							String sid = cd.getLabtrackId()!=null  ? cd.getLabtrackId() : dv;
+							String sid = cd.getPatientId()!=null  ? cd.getPatientId() : dv;
 							td = tr.addElement("td").addText(sid);
 							
 							String dis = cd.getDiseaseStage() != null && cd.getDiseaseStage() != DiseaseStageType.MISSING ? cd.getDiseaseStage().toString() : dv;
