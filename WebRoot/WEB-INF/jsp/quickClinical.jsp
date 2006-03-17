@@ -9,6 +9,9 @@
 		List samples = Arrays.asList(sampleArray);		
 		sb = QuickClinicalReport.quickSampleReport(samples);
 	}
+	else	{
+		sb.append("<br/><br/><b>No Samples Selected.  Please click back, and then select some samples.</b><br/>");
+	}
 
 %>
 <html>
