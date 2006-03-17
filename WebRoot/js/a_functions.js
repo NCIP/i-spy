@@ -36,9 +36,9 @@ function A_checkSingleFindingStatus(taskId, sessionId)	{
 function A_checkFindingStatus_cb(tasks)	{
 	//looking for an assoc array arr[taskId]=arr[status, time]
 	var vr_alldone = true;
-	
+
 	for(key in tasks)	{
-		
+			
 		var curElTime = document.getElementById(key+"_time");
 		var curEl = document.getElementById(key+"_status");
 		var curElImg = document.getElementById(key+"_image");
@@ -54,6 +54,7 @@ function A_checkFindingStatus_cb(tasks)	{
 				}
 			}
 			else if(tasks[key]["status"] == 'error')	{
+			
 				//its done, see if the innerhtml already says done	
 				if(curEl.innerHTML.indexOf('error') == -1)	{
 					var comments = "Unspecified Error";
