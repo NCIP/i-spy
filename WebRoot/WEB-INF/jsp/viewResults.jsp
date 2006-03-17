@@ -9,6 +9,7 @@
 <%@ page import="gov.nih.nci.caintegrator.application.cache.*" %>
 <%@ page import="gov.nih.nci.caintegrator.service.findings.*" %>
 <%@ page import="gov.nih.nci.caintegrator.enumeration.*" %>
+<%@ page import="gov.nih.nci.caintegrator.exceptions.*" %>
 <%@ page import="org.apache.commons.lang.StringEscapeUtils" %>
 
 <script language="javascript">
@@ -124,11 +125,19 @@ String helpLinkClose = "', 350, 500);\">"+
 				else if(f.getStatus() == FindingStatus.Running)
 					currentStatus = "<b id=\"" + f.getTaskId() + "_status\" >running</b> <img src='images/circle.gif' alt='running' id=\"" + f.getTaskId() + "_image\" />";
 				else if(f.getStatus() == FindingStatus.Error)	{
-					comments = f.getStatus().getComment() != null ? f.getStatus().getComment() : "Unspecified Error";
+				
+					AnalysisServerException ase = (AnalysisServerException) btc.getObjectFromSessionCache(session.getId(), f.getTaskId()+"_analysisServerException");
+				
+					comments = ase != null && ase.getMessage() != null ? ase.getMessage() : "Unspecified Error";
+				
+					//this relates to a static obj and therefore is causing a caching effect...not good, should revisit the middle tier implementation for this
+					//comments = f.getStatus().getComment() != null ? f.getStatus().getComment() : "Unspecified Error";
+					
 					//currentStatus = "<b id=\"" + f.getTaskId() + "_status\" ><a href=\"#\" onmouseover=\"return overlibWrapper('"+comments+"');return false;\" onmouseout=\"return nd();\" ><strong>error</strong></a></b> <img src='images/error.png' alt='error' id=\"" + f.getTaskId() + "_image\" />";
 					comments = StringEscapeUtils.escapeJavaScript(comments);
 					currentStatus = "<b id=\"" + f.getTaskId() + "_status\" ><script language=\"javascript\">document.write(showErrorHelp('"+comments+"','error'));</script></b> <img src='images/error.png' alt='error' id=\"" + f.getTaskId() + "_image\" />";
 				}
+				//System.out.println(f.getTaskId() + ": " + comments);
 				
 				out.println("<span style='color:red; float:right'>" + currentStatus + "</span> ");
 				
