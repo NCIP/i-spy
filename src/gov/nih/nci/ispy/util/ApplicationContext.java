@@ -5,6 +5,7 @@ import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotatio
 import gov.nih.nci.caintegrator.application.util.PropertyLoader;
 import gov.nih.nci.ispy.cache.ISPYContextListener;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
+import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import org.apache.log4j.Logger;
@@ -134,10 +135,14 @@ public class ApplicationContext{
            String clinicalDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_14MARCH06.txt";
            cqs.setClinicalDataFile(clinicalDataFileName);
         	
-        	
+           IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
+           String idMapperFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ID_Mapping_4-11-06.txt";
+           idMapper.setMappingFile(idMapperFileName);
+           
            @SuppressWarnings("unused") AnalysisServerClientManager analysisServerClientManager = AnalysisServerClientManager.getInstance();
 		   analysisServerClientManager.setCache(ApplicationFactory.getBusinessTierCache());
 		   analysisServerClientManager.setMessagingProperties(messagingProps);
+		   
 		   
 		   //create the file based annotation service
 		   logger.info("Initializing GeneExprAnnotationService");
