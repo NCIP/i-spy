@@ -3,20 +3,19 @@ package gov.nih.nci.ispy.service.annotation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IdMapperEntry {
+public class RegistrantInfo {
 
 	private String registrationId;
 	
-	private List<String> associatedIds = null;
+	private List<SampleInfo> associatedSamples = new ArrayList<SampleInfo>();
 	
 	
 	/**
 	 * 
 	 * @param registrationId the participant registration id
 	 */
-	public IdMapperEntry(String registrationId, int size) {
+	public RegistrantInfo(String registrationId) {
 	  this.registrationId = registrationId;	
-	  this.associatedIds = new ArrayList<String>(size);
 	}
 	
 	/**
@@ -24,24 +23,23 @@ public class IdMapperEntry {
 	 * @param index
 	 * @param id
 	 */
-	public void addAssociatedId(String id) {
-       associatedIds.add(id);
+	public void addSample(SampleInfo sample) {
+       associatedSamples.add(sample);
 	}
 	
 	public String toString() {
 	  StringBuffer sb = new StringBuffer();
-	  IdMapperFileBasedService srv = IdMapperFileBasedService.getInstance();
 	  
 	  sb.append("RegistrationId : ").append(registrationId).append("\n");
-	  for (String id: associatedIds) {
-		  sb.append(id).append("\t");
+	  for (SampleInfo sample: associatedSamples) {
+		  sb.append("   ").append(sample);
 	  }
 	  sb.append("\n");
 	  return sb.toString();
 	}
 
-	public List<String> getAssociatedIds() {
-		return associatedIds;
+	public List<SampleInfo> getAssociatedSamples() {
+		return associatedSamples;
 	}
 
 	public String getRegistrationId() {

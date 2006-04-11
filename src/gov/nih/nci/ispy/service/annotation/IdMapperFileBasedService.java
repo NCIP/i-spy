@@ -16,7 +16,7 @@ public class IdMapperFileBasedService {
 	private static IdMapperFileBasedService instance = null;
 	private static Logger logger = Logger.getLogger(IdMapperFileBasedService.class);
 	
-	private Map<String, IdMapperEntry> idMap = new HashMap<String, IdMapperEntry>();
+	private Map<String, RegistrantInfo> idMap = new HashMap<String, RegistrantInfo>();
 	
 	private static String[] headers = new String[0];
 	
@@ -36,39 +36,46 @@ public class IdMapperFileBasedService {
 		
 		//open and parse the file
 		String line = null;
-		String headerLine = null;
-		IdMapperEntry entry = null;
+		
+		RegistrantInfo entry = null;
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(mappingFileName));
-			boolean firstLine=true;
-			String[] ids = null;
-			while ((line=in.readLine()) != null) {
-			  if (firstLine) {
-				firstLine = false;
-			    headerLine = line;
-			   
-			    //parse the header line;
-			    headers = headerLine.split("\t", -2);
-			    
-			  }
-			  
-			  ids = line.split("\t", -2);
-			  String id;
-			  for (int i=0; i < headers.length; i++) {
-			    id = ids[i];
-			    
-			    if (i==0) {
-			      entry = new IdMapperEntry(id, headers.length);
-			    }
-			    else {
-			      entry.addAssociatedId(id);
-			    }
-			    
-			    idMap.put(id, entry);
-			  }
-			  
-			}
 			
+			String[] sampleData = null;
+			String registrantId = null;
+			while ((line=in.readLine()) != null) {
+				  
+			  sampleData = line.split("\t", -2);
+			  
+			  registrantId = sampleData[0];
+			  
+			  entry = idMap.get(registrantId);
+			  
+			  if (entry == null) {
+			    entry = new RegistrantInfo(registrantId);
+			    idMap.put(registrantId, entry);
+			  }
+			  
+			  String labtrackId = sampleData[1];
+			  
+			  SampleInfo sample = new SampleInfo(labtrackId);  
+			  
+			  idMap.put(labtrackId, entry);
+			  
+			  sample.setTimepoint(Integer.parseInt(sampleData[2]));
+			  sample.setCoreType(SampleCoreType.valueOf(sampleData[3]));
+			  sample.setSectionInfo(sampleData[4]);
+			  sample.setAgilentLabtrackId(sampleData[5]);
+			  
+			  String calgbId = sampleData[6];
+			  //idMap.put(calgbId, entry); UNCOMMENT THIS LINE WHEN WE HAVE REAL CALGBIDS
+			  
+			  sample.setCalgId(calgbId);
+			  
+			  sample.setCdnaLabtrackId(sampleData[7]);
+			  entry.addSample(sample);
+			    
+			}
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -77,11 +84,11 @@ public class IdMapperFileBasedService {
 	}
 	
 	
-	public String[] getHeaders() { return headers; }
+//	public String[] getHeaders() { return headers; }
 	
-	public List<IdMapperEntry> getMapperEntriesForIds(List<String> ids) {
-		List<IdMapperEntry> retList = new ArrayList<IdMapperEntry>();
-		IdMapperEntry entry;
+	public List<RegistrantInfo> getMapperEntriesForIds(List<String> ids) {
+		List<RegistrantInfo> retList = new ArrayList<RegistrantInfo>();
+		RegistrantInfo entry;
 		for (String id:ids) {
 		  entry = idMap.get(id);
 		  
@@ -102,28 +109,28 @@ public class IdMapperFileBasedService {
 	 * @return a 2 dimensional array with the first row containing the column headers. Subsequent rows
 	 * contain the id value for each column for a given registrant.
 	 */
-	public String[][] getMappingForIds(List<String> ids) {
-		String[][] retArr = new String[ids.size()+1][headers.length];
-		
-		List<IdMapperEntry> entries = getMapperEntriesForIds(ids);
-		
-		int row =0, col=0;
-		
-		for (col=0; col < headers.length; col++) {
-		  retArr[0][col] = headers[col];
-		}
-		List<String> associatedIds;
-		for (IdMapperEntry entry:entries) {
-		  row++;
-		  retArr[row][0] = entry.getRegistrationId();
-		  associatedIds = entry.getAssociatedIds();
-		  col = 1;
-		  for (String id:associatedIds) {
-		    retArr[row][col++] = id;
-		  }
-		}
-		return retArr;
-		
-	}
+//	public String[][] getMappingForIds(List<String> ids) {
+//		String[][] retArr = new String[ids.size()+1][headers.length];
+//		
+//		List<RegistrantInfo> entries = getMapperEntriesForIds(ids);
+//		
+//		int row =0, col=0;
+//		
+//		for (col=0; col < headers.length; col++) {
+//		  retArr[0][col] = headers[col];
+//		}
+//		List<String> associatedIds;
+//		for (RegistrantInfo entry:entries) {
+//		  row++;
+//		  retArr[row][0] = entry.getRegistrationId();
+//		  associatedIds = entry.getAssociatedIds();
+//		  col = 1;
+//		  for (String id:associatedIds) {
+//		    retArr[row][col++] = id;
+//		  }
+//		}
+//		return retArr;
+//		
+//	}
 
 }
