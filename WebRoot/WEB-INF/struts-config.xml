@@ -132,6 +132,7 @@
 
 	<action path="/quickClinical" forward="/WEB-INF/jsp/quickClinical.jsp" />
 	
+	<action path="/simpleSearch" forward="ispy.simpleSearch" />
 	
 	<action path="/viewResults"
 	    input="ispy.viewResults"

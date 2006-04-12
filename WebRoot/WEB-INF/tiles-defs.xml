@@ -67,15 +67,20 @@
 	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
 	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
     </definition>
-    
+    <!-- 
 	<definition name="ispy.menu" extends="baseDef">
       <put name="mainForm" value="/jsp/menu.jsp" />
 	  <put name="title" value="Advanced Search - Build Query" />
 	   <put name="reqdFieldsMsg" value="/jsp/tiles/empty_tile.jsp" />
 	   <put name="tabs" value="/jsp/tiles/tabs_tile.jsp?s=2" />
 	</definition>
-	
-	
+	-->
+	<definition name="ispy.simpleSearch" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/simpleSearch.jsp" />
+	  <put name="title" value="Simple Search" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+	  <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=1" />
+	</definition>
 	
 	<definition name="ispy.viewResults" extends="baseDef">
 		<put name="title" value="I-SPY View Results" />
