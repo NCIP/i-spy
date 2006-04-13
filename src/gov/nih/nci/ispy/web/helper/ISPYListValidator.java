@@ -14,9 +14,9 @@ import gov.nih.nci.caintegrator.application.lists.UserList;
  */
 public class ISPYListValidator implements ListValidator{
 
-    public UserList getValidList(ListType listType, UserList unvalidatedList) {
+    public UserList getValidList(ListType listType, UserList myList) {
         // TODO Auto-generated method stub
-        return null;
+        return myList;
     }
 
     public UserList getInvalidList() {

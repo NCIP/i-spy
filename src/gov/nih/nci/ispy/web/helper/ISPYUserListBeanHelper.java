@@ -8,6 +8,7 @@
 package gov.nih.nci.ispy.web.helper;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
@@ -19,7 +20,10 @@ import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import javax.servlet.http.HttpSession;
 
-import org.w3c.dom.Document;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
 
 import uk.ltd.getahead.dwr.ExecutionContext;
 
@@ -32,6 +36,11 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
     private HttpSession session;
     private String sessionId;
     private UserListBean userListBean;
+    private ISPYListValidator listValidator = new ISPYListValidator();
+    
+    public ISPYUserListBeanHelper(UserListBean userListBean){
+        this.userListBean = userListBean;
+    }
     
     public ISPYUserListBeanHelper(HttpSession session){
         userListBean = (UserListBean) session.getAttribute("userListBean");        
@@ -44,28 +53,50 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
                
     }
     public void addList(UserList userList) {
-        // TODO Auto-generated method stub
-        
+        userListBean.addList(userList);        
     }
+    
     public void removeList(String listName) {
-        // TODO Auto-generated method stub
+        userListBean.removeList(listName);
         
     }
     public void addItemToList(String listName, String listItem) {
-        // TODO Auto-generated method stub
-        
+        UserList userList =  userListBean.getList(listName);
+        userList.getList().add(listItem);
+        userList = listValidator.getValidList(userList.getListType(),userList);
     }
-    public void removeItemFromList(String listName, String listItem) {
-        // TODO Auto-generated method stub
-        
+    
+    public void removeItemFromList(String listName, String listItem) {        
+        UserList userList =  userListBean.getList(listName);
+        userList.getList().remove(listItem);
     }
+    
     public Document getDetailsFromList(String listName) {
-        // TODO Auto-generated method stub
-        return null;
+        UserList userList = userListBean.getList(listName);
+        
+        Document document =  DocumentHelper.createDocument();
+        Element list = document.addElement("list");
+        Element type = list.addAttribute("type", userList.getListType().toString());
+        for(String i : userList.getList()){
+            Element item = list.addElement("item");
+            item.addText(i);
+        }
+        
+        
+        return document;
     }
+    
     public List<UserList> getLists(ListType listType) {
-        // TODO Auto-generated method stub
-        return null;
+        List<UserList> typeList = new ArrayList<UserList>();
+        
+        for(UserList list : userListBean.getEntireList()){
+            if(list.getListType() == listType){
+                typeList.add(list);
+            }
+        }
+        return typeList;
     }
+
+   
 
 }
