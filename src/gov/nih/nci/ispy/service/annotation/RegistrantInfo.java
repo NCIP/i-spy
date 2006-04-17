@@ -27,6 +27,18 @@ public class RegistrantInfo {
        associatedSamples.add(sample);
 	}
 	
+	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(ISPYDataType dataType, int timepoint) {
+	  List<SampleInfo> retList = new ArrayList<SampleInfo>();
+	  
+	  for (SampleInfo sample : associatedSamples) {
+		 if ((sample.getDataType()==dataType)&&(sample.getTimepoint()==timepoint)) {
+		   retList.add(sample);
+		 }
+	  }
+	  
+	  return retList;
+	}
+	
 	public String toString() {
 	  StringBuffer sb = new StringBuffer();
 	  

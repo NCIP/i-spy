@@ -1,7 +1,6 @@
 package gov.nih.nci.ispy.service.annotation;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,8 +16,6 @@ public class IdMapperFileBasedService {
 	private static Logger logger = Logger.getLogger(IdMapperFileBasedService.class);
 	
 	private Map<String, RegistrantInfo> idMap = new HashMap<String, RegistrantInfo>();
-	
-	private static String[] headers = new String[0];
 	
 	private IdMapperFileBasedService() {
 		super();
@@ -58,21 +55,29 @@ public class IdMapperFileBasedService {
 			  
 			  String labtrackId = sampleData[1];
 			  
-			  SampleInfo sample = new SampleInfo(labtrackId);  
+			  SampleInfo sample = new SampleInfo(registrantId, labtrackId);  
 			  
 			  idMap.put(labtrackId, entry);
 			  
 			  sample.setTimepoint(Integer.parseInt(sampleData[2]));
 			  sample.setCoreType(SampleCoreType.valueOf(sampleData[3]));
 			  sample.setSectionInfo(sampleData[4]);
-			  sample.setAgilentLabtrackId(sampleData[5]);
+			  
+			  if ((sampleData[5]!=null)&&(sampleData[5].trim().length()>0)) {
+			    sample.setDataType(ISPYDataType.AGILENT);
+			  }
+			  else if ((sampleData[7]!=null)&&(sampleData[7].trim().length()>0)) {
+				sample.setDataType(ISPYDataType.CDNA);
+			  }
+			  else {
+				sample.setDataType(ISPYDataType.UNKNOWN); 
+			  }
 			  
 			  String calgbId = sampleData[6];
 			  //idMap.put(calgbId, entry); UNCOMMENT THIS LINE WHEN WE HAVE REAL CALGBIDS
 			  
 			  sample.setCalgId(calgbId);
 			  
-			  sample.setCdnaLabtrackId(sampleData[7]);
 			  entry.addSample(sample);
 			    
 			}
@@ -83,9 +88,10 @@ public class IdMapperFileBasedService {
 		}
 	}
 	
-	
-//	public String[] getHeaders() { return headers; }
-	
+	/**
+	 * Return all mapping information for the ids specifed in the id list.
+	 * 
+	 */
 	public List<RegistrantInfo> getMapperEntriesForIds(List<String> ids) {
 		List<RegistrantInfo> retList = new ArrayList<RegistrantInfo>();
 		RegistrantInfo entry;
@@ -105,32 +111,71 @@ public class IdMapperFileBasedService {
 	}
 	
 	/**
-	 * @param ids
-	 * @return a 2 dimensional array with the first row containing the column headers. Subsequent rows
-	 * contain the id value for each column for a given registrant.
+	 * This method will return samples of a given dataType. 
+	 * @param ids the ids to search with. These ids can be any of the ids associated with the registrant. For 
+	 * example if registrantId=101 has AgilentSampleId=345 and CDNA_labtrackId=678 then specifing a data type of CDNA and
+	 * passing in an id of 101 would  return the information for the CDNA sample 678.  It is also possible to use use the 
+	 * AgilentSampleId=345 and dataType=CNDA to get the CDNA sample 678.  This makes it easy to integrate the data because it
+	 * makes it easy to answer the question:  What is the sample information for the Agilent data associated with a registrant with a CDNA sample with labtrackId=987.
+	 * @param dataType
+	 * @return A list of sample ids.
 	 */
-//	public String[][] getMappingForIds(List<String> ids) {
-//		String[][] retArr = new String[ids.size()+1][headers.length];
-//		
-//		List<RegistrantInfo> entries = getMapperEntriesForIds(ids);
-//		
-//		int row =0, col=0;
-//		
-//		for (col=0; col < headers.length; col++) {
-//		  retArr[0][col] = headers[col];
-//		}
-//		List<String> associatedIds;
-//		for (RegistrantInfo entry:entries) {
-//		  row++;
-//		  retArr[row][0] = entry.getRegistrationId();
-//		  associatedIds = entry.getAssociatedIds();
-//		  col = 1;
-//		  for (String id:associatedIds) {
-//		    retArr[row][col++] = id;
-//		  }
-//		}
-//		return retArr;
-//		
-//	}
-
+	public List<SampleInfo> getSamplesForDataType(List<String> ids, ISPYDataType dataType) {
+		
+	  List<RegistrantInfo> regList = getMapperEntriesForIds(ids);
+	  
+	  List<SampleInfo> retList = new ArrayList<SampleInfo>();
+ 	  
+	  for (RegistrantInfo reg:regList) {
+		List<SampleInfo> sampleList = reg.getAssociatedSamples();
+		
+		for (SampleInfo sample: sampleList) {
+		  if (sample.getDataType()==dataType) {
+		    retList.add(sample);
+		  }
+		}
+	  }
+	  
+	  return retList;
+	}
+	
+	/**
+	 * This method will return samples of a given dataType for a given timepoint.  The most common use of this method
+	 * will be to pass in a list of registrantIds a dataType and a timepoint. This method would return a list of samples
+	 * of the specified dataType for the specified timepoint.
+	 * @param ids
+	 * @param dataType
+	 * @param timepoint
+	 * @return
+	 */
+	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(List<String> ids, ISPYDataType dataType, int timepoint) {
+	  	
+	  List<SampleInfo> sampleList =  getSamplesForDataType(ids, dataType);
+	  List<SampleInfo> retList = new ArrayList<SampleInfo>(); 	
+	  for (SampleInfo sample: sampleList) {
+	    if (sample.getTimepoint() == timepoint) {
+	      retList.add(sample);
+	    }
+	  }
+	  
+	  return retList;
+	}
+	
+	/**
+	 * Go though all of the ISPY samples and return those of the specified dataType and timepoint
+	 * @param dataType
+	 * @param timepoint
+	 * @return
+	 */
+	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(ISPYDataType dataType, int timepoint) {
+	    List<SampleInfo> retList = new ArrayList<SampleInfo>();
+	    List<SampleInfo> regSampleList;
+		for (RegistrantInfo registrant: idMap.values()) {
+		  regSampleList = registrant.getSamplesForDataTypeAndTimepoint(dataType, timepoint);
+		  if (!regSampleList.isEmpty()) {
+		    retList.addAll(regSampleList);
+		  }
+		}
+		return retList;
+	}
 }

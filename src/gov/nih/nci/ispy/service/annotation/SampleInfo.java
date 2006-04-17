@@ -3,24 +3,29 @@ package gov.nih.nci.ispy.service.annotation;
 public class SampleInfo {
 	
 	private String labtrackId;
+	private String registrantId;
 	private int timepoint;
 	private SampleCoreType coreType;
+	private ISPYDataType dataType;
 	private String sectionInfo;
-	private String agilentLabtrackId;
-	private String cdnaLabtrackId;
+
 	private String calgId;
 
-	public SampleInfo(String labtrackId) {
+	public SampleInfo(String registrantId, String labtrackId) {
+	  this.registrantId = registrantId;
 	  this.labtrackId = labtrackId;
 	}
 
-	public String getAgilentLabtrackId() {
-		return agilentLabtrackId;
-	}
 
-	public void setAgilentLabtrackId(String agilentLabtrackId) {
-		this.agilentLabtrackId = agilentLabtrackId;
+	public void setDataType(ISPYDataType dataType) {
+	  this.dataType = dataType;
 	}
+	
+	public ISPYDataType getDataType() {
+	  return dataType;
+	}
+	
+
 
 	public String getCalgId() {
 		return calgId;
@@ -28,14 +33,6 @@ public class SampleInfo {
 
 	public void setCalgId(String calgId) {
 		this.calgId = calgId;
-	}
-
-	public String getCdnaLabtrackId() {
-		return cdnaLabtrackId;
-	}
-
-	public void setCdnaLabtrackId(String cdnaLabtrackId) {
-		this.cdnaLabtrackId = cdnaLabtrackId;
 	}
 
 	public SampleCoreType getCoreType() {
@@ -48,6 +45,10 @@ public class SampleInfo {
 
 	public String getLabtrackId() {
 		return labtrackId;
+	}
+	
+	public String getRegistrantId() {
+	  return registrantId;
 	}
 
 	public String getSectionInfo() {
@@ -72,9 +73,8 @@ public class SampleInfo {
 	  sb.append("Sample labtrackId=").append(getLabtrackId()).append("\t");
 	  sb.append(getTimepoint()).append("\t");
 	  sb.append(getCoreType()).append("\t");
+	  sb.append(getDataType()).append("\t");
 	  sb.append(getSectionInfo()).append("\t");
-	  sb.append(getAgilentLabtrackId()).append("\t");
-	  sb.append(getCdnaLabtrackId()).append("\t");
 	  sb.append(getCalgId()).append("\n");
 		
 	  return sb.toString();
