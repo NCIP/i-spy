@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.web.struts.action;
 
 
+import gov.nih.nci.caintegrator.application.lists.UserListBean;
 import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.struts.form.LoginForm;
 
@@ -59,6 +60,9 @@ public final class LoginAction extends Action
 
 					session.setAttribute("logged", "yes");
                     session.setAttribute("name", userName);
+                    UserListBean userListBean = new UserListBean();
+                    session.setAttribute(ispyConstants.USER_LISTS,userListBean);
+                    
 					return (mapping.findForward("success"));	
 				}
 			

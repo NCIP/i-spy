@@ -6,7 +6,8 @@ package gov.nih.nci.ispy.web.helper;
 
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.ListValidator;
-import gov.nih.nci.caintegrator.application.lists.UserList;
+
+import java.util.List;
 
 /**
  * @author rossok
@@ -14,12 +15,12 @@ import gov.nih.nci.caintegrator.application.lists.UserList;
  */
 public class ISPYListValidator implements ListValidator{
 
-    public UserList getValidList(ListType listType, UserList myList) {
+    public List<String> getValidList(ListType listType, List<String> myList) {
         // TODO Auto-generated method stub
         return myList;
     }
 
-    public UserList getInvalidList() {
+    public List<String> getInvalidList() {
         // TODO Auto-generated method stub
         return null;
     }

@@ -42,6 +42,7 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
 	<servlet>
     	<servlet-name>DisplayChart</servlet-name>
     	<servlet-class>org.jfree.chart.servlet.DisplayChart</servlet-class>
@@ -70,6 +71,7 @@
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
+	
 	<!-- Added to avoid session timeout problems 1 hour session timeout -->
 	<session-config>
 		<session-timeout>60</session-timeout>

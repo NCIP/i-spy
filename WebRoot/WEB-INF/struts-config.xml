@@ -134,6 +134,9 @@
 	
 	<action path="/simpleSearch" forward="ispy.simpleSearch" />
 	
+	<action path="/manageLists" forward="ispy.manageLists" />
+	
+	
 	<action path="/viewResults"
 	    input="ispy.viewResults"
 		type="gov.nih.nci.ispy.web.struts.action.ViewResultsAction"

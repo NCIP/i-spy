@@ -37,7 +37,7 @@
 		<put name="overlib" value="/WEB-INF/jsp/tiles/overlib_tile.jsp" />
 		<put name="header" value="/WEB-INF/jsp/header.jsp" />
 	    <put name="crumbMenu" value="/WEB-INF/jsp/tiles/crumbMenu_tile.jsp" />
-	    <put name="sideBar" value="/WEB-INF/jsp/tiles/blankSidebar_tile.jsp" />
+	    <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
 		<put name="footer" value="/WEB-INF/jsp/footer.jsp" />
 		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
 		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
@@ -47,7 +47,7 @@
     <definition name="ispy.classComparison" extends="baseDef">
       <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=classComparison" />
 	  <put name="title" value="Class Comparison Analysis Form" />
-	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBarAnalysis_tile.jsp" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
 	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
 	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
     </definition>
@@ -55,7 +55,7 @@
     <definition name="ispy.principalComponent" extends="baseDef">
       <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=principalComponent" />
 	  <put name="title" value="Principal Component Analysis (PCA) Form" />
-	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBarAnalysis_tile.jsp" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
 	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
 	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
     </definition>
@@ -88,7 +88,15 @@
 		<put name="mainForm" value="/WEB-INF/jsp/viewResults.jsp" />
 		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=4" />
 		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
-    </definition>    
+    </definition>  
+    
+    <definition name="ispy.manageLists" extends="baseDef">
+		<put name="title" value="I-SPY Manage Lists" />
+		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="mainForm" value="/manageLists.jsp" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=4" />
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
+    </definition>  
 	  
     <definition name="graph" path="/jsp/layoutGraph.jsp">
 		<put name="title" value="caIntegrator" />

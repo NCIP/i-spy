@@ -89,6 +89,8 @@ public final class ispyConstants {
 	
 	public static final String USER_PREFERENCES = "userPreferences";
     
+    public static final String USER_LISTS = "userLists";
+    
     public static final String USER_CREDENTIALS = "UserCredentials";
 
     
