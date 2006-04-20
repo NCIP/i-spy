@@ -34,7 +34,7 @@
 							"<li><a href=\"#\">Managed Saved Lists</a></li>\n" +
 							"</ul>\n";				
 	String simpleSecondary = "<ul id=\"secondary\">\n" +
-							"<li><a href=\"home.do\">Simple Search Home</a></li>\n" +
+							"<li><a href=\"simpleSearch.do\">Simple Search Home</a></li>\n" +
 							"</ul>\n";
 	String analysisSecondary = "<ul id=\"secondary\">\n" +
 							"<li><a href=\"analysisHome.do\">Analysis Home</a></li>\n" +
@@ -47,7 +47,7 @@
 			case 1:
 				//1 is simple search
 				simple = "<span>Simple Search</span>\n" + simpleSecondary;
-				adv = "<a href=\"menu.do\">Advanced Search</a>";
+				adv = "<a href=\"menu.do\" onclick=\"return false\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				break;
