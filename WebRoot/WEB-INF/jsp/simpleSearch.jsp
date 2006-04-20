@@ -15,7 +15,9 @@
 		.active-column-3 {text-align: right;}
 		.active-column-4 {text-align: right;}
 */
-
+iframe	{
+	margin-bottom:20px;
+}
 		.active-grid-column {border-right: 1px solid threedlightshadow;}
 		.active-grid-row {border-bottom: 1px solid threedlightshadow;}
 	</style>
@@ -32,7 +34,7 @@
 	
 	var StatusSpan = {
 		'start' : function()	{
-			Effect.BlindUp("lookupResults");
+			//Effect.BlindUp("lookupResults");
 			
 			$('statusSpan').innerHTML = "<img src=\"images/indicator.gif\"/>";
 			$('lookupButton').disabled = true;
@@ -48,9 +50,9 @@
 			$('lookupButton').disabled = false;
 			var sect = "lookupResults"
 			$('lookupString').value = '';
-			//Effect.BlindDown(sect);
-			Stripe.stripe("dataTable");
 			
+			//Effect.BlindDown(sect);
+			//Stripe.stripe("dataTable");	
 		}
 	
 	};
@@ -74,9 +76,12 @@
 		}
 	 }
 	 
+	 var myGrids = Array();
+	 
 	 var A_IdLookup	=	{
 	 	'lookup': function(commaIds)	{
-	 		//alert(commaIds);
+	 		if($('gridFrame'))
+		 		$('gridFrame').style.display = 'none'; //hide it
 	 		IdLookup.lookup(commaIds, A_IdLookup.lookup_cb);
 	 	},
 	 	'lookup_cb' : function(txt)	{
@@ -91,124 +96,93 @@
 			];
 				
 	 		try	{
-		 		//$('lookupResults').innerHTML = txt;
-		 		/*
-		 		var tables = txt.getElementsByTagName("table");
-		 		tables.each(function(t)	{
-			 			document.write(t.getElementsByTagName("tr").length);
-					}	 		
-		 		);
-		 		*/
-		 		games = txt.getElementsByTagName("sample");
+	 			registrants = txt.getElementsByTagName("registrant");
+		 		//games = txt.getElementsByTagName("sample");
 		 		
-		 		if(games.length < 1)	{
+		 		if(registrants.length < 1)	{
 		 			//no records
 		 			throw("No records found. Please try again.");
 		 		}
 		 		
-				table = d.createElement("table");
-				table.setAttribute("cellspacing","0");
-				table.setAttribute("id","dataTable");
-				table.setAttribute("border","1");
-				table.setAttribute("cellpadding","4");
-			
-				tr = table.insertRow(0);
-				tr.style.backgroundColor = "silver";
-				tr.style.color = "#000";
-				
-				headings = new Array("RegID","LabTrack ID","Timepoint","Core Type","Section Info");
-				
-				for(k=0;k<headings.length;k++) {
-					td = d.createElement("td");
-					td.appendChild(d.createTextNode(headings[k]));
-					tr.appendChild(td);
+		 		numpatients = registrants.length;
+		 		var frameid;
+		 		for(var r=0; r<registrants.length; r++)	{
+		 			
+		 			games = registrants[r].getElementsByTagName("sample");
+		 			
+		 			//generate the iframe
+		 			frameid = registrants[r].getAttribute("regId");
+		 			_myData = new Array();
+		 			
+			 		//var ifrm = "<iframe id=\"if_"+frameid+"_if\" name=\"if_"+frameid+"_if\" src=\"awWrapper.do\" frameborder=\"3\" style=\"width:100%;\"></iframe>";
+					//var ins = new Insertion.After("lookupResults", ifrm);
+					
+					var eDIV = document.createElement("iframe");
+					eDIV.setAttribute("id","if_"+frameid+"_if");
+					eDIV.setAttribute("name","if_"+frameid+"_if");
+					eDIV.setAttribute("src","awWrapper.do");
+					eDIV.setAttribute("style","width:100%");
+					eDIV.setAttribute("frameborder","3");
+					// append your newly created DIV element to an already existing element.
+					document.getElementById("ifcontainer").appendChild(eDIV);
+					
+
+					for(i=0;i<games.length;i++) {
+					
+						_myData[i] = new Array();
+					
+						data = games[i].childNodes;
+						
+						for(j=0;j<data.length;j++) {
+							if(data[j].nodeType == 1) {
+								_myData[i][j] = data[j].childNodes[0].nodeValue;
+							} 
+						}
+					}
+					//make a grid in each frame
+					//the new iframe is not in the dom yet!
+					myGrids[r] = new Object();
+					myGrids[r].frameid = frameid;
+					myGrids[r].myData = _myData;
+					myGrids[r].myColumns = _myColumns;
+					
+
 				}
 				
-				//init the counter
-				if(games.length > 0)
-					numpatients = 1;
-				
-				for(i=0;i<games.length;i++) {
-				
-					_myData[i] = new Array();
-				
-					data = games[i].childNodes;
-					tr = table.insertRow(i+1);
-					
-					if( i > 0 && (games[i].childNodes[0].childNodes[0].nodeValue != games[i-1].childNodes[0].childNodes[0].nodeValue))	{
-						tr.className = "redBottom";
-						numpatients++;
-					}
-					//tr.className = i%2?"on":"off";
-					
-					for(j=0;j<data.length;j++) {
-						if(data[j].nodeType == 1) {
-							_myData[i][j] = data[j].childNodes[0].nodeValue;
-						
-							td = d.createElement("td");
-							td.appendChild(d.createTextNode(data[j].childNodes[0].nodeValue));
-							tr.appendChild(td);
-						} 
-					}
-				}	
-				
-				$("lookupResults").appendChild(table);	
 	 		}
 	 		catch(err)	{
 	 			$('lookupResults').innerHTML = err;
+	 			$('lookupResults').style.display = "";
 	 		}
 	 		finally	{
 		 		setTimeout(function()	{ StatusSpan.stop(numpatients)}, 1000);
 		 		
-		 		AWwrapper.makeGrid(_myData, _myColumns);
-
+		 		myGrids.each	(function(item, index)	{
+		 		
+					var tmpp = "if_"+item.frameid+"_if";
+					if(window.frames[tmpp])	{
+						
+						/*
+						(10000).times(function(n) {
+						 var t= "";  
+						});
+						*/
+												
+						setTimeout(function() { window.frames[tmpp].Grid.makeGrid(item.myData, item.myColumns)}, 100);
+						Effect.Appear(tmpp);
+					}
+					}
+				);
 		 	}
 	 	}
 	 	
 	 }
 	 
-	 
-	 var AWwrapper = {
-	 	'obj' : new Active.Controls.Grid,
-	 	'makeGrid' : function(myData, myColumns)	{
-			//	create ActiveWidgets Grid javascript object
-			
-			//these must be correct!!
-			//	set number of rows/columns
-			this.obj.setRowProperty("count", myData.length);
-			this.obj.setColumnProperty("count", myColumns.length);
-			
-			//	provide cells and headers text
-			this.obj.setDataProperty("text", function(i, j){return myData[i][j]});
-			this.obj.setColumnProperty("text", function(i){return myColumns[i]});
-			
-			//	set headers width/height
-			this.obj.setRowHeaderWidth("28px");
-			this.obj.setColumnHeaderHeight("20px");
-			
-			//	set click action handler
-			this.obj.setAction("click", function(src){window.status = src.getItemProperty("text")});
-			this.obj.setStyle("height", "100%");
-			this.obj.setStyle("width", "100%"); 
-			//	write grid html to the page
 
-		this.obj.getTemplate("layout").action("adjustSize");
-			$('res2').innerHTML = this.obj;
-			$('res2').style.height = "1000px";
-			alert(this.obj.height);
-			//document.write(this.obj);
-	 	
-	 	},
-	 	'writeGrid' : function()	{
-	 		document.write(this.obj);
-	 	}
-	 
-	 }
 		 
 		window.onload = function()	{
 			//RoundedTop("div.tops", "#e0e0e0", "gray");
 			//RoundedBottom("div.mains", "#e0e0e0", "#fff");
-			
 			EventSelectors.start(Rules);			
 		};
 		
@@ -223,13 +197,12 @@
 	<span id="statusSpan"></span>
 	</form>
 	
-	<div id="lookupResults" style="display:none">
-		hey, here are the results
-	</div>
-	<div id="res2">
-	</div>
-	<iframe src="awWrapper.do" frameborder="0" style="width:100%;height:auto; overflow:auto">
-	</iframe>
+	<div id="lookupResults" style="display:none"></div>
 
+	<iframe id="gridFrame" name="gridFrame" src="awWrapper.do" frameborder="0" style="width:100%;display:none">
+	</iframe>
+	<div id="ifcontainer">
+	
+	</div>
 </fieldset>
 <br/><br/>
