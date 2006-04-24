@@ -8,9 +8,7 @@
 		div	{ font-family: arial; font-size:11px;}
 	</style>
 
-	<script language="javascript" src="js/prototype_1.5pre.js"></script>
-	<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>
-	<script language="javascript" src="js/event-selectors.js"></script>
+
 	<script type='text/javascript' src='dwr/interface/IdLookup.js'></script>
 	<script type='text/javascript' src='dwr/engine.js'></script>
 
@@ -32,7 +30,9 @@
 
 		var Grid = {
 			'makeGrid' : function(myData, myColumns)	{
+			
 				//	create ActiveWidgets Grid javascript object
+				//note: this does not work with prototype
 				var obj = new Active.Controls.Grid;
 			
 				//	set number of rows/columns
@@ -49,7 +49,7 @@
 	
 				//obj.setRowText(function(i){return myData[i][0]});
 				//obj.setRowHeaderWidth("100px");
-	
+
 				document.getElementById("tbl").innerHTML = obj;
 			}
 		};
@@ -60,7 +60,7 @@
 	if(registrant!=null)	{
 	%>
 		window.onload = function()	{
-			$('tbl').innerHTML += " displaying data for registrant:" + <%=registrant%>+"";
+			document.getElementById('tbl').innerHTML += " displaying data for registrant:" + <%=registrant%>+"";
 			setTimeout(function()	{ IdLookup.lookup(<%=registrant%>, A_IdLookup.lookup_cb) }, 800);
 		
 		}
@@ -70,7 +70,7 @@
 %>
 	var A_IdLookup = {
 		'lookup_cb' : function(txt)	{
-			
+			alert("in cb");
 			var _myColumns = [
 					"RegID", "LabTrack ID", "Timepoint", "Core Type", "Section Info"
 				];
@@ -107,7 +107,7 @@
 				}
 	 		}
 	 		catch(err)	{
-	 			$('tbl').innerHTML = err;
+	 			document.getElementById('tbl').innerHTML = err;
 	 			alert("ERR: " + err);
 	 		}
 	 		finally	{
