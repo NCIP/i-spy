@@ -14,6 +14,7 @@ import gov.nih.nci.caintegrator.dto.view.ClinicalSampleView;
 import gov.nih.nci.caintegrator.dto.view.ViewFactory;
 import gov.nih.nci.caintegrator.dto.view.ViewType;
 import gov.nih.nci.caintegrator.dto.view.Viewable;
+import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
@@ -35,7 +36,11 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.service.annotation.ISPYDataType;
+import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
+import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -187,10 +192,30 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 		
 		
 		
-		ClinicalFileBasedQueryService qs = ClinicalFileBasedQueryService.getInstance();
+		//ClinicalFileBasedQueryService qs = ClinicalFileBasedQueryService.getInstance();
+		
+		IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
 		
 		sampleGroup = new SampleGroup("HCSamples");
-		sampleGroup.addAll(qs.getLabtrackIdsForTimepoints(myQueryDTO.getTimepoints()));
+		//sampleGroup.addAll(qs.getLabtrackIdsForTimepoints(myQueryDTO.getTimepoints()));
+		
+		ArrayPlatformType arrayPlatform = myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();
+		Set<TimepointType> timepoints = new HashSet<TimepointType>(myQueryDTO.getTimepoints());
+		Set<SampleInfo> samples = null;
+		
+		if (arrayPlatform == ArrayPlatformType.AGILENT) {
+		  samples = idMapper.getSamplesForDataTypeAndTimepoints(ISPYDataType.AGILENT, timepoints);
+		}
+		else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
+		  samples = idMapper.getSamplesForDataTypeAndTimepoints(ISPYDataType.CDNA, timepoints);
+		}
+		
+		if (samples != null) {
+		  for (SampleInfo si : samples) {
+		    sampleGroup.add(si.getLabtrackId());
+		  }
+		}
+		
 		//Get the samples to cluster
 	
 		

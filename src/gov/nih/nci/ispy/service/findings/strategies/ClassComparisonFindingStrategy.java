@@ -32,10 +32,14 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.service.annotation.ISPYDataType;
+import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
+import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -209,13 +213,35 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 		
 		Set<String> labtrackIds = new HashSet<String>();
 		ClinicalFileBasedQueryService qs = ClinicalFileBasedQueryService.getInstance();
+		IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
 		
 		for (ClinicalQueryDTO cq : clinicalQueries) {
 		  ISPYclinicalDataQueryDTO icq = (ISPYclinicalDataQueryDTO) cq;
 
-		  SampleGroup sg = new SampleGroup(icq.getQueryName());
-		  sg.addAll(qs.getLabtrackIds(icq));
+		  //SampleGroup patients = new SampleGroup(icq.getQueryName());
+		  List<String> patientDIDs = new ArrayList<String>(qs.getPatientDIDs(icq));
 		  
+		  
+		  SampleGroup sg = new SampleGroup(cq.getQueryName());
+		  //get the labtrack ids for the patients 
+		  
+		  Set<SampleInfo> samples = null;
+		  if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.AGILENT) {			  
+		    samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.AGILENT,icq.getTimepointValues());
+		  }
+		  else if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.CDNA_ARRAY_PLATFORM){
+			samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.CDNA, icq.getTimepointValues());
+		  }
+		  
+		  List<String> sampleIds = new ArrayList<String>();
+		  
+		  if (samples != null) {		  
+			  for (SampleInfo si : samples) {
+			    sampleIds.add(si.getLabtrackId());    
+			  }	
+		  }
+		  sg.addAll(sampleIds);
+			  
 		  if (icq.isBaseline()) {
 		    classComparisonRequest.setBaselineGroup(sg);
 		  }
