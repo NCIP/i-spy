@@ -8,6 +8,8 @@ import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFindi
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint.PCAcomponent;
 import gov.nih.nci.caintegrator.ui.graphing.util.ImageMapUtil;
+import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
+import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPCAcolorByType;
@@ -146,16 +148,22 @@ public class PCAPlotTag extends AbstractGraphingTag {
             
             //Get the clinical data for the sampleIds
         	ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
-            Map<String, ClinicalData> clinicalDataMap = cqs.getClinicalDataMapForLabtrackIds(sampleIds);              
+        	IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
+            //Map<String, ClinicalData> clinicalDataMap = cqs.getClinicalDataMapForLabtrackIds(sampleIds);              
             
             PCAresultEntry entry;
             ClinicalData clinData;
+            SampleInfo si;
             for (String id: sampleIds){
                 
                 entry  = pcaResultMap.get(id); 
                 ISPYPCADataPoint pcaPoint = new ISPYPCADataPoint(id,entry.getPc1(),entry.getPc2(),entry.getPc3());
+            
+                si = idMapper.getSampleInfoForLabtrackId(id);
                 
-                clinData = clinicalDataMap.get(id);
+                clinData = cqs.getClinicalDataForPatientDID(si.getRegistrantId(), si.getTimepoint());
+                
+                //clinData = clinicalDataMap.get(id);
                 
                 pcaPoint.setClinicalResponse(clinData.getClinicalResponse());
                 pcaPoint.setDiseaseStage(clinData.getDiseaseStage());
