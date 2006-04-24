@@ -133,16 +133,19 @@ public class ApplicationContext{
            //initialize the ClinicalFileBasedQueryService
            ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
            String clinicalDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_14MARCH06.txt";
+           logger.info("Initializing file based clinical data service fileName=" + clinicalDataFileName);
            cqs.setClinicalDataFile(clinicalDataFileName);
-        	
+           logger.info("Clinical data service initialized successfully.");
+        
            IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
            String idMapperFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ID_Mapping_4-11-06.txt";
+           logger.info("Initializing file based id mapper service fileName=" + idMapperFileName);
            idMapper.setMappingFile(idMapperFileName);
+           logger.info("Id mapper service initialized successfully.");
            
            @SuppressWarnings("unused") AnalysisServerClientManager analysisServerClientManager = AnalysisServerClientManager.getInstance();
 		   analysisServerClientManager.setCache(ApplicationFactory.getBusinessTierCache());
 		   analysisServerClientManager.setMessagingProperties(messagingProps);
-		   
 		   
 		   //create the file based annotation service
 		   logger.info("Initializing GeneExprAnnotationService");
@@ -171,7 +174,7 @@ public class ApplicationContext{
 			logger.error(e);
 		} catch(Throwable t) {
 		
-			logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
+			//logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
 			logger.error(t.getMessage());
 			logger.error(t);
 		}
