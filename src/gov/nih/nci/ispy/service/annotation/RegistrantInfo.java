@@ -1,7 +1,11 @@
 package gov.nih.nci.ispy.service.annotation;
 
+import gov.nih.nci.ispy.service.clinical.TimepointType;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class RegistrantInfo {
 
@@ -27,7 +31,7 @@ public class RegistrantInfo {
        associatedSamples.add(sample);
 	}
 	
-	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(ISPYDataType dataType, int timepoint) {
+	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(ISPYDataType dataType, TimepointType timepoint) {
 	  List<SampleInfo> retList = new ArrayList<SampleInfo>();
 	  
 	  for (SampleInfo sample : associatedSamples) {
@@ -37,6 +41,18 @@ public class RegistrantInfo {
 	  }
 	  
 	  return retList;
+	}
+	
+	public Set<SampleInfo> getSamplesForDataTypeAndTimepoints(ISPYDataType dataType, Set<TimepointType> timepoints) {
+	  	Set<SampleInfo> retSet = new HashSet<SampleInfo>();
+	  	
+	  	for (SampleInfo sample : associatedSamples) {
+	  	  if ((sample.getDataType()==dataType)&&(timepoints.contains(sample.getTimepoint()))) {
+	  		 retSet.add(sample);
+	  	  }
+	  	}
+	  	
+	  	return retSet;
 	}
 	
 	public String toString() {
@@ -52,6 +68,20 @@ public class RegistrantInfo {
 
 	public List<SampleInfo> getAssociatedSamples() {
 		return associatedSamples;
+	}
+	
+	/**
+	 * Return the sample info object associated with the specified labtrack id.
+	 * @param labtrackId
+	 * @return
+	 */
+	public SampleInfo getSample(String labtrackId) {
+	  for (SampleInfo si : associatedSamples) {
+	     if (si.getLabtrackId().equals(labtrackId)) {
+	       return si;
+	     }
+	  }
+	  return null;
 	}
 
 	public String getRegistrationId() {

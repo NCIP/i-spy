@@ -1,12 +1,16 @@
 package gov.nih.nci.ispy.service.annotation;
 
+import gov.nih.nci.ispy.service.clinical.TimepointType;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -59,7 +63,7 @@ public class IdMapperFileBasedService {
 			  
 			  idMap.put(labtrackId, entry);
 			  
-			  sample.setTimepoint(Integer.parseInt(sampleData[2]));
+			  sample.setTimepoint(TimepointType.valueOf(sampleData[2]));
 			  sample.setCoreType(SampleCoreType.valueOf(sampleData[3]));
 			  sample.setSectionInfo(sampleData[4]);
 			  
@@ -111,6 +115,47 @@ public class IdMapperFileBasedService {
 	}
 	
 	/**
+	 * Will return the sample info objects corresponding to the
+	 * specified labtrack ids.  Note that order is preserved.
+	 * @param sampleIds
+	 * @return
+	 */
+	public List<SampleInfo> getSampleInfoForLabtrackIds(List<String> labtrackIds) {
+		List<SampleInfo> retList = new ArrayList<SampleInfo>();
+		SampleInfo si;
+		for (String labtrackId : labtrackIds) {
+		  si = getSampleInfoForLabtrackId(labtrackId);
+		  retList.add(si);
+		}
+		return retList;
+	}
+	
+	
+	/**
+	 * Will return the sample info object corresponding to the specified labtrack id;
+	 * @param labtrackId
+	 * @return
+	 */
+	public SampleInfo getSampleInfoForLabtrackId(String labtrackId) {
+	  RegistrantInfo ri = null;
+	  SampleInfo si = null;
+	  
+	  ri = idMap.get(labtrackId);
+	  
+	  if (ri == null) {
+	    logger.error("No mapper entry found for labtrackid=" + labtrackId);
+	  }
+	  else {
+		si = ri.getSample(labtrackId);
+		if (si == null) {
+		    logger.error("No sample info found for labtrackid=" + labtrackId);
+		}  
+	  }
+	  
+	  return si;
+	}
+	
+	/**
 	 * This method will return samples of a given dataType. 
 	 * @param ids the ids to search with. These ids can be any of the ids associated with the registrant. For 
 	 * example if registrantId=101 has AgilentSampleId=345 and CDNA_labtrackId=678 then specifing a data type of CDNA and
@@ -148,7 +193,7 @@ public class IdMapperFileBasedService {
 	 * @param timepoint
 	 * @return
 	 */
-	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(List<String> ids, ISPYDataType dataType, int timepoint) {
+	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(List<String> ids, ISPYDataType dataType, TimepointType timepoint) {
 	  	
 	  List<SampleInfo> sampleList =  getSamplesForDataType(ids, dataType);
 	  List<SampleInfo> retList = new ArrayList<SampleInfo>(); 	
@@ -162,12 +207,44 @@ public class IdMapperFileBasedService {
 	}
 	
 	/**
+	 * This method will return samples of a given dataType for a given timepoint.  The most common use of this method
+	 * will be to pass in a list of registrantIds a dataType and a timepoint. This method would return a list of samples
+	 * of the specified dataType for the specified timepoint.
+	 * @param ids
+	 * @param dataType
+	 * @param timepoint
+	 * @return
+	 */
+	public Set<SampleInfo> getSamplesForDataTypeAndTimepoints(List<String> ids, ISPYDataType dataType, Set<TimepointType> timepoints) {
+	  	
+	  List<SampleInfo> sampleList =  getSamplesForDataType(ids, dataType);
+	  Set<SampleInfo> retSet = new HashSet<SampleInfo>(); 	
+	  for (SampleInfo sample: sampleList) {
+	    if (timepoints.contains(sample.getTimepoint())) {
+	      retSet.add(sample);
+	    }
+	  }
+	  
+	  return retSet;
+	}
+	
+	public Set<SampleInfo> getSamplesForDataTypeAndTimepoints(ISPYDataType dataType, Set<TimepointType> timepoints) {
+	 
+	  Set<SampleInfo> retSet = new HashSet<SampleInfo>(); 	
+	  
+	  for (RegistrantInfo ri : idMap.values()) {
+	    retSet.addAll(ri.getSamplesForDataTypeAndTimepoints(dataType, timepoints)); 
+	  }
+	  return retSet;
+	}
+	
+	/**
 	 * Go though all of the ISPY samples and return those of the specified dataType and timepoint
 	 * @param dataType
 	 * @param timepoint
 	 * @return
 	 */
-	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(ISPYDataType dataType, int timepoint) {
+	public List<SampleInfo> getSamplesForDataTypeAndTimepoint(ISPYDataType dataType, TimepointType timepoint) {
 	    List<SampleInfo> retList = new ArrayList<SampleInfo>();
 	    List<SampleInfo> regSampleList;
 		for (RegistrantInfo registrant: idMap.values()) {

@@ -1,10 +1,12 @@
 package gov.nih.nci.ispy.service.annotation;
 
+import gov.nih.nci.ispy.service.clinical.TimepointType;
+
 public class SampleInfo {
 	
 	private String labtrackId;
 	private String registrantId;
-	private int timepoint;
+	private TimepointType timepoint;
 	private SampleCoreType coreType;
 	private ISPYDataType dataType;
 	private String sectionInfo;
@@ -59,11 +61,11 @@ public class SampleInfo {
 		this.sectionInfo = sectionInfo;
 	}
 
-	public int getTimepoint() {
+	public TimepointType getTimepoint() {
 		return timepoint;
 	}
 
-	public void setTimepoint(int timepoint) {
+	public void setTimepoint(TimepointType timepoint) {
 		this.timepoint = timepoint;
 	}
 	
