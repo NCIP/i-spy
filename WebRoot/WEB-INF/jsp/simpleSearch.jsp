@@ -84,7 +84,7 @@
 					tDIV.setAttribute("name","div_"+frameid+"_div");
 					tDIV.setAttribute("style","width:100%");
 					tDIV.setAttribute("class", "titleDiv");
-					tDIV.appendChild(document.createTextNode("Registrant: " + frameid + " | "));
+					tDIV.appendChild(document.createTextNode(r+1 + ") Registrant: " + frameid + " | "));
 					
 					var eAnchor = document.createElement("a");
 					eAnchor.setAttribute("href","#");
