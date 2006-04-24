@@ -1,9 +1,15 @@
 <html>
 <head>
 
-	<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+	<style> 
+		body, html {
+			margin:0px; padding: 0px; overflow: hidden;	
+		} 
+		div	{ font-family: arial; font-size:11px;}
+	</style>
 
 	<script language="javascript" src="js/prototype_1.5pre.js"></script>
+	<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>
 	<script language="javascript" src="js/event-selectors.js"></script>
 	<script type='text/javascript' src='dwr/interface/IdLookup.js'></script>
 	<script type='text/javascript' src='dwr/engine.js'></script>
@@ -111,10 +117,9 @@
 	};
 </script>
 </head>
-<body>
+<body>	
 	<div id="tbl">
 		<img src="images/indicator.gif" style="align:center"/>	
 	</div>
-
 </body>
 </html>
