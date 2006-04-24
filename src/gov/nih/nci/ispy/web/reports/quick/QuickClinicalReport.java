@@ -1,5 +1,7 @@
 package gov.nih.nci.ispy.web.reports.quick;
 
+import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
+import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
@@ -9,6 +11,7 @@ import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,8 +39,17 @@ public class QuickClinicalReport {
 		if(sampleIds != null)	{
 			
 			try {
+		
+				IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
 				
-				List<ClinicalData> clinicalDataList = ClinicalFileBasedQueryService.getInstance().getClinicalDataForLabtrackIds(sampleIds);
+				//List<RegistrantInfo> registrants = 
+				List<SampleInfo> samples = idMapper.getSampleInfoForLabtrackIds(sampleIds);
+				List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
+				ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
+				for (SampleInfo si : samples) {
+				  clinicalDataList.add(cqs.getClinicalDataForPatientDID(si.getRegistrantId(), si.getTimepoint()));
+				}
+				
 				
 				if(clinicalDataList != null  && sampleIds != null){
 					int count = 0;
@@ -77,13 +89,15 @@ public class QuickClinicalReport {
 							tr = table.addElement("tr").addAttribute("class", "data");
 							
 							String tmp = "";
-							String sid = cd.getPatientId()!=null  ? cd.getPatientId() : dv;
+							String sid = cd.getPatientDID()!=null  ? cd.getPatientDID() : dv;
 							td = tr.addElement("td").addText(sid);
 							
 							String dis = cd.getDiseaseStage() != null && cd.getDiseaseStage() != DiseaseStageType.MISSING ? cd.getDiseaseStage().toString() : dv;
 							td = tr.addElement("td").addText(dis);
 
-							tmp = cd.getLabtrackId() != null ? cd.getLabtrackId().toString() : dv;
+							//tmp = cd.getLabtrackId() != null ? cd.getLabtrackId().toString() : dv;
+							//@TODO need to get correct labtrack id for clinical report
+							tmp = dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							tmp = cd.getPrimaryTumorHistologyType() != null && !cd.getPrimaryTumorHistologyType().trim().equals("")? cd.getPrimaryTumorHistologyType().toString() : dv;
