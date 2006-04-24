@@ -56,7 +56,10 @@ public class ClinicalFileBasedQueryService {
 		  Pattern pattern = Pattern.compile("([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)");		  
 		  
 		  //reset the map
-		  clinicalDataMap.clear();
+		  //clinicalDataMap.clear();
+		  
+		  timepointMap.clear();
+		  
 		  Matcher matcher = null;
 		  
 		  while ((line=in.readLine())!= null) {
@@ -71,15 +74,18 @@ public class ClinicalFileBasedQueryService {
 			
 		    String labtrackId = matcher.group(1);
 		    
+		    //NOTE: labtrackId in no longer associated with the clinical data. Labtrack ids should
+		    //be gotten through the IdMapper service.
+		    
 		    //System.out.println("labtrackId=" + labtrackId);
 		    
-		    String patientId = matcher.group(2);
+		    String patientDID = matcher.group(2);
 		    
 		    //System.out.println("patientId=" + patientId);
 		    
 		    TimepointType timepoint = TimepointType.valueOf(matcher.group(3));
 		    
-		    clinicalData = new ClinicalData(labtrackId, patientId, timepoint);
+		    clinicalData = new ClinicalData(patientDID, timepoint);
 		    
 //		  LAB_TRACK_ID	PATIENT_DID	TIME_POINT	DISEASE_STAGE	CLINICAL_RESPONSE	LD	ER	PR	HER2	TUMOR_MORPHOLOGY	PRITUM_NUCLEAR_GRADE	PRIMTUMAR_HISTOTYPE	GROSS_TUMOR_SZ	MICRO_TUMOR_SZ	AGENT_NAME	MRI_PERCENTAGE_CHANGE
 			
@@ -123,7 +129,7 @@ public class ClinicalFileBasedQueryService {
 		    clinicalData.setMRIpctChange(StringUtils.getDouble(matcher.group(16)));
 		    
 		   
-		    clinicalDataMap.put(labtrackId, clinicalData);
+		    clinicalDataMap.put(patientDID, clinicalData);
 		    
 		    Set<ClinicalData> timepointDataSet= timepointMap.get(clinicalData.getTimepoint());
 		    if (timepointDataSet == null) {
@@ -144,29 +150,63 @@ public class ClinicalFileBasedQueryService {
 	 * taken at the specified timepoint.
 	 * @param timepoint
 	 */
-	public Set<String> getLabtrackIdsForTimepoint(TimepointType timepoint) {
-		Set<String> labtrackIds = new HashSet<String>();
+//	public Set<String> getLabtrackIdsForTimepoint(TimepointType timepoint) {
+//		Set<String> labtrackIds = new HashSet<String>();
+//		
+//		Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
+//		if (clinDataSet != null) {
+//			for (ClinicalData cd:clinDataSet) {
+//			  labtrackIds.add(cd.getLabtrackId());
+//			}
+//		}
+//		return labtrackIds;
+//	}
+	
+	/**
+	 * Get the clinical data for a given timepoint.
+	 */
+	public Set<ClinicalData> getClinicalDataForTimepoint(TimepointType timepoint) {
 		
-		Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
-		if (clinDataSet != null) {
-			for (ClinicalData cd:clinDataSet) {
-			  labtrackIds.add(cd.getLabtrackId());
-			}
-		}
-		return labtrackIds;
+		return timepointMap.get(timepoint);
+		
 	}
 	
-	public Set<String> getLabtrackIdsForDiseaseStage(TimepointType timepoint, Set<DiseaseStageType> diseaseStageSet) {
-		Set<String> labtrackIds = new HashSet<String>();
-		ClinicalData clinData;
+//	public Set<String> getLabtrackIdsForDiseaseStage(TimepointType timepoint, Set<DiseaseStageType> diseaseStageSet) {
+//		Set<String> labtrackIds = new HashSet<String>();
+//		ClinicalData clinData;
+//		
+//		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint); 
+//		
+//		for (String labtrackId:idsToCheck) {
+//		  clinData = clinicalDataMap.get(labtrackId);
+//		  for (DiseaseStageType ds:diseaseStageSet) {
+//			  if (ds==clinData.getDiseaseStage()) {
+//			    labtrackIds.add(labtrackId);
+//			  }
+//			  else if (ds.name().endsWith("ALL")) {
+//			     //check the prefix if it matches then add the labtrackId
+//				 String cdDiseaseStage = clinData.getDiseaseStage().name();
+//				 String[] cdStgTokens = cdDiseaseStage.split("_");
+//				 String[] stgTokens = ds.name().split("_");
+//				 if (cdStgTokens[0].equals(stgTokens[0])) {
+//				   labtrackIds.add(labtrackId);
+//				 }
+//			  }
+//		  }
+//		}
+//		return labtrackIds;
+//	}
+	
+	public Set<String> getPatientDIDsForDiseaseStage(TimepointType timepoint, Set<DiseaseStageType> diseaseStageSet) {
+	
+		Set<String> patientDIDs = new HashSet<String>();
 		
-		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint); 
+		Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
 		
-		for (String labtrackId:idsToCheck) {
-		  clinData = clinicalDataMap.get(labtrackId);
+		for (ClinicalData clinData : clinDataSet) {
 		  for (DiseaseStageType ds:diseaseStageSet) {
 			  if (ds==clinData.getDiseaseStage()) {
-			    labtrackIds.add(labtrackId);
+			    patientDIDs.add(clinData.getPatientDID());
 			  }
 			  else if (ds.name().endsWith("ALL")) {
 			     //check the prefix if it matches then add the labtrackId
@@ -174,77 +214,136 @@ public class ClinicalFileBasedQueryService {
 				 String[] cdStgTokens = cdDiseaseStage.split("_");
 				 String[] stgTokens = ds.name().split("_");
 				 if (cdStgTokens[0].equals(stgTokens[0])) {
-				   labtrackIds.add(labtrackId);
+				   patientDIDs.add(clinData.getPatientDID());
 				 }
 			  }
-		  }
+		  }	
 		}
-		return labtrackIds;
+		
+		return patientDIDs;
 	}
 	
-	public Set<String> getLabtrackIdsForClinicalResponse(TimepointType timepoint, Set<ClinicalResponseType> clinicalResponseSet) {
-		Set<String> labtrackIds = new HashSet<String>();
-		ClinicalData clinData;
+//	public Set<String> getLabtrackIdsForClinicalResponse(TimepointType timepoint, Set<ClinicalResponseType> clinicalResponseSet) {
+//		Set<String> labtrackIds = new HashSet<String>();
+//		ClinicalData clinData;
+//		
+//		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+//		
+//		for (String labtrackId:idsToCheck) {
+//		  clinData = clinicalDataMap.get(labtrackId);
+//		  if (clinicalResponseSet.contains(clinData.getClinicalResponse())) {
+//		    labtrackIds.add(labtrackId);
+//		  }
+//		}
+//		return labtrackIds;
+//	}
+	
+	public Set<String> getPatientDIDsForClinicalResponse(TimepointType timepoint, Set<ClinicalResponseType> clinicalResponseSet) {
+        Set<String> patientDIDs = new HashSet<String>();
 		
-		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+		Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
 		
-		for (String labtrackId:idsToCheck) {
-		  clinData = clinicalDataMap.get(labtrackId);
+		for (ClinicalData clinData : clinDataSet) {
 		  if (clinicalResponseSet.contains(clinData.getClinicalResponse())) {
-		    labtrackIds.add(labtrackId);
+		    patientDIDs.add(clinData.getPatientDID());
 		  }
 		}
-		return labtrackIds;
+		
+		return patientDIDs;
 	}
 	
-	public Collection<String> getLabtrackIdsForERstatus(TimepointType timepoint, Set<ERstatusType> erStatusSet) {
-		Set<String> labtrackIds = new HashSet<String>();
-		ClinicalData clinData;
+//	public Collection<String> getLabtrackIdsForERstatus(TimepointType timepoint, Set<ERstatusType> erStatusSet) {
+//		Set<String> labtrackIds = new HashSet<String>();
+//		ClinicalData clinData;
+//		
+//		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+//		
+//		for (String labtrackId:idsToCheck) {
+//		  clinData = clinicalDataMap.get(labtrackId);
+//		  if (erStatusSet.contains(clinData.getErStatus())) {
+//		    labtrackIds.add(labtrackId);
+//		  }
+//		}
+//		return labtrackIds;
+//	}
+	
+	public Set<String> getPatientDIDsForERstatus(TimepointType timepoint, Set<ERstatusType> erStatusSet) {
+	  
+	  Set<String> patientDIDs = new HashSet<String>();
+	  
+	  Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
 		
-		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
-		
-		for (String labtrackId:idsToCheck) {
-		  clinData = clinicalDataMap.get(labtrackId);
-		  if (erStatusSet.contains(clinData.getErStatus())) {
-		    labtrackIds.add(labtrackId);
+	  for (ClinicalData clinData : clinDataSet) {
+	    if (erStatusSet.contains(clinData.getErStatus())) {
+	      patientDIDs.add(clinData.getPatientDID());
+	    }
+	  }
+	  
+	  return patientDIDs;
+	}
+	
+	
+//	public Set<String> getLabtrackIdsForPRstatus(TimepointType timepoint, Set<PRstatusType> prStatusSet) {
+//		Set<String> labtrackIds = new HashSet<String>();
+//		ClinicalData clinData;
+//		
+//		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+//		
+//		for (String labtrackId:idsToCheck) {
+//		  clinData = clinicalDataMap.get(labtrackId);
+//		  if (prStatusSet.contains(clinData.getPrStatus())) {
+//		    labtrackIds.add(labtrackId);
+//		  }
+//		}
+//		return labtrackIds;
+//	}
+	
+	public Set<String> getPatientDIDsForPRstatus(TimepointType timepoint, Set<PRstatusType> prStatusSet) {
+		  
+		  Set<String> patientDIDs = new HashSet<String>();
+		  
+		  Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
+			
+		  for (ClinicalData clinData : clinDataSet) {
+		    if (prStatusSet.contains(clinData.getPrStatus())) {
+		      patientDIDs.add(clinData.getPatientDID());
+		    }
 		  }
-		}
-		return labtrackIds;
+		  
+		  return patientDIDs;
 	}
 	
-	public Set<String> getLabtrackIdsForPRstatus(TimepointType timepoint, Set<PRstatusType> prStatusSet) {
-		Set<String> labtrackIds = new HashSet<String>();
-		ClinicalData clinData;
-		
-		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
-		
-		for (String labtrackId:idsToCheck) {
-		  clinData = clinicalDataMap.get(labtrackId);
-		  if (prStatusSet.contains(clinData.getPrStatus())) {
-		    labtrackIds.add(labtrackId);
+//	public Set<String> getLabtrackIdsForHER2status(TimepointType timepoint, Set<HER2statusType> her2StatusSet) {
+//		Set<String> labtrackIds = new HashSet<String>();
+//		ClinicalData clinData;
+//		
+//		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
+//		
+//		for (String labtrackId:idsToCheck) {
+//		  clinData = clinicalDataMap.get(labtrackId);
+//		  if (her2StatusSet.contains(clinData.getHER2status())) {
+//		    labtrackIds.add(labtrackId);
+//		  }
+//		}
+//		return labtrackIds;
+//	}
+	
+	
+	public Set<String> getPatientDIDsForHER2status(TimepointType timepoint, Set<HER2statusType> her2StatusSet) {
+		  
+		  Set<String> patientDIDs = new HashSet<String>();
+		  
+		  Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
+			
+		  for (ClinicalData clinData : clinDataSet) {
+		    if (her2StatusSet.contains(clinData.getHER2status())) {
+		      patientDIDs.add(clinData.getPatientDID());
+		    }
 		  }
-		}
-		return labtrackIds;
+		  
+		  return patientDIDs;
 	}
 	
-	public Set<String> getLabtrackIdsForHER2status(TimepointType timepoint, Set<HER2statusType> her2StatusSet) {
-		Set<String> labtrackIds = new HashSet<String>();
-		ClinicalData clinData;
-		
-		Set<String> idsToCheck = getLabtrackIdsForTimepoint(timepoint);
-		
-		for (String labtrackId:idsToCheck) {
-		  clinData = clinicalDataMap.get(labtrackId);
-		  if (her2StatusSet.contains(clinData.getHER2status())) {
-		    labtrackIds.add(labtrackId);
-		  }
-		}
-		return labtrackIds;
-	}
-	
-	public ClinicalData getClinicalDataForLabtrackId(String labtrackId) {
-	  return clinicalDataMap.get(labtrackId);
-	}
 	
 	/**
 	 * This method will return clinical data for the specified list of 
@@ -255,92 +354,180 @@ public class ClinicalFileBasedQueryService {
 	 * @param labtrackIds
 	 * @return
 	 */
-	public List<ClinicalData> getClinicalDataForLabtrackIds(List<String> labtrackIds) {
+//	public List<ClinicalData> getClinicalDataForLabtrackIds(List<String> labtrackIds) {
+//		List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
+//		ClinicalData clinData = null;
+//		for (String labtrackId:labtrackIds) {
+//		  clinData = clinicalDataMap.get(labtrackId);
+//		  if (clinData != null) {
+//		    clinicalDataList.add(clinData);
+//		  }
+//		  else {
+//		    logger.warn("No clinical data found for labtrackId=" + labtrackId);
+//		  }
+//		}
+//		return clinicalDataList;
+//	}
+	
+	public ClinicalData getClinicalDataForPatientDID(String patientDID, TimepointType timepoint) {
+	  
+		Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
+		
+		for (ClinicalData cd : clinDataSet) {
+		  if (cd.getPatientDID().equals(patientDID)) {
+		    return cd;
+		  }
+		}
+		
+		return null;
+	}
+	
+	public List<ClinicalData> getClinicalDataForPatientDIDs(List<String> patientDIDs, TimepointType timepoint) {
 		List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
-		ClinicalData clinData = null;
-		for (String labtrackId:labtrackIds) {
-		  clinData = clinicalDataMap.get(labtrackId);
-		  if (clinData != null) {
-		    clinicalDataList.add(clinData);
-		  }
-		  else {
-		    logger.warn("No clinical data found for labtrackId=" + labtrackId);
-		  }
-		}
-		return clinicalDataList;
+        ClinicalData clinData = null;
+		
+        for (String patientDID : patientDIDs) {
+        
+          clinData = getClinicalDataForPatientDID(patientDID, timepoint);
+          if (clinData != null) {
+            clinicalDataList.add(clinData);
+          }
+          else {
+            logger.warn("No clinical data found for patientDID=" + patientDID);
+          }
+        }
+        return clinicalDataList;
+		
 	}
 	
 	
-	public Map<String, ClinicalData> getClinicalDataMapForLabtrackIds(Collection<String> labtrackIds) {
-	  Map<String, ClinicalData> retMap = new HashMap<String, ClinicalData>();
-	  ClinicalData clinData = null;
-	  for (String id:labtrackIds) {
-	    clinData = clinicalDataMap.get(id);
-	    if (clinData != null) {
-	      retMap.put(id, clinData);
-	    }
-	    else {
-	      logger.warn("No clinical data found for labtrackId=" + id);
-	    }
-	  }
-	  return retMap;
-	}
+//	public Map<String, ClinicalData> getClinicalDataMapForLabtrackIds(Collection<String> labtrackIds) {
+//	  Map<String, ClinicalData> retMap = new HashMap<String, ClinicalData>();
+//	  ClinicalData clinData = null;
+//	  for (String id:labtrackIds) {
+//	    clinData = clinicalDataMap.get(id);
+//	    if (clinData != null) {
+//	      retMap.put(id, clinData);
+//	    }
+//	    else {
+//	      logger.warn("No clinical data found for labtrackId=" + id);
+//	    }
+//	  }
+//	  return retMap;
+//	}
 
-	public Set<String> getLabtrackIdsForTimepoints(List<TimepointType> timepoints) {
-		Set<String> ids = new HashSet<String>();
-		for (TimepointType tp:timepoints) {
-		  ids.addAll(getLabtrackIdsForTimepoint(tp));
-		}
-		return ids;
-	}
+//	public Set<String> getLabtrackIdsForTimepoints(List<TimepointType> timepoints) {
+//		Set<String> ids = new HashSet<String>();
+//		for (TimepointType tp:timepoints) {
+//		  ids.addAll(getLabtrackIdsForTimepoint(tp));
+//		}
+//		return ids;
+//	}
+	
+	
+//	public Set<String> getPatientDIDsForTimepoints(List<TimepointType> timepoints) {
+//		Set<String> ids = new HashSet<String>();
+//		for (TimepointType tp: timepoints) {
+//		  ids.addAll(getPatientDIDsForTimepoint(tp));
+//		}
+//		return ids;
+//	}
 	
 	
 	/**
-	 * Will get the labtrack ids associated with the parameters set in the ISPYclinicalDataQueryDTO
-	 * @param clinicalDataQueryDTO
-	 * @return
+	 * May want to add ability to and/or constraints
 	 */
-	public Set<String> getLabtrackIds(ISPYclinicalDataQueryDTO cDTO) {
-	
+	public Set<String> getPatientDIDs(ISPYclinicalDataQueryDTO cDTO) {
+	  
 		Set<TimepointType> timepoints = cDTO.getTimepointValues();
-		Set<String> labtrackIds = new HashSet<String>();
+		Set<String> patientDIDs = new HashSet<String>();
 		Boolean executedQuery = false;
 		
 		for (TimepointType tp:timepoints) {
 			executedQuery = false;
 		  
 			if ((cDTO.getClinicalResponseValues()!= null)&&(!cDTO.getClinicalResponseValues().isEmpty())) {
-		      labtrackIds.addAll(getLabtrackIdsForClinicalResponse(tp,cDTO.getClinicalResponseValues()));
+		      patientDIDs.addAll(getPatientDIDsForClinicalResponse(tp,cDTO.getClinicalResponseValues()));
 		      executedQuery = true;
 		    }
 			
 			if ((cDTO.getDiseaseStageValues() != null)&&(!cDTO.getDiseaseStageValues().isEmpty())) {
-			  labtrackIds.addAll(getLabtrackIdsForDiseaseStage(tp,cDTO.getDiseaseStageValues()));
+			  patientDIDs.addAll(getPatientDIDsForDiseaseStage(tp,cDTO.getDiseaseStageValues()));
 			  executedQuery = true;
 			}
 			
 			if ((cDTO.getErStatusValues() != null)&&(!cDTO.getErStatusValues().isEmpty())) {
-			  labtrackIds.addAll(getLabtrackIdsForERstatus(tp, cDTO.getErStatusValues()));
+			  patientDIDs.addAll(getPatientDIDsForERstatus(tp, cDTO.getErStatusValues()));
 			  executedQuery = true;
 			}
 			
 			if ((cDTO.getHer2StatusValues() != null)&&(!cDTO.getHer2StatusValues().isEmpty())) {
-			  labtrackIds.addAll(getLabtrackIdsForHER2status(tp, cDTO.getHer2StatusValues()));
+			  patientDIDs.addAll(getPatientDIDsForHER2status(tp, cDTO.getHer2StatusValues()));
 			  executedQuery = true;
 			}
 			
 			if ((cDTO.getPrStatusValues() != null)&&(!cDTO.getPrStatusValues().isEmpty())) {
-			  labtrackIds.addAll(getLabtrackIdsForPRstatus(tp, cDTO.getPrStatusValues()));		
+			  patientDIDs.addAll(getPatientDIDsForPRstatus(tp, cDTO.getPrStatusValues()));		
 			  executedQuery = true;
 			}
 			
 			if (!executedQuery) {
-			  labtrackIds.addAll(getLabtrackIdsForTimepoint(tp));
-			}
+			  //add all patientDIDs to the return list?
 				
+			}
+			
 		}
 		
-		return labtrackIds;
+		return patientDIDs;
+		
 	}
+	
+	/**
+	 * Will get the labtrack ids associated with the parameters set in the ISPYclinicalDataQueryDTO
+	 * @param clinicalDataQueryDTO
+	 * @return
+	 */
+//	public Set<String> getLabtrackIds(ISPYclinicalDataQueryDTO cDTO) {
+//	
+//		Set<TimepointType> timepoints = cDTO.getTimepointValues();
+//		Set<String> labtrackIds = new HashSet<String>();
+//		Boolean executedQuery = false;
+//		
+//		for (TimepointType tp:timepoints) {
+//			executedQuery = false;
+//		  
+//			if ((cDTO.getClinicalResponseValues()!= null)&&(!cDTO.getClinicalResponseValues().isEmpty())) {
+//		      labtrackIds.addAll(getLabtrackIdsForClinicalResponse(tp,cDTO.getClinicalResponseValues()));
+//		      executedQuery = true;
+//		    }
+//			
+//			if ((cDTO.getDiseaseStageValues() != null)&&(!cDTO.getDiseaseStageValues().isEmpty())) {
+//			  labtrackIds.addAll(getLabtrackIdsForDiseaseStage(tp,cDTO.getDiseaseStageValues()));
+//			  executedQuery = true;
+//			}
+//			
+//			if ((cDTO.getErStatusValues() != null)&&(!cDTO.getErStatusValues().isEmpty())) {
+//			  labtrackIds.addAll(getLabtrackIdsForERstatus(tp, cDTO.getErStatusValues()));
+//			  executedQuery = true;
+//			}
+//			
+//			if ((cDTO.getHer2StatusValues() != null)&&(!cDTO.getHer2StatusValues().isEmpty())) {
+//			  labtrackIds.addAll(getLabtrackIdsForHER2status(tp, cDTO.getHer2StatusValues()));
+//			  executedQuery = true;
+//			}
+//			
+//			if ((cDTO.getPrStatusValues() != null)&&(!cDTO.getPrStatusValues().isEmpty())) {
+//			  labtrackIds.addAll(getLabtrackIdsForPRstatus(tp, cDTO.getPrStatusValues()));		
+//			  executedQuery = true;
+//			}
+//			
+//			if (!executedQuery) {
+//			  labtrackIds.addAll(getLabtrackIdsForTimepoint(tp));
+//			}
+//				
+//		}
+//		
+//		return labtrackIds;
+//	}
 
 }

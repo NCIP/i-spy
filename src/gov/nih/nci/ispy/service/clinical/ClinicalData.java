@@ -21,8 +21,8 @@ public class ClinicalData implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
-	private String patientId;
-	private String labtrackId;
+	private String patientDID;
+	//private String labtrackId;
 	private TimepointType timepoint;
 	private DiseaseStageType diseaseStage;
 	private ERstatusType erStatus;
@@ -42,9 +42,9 @@ public class ClinicalData implements Serializable{
 	private Double MRIpctChange = null;  //change in tumor size (measured by MRI) wrt the baseline measurement
 
 
-	public ClinicalData(String labtrackId, String patientId, TimepointType timepoint) {
-	  this.labtrackId = labtrackId;
-	  this.patientId = patientId;
+	public ClinicalData(String patientDID, TimepointType timepoint) {
+	  //this.labtrackId = labtrackId;
+	  this.patientDID = patientDID;
 	  this.timepoint = timepoint;
 	}
 
@@ -79,13 +79,13 @@ public class ClinicalData implements Serializable{
 	}
 
 
-	public String getLabtrackId() {
-		return labtrackId;
-	}
+//	public String getLabtrackId() {
+//		return labtrackId;
+//	}
 
 
-	public String getPatientId() {
-		return patientId;
+	public String getPatientDID() {
+		return patientDID;
 	}
 
 
@@ -296,8 +296,8 @@ public class ClinicalData implements Serializable{
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append("LabtrackId:").append("\t").append(labtrackId).append("\n");
-		sb.append("PatiendId:").append("\t").append(patientId).append("\n");
+		//sb.append("LabtrackId:").append("\t").append(labtrackId).append("\n");
+		sb.append("PatiendDID:").append("\t").append(patientDID).append("\n");
 		sb.append("Timepoint:").append("\t").append(timepoint).append("\n");
 		sb.append("DiseaseStage:").append("\t").append(diseaseStage).append("\n");
 		sb.append("ERstatus:").append("\t").append(erStatus).append("\n");		
