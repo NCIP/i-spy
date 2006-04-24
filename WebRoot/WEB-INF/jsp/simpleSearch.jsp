@@ -53,13 +53,18 @@ iframe	{
 			
 			//Effect.BlindDown(sect);
 			//Stripe.stripe("dataTable");	
+		},
+		'removeIframes' : function()	{
+			var obj = $('ifcontainer');
+			while(obj.firstChild) obj.removeChild(obj.firstChild);
 		}
 	
 	};
 	 var Rules = {
 		'#lookupButton:click': function(element)	{
-		$('lookupResults').style.display = "none";
-		$('lookupResults').innerHTML = "";
+			$('lookupResults').style.display = "none";
+			$('lookupResults').innerHTML = "";
+			StatusSpan.removeIframes();
 			StatusSpan.start();
 		},
 		'.resultsTable' : function(element)	{
@@ -120,13 +125,13 @@ iframe	{
 					var eDIV = document.createElement("iframe");
 					eDIV.setAttribute("id","if_"+frameid+"_if");
 					eDIV.setAttribute("name","if_"+frameid+"_if");
-					eDIV.setAttribute("src","awWrapper.do");
+					eDIV.setAttribute("src","awWrapper.do?reg="+frameid);
 					eDIV.setAttribute("style","width:100%");
-					eDIV.setAttribute("frameborder","3");
+					eDIV.setAttribute("frameborder","0");
 					// append your newly created DIV element to an already existing element.
 					document.getElementById("ifcontainer").appendChild(eDIV);
 					
-
+				/*
 					for(i=0;i<games.length;i++) {
 					
 						_myData[i] = new Array();
@@ -145,7 +150,7 @@ iframe	{
 					myGrids[r].frameid = frameid;
 					myGrids[r].myData = _myData;
 					myGrids[r].myColumns = _myColumns;
-					
+				*/	
 
 				}
 				
@@ -156,23 +161,25 @@ iframe	{
 	 		}
 	 		finally	{
 		 		setTimeout(function()	{ StatusSpan.stop(numpatients)}, 1000);
-		 		
+		 		/*
 		 		myGrids.each	(function(item, index)	{
 		 		
 					var tmpp = "if_"+item.frameid+"_if";
 					if(window.frames[tmpp])	{
 						
-						/*
-						(10000).times(function(n) {
-						 var t= "";  
-						});
-						*/
+					
+				//		(10000).times(function(n) {
+				//		 var t= "";  
+				//		});
+						
 												
 						setTimeout(function() { window.frames[tmpp].Grid.makeGrid(item.myData, item.myColumns)}, 100);
 						Effect.Appear(tmpp);
 					}
 					}
 				);
+				*/
+				
 		 	}
 	 	}
 	 	
@@ -198,9 +205,6 @@ iframe	{
 	</form>
 	
 	<div id="lookupResults" style="display:none"></div>
-
-	<iframe id="gridFrame" name="gridFrame" src="awWrapper.do" frameborder="0" style="width:100%;display:none">
-	</iframe>
 	<div id="ifcontainer">
 	
 	</div>

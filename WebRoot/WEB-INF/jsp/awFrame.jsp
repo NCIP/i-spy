@@ -3,6 +3,10 @@
 
 	<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
 
+	<script language="javascript" src="js/prototype_1.5pre.js"></script>
+	<script language="javascript" src="js/event-selectors.js"></script>
+	<script type='text/javascript' src='dwr/interface/IdLookup.js'></script>
+	<script type='text/javascript' src='dwr/engine.js'></script>
 
 	<link href="js/activewidgets/runtime/styles/xp/grid.css" rel="stylesheet" type="text/css" ></link>
 	<script src="js/activewidgets/runtime/lib/grid.js"></script>
@@ -19,10 +23,7 @@
 		.active-grid-row {border-bottom: 1px solid threedlightshadow;}
 	</style>
 	<script type="text/javascript">
-		function testTT() {
-			alert("test");
-		}
-		
+
 		var Grid = {
 			'makeGrid' : function(myData, myColumns)	{
 				//	create ActiveWidgets Grid javascript object
@@ -46,7 +47,69 @@
 				document.getElementById("tbl").innerHTML = obj;
 			}
 		};
-	</script>
+	
+	
+<%
+	String registrant = request.getParameter("reg")!=null ? request.getParameter("reg") : null;
+	if(registrant!=null)	{
+	%>
+		window.onload = function()	{
+			$('tbl').innerHTML += " displaying data for registrant:" + <%=registrant%>+"";
+			setTimeout(function()	{ IdLookup.lookup(<%=registrant%>, A_IdLookup.lookup_cb) }, 800);
+		
+		}
+		
+	<%	
+	}
+%>
+	var A_IdLookup = {
+		'lookup_cb' : function(txt)	{
+			
+			var _myColumns = [
+					"RegID", "LabTrack ID", "Timepoint", "Core Type", "Section Info"
+				];
+				
+			var _myData = Array();
+				
+			try	{
+			
+	 			var registrants = txt.getElementsByTagName("registrant");
+		 		
+		 		if(registrants.length < 1)	{
+		 			//no records
+		 			throw("No records found. Please try again.");
+		 		}
+	
+		 		var numpatients = registrants.length;
+		 		var frameid;
+		 		for(var r=0; r<registrants.length; r++)	{
+		 			
+		 			var samples = registrants[r].getElementsByTagName("sample");
+		 			
+					for(i=0;i<samples.length;i++) {
+					
+						_myData[i] = new Array();
+					
+						data = samples[i].childNodes;
+						
+						for(j=0;j<data.length;j++) {
+							if(data[j].nodeType == 1) {
+								_myData[i][j] = data[j].childNodes[0].nodeValue;
+							} 
+						}
+					}
+				}
+	 		}
+	 		catch(err)	{
+	 			$('tbl').innerHTML = err;
+	 			alert("ERR: " + err);
+	 		}
+	 		finally	{
+		 		Grid.makeGrid(_myData, _myColumns)
+			}
+		}
+	};
+</script>
 </head>
 <body>
 	<div id="tbl">
