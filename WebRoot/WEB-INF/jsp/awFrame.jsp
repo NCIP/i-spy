@@ -70,7 +70,6 @@
 %>
 	var A_IdLookup = {
 		'lookup_cb' : function(txt)	{
-			alert("in cb");
 			var _myColumns = [
 					"RegID", "LabTrack ID", "Timepoint", "Core Type", "Section Info"
 				];

@@ -136,8 +136,9 @@
 		titleDiv	{ margin-top:10px;}
 	</style>
 	
+<br/>
 <fieldset id="lookupDiv">
-	<legend>Patient or Sample Id(s)</legend>
+	<legend>Patient or Sample Id(s)</legend><br/>
 	<form id="theForm" action="#" method="get" onsubmit="return false;">
 	<input type="text" name="lookup" id="lookupString"/>
 	<input type="button" id="lookupButton" value="search"/>
