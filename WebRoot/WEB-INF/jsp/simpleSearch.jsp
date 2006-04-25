@@ -133,13 +133,16 @@
 	</script>
 	<style>
 		iframe { margin-bottom:20px; }	
-		titleDiv	{ margin-top:10px;}
+		.titleDiv	{ margin-top:10px;}
 	</style>
 	
 <br/>
 <fieldset id="lookupDiv">
 	<legend>Patient or Sample Id(s)</legend><br/>
 	<form id="theForm" action="#" method="get" onsubmit="return false;">
+	Please enter ID(s) in a comma seperated format (ex. 123,456,789)
+	<br/>
+	<br/>
 	<input type="text" name="lookup" id="lookupString"/>
 	<input type="button" id="lookupButton" value="search"/>
 	<span id="statusSpan"></span>
