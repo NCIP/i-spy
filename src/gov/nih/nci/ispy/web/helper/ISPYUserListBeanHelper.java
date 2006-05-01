@@ -63,7 +63,7 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
     public ISPYUserListBeanHelper(){       
         session = ExecutionContext.get().getSession(false); 
         sessionId = ExecutionContext.get().getSession(false).getId(); 
-        userListBean = (UserListBean) session.getAttribute("userListBean");        
+        userListBean = (UserListBean) session.getAttribute(ispyConstants.USER_LISTS);        
                
     }
     public void addList(UserList userList) {
@@ -94,8 +94,7 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         
         for(String i : userList.getList()){
             Element item = list.addElement("item");
-            Element value = item.addElement("value");
-            value.addText(i);
+            item.addText(i);
         }
         
         
@@ -113,6 +112,15 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
             }
         }
         return typeList;
+    }
+    
+    public List<UserList> getAllLists() {
+        List<UserList> allList = new ArrayList<UserList>();
+    
+        for(UserList list : userListBean.getEntireList()){
+            allList.add(list);
+        }        
+        return allList;
     }
     
     public void renderListDetails(HttpServletRequest request, Document listXML, String xsltFilename, JspWriter out) {

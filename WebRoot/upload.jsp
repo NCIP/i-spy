@@ -1,15 +1,19 @@
-<%@ page import ="gov.nih.nci.caintegrator.application.lists.ListType,
-gov.nih.nci.caintegrator.application.lists.UserList,
-gov.nih.nci.caintegrator.application.lists.UserListBean,
-gov.nih.nci.ispy.util.ISPYUploadManager,
-gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,
-gov.nih.nci.ispy.web.helper.ISPYUserListGenerator,
-org.apache.struts.upload.FormFile,
-java.io.File,
-java.util.Map,
-java.util.HashMap,
-java.util.List,
-org.dom4j.Document"%>
+<%@ page
+	import="gov.nih.nci.caintegrator.application.lists.ListType,
+	gov.nih.nci.caintegrator.application.lists.UserList,
+	gov.nih.nci.caintegrator.application.lists.UserListBean,
+	gov.nih.nci.ispy.util.ISPYUploadManager,
+	gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,
+	gov.nih.nci.ispy.web.helper.ISPYUserListGenerator,
+	org.apache.commons.fileupload.DiskFileUpload,
+	org.apache.commons.fileupload.FileUpload,
+	org.apache.commons.fileupload.FileItem,
+	java.io.File,
+	java.util.Map,
+	java.util.HashMap,
+	java.util.Iterator,
+	java.util.List,
+	org.dom4j.Document"%>
 <html>
 	<head>
 		<title>Upload.jsp</title>
@@ -17,36 +21,77 @@ org.dom4j.Document"%>
 	</head>
 
 	<body>
-		
-		<%
-		ISPYUserListGenerator listGenerator = new ISPYUserListGenerator();
-		List myUndefinedList = listGenerator.generateList(request);
-		
-		ISPYUploadManager uploadManager = (ISPYUploadManager) ISPYUploadManager
+
+		<%ISPYUserListGenerator listGenerator = new ISPYUserListGenerator();
+		String name = "";
+		String type = "";
+		FileItem formFile = null;
+        try {
+
+            FileUpload fup = new FileUpload();
+            //boolean isMultipart = FileUpload.isMultipartContent(request);
+            // Create a new file upload handler
+            // System.out.println(isMultipart);
+            DiskFileUpload upload = new DiskFileUpload();
+
+            // Parse the request
+            List items = upload.parseRequest(request);
+
+            for (Iterator i = items.iterator();i.hasNext();) {
+                FileItem item = (FileItem)i.next();
+                if (item.isFormField()) {
+                     System.out.println(item.getString());
+                     if(item.getFieldName().equalsIgnoreCase("listName")){
+                        name = item.getString();
+                     }
+                     else if(item.getFieldName().equalsIgnoreCase("type")){
+                        type = item.getString();                       
+                     }
+                } else {
+                    // System.out.println("its a file");
+                    // System.out.println(item.getName());
+                    formFile = item;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+		List myUndefinedList = listGenerator.generateList(formFile);
+            
+            ISPYUploadManager uploadManager = (ISPYUploadManager) ISPYUploadManager
                     .getInstance();
             Map paramMap = new HashMap();
+            UserList myList = new UserList();
 
-            
-            ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(
-                    request.getSession());
-
-            UserList myList = uploadManager.createList(ListType.PatientDID,"myPatientList", myUndefinedList);
+            ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(request
+                    .getSession());
+            if(type.equalsIgnoreCase("patient")){
+	             myList = uploadManager.createList(ListType.PatientDID,
+	                    name, myUndefinedList);
+	        }
+	        else if(type.equalsIgnoreCase("gene symbol")){
+	             myList = uploadManager.createList(ListType.GeneSymbol,
+	                    name, myUndefinedList);
+	        }
+	        
+	        
             if (myList != null) {
                 paramMap = uploadManager.getParams(myList);
                 helper.addList(myList);
             }
-            
-        %>
-        
-        
-<script>
+
+            %>
+
+
+		<script>
 var my_params= new Array()
 my_params["name"]="<%=paramMap.get("listName")%>";
 my_params["date"]="<%=paramMap.get("date")%>";
 my_params["count"]="<%=paramMap.get("items")%>";
 my_params["type"]="<%=paramMap.get("type")%>";
-
-window.parent.handleResponse(my_params);
+var test = "yo";
+window.parent.handleResponse(my_params, invalidItems);
 </script>
 
 	</body>

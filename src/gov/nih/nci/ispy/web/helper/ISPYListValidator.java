@@ -7,6 +7,7 @@ package gov.nih.nci.ispy.web.helper;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.ListValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
  *
  */
 public class ISPYListValidator implements ListValidator{
+    List<String> invalidList = new ArrayList<String>();
 
     public List<String> getValidList(ListType listType, List<String> myList) {
         // TODO Auto-generated method stub

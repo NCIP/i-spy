@@ -18,4 +18,3 @@
 <img src="images/ispyPortalHeader.gif" width="765" height="65" border="0" usemap="#ispyPortalMap">
 </div>
 <!--end all headers-->
-
