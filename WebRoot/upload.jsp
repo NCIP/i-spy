@@ -90,8 +90,8 @@ my_params["name"]="<%=paramMap.get("listName")%>";
 my_params["date"]="<%=paramMap.get("date")%>";
 my_params["count"]="<%=paramMap.get("items")%>";
 my_params["type"]="<%=paramMap.get("type")%>";
-var test = "yo";
-window.parent.handleResponse(my_params, invalidItems);
+
+window.parent.handleResponse(my_params);
 </script>
 
 	</body>

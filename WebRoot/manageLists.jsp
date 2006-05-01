@@ -23,7 +23,7 @@
 // the validated list. The groupString variable(below) is inserted into the page
 // at the appropriate place.
 
-function handleResponse(msg,invalidItems) { 
+function handleResponse(msg) { 
    var groupString = "<div id='" + msg["name"] + "'><b>" + msg["name"] + "</b> created on: " + msg["date"] + "[<a href='#' onclick='deleteList(\"" + msg["name"]
                             + "\");return false;'>delete</a>]"
                             + "[<a href='#' onclick='getDetails(\""
@@ -41,11 +41,13 @@ function handleResponse(msg,invalidItems) {
       new Insertion.Top(msg["type"]+"ListMarker", groupString);
       document.forms[0].listName.value="";
       document.forms[0].upload.value="";
+      listNameArray.push(msg["name"]);
    }
    else{
    		new Insertion.Top(msg["type"]+"ListMarker", groupString);
    		document.forms[0].listName.value="";
      	document.forms[0].upload.value="";
+     	listNameArray.push(msg["name"]);
    }
   }
   
@@ -232,6 +234,9 @@ function handleResponse(msg,invalidItems) {
      <div id="GeneSymbolListMarker">&nbsp;</div>
      </fieldset>
      
+        <script>
+        var listNameArray = new Array(<%=allListNames%>);
+        </script>
      
 		<fieldset id="listForm" class="listForm">
 		<legend class="listLegend">upload list</legend>
@@ -246,8 +251,6 @@ function handleResponse(msg,invalidItems) {
 			</form>
 		</fieldset>
 
-
-	
  <script>
      //all form validation is done client side. The name and file fields are checked for null
      // and list name collisions are checked. If there is a collision the user can either
@@ -257,9 +260,8 @@ function handleResponse(msg,invalidItems) {
      
       var thisListName = document.forms[0].listName.value;
 			
-			<%
-					out.println("\t\t\tvar listNameArray = new Array("+allListNames+");");
-			%>			
+	  
+						
      
         var errors = "";
      	if(document.forms[0].listName.value==""){ 
