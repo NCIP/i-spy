@@ -352,7 +352,18 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
 		pcaRequest = new PrincipalComponentAnalysisRequest(sessionId, taskId);
 		pcaRequest.setVarianceFilterValue(myQueryDTO.getGeneVectorPercentileDE().getDecimalValue());
-		pcaRequest.setPlatform(myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType());
+		
+		ArrayPlatformType arrayPlatform = myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();
+		
+		pcaRequest.setPlatform(arrayPlatform);
+		
+		if (arrayPlatform == ArrayPlatformType.AGILENT) {
+	      pcaRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+		}
+		else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
+		  pcaRequest.setDataFileName("ISPY.Sample.cDNA.Rda");
+		}
+				
 		if(reporterGroup != null){
 			pcaRequest.setReporterGroup(reporterGroup);
 		}

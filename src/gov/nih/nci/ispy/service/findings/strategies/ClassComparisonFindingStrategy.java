@@ -334,8 +334,22 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 					classComparisonRequest.setFoldChangeThreshold(foldChange.getValueObject());
 					//set platform
 					//Covert ArrayPlatform String to Enum -Himanso 10/15/05
-						classComparisonRequest.setArrayPlatform(myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()); 
+					
+					ArrayPlatformType arrayPlatform = myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();
+					
+					classComparisonRequest.setArrayPlatform(arrayPlatform); 
 
+					if (arrayPlatform == ArrayPlatformType.AGILENT) {
+					  //@TODO file name for ISPY agilent data. Need to move this to a property
+					  classComparisonRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+					}
+					else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
+					  //@TODO file name for ISPY CDNA array platform. 
+					  classComparisonRequest.setDataFileName("ISPY.Sample.cDNA.Rda");
+					}
+						
+						
+						
 //					// set SampleGroups
 //                    Object[] obj = sampleGroups.toArray();
 //					//SampleGroup[] sampleGroupObjects =  (SampleGroup[]) sampleGroups.toArray();				

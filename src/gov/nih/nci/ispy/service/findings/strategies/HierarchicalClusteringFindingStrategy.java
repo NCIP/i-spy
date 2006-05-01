@@ -334,7 +334,18 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
 		hcRequest = new HierarchicalClusteringRequest(sessionId, taskId);
 		hcRequest.setVarianceFilterValue(myQueryDTO.getGeneVectorPercentileDE().getDecimalValue());
-		hcRequest.setArrayPlatform(myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType());
+		
+		ArrayPlatformType arrayPlatform = myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();
+		
+		hcRequest.setArrayPlatform(arrayPlatform);
+		
+		if (arrayPlatform == ArrayPlatformType.AGILENT) {
+		  hcRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+		}
+		else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
+		  hcRequest.setDataFileName("ISPY.Sample.cDNA.Rda");
+		}
+		
 		hcRequest.setClusterBy(myQueryDTO.getClusterTypeDE().getValueObject());
 		if(reporterGroup != null){
 			hcRequest.setReporterGroup(reporterGroup);
