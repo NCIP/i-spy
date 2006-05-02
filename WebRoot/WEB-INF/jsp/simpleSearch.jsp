@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <script language="javascript" src="js/prototype_1.5pre.js"></script>
 <script language="javascript" src="js/event-selectors.js"></script>
 <script language="javascript" src="js/stripeScript.js"></script>
@@ -7,6 +8,68 @@
 
 <script language="javascript">
 	
+	//http://johankanngard.net/2005/11/14/remove-an-element-in-a-javascript-array/
+	Array.prototype.remove = function(s){
+		for(i=0;i<this.length;i++){
+			if(s==this[i]) this.splice(i, 1);
+		}
+	}
+	
+	var TmpRegistrants = Array();
+	var SaveRegs = {
+		'preSave' : function()	{
+			if(TmpRegistrants.length > 0 && $('regName').value.length > 0)	{
+				SaveRegs.save(TmpRegistrants, $('regName').value);
+			}
+			else	{
+				//alert("cant save : " + TmpRegistrants.length + " : " + $('regName').value.length);
+				alert("Please select some registrants and enter a name for your group");
+			}
+		},
+		'save' : function(regArray, name)	{
+			//alert(regArray);
+			//clean the array
+			//make the ajax call
+			IdLookup.createPatientList(regArray, name, SaveRegs.save_cb);
+		},
+		'save_cb' : function(txt)	{
+			if(txt == "success")	{
+				alert("List saved successfully");
+				//uncheck the boxes
+				for(var i=0; i<TmpRegistrants.length; i++)	{
+					document.getElementById(TmpRegistrants[i]+"_cb").checked = false;
+					document.getElementById(TmpRegistrants[i]+"_cb").selected = false;	
+					document.getElementById(TmpRegistrants[i]+"_cb").parentNode.style.color = "";				
+				}
+				//clear the tmp storage
+				TmpRegistrants = new Array();
+				$('regName').value = "";
+			}
+			else	{
+				alert("Error saving List.");
+			}
+		},
+		'checkAll' : function(box)	{
+			var chks = $('ifcontainer').getElementsByTagName("input");
+			
+			TmpRegistrants = new Array();  //clear it
+			
+			for(var v = 0; v<chks.length; v++)	{
+				if(chks[v]["type"] == "checkbox")	{
+					if(box.checked || box.selected)	{
+						chks[v].selected = true;
+						chks[v].checked = true;
+						TmpRegistrants.push(chks[v].value);
+					}
+					else	{
+						chks[v].selected = false;
+						chks[v].checked = false;
+					}
+				}
+			}
+		}
+	}
+
 	var StatusSpan = {
 		'start' : function()	{
 			
@@ -20,7 +83,8 @@
 			$('statusSpan').innerHTML = pats + " registrant(s) returned";
 			$('lookupButton').value = "search";
 			$('lookupButton').disabled = false;
-			var sect = "lookupResults"
+			$("lookupResults").style.display = "";
+			$("ifcontainer").style.display = "";
 			$('lookupString').value = '';
 			
 		},
@@ -30,10 +94,13 @@
 		}
 	
 	};
+	
+	
 	 var Rules = {
 		'#lookupButton:click': function(element)	{
 			$('lookupResults').style.display = "none";
-			$('lookupResults').innerHTML = "";
+			$('ifcontainer').style.display = "none";
+			//$('lookupResults').innerHTML = "";
 			StatusSpan.removeIframes();
 			StatusSpan.start();
 		},
@@ -50,9 +117,7 @@
 			window.print();
 		}
 	 }
-	 
-	 var myGrids = Array();
-	 
+	 	 
 	 var A_IdLookup	=	{
 	 	'lookup': function(commaIds)	{
 	 		IdLookup.lookup(commaIds, A_IdLookup.lookup_cb);
@@ -84,6 +149,30 @@
 					tDIV.setAttribute("name","div_"+frameid+"_div");
 					tDIV.setAttribute("style","width:100%");
 					tDIV.setAttribute("class", "titleDiv");
+					
+					var cBox = document.createElement("input");
+					cBox.setAttribute("id",frameid+"_cb");
+					cBox.setAttribute("name",frameid+"_cb");
+					cBox.setAttribute("type","checkbox");
+					cBox.setAttribute("value", frameid);
+					cBox.style.border = "0px"; //ie 
+					
+					cBox.onclick = function()	{
+						if(this.checked)	{
+							TmpRegistrants.push(this.value);
+							this.parentNode.style.color = "red";
+							
+						}
+						else	{
+							this.parentNode.style.color = "";
+							TmpRegistrants.remove(this.value);
+						}
+						
+						//alert(TmpRegistrants);
+					};
+					
+					tDIV.appendChild(cBox);
+					
 					tDIV.appendChild(document.createTextNode(r+1 + ") Registrant: " + frameid + " | "));
 					
 					var eAnchor = document.createElement("a");
@@ -109,15 +198,17 @@
 					eDIV.setAttribute("name","if_"+frameid+"_if");
 					eDIV.setAttribute("src","awWrapper.do?reg="+frameid);
 					eDIV.setAttribute("style","width:100%");
+					eDIV.style.width = "100%";
 					eDIV.setAttribute("frameborder","0");
+					eDIV.style.display = "none";
 					document.getElementById("ifcontainer").appendChild(eDIV);
 					
 				}
 				
 	 		}
 	 		catch(err)	{
-	 			$('lookupResults').innerHTML = err;
-	 			$('lookupResults').style.display = "";
+	 			//$('lookupResults').innerHTML = err;
+	 			//$('lookupResults').style.display = "";
 	 		}
 	 		finally	{
 		 		setTimeout(function()	{ StatusSpan.stop(numpatients)}, 1000);				
@@ -141,16 +232,24 @@
 	<legend>Patient or Sample Id(s)</legend><br/>
 	<form id="theForm" action="#" method="get" onsubmit="return false;">
 	Please enter ID(s) in a comma seperated format (ex. 123,456,789)
+	<app:help help="You may enter Patient Ids or Sample Ids.  Use a comma to seperate multiple Ids.  The results will display id information about the corresponding patients." />
+	
 	<br/>
 	<br/>
-	<input type="text" name="lookup" id="lookupString"/>
+	<input type="text" name="lookup" id="lookupString" style="width:200px"/>
 	<input type="button" id="lookupButton" value="search"/>
 	<span id="statusSpan"></span>
 	</form>
 	
-	<div id="lookupResults" style="display:none"></div>
-	<div id="ifcontainer">
 	
+	<div id="ifcontainer" style="display:none">
+	
+	</div>
+	
+	<div id="lookupResults" style="display:none; margin-left:20px;margin-top:20px;">
+		Save Registrants as: <input type="text" id="regName" name="regName"/>
+		&nbsp;<input type="button" id="regButton" onclick="SaveRegs.preSave();" value="save" />
+		<input style="border:0px" type="checkbox" onclick="SaveRegs.checkAll(this);"/> all?
 	</div>
 </fieldset>
 <br/><br/>

@@ -10,9 +10,13 @@ import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import gov.nih.nci.caintegrator.application.lists.ListType;
+import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.RegistrantInfo;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
+import gov.nih.nci.ispy.util.ISPYUploadManager;
+import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 
 public class IdLookup {
 
@@ -103,6 +107,23 @@ public class IdLookup {
 		}
 		
 		return document;
+		
+	}
+	
+	public String createPatientList(String[] list, String name){
+		//create list w/ type=patient
+		String success = "fail";
+		ISPYUploadManager um = ISPYUploadManager.getInstance();
+		try	{
+			UserList ul = um.createList(ListType.PatientDID, name, Arrays.asList(list));
+			ISPYUserListBeanHelper ulbh = new ISPYUserListBeanHelper();
+			ulbh.addList(ul);
+			success = "success";
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return success;
 		
 	}
 }
