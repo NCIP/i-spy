@@ -2,7 +2,7 @@
 	import="gov.nih.nci.caintegrator.application.lists.ListType,
 	gov.nih.nci.caintegrator.application.lists.UserList,
 	gov.nih.nci.caintegrator.application.lists.UserListBean,
-	gov.nih.nci.ispy.util.ISPYUploadManager,
+	gov.nih.nci.ispy.util.ISPYListManager,
 	gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,
 	gov.nih.nci.ispy.web.helper.ISPYUserListGenerator,
 	org.apache.commons.fileupload.DiskFileUpload,
@@ -59,7 +59,7 @@
         }
 		List myUndefinedList = listGenerator.generateList(formFile);
             
-            ISPYUploadManager uploadManager = (ISPYUploadManager) ISPYUploadManager
+            ISPYListManager uploadManager = (ISPYListManager) ISPYListManager
                     .getInstance();
             Map paramMap = new HashMap();
             UserList myList = new UserList();
