@@ -15,7 +15,7 @@ import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.RegistrantInfo;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
-import gov.nih.nci.ispy.util.ISPYUploadManager;
+import gov.nih.nci.ispy.util.ISPYListManager;
 import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 
 public class IdLookup {
@@ -113,7 +113,7 @@ public class IdLookup {
 	public String createPatientList(String[] list, String name){
 		//create list w/ type=patient
 		String success = "fail";
-		ISPYUploadManager um = ISPYUploadManager.getInstance();
+		ISPYListManager um = ISPYListManager.getInstance();
 		try	{
 			UserList ul = um.createList(ListType.PatientDID, name, Arrays.asList(list));
 			ISPYUserListBeanHelper ulbh = new ISPYUserListBeanHelper();
