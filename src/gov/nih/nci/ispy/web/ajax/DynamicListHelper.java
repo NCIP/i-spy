@@ -1,5 +1,7 @@
 package gov.nih.nci.ispy.web.ajax;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,11 @@ import gov.nih.nci.ispy.util.ISPYListManager;
 import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang.StringUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
 import uk.ltd.getahead.dwr.ExecutionContext;
 
@@ -29,7 +36,8 @@ public class DynamicListHelper {
                 UserList list = (UserList) patientLists.get(i);
                 ISPYListManager uploadManager = (ISPYListManager) ISPYListManager.getInstance();
                 Map paramMap = uploadManager.getParams(list);
-                results += ("<li id='" + paramMap.get("listName") + "'>"+paramMap.get("listName")+"</li>");
+                String commas = StringUtils.join(list.getList().toArray(), ",");
+                results += ("<li id='" + paramMap.get("listName") + "' title='"+commas+"'>"+paramMap.get("listName")+"</li>");
             }
         } else {
             results = "";
