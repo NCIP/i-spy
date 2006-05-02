@@ -4,7 +4,7 @@
 package gov.nih.nci.ispy.util;
 
 import gov.nih.nci.caintegrator.application.lists.ListType;
-import gov.nih.nci.caintegrator.application.lists.UploadManager;
+import gov.nih.nci.caintegrator.application.lists.ListManager;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 
@@ -22,19 +22,19 @@ import java.util.Map;
  * @author rossok
  *
  */
-public class ISPYUploadManager implements UploadManager{
+public class ISPYListManager implements ListManager{
    
-    private static ISPYUploadManager instance = null;
+    private static ISPYListManager instance = null;
     
-    public ISPYUploadManager(){
+    public ISPYListManager(){
         super();
         // TODO Auto-generated constructor stub
     }
     
-    public static ISPYUploadManager getInstance() {
+    public static ISPYListManager getInstance() {
         
           if (instance == null) {
-            instance = new ISPYUploadManager();
+            instance = new ISPYListManager();
           }
           return instance;
     }
