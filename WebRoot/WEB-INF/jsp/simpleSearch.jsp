@@ -23,27 +23,43 @@
 			}
 			else	{
 				//alert("cant save : " + TmpRegistrants.length + " : " + $('regName').value.length);
-				alert("Please select some registrants and enter a name for your group");
+				//alert("Please select some registrants and enter a name for your group");
+				$('saveStatus').innerHTML = "<br/><br/><b>Error: Please select some registrants and enter a name for your group</b>";
+				setTimeout(function() { $('saveStatus').innerHTML = ""; }, 2000);
 			}
 		},
 		'save' : function(regArray, name)	{
 			//alert(regArray);
 			//clean the array
 			//make the ajax call
-			IdLookup.createPatientList(regArray, name, SaveRegs.save_cb);
+			$('saveStatus').innerHTML = "<img src=\"images/indicator.gif\"/>";
+			setTimeout( function()	{
+				IdLookup.createPatientList(regArray, name, SaveRegs.save_cb);
+				}, 500);
 		},
 		'save_cb' : function(txt)	{
 			if(txt == "success")	{
-				alert("List saved successfully");
+				//alert("List saved successfully");
+				$('saveStatus').innerHTML = "<b>List Saved Successfully</b>";
+				setTimeout(function() { $('saveStatus').innerHTML = ""; }, 2000);
+				
 				//uncheck the boxes
 				for(var i=0; i<TmpRegistrants.length; i++)	{
 					document.getElementById(TmpRegistrants[i]+"_cb").checked = false;
 					document.getElementById(TmpRegistrants[i]+"_cb").selected = false;	
 					document.getElementById(TmpRegistrants[i]+"_cb").parentNode.style.color = "";				
 				}
+				$('checkAllBox').checked = false;
+				$('checkAllBox').selected = false;
+				
 				//clear the tmp storage
 				TmpRegistrants = new Array();
 				$('regName').value = "";
+				
+				//reload our lists if we can
+				if(SidebarHelper)	{
+					SidebarHelper.loadPatientUL();
+				}
 			}
 			else	{
 				alert("Error saving List.");
@@ -83,8 +99,10 @@
 			$('statusSpan').innerHTML = pats + " registrant(s) returned";
 			$('lookupButton').value = "search";
 			$('lookupButton').disabled = false;
-			$("lookupResults").style.display = "";
-			$("ifcontainer").style.display = "";
+			if(pats != 0)	{
+				$("lookupResults").style.display = "";
+				$("ifcontainer").style.display = "";
+			}
 			$('lookupString').value = '';
 			
 		},
@@ -247,9 +265,10 @@
 	</div>
 	
 	<div id="lookupResults" style="display:none; margin-left:20px;margin-top:20px;">
-		Save Registrants as: <input type="text" id="regName" name="regName"/>
+		Save Checked as: <input type="text" id="regName" name="regName"/>
 		&nbsp;<input type="button" id="regButton" onclick="SaveRegs.preSave();" value="save" />
-		<input style="border:0px" type="checkbox" onclick="SaveRegs.checkAll(this);"/> all?
+		<input style="border:0px" type="checkbox" id="checkAllBox" onclick="SaveRegs.checkAll(this);"/> all?
+		<span id="saveStatus"></span>
 	</div>
 </fieldset>
 <br/><br/>

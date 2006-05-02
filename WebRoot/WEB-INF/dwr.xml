@@ -16,6 +16,9 @@
     <create creator="new" javascript="UserListHelper">
       <param name="class" value="gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper"/>
     </create>
+    <create creator="new" javascript="DynamicListHelper">
+      <param name="class" value="gov.nih.nci.ispy.web.ajax.DynamicListHelper"/>
+    </create>
     <!-- 
     <create creator="new" javascript="UserPreferences">
       <param name="class" value="gov.nih.nci.rembrandt.web.helper.UserPreferencesHelper"/>
