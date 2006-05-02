@@ -58,7 +58,8 @@ public class DynamicListHelper {
                 UserList list = (UserList) geneLists.get(i);
                 ISPYListManager uploadManager = (ISPYListManager) ISPYListManager.getInstance();
                 Map paramMap = uploadManager.getParams(list);
-                results += ("<li id='" + paramMap.get("listName") + "'>"
+                String commas = StringUtils.join(list.getList().toArray(), ",");
+                results += ("<li id='" + paramMap.get("listName") + "' title='"+commas+"'>"
                         + paramMap.get("listName") + "</li>");
             }
         } else {

@@ -14,6 +14,8 @@
 	</div>	
 </div>
 
+
+
 <script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 
@@ -31,8 +33,10 @@ var SidebarHelper = {
 			},this.delay);
 	},
 	'loadPatientUL_cb' : function(txt)	{
-		if(txt != "")
+		if(txt != "")	{
 			$('sidebarPatientUL').innerHTML = "<ul>" + txt + "</ul>";
+			SidebarHelper.createOnClicks();
+		}
 		else	
 			$('sidebarPatientUL').innerHTML = "No Lists Available";
 	},
@@ -47,6 +51,30 @@ var SidebarHelper = {
 			$('sidebarGeneUL').innerHTML = "<ul>" + txt + "</ul>";
 		else	
 			$('sidebarGeneUL').innerHTML = "No Lists Available";
+	},
+	'createOnClicks' : function()	{
+		var lis = $('sidebarPatientUL').getElementsByTagName("li");
+
+		var tmpp = new Array();
+
+		for(var i=0; i<lis.length; i++)	{
+			lis[i].onclick = function() { 
+				//this = the li we want
+				//alert(this.innerHTML); 
+			};
+			lis[i].onmouseover = function() { 
+				tmpp[this.id] = this.title;
+				this.title = "";
+				return overlib(tmpp[this.id], CAPTION, this.id + " Elements:");
+			};
+			lis[i].onmouseout = function() { 
+				this.title = tmpp[this.id];
+				return nd();
+			};
+			
+			lis[i].style.cursor = "pointer";
+		}
+	
 	}
 
 };

@@ -89,6 +89,11 @@
 	var StatusSpan = {
 		'start' : function()	{
 			
+			$('lookupResults').style.display = "none";
+			$('ifcontainer').style.display = "none";
+			//$('lookupResults').innerHTML = "";
+			StatusSpan.removeIframes();
+			
 			$('statusSpan').innerHTML = "<img src=\"images/indicator.gif\"/>";
 			$('lookupButton').disabled = true;
 			$('lookupButton').value = "searching...";
@@ -116,10 +121,10 @@
 	
 	 var Rules = {
 		'#lookupButton:click': function(element)	{
-			$('lookupResults').style.display = "none";
-			$('ifcontainer').style.display = "none";
+			//$('lookupResults').style.display = "none";
+			//$('ifcontainer').style.display = "none";
 			//$('lookupResults').innerHTML = "";
-			StatusSpan.removeIframes();
+			//StatusSpan.removeIframes();
 			StatusSpan.start();
 		},
 		'.resultsTable' : function(element)	{
@@ -238,6 +243,8 @@
 		window.onload = function()	{
 			EventSelectors.start(Rules);			
 		};
+		
+		//Event.observe(document, 'keypress', function(event){ if(event.keyCode == Event.KEY_RETURN) StatusSpan.start();});
 		
 	</script>
 	<style>
