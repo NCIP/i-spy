@@ -6,20 +6,183 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
-
+<%
+String key = "taskId";
+if(request.getParameter("key")!=null)
+	key = (String) request.getParameter("key");
+%>
 <html>
 	<head>
-		<title>Rembrandt Report</title>
+		<title>ISPY Report</title>
 		<script language="JavaScript" type="text/javascript" src="js/overlib.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/overlib_hideform.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 
 		<script language="JavaScript" type="text/javascript" src="XSL/js.js"></script>
 		<script language="JavaScript" type="text/javascript" src="XSL/a_js.js"></script>
 
-		<script language="JavaScript" type="text/javascript" src="js/prototype.js"></script>
+		<script language="JavaScript" type="text/javascript" src="js/prototype_1.5pre.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/scriptaculous/scriptaculous.js"></script>
+		<script language="JavaScript" type="text/javascript" src="js/event-selectors.js"></script>
+
+		<script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
+		<script type='text/javascript' src='dwr/engine.js'></script>
 
 	 	<LINK href="xsl/css.css" rel="stylesheet" type="text/css" />
+	 	<script language="javascript">
+	 	
+	 	var reportType = "";
+	 	
+	 		
+	 		
+	 	var tmpElements = Array();
+	 	
+	 	//http://johankanngard.net/2005/11/14/remove-an-element-in-a-javascript-array/
+		Array.prototype.remove = function(s){
+			for(i=0;i<this.length;i++){
+				if(s==this[i]) this.splice(i, 1);
+			}
+		}
+	
+	 		var Rules = {
+	 		'.gene, .patient': function(element) {
+			    //element.setStyle({backgroundColor: '#ccc'});
+			    if(element.innerHTML != "")	{
+				    element.innerHTML += "<input name='checkable' class='saveElement' type='checkbox' value='"+element.id+"'/>";
+				}
+			  },
+			 
+			  '.saveElement:click' : function(element)	{
+					if(element.selected || element.checked)
+						tmpElements.push(element.value);
+					else
+						tmpElements.remove(element.value);
+			  }
+			 
+	 		
+	 		};
+	 		
+	 		var CheckMgr = {
+	 		
+		 		'checkAll' : function(field)	{
+					if(field.length > 1)	{
+						for (i = 0; i < field.length; i++)	{
+							field[i].checked = true ;
+							tmpElements.push(field[i].value);
+						}
+					}
+					else	{
+						field.checked = true;
+						tmpElements.push(field.value);
+					}
+				},
+				'uncheckAll' : function(field)	{
+					if(field)	{
+						if(field.length > 1)	{
+							for (i = 0; i < field.length; i++)	{
+								field[i].checked = false ;	
+							}
+						}
+						else	{
+							field.checked = false;
+						}
+							
+						tmpElements = new Array();
+						
+						if($('checkAll'))		
+							$("checkAll").checked = false;
+					}
+							
+				},
+				'manageCheckAll' : function(box)	{
+						if(box.checked)	{
+							CheckMgr.checkAll(document.getElementsByName('checkable'));
+						}
+						else	{
+							CheckMgr.uncheckAll(document.getElementsByName('checkable'));
+						}
+				}
+			};
+			
+			var SaveElements = {
+			
+				'save' : function()	{
+					//get the name
+					$('statusImg').style.display = "";
+					$('statusSpan').innerHTML = "Saving...";
+					
+					var name = $("listName").value;
+					if(name != "")	{
+						//convert the overlib list to a comma seperated list
+						if(tmpElements.length > 0)	{
+							
+							//var commaSepList = tmpElements.join(",");
+							
+							if(reportType == "GENE")
+								DynamicListHelper.createGeneList(tmpElements, name, SaveElements.save_cb);
+							else
+								DynamicListHelper.createPatientList(tmpElements, name, SaveElements.save_cb);
+								
+						}
+						else	{
+							alert("Please select some items to save");
+						}
+					}
+					else	{
+						alert("Please enter a name for your group");
+					}
+				},
+				'save_cb' : function(txt)	{
+					var results = txt == "pass" ? "List Saved" : "There was a problem saving your list";
+					//alert(results); //pass | fail
+					
+					setTimeout(function()	{ $('statusImg').style.display = "none"; }, 1000);
+					
+					
+					if(txt != "fail")	{
+						setTimeout(function()	{$('statusSpan').innerHTML = "<b>List saved.</b>";},1000);
+						//erase the name
+						$("listName").value = "";
+						//clear the sample list
+						tmpElements = new Array();
+						
+					}
+					else	{
+						$('statusSpan').innerHTML = "<b>List did not save.  Please try again.</b>";
+					}
+					
+					setTimeout(function()	{ $('statusSpan').innerHTML = ""; }, 2000);
+					
+					//uncheck them all
+					CheckMgr.uncheckAll(document.getElementsByName('checkable'));
+					
+					
+					try	{
+						if(!window.opener.closed)	{
+							if(reportType == "GENE")
+								window.opener.SidebarHelper.loadGeneUL();
+							else
+								window.opener.SidebarHelper.loadPatientUL();
+						}
+						
+					}
+					catch(err)	{
+						alert("cant update sidebar: " + err);
+					}
+					
+				}
+			};
+			
+	 		window.onload = function()	{
+		 		if(document.getElementsByName("gene").length > 0)
+			 		reportType = "GENE";
+			 	else
+			 		reportType = "PATIENT";
+			 	
+	 			EventSelectors.start(Rules);
+	 			
+	 		}
+	 	
+	 	</script>
 	</head>
 <body>
 <div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
@@ -34,11 +197,7 @@
 <div style="background-color: #ffffff"><img src="images/ispyPortalHeader.gif" /></div>
 
 
-<%
-String key = "taskId";
-if(request.getParameter("key")!=null)
-	key = (String) request.getParameter("key");
-%>
+
 Image Control: 
 <!-- 
 <a href="#" onclick="fullsize()">fullsize</a> |
@@ -108,9 +267,19 @@ rbt_image_init();
 </script>
 
 
+<div>
+Save Selected: <input type="text" id="listName"/>
+<input type="button" value="save checked" onclick="SaveElements.save();"/>
+<input type="checkbox" id="checkAll" onclick="CheckMgr.manageCheckAll(this)"/>All?
+<!--  <a href="#" onclick="return false;" onmouseover="return overlib(tmpElements);" onmouseout="return nd()">[selected]</a> -->
+<img src="images/indicator.gif" style="display:none" id="statusImg"/><span id="statusSpan" style="margin-left:15px;"></span>
+</div>
 <div style="height:300px; overflow:auto;">
 <graphing:HCPlotReport taskId="<%=key%>" />
 </div>
+
+
+
 </body>
 </html>
 
