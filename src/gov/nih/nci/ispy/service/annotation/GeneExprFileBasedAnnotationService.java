@@ -1,9 +1,12 @@
 package gov.nih.nci.ispy.service.annotation;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Set;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -200,4 +203,26 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 		
 		return returnList;
 	}
+	
+	/**
+	 * Get the reporters for a given gene symbol
+	 * @param geneSymbol
+	 * @return
+	 */
+	public Set<String> getReportersForGeneSymbol(String geneSymbol) {
+		//@TODO need to fill this in 
+		return Collections.emptySet();
+	}
+	
+	/**
+	 * Get the reporters for a collection of gene symbols
+	 * @param geneSymbols
+	 * @return
+	 */
+	public Set<String> getReportersForGeneSymbols(Collection<String> geneSymbols) {
+		//@TODO need to fill this in
+		return Collections.emptySet();
+		
+	}
+	
 }
