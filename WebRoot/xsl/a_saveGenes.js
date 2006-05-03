@@ -97,7 +97,9 @@ var SaveGenes = {
 					
 					//will actually call the new stuff to save a gene list - RL
 					//DynamicReport.saveGenes(commaSepList, name, SaveGenes.A_saveGenes_cb);
-					DynamicListHelper.createGeneList(commaSepList, name, SaveGenes.A_saveGenes_cb);
+					var geneArray = new Array();
+					geneArray = commaSepList.split(",");
+					DynamicListHelper.createGeneList(geneArray, name, SaveGenes.A_saveGenes_cb);
 				}
 				else	{
 					alert("Please select some genes to save");
