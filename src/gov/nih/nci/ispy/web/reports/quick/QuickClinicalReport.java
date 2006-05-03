@@ -90,7 +90,7 @@ public class QuickClinicalReport {
 							
 							String tmp = "";
 							String sid = cd.getPatientDID()!=null  ? cd.getPatientDID() : dv;
-							td = tr.addElement("td").addText(sid);
+							td = tr.addElement("td").addText(sid).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",sid);
 							
 							String dis = cd.getDiseaseStage() != null && cd.getDiseaseStage() != DiseaseStageType.MISSING ? cd.getDiseaseStage().toString() : dv;
 							td = tr.addElement("td").addText(dis);

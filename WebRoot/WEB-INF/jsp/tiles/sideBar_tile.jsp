@@ -65,7 +65,7 @@ var SidebarHelper = {
 			lis[i].onmouseover = function() { 
 				tmpp[this.id] = this.title;
 				this.title = "";
-				return overlib(tmpp[this.id], CAPTION, this.id + " Elements:");
+				return overlib(tmpp[this.id].split(",").join("<br/>"), CAPTION, this.id + " Elements:");
 			};
 			lis[i].onmouseout = function() { 
 				this.title = tmpp[this.id];

@@ -7,6 +7,7 @@ import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotatio
 import gov.nih.nci.caintegrator.service.findings.HCAFinding;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.web.reports.quick.QuickClinicalReport;
+import gov.nih.nci.ispy.web.reports.quick.QuickReporterReport;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -147,6 +148,10 @@ public class HCPlotReport extends TagSupport {
 	}
 	
 	public StringBuffer quickReporterReport(List<String> reporters){
+		
+		return QuickReporterReport.quickReporterReport(reporters);
+		
+		/*
 		StringBuffer html = new StringBuffer();
 		Document document = DocumentHelper.createDocument();
 		Element table = document.addElement("table").addAttribute("id", "reportTable").addAttribute("class", "report");
@@ -193,7 +198,7 @@ public class HCPlotReport extends TagSupport {
 						}
 						
 						td = tr.addElement("td").addText(ll);
-						
+		*/	
 						/*
 						Collection<String> goIds = (Collection<String>)reporterResultset.getAssociatedGOIds();
 						if(goIds != null){
@@ -208,6 +213,7 @@ public class HCPlotReport extends TagSupport {
 							}
 						}
 						*/
+		/*
 					}
 				}
 			} catch (Exception e) {
@@ -217,62 +223,11 @@ public class HCPlotReport extends TagSupport {
 		}
 		//return html;
 		return html.append(document.asXML());
+		
+		*/
 	}
 	public StringBuffer quickSampleReport(List<String> sampleIds){
 		return QuickClinicalReport.quickSampleReport(sampleIds);
-		/*
-		StringBuffer html = new StringBuffer();
-		Document document = DocumentHelper.createDocument();
-		
-		if(sampleIds != null)	{
-			
-			try {
-				
-				List<ClinicalData> clinicalDataList = ClinicalFileBasedQueryService.getInstance().getClinicalDataForLabtrackIds(sampleIds);
-				
-				if(clinicalDataList != null  && sampleIds != null){
-					int count = 0;
-
-					Element table = document.addElement("table").addAttribute("id", "reportTable").addAttribute("class", "report");
-					Element tr = null;
-					Element td = null;
-					tr = table.addElement("tr").addAttribute("class", "header");
-					td = tr.addElement("td").addAttribute("class", "header").addText("Sample ID");
-					td = tr.addElement("td").addAttribute("class", "header").addText("Disease");
-					//td = tr.addElement("td").addAttribute("class", "header").addText("Gender");
-					//td = tr.addElement("td").addAttribute("class", "header").addText("Age");
-					//td = tr.addElement("td").addAttribute("class", "header").addText("Survival Length");
-					
-					for(ClinicalData cd : clinicalDataList){
-						
-						if(cd!=null)	{
-							tr = table.addElement("tr").addAttribute("class", "data");
-							
-							String sid = cd.getLabtrackId()!=null  ? cd.getLabtrackId() : dv;
-							td = tr.addElement("td").addText(sid);
-							
-							String dis = cd.getDiseaseStage() != null ? cd.getDiseaseStage().toString() : dv;
-							td = tr.addElement("td").addText(dis);
-							
-						
-							//String age = cd.get() != null && cd.getAgeGroup().getValue() != null ? cd.getAgeGroup().getValue().toString() : dv;
-							//td = tr.addElement("td").addText(age);
-							
-							//String slength = cd.getSurvivalLength() != null ? String.valueOf(cd.getSurvivalLength()) : dv;
-							//td = tr.addElement("td").addText(slength);
-							
-						}
-						
-					}
-				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return html.append(document.asXML());
-		
-		*/
 	}
 	
 }

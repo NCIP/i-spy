@@ -2,8 +2,11 @@ package gov.nih.nci.ispy.web.ajax;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
@@ -69,11 +72,20 @@ public class DynamicListHelper {
 	}
 	
 	public static String createGenericList(ListType type, String[] list, String name){
-		//create list w/ type=patient
+		
+		//no duplicates
+		HashSet<String> h = new HashSet<String>();
+		for (int i = 0; i < list.length; i++)
+			h.add(list[i]);
+		List<String> cleanList = new ArrayList<String>();
+		for(String n : h)	{
+			cleanList.add(n);
+		}
+		
 		String success = "fail";
 		ISPYListManager um = ISPYListManager.getInstance();
 		try	{
-			UserList mylist = um.createList(type, name, Arrays.asList(list));
+			UserList mylist = um.createList(type, name, cleanList);
 			ISPYUserListBeanHelper ulbh = new ISPYUserListBeanHelper();
 			ulbh.addList(mylist);
 			success = "pass";
@@ -92,7 +104,8 @@ public class DynamicListHelper {
 	public static String createGeneList(String[] list, String name){
 		return DynamicListHelper.createGenericList(ListType.GeneSymbol, list, name);
 	}
-	
+
+	/*
 	//accept commas seperated lists too
 	public static String createGeneList(String commaList, String name){
 		String[] list = StringUtils.split(commaList, ",");
@@ -103,5 +116,6 @@ public class DynamicListHelper {
 		String[] list = StringUtils.split(commaList, ",");
 		return DynamicListHelper.createGenericList(ListType.PatientDID, list, name);
 	}
+	*/
 	
 }
