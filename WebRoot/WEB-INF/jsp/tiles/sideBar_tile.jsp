@@ -35,7 +35,7 @@ var SidebarHelper = {
 	'loadPatientUL_cb' : function(txt)	{
 		if(txt != "")	{
 			$('sidebarPatientUL').innerHTML = "<ul>" + txt + "</ul>";
-			SidebarHelper.createOnClicks();
+			SidebarHelper.createOnClicks('sidebarPatientUL');
 		}
 		else	
 			$('sidebarPatientUL').innerHTML = "No Lists Available";
@@ -47,13 +47,15 @@ var SidebarHelper = {
 		},this.delay);
 	},
 	'loadGeneUL_cb' : function(txt)	{
-		if(txt != "")
+		if(txt != "")	{
 			$('sidebarGeneUL').innerHTML = "<ul>" + txt + "</ul>";
+			SidebarHelper.createOnClicks('sidebarGeneUL');
+		}
 		else	
 			$('sidebarGeneUL').innerHTML = "No Lists Available";
 	},
-	'createOnClicks' : function()	{
-		var lis = $('sidebarPatientUL').getElementsByTagName("li");
+	'createOnClicks' : function(theId)	{
+		var lis = $(theId).getElementsByTagName("li");
 
 		var tmpp = new Array();
 
