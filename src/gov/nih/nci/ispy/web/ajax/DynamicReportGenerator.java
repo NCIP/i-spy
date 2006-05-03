@@ -159,8 +159,16 @@ public class DynamicReportGenerator {
 		return results;
 	}
 	*/
+	public Map saveTmpReporter(String elem){
+		return saveTmpGeneric("tmpReporterList", elem);
+	}
 	
-	/*
+	public Map saveTmpGene(String elem){
+		return saveTmpGeneric("tmpGeneList", elem);
+	}
+	
+	
+	
 	public Map saveTmpGeneric(String type, String elem)	{
 		Map results = new HashMap();
 		
@@ -184,7 +192,7 @@ public class DynamicReportGenerator {
 		return results;
 	}
 	
-	*/
+	
 	
 	/*
 	public Map saveTmpSamples(String elem){
@@ -216,7 +224,7 @@ public class DynamicReportGenerator {
 	}
 	*/
 	
-	/*
+	
 	public Map removeTmpGeneric(String type, String elem)	{
 		HttpSession session = ExecutionContext.get().getSession(false);
 		ArrayList al = new ArrayList();
@@ -234,7 +242,11 @@ public class DynamicReportGenerator {
 		results.put("elements", tmpElems);
 		return results;
 	}
-	*/
+	
+	
+	public Map removeTmpGene(String elem)	{
+		return removeTmpGeneric("tmpGeneList", elem);
+	}
 	
 	/*
 	public Map removeTmpSample(String elem)	{
@@ -249,7 +261,12 @@ public class DynamicReportGenerator {
 		HttpSession session = ExecutionContext.get().getSession(false);
 		session.removeAttribute("tmpReporterList"); //put back in session
 	}
-	
+	*/
+	public void clearTmpGenes()	{
+		HttpSession session = ExecutionContext.get().getSession(false);
+		session.removeAttribute("tmpGeneList"); 
+	}
+	/*
 	public void clearTmpSamples()	{
 		HttpSession session = ExecutionContext.get().getSession(false);
 		session.removeAttribute("pca_tmpSampleList"); //put back in session
@@ -260,7 +277,11 @@ public class DynamicReportGenerator {
 		session.removeAttribute("clinical_tmpSampleList"); //put back in session
 	}
 	*/
-	
+	/*
+	public String saveGenes(String commaSepList, String name)	{
+		return "pass"; //using new stuff instead
+	}
+	*/
 	/*		//already commented out
 	public String saveReporters(String commaSepList, String name)	{
 		String success = "fail";

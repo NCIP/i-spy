@@ -38,7 +38,7 @@
 				}, 500);
 		},
 		'save_cb' : function(txt)	{
-			if(txt == "success")	{
+			if(txt == "pass")	{
 				//alert("List saved successfully");
 				$('saveStatus').innerHTML = "<b>List Saved Successfully</b>";
 				setTimeout(function() { $('saveStatus').innerHTML = ""; }, 2000);

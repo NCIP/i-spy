@@ -13,6 +13,7 @@
 		<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 
 		<script language="JavaScript" type="text/javascript" src="xsl/js.js"></script>
 		<script language="JavaScript" type="text/javascript" src="xsl/a_js.js"></script> 
+		<script language="JavaScript" type="text/javascript" src="xsl/a_saveGenes.js"></script>
 		<LINK href="xsl/css.css" rel="stylesheet" type="text/css" />
 		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 		<META HTTP-EQUIV="Expires" CONTENT="-1">
@@ -21,6 +22,7 @@
 <body>
 
 <script type='text/javascript' src='dwr/interface/DynamicReport.js'></script>
+<script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
 
@@ -40,7 +42,7 @@ if(session.getAttribute(key+"_xhtml")!=null)	{
 	//display the report, and run some init JS functions on the page
 	xhtml = (String) session.getAttribute(key+"_xhtml");
 	out.println(xhtml);
-	out.println("<script language='javascript'>A_initSaveReporter(); checkStep(); initSortArrows();</script>");
+	out.println("<script language='javascript'>SaveGenes.A_initSaveGene(); checkStep(); initSortArrows();</script>");
 	session.removeAttribute(key+"_xhtml");
 }
 else	{

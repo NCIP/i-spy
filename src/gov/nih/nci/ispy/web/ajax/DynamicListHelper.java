@@ -68,4 +68,40 @@ public class DynamicListHelper {
         return results;
 	}
 	
+	public static String createGenericList(ListType type, String[] list, String name){
+		//create list w/ type=patient
+		String success = "fail";
+		ISPYListManager um = ISPYListManager.getInstance();
+		try	{
+			UserList mylist = um.createList(type, name, Arrays.asList(list));
+			ISPYUserListBeanHelper ulbh = new ISPYUserListBeanHelper();
+			ulbh.addList(mylist);
+			success = "pass";
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+		}
+		return success;
+	}
+	
+	public static String createPatientList(String[] list, String name){
+		//create list w/ type=patient
+		return DynamicListHelper.createGenericList(ListType.PatientDID, list, name);
+	}
+	
+	public static String createGeneList(String[] list, String name){
+		return DynamicListHelper.createGenericList(ListType.GeneSymbol, list, name);
+	}
+	
+	//accept commas seperated lists too
+	public static String createGeneList(String commaList, String name){
+		String[] list = StringUtils.split(commaList, ",");
+		return DynamicListHelper.createGenericList(ListType.GeneSymbol, list, name);
+	}
+	
+	public static String createPatientList(String commaList, String name){
+		String[] list = StringUtils.split(commaList, ",");
+		return DynamicListHelper.createGenericList(ListType.PatientDID, list, name);
+	}
+	
 }
