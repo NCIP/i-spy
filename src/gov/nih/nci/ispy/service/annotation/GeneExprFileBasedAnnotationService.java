@@ -2,6 +2,7 @@ package gov.nih.nci.ispy.service.annotation;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import gov.nih.nci.caintegrator.application.util.StringUtils;
 
 import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
+import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 //import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
 //import gov.nih.nci.caintegrator.dto.de.DatumDE;
@@ -31,6 +33,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	private static GeneExprFileBasedAnnotationService instance = null;
 	//private Map<String, ReporterResultset> reporterMap = new HashMap<String, ReporterResultset>(55000);
 	private Map<String, ReporterAnnotation> reporterMap = new HashMap<String, ReporterAnnotation>(55000);
+	private Map<String, Set<ReporterAnnotation>> gene2reporterMap = new HashMap<String, Set<ReporterAnnotation>>(45000);
 	private boolean annotationFileSet = false;
 	private static Logger logger = Logger.getLogger(GeneExprFileBasedAnnotationService.class);
 
@@ -94,7 +97,9 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	    pathwaysStr = matcher.group(5);
 	    goIdsStr = matcher.group(6);
 	   
-	    reporterAnnotation = new ReporterAnnotation(reporterName);
+	    
+	    //@TODO need to parse the array platform type out of the file
+	    reporterAnnotation = new ReporterAnnotation(reporterName, ArrayPlatformType.AGILENT);
 	    
 	    //reporterAnnotation = new ReporterResultset(new DatumDE(DatumDE.PROBESET_ID, reporterName));
 	
@@ -104,6 +109,19 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	    geneSymbols = StringUtils.extractTokens(geneSymbolsStr, "\\|");
 	    if (!geneSymbols.isEmpty()) {
 	      reporterAnnotation.setGeneSymbols(geneSymbols);
+	      
+	      //add the reporter annotation to the gene symbol map
+	      Set<ReporterAnnotation> reporters = null;
+	      for (String geneSymbol : geneSymbols) {
+	        reporters = gene2reporterMap.get(geneSymbol);
+	        if (reporters == null) {
+	          reporters = new HashSet<ReporterAnnotation>(3);
+	          gene2reporterMap.put(geneSymbol, reporters);
+	        }
+	        reporters.add(reporterAnnotation);
+	      }
+	      
+	      
 	    }
 	    //System.out.println("   geneSymbols:  " + geneSymbolsStr);
 	    
@@ -209,9 +227,9 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	 * @param geneSymbol
 	 * @return
 	 */
-	public Set<String> getReportersForGeneSymbol(String geneSymbol) {
-		//@TODO need to fill this in 
-		return Collections.emptySet();
+	public Set<ReporterAnnotation> getReportersForGeneSymbol(String geneSymbol) {
+	   Set<ReporterAnnotation> reporters = gene2reporterMap.get(geneSymbol);
+	   return reporters;
 	}
 	
 	/**
@@ -219,10 +237,30 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	 * @param geneSymbols
 	 * @return
 	 */
-	public Set<String> getReportersForGeneSymbols(Collection<String> geneSymbols) {
-		//@TODO need to fill this in
-		return Collections.emptySet();
+	public Set<String> getReporterNamesForGeneSymbols(Collection<String> geneSymbols, ArrayPlatformType arrayPlatform) {
 		
+	
+		
+		Set<String> reporterNames = new HashSet<String>();
+		if (geneSymbols == null) {
+		  return Collections.emptySet();
+		}
+		
+		Set<ReporterAnnotation> reporters = null;
+		for (String geneSymbol:geneSymbols) {
+		  reporters = getReportersForGeneSymbol(geneSymbol);
+		  if (reporters != null) {
+			  for (ReporterAnnotation reporter : reporters) {
+				if (arrayPlatform == reporter.getArrayPlatform()) {
+			      reporterNames.add(reporter.getReporterId());
+				}
+			  }
+		  }
+		  else {
+			  logger.warn("No reporters found for gene symbol=" + geneSymbol + " for arrayPlatform=" + arrayPlatform);
+		  }
+		}
+		return reporterNames;
 	}
 	
 }
