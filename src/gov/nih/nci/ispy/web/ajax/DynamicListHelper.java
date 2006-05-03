@@ -10,7 +10,9 @@ import java.util.Set;
 
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
+import gov.nih.nci.caintegrator.application.lists.UserListBean;
 import gov.nih.nci.ispy.util.ISPYListManager;
+import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 
 import javax.servlet.http.HttpSession;
@@ -105,6 +107,15 @@ public class DynamicListHelper {
 		return DynamicListHelper.createGenericList(ListType.GeneSymbol, list, name);
 	}
 
+	public static String exportListasTxt(String name, HttpSession session){
+		String txt = "";
+		
+		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
+		
+        List<String> listItems = helper.getListItems(name);
+        txt = StringUtils.join(listItems.toArray(), "\r\n");
+		return txt;
+	}
 	/*
 	//accept commas seperated lists too
 	public static String createGeneList(String commaList, String name){

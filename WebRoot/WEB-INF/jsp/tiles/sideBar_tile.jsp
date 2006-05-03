@@ -58,7 +58,9 @@ var SidebarHelper = {
 		var tmpp = new Array();
 
 		for(var i=0; i<lis.length; i++)	{
-			lis[i].onclick = function() { 
+			lis[i].ondblclick = function() { 
+				var url = "listExport.jsp?list="+this.innerHTML;
+				location.href=url;
 				//this = the li we want
 				//alert(this.innerHTML); 
 			};

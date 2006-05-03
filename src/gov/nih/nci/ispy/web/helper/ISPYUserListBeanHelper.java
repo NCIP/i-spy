@@ -101,6 +101,14 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         return document;
     }
     
+    public List<String> getListItems(String listName)	{
+    	//this is redundant, but since we are accessing everything via the helper..here it is
+    	List<String> listItems = new ArrayList<String>(); 
+    	UserList userList = userListBean.getList(listName);
+    	listItems = userList.getList();
+    	return listItems;
+    }
+    
     public List<UserList> getLists(ListType listType) {
         List<UserList> typeList = new ArrayList<UserList>();
         
