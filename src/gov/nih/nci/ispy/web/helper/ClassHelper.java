@@ -1,15 +1,12 @@
 package gov.nih.nci.ispy.web.helper;
 
 
-import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionError;
-import org.apache.struts.action.ActionErrors;
-
 /**
- * @author BauerD 
- * Dec 15, 2004 
- * This class is used to validate input fields from the UI
  *  
+ * Allows the user to pass in a class name and instantiate it.
+ * 
+ * @author RossoK
+ *
  */
 
 
@@ -70,58 +67,22 @@ import org.apache.struts.action.ActionErrors;
 * 
 */
 
-public class UIFormValidator {
-    private static Logger logger = Logger.getLogger(UIFormValidator.class);
-    
-   
-	public static ActionErrors validateQueryName(String queryName,
-			ActionErrors errors) {
-		if ((queryName == null || queryName.length() < 1)) {
-			errors.add("analysisResultName", new ActionError(
-					"gov.nih.nci.nautilus.ui.struts.form.analysisResultName.no.error"));
-		}
-		return errors;
-	}
-    
-    public static ActionErrors validateSelectedGroups(String[] selectedGroups, String timepointRange, String timepointBaseAcross, String timepointComparison, ActionErrors errors){
-            if(timepointRange.equalsIgnoreCase("fixed")){
-                if (selectedGroups == null || selectedGroups.length != 2){
-                    errors.add("selectedGroups1", new ActionError(
-                            "gov.nih.nci.nautilus.ui.struts.form.groups.two.error"));
-                    return errors;
-                }
-                String[] comparisonGroup = selectedGroups[0].split("#");
-                String comparisonClass = comparisonGroup[0];
-                String[] baselineGroup = selectedGroups[1].split("#");
-                String baselineClass = baselineGroup[0];
-                if(!comparisonClass.equals(baselineClass)&& !comparisonClass.equals("gov.nih.nci.caintegrator.application.lists.UserList")){
-                    errors.add("selectedGroups2", new ActionError(
-                    "gov.nih.nci.nautilus.ui.struts.form.groups.class.error")); 
-                }
-            }
-            else if(timepointRange.equalsIgnoreCase("across")){
-                if (timepointBaseAcross.equals(timepointComparison)){
-                    errors.add("timepoints", new ActionError(
-                    "gov.nih.nci.nautilus.ui.struts.form.timepoints.same.error"));
-                }
-                if (selectedGroups == null || selectedGroups.length != 1){
-                    errors.add("selectedGroups3", new ActionError(
-                            "gov.nih.nci.nautilus.ui.struts.form.groups.no.error"));
-                    return errors;
-                }
-                
-            }
-
-        return errors;
-    }
-    
-    public static ActionErrors validateHCTimepoints(String[] timepoints,
-            ActionErrors errors) {
-        if ((timepoints == null || timepoints.length < 1)) {
-            errors.add("timepoints", new ActionError(
-                    "gov.nih.nci.nautilus.ui.struts.form.timepoints.no.error"));
+public class ClassHelper {
+	/**
+	 * This helper method will return the class if it is found
+	 *
+	 * 
+	 */
+	    
+    public static Class createClass(String className){
+        Class classInstance = null;
+        try {
+            classInstance = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        return errors;
+        
+        return classInstance;
     }
-    
 }

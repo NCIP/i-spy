@@ -203,7 +203,7 @@ public class PrincipalComponentAction extends DispatchAction {
             }
         }*/
         
-        
+         
         //create ArrayPlatformDE
         if(principalComponentForm.getArrayPlatform()!=null || principalComponentForm.getArrayPlatform().length()!=0){
             principalComponentAnalysisQueryDTO.setArrayPlatformDE(new ArrayPlatformDE(principalComponentForm.getArrayPlatform()));

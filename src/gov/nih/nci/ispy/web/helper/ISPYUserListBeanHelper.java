@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,8 +51,7 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
     private UserListBean userListBean;
     private ISPYListValidator listValidator = new ISPYListValidator();
     private static Logger logger = Logger.getLogger(ISPYUserListBeanHelper.class);
-    
-    
+     
     public ISPYUserListBeanHelper(UserListBean userListBean){
         this.userListBean = userListBean;
     }
@@ -114,6 +114,26 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         return typeList;
     }
     
+    public Collection getGeneSymbolListNames(){ 
+        Collection<UserList> geneSetList = new ArrayList<UserList>();
+        geneSetList = getLists(ListType.GeneSymbol);  
+        Collection geneSetListNames = new ArrayList();
+        for(UserList userListName : geneSetList){
+            geneSetListNames.add(userListName.toString());
+        }
+        return geneSetListNames;
+    }
+    
+    public Collection getPatientListNames(){ 
+        Collection<UserList> patientSetList = new ArrayList<UserList>();
+        patientSetList = getLists(ListType.PatientDID);  
+        Collection patientSetListNames = new ArrayList();
+        for(UserList userListName : patientSetList){
+            patientSetListNames.add(userListName.toString());
+        }
+        return patientSetListNames;
+    }
+    
     public List<UserList> getAllLists() {
         List<UserList> allList = new ArrayList<UserList>();
     
@@ -150,6 +170,11 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         }
     }
      
+    public List<String> getItemsFromList(String listName){
+        UserList userList = userListBean.getList(listName);
+        List<String> items = userList.getList();        
+        return items;
+    }
    
 
 }

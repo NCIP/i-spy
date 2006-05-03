@@ -3,6 +3,10 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ page import="java.util.*"%>
 
+<script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
+<script type='text/javascript' src='dwr/engine.js'></script>
+<script type='text/javascript' src='dwr/util.js'></script>
+
 <fieldset class="gray" style="text-align:left">
 <legend class="red">
 	Filter Genes/Reporters
@@ -15,6 +19,14 @@
 <html:radio styleClass="radio" property="filterType" value="advanced" onclick="tdiv(this);"/>Advanced
 
 <script language="javascript">
+
+	function getGeneList(){
+    	UserListHelper.getGeneSymbolListNames(createGeneList);
+	}
+	function createGeneList(data){    	
+    	DWRUtil.removeAllOptions("geneList", data);
+    	DWRUtil.addOptions("geneList", data);
+	}
 
 	function tdiv(el)	{
 
@@ -63,6 +75,11 @@
 			Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
 				<html:text styleId="variancePercentile" property="variancePercentile" onblur="checkPercentile()" size="4"/>&nbsp;&nbsp;%
 			</logic:present>
+			
+			<html:select property="geneSetName" styleId="geneList" disabled="false" onfocus="javascript:getGeneList()">
+				 <option value="">yo</option>
+			</html:select>
+			
 	<br /><br />
 	</div>	
 

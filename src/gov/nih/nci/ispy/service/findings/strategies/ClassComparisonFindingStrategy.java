@@ -32,6 +32,7 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.dto.query.PatientUserListQueryDTO;
 import gov.nih.nci.ispy.service.annotation.ISPYDataType;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
@@ -216,22 +217,49 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 		IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
 		
 		for (ClinicalQueryDTO cq : clinicalQueries) {
-		  ISPYclinicalDataQueryDTO icq = (ISPYclinicalDataQueryDTO) cq;
-
-		  //SampleGroup patients = new SampleGroup(icq.getQueryName());
-		  List<String> patientDIDs = new ArrayList<String>(qs.getPatientDIDs(icq));
+           List<String> patientDIDs;
+           Set<SampleInfo> samples = null;
+           SampleGroup sg = new SampleGroup(cq.getQueryName());
+          
+          if(cq.getClass().isInstance(new ISPYclinicalDataQueryDTO())){
+              ISPYclinicalDataQueryDTO icq = (ISPYclinicalDataQueryDTO) cq;
+    		  patientDIDs = new ArrayList<String>(qs.getPatientDIDs(icq));
+              
+              //get the labtrack ids for the patients               
+              if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.AGILENT) {              
+                samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.AGILENT,icq.getTimepointValues());
+              }
+              else if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.CDNA_ARRAY_PLATFORM){
+                samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.CDNA, icq.getTimepointValues());
+              }
+              if (icq.isBaseline()) {
+                classComparisonRequest.setBaselineGroup(sg);
+              }
+              else {
+                classComparisonRequest.setGroup1(sg);
+              }
+          }
+          else if(cq.getClass().isInstance(new PatientUserListQueryDTO())){              
+              PatientUserListQueryDTO pq = (PatientUserListQueryDTO) cq;
+              patientDIDs = pq.getPatientDIDs();             
+              //get the labtrack ids for the patients             
+              
+              if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.AGILENT) {              
+                samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.AGILENT,pq.getTimepointValues());
+              }
+              else if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.CDNA_ARRAY_PLATFORM){
+                samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.CDNA, pq.getTimepointValues());
+              }
+              if (pq.isBaseline()) {
+                classComparisonRequest.setBaselineGroup(sg);
+              }
+              else {
+                classComparisonRequest.setGroup1(sg);
+              }
+          }
 		  
 		  
-		  SampleGroup sg = new SampleGroup(cq.getQueryName());
-		  //get the labtrack ids for the patients 
 		  
-		  Set<SampleInfo> samples = null;
-		  if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.AGILENT) {			  
-		    samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.AGILENT,icq.getTimepointValues());
-		  }
-		  else if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.CDNA_ARRAY_PLATFORM){
-			samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.CDNA, icq.getTimepointValues());
-		  }
 		  
 		  List<String> sampleIds = new ArrayList<String>();
 		  
@@ -242,12 +270,7 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 		  }
 		  sg.addAll(sampleIds);
 			  
-		  if (icq.isBaseline()) {
-		    classComparisonRequest.setBaselineGroup(sg);
-		  }
-		  else {
-		    classComparisonRequest.setGroup1(sg);
-		  }
+		  
 		}
 		
 //		if(clinicalQueries != null){

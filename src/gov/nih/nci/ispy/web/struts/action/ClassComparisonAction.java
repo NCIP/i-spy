@@ -6,6 +6,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
 import gov.nih.nci.caintegrator.dto.de.MultiGroupComparisonAdjustmentTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticTypeDE;
@@ -23,6 +24,7 @@ import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.ISPYClassComparisonQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.dto.query.PatientUserListQueryDTO;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
@@ -31,12 +33,14 @@ import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.web.helper.ClassHelper;
 import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
 import gov.nih.nci.ispy.web.struts.form.ClassComparisonForm;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
@@ -133,8 +137,9 @@ public class ClassComparisonAction extends DispatchAction {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ClassComparisonForm classComparisonForm = (ClassComparisonForm) form;
-        String sessionId = request.getSession().getId();
-        ClassComparisonQueryDTO classComparisonQueryDTO = createClassComparisonQueryDTO(classComparisonForm,sessionId);
+        String sessionId = request.getSession().getId();  
+        HttpSession session = request.getSession();
+        ClassComparisonQueryDTO classComparisonQueryDTO = createClassComparisonQueryDTO(classComparisonForm,sessionId, session);
         
         
         ISPYFindingsFactory factory = new ISPYFindingsFactory();
@@ -155,12 +160,12 @@ public class ClassComparisonAction extends DispatchAction {
         /*setup the defined Disease query names and the list of samples selected from a Resultset*/
         String sessionId = request.getSession().getId();        
         ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever();
-        classComparisonForm.setExistingGroupsList(clinicalGroupRetriever.getClinicalGroupsCollection());
+        classComparisonForm.setExistingGroupsList(clinicalGroupRetriever.getClinicalGroupsCollection(request.getSession()));
         
         return mapping.findForward("backToClassComparison");
     }
         
-    private ClassComparisonQueryDTO createClassComparisonQueryDTO(ClassComparisonForm classComparisonQueryForm, String sessionId){
+    private ClassComparisonQueryDTO createClassComparisonQueryDTO(ClassComparisonForm classComparisonQueryForm, String sessionId, HttpSession session){
 
         ISPYClassComparisonQueryDTO classComparisonQueryDTO = (ISPYClassComparisonQueryDTO)ApplicationFactory.newQueryDTO(QueryType.CLASS_COMPARISON_QUERY);
         classComparisonQueryDTO.setQueryName(classComparisonQueryForm.getAnalysisResultName());        
@@ -216,7 +221,8 @@ public class ClassComparisonAction extends DispatchAction {
                 EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
                 EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
                 
-                ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTO = new ISPYclinicalDataQueryDTO();
+                
+                 
                 
                 /*
                  * set timepoints
@@ -227,11 +233,7 @@ public class ClassComparisonAction extends DispatchAction {
                         fixedTimepointBase = TimepointType.valueOf(fixedTimepointString);
                         timepoints.add(fixedTimepointBase);
                     }
-                    if(i==1){//the second group is always baseline
-                        ispyClinicalDataQueryDTO.setBaseline(true);
-                    }
-                ispyClinicalDataQueryDTO.setTimepointValues(timepoints); 
-                
+                    
                 
                 /*
                  * parse the selected groups, create the appropriate EnumType and add it
@@ -240,29 +242,47 @@ public class ClassComparisonAction extends DispatchAction {
                 String[] uiDropdownString = classComparisonQueryForm.getSelectedGroups()[i].split("#");
                 String myClassName = uiDropdownString[0];
                 String myValueName = uiDropdownString[1];
+               
+                Class myClass = ClassHelper.createClass(myClassName);
                 
-                Enum myType = EnumHelper.createType(myClassName,myValueName);
-                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
-                    clinicalResponses.add((ClinicalResponseType) myType);
+                if(myClass.isInstance(new UserList())){
+                    PatientUserListQueryDTO patientQueryDTO = new PatientUserListQueryDTO(session,myValueName);
+                    clinicalQueryCollection.add(patientQueryDTO);
+                    if(i==1){//the second group is always baseline
+                        patientQueryDTO.setBaseline(true);
+                    }
+                    patientQueryDTO.setTimepointValues(timepoints);
                 }
-                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
-                    diseaseStages.add((DiseaseStageType) myType);
+                else{
+                    ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTO = new ISPYclinicalDataQueryDTO();
+                    if(i==1){//the second group is always baseline
+                        ispyClinicalDataQueryDTO.setBaseline(true);
+                    }
+                    ispyClinicalDataQueryDTO.setTimepointValues(timepoints); 
+                    
+                    Enum myType = EnumHelper.createType(myClassName,myValueName);
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
+                        clinicalResponses.add((ClinicalResponseType) myType);
+                    }
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
+                        diseaseStages.add((DiseaseStageType) myType);
+                    }
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
+                        erStatus.add((ERstatusType) myType);
+                    }
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
+                        her2Status.add((HER2statusType) myType);
+                    }
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
+                        prStatus.add((PRstatusType) myType);
+                    } 
+                    ispyClinicalDataQueryDTO.setClinicalResponseValues(clinicalResponses);
+                    ispyClinicalDataQueryDTO.setDiseaseStageValues(diseaseStages);
+                    ispyClinicalDataQueryDTO.setErStatusValues(erStatus);
+                    ispyClinicalDataQueryDTO.setHer2StatusValues(her2Status);
+                    ispyClinicalDataQueryDTO.setPrStatusValues(prStatus);
+                    clinicalQueryCollection.add(ispyClinicalDataQueryDTO);
                 }
-                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
-                    erStatus.add((ERstatusType) myType);
-                }
-                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
-                    her2Status.add((HER2statusType) myType);
-                }
-                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
-                    prStatus.add((PRstatusType) myType);
-                } 
-                ispyClinicalDataQueryDTO.setClinicalResponseValues(clinicalResponses);
-                ispyClinicalDataQueryDTO.setDiseaseStageValues(diseaseStages);
-                ispyClinicalDataQueryDTO.setErStatusValues(erStatus);
-                ispyClinicalDataQueryDTO.setHer2StatusValues(her2Status);
-                ispyClinicalDataQueryDTO.setPrStatusValues(prStatus);
-                clinicalQueryCollection.add(ispyClinicalDataQueryDTO);
             }
             /*
              * set the QueryDTO in the collection and move on to the next one
@@ -291,62 +311,96 @@ public class ClassComparisonAction extends DispatchAction {
              * in both QueryDTOs.
              */
             for (int i = 0;i<classComparisonQueryForm.getSelectedGroups().length; i++){
+                
+                    String acrossTimepointBaseString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointBaseAcross(),TimepointType.values());
+                    String timepointComparisonString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointComparison(),TimepointType.values());
+                    
                     String[] uiDropdownString = classComparisonQueryForm.getSelectedGroups()[i].split("#");
                     String myClassName = uiDropdownString[0];
                     String myValueName = uiDropdownString[1];
                     
-                    Enum myType = EnumHelper.createType(myClassName,myValueName);
-                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
-                        clinicalResponses.add((ClinicalResponseType) myType);
-                    }
-                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
-                        diseaseStages.add((DiseaseStageType) myType);
-                    }
-                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
-                        erStatus.add((ERstatusType) myType);
-                    }
-                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
-                        her2Status.add((HER2statusType) myType);
-                    }
-                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
-                        prStatus.add((PRstatusType) myType);
-                    } 
-                }
-               
-               /*
-                * create the basline QueryDTO
-                */
-               ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTOBase = new ISPYclinicalDataQueryDTO();
-               String acrossTimepointBaseString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointBaseAcross(),TimepointType.values());
+                    Class myClass = ClassHelper.createClass(myClassName);
+                    
+                    /* check to see what type of class the selected group is.
+                     * if the group is a user-defined list, create the appropriate ClinicalQueryDTO, 
+                     * then create 2 groups with the baseline defined
+                     * by the first timepoint. If the class is a predefined group, do the exact same, setting values in the 
+                     * DTO as needed. The latter class obviuosly needs more variables set because a query needs to be
+                     * initially made to extract the appropriate patientDIDs. However, with a userlist, they are already defined,
+                     * so all you need is a timepoint and baseline.
+                     */
+                    if(myClass.isInstance(new UserList())){
+                        PatientUserListQueryDTO patientQueryDTOBase = new PatientUserListQueryDTO(session,myValueName);
                         if(acrossTimepointBaseString!=null){
                             acrossTimepointBase = TimepointType.valueOf(acrossTimepointBaseString);
                             timepointsBase.add(acrossTimepointBase);
+                        } 
+                        patientQueryDTOBase.setBaseline(true);
+                        patientQueryDTOBase.setTimepointValues(timepointsBase);
+                        clinicalQueryCollection.add(patientQueryDTOBase);
+                        
+                        PatientUserListQueryDTO patientQueryDTOComparision = new PatientUserListQueryDTO(session,myValueName);
+                        if(timepointComparisonString!=null){
+                            timepointComparison = TimepointType.valueOf(timepointComparisonString);
+                            timepointsComp.add(timepointComparison);
+                        }     
+                        patientQueryDTOComparision.setBaseline(false);
+                        patientQueryDTOComparision.setTimepointValues(timepointsComp);
+                        clinicalQueryCollection.add(patientQueryDTOComparision);
+                    }
+                    else{                        
+                        Enum myType = EnumHelper.createType(myClassName,myValueName);
+                        if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
+                            clinicalResponses.add((ClinicalResponseType) myType);
                         }
-               ispyClinicalDataQueryDTOBase.setBaseline(true);                       
-               ispyClinicalDataQueryDTOBase.setTimepointValues(timepointsBase); 
-               ispyClinicalDataQueryDTOBase.setClinicalResponseValues(clinicalResponses);
-               ispyClinicalDataQueryDTOBase.setDiseaseStageValues(diseaseStages);
-               ispyClinicalDataQueryDTOBase.setErStatusValues(erStatus);
-               ispyClinicalDataQueryDTOBase.setHer2StatusValues(her2Status);
-               ispyClinicalDataQueryDTOBase.setPrStatusValues(prStatus);
-               clinicalQueryCollection.add(ispyClinicalDataQueryDTOBase);
-                
-               /*
-                * create the comparison QueryDTO
-                */
-               ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTOComparison = new ISPYclinicalDataQueryDTO();
-               String timepointComparisonString = EnumHelper.getEnumTypeName(classComparisonQueryForm.getTimepointComparison(),TimepointType.values());
-               if(timepointComparisonString!=null){
-                    timepointComparison = TimepointType.valueOf(timepointComparisonString);
-                    timepointsComp.add(timepointComparison);
-               }
-               ispyClinicalDataQueryDTOComparison.setTimepointValues(timepointsComp); 
-               ispyClinicalDataQueryDTOComparison.setClinicalResponseValues(clinicalResponses);
-               ispyClinicalDataQueryDTOComparison.setDiseaseStageValues(diseaseStages);
-               ispyClinicalDataQueryDTOComparison.setErStatusValues(erStatus);
-               ispyClinicalDataQueryDTOComparison.setHer2StatusValues(her2Status);
-               ispyClinicalDataQueryDTOComparison.setPrStatusValues(prStatus);
-               clinicalQueryCollection.add(ispyClinicalDataQueryDTOComparison);
+                        if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
+                            diseaseStages.add((DiseaseStageType) myType);
+                        }
+                        if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
+                            erStatus.add((ERstatusType) myType);
+                        }
+                        if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.HER2statusType.class) {
+                            her2Status.add((HER2statusType) myType);
+                        }
+                        if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.PRstatusType.class) {
+                            prStatus.add((PRstatusType) myType);
+                        } 
+                        /*
+                         * create the basline QueryDTO
+                         */
+                        ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTOBase = new ISPYclinicalDataQueryDTO();
+                                 if(acrossTimepointBaseString!=null){
+                                     acrossTimepointBase = TimepointType.valueOf(acrossTimepointBaseString);
+                                     timepointsBase.add(acrossTimepointBase);
+                                 }                                
+                        ispyClinicalDataQueryDTOBase.setBaseline(true);                       
+                        ispyClinicalDataQueryDTOBase.setTimepointValues(timepointsBase); 
+                        ispyClinicalDataQueryDTOBase.setClinicalResponseValues(clinicalResponses);
+                        ispyClinicalDataQueryDTOBase.setDiseaseStageValues(diseaseStages);
+                        ispyClinicalDataQueryDTOBase.setErStatusValues(erStatus);
+                        ispyClinicalDataQueryDTOBase.setHer2StatusValues(her2Status);
+                        ispyClinicalDataQueryDTOBase.setPrStatusValues(prStatus);
+                        clinicalQueryCollection.add(ispyClinicalDataQueryDTOBase);
+                         
+                        /*
+                         * create the comparison QueryDTO
+                         */
+                        ISPYclinicalDataQueryDTO ispyClinicalDataQueryDTOComparison = new ISPYclinicalDataQueryDTO();
+                                if(timepointComparisonString!=null){
+                                     timepointComparison = TimepointType.valueOf(timepointComparisonString);
+                                     timepointsComp.add(timepointComparison);
+                                 }                           
+                        ispyClinicalDataQueryDTOComparison.setTimepointValues(timepointsComp); 
+                        ispyClinicalDataQueryDTOComparison.setClinicalResponseValues(clinicalResponses);
+                        ispyClinicalDataQueryDTOComparison.setDiseaseStageValues(diseaseStages);
+                        ispyClinicalDataQueryDTOComparison.setErStatusValues(erStatus);
+                        ispyClinicalDataQueryDTOComparison.setHer2StatusValues(her2Status);
+                        ispyClinicalDataQueryDTOComparison.setPrStatusValues(prStatus);
+                        clinicalQueryCollection.add(ispyClinicalDataQueryDTOComparison);
+                    }
+                }
+               
+               
                 
                /*
                 * add both QueryDTOs to the classComparisonQueryDTO

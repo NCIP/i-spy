@@ -86,7 +86,7 @@
 		}
 		
 		//changes instruction text
-		var instruction = (_timepoint == "across") ? "<em><b>choose one or more groups</b></em>" : "<em><b>choose 2 groups</b></em>";
+		var instruction = (_timepoint == "across") ? "<em><b>choose one group</b></em>" : "<em><b>choose 2 groups</b></em>";
 		document.getElementById("instruction").innerHTML = instruction;
 					
 		var baseline = lst[lst.length-1];
