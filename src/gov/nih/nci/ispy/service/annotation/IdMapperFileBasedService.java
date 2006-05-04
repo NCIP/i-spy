@@ -64,7 +64,15 @@ public class IdMapperFileBasedService {
 			  idMap.put(labtrackId, entry);
 			  
 			  sample.setTimepoint(TimepointType.valueOf(sampleData[2]));
-			  sample.setCoreType(SampleCoreType.valueOf(sampleData[3]));
+			  
+			  
+			  if ((sampleData[3]!=null)&&(sampleData[3].trim().length()>0)) {
+			    sample.setCoreType(SampleCoreType.valueOf(sampleData[3]));
+			  }
+			  else {
+			    sample.setCoreType(SampleCoreType.NA);
+			  }
+			  
 			  sample.setSectionInfo(sampleData[4]);
 			  
 			  if ((sampleData[5]!=null)&&(sampleData[5].trim().length()>0)) {
