@@ -36,12 +36,14 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.annotation.ISPYDataType;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -299,7 +301,7 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 //					}
 //				
 //				}
-//			if(	myQueryDTO.getGeneIdentifierDEs() != null){
+     		if(	myQueryDTO.getGeneIdentifierDEs() != null){
 //				Collection<GeneIdentifierDE> validGeneDEs;
 //				try {
 //					validGeneDEs = DataValidator.validateGenes(myQueryDTO.getGeneIdentifierDEs());
@@ -310,21 +312,36 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 //				// Find out if any reports were not validated
 //				set.removeAll(validGeneDEs);
 //				genesNotFound = set;
+                
+               /**
+                 * Temporary hack until we supplant the new query service...do not know
+                 * if DEs will be used, so we use them until we do not need to and extract the strings
+                 * from them
+                 */
+                GeneExprFileBasedAnnotationService geService = (GeneExprFileBasedAnnotationService)GeneExprFileBasedAnnotationService.getInstance();
+                //remove items from DEs as Strings
+                Collection<GeneIdentifierDE> deList = myQueryDTO.getGeneIdentifierDEs();
+                Collection<String> stringList = new ArrayList();
+                for(GeneIdentifierDE de: deList){
+                    stringList.add(de.getValueObject());
+                }
+                ArrayPlatformType arrayType= myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();                
+                Collection<String> reporters = geService.getReporterNamesForGeneSymbols(stringList,arrayType);
 //				
 //				Collection<String> reporters = StrategyHelper.extractGenes(validGeneDEs);
-//				if(reporters != null){
-//					this.reporterGroup = new ReporterGroup(myQueryDTO.getQueryName(),reporters.size());
-//					reporterGroup.addAll(reporters);
-//					
-//				}
+				if(reporters != null){
+					this.reporterGroup = new ReporterGroup(myQueryDTO.getQueryName(),reporters.size());
+					reporterGroup.addAll(reporters);
+					
+				}
 //				} catch (Exception e) {
 //					e.printStackTrace();
 //					logger.error(e.getMessage());
 //		  			throw new FindingsQueryException(e.getMessage());
 //				}
-//			
-//			}
-//			}
+			
+			}
+			
 			return true;
 	}
 

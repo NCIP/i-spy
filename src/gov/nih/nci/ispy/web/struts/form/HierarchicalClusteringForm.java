@@ -10,6 +10,7 @@ import gov.nih.nci.ispy.web.helper.UIFormValidator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -105,6 +106,8 @@ public class HierarchicalClusteringForm extends ActionForm {
     private String filterType = "default";
     
     private String geneSetName = "";
+    
+    private List geneSetNameList;
     
     private String reporterSetName = "";
     
@@ -428,6 +431,20 @@ public class HierarchicalClusteringForm extends ActionForm {
           
         arrayPlatform = ""; 
        
+    }
+
+    /**
+     * @return Returns the geneSetNameList.
+     */
+    public List getGeneSetNameList() {
+        return geneSetNameList;
+    }
+
+    /**
+     * @param geneSetNameList The geneSetNameList to set.
+     */
+    public void setGeneSetNameList(List geneSetNameList) {
+        this.geneSetNameList = geneSetNameList;
     }
     
 

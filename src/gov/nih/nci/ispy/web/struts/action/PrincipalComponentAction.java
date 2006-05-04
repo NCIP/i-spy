@@ -192,11 +192,11 @@ public class PrincipalComponentAction extends DispatchAction {
         if(principalComponentForm.getGeneSetName()!= null && (!principalComponentForm.getGeneSetName().equals("") || principalComponentForm.getGeneSetName().length()!=0)){
             geneIdentifierDECollection = listHelper.getGeneDEforList(principalComponentForm.getGeneSetName());
             if (geneIdentifierDECollection!=null){
-                logger.debug("geneIdentifierDECollection was found in the cache");
+                logger.debug("geneIdentifierDECollection was found");
                 principalComponentAnalysisQueryDTO.setGeneIdentifierDEs(geneIdentifierDECollection);
             }
             else{
-                logger.debug("geneIdentifierDECollection could not be found in the cache");
+                logger.debug("geneIdentifierDECollection could not be found");
             }
         }
         

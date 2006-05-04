@@ -22,6 +22,7 @@ import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
+import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 import gov.nih.nci.ispy.web.struts.form.HierarchicalClusteringForm;
 
 import java.util.ArrayList;
@@ -30,12 +31,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
+import org.apache.struts.util.LabelValueBean;
 
 
 
@@ -132,7 +135,8 @@ public class HierarchicalClusteringAction extends DispatchAction {
         HierarchicalClusteringForm hierarchicalClusteringForm = (HierarchicalClusteringForm) form;
         logger.debug("Selected Distance Matrix in HttpServletRequest: " + request.getParameter("distanceMatrix"));
         String sessionId = request.getSession().getId();
-       HierarchicalClusteringQueryDTO hierarchicalClusteringQueryDTO = createHierarchicalClusteringQueryDTO(hierarchicalClusteringForm,sessionId); 
+        HttpSession session = request.getSession();
+       HierarchicalClusteringQueryDTO hierarchicalClusteringQueryDTO = createHierarchicalClusteringQueryDTO(hierarchicalClusteringForm,session); 
         
        
        ISPYFindingsFactory factory = new ISPYFindingsFactory();
@@ -150,14 +154,24 @@ public class HierarchicalClusteringAction extends DispatchAction {
             HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         HierarchicalClusteringForm hierarchicalClusteringForm = (HierarchicalClusteringForm) form;
-        String sessionId = request.getSession().getId();        
+        String sessionId = request.getSession().getId(); 
+        HttpSession session = request.getSession();
+        ISPYUserListBeanHelper listHelper = new ISPYUserListBeanHelper(session);
+        //fetch the users gene groups populate the dropdown
+        List<String> names = listHelper.getGeneSymbolListNames();
+        List<LabelValueBean> gsNameList = new ArrayList<LabelValueBean>();
+            for(String listName : names){
+                gsNameList.add(new LabelValueBean(listName,listName));
+            }
+            hierarchicalClusteringForm.setGeneSetNameList(gsNameList);
         
         return mapping.findForward("backToHierarchicalClustering");
     }
         
-    private HierarchicalClusteringQueryDTO createHierarchicalClusteringQueryDTO(HierarchicalClusteringForm hierarchicalClusteringForm, String sessionId) {
+    private HierarchicalClusteringQueryDTO createHierarchicalClusteringQueryDTO(HierarchicalClusteringForm hierarchicalClusteringForm, HttpSession session) {
+          String sessionId = session.getId();
+          ISPYUserListBeanHelper listHelper = new ISPYUserListBeanHelper(session);
           ISPYHierarchicalClusteringQueryDTO hierarchicalClusteringQueryDTO = (ISPYHierarchicalClusteringQueryDTO)ApplicationFactory.newQueryDTO(QueryType.HC_QUERY);
-        
           hierarchicalClusteringQueryDTO.setQueryName(hierarchicalClusteringForm.getAnalysisResultName());
           
         //create timepointList
@@ -182,20 +196,20 @@ public class HierarchicalClusteringAction extends DispatchAction {
             hierarchicalClusteringQueryDTO.setGeneVectorPercentileDE(new GeneVectorPercentileDE(new Double(hierarchicalClusteringForm.getVariancePercentile()),Operator.GE));
         
        
-//        /*create GeneIdentifierDEs by looking in the cache for 
-//        the specified GeneIdentifierDECollection. The key is 
-//        the geneSet name that was uploaded by the user into the cache.*/
-//        
-//        if(hierarchicalClusteringForm.getGeneSetName()!=null || hierarchicalClusteringForm.getGeneSetName().length()!=0){
-//            geneIdentifierDECollection = sessionCriteriaBag.getUserList(ListType.GeneIdentifierSet,hierarchicalClusteringForm.getGeneSetName());
-//            if (geneIdentifierDECollection!=null){
-//                logger.debug("geneIdentifierDECollection was found in the cache");
-//                //hierarchicalClusteringQueryDTO.setGeneIdentifierDEs(geneIdentifierDECollection);
-//            }
-//            else{
-//                logger.debug("geneIdentifierDECollection could not be found in the cache");
-//            }
-//        }
+        /*create GeneIdentifierDEs by looking in the cache for 
+        the specified GeneIdentifierDECollection. The key is 
+        the geneSet name that was uploaded by the user into the cache.*/
+        
+        if(hierarchicalClusteringForm.getGeneSetName()!=null || hierarchicalClusteringForm.getGeneSetName().length()!=0){
+            geneIdentifierDECollection = listHelper.getGeneDEforList(hierarchicalClusteringForm.getGeneSetName());
+            if (geneIdentifierDECollection!=null){
+                logger.debug("geneIdentifierDECollection was found");
+                hierarchicalClusteringQueryDTO.setGeneIdentifierDEs(geneIdentifierDECollection);
+            }
+            else{
+                logger.debug("geneIdentifierDECollection could not be found");
+            }
+        }
 //        
 //        /*create CloneIdentifierDEs by looking in the cache for 
 //        the specified CloneIdentifierDECollection. The key is 

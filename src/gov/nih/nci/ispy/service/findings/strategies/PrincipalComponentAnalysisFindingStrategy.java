@@ -334,7 +334,7 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
                 }
                 ArrayPlatformType arrayType= myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();                
                 Collection<String> reporters = geService.getReporterNamesForGeneSymbols(stringList,arrayType);
-               
+//              Collection<String> reporters = StrategyHelper.extractGenes(validGeneDEs);
                 if(reporters != null  && reporters.size() > 0){
 					this.reporterGroup = new ReporterGroup(myQueryDTO.getQueryName(),reporters.size());
 					reporterGroup.addAll(reporters);
