@@ -43,23 +43,23 @@ public class IdMapperFileBasedService {
 			BufferedReader in = new BufferedReader(new FileReader(mappingFileName));
 			
 			String[] sampleData = null;
-			String registrantId = null;
+			String ispyID = null;
 			while ((line=in.readLine()) != null) {
 				  
 			  sampleData = line.split("\t", -2);
 			  
-			  registrantId = sampleData[0];
+			  ispyID = sampleData[0];
 			  
-			  entry = idMap.get(registrantId);
+			  entry = idMap.get(ispyID);
 			  
 			  if (entry == null) {
-			    entry = new RegistrantInfo(registrantId);
-			    idMap.put(registrantId, entry);
+			    entry = new RegistrantInfo(ispyID);
+			    idMap.put(ispyID, entry);
 			  }
 			  
 			  String labtrackId = sampleData[1];
 			  
-			  SampleInfo sample = new SampleInfo(registrantId, labtrackId);  
+			  SampleInfo sample = new SampleInfo(ispyID, labtrackId);  
 			  
 			  idMap.put(labtrackId, entry);
 			  
@@ -87,8 +87,8 @@ public class IdMapperFileBasedService {
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("IOException setting id mapping file=" + mappingFileName);
+			logger.error(e);
 		}
 	}
 	
