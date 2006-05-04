@@ -112,7 +112,7 @@ public class DynamicListHelper {
 		
 		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
 		
-        List<String> listItems = helper.getListItems(name);
+        List<String> listItems = helper.getItemsFromList(name);
         txt = StringUtils.join(listItems.toArray(), "\r\n");
 		return txt;
 	}
