@@ -200,7 +200,7 @@ public class HierarchicalClusteringAction extends DispatchAction {
         the specified GeneIdentifierDECollection. The key is 
         the geneSet name that was uploaded by the user into the cache.*/
         
-        if(hierarchicalClusteringForm.getGeneSetName()!=null || hierarchicalClusteringForm.getGeneSetName().length()!=0){
+        if(hierarchicalClusteringForm.getGeneSetName()!=null && (!hierarchicalClusteringForm.getGeneSetName().equals("") || hierarchicalClusteringForm.getGeneSetName().length()!=0)){
             geneIdentifierDECollection = listHelper.getGeneDEforList(hierarchicalClusteringForm.getGeneSetName());
             if (geneIdentifierDECollection!=null){
                 logger.debug("geneIdentifierDECollection was found");
