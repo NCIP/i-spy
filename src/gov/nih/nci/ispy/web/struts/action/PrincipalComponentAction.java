@@ -16,6 +16,7 @@ import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
+import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 import gov.nih.nci.ispy.web.struts.form.PrincipalComponentForm;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
+import org.apache.struts.util.LabelValueBean;
 
 
 
@@ -118,14 +120,13 @@ public class PrincipalComponentAction extends DispatchAction {
             throws Exception {
         
         PrincipalComponentForm principalComponentForm = (PrincipalComponentForm) form;
-        String sessionId = request.getSession().getId();
-        PrincipalComponentAnalysisQueryDTO principalComponentAnalysisQueryDTO = createPrincipalComponentAnalysisQueryDTO(principalComponentForm,sessionId);
+        HttpSession session = request.getSession();
+        PrincipalComponentAnalysisQueryDTO principalComponentAnalysisQueryDTO = createPrincipalComponentAnalysisQueryDTO(principalComponentForm,session);
         
-         
         ISPYFindingsFactory factory = new ISPYFindingsFactory();
         Finding finding = null;
         try {
-            finding = factory.createPCAFinding(principalComponentAnalysisQueryDTO,sessionId,principalComponentAnalysisQueryDTO.getQueryName());
+            finding = factory.createPCAFinding(principalComponentAnalysisQueryDTO,session.getId(),principalComponentAnalysisQueryDTO.getQueryName());
         } catch (FrameworkException e) {
             e.printStackTrace();
         }
@@ -140,14 +141,25 @@ public class PrincipalComponentAction extends DispatchAction {
         PrincipalComponentForm principalComponentForm = (PrincipalComponentForm) form;
         /*setup the defined Disease query names and the list of samples selected from a Resultset*/
         HttpSession session = request.getSession();
-        String sessionId = request.getSession().getId();        
+        String sessionId = request.getSession().getId(); 
+        ISPYUserListBeanHelper listHelper = new ISPYUserListBeanHelper(session);
+        //fetch the users gene groups populate the dropdown
+        List<String> names = listHelper.getGeneSymbolListNames();
+        List<LabelValueBean> gsNameList = new ArrayList<LabelValueBean>();
+            for(String listName : names){
+                gsNameList.add(new LabelValueBean(listName,listName));
+            }
+        principalComponentForm.setGeneSetNameList(gsNameList);
+        
         //principalComponentForm.setGeneSetName(userPreferencesHelper.getGeneSetName());
         //principalComponentForm.setReporterSetName(userPreferencesHelper.getReporterSetName());
          
         return mapping.findForward("backToPrincipalComponent");
     }
     
-    private PrincipalComponentAnalysisQueryDTO createPrincipalComponentAnalysisQueryDTO(PrincipalComponentForm principalComponentForm, String sessionId) {
+    private PrincipalComponentAnalysisQueryDTO createPrincipalComponentAnalysisQueryDTO(PrincipalComponentForm principalComponentForm, HttpSession session) {
+        String sessionId = session.getId();
+        ISPYUserListBeanHelper listHelper = new ISPYUserListBeanHelper(session);
         ISPYPrincipalComponentAnalysisQueryDTO principalComponentAnalysisQueryDTO = (ISPYPrincipalComponentAnalysisQueryDTO)ApplicationFactory.newQueryDTO(QueryType.PCA_QUERY);
         principalComponentAnalysisQueryDTO.setQueryName(principalComponentForm.getAnalysisResultName());
        
@@ -175,10 +187,10 @@ public class PrincipalComponentAction extends DispatchAction {
         
         /*create GeneIdentifierDEs by looking in the cache for 
         the specified GeneIdentifierDECollection. The key is 
-        the geneSet name that was uploaded by the user into the cache.
+        the geneSet name that was uploaded by the user into the cache.*/
         
         if(principalComponentForm.getGeneSetName()!= null && (!principalComponentForm.getGeneSetName().equals("") || principalComponentForm.getGeneSetName().length()!=0)){
-            geneIdentifierDECollection = sessionCriteriaBag.getUserList(ListType.GeneIdentifierSet,principalComponentForm.getGeneSetName());
+            geneIdentifierDECollection = listHelper.getGeneDEforList(principalComponentForm.getGeneSetName());
             if (geneIdentifierDECollection!=null){
                 logger.debug("geneIdentifierDECollection was found in the cache");
                 principalComponentAnalysisQueryDTO.setGeneIdentifierDEs(geneIdentifierDECollection);

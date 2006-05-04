@@ -35,6 +35,7 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 //import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYPrincipalComponentAnalysisQueryDTO;
+import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.annotation.ISPYDataType;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
@@ -307,7 +308,7 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 //					}
 //				
 //				}
-//			if(	myQueryDTO.getGeneIdentifierDEs() != null){
+			if(	myQueryDTO.getGeneIdentifierDEs() != null){
 //				Collection<GeneIdentifierDE> validGeneDEs;
 //				try {
 //					validGeneDEs = DataValidator.validateGenes(myQueryDTO.getGeneIdentifierDEs());
@@ -318,31 +319,39 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 //				// Find out if any reports were not validated
 //				set.removeAll(validGeneDEs);
 //				genesNotFound = set;
-//				
-//				Collection<String> reporters = StrategyHelper.extractGenes(validGeneDEs);
-//				if(reporters != null  && reporters.size() > 0){
-//					this.reporterGroup = new ReporterGroup(myQueryDTO.getQueryName(),reporters.size());
-//					reporterGroup.addAll(reporters);
-//					
-//				}
-//				else{ //No reporters are valid
-//					reporterGroup = null;
-//					throw new FindingsQueryException("No reporters founds for the selected genes for PCA Analysis");
-//				}
+				
+                /**
+                 * Temporary hack until we supplant the new query service...do not know
+                 * if DEs will be used, so we use them until we do not need to and extract the strings
+                 * from them
+                 */
+				GeneExprFileBasedAnnotationService geService = (GeneExprFileBasedAnnotationService)GeneExprFileBasedAnnotationService.getInstance();
+                //remove items from DEs as Strings
+                Collection<GeneIdentifierDE> deList = myQueryDTO.getGeneIdentifierDEs();
+                Collection<String> stringList = new ArrayList();
+                for(GeneIdentifierDE de: deList){
+                    stringList.add(de.getValueObject());
+                }
+                ArrayPlatformType arrayType= myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();                
+                Collection<String> reporters = geService.getReporterNamesForGeneSymbols(stringList,arrayType);
+               
+                if(reporters != null  && reporters.size() > 0){
+					this.reporterGroup = new ReporterGroup(myQueryDTO.getQueryName(),reporters.size());
+					reporterGroup.addAll(reporters);
+					
+				}
+				else{ //No reporters are valid
+					reporterGroup = null;
+					throw new FindingsQueryException("No reporters founds for the selected genes for PCA Analysis");
+				}
 //				} catch (Exception e) {
 //					e.printStackTrace();
 //					logger.error(e.getMessage());
 //		  			throw new FindingsQueryException(e.getMessage());
 //				}
-//			
-//			}
-//			}
-		
-
-
-
-
-
+			
+			}
+			
 			return true;
 	}
 

@@ -97,6 +97,8 @@ public class PrincipalComponentForm extends ActionForm {
     
     private String geneSetName;
     
+    private List geneSetNameList;
+    
     private String reporterSetName;
     
     private String arrayPlatform = "";
@@ -326,6 +328,22 @@ public class PrincipalComponentForm extends ActionForm {
         filterType = "default";
         
       
+    }
+
+
+    /**
+     * @return Returns the geneSetNameList.
+     */
+    public List getGeneSetNameList() {
+        return geneSetNameList;
+    }
+
+
+    /**
+     * @param geneSetNameList The geneSetNameList to set.
+     */
+    public void setGeneSetNameList(List geneSetNameList) {
+        this.geneSetNameList = geneSetNameList;
     }
 
     

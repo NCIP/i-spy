@@ -137,15 +137,14 @@ public class ClassComparisonAction extends DispatchAction {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         ClassComparisonForm classComparisonForm = (ClassComparisonForm) form;
-        String sessionId = request.getSession().getId();  
         HttpSession session = request.getSession();
-        ClassComparisonQueryDTO classComparisonQueryDTO = createClassComparisonQueryDTO(classComparisonForm,sessionId, session);
+        ClassComparisonQueryDTO classComparisonQueryDTO = createClassComparisonQueryDTO(classComparisonForm, session);
         
         
         ISPYFindingsFactory factory = new ISPYFindingsFactory();
         Finding finding = null;
         try {
-            finding = factory.createClassComparisonFinding(classComparisonQueryDTO,sessionId,classComparisonQueryDTO.getQueryName());
+            finding = factory.createClassComparisonFinding(classComparisonQueryDTO,session.getId(),classComparisonQueryDTO.getQueryName());
         } catch (FrameworkException e) {
             e.printStackTrace();
         }
@@ -158,15 +157,15 @@ public class ClassComparisonAction extends DispatchAction {
     throws Exception {
         ClassComparisonForm classComparisonForm = (ClassComparisonForm) form;
         /*setup the defined Disease query names and the list of samples selected from a Resultset*/
-        String sessionId = request.getSession().getId();        
         ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever();
         classComparisonForm.setExistingGroupsList(clinicalGroupRetriever.getClinicalGroupsCollection(request.getSession()));
+        
         
         return mapping.findForward("backToClassComparison");
     }
         
-    private ClassComparisonQueryDTO createClassComparisonQueryDTO(ClassComparisonForm classComparisonQueryForm, String sessionId, HttpSession session){
-
+    private ClassComparisonQueryDTO createClassComparisonQueryDTO(ClassComparisonForm classComparisonQueryForm, HttpSession session){
+        String sessionId = session.getId();  
         ISPYClassComparisonQueryDTO classComparisonQueryDTO = (ISPYClassComparisonQueryDTO)ApplicationFactory.newQueryDTO(QueryType.CLASS_COMPARISON_QUERY);
         classComparisonQueryDTO.setQueryName(classComparisonQueryForm.getAnalysisResultName());        
         List<ClinicalQueryDTO> clinicalQueryCollection = new ArrayList<ClinicalQueryDTO>();        

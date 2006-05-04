@@ -21,6 +21,7 @@ import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
+import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
 import gov.nih.nci.ispy.cache.ISPYContextListener;
 import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
@@ -101,14 +102,6 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         return document;
     }
     
-    public List<String> getListItems(String listName)	{
-    	//this is redundant, but since we are accessing everything via the helper..here it is
-    	List<String> listItems = new ArrayList<String>(); 
-    	UserList userList = userListBean.getList(listName);
-    	listItems = userList.getList();
-    	return listItems;
-    }
-    
     public List<UserList> getLists(ListType listType) {
         List<UserList> typeList = new ArrayList<UserList>();
         
@@ -122,14 +115,44 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         return typeList;
     }
     
-    public Collection getGeneSymbolListNames(){ 
+    public List<UserList> getAllLists() {
+        List<UserList> allList = new ArrayList<UserList>();
+    
+        for(UserList list : userListBean.getEntireList()){
+            allList.add(list);
+        }        
+        return allList;
+    }
+    
+    public List<String> getItemsFromList(String listName){
+        UserList userList = userListBean.getList(listName);
+        List<String> items = userList.getList();        
+        return items;
+    }
+   
+    
+    public List<String> getGeneSymbolListNames(){ 
         Collection<UserList> geneSetList = new ArrayList<UserList>();
         geneSetList = getLists(ListType.GeneSymbol);  
-        Collection geneSetListNames = new ArrayList();
+        List<String> geneSetListNames = new ArrayList<String>();
         for(UserList userListName : geneSetList){
             geneSetListNames.add(userListName.toString());
         }
         return geneSetListNames;
+    }
+    
+    /**
+     * @NOTE : DE may change in future.
+     */
+            
+    public Collection<GeneIdentifierDE> getGeneDEforList(String listName){
+        UserList geneSetList = userListBean.getList(listName);
+        Collection<GeneIdentifierDE> geneIdentifierDECollection = new ArrayList<GeneIdentifierDE>();
+        for(String item : geneSetList.getList()){
+            GeneIdentifierDE.GeneSymbol gs = new GeneIdentifierDE.GeneSymbol(item);
+            geneIdentifierDECollection.add(gs);
+        }
+        return geneIdentifierDECollection;
     }
     
     public Collection getPatientListNames(){ 
@@ -141,16 +164,7 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         }
         return patientSetListNames;
     }
-    
-    public List<UserList> getAllLists() {
-        List<UserList> allList = new ArrayList<UserList>();
-    
-        for(UserList list : userListBean.getEntireList()){
-            allList.add(list);
-        }        
-        return allList;
-    }
-    
+     
     public void renderListDetails(HttpServletRequest request, Document listXML, String xsltFilename, JspWriter out) {
         File styleSheet = new File(ISPYContextListener.getContextPath()+"/xsl/"+xsltFilename);
         // load the transformer using JAX
@@ -178,11 +192,6 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         }
     }
      
-    public List<String> getItemsFromList(String listName){
-        UserList userList = userListBean.getList(listName);
-        List<String> items = userList.getList();        
-        return items;
-    }
-   
+  
 
 }

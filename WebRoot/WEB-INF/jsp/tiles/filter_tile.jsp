@@ -63,22 +63,25 @@
 
 
 	<div id="advFilter" style="display:none; margin-left:20px;">
-	<br /><br />
+	<br />
 	        <span id="percentileError">&nbsp;</span>
 	        
 			<logic:present name="principalComponentForm"> 
 			Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
 				<html:text styleId="variancePercentile" property="variancePercentile" onblur="checkPercentile()" size="4"/>&nbsp;&nbsp;%
-			</logic:present>
+			</logic:present>			
 			
 			<logic:present name="hierarchicalClusteringForm"> 
 			Constrain reporters by variance (Gene Vector) percentile:&nbsp;&nbsp;&ge;
 				<html:text styleId="variancePercentile" property="variancePercentile" onblur="checkPercentile()" size="4"/>&nbsp;&nbsp;%
 			</logic:present>
 			
-			<html:select property="geneSetName" styleId="geneList" disabled="false" onfocus="javascript:getGeneList()">
-				 <option value="">yo</option>
-			</html:select>
+			&nbsp;&nbsp;Constrain by GeneList: &nbsp;&nbsp;
+			    <html:select property="geneSetName" styleId="geneList" disabled="false" onfocus="javascript:getGeneList()">
+				 	<html:optionsCollection property="geneSetNameList" />
+				</html:select>
+			
+			
 			
 	<br /><br />
 	</div>	
