@@ -57,6 +57,7 @@
 	
 <%
 	String registrant = request.getParameter("reg")!=null ? request.getParameter("reg") : null;
+	String sf = request.getParameter("sf")!=null ? request.getParameter("sf") : "";
 	if(registrant!=null)	{
 	%>
 		window.onload = function()	{
@@ -68,6 +69,10 @@
 	<%	
 	}
 %>
+
+	var sf = Array();
+	sf = "<%=sf%>".split(",");
+	
 	var A_IdLookup = {
 		'lookup_cb' : function(txt)	{
 			var _myColumns = [
@@ -112,6 +117,21 @@
 	 		finally	{
 		 		Grid.makeGrid(_myData, _myColumns)
 			}
+			
+			//hackified way of climbing the DOM
+				var divs = document.getElementsByTagName("div");
+				for(var j=0; j<divs.length; j++)	{
+					if(divs[j].innerHTML && divs[j].innerHTML.indexOf("<")==-1)	{
+						for(var z=0; z<sf.length; z++)	{
+							if(divs[j].innerHTML.indexOf(sf[z])!=-1)	{
+								divs[j].style.backgroundColor = "yellow";
+							}
+						}
+					}
+				}
+			
+			
+			
 		}
 	};
 </script>

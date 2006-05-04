@@ -153,6 +153,9 @@
 	 		try	{
 	 			registrants = txt.getElementsByTagName("registrant");
 		 		
+		 		var searchedFor = txt.getElementsByTagName("table")[0].getAttribute("name");
+		 		//alert("searched for: " + searchedFor);
+		 		
 		 		if(registrants.length < 1)	{
 		 			//no records
 		 			throw("No records found. Please try again.");
@@ -219,7 +222,7 @@
 					var eDIV = document.createElement("iframe");
 					eDIV.setAttribute("id","if_"+frameid+"_if");
 					eDIV.setAttribute("name","if_"+frameid+"_if");
-					eDIV.setAttribute("src","awWrapper.do?reg="+frameid);
+					eDIV.setAttribute("src","awWrapper.do?reg="+frameid+"&sf="+searchedFor);
 					eDIV.setAttribute("style","width:100%");
 					eDIV.style.width = "100%";
 					eDIV.setAttribute("frameborder","0");
