@@ -138,7 +138,7 @@ public class ApplicationContext{
            logger.info("Clinical data service initialized successfully.");
         
            IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
-           String idMapperFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ID_Mapping_4-11-06.txt";
+           String idMapperFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ID_Mapping_5-4-06.txt";
            logger.info("Initializing file based id mapper service fileName=" + idMapperFileName);
            idMapper.setMappingFile(idMapperFileName);
            logger.info("Id mapper service initialized successfully.");
