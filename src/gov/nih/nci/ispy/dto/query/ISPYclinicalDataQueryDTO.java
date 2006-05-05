@@ -2,7 +2,7 @@ package gov.nih.nci.ispy.dto.query;
 
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
@@ -27,7 +27,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	
 	private EnumSet<ClinicalResponseType> clinicalResponseValues = null;
 	
-	private EnumSet<DiseaseStageType> diseaseStageValues = null;
+	private EnumSet<ClinicalStageType> diseaseStageValues = null;
 	
 	private EnumSet<ERstatusType> erStatusValues = null;
 	
@@ -53,12 +53,12 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	}
 
 
-	public Set<DiseaseStageType> getDiseaseStageValues() {
+	public Set<ClinicalStageType> getDiseaseStageValues() {
 		return diseaseStageValues;
 	}
 
 
-	public void setDiseaseStageValues(EnumSet<DiseaseStageType> diseaseStageValues) {
+	public void setDiseaseStageValues(EnumSet<ClinicalStageType> diseaseStageValues) {
 		this.diseaseStageValues = diseaseStageValues;
 	}
 
