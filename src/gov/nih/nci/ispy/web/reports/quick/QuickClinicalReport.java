@@ -5,7 +5,7 @@ import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
@@ -46,9 +46,16 @@ public class QuickClinicalReport {
 				List<SampleInfo> samples = idMapper.getSampleInfoForLabtrackIds(sampleIds);
 				List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
 				ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
+				
+				//WHEN switching to the new PatientData method of getting data
+				//remove the for loop below
+				
 				for (SampleInfo si : samples) {
-				  clinicalDataList.add(cqs.getClinicalDataForPatientDID(si.getRegistrantId(), si.getTimepoint()));
+				  clinicalDataList.add(cqs.getClinicalDataForPatientDID(si.getISPYId(), si.getTimepoint()));
 				}
+				
+
+				
 				
 				
 				if(clinicalDataList != null  && sampleIds != null){
@@ -82,6 +89,14 @@ public class QuickClinicalReport {
 					td = tr.addElement("td").addAttribute("class", "header").addText("PR Value");
 					td = tr.addElement("td").addAttribute("class", "header").addText("Timepoint");
 					
+					//NEW way of getting clinical data 
+					//replace the for loop below with :
+					//for (SampleInfo si : samples) { 
+					//      you can get the labtrack id by calling si.getLabtrackId()
+					//      then get the PatientData object by calling:
+					//      PatientData pd= cqs.getPatientDataForPatientDID(si.getRegistrantId())
+					
+					
 					
 					for(ClinicalData cd : clinicalDataList){
 						
@@ -92,7 +107,7 @@ public class QuickClinicalReport {
 							String sid = cd.getPatientDID()!=null  ? cd.getPatientDID() : dv;
 							td = tr.addElement("td").addText(sid).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",sid);
 							
-							String dis = cd.getDiseaseStage() != null && cd.getDiseaseStage() != DiseaseStageType.MISSING ? cd.getDiseaseStage().toString() : dv;
+							String dis = cd.getDiseaseStage() != null && cd.getDiseaseStage() != ClinicalStageType.MISSING ? cd.getDiseaseStage().toString() : dv;
 							td = tr.addElement("td").addText(dis);
 
 							//tmp = cd.getLabtrackId() != null ? cd.getLabtrackId().toString() : dv;
