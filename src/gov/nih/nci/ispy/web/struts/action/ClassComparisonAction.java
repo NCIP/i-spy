@@ -26,7 +26,7 @@ import gov.nih.nci.ispy.dto.query.ISPYClassComparisonQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.dto.query.PatientUserListQueryDTO;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
@@ -215,7 +215,7 @@ public class ClassComparisonAction extends DispatchAction {
                  */
                 EnumSet<TimepointType> timepoints = EnumSet.noneOf(TimepointType.class);
                 EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
-                EnumSet<DiseaseStageType> diseaseStages = EnumSet.noneOf(DiseaseStageType.class);
+                EnumSet<ClinicalStageType> diseaseStages = EnumSet.noneOf(ClinicalStageType.class);
                 EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
                 EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
                 EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
@@ -263,8 +263,8 @@ public class ClassComparisonAction extends DispatchAction {
                     if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
                         clinicalResponses.add((ClinicalResponseType) myType);
                     }
-                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
-                        diseaseStages.add((DiseaseStageType) myType);
+                    if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalStageType.class) {
+                        diseaseStages.add((ClinicalStageType) myType);
                     }
                     if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
                         erStatus.add((ERstatusType) myType);
@@ -297,7 +297,7 @@ public class ClassComparisonAction extends DispatchAction {
              * instantiate blank EnumSets
              */
             EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
-            EnumSet<DiseaseStageType> diseaseStages = EnumSet.noneOf(DiseaseStageType.class);
+            EnumSet<ClinicalStageType> diseaseStages = EnumSet.noneOf(ClinicalStageType.class);
             EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
             EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
             EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
@@ -352,8 +352,8 @@ public class ClassComparisonAction extends DispatchAction {
                         if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalResponseType.class) {
                             clinicalResponses.add((ClinicalResponseType) myType);
                         }
-                        if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.DiseaseStageType.class) {
-                            diseaseStages.add((DiseaseStageType) myType);
+                        if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalStageType.class) {
+                            diseaseStages.add((ClinicalStageType) myType);
                         }
                         if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
                             erStatus.add((ERstatusType) myType);

@@ -5,7 +5,7 @@ import gov.nih.nci.caintegrator.ui.graphing.data.DataRange;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint.PCAcomponent;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
 
@@ -250,7 +250,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	  }
 	  else if (colorBy == ISPYPCAcolorByType.DISEASESTAGE) {
 		  
-		  for (DiseaseStageType ds : DiseaseStageType.values()) {
+		  for (ClinicalStageType ds : ClinicalStageType.values()) {
 			if (!ds.name().endsWith("ALL")) {
 		      item = new LegendItem(ds.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ds.getColor());
 		      legendSrc.addLegendItem(item);
@@ -288,7 +288,9 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	    x = pcaPoint.getComponentValue(component1);
 	    y = pcaPoint.getComponentValue(component2);
 	    
-	    Double mriPctChange = pcaPoint.getTumorMRIpctChange();
+	    //Double mriPctChange = pcaPoint.getTumorMRIpctChange();
+	    
+	    Double mriPctChange = 0.0;
 	    
 	    if (mriPctChange == null) {
 		      //data is missing
@@ -363,7 +365,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 		retColor = pcaPoint.getClinicalResponse().getColor();  
 	  }
 	  else if (colorBy == ISPYPCAcolorByType.DISEASESTAGE) {
-	    retColor = pcaPoint.getDiseaseStage().getColor();  
+	    retColor = pcaPoint.getClinicalStage().getColor();  
 	  }
 	  else if (colorBy == ISPYPCAcolorByType.TIMEPOINT) {
 	    retColor = pcaPoint.getTimepoint().getColor();  

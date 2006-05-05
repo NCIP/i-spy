@@ -3,7 +3,7 @@ package gov.nih.nci.ispy.web.helper;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
@@ -33,7 +33,7 @@ public class ClinicalGroupRetriever {
             clinicalGroupsCollection.add(new LabelValueBean(patientList.getName(),patientList.getClass().getCanonicalName() + "#" + patientList.getName()));
         }
         
-        for (DiseaseStageType diseaseStageType : DiseaseStageType.getDisplayValues()){
+        for (ClinicalStageType diseaseStageType : ClinicalStageType.getDisplayValues()){
             clinicalGroupsCollection.add(new LabelValueBean(diseaseStageType.toString(),diseaseStageType.getDeclaringClass().getCanonicalName() + "#" + diseaseStageType.name()));
         }
         for (ClinicalResponseType clinicalResponseType : ClinicalResponseType.getDisplayValues()){

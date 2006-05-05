@@ -6,7 +6,7 @@ import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.clinical.ClinicalData;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.io.IOException;
@@ -32,12 +32,10 @@ public static void main(String[] args) {
 	
 	ClinicalFileBasedQueryService clinicalQS = (ClinicalFileBasedQueryService) ClinicalFileBasedQueryService.getInstance();
 	
-	try {
-	  clinicalQS.setClinicalDataFile("C:\\dev\\ispyportal\\WebRoot\\WEB-INF\\data_files\\ispy_clinical_data_sample.txt");
-	}
-	catch (IOException ex) {
-	  ex.printStackTrace(System.out);
-	}
+	
+	  clinicalQS.setClinicalDataFile("C:\\eclipse\\workspace\\ispyportal\\WebRoot\\WEB-INF\\data_files\\ispy_clinical_data_sample.txt");
+	
+	
 	
 //	List<String> labtrackIds = new ArrayList<String>();
 //	labtrackIds.add("209515");
@@ -50,16 +48,20 @@ public static void main(String[] args) {
 		
 	  ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
 	  dto.setTimepointValues(EnumSet.of(TimepointType.T2));
-	  dto.setDiseaseStageValues(EnumSet.of(DiseaseStageType.II_A, DiseaseStageType.II_B));
+	  dto.setDiseaseStageValues(EnumSet.of(ClinicalStageType.II_A, ClinicalStageType.II_B));
 	  dto.setClinicalResponseValues(EnumSet.of(ClinicalResponseType.PD, ClinicalResponseType.SD));
 	  
-	  Set<String> labtrackIds = clinicalQS.getLabtrackIds(dto);
+	  //Set<String> labtrackIds = clinicalQS.getLabtrackIds(dto);
 	  
 	  
+
+	  List<String> patientDIDs = new ArrayList<String>(clinicalQS.getPatientDIDs(dto));
+	  List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
+	  for (TimepointType tp :dto.getTimepointValues()) {
+         clinicalDataList.addAll(clinicalQS.getClinicalDataForPatientDIDs(patientDIDs, tp));
+	  }
 	  
-	  //List<ClinicalData> clinicalDataList = clinicalQS.getClinicalDataForLabtrackIds(labtrackIds);
-	  //Set<String> labtrackIds = clinicalQS.getLabtrackIdsForTimepoint(TimepointType.T1);
-	  List<ClinicalData> clinicalDataList = clinicalQS.getClinicalDataForLabtrackIds(new ArrayList(labtrackIds));
+	  
 	  System.out.println("clinicalDataList=" + clinicalDataList.size());
 	  for (ClinicalData cd : clinicalDataList) {
 	     dumpClinicalData(cd);
