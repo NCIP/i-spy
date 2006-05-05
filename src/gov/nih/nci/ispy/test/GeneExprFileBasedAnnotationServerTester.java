@@ -27,15 +27,13 @@ public class GeneExprFileBasedAnnotationServerTester {
 		// TODO Auto-generated method stub
 		
 		GeneExprFileBasedAnnotationService gxannot = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
-		try {
+		
 		  long startTime = System.currentTimeMillis();
 		  gxannot.setAnnotationFile("C:\\eclipse\\workspace\\ispyportal\\WebRoot\\WEB-INF\\data_files\\ispy_gene_annotations.txt");
 		  long elapsedTime = System.currentTimeMillis() - startTime;
 		  System.out.println("elapsed time=" + elapsedTime);
-		}
-		catch (IOException ex) {
-		  ex.printStackTrace(System.out);
-		}
+	
+		
 		
 		List<String> reporterIds = new ArrayList<String>();
 		reporterIds.add("AGI_HUM1_OLIGO_A_23_P100001");
