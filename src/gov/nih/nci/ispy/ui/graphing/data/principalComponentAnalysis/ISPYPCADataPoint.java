@@ -2,7 +2,7 @@ package gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis;
 
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.DiseaseStageType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 
@@ -66,11 +66,11 @@ import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 
-	private Double tumorMRIpctChange;
+	//private Double tumorMRIpctChange;
 	private ClinicalResponseType clinicalResponse;
 	private TimepointType timepoint;
-	private DiseaseStageType diseaseStage;
-	
+	private ClinicalStageType clinicalStage;
+	private String ISPY_ID;
 	
 	public ISPYPCADataPoint(String sampleId) {
 		super(sampleId);
@@ -88,12 +88,12 @@ public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 		this.clinicalResponse = clinicalResponse;
 	}
 
-	public DiseaseStageType getDiseaseStage() {
-		return diseaseStage;
+	public ClinicalStageType getClinicalStage() {
+		return clinicalStage;
 	}
 
-	public void setDiseaseStage(DiseaseStageType diseaseStage) {
-		this.diseaseStage = diseaseStage;
+	public void setClinicalStage(ClinicalStageType clinicalStage) {
+		this.clinicalStage = clinicalStage;
 	}
 
 	public TimepointType getTimepoint() {
@@ -104,34 +104,42 @@ public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 		this.timepoint = timepoint;
 	}
 
-	public Double getTumorMRIpctChange() {
-		return tumorMRIpctChange;
-	}
+//	public Double getTumorMRIpctChange() {
+//		return tumorMRIpctChange;
+//	}
 
-	public void setTumorMRIpctChange(Double tumorMRIpctChange) {
-		this.tumorMRIpctChange = tumorMRIpctChange;
-	}
+//	public void setTumorMRIpctChange(Double tumorMRIpctChange) {
+//		this.tumorMRIpctChange = tumorMRIpctChange;
+//	}
 	
 	public String toString() {
 		
 	   StringBuffer sb = new StringBuffer();
-	   
+	   sb.append(getISPY_ID() + " ");
 	   sb.append(getSampleId() + " ");
 	   sb.append(getTimepoint() + " ");
-	   
+	  
 	   if (getClinicalResponse()!= ClinicalResponseType.MISSING) {
 	     sb.append("CLIN_RESP: " +getClinicalResponse() + " ");
 	   }
 	   
-	   if (getDiseaseStage()!= DiseaseStageType.MISSING) {
-	     sb.append("STAGE: " + getDiseaseStage() + " ");
+	   if (getClinicalStage()!= ClinicalStageType.MISSING) {
+	     sb.append("STAGE: " + getClinicalStage() + " ");
 	   }
 	   
-	   if (getTumorMRIpctChange()!= null) {
-	     sb.append("MRI_%: " + getTumorMRIpctChange());
-	   }
+//	   if (getTumorMRIpctChange()!= null) {
+//	     sb.append("MRI_%: " + getTumorMRIpctChange());
+//	   }
 		
 	   return sb.toString();
+	}
+
+	public String getISPY_ID() {
+		return ISPY_ID;
+	}
+
+	public void setISPY_ID(String ispy_id) {
+		ISPY_ID = ispy_id;
 	}
 
 }

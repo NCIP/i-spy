@@ -4,6 +4,7 @@ import gov.nih.nci.caintegrator.application.util.StringUtils;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class ClinicalFileBasedQueryService {
 
 	private Map<String, ClinicalData> clinicalDataMap = new HashMap<String,ClinicalData>();
 	private Map<TimepointType, Set<ClinicalData>> timepointMap = new HashMap<TimepointType, Set<ClinicalData>>(); 
+	private Map<String, PatientData> patientDataMap = new HashMap<String, PatientData>();
 	private boolean clinicalDataFileSet = false;
 	private static ClinicalFileBasedQueryService instance = null;
 	private static Logger logger = Logger.getLogger(ClinicalFileBasedQueryService.class);
@@ -39,13 +41,94 @@ public class ClinicalFileBasedQueryService {
 		  return instance;
 	}
 	
-	public void setClinicalDataFile(String clinicalDataFileName) throws IOException {
+	public int setPatientDataMap(String patientDataFileName) {
+		
+		int numRecordsLoaded = 0;
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(patientDataFileName));
+			
+			String line = null;
+			String[] tokens = null;
+			
+			patientDataMap.clear();
+			
+			while ((line=in.readLine()) != null) {
+				tokens = line.split("\t", -2);
+								
+				PatientData pd = new PatientData(tokens[0]);
+				
+				pd.setDataExtractDT(tokens[1]);
+				pd.setInst_ID(tokens[2]);
+				pd.setAgeCat(tokens[3]);
+				pd.setRace_ID(tokens[4]);
+				pd.setSSTAT(tokens[5]);
+				pd.setSURVDTD(tokens[6]);
+				pd.setChemo(tokens[7]);
+				pd.setTAM(tokens[8]);
+				pd.setHerceptin(tokens[9]);
+				pd.setMenoStatus(tokens[10]);
+				pd.setSentinelNodeSample(tokens[11]);
+				pd.setSentinelNodeResult(tokens[12]);
+				pd.setHistologicGradeOS(tokens[13]);
+				pd.setER_TS(tokens[14]);
+				pd.setPGR_TS(tokens[15]);
+				pd.setHER2CommunityPOS(tokens[16]);
+				pd.setHER2CommunityMethod(tokens[17]);
+				pd.setSurgeryLumpectomy(tokens[18]);
+				pd.setSurgeryMastectomy(tokens[19]);
+				pd.setINITLUMP_FUPMAST(tokens[20]);
+				pd.setSurgery(tokens[21]);
+				pd.setDCISOnly(tokens[22]);
+				pd.setPTumor1SZCM_MICRO(tokens[23]);
+				pd.setHistologicGradePS(tokens[24]);
+				pd.setNumPosNodes(tokens[25]);
+				pd.setNodesExamined(tokens[26]);
+				pd.setPathologyStage(tokens[27]);
+				pd.setRTTherapy(tokens[28]);
+				pd.setRTBreast(tokens[29]);
+				pd.setRTBOOST(tokens[30]);
+				pd.setRTAXILLA(tokens[31]);
+				pd.setRTSNODE(tokens[32]);
+				pd.setRTIMAMNODE(tokens[33]);
+				pd.setRTChestW(tokens[34]);
+				pd.setRTOTHER(tokens[35]);
+				pd.setTSizeClinical(tokens[36]);
+				pd.setNSizeClinical(tokens[37]);
+				pd.setStageTE(tokens[38]);
+				pd.setStageNE(tokens[39]);
+				pd.setStageME(tokens[40]);
+				pd.setClinicalStage(tokens[41]);
+				pd.setClinRespT1_T2(tokens[42]);
+				pd.setClinRespT1_T3(tokens[43]);
+				pd.setClinRespT1_T4(tokens[44]);	
+				patientDataMap.put(pd.getISPY_ID(), pd);
+				numRecordsLoaded++;
+				
+			}
+	
+			
+		}  catch (IOException e) {
+			logger.error("Error reading patientDataFileName=" + patientDataFileName);
+			logger.error(e);
+			return -numRecordsLoaded;
+		}
+		
+		return numRecordsLoaded;
+		
+	}
+	
+	public int setClinicalDataFile(String clinicalDataFileName)  {
+		
+		  int recordCount = 0;
+		
+		  try {
 		
 		  BufferedReader in = new BufferedReader(new FileReader(clinicalDataFileName));
 		  String line = null;
 		  
 		  ClinicalData clinicalData = null;
-		  int recordCount = 0;
+		  
 		   
 		  //Clinical Data file format:
 		  //
@@ -53,80 +136,83 @@ public class ClinicalFileBasedQueryService {
 		  //
 		  
 		  //Pattern pattern = Pattern.compile("(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t([\\S|x0B]*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)");
-		  Pattern pattern = Pattern.compile("([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)");		  
+		  //Pattern pattern = Pattern.compile("([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)");		  
 		  
 		  //reset the map
 		  //clinicalDataMap.clear();
 		  
 		  timepointMap.clear();
 		  
-		  Matcher matcher = null;
+		  //Matcher matcher = null;
+		  String[] tokens;
 		  
 		  while ((line=in.readLine())!= null) {
 		    
 			//System.out.println("processing line=" + line);
 			  
-			matcher = pattern.matcher(line);
+			//matcher = pattern.matcher(line);
 			
-			if (!matcher.find()) {
-			  throw new IOException("Clinical data file has a format problem.");
-			}
+//			if (!matcher.find()) {
+//			  throw new IOException("Clinical data file has a format problem.");
+//			}
+			  
+			tokens = line.split("\t", -2);
 			
-		    String labtrackId = matcher.group(1);
+		    String labtrackId = tokens[0];
 		    
 		    //NOTE: labtrackId in no longer associated with the clinical data. Labtrack ids should
 		    //be gotten through the IdMapper service.
 		    
 		    //System.out.println("labtrackId=" + labtrackId);
 		    
-		    String patientDID = matcher.group(2);
+		    String patientDID = tokens[1];
 		    
 		    //System.out.println("patientId=" + patientId);
 		    
-		    TimepointType timepoint = TimepointType.valueOf(matcher.group(3));
+		    TimepointType timepoint = TimepointType.valueOf(tokens[2]);
 		    
 		    clinicalData = new ClinicalData(patientDID, timepoint);
 		    
 //		  LAB_TRACK_ID	PATIENT_DID	TIME_POINT	DISEASE_STAGE	CLINICAL_RESPONSE	LD	ER	PR	HER2	TUMOR_MORPHOLOGY	PRITUM_NUCLEAR_GRADE	PRIMTUMAR_HISTOTYPE	GROSS_TUMOR_SZ	MICRO_TUMOR_SZ	AGENT_NAME	MRI_PERCENTAGE_CHANGE
 			
 		    
-		    if (StringUtils.isEmptyStr(matcher.group(4))) {
-		      clinicalData.setDiseaseStage(DiseaseStageType.MISSING);
+		    if (StringUtils.isEmptyStr(tokens[3])) {
+		      clinicalData.setDiseaseStage(ClinicalStageType.MISSING);
 		    }
 		    else {
-		      clinicalData.setDiseaseStage(DiseaseStageType.valueOf(matcher.group(4)));
+		      clinicalData.setDiseaseStage(ClinicalStageType.valueOf(tokens[3]));
 		    }
 		    
-		    clinicalData.setClinicalResponseFromString(matcher.group(5));
+		    clinicalData.setClinicalResponseFromString(tokens[4]);
 		    
-		    clinicalData.setLongestDiameter(StringUtils.getDouble(matcher.group(6)));
+		    clinicalData.setLongestDiameter(StringUtils.getDouble(tokens[5]));
 		 
-		    clinicalData.setErValue(StringUtils.getDouble(matcher.group(7)));
+		    clinicalData.setErValue(StringUtils.getDouble(tokens[6]));
 		  
-		    clinicalData.setPrValue(StringUtils.getDouble(matcher.group(8)));
+		    clinicalData.setPrValue(StringUtils.getDouble(tokens[7]));
 		   
-		    clinicalData.setHer2Value(StringUtils.getDouble(matcher.group(9)));
+		    clinicalData.setHer2Value(StringUtils.getDouble(tokens[8]));
 		    
-		    clinicalData.setTumorMorphology(matcher.group(10));
+		    clinicalData.setTumorMorphology(tokens[9]);
 		    
 		    //System.out.println("tumorMorphology=" + matcher.group(10));
 		    
-		    clinicalData.setPrimaryTumorNuclearGrade(matcher.group(11));
+		    clinicalData.setPrimaryTumorNuclearGrade(tokens[10]);
 		    
-		    clinicalData.setPrimaryTumorHistologyType(matcher.group(12));
+		    clinicalData.setPrimaryTumorHistologyType(tokens[11]);
 		    		   
-		    clinicalData.setGrossTumorSizeInCM(StringUtils.getDouble(matcher.group(13)));
+		    clinicalData.setGrossTumorSizeInCM(StringUtils.getDouble(tokens[12]));
 		  
-		    clinicalData.setMicroscopeTumorSizeInCM(StringUtils.getDouble(matcher.group(14)));
+		    clinicalData.setMicroscopeTumorSizeInCM(StringUtils.getDouble(tokens[13]));
 		    
 		    
-		    if (!StringUtils.isEmptyStr(matcher.group(15))) {
-		      List<String> chemAgents = StringUtils.extractTokens(matcher.group(15),"\\|" );
+		    if (!StringUtils.isEmptyStr(tokens[14])) {
+		      List<String> chemAgents = StringUtils.extractTokens(tokens[14],"\\|" );
 		      clinicalData.setChemicalAgents(chemAgents);
 		    }
 		    
 		
-		    clinicalData.setMRIpctChange(StringUtils.getDouble(matcher.group(16)));
+		    clinicalData.setMRIpctChange(StringUtils.getDouble(tokens[15]));
 		    
 		   
 		    clinicalDataMap.put(patientDID, clinicalData);
@@ -142,7 +228,13 @@ public class ClinicalFileBasedQueryService {
 		  
 		  clinicalDataFileSet = true;
 		  logger.info("Successfully loaded clinicalDataFile=" + clinicalDataFileName + " numRecords=" + recordCount );
-		
+		  }
+		  catch (IOException ex) {
+		    logger.error("Caught IOException while loading clinical data file=" + clinicalDataFileName + " recordCount=" + recordCount);
+		    logger.error(ex);
+		    return -recordCount;
+		  }
+		  return recordCount;
 	}
 	
 	/**
@@ -197,14 +289,14 @@ public class ClinicalFileBasedQueryService {
 //		return labtrackIds;
 //	}
 	
-	public Set<String> getPatientDIDsForDiseaseStage(TimepointType timepoint, Set<DiseaseStageType> diseaseStageSet) {
+	public Set<String> getPatientDIDsForDiseaseStage(TimepointType timepoint, Set<ClinicalStageType> diseaseStageSet) {
 	
 		Set<String> patientDIDs = new HashSet<String>();
 		
 		Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
 		
 		for (ClinicalData clinData : clinDataSet) {
-		  for (DiseaseStageType ds:diseaseStageSet) {
+		  for (ClinicalStageType ds:diseaseStageSet) {
 			  if (ds==clinData.getDiseaseStage()) {
 			    patientDIDs.add(clinData.getPatientDID());
 			  }
@@ -368,6 +460,29 @@ public class ClinicalFileBasedQueryService {
 //		}
 //		return clinicalDataList;
 //	}
+	
+	public PatientData getPatientDataForPatientDID(String patientDID) {
+		
+		PatientData pd = patientDataMap.get(patientDID);
+		
+		if (pd == null) {
+		  logger.warn("No patient data object found for patientDID=" + patientDID);
+		}
+		
+		return pd;
+	}
+	
+	public List<PatientData> getPatientDataForPatientDIDs(List<String> patientDIDs) {
+		
+		List<PatientData> retList = new ArrayList<PatientData>();
+		for (String patientDID : patientDIDs) {
+		  PatientData pd = getPatientDataForPatientDID(patientDID);
+		  if (pd != null) {
+		    retList.add(pd);
+		  }
+		}
+		return retList;	
+	}
 	
 	public ClinicalData getClinicalDataForPatientDID(String patientDID, TimepointType timepoint) {
 	  

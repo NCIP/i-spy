@@ -33,7 +33,9 @@ public enum ClinicalResponseType implements Serializable{
        
   UNKNOWN { public Color getColor() { return Color.GRAY; }},
   
-  MISSING { public Color getColor() { return Color.GRAY; }};
+  MISSING { public Color getColor() { return Color.GRAY; }}, 
+  
+  NA { public Color getColor() { return Color.GRAY; }};
   
   /**
    * This method displays only the permissiable values for display purposes
@@ -44,14 +46,27 @@ public enum ClinicalResponseType implements Serializable{
       ClinicalResponseType[] values = ClinicalResponseType.values();
       for(int i =0; i < values.length; i++){
           if(!values[i].equals(ClinicalResponseType.MISSING) &&
-                  !values[i].equals(ClinicalResponseType.UNKNOWN)){
+                  !values[i].equals(ClinicalResponseType.UNKNOWN) &&
+                  !values[i].equals(ClinicalResponseType.NA)){
               displayValues.add(values[i]);
-              
           }
       }
       return displayValues;
   }
   
   public abstract Color getColor();
+  
+  public static ClinicalResponseType getTypeForValue(int value) {
+	    
+	  switch(value) {
+	  case 1: return ClinicalResponseType.CR;
+	  case 2: return ClinicalResponseType.PR;
+	  case 3: return ClinicalResponseType.SD;
+	  case 4: return ClinicalResponseType.PD;
+	  default: return ClinicalResponseType.UNKNOWN;
+	  }
+	  
+	  
+  }
   
 }

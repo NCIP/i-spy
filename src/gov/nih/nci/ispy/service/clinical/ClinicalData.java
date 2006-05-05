@@ -24,7 +24,7 @@ public class ClinicalData implements Serializable{
 	private String patientDID;
 	//private String labtrackId;
 	private TimepointType timepoint;
-	private DiseaseStageType diseaseStage;
+	private ClinicalStageType diseaseStage;
 	private ERstatusType erStatus;
 	private Double erValue = null;     //the summary ER score
 	private Double prValue = null;     //the summary PR score
@@ -49,12 +49,12 @@ public class ClinicalData implements Serializable{
 	}
 
 
-	public DiseaseStageType getDiseaseStage() {
+	public ClinicalStageType getDiseaseStage() {
 		return diseaseStage;
 	}
 
 
-	public void setDiseaseStage(DiseaseStageType diseaseStage) {
+	public void setDiseaseStage(ClinicalStageType diseaseStage) {
 		this.diseaseStage = diseaseStage;
 	}
 
@@ -266,10 +266,10 @@ public class ClinicalData implements Serializable{
 
     public void setDiseaseStageFromString(String diseaseStage) {
     	if ((diseaseStage==null)||(diseaseStage.trim().length()==0)) {
-  		  setDiseaseStage(DiseaseStageType.MISSING);
+  		  setDiseaseStage(ClinicalStageType.MISSING);
   		}
     	else {
-    	  setDiseaseStage(DiseaseStageType.valueOf(diseaseStage));	
+    	  setDiseaseStage(ClinicalStageType.valueOf(diseaseStage));	
     	}
     }
 

@@ -3,6 +3,8 @@ package gov.nih.nci.ispy.service.clinical;
 public class PatientData {
 
 	
+private ClinicalStageType clinicalStage;
+	
 private String  ispy_id, 
 				dataextractdt, 
 				inst_id, 
@@ -44,7 +46,7 @@ private String  ispy_id,
 				stagete, 
 				stagene, 
 				stageme, 
-				clinicalstage, 
+				clinicalstageStr, 
 				clinrespt1_t2, 
 				clinrespt1_t3, 
 				clinrespt1_t4;
@@ -74,13 +76,31 @@ private String  ispy_id,
 	}
 
 
-	public String getClinicalSStage() {
-		return clinicalstage;
+	public String getClinicalStageStr() {
+		return clinicalstageStr;
+	}
+	
+	public ClinicalStageType getClinicalStage() {
+	  return clinicalStage;
 	}
 
 
-	public void setClinicalStage(String clinicalstage) {
-		this.clinicalstage = clinicalstage;
+	public void setClinicalStage(String clinicalstageStr) {
+		
+		this.clinicalstageStr = clinicalstageStr;
+		
+		if ((clinicalstageStr != null)&&(clinicalstageStr.trim().length() > 0)) {
+		
+		  String[] cs = clinicalstageStr.split("=");
+		  
+		  int stageVal = Integer.parseInt(cs[0].trim());
+	
+		  this.clinicalStage = ClinicalStageType.getTypeforValue(stageVal);
+		}
+		else {
+		  this.clinicalStage = ClinicalStageType.MISSING;
+		}
+		
 	}
 
 
@@ -501,6 +521,22 @@ private String  ispy_id,
 
 	public void setTSizeClinical(String tsizeclinical) {
 		this.tsizeclinical = tsizeclinical;
+	}
+	
+	public static int parseValue(String str) {	  
+		if ((str == null)||(str.trim().length()==0)) return Integer.MIN_VALUE;
+		
+		String[] tokens = str.split("=");
+		String valStr = tokens[0].trim();
+		return Integer.parseInt(valStr);	
+	}
+	
+	public static String  parseString(String str) {
+		if ((str == null)||(str.trim().length()==0)) return null;
+		
+		String[] tokens = str.split("=");
+		return tokens[1].trim();
+		
 	}
 
 }
