@@ -33,11 +33,11 @@ public class IdMapperFileBasedService {
 	  return instance;
 	}
 	
-	public void setMappingFile(String mappingFileName) {
+	public int setMappingFile(String mappingFileName) {
 		
 		//open and parse the file
 		String line = null;
-		
+		int recordsLoaded = 0;
 		RegistrantInfo entry = null;
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(mappingFileName));
@@ -91,13 +91,16 @@ public class IdMapperFileBasedService {
 			  sample.setCalgId(calgbId);
 			  
 			  entry.addSample(sample);
-			    
+			  
+			  recordsLoaded++;
 			}
 			
 		} catch (IOException e) {
 			logger.error("IOException setting id mapping file=" + mappingFileName);
 			logger.error(e);
+			return -recordsLoaded;
 		}
+		return recordsLoaded;
 	}
 	
 	/**

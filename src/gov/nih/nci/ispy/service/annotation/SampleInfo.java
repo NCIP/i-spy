@@ -5,7 +5,7 @@ import gov.nih.nci.ispy.service.clinical.TimepointType;
 public class SampleInfo {
 	
 	private String labtrackId;
-	private String registrantId;
+	private String ispyId;
 	private TimepointType timepoint;
 	private SampleCoreType coreType;
 	private ISPYDataType dataType;
@@ -13,8 +13,8 @@ public class SampleInfo {
 
 	private String calgId;
 
-	public SampleInfo(String registrantId, String labtrackId) {
-	  this.registrantId = registrantId;
+	public SampleInfo(String ispyId, String labtrackId) {
+	  this.ispyId = ispyId;
 	  this.labtrackId = labtrackId;
 	}
 
@@ -49,8 +49,8 @@ public class SampleInfo {
 		return labtrackId;
 	}
 	
-	public String getRegistrantId() {
-	  return registrantId;
+	public String getISPYId() {
+	  return ispyId;
 	}
 
 	public String getSectionInfo() {
@@ -73,6 +73,7 @@ public class SampleInfo {
 		
 	  StringBuffer sb = new StringBuffer();
 	  sb.append("Sample labtrackId=").append(getLabtrackId()).append("\t");
+	  sb.append(getISPYId()).append("\t");
 	  sb.append(getTimepoint()).append("\t");
 	  sb.append(getCoreType()).append("\t");
 	  sb.append(getDataType()).append("\t");
