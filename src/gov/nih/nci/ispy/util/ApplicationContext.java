@@ -134,14 +134,21 @@ public class ApplicationContext{
            ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
            String clinicalDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_14MARCH06.txt";
            logger.info("Initializing file based clinical data service fileName=" + clinicalDataFileName);
-           cqs.setClinicalDataFile(clinicalDataFileName);
-           logger.info("Clinical data service initialized successfully.");
+           int clinRecordsLoaded  = cqs.setClinicalDataFile(clinicalDataFileName);
+           logger.info("Clinical data service initialized successfully loaded numRecords=" + clinRecordsLoaded);
         
+
+           String patientDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_patient_data_5-4-06.txt";
+           logger.info("Clinical data service loading patient data fileName=" + patientDataFileName);
+           int patientRecordsLoaded = cqs.setPatientDataMap(patientDataFileName);
+           logger.info("Clinical data service successfully loaded patient data numRecords=" + patientRecordsLoaded);
+           
+           
            IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
            String idMapperFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ID_Mapping_5-4-06.txt";
            logger.info("Initializing file based id mapper service fileName=" + idMapperFileName);
-           idMapper.setMappingFile(idMapperFileName);
-           logger.info("Id mapper service initialized successfully.");
+           int idRecLoaded = idMapper.setMappingFile(idMapperFileName);
+           logger.info("Id mapper service initialized successfully loaded numRecords=" + idRecLoaded);
            
            @SuppressWarnings("unused") AnalysisServerClientManager analysisServerClientManager = AnalysisServerClientManager.getInstance();
 		   analysisServerClientManager.setCache(ApplicationFactory.getBusinessTierCache());
@@ -152,11 +159,13 @@ public class ApplicationContext{
 		   long startTime = System.currentTimeMillis();
 		   GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
 		   String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
-		   gxAnnotService.setAnnotationFile(annotFileName);
+		   int gxRecLoaded = gxAnnotService.setAnnotationFile(annotFileName);
+		   
+		   
 		   analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
 		   
 		   long elapsedTime = System.currentTimeMillis() - startTime;
-		   logger.info("Finished initializing GeneExprAnnotationService time=" + elapsedTime);
+		   logger.info("Finished initializing GeneExprAnnotationService time=" + elapsedTime + " numRecords=" + gxRecLoaded);
 		   
 		   
 		   analysisServerClientManager.establishQueueConnection();
@@ -169,11 +178,7 @@ public class ApplicationContext{
 	        logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
 			logger.error(e.getMessage());
 			logger.error(e);
-		} catch (IOException e) {
-			logger.error(e.getMessage());
-			logger.error(e);
-		} catch(Throwable t) {
-		
+		}  catch(Throwable t) {
 			//logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
 			logger.error(t.getMessage());
 			logger.error(t);
