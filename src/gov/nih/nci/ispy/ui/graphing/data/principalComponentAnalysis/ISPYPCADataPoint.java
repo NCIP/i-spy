@@ -66,7 +66,7 @@ import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 
-	//private Double tumorMRIpctChange;
+	private Double tumorMRIpctChange;
 	private ClinicalResponseType clinicalResponse;
 	private TimepointType timepoint;
 	private ClinicalStageType clinicalStage;
@@ -104,13 +104,13 @@ public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 		this.timepoint = timepoint;
 	}
 
-//	public Double getTumorMRIpctChange() {
-//		return tumorMRIpctChange;
-//	}
+	public Double getTumorMRIpctChange() {
+		return tumorMRIpctChange;
+	}
 
-//	public void setTumorMRIpctChange(Double tumorMRIpctChange) {
-//		this.tumorMRIpctChange = tumorMRIpctChange;
-//	}
+	public void setTumorMRIpctChange(Double tumorMRIpctChange) {
+		this.tumorMRIpctChange = tumorMRIpctChange;
+	}
 	
 	public String toString() {
 		

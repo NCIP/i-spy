@@ -287,11 +287,9 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	    
 	    x = pcaPoint.getComponentValue(component1);
 	    y = pcaPoint.getComponentValue(component2);
-	    
-	    //Double mriPctChange = pcaPoint.getTumorMRIpctChange();
-	    
-	    Double mriPctChange = 0.0;
-	    
+	     
+	    Double mriPctChange = pcaPoint.getTumorMRIpctChange();
+	     
 	    if (mriPctChange == null) {
 		      //data is missing
 		      Rectangle2D.Double rect = new Rectangle2D.Double();
