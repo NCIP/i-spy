@@ -44,7 +44,7 @@ public class IdLookup {
 		Document document = DocumentHelper.createDocument();
 //		Element container = document.addElement("div");
 		
-		Element report = document.addElement( "table" );
+		Element report = document.addElement( "table" ).addAttribute("name", inputString);
 		for (RegistrantInfo entry:entries) {
 			Element reg = report.addElement( "registrant" ).addAttribute("regId", entry.getRegistrationId());
 			
