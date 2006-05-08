@@ -368,7 +368,7 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 					}
 					else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
 					  //@TODO file name for ISPY CDNA array platform. 
-					  classComparisonRequest.setDataFileName("ISPY.Sample.cDNA.Rda");
+					  classComparisonRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
 					}
 						
 						

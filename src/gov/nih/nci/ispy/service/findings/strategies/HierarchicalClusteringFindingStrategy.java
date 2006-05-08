@@ -360,7 +360,7 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 		  hcRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
 		}
 		else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
-		  hcRequest.setDataFileName("ISPY.Sample.cDNA.Rda");
+		  hcRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
 		}
 		
 		hcRequest.setClusterBy(myQueryDTO.getClusterTypeDE().getValueObject());

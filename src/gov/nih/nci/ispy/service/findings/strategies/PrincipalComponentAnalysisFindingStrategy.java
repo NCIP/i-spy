@@ -370,7 +370,7 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 	      pcaRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
 		}
 		else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
-		  pcaRequest.setDataFileName("ISPY.Sample.cDNA.Rda");
+		  pcaRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
 		}
 				
 		if(reporterGroup != null){
