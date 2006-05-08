@@ -50,6 +50,15 @@ private String  ispy_id,
 				clinrespt1_t2, 
 				clinrespt1_t3, 
 				clinrespt1_t4;
+
+    private Double mriPctChangeT1_T2;
+    private Double mriPctChangeT1_T3;
+    private Double mriPctChangeT1_T4;
+    private String mriNodalMorphology_T1;
+    private String mriNodalMorphology_T2;
+    private String mriNodalMorphology_T3;
+    private String mriNodalMorphology_T4;
+    
 	 
 	
 	public PatientData(String ispy_id) {
@@ -537,6 +546,62 @@ private String  ispy_id,
 		String[] tokens = str.split("=");
 		return tokens[1].trim();
 		
+	}
+
+	public String getMriNodalMorphology_T1() {
+		return mriNodalMorphology_T1;
+	}
+
+	public void setMriNodalMorphology_T1(String mriNodalMorphology_T1) {
+		this.mriNodalMorphology_T1 = mriNodalMorphology_T1;
+	}
+
+	public String getMriNodalMorphology_T2() {
+		return mriNodalMorphology_T2;
+	}
+
+	public void setMriNodalMorphology_T2(String mriNodalMorphology_T2) {
+		this.mriNodalMorphology_T2 = mriNodalMorphology_T2;
+	}
+
+	public String getMriNodalMorphology_T3() {
+		return mriNodalMorphology_T3;
+	}
+
+	public void setMriNodalMorphology_T3(String mriNodalMorphology_T3) {
+		this.mriNodalMorphology_T3 = mriNodalMorphology_T3;
+	}
+
+	public String getMriNodalMorphology_T4() {
+		return mriNodalMorphology_T4;
+	}
+
+	public void setMriNodalMorphology_T4(String mriNodalMorphology_T4) {
+		this.mriNodalMorphology_T4 = mriNodalMorphology_T4;
+	}
+
+	public Double getMriPctChangeT1_T2() {
+		return mriPctChangeT1_T2;
+	}
+
+	public void setMriPctChangeT1_T2(Double mriPctChangeT1_T2) {
+		this.mriPctChangeT1_T2 = mriPctChangeT1_T2;
+	}
+
+	public Double getMriPctChangeT1_T3() {
+		return mriPctChangeT1_T3;
+	}
+
+	public void setMriPctChangeT1_T3(Double mriPctChangeT1_T3) {
+		this.mriPctChangeT1_T3 = mriPctChangeT1_T3;
+	}
+
+	public Double getMriPctChangeT1_T4() {
+		return mriPctChangeT1_T4;
+	}
+
+	public void setMriPctChangeT1_T4(Double mriPctChangeT1_T4) {
+		this.mriPctChangeT1_T4 = mriPctChangeT1_T4;
 	}
 
 }

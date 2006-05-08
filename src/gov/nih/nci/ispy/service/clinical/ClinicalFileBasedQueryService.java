@@ -102,6 +102,32 @@ public class ClinicalFileBasedQueryService {
 				pd.setClinRespT1_T2(tokens[42]);
 				pd.setClinRespT1_T3(tokens[43]);
 				pd.setClinRespT1_T4(tokens[44]);	
+				
+//              UNCOMMENT THE LINES BELOW WHEN THE NEW CLINICAL DATA IS AVAILABLE
+//              THE NEW DATA FILE SHOULD BE SET IN THE Application Context Class
+//
+//				String doubleStr = tokens[45];
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT1_T2(Double.parseDouble(doubleStr.trim()));
+//				}
+//				
+//				doubleStr = tokens[46];
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT1_T3(Double.parseDouble(doubleStr.trim()));
+//			    }
+//				
+//				doubleStr = tokens[47];
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT1_T4(Double.parseDouble(doubleStr.trim()));
+//			    }
+//				
+//				
+//				
+//				pd.setMriNodalMorphology_T1(tokens[48]);
+//				pd.setMriNodalMorphology_T2(tokens[49]);
+//				pd.setMriNodalMorphology_T3(tokens[50]);
+//				pd.setMriNodalMorphology_T4(tokens[51]);
+				
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
 				
