@@ -1,5 +1,7 @@
 package gov.nih.nci.ispy.service.annotation;
 
+import java.util.EnumSet;
+
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 public class SampleInfo {
@@ -8,7 +10,7 @@ public class SampleInfo {
 	private String ispyId;
 	private TimepointType timepoint;
 	private SampleCoreType coreType;
-	private ISPYDataType dataType;
+	private EnumSet<ISPYDataType> dataTypes = EnumSet.noneOf(ISPYDataType.class);
 	private String sectionInfo;
 
 	private String calgId;
@@ -19,12 +21,12 @@ public class SampleInfo {
 	}
 
 
-	public void setDataType(ISPYDataType dataType) {
-	  this.dataType = dataType;
+	public void addDataType(ISPYDataType dataType) {
+	  this.dataTypes.add(dataType);
 	}
 	
-	public ISPYDataType getDataType() {
-	  return dataType;
+	public EnumSet<ISPYDataType> getDataTypes() {
+	  return dataTypes;
 	}
 	
 
@@ -76,7 +78,7 @@ public class SampleInfo {
 	  sb.append(getISPYId()).append("\t");
 	  sb.append(getTimepoint()).append("\t");
 	  sb.append(getCoreType()).append("\t");
-	  sb.append(getDataType()).append("\t");
+	  sb.append(getDataTypes()).append("\t");
 	  sb.append(getSectionInfo()).append("\t");
 	  sb.append(getCalgId()).append("\n");
 		

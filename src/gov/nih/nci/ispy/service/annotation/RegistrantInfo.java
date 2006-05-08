@@ -35,7 +35,7 @@ public class RegistrantInfo {
 	  List<SampleInfo> retList = new ArrayList<SampleInfo>();
 	  
 	  for (SampleInfo sample : associatedSamples) {
-		 if ((sample.getDataType()==dataType)&&(sample.getTimepoint()==timepoint)) {
+		 if ((sample.getDataTypes().contains(dataType))&&(sample.getTimepoint()==timepoint)) {
 		   retList.add(sample);
 		 }
 	  }
@@ -47,7 +47,7 @@ public class RegistrantInfo {
 	  	Set<SampleInfo> retSet = new HashSet<SampleInfo>();
 	  	
 	  	for (SampleInfo sample : associatedSamples) {
-	  	  if ((sample.getDataType()==dataType)&&(timepoints.contains(sample.getTimepoint()))) {
+	  	  if ((sample.getDataTypes().contains(dataType))&&(timepoints.contains(sample.getTimepoint()))) {
 	  		 retSet.add(sample);
 	  	  }
 	  	}

@@ -76,15 +76,15 @@ public class IdMapperFileBasedService {
 			  sample.setSectionInfo(sampleData[4]);
 			  
 			  if ((sampleData[5]!=null)&&(sampleData[5].trim().length()>0)) {
-			    sample.setDataType(ISPYDataType.AGILENT);
-			  }
-			  else if ((sampleData[7]!=null)&&(sampleData[7].trim().length()>0)) {
-				sample.setDataType(ISPYDataType.CDNA);
-			  }
-			  else {
-				sample.setDataType(ISPYDataType.UNKNOWN); 
+			    sample.addDataType(ISPYDataType.AGILENT);
 			  }
 			  
+  
+			  if ((sampleData[7]!=null)&&(sampleData[7].trim().length()>0)) {
+				sample.addDataType(ISPYDataType.CDNA);
+			  }
+			  
+
 			  String calgbId = sampleData[6];
 			  //idMap.put(calgbId, entry); UNCOMMENT THIS LINE WHEN WE HAVE REAL CALGBIDS
 			  
@@ -186,7 +186,7 @@ public class IdMapperFileBasedService {
 		List<SampleInfo> sampleList = reg.getAssociatedSamples();
 		
 		for (SampleInfo sample: sampleList) {
-		  if (sample.getDataType()==dataType) {
+		  if (sample.getDataTypes().contains(dataType)) {
 		    retList.add(sample);
 		  }
 		}
