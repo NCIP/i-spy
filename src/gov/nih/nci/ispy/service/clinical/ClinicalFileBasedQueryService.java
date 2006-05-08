@@ -108,17 +108,17 @@ public class ClinicalFileBasedQueryService {
 //
 //				String doubleStr = tokens[45];
 //				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-//				  pd.setMriPctChangeT1_T2(Double.parseDouble(doubleStr.trim()));
+//				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
 //				}
 //				
 //				doubleStr = tokens[46];
 //				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-//				  pd.setMriPctChangeT1_T3(Double.parseDouble(doubleStr.trim()));
+//				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
 //			    }
 //				
 //				doubleStr = tokens[47];
 //				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-//				  pd.setMriPctChangeT1_T4(Double.parseDouble(doubleStr.trim()));
+//				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
 //			    }
 //				
 //				
@@ -127,6 +127,7 @@ public class ClinicalFileBasedQueryService {
 //				pd.setMriNodalMorphology_T2(tokens[49]);
 //				pd.setMriNodalMorphology_T3(tokens[50]);
 //				pd.setMriNodalMorphology_T4(tokens[51]);
+				
 				
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
