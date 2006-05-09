@@ -157,7 +157,7 @@ public class DynamicListHelper {
 		 UserList ul = helper.getUserList(listName);
 		 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.US);
 		 if(ul!=null)	
-			 list.addElement("list").addAttribute("name", ul.getName()).addAttribute("date", dateFormat.format(ul.getDateCreated()).toString()).addAttribute("items", String.valueOf(ul.getItemCount()));
+			 list.addElement("list").addAttribute("name", ul.getName()).addAttribute("date", dateFormat.format(ul.getDateCreated()).toString()).addAttribute("items", String.valueOf(ul.getItemCount())).addAttribute("invalid", String.valueOf(ul.getInvalidList().size()));
 	   }
 	   
 	   
