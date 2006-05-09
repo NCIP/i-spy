@@ -77,7 +77,7 @@ public class RegistrantInfo {
 	 */
 	public SampleInfo getSample(String labtrackId) {
 	  for (SampleInfo si : associatedSamples) {
-	     if (si.getLabtrackId().equals(labtrackId)) {
+	     if (si.getISPYId().equals(labtrackId) ||  si.getLabtrackId().equals(labtrackId)) {
 	       return si;
 	     }
 	  }
