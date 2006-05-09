@@ -6,6 +6,7 @@
 package gov.nih.nci.ispy.web.helper;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -27,98 +28,46 @@ public class ISPYUserListGenerator {
 
     private static Logger logger = Logger
             .getLogger(ISPYUserListGenerator.class);
-    
-    public List generateList(FileItem formFile) {
-        
+
+    public List generateList(FileItem formFile) throws IOException {
 
         List<String> tempList = new ArrayList<String>();
 
         if ((formFile != null)
                 && (formFile.getName().endsWith(".txt") || formFile.getName()
                         .endsWith(".TXT"))) {
+            
+
             try {
                 InputStream stream = formFile.getInputStream();
                 String inputLine = null;
                 BufferedReader inFile = new BufferedReader(
                         new InputStreamReader(stream));
+                
+                    do {
+                        inputLine = inFile.readLine();
 
-                int count = 0;
+                        if (inputLine != null) {
+                            if (isAscii(inputLine)) { // make sure all data is ASCII                                                        
+                                tempList.add(inputLine);
+                            }
+                        } else {
+                            System.out.println("null line");
+                            while (tempList.contains("")) {
+                                tempList.remove("");
+                            }
+                            inFile.close();
+                            break;
+                        }
 
-                while ((inputLine = inFile.readLine()) != null) {
-                    if (isAscii(inputLine)) { // make sure all data is ASCII
-
-                        inputLine = inputLine.trim();
-                        count++;
-                        tempList.add(inputLine);
-
-                    }
-                }// end of while
-
-                inFile.close();
-            } catch (IOException ex) {
-                logger.error("Errors when uploading file:" + ex.getMessage());
-            }
-        }
-
-        return tempList;
-
-    }
-
-
-    public List oldgenerateList(HttpServletRequest req) {
-        FileItem formFile = null;
-        try {
-
-            FileUpload fup = new FileUpload();
-            boolean isMultipart = FileUpload.isMultipartContent(req);
-            // Create a new file upload handler
-            // System.out.println(isMultipart);
-            DiskFileUpload upload = new DiskFileUpload();
-
-            // Parse the request
-            List<FileItem> items = upload.parseRequest(req);
-
-            for (FileItem item : items) {
-                if (item.isFormField()) {
-                    // System.out.println("its a field");
-                } else {
-                    // System.out.println("its a file");
-                    // System.out.println(item.getName());
-                    formFile = item;
-                }
-            }
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-        List<String> tempList = new ArrayList<String>();
-
-        if ((formFile != null)
-                && (formFile.getName().endsWith(".txt") || formFile.getName()
-                        .endsWith(".TXT"))) {
-            try {
-                InputStream stream = formFile.getInputStream();
-                String inputLine = null;
-                BufferedReader inFile = new BufferedReader(
-                        new InputStreamReader(stream));
-
-                int count = 0;
-
-                while ((inputLine = inFile.readLine()) != null) {
-                    if (isAscii(inputLine)) { // make sure all data is ASCII
-
-                        inputLine = inputLine.trim();
-                        count++;
-                        tempList.add(inputLine);
-
-                    }
-                }// end of while
-
-                inFile.close();
-            } catch (IOException ex) {
-                logger.error("Errors when uploading file:" + ex.getMessage());
-            }
+                    } while (true);
+                } catch (EOFException eof) {
+                    logger.error("Errors when reading empty lines in file:" + eof.getMessage());
+                } catch (IOException ex) {
+                    logger.error("Errors when uploading file:" + ex.getMessage());
+                } 
+            
+            
         }
 
         return tempList;

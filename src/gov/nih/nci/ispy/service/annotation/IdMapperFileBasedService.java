@@ -124,6 +124,29 @@ public class IdMapperFileBasedService {
 		return retList;
 		
 	}
+    
+    /**
+     * Return invalid ids specifed in the id list.
+     * 
+     */
+    public List<String> getInvalidMapperEntriesForIds(List<String> ids) {
+        List<String> invalidList = new ArrayList<String>();
+        RegistrantInfo entry;
+        for (String id:ids) {
+          entry = idMap.get(id);
+          
+          if (entry != null) {
+            // retList.add(entry);
+          }
+          else {
+            logger.warn("added mapper entry for id=" + id + " to invalidList");
+            invalidList.add(id);
+          }
+        }
+        
+        return invalidList;
+        
+    }
 	
 	/**
 	 * Will return the sample info objects corresponding to the

@@ -93,11 +93,18 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         Element type = list.addAttribute("type", userList.getListType().toString());
         Element name = list.addAttribute("name", userList.getName());
         
-        for(String i : userList.getList()){
+        if(userList.getList()!=null && !userList.getList().isEmpty()){
+            for(String i : userList.getList()){
             Element item = list.addElement("item");
             item.addText(i);
+            }
         }
-        
+        if(userList.getInvalidList()!=null && !userList.getInvalidList().isEmpty()){
+            for(String v : userList.getInvalidList()){
+                Element item = list.addElement("invalidItem");
+                item.addText(v);
+            }
+        }
         
         return document;
     }

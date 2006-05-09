@@ -89,6 +89,7 @@ var my_params= new Array()
 my_params["name"]="<%=paramMap.get("listName")%>";
 my_params["date"]="<%=paramMap.get("date")%>";
 my_params["count"]="<%=paramMap.get("items")%>";
+my_params["icount"]="<%=paramMap.get("invalidItems")%>";
 my_params["type"]="<%=paramMap.get("type")%>";
 
 window.parent.handleResponse(my_params);
