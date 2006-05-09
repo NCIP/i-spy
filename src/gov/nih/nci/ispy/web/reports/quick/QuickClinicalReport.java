@@ -49,6 +49,11 @@ public class QuickClinicalReport {
 				//List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
 				ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
 				
+				if(samples.isEmpty())	{
+					html.append("No Data");
+					return html;
+				}
+				
 				//WHEN switching to the new PatientData method of getting data
 				//remove the for loop below
 				
