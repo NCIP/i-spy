@@ -3,6 +3,7 @@
 <script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
+<script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
 
 
 <script>
@@ -12,32 +13,21 @@
 // the validated list. The groupString variable(below) is inserted into the page
 // at the appropriate place.
 
+var listNameArray = new Array(); //RCL
+
 function handleResponse(msg) { 
-   var groupString = "<div id='" + msg["name"] + "'><b>" + msg["name"] + "</b> created on: " + msg["date"] + "[<a href='#' onclick='deleteList(\"" + msg["name"]
-                            + "\");return false;'>delete</a>]"
-                            + "[<a href='#' onclick='getDetails(\""
-                            + msg["name"]
-                            + "\");return false;'>details</a>]</div><br /><div id='"+msg["name"]+"details'></div></div>" ;  
-   //check to see if the list exists on the page. 
-   // if it does, remove it and add the new list of the
-   // same name. Then clear the form fields.
-   if(document.getElementById(msg["name"])!=null){
-      Element.remove(msg["name"]);
-      Element.remove(msg["name"]+ "details");
-	      if(document.getElementById(msg["name"]+"detailsDiv")!=null){
-	        Element.remove(msg["name"]+ "detailsDiv");
-	      }
-      new Insertion.Top(msg["type"]+"ListMarker", groupString);
-      document.forms[0].listName.value="";
-      document.forms[0].upload.value="";
-      listNameArray.push(msg["name"]);
-   }
-   else{
-   		new Insertion.Top(msg["type"]+"ListMarker", groupString);
-   		document.forms[0].listName.value="";
-     	document.forms[0].upload.value="";
-     	listNameArray.push(msg["name"]);
-   }
+
+    //lets refresh the sidebar...these functions are declared in sideBar_tile.jsp .. -RL
+    ManageListHelper.getAllLists();
+	
+	try	{
+	   	SidebarHelper.loadSidebar();
+	}
+	catch(err)	{}
+   
+	listNameArray.push(msg["name"]);
+	$('listName').value="";
+   // $('upload').value="";
   }
   
   // this functions as a toggle for the details link next to a 
@@ -60,9 +50,25 @@ function handleResponse(msg) {
  // the div with an id matching this name and removes it from the DOM. -KR
  
  function deleteList(name){
- 	UserListHelper.removeList(name);
- 	Element.remove(name);
- 	Element.remove(name+"detailsDiv"); 	
+ 	if(confirm("Delete this List?"))
+ 		UserListHelper.removeListFromAjax(name, generic_cb);
+ }
+ 
+ function generic_cb(name)	{
+	//lets refresh the sidebar...these functions are declared in sideBar_tile.jsp .. -RL
+	try	{
+   		SidebarHelper.loadSidebar();
+	}
+	catch(err)	{
+		//alert(err);
+ 		//cant find those funcs most likely, so catch this
+	}
+	
+	//alert(name);
+	listNameArray.remove(name);
+	//alert(listNameArray);
+	ManageListHelper.getAllLists();
+	
  }
  
  //function to make an AJAX call to the userListBean in the session
@@ -87,7 +93,9 @@ function handleResponse(msg) {
 	 			listName = list[0].getAttribute("name");
 	 			listType = list[0].getAttribute("type");
 	 			
-	 			var items = userList.getElementsByTagName("item");		 		
+	 			var items = userList.getElementsByTagName("item");		
+	 			var invalidItems = userList.getElementsByTagName("invalidItem");	 		
+	 			
 		 		if(items.length < 1)	{
 		 			//no details
 		 			throw("No details found.");
@@ -118,6 +126,28 @@ function handleResponse(msg) {
 			     }
 			     
 			     document.getElementById(listName + "details").appendChild(dDIV);
+			     
+				if(!invalidItems.length < 1){
+
+					var iSPAN = document.createElement("span");
+					iSPAN.setAttribute("id", "invalid_span");
+					iSPAN.style.color = "gray";
+					iSPAN.style.padding = "3px";
+					iSPAN.appendChild(document.createTextNode("Invalid items: "));
+					for(var i=0; i<invalidItems.length; i++){
+						invalidItemId = invalidItems[i].firstChild.data;
+						if((i+1) == invalidItems.length){
+							iSPAN.appendChild(document.createTextNode(invalidItemId));
+						}
+						else{
+							iSPAN.appendChild(document.createTextNode(invalidItemId  + ","));
+						}
+					}
+					var b = document.createElement("br");                               
+					dDIV.appendChild(iSPAN);
+					dDIV.appendChild(b);
+				}
+		     
 	 		}
 	 		catch(err)	{
 	 			$("details").innerHTML = err;
@@ -125,9 +155,57 @@ function handleResponse(msg) {
 	 		}
 	 		
 	}
+	
+	//this invokes and processes the Ajax call to generate the initial listing of lists
+	var ManageListHelper = {
+		'getPatientLists' : function()	{
+			//this function is dependent on the DynamicListHelper, included in the sidebar tile
+			// src='dwr/interface/DynamicListHelper.js'
+			DynamicListHelper.getAllLists("PatientDID", ManageListHelper.getGenericLists_cb);
+			
+		},
+		'getGeneLists' : function()	{
+			DynamicListHelper.getAllLists("GeneSymbol", ManageListHelper.getGenericLists_cb);			
+		},
+		'getAllLists' : function()	{
+			ManageListHelper.getGeneLists();
+			ManageListHelper.getPatientLists();
+		},
+		'getGenericLists_cb' : function(listsDOM)	{
+			
+			var tmp = listsDOM.getElementsByTagName("lists");
+			var listType = tmp[0] ? tmp[0].getAttribute("type") : "none";
+			if(listType == "none") return;
+			
+			var lists = listsDOM.getElementsByTagName("list");
+			if(lists.length == 0)	{
+				$(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b>";
+				return;
+			}
+			//alert(listType + " : " + lists.length);
+			
+			$(listType+'ListDiv').innerHTML = "";  //clear it, and repopulate
+			
+			for(var t=0; t<lists.length; t++)	{
+			// += or =
+				$(listType+'ListDiv').innerHTML += "<div id='"
+                	+ lists[t].getAttribute("name")
+                    + "'><b>"
+                    + lists[t].getAttribute("name") + "</b>"
+                    + " created on:" + lists[t].getAttribute("date") 
+                    + " (" + lists[t].getAttribute("invalid") + " invalid) "
+                    + "[<a href='#' onclick='deleteList(\""
+                    + lists[t].getAttribute("name")
+                    + "\");return false;'>delete</a>]"
+                    + "[<a href='#' onclick='getDetails(\""
+                    + lists[t].getAttribute("name")
+                    + "\");return false;'>details</a>]</div><br /><div id='"
+                    + lists[t].getAttribute("name")
+                    + "details'></div>";
+			}
+		}
+	};
 </script>
-
-
 
 <iframe id="RSIFrame" name="RSIFrame" style="width:0px; height:0px; border: 0px" src="blank.jsp"></iframe>
 
@@ -138,52 +216,11 @@ function handleResponse(msg) {
 		Patient Lists
 	</legend>
 	<br />
+	<div id="patientListDiv"></div>
+	<script>ManageListHelper.getPatientLists();</script>
+	
 	<div id="listDiv" />
-		<%// the user list bean in the session is accessed and the patient lists
-            // are displayed.**May want to create a tag for this**  -KR
 
-            ISPYListManager listManager = (ISPYListManager) ISPYListManager
-                    .getInstance();
-            ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(request
-                    .getSession());
-
-            String allListNames = "";
-
-            List patientLists = helper.getLists(ListType.PatientDID);
-            if (!patientLists.isEmpty()) {
-                for (int i = 0; i < patientLists.size(); i++) {
-                    UserList list = (UserList) patientLists.get(i);
-                    Map paramMap = listManager.getParams(list);
-                    out
-                            .write("<div id='"
-                                    + paramMap.get("listName")
-                                    + "'><b>"
-                                    + paramMap.get("listName")
-                                    + "</b> created on: "
-                                    + paramMap.get("date")
-                                    + "[<a href='#' onclick='deleteList(\""
-                                    + paramMap.get("listName")
-                                    + "\");return false;'>delete</a>]"
-                                    + "[<a href='#' onclick='getDetails(\""
-                                    + paramMap.get("listName")
-                                    + "\");return false;'>details</a>]</div><br /><div id='"
-                                    + paramMap.get("listName")
-                                    + "details'></div>");
-
-                    //now add to the tally of current list names
-                    String currentName = (String) paramMap.get("listName");
-                    if (allListNames.length() > 0) {
-                        allListNames += ",";
-                    }
-                    if (allListNames != null && currentName.trim().length() > 0) {
-                        allListNames += '"' + currentName + '"';
-                    }
-                }
-            } else {
-                out.write("");
-            }
-
-            %>
 	</div>
 	<div id="PatientDIDListMarker">
 		&nbsp;
@@ -195,52 +232,21 @@ function handleResponse(msg) {
 		Gene Symbol Lists
 	</legend>
 	<br />
+	
+	<div id="geneListDiv"></div>
+	<script>ManageListHelper.getGeneLists();</script>
+	
 	<div id="listDiv" />
-		<%// the user list bean in the session is accessed and the gene symbol
-            // lists are displayed. **May want to create a tag for this**  -KR
-            List geneLists = helper.getLists(ListType.GeneSymbol);
-            if (!geneLists.isEmpty()) {
-                for (int i = 0; i < geneLists.size(); i++) {
-                    UserList list = (UserList) geneLists.get(i);
-                    Map paramMap = listManager.getParams(list);
-                    out
-                            .write("<div id='"
-                                    + paramMap.get("listName")
-                                    + "'><b>"
-                                    + paramMap.get("listName")
-                                    + "</b> created on: "
-                                    + paramMap.get("date")
-                                    + "[<a href='#' onclick='deleteList(\""
-                                    + paramMap.get("listName")
-                                    + "\");return false;'>delete</a>]"
-                                    + "[<a href='#' onclick='getDetails(\""
-                                    + paramMap.get("listName")
-                                    + "\");return false;'>details</a>]</div><br /><div id='"
-                                    + paramMap.get("listName")
-                                    + "details'></div>");
 
-                    //now add to the tally of current list names
-                    String currentName = (String) paramMap.get("listName");
-                    if (allListNames.length() > 0) {
-                        allListNames += ",";
-                    }
-                    if (allListNames != null && currentName.trim().length() > 0) {
-                        allListNames += '"' + currentName + '"';
-                    }
-                }
-            } else {
-                out.write("");
-            }
-
-            %>
 	</div>
+	
 	<div id="GeneSymbolListMarker">
 		&nbsp;
 	</div>
 </fieldset>
 
 <script>
-        var listNameArray = new Array(<%=allListNames%>);
+       
         </script>
 
 <fieldset id="listForm" class="listForm">
