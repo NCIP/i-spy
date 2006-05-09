@@ -26,6 +26,10 @@
 var SidebarHelper = {
 	'delay' : 500,
 	'loadingImg' : "<img src=\"images/indicator.gif\"/>",
+	'loadSidebar' : function()	{
+		SidebarHelper.loadPatientUL();
+		SidebarHelper.loadGeneUL();
+	},
 	'loadPatientUL' : function()	{
 		$('sidebarPatientUL').innerHTML = this.loadingImg;
 		setTimeout( function()	{

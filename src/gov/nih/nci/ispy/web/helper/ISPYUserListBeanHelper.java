@@ -72,9 +72,14 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
     }
     
     public void removeList(String listName) {
-        userListBean.removeList(listName);
-        
+        userListBean.removeList(listName); 
     }
+    
+    public String removeListFromAjax(String listName)	{
+    	removeList(listName);
+    	return listName;
+    }
+    
     public void addItemToList(String listName, String listItem) {
         UserList userList =  userListBean.getList(listName);
         userList.getList().add(listItem);
@@ -83,6 +88,10 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
     public void removeItemFromList(String listName, String listItem) {        
         UserList userList =  userListBean.getList(listName);
         userList.getList().remove(listItem);
+    }
+    
+    public UserList getUserList(String listName){
+    	return userListBean.getList(listName);    	
     }
     
     public Document getDetailsFromList(String listName) {

@@ -1,10 +1,14 @@
 package gov.nih.nci.ispy.web.ajax;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -128,5 +132,36 @@ public class DynamicListHelper {
 		return DynamicListHelper.createGenericList(ListType.PatientDID, list, name);
 	}
 	*/
+	
+	public static Document getAllLists(String listType){
+		
+	   //HttpSession session = ExecutionContext.get().getSession(false);
+	   //ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
+	   ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper();
+	   
+	   Collection<String> myLists = new ArrayList<String>();
+	   
+	   Document listDoc = DocumentHelper.createDocument();
+	   Element list = listDoc.addElement("lists");
+	   
+	   if(listType.equals(ListType.PatientDID.toString()))	{
+		   list.addAttribute("type", "patient");
+		   myLists = helper.getPatientListNames();
+	   }
+	   else	if(listType.equals(ListType.GeneSymbol.toString()))	{
+		   myLists = helper.getGeneSymbolListNames();     
+		   list.addAttribute("type", "gene");
+	   }
+	   
+	   for(String listName : myLists){
+		 UserList ul = helper.getUserList(listName);
+		 DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.US);
+		 if(ul!=null)	
+			 list.addElement("list").addAttribute("name", ul.getName()).addAttribute("date", dateFormat.format(ul.getDateCreated()).toString()).addAttribute("items", String.valueOf(ul.getItemCount()));
+	   }
+	   
+	   
+	   return listDoc;
+	}
 	
 }
