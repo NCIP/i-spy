@@ -14,7 +14,7 @@ import java.awt.Color;
  */
 public enum ClinicalStageType implements Serializable {
 
-	Stage0 { public Color getColor() { return Color.GRAY; }
+	STAGE0 { public Color getColor() { return Color.GRAY; }
 	    public String toString() { return "Stage 0"; }},
 	
 	
@@ -78,7 +78,7 @@ public enum ClinicalStageType implements Serializable {
 		   */
 		  
 		  switch(value) {
-		  case 1: return ClinicalStageType.Stage0;
+		  case 1: return ClinicalStageType.STAGE0;
 		  case 2: return ClinicalStageType.I;
 		  case 3: return ClinicalStageType.II_A;
 		  case 4: return ClinicalStageType.II_B;
