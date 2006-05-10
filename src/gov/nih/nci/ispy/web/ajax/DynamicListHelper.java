@@ -57,52 +57,10 @@ public class DynamicListHelper {
 	}
 	
 	public static String getPatientListAsList()	{
-		/*
-		String results = "";
-		
-		HttpSession session = ExecutionContext.get().getSession(false);
-		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
-                      
-        List patientLists = helper.getLists(ListType.PatientDID);
-        if (!patientLists.isEmpty()) {
-            for (int i = 0; i < patientLists.size(); i++) {
-                UserList list = (UserList) patientLists.get(i);
-                ISPYListManager uploadManager = (ISPYListManager) ISPYListManager.getInstance();
-                Map paramMap = uploadManager.getParams(list);
-                String commas = StringUtils.join(list.getList().toArray(), ",");
-                results += ("<li id='" + paramMap.get("listName") + "' title='"+commas+"'>"+paramMap.get("listName")+"</li>");
-            }
-        } else {
-            results = "";
-        }
-
-		return results;
-		*/
 		return DynamicListHelper.getListAsList(ListType.PatientDID);
 	}
 	
 	public static String getGeneListAsList()	{
-		/*
-		String results = "";
-		
-		HttpSession session = ExecutionContext.get().getSession(false);
-		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
-		
-        List geneLists = helper.getLists(ListType.GeneSymbol);
-        if (!geneLists.isEmpty()) {
-            for (int i = 0; i < geneLists.size(); i++) {
-                UserList list = (UserList) geneLists.get(i);
-                ISPYListManager uploadManager = (ISPYListManager) ISPYListManager.getInstance();
-                Map paramMap = uploadManager.getParams(list);
-                String commas = StringUtils.join(list.getList().toArray(), ",");
-                results += ("<li id='" + paramMap.get("listName") + "' title='"+commas+"'>"
-                        + paramMap.get("listName") + "</li>");
-            }
-        } else {
-            results = "";
-        }	
-        return results;\
-        */
 		return DynamicListHelper.getListAsList(ListType.GeneSymbol);
 	}
 	
