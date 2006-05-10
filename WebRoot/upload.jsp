@@ -4,7 +4,7 @@
 	gov.nih.nci.caintegrator.application.lists.UserListBean,
 	gov.nih.nci.ispy.util.ISPYListManager,
 	gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,
-	gov.nih.nci.ispy.web.helper.ISPYUserListGenerator,
+	gov.nih.nci.caintegrator.application.lists.UserListGenerator,
 	org.apache.commons.fileupload.DiskFileUpload,
 	org.apache.commons.fileupload.FileUpload,
 	org.apache.commons.fileupload.FileItem,
@@ -22,7 +22,7 @@
 
 	<body>
 
-		<%ISPYUserListGenerator listGenerator = new ISPYUserListGenerator();
+		<%UserListGenerator listGenerator = new UserListGenerator();
 		String name = "";
 		String type = "";
 		FileItem formFile = null;
