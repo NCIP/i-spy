@@ -25,7 +25,9 @@
 	}
 	function createGeneList(data){    	
     	DWRUtil.removeAllOptions("geneList", data);
+    	DWRUtil.addOptions("geneList", ['none']) 
     	DWRUtil.addOptions("geneList", data);
+    	
 	}
 
 	function tdiv(el)	{
@@ -78,6 +80,7 @@
 			
 			&nbsp;&nbsp;Constrain by GeneList: &nbsp;&nbsp;
 			    <html:select property="geneSetName" styleId="geneList" disabled="false" onfocus="javascript:getGeneList()">
+				 	<option>none</option>
 				 	<html:optionsCollection property="geneSetNameList" />
 				</html:select>
 			

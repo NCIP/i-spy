@@ -189,7 +189,7 @@ public class PrincipalComponentAction extends DispatchAction {
         the specified GeneIdentifierDECollection. The key is 
         the geneSet name that was uploaded by the user into the cache.*/
         
-        if(principalComponentForm.getGeneSetName()!= null && (!principalComponentForm.getGeneSetName().equals("") || principalComponentForm.getGeneSetName().length()!=0)){
+        if(principalComponentForm.getGeneSetName()!= null && (!principalComponentForm.getGeneSetName().equals("") && !principalComponentForm.getGeneSetName().equals("none"))){
             geneIdentifierDECollection = listHelper.getGeneDEforList(principalComponentForm.getGeneSetName());
             if (geneIdentifierDECollection!=null){
                 logger.debug("geneIdentifierDECollection was found");
