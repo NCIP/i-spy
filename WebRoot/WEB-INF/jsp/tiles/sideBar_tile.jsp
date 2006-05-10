@@ -1,4 +1,4 @@
-<div id="manageListLinkDiv" style="text-align:center">
+<div id="manageListLinkDiv" style="text-align:center; margin-top:20px;">
 <fieldset style="text-align:center">
 <a href="manageLists.do">Manage Lists</a>
 </fieldset>

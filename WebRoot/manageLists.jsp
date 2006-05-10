@@ -27,6 +27,8 @@
 	   
 		//reset the form
 		Form.reset($('uploadForm'));
+		//hide the indicator
+		setTimeout(function(){$('uploadStatus').style.display = "none";}, 500);
 
 	}
   
@@ -36,8 +38,11 @@
   // exist, the AJAX call is made to retrieve the most current details
   // from the userListBean sitting in the session. -KR
   
-	function getDetails(name){        
+	function getDetails(name){   
+		  
 		if(document.getElementById(name+ "detailsDiv")==null){	    
+			if($(name+"status"))
+				$(name+"status").style.display = "";
 	    	UserListHelper.getDetailsFromList(name,putDetails);	    
 	   	}
 	   	else	{
@@ -101,6 +106,7 @@ function putDetails(userList){
  		var value;
  		var dDIV = document.createElement("div");
  		dDIV.setAttribute("id",listName + "detailsDiv");
+ 		dDIV.setAttribute("class", "listItemsDiv");
  			
 		 		for(var i=0; i<items.length; i++)	{
 		 		
@@ -143,6 +149,20 @@ function putDetails(userList){
 					dDIV.appendChild(iSPAN);
 					dDIV.appendChild(b);
 				}
+				
+				var exDIV = document.createElement("div");
+				var oc = function() { 
+					var url = "listExport.jsp?list="+this.parentNode.id.substring(0, this.parentNode.id.indexOf("detailsDiv"));
+					location.href=url;
+				};
+				exDIV.innerHTML = "[ export list? ]";
+				exDIV.style.marginTop = "10px";
+				exDIV.style.cursor = "pointer";
+				exDIV.style.width="90px";
+				exDIV.style.height="20px";
+				//exDIV.style.border="1px solid red";
+				exDIV.onclick = oc;
+				dDIV.appendChild(exDIV);
 		     
 	 		}
 	 		catch(err)	{
@@ -150,6 +170,9 @@ function putDetails(userList){
 	 			$("details").style.display = "";
 	 		}
 	 		
+	 		if($(listName+"status"))	{
+				setTimeout(function()	{$(listName+"status").style.display = "none";}, 500);
+			}
 	}
 	
 	//this invokes and processes the Ajax call to generate the initial listing of lists
@@ -169,6 +192,7 @@ function putDetails(userList){
 		},
 		'getGenericLists_cb' : function(listsDOM)	{
 			
+			
 			var tmp = listsDOM.getElementsByTagName("lists");
 			var listType = tmp[0] ? tmp[0].getAttribute("type") : "none";
 			if(listType == "none") return;
@@ -183,11 +207,14 @@ function putDetails(userList){
 			$(listType+'ListDiv').innerHTML = "";  //clear it, and repopulate
 			
 			for(var t=0; t<lists.length; t++)	{
+			
+				var status = "<span id=\""+lists[t].getAttribute("name")+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
+				var shortName = lists[t].getAttribute("name").length>15 ? lists[t].getAttribute("name").substring(0,13) + "..." : lists[t].getAttribute("name");
 			// += or =
 				$(listType+'ListDiv').innerHTML += "<div id='"
                 	+ lists[t].getAttribute("name")
-                    + "'><b>"
-                    + lists[t].getAttribute("name") + "</b>"
+                    + "' class='listListing'><b title='"+lists[t].getAttribute("name")+"'>"
+                    + shortName + "</b>"
                     + " created on:" + lists[t].getAttribute("date") 
                     + " (" + lists[t].getAttribute("invalid") + " invalid) "
                     + "[<a href='#' onclick='deleteList(\""
@@ -195,7 +222,7 @@ function putDetails(userList){
                     + "\");return false;'>delete</a>]"
                     + "[<a href='#' onclick='getDetails(\""
                     + lists[t].getAttribute("name")
-                    + "\");return false;'>details</a>]</div><br /><div id='"
+                    + "\");return false;'>details</a>] " + status + "</div><br /><div id='"
                     + lists[t].getAttribute("name")
                     + "details'></div>";
 			}
@@ -280,6 +307,7 @@ function putDetails(userList){
 				</td>
 				<td style="text-align:right">
 					<input type="button" value="add list" onclick="validateForm()">
+					<span id="uploadStatus" style="display:none"><img src="images/indicator.gif"/>&nbsp; uploading...</span>
 				</td>
 			</tr>
 
@@ -293,6 +321,8 @@ function putDetails(userList){
      //overwrite the stored list with the current list or cancel the action and rename it. -KR
      
      function validateForm(){
+     
+     $('uploadStatus').style.display = "";
      
       var thisListName = document.forms[0].listName.value;
 		var errors = "";
