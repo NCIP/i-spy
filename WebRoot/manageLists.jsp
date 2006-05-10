@@ -25,12 +25,9 @@
 		}
 		catch(err)	{}
 	   
-		//listNameArray.push(msg["name"]);
 		//reset the form
 		Form.reset($('uploadForm'));
-		
-		$('listName').value="";
-	   // $('upload').value="";
+
 	}
   
   // this functions as a toggle for the details link next to a 
@@ -67,9 +64,6 @@
 			//cant find those funcs most likely, so catch this
 		}
 		
-		//alert(name);
-		//listNameArray.remove(name);
-		//alert(listNameArray);
 		ManageListHelper.getAllLists()
 	}
  
@@ -247,9 +241,6 @@ function putDetails(userList){
 	</div>
 </fieldset>
 
-<script>
-       
-        </script>
 
 <fieldset class="listForm" id="listForm">
 	<legend class="listLegend">
@@ -318,23 +309,6 @@ function putDetails(userList){
      	 }
      	 else {document.forms[0].submit();}
      	 
-     	 /*
-     	 else{
-	     	 var found = false;
-				if (!(thisListName == null || thisListName == "")) {
-					for(var t=0;t<listNameArray.length; t++)	{
-					  if (thisListName == listNameArray[t]) found = true;
-					}
-					if (found) {
-						  if (confirm("List Name exists in system. This action will overwrite existing list.")) {
-					  		document.forms[0].submit();
-						  }
-						  else return false;
-				 	}else {document.forms[0].submit();}
-				 }
-			
-       }
-       */
      }
  
 </script>
