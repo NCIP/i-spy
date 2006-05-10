@@ -92,6 +92,9 @@ public final class ispyConstants {
     public static final String USER_LISTS = "userLists";
     
     public static final String USER_CREDENTIALS = "UserCredentials";
-
     
+    public static final String DEFAULT_PATIENT_USER_LIST1 = "C:\\dev\\ispyportal\\WebRoot\\WEB-INF\\data_files\\defaultPatientList1.txt";
+
+    public static final String DEFAULT_GENE_USER_LIST1 = "C:\\dev\\ispyportal\\WebRoot\\WEB-INF\\data_files\\defaultGeneList1.txt";
+
 }
