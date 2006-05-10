@@ -1,5 +1,5 @@
 <%@ page
-	import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean,gov.nih.nci.ispy.util.ISPYListManager,gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,gov.nih.nci.ispy.web.helper.ISPYUserListGenerator,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document"%>
+	import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean,gov.nih.nci.ispy.util.ISPYListManager,gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document"%>
 <script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
@@ -13,22 +13,25 @@
 // the validated list. The groupString variable(below) is inserted into the page
 // at the appropriate place.
 
-var listNameArray = new Array(); //RCL
+	var listNameArray = new Array(); //RCL
 
-function handleResponse(msg) { 
+	function handleResponse(msg) { 
 
-    //lets refresh the sidebar...these functions are declared in sideBar_tile.jsp .. -RL
-    ManageListHelper.getAllLists();
-	
-	try	{
-	   	SidebarHelper.loadSidebar();
+	    //lets refresh the sidebar...these functions are declared in sideBar_tile.jsp .. -RL
+	    ManageListHelper.getAllLists();
+		
+		try	{
+		   	SidebarHelper.loadSidebar();
+		}
+		catch(err)	{}
+	   
+		//listNameArray.push(msg["name"]);
+		//reset the form
+		Form.reset($('uploadForm'));
+		
+		$('listName').value="";
+	   // $('upload').value="";
 	}
-	catch(err)	{}
-   
-	listNameArray.push(msg["name"]);
-	$('listName').value="";
-   // $('upload').value="";
-  }
   
   // this functions as a toggle for the details link next to a 
   // list. If details are currently viewable, it removes the element
@@ -36,12 +39,12 @@ function handleResponse(msg) {
   // exist, the AJAX call is made to retrieve the most current details
   // from the userListBean sitting in the session. -KR
   
- function getDetails(name){        
-	   if(document.getElementById(name+ "detailsDiv")==null){	    
-	    UserListHelper.getDetailsFromList(name,putDetails);	    
-	   }
-	   else	{
-	     Element.remove(name+"detailsDiv");	     
+	function getDetails(name){        
+		if(document.getElementById(name+ "detailsDiv")==null){	    
+	    	UserListHelper.getDetailsFromList(name,putDetails);	    
+	   	}
+	   	else	{
+	    	Element.remove(name+"detailsDiv");	     
 	    }
 	}
 
@@ -49,36 +52,35 @@ function handleResponse(msg) {
  // and delete the list under the name it passes as a param. Then finds
  // the div with an id matching this name and removes it from the DOM. -KR
  
- function deleteList(name){
- 	if(confirm("Delete this List?"))
- 		UserListHelper.removeListFromAjax(name, generic_cb);
- }
+	function deleteList(name){
+		if(confirm("Delete this List?"))
+			UserListHelper.removeListFromAjax(name, generic_cb);
+	}
  
- function generic_cb(name)	{
-	//lets refresh the sidebar...these functions are declared in sideBar_tile.jsp .. -RL
-	try	{
-   		SidebarHelper.loadSidebar();
+	function generic_cb(name)	{
+		//lets refresh the sidebar...these functions are declared in sideBar_tile.jsp .. -RL
+		try	{
+				SidebarHelper.loadSidebar();
+		}
+		catch(err)	{
+			//alert(err);
+			//cant find those funcs most likely, so catch this
+		}
+		
+		//alert(name);
+		//listNameArray.remove(name);
+		//alert(listNameArray);
+		ManageListHelper.getAllLists()
 	}
-	catch(err)	{
-		//alert(err);
- 		//cant find those funcs most likely, so catch this
-	}
-	
-	//alert(name);
-	listNameArray.remove(name);
-	//alert(listNameArray);
-	ManageListHelper.getAllLists();
-	
- }
  
  //function to make an AJAX call to the userListBean in the session
  // and delete the list item under the list name it passes as params. Then finds
  // the div with an id matching this item name and removes it from the DOM. -KR
  
- function deleteItem(name, itemId){
- 	UserListHelper.removeItemFromList(name,itemId);
- 	Element.remove(name + itemId + "_div");	 	
- }
+	function deleteItem(name, itemId){
+		UserListHelper.removeItemFromList(name,itemId);
+		Element.remove(name + itemId + "_div");	 	
+	}
 	
  //this is the callback function from the getDetails AJAX function (above). This
  //function recieves a Document object back from the getDetails call and parses
@@ -87,25 +89,25 @@ function handleResponse(msg) {
  // them to the page. The dynamically created nodes are created/deleted depending
  // on when the user toggles the "details" link next to a link. -KR
  
- function putDetails(userList){
+function putDetails(userList){
  	try	{
-	 			var list = userList.getElementsByTagName("list");
-	 			listName = list[0].getAttribute("name");
-	 			listType = list[0].getAttribute("type");
-	 			
-	 			var items = userList.getElementsByTagName("item");		
-	 			var invalidItems = userList.getElementsByTagName("invalidItem");	 		
-	 			
-		 		if(items.length < 1)	{
-		 			//no details
-		 			throw("No details found.");
-		 		}
-		 		
-		 		var itemId;
-		 		var value;
-		 		var dDIV = document.createElement("div");
-		 			dDIV.setAttribute("id",listName + "detailsDiv");
-		 			
+		var list = userList.getElementsByTagName("list");
+		listName = list[0].getAttribute("name");
+		listType = list[0].getAttribute("type");
+		
+		var items = userList.getElementsByTagName("item");		
+		var invalidItems = userList.getElementsByTagName("invalidItem");	 		
+		
+		if(items.length < 1)	{
+			//no details
+			throw("No details found.");
+		}
+ 		
+ 		var itemId;
+ 		var value;
+ 		var dDIV = document.createElement("div");
+ 		dDIV.setAttribute("id",listName + "detailsDiv");
+ 			
 		 		for(var i=0; i<items.length; i++)	{
 		 		
 		 			itemId = items[i].firstChild.data;	
@@ -211,7 +213,7 @@ function handleResponse(msg) {
 
 <span id="info">&nbsp;</span>
 
-<fieldset>
+<fieldset class="groupList">
 	<legend>
 		Patient Lists
 	</legend>
@@ -227,7 +229,7 @@ function handleResponse(msg) {
 	</div>
 </fieldset>
 
-<fieldset>
+<fieldset class="groupList">
 	<legend>
 		Gene Symbol Lists
 	</legend>
@@ -249,15 +251,15 @@ function handleResponse(msg) {
        
         </script>
 
-<fieldset id="listForm" class="listForm">
+<fieldset class="listForm" id="listForm">
 	<legend class="listLegend">
 		upload list
 	</legend>
-	<form method="post" action="upload.jsp" enctype="multipart/form-data" target="RSIFrame">
+	<form id="uploadForm" method="post" action="upload.jsp" enctype="multipart/form-data" target="RSIFrame">
 		<table border="0" cellspacing="2" cellpadding="2">
 			<tr>
 				<td>
-					Choose the list type
+					Choose the list type:
 				</td>
 				<td colspan="2">
 					<select id="typeSelector" name="type">
@@ -314,6 +316,9 @@ function handleResponse(msg) {
      	    alert(errors);
      	    return false;
      	 }
+     	 else {document.forms[0].submit();}
+     	 
+     	 /*
      	 else{
 	     	 var found = false;
 				if (!(thisListName == null || thisListName == "")) {
@@ -329,6 +334,7 @@ function handleResponse(msg) {
 				 }
 			
        }
+       */
      }
  
 </script>
