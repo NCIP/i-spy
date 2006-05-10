@@ -1,19 +1,23 @@
-<a href="manageLists.do">manage lists</a>
-
+<div id="manageListLinkDiv" style="text-align:center">
+<fieldset style="text-align:center">
+<a href="manageLists.do">Manage Lists</a>
+</fieldset>
+</div>
+<div id="sidebar">
 <div style="text-align:left; margin-top:10px;">
-	Patient Lists:
+	<b>Patient Lists:</b>
 	<div id="sidebarPatientUL">
 		<img src="images/indicator.gif"/>
     </div>
 </div>
      
 <div style="text-align:left; margin-top:20px;">
-	Gene Lists:
+	<b>Gene Lists:</b>
 	<div id="sidebarGeneUL">
 		<img src="images/indicator.gif"/>
 	</div>	
 </div>
-
+</div>
 
 
 <script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
@@ -24,7 +28,7 @@
 
 //segregated so we can call them individually w/ease
 var SidebarHelper = {
-	'delay' : 500,
+	'delay' : 250,
 	'loadingImg' : "<img src=\"images/indicator.gif\"/>",
 	'loadSidebar' : function()	{
 		SidebarHelper.loadPatientUL();
@@ -73,7 +77,7 @@ var SidebarHelper = {
 			lis[i].onmouseover = function() { 
 				tmpp[this.id] = this.title;
 				this.title = "";
-				return overlib(tmpp[this.id].split(",").join("<br/>"), CAPTION, this.id + " Elements:");
+				return overlib(tmpp[this.id].split(",").join("<br/>"), CAPTION, this.id.substring(0,10) + " Elements:");
 			};
 			lis[i].onmouseout = function() { 
 				this.title = tmpp[this.id];
@@ -81,6 +85,9 @@ var SidebarHelper = {
 			};
 			
 			lis[i].style.cursor = "pointer";
+			//trim the HTML length
+			if(lis[i].innerHTML.length > 15)
+				lis[i].innerHTML = lis[i].innerHTML.substring(0,14) + "...";
 		}
 	
 	}
