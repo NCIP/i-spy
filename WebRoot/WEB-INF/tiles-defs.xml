@@ -94,7 +94,7 @@
 		<put name="title" value="I-SPY Manage Lists" />
 		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
 		<put name="mainForm" value="/manageLists.jsp" />
-		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=4" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=5" />
 		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
     </definition>  
 	  

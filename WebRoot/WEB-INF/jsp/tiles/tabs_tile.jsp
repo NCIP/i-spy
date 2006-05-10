@@ -11,7 +11,6 @@
 <script type='text/javascript' src='dwr/interface/Inbox.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 
-
 <span id="statusMsg"><br/></span>
 <% 
 	//default settings for tabs
@@ -20,6 +19,8 @@
 	String viewResults = "";
 	String analysis = "";
 	String secondary = "";
+	String list = "";
+	
 	String advSecondary = "<ul id=\"secondary\">\n" +
 							"<li><a href=\"menu.do\">Advanced Search Home</a></li>\n" +
 							"<li><a href=\"#\">Gene Expression</a></li>\n" +
@@ -50,6 +51,7 @@
 				adv = "<a href=\"menu.do\" onclick=\"return false\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
+				list = "<a href=\"manageLists.do\">Manage Lists</a>";
 				break;
 			case 2:
 				//2 is adv
@@ -57,6 +59,7 @@
 				adv = "<span>Advanced Search</span>\n" + advSecondary;
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
+				list = "<a href=\"manageLists.do\">Manage Lists</a>";
 				break;
 			case 3:
 			    //3 is high order analysis
@@ -64,6 +67,7 @@
 				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<span>High Order Analysis</span>\n" + analysisSecondary;
+				list = "<a href=\"manageLists.do\">Manage Lists</a>";
 				break;
 			case 4:
 			    //4 is view results
@@ -71,12 +75,23 @@
 				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<span>View Results&nbsp;&nbsp;</span>\n";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
+				list = "<a href=\"manageLists.do\">Manage Lists</a>";
 				break;
-			default:
-				simple = "<span>Simple Search</span>\n" + simpleSecondary;
+			case 5:
+			    //4 is view results
+				simple = "<a href=\"simpleSearch.do\">Simple Search</a>";
 				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
+				list = "<span>Manage Lists</span>\n";
+				break;
+			default:
+				//simple = "<span>Simple Search</span>\n" + simpleSecondary;
+				simple = "<a href=\"simpleSearch.do\">Simple Search</a>";
+				adv = "<a href=\"#\">Advanced Search</a>";
+				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
+				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
+				list = "<a href=\"manageLists.do\">Manage Lists</a>";
 				break;
 		
 		}
@@ -88,5 +103,6 @@
 		<li><%= adv %></li>
 		<li><%= analysis %></li>
 		<li><%= viewResults %></li>
+		<li><%= list %></li>
 	</ul>
 </div>

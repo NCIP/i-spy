@@ -21,7 +21,7 @@
 	 <%-- include div for overlib --%>
     <tiles:insert attribute="overlib"/>
     <%-- include header --%>
-    <tiles:insert attribute="header"/> 
+    <tiles:insert attribute="header"/>
 	<div class="content">
 		<%-- include crumb menu --%>
 		<tiles:insert attribute="crumbMenu"/> 
@@ -29,7 +29,10 @@
 			<tr>
 				<td width="575"> 
 					<table cellpadding="4" cellspacing="2" border="0" width="100%"> 
-						<tr class="report"><td><h3><tiles:getAsString name="title"/></h3></td></tr>   
+					<script language="javascript">
+						document.getElementById("h3Header").innerHTML = "<tiles:getAsString name="title"/>";
+					</script>
+						<!--  <tr class="report"><td><b><tiles:getAsString name="title"/></b></td></tr>   -->
 						<tr><td>
 						<tiles:insert attribute="tabs"/>
 						<div id="main">
