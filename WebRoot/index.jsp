@@ -4,6 +4,15 @@
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app"%>
 
+<%
+if(session.getAttribute("logged") == "yes")
+{
+//youre already logged in, why are you here?
+response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+String newLocn = "simpleSearch.do";
+response.setHeader("Location",newLocn);
+}
+%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
