@@ -50,7 +50,7 @@
 			<!--header ispy image map-->
 			<div style="width:765px; border-bottom: 1px solid #000000; margin:0px;">
 				<map name="ispyPortalMap">
-					<area alt="I-SPY Application Logo" coords="5,3,236,61" href="loginHome.do">
+					<area alt="I-SPY Application Logo" coords="5,3,236,61" href="#">
 				</map>
 				<img src="images/ispyPortalHeader.gif" width="765" height="65" border="0" usemap="#ispyPortalMap">
 			</div>
