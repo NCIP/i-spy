@@ -95,19 +95,15 @@ function putDetails(userList){
 		listType = list[0].getAttribute("type");
 		
 		var items = userList.getElementsByTagName("item");		
-		var invalidItems = userList.getElementsByTagName("invalidItem");	 		
+		var invalidItems = userList.getElementsByTagName("invalidItem");	 
 		
-		if(items.length < 1)	{
-			//no details
-			throw("No details found.");
-		}
- 		
- 		var itemId;
+		var itemId;
  		var value;
  		var dDIV = document.createElement("div");
  		dDIV.setAttribute("id",listName + "detailsDiv");
  		dDIV.setAttribute("class", "listItemsDiv");
- 			
+ 		
+ 		if(items.length > 1)	{
 		 		for(var i=0; i<items.length; i++)	{
 		 		
 		 			itemId = items[i].firstChild.data;	
@@ -163,7 +159,12 @@ function putDetails(userList){
 				//exDIV.style.border="1px solid red";
 				exDIV.onclick = oc;
 				dDIV.appendChild(exDIV);
-		     
+				}
+		     else{
+		        document.getElementById(listName + "details").appendChild(dDIV);
+		      	$(listName + "detailsDiv").innerHTML = "<span>No details found</span>";
+		     	}
+		       
 	 		}
 	 		catch(err)	{
 	 			$("details").innerHTML = err;
