@@ -283,7 +283,7 @@ font-size:1.3em;
 	vertical-align:top;
 }
 .listItemsDiv	{
-	margin-left:20px;	
+	margin-left:20px;
 }
 
 .listListing span {
@@ -304,7 +304,8 @@ font-size:1.3em;
 	}
 
 fieldset.groupList	{
-	margin:10px;	
+	margin:10px;
+	_margin-bottom:20px;
 }
 fieldset.listForm{
 	margin:10px;
