@@ -106,23 +106,26 @@ public class ClinicalFileBasedQueryService {
 //              UNCOMMENT THE LINES BELOW WHEN THE NEW CLINICAL DATA IS AVAILABLE
 //              THE NEW DATA FILE SHOULD BE SET IN THE Application Context Class
 //
-//				String doubleStr = tokens[45];
-//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-//				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
-//				}
+				String doubleStr = tokens[45];
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
+				}
 //				
-//				doubleStr = tokens[46];
-//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-//				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
-//			    }
+				doubleStr = tokens[46];
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
+			    }
 //				
-//				doubleStr = tokens[47];
-//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-//				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
-//			    }
+				doubleStr = tokens[47];
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
+			    }
 //				
 //				
-//				
+//
+				pd.setMorphPatternBsl(tokens[48]);
+				
+				
 //				pd.setMriNodalMorphology_T1(tokens[48]);
 //				pd.setMriNodalMorphology_T2(tokens[49]);
 //				pd.setMriNodalMorphology_T3(tokens[50]);

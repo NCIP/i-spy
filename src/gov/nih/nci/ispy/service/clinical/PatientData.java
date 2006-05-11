@@ -54,6 +54,9 @@ private String  ispy_id,
     private Double mriPctChangeT1_T2;
     private Double mriPctChangeT1_T3;
     private Double mriPctChangeT1_T4;
+    
+    private String morphPatternBsl;
+    
     private String mriNodalMorphology_T1;
     private String mriNodalMorphology_T2;
     private String mriNodalMorphology_T3;
@@ -602,6 +605,14 @@ private String  ispy_id,
 
 	public void setMriPctChangeT1_T4(Double mriPctChangeT1_T4) {
 		this.mriPctChangeT1_T4 = mriPctChangeT1_T4;
+	}
+
+	public String getMorphPatternBsl() {
+		return morphPatternBsl;
+	}
+
+	public void setMorphPatternBsl(String morphPatternBsl) {
+		this.morphPatternBsl = morphPatternBsl;
 	}
 
 }
