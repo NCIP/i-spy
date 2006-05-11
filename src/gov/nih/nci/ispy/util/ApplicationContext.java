@@ -138,7 +138,7 @@ public class ApplicationContext{
            logger.info("Clinical data service initialized successfully loaded numRecords=" + clinRecordsLoaded);
         
 
-           String patientDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_patient_data_5-4-06.txt";
+           String patientDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_patient_data_5_11.txt";
            logger.info("Clinical data service loading patient data fileName=" + patientDataFileName);
            int patientRecordsLoaded = cqs.setPatientDataMap(patientDataFileName);
            logger.info("Clinical data service successfully loaded patient data numRecords=" + patientRecordsLoaded);
