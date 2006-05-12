@@ -93,8 +93,11 @@ public final class ispyConstants {
     
     public static final String USER_CREDENTIALS = "UserCredentials";
     
-    public static final String DEFAULT_PATIENT_USER_LIST1 = "defaultPatientList1.txt";
+    public static final String ALL_USER_LISTS = "allUserLists.txt";
+    
+    public static final String PATIENT_USER_LISTS_POSTFIX = "_patientList.txt";
 
-    public static final String DEFAULT_GENE_USER_LIST1 = "defaultGeneList1.txt";
+    public static final String GENE_USER_LISTS_POSTFIX = "_geneList.txt";
+
 
 }

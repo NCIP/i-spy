@@ -6,6 +6,7 @@ import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
 import gov.nih.nci.caintegrator.application.lists.UserListGenerator;
 import gov.nih.nci.ispy.cache.ISPYContextListener;
+import gov.nih.nci.ispy.util.ISPYListLoader;
 import gov.nih.nci.ispy.util.ISPYListManager;
 import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.struts.form.LoginForm;
@@ -73,27 +74,7 @@ public final class LoginAction extends Action
                      * instantiate pre-cooked user lists. Files are .txt files in our 
                      * directory.
                      */
-                    String patientUserList1FileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + ispyConstants.DEFAULT_PATIENT_USER_LIST1;
-                    logger.info("Initializing "+patientUserList1FileName);
-                    String geneUserList1FileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + ispyConstants.DEFAULT_GENE_USER_LIST1;
-                    
-                    
-                    File userFile = new File(patientUserList1FileName);
-                    File userFile2 = new File(geneUserList1FileName);
-                    List<String> patientUserList1 = UserListGenerator.generateList(userFile);
-                    List<String> geneUserList1 = UserListGenerator.generateList(userFile2);
-                    if(!patientUserList1.isEmpty()){
-                        UserList myList = uploadManager.createList(ListType.PatientDID, "defaultPatientList", patientUserList1);
-                        if(myList!=null){
-                            userListBean.addList(myList);
-                        }
-                    }
-                    if(!geneUserList1.isEmpty()){
-                        UserList myList = uploadManager.createList(ListType.GeneSymbol, "defaultGeneList", geneUserList1);
-                        if(myList!=null){
-                            userListBean.addList(myList);
-                        }
-                    }
+                    userListBean = ISPYListLoader.loadLists(userListBean,ispyConstants.ALL_USER_LISTS);                    
                     //add userListBean to session
                     session.setAttribute(ispyConstants.USER_LISTS,userListBean);
                     
