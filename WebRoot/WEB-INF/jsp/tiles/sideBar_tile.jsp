@@ -69,7 +69,7 @@ var SidebarHelper = {
 
 		for(var i=0; i<lis.length; i++)	{
 			lis[i].ondblclick = function() { 
-				var url = "listExport.jsp?list="+this.innerHTML;
+				var url = "listExport.jsp?list="+this.id;
 				location.href=url;
 				//this = the li we want
 				//alert(this.innerHTML); 
@@ -83,6 +83,8 @@ var SidebarHelper = {
 				this.title = tmpp[this.id];
 				return nd();
 			};
+			
+			lis[i].id = lis[i].innerHTML;
 			
 			lis[i].style.cursor = "pointer";
 			//trim the HTML length
