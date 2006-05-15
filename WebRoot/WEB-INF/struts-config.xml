@@ -104,7 +104,7 @@
          forward="ispy.hierarchicalClustering" />
 	
 	<action path="/hierarchicalclustering"
-	    input="ispy.hierarchicalClustering"
+	    input="/hierarchicalclusteringInit.do?method=setup"
 		type="gov.nih.nci.ispy.web.struts.action.HierarchicalClusteringAction"
 		name="hierarchicalClusteringForm"
 		scope="request"
