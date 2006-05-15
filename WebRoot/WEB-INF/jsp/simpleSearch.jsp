@@ -226,7 +226,10 @@
 					eDIV.setAttribute("style","width:100%");
 					eDIV.style.width = "100%";
 					eDIV.setAttribute("frameborder","0");
-					eDIV.style.display = "none";
+					
+					if(numpatients > 1)
+						eDIV.style.display = "none";
+						
 					document.getElementById("ifcontainer").appendChild(eDIV);
 					
 				}
