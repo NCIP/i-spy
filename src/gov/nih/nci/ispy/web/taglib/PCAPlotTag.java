@@ -172,40 +172,40 @@ public class PCAPlotTag extends AbstractGraphingTag {
                 timepoint = si.getTimepoint();
                 
                 pcaPoint.setTimepoint(timepoint);
-                pcaPoint.setClinicalStage(patientData.getClinicalStage());
                 
-                int clinRespVal;
-                Double mriPctChange = null;
-                if (timepoint == TimepointType.T1) {
-                  pcaPoint.setClinicalResponse(ClinicalResponseType.NA);
-                  pcaPoint.setTumorMRIpctChange(null);
+                if (patientData != null) {
+	                pcaPoint.setClinicalStage(patientData.getClinicalStage());
+	                
+	                int clinRespVal;
+	                Double mriPctChange = null;
+	                if (timepoint == TimepointType.T1) {
+	                  pcaPoint.setClinicalResponse(ClinicalResponseType.NA);
+	                  pcaPoint.setTumorMRIpctChange(null);
+	                }
+	                else if (timepoint == TimepointType.T2) {
+	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T2());
+	                  //set the clinical respoinse to the T1_T2
+	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
+	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T2());
+	                }
+	                else if (timepoint == TimepointType.T3) {
+	                  //set the clinical response to T1_T3
+	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T3());
+	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
+	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T3());
+	                }
+	                else if (timepoint == TimepointType.T4) {
+	                  //set the clinical response to T1_T4
+	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T4());
+	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
+	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T4());
+	                }
+	                else {
+	                  pcaPoint.setClinicalResponse(ClinicalResponseType.UNKNOWN);
+	                  pcaPoint.setTumorMRIpctChange(null);
+	                }
                 }
-                else if (timepoint == TimepointType.T2) {
-                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T2());
-                  //set the clinical respoinse to the T1_T2
-                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
-                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T2());
-                }
-                else if (timepoint == TimepointType.T3) {
-                  //set the clinical response to T1_T3
-                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T3());
-                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
-                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T3());
-                }
-                else if (timepoint == TimepointType.T4) {
-                  //set the clinical response to T1_T4
-                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T4());
-                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
-                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T4());
-                }
-                else {
-                  pcaPoint.setClinicalResponse(ClinicalResponseType.UNKNOWN);
-                  pcaPoint.setTumorMRIpctChange(null);
-                }
-                
-                //STILL Need to set this when it is available
-                //pcaPoint.setTumorMRIpctChange(clinData.getMRIpctChange());
-                 
+                   
                 pcaData.add(pcaPoint);
             }
           

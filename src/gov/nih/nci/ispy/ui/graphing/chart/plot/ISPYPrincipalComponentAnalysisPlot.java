@@ -358,15 +358,26 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	private Color getColorForDataPoint(ISPYPCADataPoint pcaPoint) {
 	  Color defaultColor = Color.GRAY;
 	  Color retColor = null;
-	  
+	  ClinicalResponseType clinResp =null;
+	  ClinicalStageType clinStage = null;
+	  TimepointType timepoint = null;
 	  if (colorBy == ISPYPCAcolorByType.CLINICALRESPONSE) {
-		retColor = pcaPoint.getClinicalResponse().getColor();  
+		clinResp = pcaPoint.getClinicalResponse();
+		if (clinResp != null) {
+		  retColor = clinResp.getColor();
+		}
 	  }
 	  else if (colorBy == ISPYPCAcolorByType.DISEASESTAGE) {
-	    retColor = pcaPoint.getClinicalStage().getColor();  
+		clinStage = pcaPoint.getClinicalStage();
+		if (clinStage != null) {
+	      retColor = clinStage.getColor();
+		}
 	  }
 	  else if (colorBy == ISPYPCAcolorByType.TIMEPOINT) {
-	    retColor = pcaPoint.getTimepoint().getColor();  
+	    timepoint = pcaPoint.getTimepoint();
+	    if (timepoint != null) {
+	      retColor = timepoint.getColor();
+	    }
 	  }
 	  
 	  if (retColor == null) {
