@@ -115,8 +115,9 @@ public class ISPYPCADataPoint extends PrincipalComponentAnalysisDataPoint {
 	public String toString() {
 		
 	   StringBuffer sb = new StringBuffer();
-	   sb.append(getISPY_ID() + " ");
+	   //sb.append(getISPY_ID() + " ");
 	   sb.append(getSampleId() + " ");
+	   sb.append(getISPY_ID() + " ");
 	   sb.append(getTimepoint() + " ");
 	  
 	   if (getClinicalResponse()!= ClinicalResponseType.MISSING) {
