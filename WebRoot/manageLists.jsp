@@ -1,5 +1,6 @@
 <%@ page
 	import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean,gov.nih.nci.ispy.util.ISPYListManager,gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document"%>
+<%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
@@ -289,6 +290,8 @@ function putDetails(userList){
 							gene symbol
 						</option>
 					</select>
+					<app:help help="There must only be one entry (id) per line." />
+					
 				</td>
 			</tr>
 			<tr>
