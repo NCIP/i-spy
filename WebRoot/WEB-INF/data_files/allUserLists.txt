@@ -1,3 +1,2 @@
-testP_patientList.txt
-testG_geneList.txt
-anotherTestP_patientList.txt
+testP.txt#PatientDID
+testG.txt#GeneSymbol

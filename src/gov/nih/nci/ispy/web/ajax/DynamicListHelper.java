@@ -12,11 +12,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import gov.nih.nci.caintegrator.application.lists.ListManager;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
-import gov.nih.nci.ispy.util.ISPYListManager;
 import gov.nih.nci.ispy.util.ispyConstants;
+import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 
 import javax.servlet.http.HttpSession;
@@ -44,7 +45,7 @@ public class DynamicListHelper {
         if (!patientLists.isEmpty()) {
             for (int i = 0; i < patientLists.size(); i++) {
                 UserList list = (UserList) patientLists.get(i);
-                ISPYListManager uploadManager = (ISPYListManager) ISPYListManager.getInstance();
+                ListManager uploadManager = (ListManager) ListManager.getInstance();
                 Map paramMap = uploadManager.getParams(list);
                 String commas = StringUtils.join(list.getList().toArray(), ",");
                 results += ("<li id='" + paramMap.get("listName") + "' title='"+commas+"'>"+paramMap.get("listName")+"</li>");
@@ -76,9 +77,10 @@ public class DynamicListHelper {
 		}
 		
 		String success = "fail";
-		ISPYListManager um = ISPYListManager.getInstance();
+		ListManager um = ListManager.getInstance();
+        ISPYListValidator listValidator = new ISPYListValidator();
 		try	{
-			UserList mylist = um.createList(type, name, cleanList);
+			UserList mylist = um.createList(type, name, cleanList, listValidator);
 			ISPYUserListBeanHelper ulbh = new ISPYUserListBeanHelper();
 			ulbh.addList(mylist);
 			success = "pass";

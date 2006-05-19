@@ -1,22 +1,17 @@
 package gov.nih.nci.ispy.web.ajax;
 
+import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
+import gov.nih.nci.ispy.service.annotation.RegistrantInfo;
+import gov.nih.nci.ispy.service.annotation.SampleInfo;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-
-import gov.nih.nci.caintegrator.application.lists.ListType;
-import gov.nih.nci.caintegrator.application.lists.UserList;
-import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
-import gov.nih.nci.ispy.service.annotation.RegistrantInfo;
-import gov.nih.nci.ispy.service.annotation.SampleInfo;
-import gov.nih.nci.ispy.util.ISPYListManager;
-import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 
 public class IdLookup {
 

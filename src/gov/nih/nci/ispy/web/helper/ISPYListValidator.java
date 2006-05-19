@@ -21,17 +21,16 @@ import java.util.Set;
  * 
  */
 public class ISPYListValidator implements ListValidator{
-    List<String> invalidList = new ArrayList<String>();
-    List<String> validList = new ArrayList<String>();
+    
     IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
     GeneExprFileBasedAnnotationService geneService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
-    Set<ReporterAnnotation> reporters = new HashSet<ReporterAnnotation>();
-    Set<String> geneSymbols = new HashSet<String>();
-    Set<RegistrantInfo> riSet = new HashSet<RegistrantInfo>();
-    
-    
-
+   
     public List<String> getValidList(ListType listType, List<String> myList) {
+       List<String> validList = new ArrayList<String>();
+       Set<String> geneSymbols = new HashSet<String>();
+       Set<ReporterAnnotation> reporters = new HashSet<ReporterAnnotation>();
+       Set<RegistrantInfo> riSet = new HashSet<RegistrantInfo>();
+       
        if(listType == ListType.PatientDID){            
             List<RegistrantInfo> entries = idMapper.getMapperEntriesForIds(myList);
             riSet.addAll( entries );
@@ -55,6 +54,8 @@ public class ISPYListValidator implements ListValidator{
     }
 
     public List<String> getInvalidList(ListType listType, List<String> myList) {
+        List<String> invalidList = new ArrayList<String>();
+        Set<ReporterAnnotation> reporters = new HashSet<ReporterAnnotation>();
         if(listType == ListType.PatientDID){
              invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
         }

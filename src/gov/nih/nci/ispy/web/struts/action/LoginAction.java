@@ -1,20 +1,17 @@
 package gov.nih.nci.ispy.web.struts.action;
 
 
-import gov.nih.nci.caintegrator.application.lists.ListType;
-import gov.nih.nci.caintegrator.application.lists.UserList;
+import gov.nih.nci.caintegrator.application.lists.ListManager;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
-import gov.nih.nci.caintegrator.application.lists.UserListGenerator;
 import gov.nih.nci.ispy.cache.ISPYContextListener;
 import gov.nih.nci.ispy.util.ISPYListLoader;
-import gov.nih.nci.ispy.util.ISPYListManager;
 import gov.nih.nci.ispy.util.ispyConstants;
+import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 import gov.nih.nci.ispy.web.struts.form.LoginForm;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -32,7 +29,8 @@ public final class LoginAction extends Action
 {
     private static Logger logger = Logger.getLogger(ispyConstants.LOGGER);
     private static String SEPERATOR = File.separator;
-    private  ISPYListManager uploadManager =(ISPYListManager) ISPYListManager.getInstance();
+    private  ListManager uploadManager =(ListManager) ListManager.getInstance();
+    
     
     
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -74,7 +72,10 @@ public final class LoginAction extends Action
                      * instantiate pre-cooked user lists. Files are .txt files in our 
                      * directory.
                      */
-                    userListBean = ISPYListLoader.loadLists(userListBean,ispyConstants.ALL_USER_LISTS);                    
+                    ISPYListValidator listValidator = new ISPYListValidator();
+                    String filePath = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar;
+                    
+                    userListBean = ISPYListLoader.loadLists(userListBean,ispyConstants.ALL_USER_LISTS, filePath, listValidator);                    
                     //add userListBean to session
                     session.setAttribute(ispyConstants.USER_LISTS,userListBean);
                     

@@ -2,7 +2,8 @@
 	import="gov.nih.nci.caintegrator.application.lists.ListType,
 	gov.nih.nci.caintegrator.application.lists.UserList,
 	gov.nih.nci.caintegrator.application.lists.UserListBean,
-	gov.nih.nci.ispy.util.ISPYListManager,
+	gov.nih.nci.ispy.web.helper.ISPYListValidator,
+	gov.nih.nci.caintegrator.application.lists.ListManager,
 	gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,
 	gov.nih.nci.caintegrator.application.lists.UserListGenerator,
 	org.apache.commons.fileupload.DiskFileUpload,
@@ -23,6 +24,7 @@
 	<body>
 
 		<%UserListGenerator listGenerator = new UserListGenerator();
+		ISPYListValidator listValidator = new ISPYListValidator();
 		String name = "";
 		String type = "";
 		FileItem formFile = null;
@@ -59,7 +61,7 @@
         }
 		List myUndefinedList = listGenerator.generateList(formFile);
             
-            ISPYListManager uploadManager = (ISPYListManager) ISPYListManager
+            ListManager uploadManager = (ListManager) ListManager
                     .getInstance();
             Map paramMap = new HashMap();
             UserList myList = new UserList();
@@ -68,11 +70,11 @@
                     .getSession());
             if(type.equalsIgnoreCase("patient")){
 	             myList = uploadManager.createList(ListType.PatientDID,
-	                    name, myUndefinedList);
+	                    name, myUndefinedList, listValidator);
 	        }
 	        else if(type.equalsIgnoreCase("gene symbol")){
 	             myList = uploadManager.createList(ListType.GeneSymbol,
-	                    name, myUndefinedList);
+	                    name, myUndefinedList, listValidator);
 	        }
 	        
 	        
