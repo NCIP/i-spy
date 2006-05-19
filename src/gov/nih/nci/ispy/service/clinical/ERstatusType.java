@@ -14,26 +14,45 @@ import java.util.List;
 public enum ERstatusType implements Serializable {
 
   ER_POS { public Color getColor() { return Color.GREEN; }
-           public String toString() { return "ER+"; }},
+           public String toString() { return "ER+"; }
+  		   public boolean show() { return true;}},
   ER_NEG { public Color getColor() { return Color.BLUE; }
-           public String toString() { return "ER-";}},
-  UNKNOWN { public Color getColor() { return Color.GRAY; }},
-  MISSING { public Color getColor() { return Color.GRAY; }};
+           public String toString() { return "ER-";}
+           public boolean show() { return true;}},
+  UNKNOWN { public Color getColor() { return Color.GRAY; }
+            public boolean show() { return false;}},
+  MISSING { public Color getColor() { return Color.GRAY; }
+            public boolean show() { return false;}};
  
 
   public static List<ERstatusType>getDisplayValues(){
       List<ERstatusType> displayValues = new ArrayList<ERstatusType>();
       ERstatusType[] values = ERstatusType.values();
       for(int i =0; i < values.length; i++){
-          if(!values[i].equals(ERstatusType.MISSING) &&
-                  !values[i].equals(ERstatusType.UNKNOWN)){
-              displayValues.add(values[i]);
-              
+          if(values[i].show()){
+              displayValues.add(values[i]);   
           }
       }
       return displayValues;
   }
   
   public abstract Color getColor();
+  public abstract boolean show();
+  
+  public static ERstatusType getTypeForString(String erStr) {
+    if ((erStr == null)||(erStr.trim().length()==0)) {
+      return MISSING;
+    }
+    
+    String str = erStr.toUpperCase();
+    if (str.startsWith("POS")) {
+      return ER_POS;
+    }
+    
+    if (str.startsWith("NEG")) {
+      return ER_NEG;
+    }
+    return UNKNOWN;
+  }
   
 }

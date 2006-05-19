@@ -56,14 +56,20 @@ private String  ispy_id,
     private Double mriPctChangeT1_T4;
     
     private String morphPatternBsl;
+
+	private ClinicalResponseType clinicalResponse_t1_t3;
+
+	private ClinicalResponseType clinicalResponse_t1_t4;
+
+	private ClinicalResponseType clinicalResponse_t1_t2;
+
+	private ERstatusType erStatus;
+
+	private PRstatusType prStatus;
+
+	private HER2statusType her2Status;
     
-    private String mriNodalMorphology_T1;
-    private String mriNodalMorphology_T2;
-    private String mriNodalMorphology_T3;
-    private String mriNodalMorphology_T4;
     
-	 
-	
 	public PatientData(String ispy_id) {
 		this.ispy_id = ispy_id;
 	}
@@ -123,6 +129,8 @@ private String  ispy_id,
 
 	public void setClinRespT1_T2(String clinrespt1_t2) {
 		this.clinrespt1_t2 = clinrespt1_t2;
+		int crValue = parseValue(clinrespt1_t2);
+		this.clinicalResponse_t1_t2 = ClinicalResponseType.getTypeForValue(crValue);
 	}
 
 
@@ -133,6 +141,8 @@ private String  ispy_id,
 
 	public void setClinRespT1_T3(String clinrespt1_t3) {
 		this.clinrespt1_t3 = clinrespt1_t3;
+		int crValue = parseValue(clinrespt1_t3);
+		this.clinicalResponse_t1_t3 = ClinicalResponseType.getTypeForValue(crValue);
 	}
 
 
@@ -143,6 +153,19 @@ private String  ispy_id,
 
 	public void setClinRespT1_T4(String clinrespt1_t4) {
 		this.clinrespt1_t4 = clinrespt1_t4;
+		int crValue = parseValue(clinrespt1_t4);
+		this.clinicalResponse_t1_t4 = ClinicalResponseType.getTypeForValue(crValue);
+	}
+	
+	public ClinicalResponseType getClinicalResponse(TimepointType timepoint) {
+		switch(timepoint) {
+		case T1: return ClinicalResponseType.NA;
+		case T2: return clinicalResponse_t1_t2;
+		case T3: return clinicalResponse_t1_t3;
+		case T4: return clinicalResponse_t1_t4;
+		
+		}
+		return ClinicalResponseType.NA;
 	}
 
 
@@ -173,6 +196,7 @@ private String  ispy_id,
 
 	public void setER_TS(String er_ts) {
 		this.er_ts = er_ts;
+		this.erStatus = ERstatusType.getTypeForString(parseString(er_ts));
 	}
 
 
@@ -193,6 +217,7 @@ private String  ispy_id,
 
 	public void setHER2CommunityPOS(String her2communitypos) {
 		this.her2communitypos = her2communitypos;
+		this.her2Status = HER2statusType.getTypeForString(parseString(her2communitypos));
 	}
 
 
@@ -313,6 +338,7 @@ private String  ispy_id,
 
 	public void setPGR_TS(String pgr_ts) {
 		this.pgr_ts = pgr_ts;
+		this.prStatus = PRstatusType.getTypeForString(parseString(pgr_ts));
 	}
 
 
@@ -551,38 +577,6 @@ private String  ispy_id,
 		
 	}
 
-	public String getMriNodalMorphology_T1() {
-		return mriNodalMorphology_T1;
-	}
-
-	public void setMriNodalMorphology_T1(String mriNodalMorphology_T1) {
-		this.mriNodalMorphology_T1 = mriNodalMorphology_T1;
-	}
-
-	public String getMriNodalMorphology_T2() {
-		return mriNodalMorphology_T2;
-	}
-
-	public void setMriNodalMorphology_T2(String mriNodalMorphology_T2) {
-		this.mriNodalMorphology_T2 = mriNodalMorphology_T2;
-	}
-
-	public String getMriNodalMorphology_T3() {
-		return mriNodalMorphology_T3;
-	}
-
-	public void setMriNodalMorphology_T3(String mriNodalMorphology_T3) {
-		this.mriNodalMorphology_T3 = mriNodalMorphology_T3;
-	}
-
-	public String getMriNodalMorphology_T4() {
-		return mriNodalMorphology_T4;
-	}
-
-	public void setMriNodalMorphology_T4(String mriNodalMorphology_T4) {
-		this.mriNodalMorphology_T4 = mriNodalMorphology_T4;
-	}
-
 	public Double getMriPctChangeT1_T2() {
 		return mriPctChangeT1_T2;
 	}
@@ -613,6 +607,18 @@ private String  ispy_id,
 
 	public void setMorphPatternBsl(String morphPatternBsl) {
 		this.morphPatternBsl = morphPatternBsl;
+	}
+
+	public ERstatusType getErStatus() {
+		return erStatus;
+	}
+
+	public PRstatusType getPrStatus() {
+		return prStatus;
+	}
+
+	public HER2statusType getHER2status() {
+	  return her2Status;
 	}
 
 }

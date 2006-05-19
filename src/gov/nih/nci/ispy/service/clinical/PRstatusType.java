@@ -34,5 +34,19 @@ public enum PRstatusType implements Serializable {
   }
   
   public abstract Color getColor();
+
+  public static PRstatusType getTypeForString(String str) {
+	if ((str==null)||(str.trim().length()==0)) return MISSING;
+	
+	String strUC = str.toUpperCase();
+	
+	if (strUC.startsWith("POS")) { return PR_POS; }
+	
+	if (strUC.startsWith("NEG")) { return PR_NEG; }
+	
+	return UNKNOWN;
+	
+	
+  }
   
 }
