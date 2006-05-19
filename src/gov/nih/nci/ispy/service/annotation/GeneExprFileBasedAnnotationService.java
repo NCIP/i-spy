@@ -1,29 +1,23 @@
 package gov.nih.nci.ispy.service.annotation;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Set;
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
+import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
+import gov.nih.nci.caintegrator.application.util.StringUtils;
+import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-import java.util.regex.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
-
-import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
-import gov.nih.nci.caintegrator.application.util.StringUtils;
-
-import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
-import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
-import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
-import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 //import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
 //import gov.nih.nci.caintegrator.dto.de.DatumDE;
 
@@ -35,6 +29,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	private Map<String, ReporterAnnotation> reporterMap = new HashMap<String, ReporterAnnotation>(55000);
 	private Map<String, Set<ReporterAnnotation>> gene2reporterMap = new HashMap<String, Set<ReporterAnnotation>>(45000);
 	private boolean annotationFileSet = false;
+	private String arrayTypeStr;
 	private static Logger logger = Logger.getLogger(GeneExprFileBasedAnnotationService.class);
 
 	
@@ -74,10 +69,12 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 		  //ReporterName\tGeneSymbol\tGenbankAcc\tLocusLinkId\tPathway\tGO
 		  
 		  //Pattern pattern = Pattern.compile("(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)\t(\\S*)");
-		  Pattern pattern = Pattern.compile("([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)");
+		  
+		  //Pattern pattern = Pattern.compile("([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)\t([^\t]*)");
+		  
 		  //reset the map
 		  reporterMap.clear();
-		  Matcher matcher = null;
+		  //Matcher matcher = null;
 		  
 		  List<String> geneSymbols = null;
 		  List<String> genbankAccessions = null;
@@ -85,27 +82,66 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 		  List<String> pathways = null;
 		  List<String> goIds = null;
 		  
-		  
+		  String[] tokens;
 		  while ((line=in.readLine())!= null) {
 		    
 			//System.out.println("processing line=" + line);
 			  
-			matcher = pattern.matcher(line);
+//			matcher = pattern.matcher(line);
+//			
+//			if (!matcher.find()) {
+//			  throw new IOException("Annotation file has a format problem.");
+//			}
+			  
+			tokens = line.split("\t", -2);
 			
-			if (!matcher.find()) {
-			  throw new IOException("Annotation file has a format problem.");
+//		    reporterName = matcher.group(1);
+//		    geneSymbolsStr = matcher.group(2);
+//		    genbankAccsStr = matcher.group(3);
+//		    locusLinkIdsStr = matcher.group(4); 
+//		    pathwaysStr = matcher.group(5);
+//		    goIdsStr = matcher.group(6);
+			
+			reporterName = tokens[0];
+			geneSymbolsStr = tokens[1];
+			arrayTypeStr =  tokens[2];
+			
+			if (tokens.length > 3) {
+			  genbankAccsStr = tokens[3];
+			}
+			else {
+			  genbankAccsStr = "";
 			}
 			
-		    reporterName = matcher.group(1);
-		    geneSymbolsStr = matcher.group(2);
-		    genbankAccsStr = matcher.group(3);
-		    locusLinkIdsStr = matcher.group(4); 
-		    pathwaysStr = matcher.group(5);
-		    goIdsStr = matcher.group(6);
-		   
+			if (tokens.length > 4) {
+			  locusLinkIdsStr = tokens[4];
+			}
+			else {
+			  locusLinkIdsStr = "";
+			}
+			
+			if (tokens.length > 5) {
+			  pathwaysStr = tokens[5];
+			}
+			else {
+			  pathwaysStr = "";
+			}
+			
+			if (tokens.length > 6) {
+			  goIdsStr = tokens[6];
+			}
+			else {
+			  goIdsStr = "";
+			}
 		    
 		    //@TODO need to parse the array platform type out of the file
-		    reporterAnnotation = new ReporterAnnotation(reporterName, ArrayPlatformType.AGILENT);
+			if (arrayTypeStr.equalsIgnoreCase("AGILENT")) {
+		      reporterAnnotation = new ReporterAnnotation(reporterName, ArrayPlatformType.AGILENT);
+			}
+			else if (arrayTypeStr.equalsIgnoreCase("CDNA")) {
+				reporterAnnotation = new ReporterAnnotation(reporterName, ArrayPlatformType.CDNA_ARRAY_PLATFORM);
+			}
+					
 		    
 		    //reporterAnnotation = new ReporterResultset(new DatumDE(DatumDE.PROBESET_ID, reporterName));
 		
