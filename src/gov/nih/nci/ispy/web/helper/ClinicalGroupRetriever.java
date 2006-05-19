@@ -33,8 +33,8 @@ public class ClinicalGroupRetriever {
             clinicalGroupsCollection.add(new LabelValueBean(patientList.getName(),patientList.getClass().getCanonicalName() + "#" + patientList.getName()));
         }
         
-        for (ClinicalStageType diseaseStageType : ClinicalStageType.getDisplayValues()){
-            clinicalGroupsCollection.add(new LabelValueBean(diseaseStageType.toString(),diseaseStageType.getDeclaringClass().getCanonicalName() + "#" + diseaseStageType.name()));
+        for (ClinicalStageType clinicalStageType : ClinicalStageType.getDisplayValues()){
+            clinicalGroupsCollection.add(new LabelValueBean(clinicalStageType.toString(),clinicalStageType.getDeclaringClass().getCanonicalName() + "#" + clinicalStageType.name()));
         }
         for (ClinicalResponseType clinicalResponseType : ClinicalResponseType.getDisplayValues()){
             clinicalGroupsCollection.add(new LabelValueBean(clinicalResponseType.toString(),clinicalResponseType.getDeclaringClass().getCanonicalName() + "#" + clinicalResponseType.name()));
