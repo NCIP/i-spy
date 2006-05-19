@@ -132,10 +132,10 @@ public class ApplicationContext{
         	
            //initialize the ClinicalFileBasedQueryService
            ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
-           String clinicalDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_14MARCH06.txt";
-           logger.info("Initializing file based clinical data service fileName=" + clinicalDataFileName);
-           int clinRecordsLoaded  = cqs.setClinicalDataFile(clinicalDataFileName);
-           logger.info("Clinical data service initialized successfully loaded numRecords=" + clinRecordsLoaded);
+           //String clinicalDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_14MARCH06.txt";
+           //logger.info("Initializing file based clinical data service fileName=" + clinicalDataFileName);
+           //int clinRecordsLoaded  = cqs.setClinicalDataFile(clinicalDataFileName);
+           //logger.info("Clinical data service initialized successfully loaded numRecords=" + clinRecordsLoaded);
         
 
            String patientDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_patient_data_5_11.txt";
@@ -158,7 +158,8 @@ public class ApplicationContext{
 		   logger.info("Initializing GeneExprAnnotationService");
 		   long startTime = System.currentTimeMillis();
 		   GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
-		   String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
+		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
+		   String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gx_annotations_5-19-06.txt";
 		   int gxRecLoaded = gxAnnotService.setAnnotationFile(annotFileName);
 		   
 		   
