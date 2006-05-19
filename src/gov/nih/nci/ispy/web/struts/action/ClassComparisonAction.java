@@ -215,7 +215,7 @@ public class ClassComparisonAction extends DispatchAction {
                  */
                 EnumSet<TimepointType> timepoints = EnumSet.noneOf(TimepointType.class);
                 EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
-                EnumSet<ClinicalStageType> diseaseStages = EnumSet.noneOf(ClinicalStageType.class);
+                EnumSet<ClinicalStageType> clinicalStages = EnumSet.noneOf(ClinicalStageType.class);
                 EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
                 EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
                 EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
@@ -264,7 +264,7 @@ public class ClassComparisonAction extends DispatchAction {
                         clinicalResponses.add((ClinicalResponseType) myType);
                     }
                     if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalStageType.class) {
-                        diseaseStages.add((ClinicalStageType) myType);
+                        clinicalStages.add((ClinicalStageType) myType);
                     }
                     if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
                         erStatus.add((ERstatusType) myType);
@@ -276,7 +276,7 @@ public class ClassComparisonAction extends DispatchAction {
                         prStatus.add((PRstatusType) myType);
                     } 
                     ispyClinicalDataQueryDTO.setClinicalResponseValues(clinicalResponses);
-                    ispyClinicalDataQueryDTO.setDiseaseStageValues(diseaseStages);
+                    ispyClinicalDataQueryDTO.setClinicalStageValues(clinicalStages);
                     ispyClinicalDataQueryDTO.setErStatusValues(erStatus);
                     ispyClinicalDataQueryDTO.setHer2StatusValues(her2Status);
                     ispyClinicalDataQueryDTO.setPrStatusValues(prStatus);
@@ -297,7 +297,7 @@ public class ClassComparisonAction extends DispatchAction {
              * instantiate blank EnumSets
              */
             EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
-            EnumSet<ClinicalStageType> diseaseStages = EnumSet.noneOf(ClinicalStageType.class);
+            EnumSet<ClinicalStageType> clinicalStages = EnumSet.noneOf(ClinicalStageType.class);
             EnumSet<ERstatusType> erStatus = EnumSet.noneOf(ERstatusType.class);
             EnumSet<HER2statusType> her2Status = EnumSet.noneOf(HER2statusType.class);
             EnumSet<PRstatusType> prStatus = EnumSet.noneOf(PRstatusType.class);
@@ -353,7 +353,7 @@ public class ClassComparisonAction extends DispatchAction {
                             clinicalResponses.add((ClinicalResponseType) myType);
                         }
                         if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ClinicalStageType.class) {
-                            diseaseStages.add((ClinicalStageType) myType);
+                            clinicalStages.add((ClinicalStageType) myType);
                         }
                         if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.ERstatusType.class) {
                             erStatus.add((ERstatusType) myType);
@@ -375,7 +375,7 @@ public class ClassComparisonAction extends DispatchAction {
                         ispyClinicalDataQueryDTOBase.setBaseline(true);                       
                         ispyClinicalDataQueryDTOBase.setTimepointValues(timepointsBase); 
                         ispyClinicalDataQueryDTOBase.setClinicalResponseValues(clinicalResponses);
-                        ispyClinicalDataQueryDTOBase.setDiseaseStageValues(diseaseStages);
+                        ispyClinicalDataQueryDTOBase.setClinicalStageValues(clinicalStages);
                         ispyClinicalDataQueryDTOBase.setErStatusValues(erStatus);
                         ispyClinicalDataQueryDTOBase.setHer2StatusValues(her2Status);
                         ispyClinicalDataQueryDTOBase.setPrStatusValues(prStatus);
@@ -391,7 +391,7 @@ public class ClassComparisonAction extends DispatchAction {
                                  }                           
                         ispyClinicalDataQueryDTOComparison.setTimepointValues(timepointsComp); 
                         ispyClinicalDataQueryDTOComparison.setClinicalResponseValues(clinicalResponses);
-                        ispyClinicalDataQueryDTOComparison.setDiseaseStageValues(diseaseStages);
+                        ispyClinicalDataQueryDTOComparison.setClinicalStageValues(clinicalStages);
                         ispyClinicalDataQueryDTOComparison.setErStatusValues(erStatus);
                         ispyClinicalDataQueryDTOComparison.setHer2StatusValues(her2Status);
                         ispyClinicalDataQueryDTOComparison.setPrStatusValues(prStatus);
