@@ -27,7 +27,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	
 	private EnumSet<ClinicalResponseType> clinicalResponseValues = null;
 	
-	private EnumSet<ClinicalStageType> diseaseStageValues = null;
+	private EnumSet<ClinicalStageType> clinicalStageValues = null;
 	
 	private EnumSet<ERstatusType> erStatusValues = null;
 	
@@ -53,13 +53,13 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	}
 
 
-	public Set<ClinicalStageType> getDiseaseStageValues() {
-		return diseaseStageValues;
+	public Set<ClinicalStageType> getClinicalStageValues() {
+		return clinicalStageValues;
 	}
 
 
-	public void setDiseaseStageValues(EnumSet<ClinicalStageType> diseaseStageValues) {
-		this.diseaseStageValues = diseaseStageValues;
+	public void setClinicalStageValues(EnumSet<ClinicalStageType> clinicalStageValues) {
+		this.clinicalStageValues = clinicalStageValues;
 	}
 
 
