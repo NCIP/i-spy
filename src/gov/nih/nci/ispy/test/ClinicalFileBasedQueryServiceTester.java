@@ -33,7 +33,7 @@ public static void main(String[] args) {
 	ClinicalFileBasedQueryService clinicalQS = (ClinicalFileBasedQueryService) ClinicalFileBasedQueryService.getInstance();
 	
 	
-	  clinicalQS.setClinicalDataFile("C:\\eclipse\\workspace\\ispyportal\\WebRoot\\WEB-INF\\data_files\\ispy_clinical_data_sample.txt");
+	  //clinicalQS.setClinicalDataFile("C:\\eclipse\\workspace\\ispyportal\\WebRoot\\WEB-INF\\data_files\\ispy_clinical_data_sample.txt");
 	
 	
 	
@@ -48,7 +48,7 @@ public static void main(String[] args) {
 		
 	  ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
 	  dto.setTimepointValues(EnumSet.of(TimepointType.T2));
-	  dto.setDiseaseStageValues(EnumSet.of(ClinicalStageType.II_A, ClinicalStageType.II_B));
+	  dto.setClinicalStageValues(EnumSet.of(ClinicalStageType.II_A, ClinicalStageType.II_B));
 	  dto.setClinicalResponseValues(EnumSet.of(ClinicalResponseType.PD, ClinicalResponseType.SD));
 	  
 	  //Set<String> labtrackIds = clinicalQS.getLabtrackIds(dto);
@@ -58,7 +58,7 @@ public static void main(String[] args) {
 	  List<String> patientDIDs = new ArrayList<String>(clinicalQS.getPatientDIDs(dto));
 	  List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
 	  for (TimepointType tp :dto.getTimepointValues()) {
-         clinicalDataList.addAll(clinicalQS.getClinicalDataForPatientDIDs(patientDIDs, tp));
+         //clinicalDataList.addAll(clinicalQS.getClinicalDataForPatientDIDs(patientDIDs, tp));
 	  }
 	  
 	  
