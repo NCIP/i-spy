@@ -1,5 +1,4 @@
-<%@ page
-	import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean,gov.nih.nci.ispy.util.ISPYListManager,gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document"%>
+<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean, gov.nih.nci.caintegrator.application.lists.ListManager, gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document"%>
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
@@ -12,7 +11,7 @@
 //this function is called by upload.jsp sitting in an iframe
 //it is given an associative array (much like a paramMap) from
 // the validated list. The groupString variable(below) is inserted into the page
-// at the appropriate place.
+// at the appropriate place.-KR
 
 	var listNameArray = new Array(); //RCL
 
