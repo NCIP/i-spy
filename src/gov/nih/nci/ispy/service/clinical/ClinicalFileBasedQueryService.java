@@ -569,47 +569,36 @@ public class ClinicalFileBasedQueryService {
 	
 	
 	/**
-	 * May want to add ability to and/or constraints
+	 * This method gets the patient DIDs corresponding to the constraints in the 
+	 * clinical data query dto .  Note in the future may want to add capability to 
+	 * and and or constraints.  Currently the the constraints are OR ed.
 	 */
 	public Set<String> getPatientDIDs(ISPYclinicalDataQueryDTO cDTO) {
 	  
 		Set<TimepointType> timepoints = cDTO.getTimepointValues();
 		Set<String> patientDIDs = new HashSet<String>();
-		Boolean executedQuery = false;
+				
+		if ((cDTO.getClinicalStageValues() != null)&&(!cDTO.getClinicalStageValues().isEmpty())) {
+		  patientDIDs.addAll(getPatientDIDsForClinicalStage(cDTO.getClinicalStageValues()));		  
+		}
 		
-		for (TimepointType tp:timepoints) {
-			executedQuery = false;
-		  
+		if ((cDTO.getErStatusValues() != null)&&(!cDTO.getErStatusValues().isEmpty())) {
+		  patientDIDs.addAll(getPatientDIDsForERstatus(cDTO.getErStatusValues()));		  
+		}
+		
+		if ((cDTO.getHer2StatusValues() != null)&&(!cDTO.getHer2StatusValues().isEmpty())) {
+		  patientDIDs.addAll(getPatientDIDsForHER2status(cDTO.getHer2StatusValues()));		  
+		}
+		
+		if ((cDTO.getPrStatusValues() != null)&&(!cDTO.getPrStatusValues().isEmpty())) {
+		  patientDIDs.addAll(getPatientDIDsForPRstatus(cDTO.getPrStatusValues()));				 
+		}
+				
+		for (TimepointType tp:timepoints) {					  
 			if ((cDTO.getClinicalResponseValues()!= null)&&(!cDTO.getClinicalResponseValues().isEmpty())) {
 		      patientDIDs.addAll(getPatientDIDsForClinicalResponse(tp,cDTO.getClinicalResponseValues()));
-		      executedQuery = true;
+		      
 		    }
-			
-			if ((cDTO.getClinicalStageValues() != null)&&(!cDTO.getClinicalStageValues().isEmpty())) {
-			  patientDIDs.addAll(getPatientDIDsForClinicalStage(cDTO.getClinicalStageValues()));
-			  executedQuery = true;
-			}
-			
-			if ((cDTO.getErStatusValues() != null)&&(!cDTO.getErStatusValues().isEmpty())) {
-			  patientDIDs.addAll(getPatientDIDsForERstatus(cDTO.getErStatusValues()));
-			  executedQuery = true;
-			}
-			
-			if ((cDTO.getHer2StatusValues() != null)&&(!cDTO.getHer2StatusValues().isEmpty())) {
-			  patientDIDs.addAll(getPatientDIDsForHER2status(cDTO.getHer2StatusValues()));
-			  executedQuery = true;
-			}
-			
-			if ((cDTO.getPrStatusValues() != null)&&(!cDTO.getPrStatusValues().isEmpty())) {
-			  patientDIDs.addAll(getPatientDIDsForPRstatus(cDTO.getPrStatusValues()));		
-			  executedQuery = true;
-			}
-			
-			if (!executedQuery) {
-			  //add all patientDIDs to the return list?
-				
-			}
-			
 		}
 		
 		return patientDIDs;
