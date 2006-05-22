@@ -13,8 +13,11 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.lists.ListType;
@@ -171,6 +174,16 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         return geneIdentifierDECollection;
     }
     
+    public Collection getDefaultPatientListNames(){ 
+        Collection<UserList> patientSetList = new ArrayList<UserList>();
+        patientSetList = getLists(ListType.DefaultPatientDID);  
+        Collection patientSetListNames = new ArrayList();
+        for(UserList userListName : patientSetList){
+            patientSetListNames.add(userListName.toString());
+        }
+        return patientSetListNames;
+    }
+    
     public Collection getPatientListNames(){ 
         Collection<UserList> patientSetList = new ArrayList<UserList>();
         patientSetList = getLists(ListType.PatientDID);  
@@ -207,7 +220,42 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
             logger.error(ioe);
         }
     }
-     
-  
+
+    public void uniteLists(List<String> listNames, String newListName, ListType listType) {
+        List<String> items = new ArrayList<String>();
+        for(String listName: listNames){
+            UserList list = userListBean.getList(listName);
+            if(!list.getList().isEmpty()){
+                items.addAll(list.getList());
+            }
+        }
+        Set<String> unitedSet = new HashSet<String>(items);
+        items.clear();
+        items.addAll(unitedSet);
+        UserList newList = new UserList(newListName,listType,items,new ArrayList<String>(),new Date());
+        userListBean.addList(newList);
+    }
+
+    public void intersectLists(List<String> listNames, String newListName, ListType listType) {
+        List<String> items = new ArrayList<String>();
+        List<UserList> lists = new ArrayList<UserList>();
+        for(String listName: listNames){
+            UserList list = userListBean.getList(listName);
+            lists.add(list);
+            if(!list.getList().isEmpty()){
+                items.addAll(list.getList());
+            }
+        }
+        Set<String> intersectedList = new HashSet<String>(items);
+        for(UserList ul : lists){
+            intersectedList.retainAll(ul.getList());
+        }
+        items.clear();
+        items.addAll(intersectedList);
+        UserList newList = new UserList(newListName,listType,items,new ArrayList<String>(),new Date());
+        userListBean.addList(newList);
+    }
+
+    
 
 }

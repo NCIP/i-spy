@@ -57,7 +57,10 @@ public class DynamicListHelper {
 		return results;
 	}
 	
-	public static String getPatientListAsList()	{
+    public static String getDefaultPatientListAsList() {
+        return DynamicListHelper.getListAsList(ListType.DefaultPatientDID);
+    }
+    public static String getPatientListAsList()	{
 		return DynamicListHelper.getListAsList(ListType.PatientDID);
 	}
 	
@@ -95,6 +98,11 @@ public class DynamicListHelper {
 		//create list w/ type=patient
 		return DynamicListHelper.createGenericList(ListType.PatientDID, list, name);
 	}
+    
+    public static String createDefaultPatientList(String[] list, String name){
+        //create list w/ type=defaultPatient
+        return DynamicListHelper.createGenericList(ListType.DefaultPatientDID, list, name);
+    }
 	
 	public static String createGeneList(String[] list, String name){
 		return DynamicListHelper.createGenericList(ListType.GeneSymbol, list, name);
@@ -137,6 +145,10 @@ public class DynamicListHelper {
 		   list.addAttribute("type", "patient");
 		   myLists = helper.getPatientListNames();
 	   }
+       else if(listType.equals(ListType.DefaultPatientDID.toString())) {
+           myLists = helper.getDefaultPatientListNames();     
+           list.addAttribute("type", "defaultPatient");
+       }
 	   else	if(listType.equals(ListType.GeneSymbol.toString()))	{
 		   myLists = helper.getGeneSymbolListNames();     
 		   list.addAttribute("type", "gene");

@@ -9,6 +9,9 @@
 	<div id="sidebarPatientUL">
 		<img src="images/indicator.gif"/>
     </div>
+    <div id="sidebarDPatientUL">
+		<img src="images/indicator.gif"/>
+    </div>       
 </div>
      
 <div style="text-align:left; margin-top:20px;">
@@ -32,6 +35,7 @@ var SidebarHelper = {
 	'loadingImg' : "<img src=\"images/indicator.gif\"/>",
 	'loadSidebar' : function()	{
 		SidebarHelper.loadPatientUL();
+		SidebarHelper.loadDefaultPatientUL();
 		SidebarHelper.loadGeneUL();
 	},
 	'loadPatientUL' : function()	{
@@ -40,13 +44,27 @@ var SidebarHelper = {
 			DynamicListHelper.getPatientListAsList(SidebarHelper.loadPatientUL_cb);
 			},this.delay);
 	},
+	'loadDefaultPatientUL' : function()	{
+		$('sidebarDPatientUL').innerHTML = this.loadingImg;
+		setTimeout( function()	{
+			DynamicListHelper.getDefaultPatientListAsList(SidebarHelper.loadDefaultPatientUL_cb);
+			},this.delay);
+	},
 	'loadPatientUL_cb' : function(txt)	{
 		if(txt != "")	{
 			$('sidebarPatientUL').innerHTML = "<ul>" + txt + "</ul>";
 			SidebarHelper.createOnClicks('sidebarPatientUL');
 		}
 		else	
-			$('sidebarPatientUL').innerHTML = "No Lists Available";
+			$('sidebarPatientUL').innerHTML = "*No Custom Patient Lists Saved*";
+	},
+	'loadDefaultPatientUL_cb' : function(txt)	{
+		if(txt != "")	{
+			$('sidebarDPatientUL').innerHTML = "<ul>" + txt + "</ul>";
+			SidebarHelper.createOnClicks('sidebarDPatientUL');
+		}
+		else	
+			$('sidebarDPatientUL').innerHTML = "No Lists Available";
 	},
 	'loadGeneUL' : function()	{
 		$('sidebarGeneUL').innerHTML = this.loadingImg;
@@ -98,7 +116,9 @@ var SidebarHelper = {
 
 //load the initial values
 SidebarHelper.loadPatientUL();
+SidebarHelper.loadDefaultPatientUL();
 SidebarHelper.loadGeneUL();
+
 
 </script>
      

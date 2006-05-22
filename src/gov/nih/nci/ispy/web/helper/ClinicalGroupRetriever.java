@@ -28,26 +28,31 @@ public class ClinicalGroupRetriever {
     public List<LabelValueBean> getClinicalGroupsCollection(HttpSession session){
         ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
         List<UserList> patientLists = helper.getLists(ListType.PatientDID);
+        List<UserList> dpatientLists = helper.getLists(ListType.DefaultPatientDID);
         
         for(UserList patientList: patientLists){
             clinicalGroupsCollection.add(new LabelValueBean(patientList.getName(),patientList.getClass().getCanonicalName() + "#" + patientList.getName()));
         }
-        
-        for (ClinicalStageType clinicalStageType : ClinicalStageType.getDisplayValues()){
-            clinicalGroupsCollection.add(new LabelValueBean(clinicalStageType.toString(),clinicalStageType.getDeclaringClass().getCanonicalName() + "#" + clinicalStageType.name()));
+        for(UserList patientList: dpatientLists){
+            clinicalGroupsCollection.add(new LabelValueBean(patientList.getName(),patientList.getClass().getCanonicalName() + "#" + patientList.getName()));
         }
+        
         for (ClinicalResponseType clinicalResponseType : ClinicalResponseType.getDisplayValues()){
             clinicalGroupsCollection.add(new LabelValueBean(clinicalResponseType.toString(),clinicalResponseType.getDeclaringClass().getCanonicalName() + "#" + clinicalResponseType.name()));
         }
-        for (ERstatusType erStatusType : ERstatusType.getDisplayValues()){
-            clinicalGroupsCollection.add(new LabelValueBean(erStatusType.toString(),erStatusType.getDeclaringClass().getCanonicalName() + "#" + erStatusType.name()));
-        }
-        for (PRstatusType prStatusType : PRstatusType.getDisplayValues()){
-            clinicalGroupsCollection.add(new LabelValueBean(prStatusType.toString(),prStatusType.getDeclaringClass().getCanonicalName() + "#" + prStatusType.name()));
-        }
-        for (HER2statusType her2StatusType : HER2statusType.getDisplayValues()){
-            clinicalGroupsCollection.add(new LabelValueBean(her2StatusType.toString(),her2StatusType.getDeclaringClass().getCanonicalName() + "#" + her2StatusType.name()));
-        }
+//      non-timepoint-dependent groups are currently handled by user groups now and NOT enums for these        
+//        for (ClinicalStageType clinicalStageType : ClinicalStageType.getDisplayValues()){
+//            clinicalGroupsCollection.add(new LabelValueBean(clinicalStageType.toString(),clinicalStageType.getDeclaringClass().getCanonicalName() + "#" + clinicalStageType.name()));
+//        }
+//        for (ERstatusType erStatusType : ERstatusType.getDisplayValues()){
+//            clinicalGroupsCollection.add(new LabelValueBean(erStatusType.toString(),erStatusType.getDeclaringClass().getCanonicalName() + "#" + erStatusType.name()));
+//        }
+//        for (PRstatusType prStatusType : PRstatusType.getDisplayValues()){
+//            clinicalGroupsCollection.add(new LabelValueBean(prStatusType.toString(),prStatusType.getDeclaringClass().getCanonicalName() + "#" + prStatusType.name()));
+//        }
+//        for (HER2statusType her2StatusType : HER2statusType.getDisplayValues()){
+//            clinicalGroupsCollection.add(new LabelValueBean(her2StatusType.toString(),her2StatusType.getDeclaringClass().getCanonicalName() + "#" + her2StatusType.name()));
+//        }
         
         
         return clinicalGroupsCollection;

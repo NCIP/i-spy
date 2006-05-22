@@ -75,7 +75,9 @@ public final class LoginAction extends Action
                     ISPYListValidator listValidator = new ISPYListValidator();
                     String filePath = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar;
                     
-                    userListBean = ISPYListLoader.loadLists(userListBean,ispyConstants.ALL_USER_LISTS, filePath, listValidator);                    
+                    userListBean = ISPYListLoader.loadLists(userListBean,ispyConstants.ALL_USER_LISTS, filePath, listValidator);  
+                    // load IspySpecific clinical status lists
+                    userListBean = ISPYListLoader.loadStatusGroups(userListBean);
                     //add userListBean to session
                     session.setAttribute(ispyConstants.USER_LISTS,userListBean);
                     

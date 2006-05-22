@@ -38,6 +38,13 @@ public class ISPYListValidator implements ListValidator{
                 validList.add(ri.getRegistrationId());
             }
         }
+       else if(listType == ListType.DefaultPatientDID){            
+           List<RegistrantInfo> entries = idMapper.getMapperEntriesForIds(myList);
+           riSet.addAll( entries );
+           for(RegistrantInfo ri : riSet){
+               validList.add(ri.getRegistrationId());
+           }
+       }
        else{
            for(String geneSymbol : myList){
                reporters = geneService.getReportersForGeneSymbol(geneSymbol);
@@ -59,6 +66,9 @@ public class ISPYListValidator implements ListValidator{
         if(listType == ListType.PatientDID){
              invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
         }
+        else if(listType == ListType.DefaultPatientDID){
+            invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
+       }
         else{
             for(String geneSymbol : myList){
                 reporters = geneService.getReportersForGeneSymbol(geneSymbol);
