@@ -1,2 +1,1 @@
-testP.txt#PatientDID
 testG.txt#GeneSymbol
