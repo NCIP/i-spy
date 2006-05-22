@@ -64,12 +64,14 @@ public class IdLookup {
 			
 		}
 		
+		/*
 		for (RegistrantInfo entry:entries) {
 			results += "[\"" + entry.getRegistrationId() + "\"," ;
 			for(SampleInfo sampleInfo : entry.getAssociatedSamples())	{
 				
 			}			
 		}
+		*/
 		
 		return document;
 		
@@ -92,5 +94,25 @@ public class IdLookup {
 		return success;
 		*/
 		return DynamicListHelper.createPatientList(list, name);
+	}
+	
+	public static String getCSV(String lookup)	{
+		String csv = "";
+		String inputString = lookup.trim().replace(" ", "");
+		String[] st = StringUtils.split(inputString, ",");
+		List<String> inputList = new ArrayList<String>();
+		inputList = Arrays.asList(st);		
+		List<RegistrantInfo> entries = idMapper.getMapperEntriesForIds(inputList);
+		
+		for (RegistrantInfo entry:entries) {
+			for(SampleInfo sampleInfo : entry.getAssociatedSamples())	{
+				csv += entry.getRegistrationId() + "," 
+					+ sampleInfo.getLabtrackId() + "," 
+					+ sampleInfo.getCoreType().toString() + ","
+					+ sampleInfo.getTimepoint().toString() + ","
+					+ sampleInfo.getSectionInfo() + "\r\n";
+			}
+		}
+		return csv;
 	}
 }

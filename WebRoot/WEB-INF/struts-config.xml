@@ -75,6 +75,8 @@
 	
 	<action path="/awWrapper" forward="/WEB-INF/jsp/awFrame.jsp" />
 	
+	<action path="/idDownload" forward="/WEB-INF/jsp/idMapperCSV.jsp" />
+	
 	<action path="/principalComponent"
          forward="nautilus.principalComponent" />
          

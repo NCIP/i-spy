@@ -162,6 +162,21 @@
 		 		}
 		 		
 		 		numpatients = registrants.length;
+		 		
+		 		var csvLink = document.createElement("a");
+				csvLink.setAttribute("href","#");
+				csvLink.style.marginLeft = "10px";
+				csvLink.setAttribute("name", frameid);
+				csvLink.onclick = function()  {
+					//alert(searchedFor);
+					var u = "idDownload.do?i="+searchedFor;
+					location.replace(u);
+					return false;
+				};
+				csvLink.appendChild(document.createTextNode("[download all "+numpatients+" patient(s) listed?]"));
+		 		document.getElementById("ifcontainer").appendChild(csvLink);
+		 		
+		 		
 		 		var frameid;
 		 		for(var r=0; r<registrants.length; r++)	{
 		 			
@@ -217,6 +232,27 @@
 					};
 					eAnchor.appendChild(document.createTextNode("show/hide table data"));
 					tDIV.appendChild(eAnchor);
+					
+					//tDIV.innerHTML += "&nbsp;<a href='idMapperCSV.do?ids='>[export patient]</a>";
+					///
+					
+					eAnchor = document.createElement("a");
+					eAnchor.setAttribute("href","#");
+					eAnchor.style.marginLeft = "10px";
+					eAnchor.setAttribute("name", frameid);
+					eAnchor.onclick = function()  {
+					
+						var u = "idDownload.do?i="+this.name;
+						location.replace(u);
+						//alert(this.name);
+						return false;
+						
+					};
+					eAnchor.appendChild(document.createTextNode("download patient"));
+					tDIV.appendChild(eAnchor);
+					
+					////
+					
 					document.getElementById("ifcontainer").appendChild(tDIV);
 					
 					var eDIV = document.createElement("iframe");
