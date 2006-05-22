@@ -107,10 +107,10 @@ public class IdLookup {
 		for (RegistrantInfo entry:entries) {
 			for(SampleInfo sampleInfo : entry.getAssociatedSamples())	{
 				csv += entry.getRegistrationId() + "," 
-					+ sampleInfo.getLabtrackId() + "," 
+					+ sampleInfo.getLabtrackId() + "','" 
 					+ sampleInfo.getCoreType().toString() + ","
-					+ sampleInfo.getTimepoint().toString() + ","
-					+ sampleInfo.getSectionInfo() + "\r\n";
+					+ sampleInfo.getTimepoint().toString() + ",'"
+					+ sampleInfo.getSectionInfo() + "'\r\n";
 			}
 		}
 		return csv;
