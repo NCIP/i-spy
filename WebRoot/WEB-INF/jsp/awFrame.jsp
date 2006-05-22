@@ -59,10 +59,11 @@
 	String registrant = request.getParameter("reg")!=null ? request.getParameter("reg") : null;
 	String sf = request.getParameter("sf")!=null ? request.getParameter("sf") : "";
 	if(registrant!=null)	{
+	//registrant = registrant.replace("|",",");
 	%>
 		window.onload = function()	{
-			document.getElementById('tbl').innerHTML += " displaying data for registrant:" + <%=registrant%>+"";
-			setTimeout(function()	{ IdLookup.lookup(<%=registrant%>, A_IdLookup.lookup_cb) }, 800);
+			document.getElementById('tbl').innerHTML += " displaying data for registrant: <%=registrant%>";
+			setTimeout(function()	{ IdLookup.lookup('<%=registrant%>', A_IdLookup.lookup_cb) }, 800);
 		
 		}
 		
@@ -90,23 +91,30 @@
 		 			throw("No records found. Please try again.");
 		 		}
 	
+	
 		 		var numpatients = registrants.length;
 		 		var frameid;
+		 				
 		 		for(var r=0; r<registrants.length; r++)	{
 		 			
 		 			var samples = registrants[r].getElementsByTagName("sample");
 		 			
 					for(i=0;i<samples.length;i++) {
 					
-						_myData[i] = new Array();
+						//_myData[i] = new Array();
 					
+						var tmp2d = new Array();
+						
 						data = samples[i].childNodes;
 						
 						for(j=0;j<data.length;j++) {
 							if(data[j].nodeType == 1) {
-								_myData[i][j] = data[j].childNodes[0].nodeValue;
+								//_myData[i][j] = data[j].childNodes[0].nodeValue;
+								tmp2d[j] = data[j].childNodes[0].nodeValue;
 							} 
 						}
+						
+						_myData.push(tmp2d);
 					}
 				}
 	 		}

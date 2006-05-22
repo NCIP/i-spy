@@ -163,6 +163,9 @@
 		 		
 		 		numpatients = registrants.length;
 		 		
+		 		var linkDIV = document.createElement("div");
+		 		linkDIV.style.marginTop = "20px";
+		 		
 		 		var csvLink = document.createElement("a");
 				csvLink.setAttribute("href","#");
 				csvLink.style.marginLeft = "10px";
@@ -174,7 +177,25 @@
 					return false;
 				};
 				csvLink.appendChild(document.createTextNode("[download all "+numpatients+" patient(s) listed?]"));
-		 		document.getElementById("ifcontainer").appendChild(csvLink);
+		 		linkDIV.appendChild(csvLink);
+		 		
+		 		//join table link
+		 		var joinLink = document.createElement("a");
+				joinLink.setAttribute("href","#");
+				joinLink.style.marginLeft = "10px";
+				joinLink.style.marginTop = "100px";
+				joinLink.setAttribute("name", frameid);
+				joinLink.onclick = function()  {
+					//alert(searchedFor);
+					var u = "awWrapper.do?reg="+searchedFor+"&sf="+searchedFor;
+					spawn(u, 600,400);
+					return false;
+				};
+				joinLink.appendChild(document.createTextNode("[show all in 1 table]"));
+		 		linkDIV.appendChild(joinLink);
+		 		
+		 		document.getElementById("ifcontainer").appendChild(linkDIV);
+		 		//
 		 		
 		 		
 		 		var frameid;
