@@ -74,7 +74,7 @@ public class QuickClinicalReport {
 					Element td = null;
 					tr = table.addElement("tr").addAttribute("class", "header");
 					
-					String longHeaders = "ISPY_ID, DATAEXTRACTDT, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1";
+					String longHeaders = "ISPY_ID, LabTrackID, DATAEXTRACTDT, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, mriPctChangeT1_T2, mriPctChangeT1_T3, mriPctChangeT1_T4";
 					String[] heads = StringUtils.split(longHeaders, ",");
 					for(String h : heads){
 						td = tr.addElement("td").addAttribute("class", "header").addText(h.trim());
@@ -128,6 +128,9 @@ public class QuickClinicalReport {
 							tmp = pd.getISPY_ID()!=null  ? pd.getISPY_ID() : dv;
 							td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp);
 							
+							tmp = si.getLabtrackId()!=null  ? si.getLabtrackId() : dv;
+							td = tr.addElement("td").addText(tmp);
+
 							tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
 							td = tr.addElement("td").addText(tmp);
 
@@ -261,6 +264,15 @@ public class QuickClinicalReport {
 							td = tr.addElement("td").addText(tmp);
 							
 							tmp = pd.getMorphPatternBsl()!=null  ? pd.getMorphPatternBsl() : dv;
+							td = tr.addElement("td").addText(tmp);
+							
+							tmp = pd.getMriPctChangeT1_T2()!=null  ? String.valueOf(pd.getMriPctChangeT1_T2()) : dv;
+							td = tr.addElement("td").addText(tmp);
+							
+							tmp = pd.getMriPctChangeT1_T3()!=null  ? String.valueOf(pd.getMriPctChangeT1_T3()) : dv;
+							td = tr.addElement("td").addText(tmp);
+							
+							tmp = pd.getMriPctChangeT1_T4()!=null  ? String.valueOf(pd.getMriPctChangeT1_T4()) : dv;
 							td = tr.addElement("td").addText(tmp);
 							
 							/***************************/
