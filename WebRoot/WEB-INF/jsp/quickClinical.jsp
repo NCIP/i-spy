@@ -23,6 +23,12 @@
 		<script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
 		<script type='text/javascript' src='dwr/engine.js'></script>
 		
+		<style>
+			.reportTable input, #reportTable input	{
+				border: 0px;
+			}
+			#checkAll { border:0px;}
+		</style>
 		<script type="text/javascript">
 		
 		var reportType = "PATIENT";
