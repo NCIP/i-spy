@@ -274,7 +274,7 @@ Save Selected: <input type="text" id="listName"/>
 <!--  <a href="#" onclick="return false;" onmouseover="return overlib(tmpElements);" onmouseout="return nd()">[selected]</a> -->
 <img src="images/indicator.gif" style="display:none" id="statusImg"/><span id="statusSpan" style="margin-left:15px;"></span>
 </div>
-<div style="height:300px; overflow:auto;">
+<div>
 <graphing:HCPlotReport taskId="<%=key%>" />
 </div>
 
