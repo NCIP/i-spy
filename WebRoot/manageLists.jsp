@@ -78,7 +78,11 @@
  
 	function deleteItem(name, itemId){
 		UserListHelper.removeItemFromList(name,itemId);
-		Element.remove(name + itemId + "_div");	 	
+		Element.remove(name + itemId + "_div");	
+		try	{
+			SidebarHelper.loadSidebar();
+		}
+		catch(err){} 	
 	}
 	
  //this is the callback function from the getDetails AJAX function (above). This
