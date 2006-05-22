@@ -270,7 +270,7 @@
 						return false;
 						
 					};
-					eAnchor.appendChild(document.createTextNode("download patient"));
+					eAnchor.appendChild(document.createTextNode("download"));
 					tDIV.appendChild(eAnchor);
 					
 					////
