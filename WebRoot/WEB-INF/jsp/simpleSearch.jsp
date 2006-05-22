@@ -179,21 +179,22 @@
 				csvLink.appendChild(document.createTextNode("[download all "+numpatients+" patient(s) listed?]"));
 		 		linkDIV.appendChild(csvLink);
 		 		
-		 		//join table link
-		 		var joinLink = document.createElement("a");
-				joinLink.setAttribute("href","#");
-				joinLink.style.marginLeft = "10px";
-				joinLink.style.marginTop = "100px";
-				joinLink.setAttribute("name", frameid);
-				joinLink.onclick = function()  {
-					//alert(searchedFor);
-					var u = "awWrapper.do?reg="+searchedFor+"&sf="+searchedFor;
-					spawn(u, 600,400);
-					return false;
-				};
-				joinLink.appendChild(document.createTextNode("[show all in 1 table]"));
-		 		linkDIV.appendChild(joinLink);
-		 		
+		 		if(numpatients > 1)	{
+			 		//join table link
+			 		var joinLink = document.createElement("a");
+					joinLink.setAttribute("href","#");
+					joinLink.style.marginLeft = "10px";
+					joinLink.style.marginTop = "100px";
+					joinLink.setAttribute("name", frameid);
+					joinLink.onclick = function()  {
+						//alert(searchedFor);
+						var u = "awWrapper.do?reg="+searchedFor+"&sf="+searchedFor;
+						spawn(u, 600,400);
+						return false;
+					};
+					joinLink.appendChild(document.createTextNode("[show all in 1 table]"));
+			 		linkDIV.appendChild(joinLink);
+		 		}
 		 		document.getElementById("ifcontainer").appendChild(linkDIV);
 		 		//
 		 		
