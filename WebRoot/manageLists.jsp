@@ -107,7 +107,7 @@ function putDetails(userList){
  		dDIV.setAttribute("id",listName + "detailsDiv");
  		dDIV.setAttribute("class", "listItemsDiv");
  		
- 		if(items.length > 1)	{
+ 		if(items.length > 0)	{
 		 		for(var i=0; i<items.length; i++)	{
 		 		
 		 			itemId = items[i].firstChild.data;	
@@ -188,12 +188,19 @@ function putDetails(userList){
 			DynamicListHelper.getAllLists("PatientDID", ManageListHelper.getGenericLists_cb);
 			
 		},
+		'getDefaultPatientLists' : function()	{
+			//this function is dependent on the DynamicListHelper, included in the sidebar tile
+			// src='dwr/interface/DynamicListHelper.js'
+			DynamicListHelper.getAllLists("DefaultPatientDID", ManageListHelper.getGenericLists_cb);
+			
+		},
 		'getGeneLists' : function()	{
 			DynamicListHelper.getAllLists("GeneSymbol", ManageListHelper.getGenericLists_cb);			
 		},
 		'getAllLists' : function()	{
 			ManageListHelper.getGeneLists();
 			ManageListHelper.getPatientLists();
+			ManageListHelper.getDefaultPatientLists();
 		},
 		'getGenericLists_cb' : function(listsDOM)	{
 			
@@ -204,7 +211,13 @@ function putDetails(userList){
 			
 			var lists = listsDOM.getElementsByTagName("list");
 			if(lists.length == 0)	{
-				$(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b>";
+					//because we have default lists, do report that patient lists are empty
+					if(listType == "patient"){
+					  $(listType+'ListDiv').innerHTML = "<b>No custom "+ listType + " lists currently saved</b>";
+					}
+					else{
+					  $(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b>";
+				    }
 				return;
 			}
 			//alert(listType + " : " + lists.length);
@@ -244,8 +257,11 @@ function putDetails(userList){
 		Patient Lists
 	</legend>
 	<br />
-	<div id="patientListDiv"></div>
+	<div id="patientListDiv"></div>		
+	<script>ManageListHelper.getDefaultPatientLists();</script>
+	<div id="defaultPatientListDiv"></div>	
 	<script>ManageListHelper.getPatientLists();</script>
+	
 	
 	<div id="listDiv" />
 
