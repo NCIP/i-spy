@@ -138,14 +138,19 @@ public class ApplicationContext{
            //logger.info("Clinical data service initialized successfully loaded numRecords=" + clinRecordsLoaded);
         
 
-           String patientDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_patient_data_5_11.txt";
+           //String patientDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_patient_data_5_11.txt";
+           String patientDataFileName = System.getProperty("gov.nih.nci.ispyportal.patient_data");
            logger.info("Clinical data service loading patient data fileName=" + patientDataFileName);
            int patientRecordsLoaded = cqs.setPatientDataMap(patientDataFileName);
            logger.info("Clinical data service successfully loaded patient data numRecords=" + patientRecordsLoaded);
            
            
            IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
-           String idMapperFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ID_Mapping_5-4-06.txt";
+           //String idMapperFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ID_Mapping_5-4-06.txt";
+           //logger.info("Initializing file based id mapper service fileName=" + idMapperFileName);
+           
+           logger.info("Trying to get system property for mapper file: fileName=" + System.getProperty("gov.nih.nci.ispyportal.id_mapping_file"));
+           String idMapperFileName = System.getProperty("gov.nih.nci.ispyportal.id_mapping_file");
            logger.info("Initializing file based id mapper service fileName=" + idMapperFileName);
            int idRecLoaded = idMapper.setMappingFile(idMapperFileName);
            logger.info("Id mapper service initialized successfully loaded numRecords=" + idRecLoaded);
@@ -155,18 +160,19 @@ public class ApplicationContext{
 		   analysisServerClientManager.setMessagingProperties(messagingProps);
 		   
 		   //create the file based annotation service
-		   logger.info("Initializing GeneExprAnnotationService");
+		   
 		   long startTime = System.currentTimeMillis();
 		   GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
 		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
-		   String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gx_annotations_5-19-06.txt";
+		   String annotFileName = System.getProperty("gov.nih.nci.ispyportal.gx_annotation_file");
+		   logger.info("Initializing GeneExprAnnotationService file=" + annotFileName);
+		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gx_annotations_5-19-06.txt";
 		   int gxRecLoaded = gxAnnotService.setAnnotationFile(annotFileName);
-		   
 		   
 		   analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
 		   
 		   long elapsedTime = System.currentTimeMillis() - startTime;
-		   logger.info("Finished initializing GeneExprAnnotationService time=" + elapsedTime + " numRecords=" + gxRecLoaded);
+		   logger.info("Finished initializing GeneExprAnnotationService file=" + annotFileName + " time=" + elapsedTime + " numRecords=" + gxRecLoaded);
 		   
 		   
 		   analysisServerClientManager.establishQueueConnection();
