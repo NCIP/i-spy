@@ -6,7 +6,7 @@
 
 <fieldset class="gray">
 <legend class="red">Select Group<b class="req">*</b>
-<app:help help="If you have chosen to compare groups with ONE fixed timepoint, only move two groups into the selected groups box. Your baseline group will be determined by the second group in the box. If you have chosen to compare groups ACROSS timepoints, you can move as many groups as you wish into the selected groups box. Your baseline group is now determined by the first timepoint you have chosen." />
+<app:help help="If you have chosen to compare groups with ONE fixed timepoint, only move two groups into the selected groups box. Your baseline group will be determined by the second group in the box. If you have chosen to compare groups ACROSS timepoints, you can move one group into the selected groups box. Your baseline group is now determined by the first timepoint you have chosen." />
 </legend>
 
 <logic:present name="principalComponentForm">

@@ -1,6 +1,11 @@
 package gov.nih.nci.ispy.web.helper;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -83,7 +88,7 @@ public class UIFormValidator {
 		return errors;
 	}
     
-    public static ActionErrors validateSelectedGroups(String[] selectedGroups, String timepointRange, String timepointBaseAcross, String timepointComparison, ActionErrors errors){
+    public static ActionErrors validateSelectedGroups(String[] selectedGroups, String timepointRange, String timepointBaseAcross, String timepointComparison, HttpSession session, ActionErrors errors){
             if(timepointRange.equalsIgnoreCase("fixed")){
                 if (selectedGroups == null || selectedGroups.length != 2){
                     errors.add("selectedGroups1", new ActionError(
@@ -94,10 +99,17 @@ public class UIFormValidator {
                 String comparisonClass = comparisonGroup[0];
                 String[] baselineGroup = selectedGroups[1].split("#");
                 String baselineClass = baselineGroup[0];
-                if(!comparisonClass.equals(baselineClass)&& !comparisonClass.equals("gov.nih.nci.caintegrator.application.lists.UserList")){
-                    errors.add("selectedGroups2", new ActionError(
-                    "gov.nih.nci.nautilus.ui.struts.form.groups.class.error")); 
+                if(baselineClass.equals("gov.nih.nci.caintegrator.application.lists.UserList") && comparisonClass.equals("gov.nih.nci.caintegrator.application.lists.UserList")){
+                    List<String> userLists = new ArrayList<String>();
+                    userLists.add(comparisonGroup[1]);
+                    userLists.add(baselineGroup[1]);
+                    ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);                    
+                    if(helper.isIntersection(userLists)){
+                        errors.add("selectedGroups2", new ActionError(
+                        "gov.nih.nci.nautilus.ui.struts.form.groups.intersect.error")); 
+                    }
                 }
+                
             }
             else if(timepointRange.equalsIgnoreCase("across")){
                 if (timepointBaseAcross.equals(timepointComparison)){

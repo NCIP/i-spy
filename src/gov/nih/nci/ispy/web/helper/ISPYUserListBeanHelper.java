@@ -255,7 +255,29 @@ public class ISPYUserListBeanHelper implements UserListBeanHelper{
         UserList newList = new UserList(newListName,listType,items,new ArrayList<String>(),new Date());
         userListBean.addList(newList);
     }
-
+    
+    public boolean isIntersection(List<String> listNames){
+        boolean intersection = false;
+        List<String> items = new ArrayList<String>();
+        List<UserList> lists = new ArrayList<UserList>();
+        for(String listName: listNames){
+            UserList list = userListBean.getList(listName);
+            lists.add(list);
+            if(!list.getList().isEmpty()){
+                List<String> itemsInList = list.getList();
+                for(String i : itemsInList){
+                    if(items.contains(i)){
+                        intersection = true;
+                        break;
+                    }
+                    else{
+                      items.add(i);
+                    }
+                }
+            }
+        }
+       return intersection;
+    }
     
 
 }

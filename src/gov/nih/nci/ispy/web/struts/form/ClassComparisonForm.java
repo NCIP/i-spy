@@ -529,7 +529,7 @@ public class ClassComparisonForm extends ActionForm {
         errors = UIFormValidator.validateQueryName(analysisResultName, errors);
         
         //User must select exactly 2 comparison Groups
-        errors = UIFormValidator.validateSelectedGroups(selectedGroups, timepointRange, timepointBaseAcross, timepointComparison, errors);
+        errors = UIFormValidator.validateSelectedGroups(selectedGroups, timepointRange, timepointBaseAcross, timepointComparison, request.getSession(), errors);
         
 
         return errors;
