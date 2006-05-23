@@ -184,17 +184,34 @@ public class ISPYPrincipalComponentAnalysisPlot {
         
         maxAbsVal = Math.max(maxAbsVal, pc3AbsMax);
         
-        maxAbsVal = Math.max(100.0, maxAbsVal);
-        
+        //maxAbsVal = Math.max(100.0, maxAbsVal);
+          
         domainAxis.setAutoRangeIncludesZero(false);
          
-        domainAxis.setRange(-maxAbsVal, maxAbsVal);
-        rangeAxis.setRange(-maxAbsVal, maxAbsVal);
         
-        domainAxis.setTickUnit(new NumberTickUnit(25.0));
-        rangeAxis.setTickUnit(new NumberTickUnit(25.0));
-          
-	    createGlyphsAndAddToPlot(plot);  
+        double tickUnit = 25.0;
+        
+        if (maxAbsVal <= 25.0) {
+          tickUnit =5.0;
+        }
+        else if (maxAbsVal <= 50.0) {
+          tickUnit = 10.0;
+        }
+        
+        domainAxis.setTickUnit(new NumberTickUnit(tickUnit));
+        rangeAxis.setTickUnit(new NumberTickUnit(tickUnit));
+        
+        double glyphScaleFactor = (maxAbsVal*2.0)/600.0;   //assuming 600 pixels for the graph
+        
+        double adjAbsVal = Math.ceil(maxAbsVal + (glyphScaleFactor*8.0));
+        
+        //domainAxis.setRange(-maxAbsVal, maxAbsVal);
+        domainAxis.setRange(-adjAbsVal, adjAbsVal);
+        
+        //rangeAxis.setRange(-maxAbsVal, maxAbsVal);
+        rangeAxis.setRange(-adjAbsVal, adjAbsVal);
+        
+	    createGlyphsAndAddToPlot(plot, glyphScaleFactor); 	 
 	    
 	   // Paint p = new GradientPaint(0, 0, Color.white, 1000, 0, Color.green);
 	    //try and match the UI e9e9e9
@@ -275,10 +292,15 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	 * is represented by a square. Component1 values are represented by X 
 	 * Component2 values are represented by Y
 	 */
-	private void createGlyphsAndAddToPlot(XYPlot plot) {
+	private void createGlyphsAndAddToPlot(XYPlot plot, double glyphScaleFactor) {
 	  XYShapeAnnotation glyph;
 	  Shape glyphShape = null;
 	  Color glyphColor;
+	  
+	  double glyphSize = 8.0;   //pixels
+	  
+	  double glyphIncrement = (glyphSize * glyphScaleFactor)/2.0;
+	  float gi = (float) glyphIncrement;
 	  
 	  ISPYPCADataPoint pcaPoint;
 	  double x, y;
@@ -293,7 +315,8 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	    if (mriPctChange == null) {
 		      //data is missing
 		      Rectangle2D.Double rect = new Rectangle2D.Double();
-			  rect.setFrameFromCenter(x,y, x+1.25,y+1.25);
+			  //rect.setFrameFromCenter(x,y, x+1.25,y+1.25);
+		      rect.setFrameFromCenter(x,y, x+glyphIncrement,y+glyphIncrement);
 			  glyphShape = rect;
 		}
 	    else if (mriPctChange <= -30.0) {
@@ -302,10 +325,11 @@ public class ISPYPrincipalComponentAnalysisPlot {
          GeneralPath gp = new GeneralPath();
 		 float xf = (float)x;
 	     float yf = (float)y;
+	     
 	      //make a triangle
 	     gp.moveTo(xf,yf);
-	     gp.lineTo(xf-1.5f,yf+1.5f);
-	     gp.lineTo(xf+1.5f,yf+1.5f);
+	     gp.lineTo(xf-gi,yf+gi);
+	     gp.lineTo(xf+gi,yf+gi);
 	     gp.closePath();
 	     glyphShape = gp;
 	    }
@@ -317,8 +341,8 @@ public class ISPYPrincipalComponentAnalysisPlot {
 		  float yf = (float)y;
 	      //make a triangle
 	      gp.moveTo(xf,yf);
-	      gp.lineTo(xf+1.5f,yf-1.5f);
-	      gp.lineTo(xf-1.5f,yf-1.5f);
+	      gp.lineTo(xf+gi,yf-gi);
+	      gp.lineTo(xf-gi,yf-gi);
 	      gp.closePath();
 	      glyphShape = gp;
 	      	
@@ -329,7 +353,8 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	    else if ((mriPctChange > -30.0) && (mriPctChange <= 0.0)) {
 	      //no change or reduction in tumor size but less than 30% reduction
 	      Ellipse2D.Double circle = new Ellipse2D.Double();
-	      circle.setFrameFromCenter(x,y,x+1.25,y+1.25);
+	      //circle.setFrameFromCenter(x,y,x+1.25,y+1.25);
+	      circle.setFrameFromCenter(x,y,x+gi,y+gi);
 	      glyphShape = circle;	
 	    	
 	    }
