@@ -228,7 +228,7 @@ function putDetails(userList){
 			
 				var status = "<span id=\""+lists[t].getAttribute("name")+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
 				var shortName = lists[t].getAttribute("name").length>15 ? lists[t].getAttribute("name").substring(0,13) + "..." : lists[t].getAttribute("name");
-			// += or =
+				// += or =
 				$(listType+'ListDiv').innerHTML += "<div id='"
                 	+ lists[t].getAttribute("name")
                     + "' class='listListing'>" 
@@ -257,7 +257,7 @@ function putDetails(userList){
 				}
 				var groupType = "patient";
 				
-				if(listGroup.indexOf('patient'))	{
+				if(listGroup.indexOf('patient')!= -1)	{
 					groupType = "patient";
 				}
 				else	{
@@ -267,25 +267,40 @@ function putDetails(userList){
 				//ajax call
 				//sLists, groupType, groupName
 				DynamicListHelper.uniteLists(sLists, groupName, groupType, action, ManageListHelper.groupSelectedLists_cb );
-				//alert(groupName + "( " + action + " ):" + sLists);
+				//alert(groupType + " : " + groupName + "( " + action + " ):" + sLists);
 			}
 			catch(err) {} 
 		},
 		'groupSelectedLists_cb' : function(txt)	{
-			if(txt == "pass")	{
-				//alert("all good");
-			}
-				
-			ManageListHelper.getAllLists();
-			
+			var res = txt.split(",");
+			//alert(txt);
 			try	{
+			
+				if(res[0].indexOf("pass")!=-1)	{
+					//alert("all good");
+					$('geneGroupName').value = "";
+					$('patientGroupName').value = "";
+					var st = "patientGroupStatus";
+					if(res[1] == "gene")	{
+						st = "geneGroupStatus";
+					}
+					$(st).innerHTML = "Group Saved";
+					setTimeout(function()	{ $(st).innerHTML = ""; }, 2000);
+				}
+					
+				ManageListHelper.getAllLists();
 			   	SidebarHelper.loadSidebar();
 			}
 			catch(err)	{}
 		}
 	};
 </script>
-
+<style>	
+	.status {
+		color:#A90101;
+		font-weight:bold;
+	}
+</style>
 <iframe id="RSIFrame" name="RSIFrame" style="width:0px; height:0px; border: 0px" src="blank.jsp"></iframe>
 
 <span id="info">&nbsp;</span>
@@ -305,6 +320,7 @@ function putDetails(userList){
 		New List Name:<input type="text" id="patientGroupName"/>
 		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'join')" value="Join Selected"/></b>	
 		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'intersect')" value="Intersect Selected"/></b>	
+		<span class="status" id="patientGroupStatus"></span>
 	</div>
 	<div id="PatientDIDListMarker">
 		&nbsp;
@@ -324,6 +340,7 @@ function putDetails(userList){
 		New List Name:<input type="text" id="geneGroupName"/>
 		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('geneListsFS',$('geneGroupName').value, 'join')" value="Join Selected"/></b>	
 		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('geneListsFS',$('geneGroupName').value, 'intersect')" value="Intersect Selected"/></b>	
+		<span class="status" id="geneGroupStatus"></span>
 	</div>
 	
 	<div id="GeneSymbolListMarker">

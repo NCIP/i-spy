@@ -171,7 +171,7 @@ public class DynamicListHelper {
 		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper();
 		try	{
 			List<String> al = Arrays.asList(sLists);
-			ListType lt = groupType == "gene" ? ListType.GeneSymbol : ListType.PatientDID;
+			ListType lt = groupType.equals("gene") ? ListType.GeneSymbol : ListType.PatientDID;
 			if(action.equals("join"))	{
 				helper.uniteLists(al, groupName, lt);
 			}
@@ -182,6 +182,8 @@ public class DynamicListHelper {
 		catch(Exception e){
 			results = "fail";
 		}
+		
+		results += "," + groupType;
 		return results;
 	}
 
