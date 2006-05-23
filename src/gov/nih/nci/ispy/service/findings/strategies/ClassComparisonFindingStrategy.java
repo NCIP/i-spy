@@ -362,13 +362,13 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 					
 					classComparisonRequest.setArrayPlatform(arrayPlatform); 
 
-					if (arrayPlatform == ArrayPlatformType.AGILENT) {
-					  //@TODO file name for ISPY agilent data. Need to move this to a property
-					  classComparisonRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+					if (arrayPlatform == ArrayPlatformType.AGILENT) {					  
+					  //classComparisonRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+					  classComparisonRequest.setDataFileName(System.getProperty("gov.nih.nci.ispyportal.agilent_data_matrix"));
 					}
-					else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
-					  //@TODO file name for ISPY CDNA array platform. 
-					  classComparisonRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
+					else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {					   
+					  //classComparisonRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
+					  classComparisonRequest.setDataFileName(System.getProperty("gov.nih.nci.ispyportal.cdna_data_matrix"));
 					}
 						
 						

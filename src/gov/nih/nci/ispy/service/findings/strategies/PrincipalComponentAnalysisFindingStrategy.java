@@ -367,10 +367,12 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 		pcaRequest.setPlatform(arrayPlatform);
 		
 		if (arrayPlatform == ArrayPlatformType.AGILENT) {
-	      pcaRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+	      //pcaRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+		  pcaRequest.setDataFileName(System.getProperty("gov.nih.nci.ispyportal.agilent_data_matrix"));
 		}
 		else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
-		  pcaRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
+		  //pcaRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
+		  pcaRequest.setDataFileName(System.getProperty("gov.nih.nci.ispyportal.cdna_data_matrix"));
 		}
 				
 		if(reporterGroup != null){

@@ -357,10 +357,12 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 		hcRequest.setArrayPlatform(arrayPlatform);
 		
 		if (arrayPlatform == ArrayPlatformType.AGILENT) {
-		  hcRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+		  //hcRequest.setDataFileName("ISPY_DataMatrix_10MARCH06.Rda");
+		  hcRequest.setDataFileName(System.getProperty("gov.nih.nci.ispyportal.agilent_data_matrix"));
 		}
 		else if (arrayPlatform == ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
-		  hcRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
+		  //hcRequest.setDataFileName("ISPY.cDNA.dataMatrix_5-5-06.Rda");
+		  hcRequest.setDataFileName(System.getProperty("gov.nih.nci.ispyportal.cdna_data_matrix"));
 		}
 		
 		hcRequest.setClusterBy(myQueryDTO.getClusterTypeDE().getValueObject());
