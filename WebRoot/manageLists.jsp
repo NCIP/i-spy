@@ -272,8 +272,9 @@ function putDetails(userList){
 			catch(err) {} 
 		},
 		'groupSelectedLists_cb' : function(txt)	{
-			if(txt == "pass")
-				alert("all good");
+			if(txt == "pass")	{
+				//alert("all good");
+			}
 				
 			ManageListHelper.getAllLists();
 			
@@ -304,7 +305,6 @@ function putDetails(userList){
 		New List Name:<input type="text" id="patientGroupName"/>
 		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'join')" value="Join Selected"/></b>	
 		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'intersect')" value="Intersect Selected"/></b>	
-		
 	</div>
 	<div id="PatientDIDListMarker">
 		&nbsp;
