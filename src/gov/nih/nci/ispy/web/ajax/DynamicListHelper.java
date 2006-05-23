@@ -165,4 +165,24 @@ public class DynamicListHelper {
 	   return listDoc;
 	}
 	
+	public static String uniteLists(String[] sLists, String groupName, String groupType, String action)	{
+		String results = "pass";
+		
+		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper();
+		try	{
+			List<String> al = Arrays.asList(sLists);
+			ListType lt = groupType == "gene" ? ListType.GeneSymbol : ListType.PatientDID;
+			if(action.equals("join"))	{
+				helper.uniteLists(al, groupName, lt);
+			}
+			else	{
+				helper.intersectLists(al, groupName, lt);
+			}
+		}
+		catch(Exception e){
+			results = "fail";
+		}
+		return results;
+	}
+
 }

@@ -231,7 +231,9 @@ function putDetails(userList){
 			// += or =
 				$(listType+'ListDiv').innerHTML += "<div id='"
                 	+ lists[t].getAttribute("name")
-                    + "' class='listListing'><b title='"+lists[t].getAttribute("name")+"'>"
+                    + "' class='listListing'>" 
+                    + "<input type='checkbox' id='' name='" + listType + "' value='" +lists[t].getAttribute("name")+ "'/>"
+                    + "<b title='"+lists[t].getAttribute("name")+"'>"
                     + shortName + "</b>"
                     + " created on:" + lists[t].getAttribute("date") 
                     + " (" + lists[t].getAttribute("invalid") + " invalid) "
@@ -244,6 +246,41 @@ function putDetails(userList){
                     + lists[t].getAttribute("name")
                     + "details'></div>";
 			}
+		},
+		'groupSelectedLists' : function(listGroup, groupName, action)	{
+			var sLists = Array();
+			try	{
+				var ls = $(listGroup).getElementsByTagName('input');
+				for(var i=0; i<ls.length; i++)	{
+					if(ls[i].type=='checkbox' && (ls[i].selected || ls[i].checked))
+						sLists.push(ls[i].value);
+				}
+				var groupType = "patient";
+				
+				if(listGroup.indexOf('patient'))	{
+					groupType = "patient";
+				}
+				else	{
+					groupType = "gene";
+				}
+				
+				//ajax call
+				//sLists, groupType, groupName
+				DynamicListHelper.uniteLists(sLists, groupName, groupType, action, ManageListHelper.groupSelectedLists_cb );
+				//alert(groupName + "( " + action + " ):" + sLists);
+			}
+			catch(err) {} 
+		},
+		'groupSelectedLists_cb' : function(txt)	{
+			if(txt == "pass")
+				alert("all good");
+				
+			ManageListHelper.getAllLists();
+			
+			try	{
+			   	SidebarHelper.loadSidebar();
+			}
+			catch(err)	{}
 		}
 	};
 </script>
@@ -252,26 +289,29 @@ function putDetails(userList){
 
 <span id="info">&nbsp;</span>
 
-<fieldset class="groupList">
+<fieldset class="groupList" id="patientListsFS">
 	<legend>
 		Patient Lists
 	</legend>
 	<br />
-	<div id="patientListDiv"></div>		
+	<div id="patientListDiv"></div>	
 	<script>ManageListHelper.getDefaultPatientLists();</script>
 	<div id="defaultPatientListDiv"></div>	
 	<script>ManageListHelper.getPatientLists();</script>
 	
 	
 	<div id="listDiv" />
-
+		New List Name:<input type="text" id="patientGroupName"/>
+		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'join')" value="Join Selected"/></b>	
+		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'intersect')" value="Intersect Selected"/></b>	
+		
 	</div>
 	<div id="PatientDIDListMarker">
 		&nbsp;
 	</div>
 </fieldset>
 
-<fieldset class="groupList">
+<fieldset class="groupList" id="geneListsFS">
 	<legend>
 		Gene Symbol Lists
 	</legend>
@@ -281,7 +321,9 @@ function putDetails(userList){
 	<script>ManageListHelper.getGeneLists();</script>
 	
 	<div id="listDiv" />
-
+		New List Name:<input type="text" id="geneGroupName"/>
+		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('geneListsFS',$('geneGroupName').value, 'join')" value="Join Selected"/></b>	
+		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('geneListsFS',$('geneGroupName').value, 'intersect')" value="Intersect Selected"/></b>	
 	</div>
 	
 	<div id="GeneSymbolListMarker">
