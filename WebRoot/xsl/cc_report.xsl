@@ -292,7 +292,7 @@
 		  	  			<xsl:variable name="styleclass" select="@class" />
 		  	  			<xsl:variable name="theData" select="Data"/>
 		  	  			<xsl:variable name="theType" select="@type"/>
-		  	  			
+		  	  			<xsl:variable name="reporterType" select="Data/@type"/>
 		  	  			
 		      			<td class="{$class}" id="{$theType}" name="{$theType}">
 						
@@ -309,8 +309,14 @@
 		      					<!-- 	<input type="checkbox" class="checkorradio" id="tmpReporter" name="tmpReporter" value="{$theData}" onclick="javascript:A_saveTmpReporter(this);" /> -->
 		      					
 		      					<!--  <a href="#{$theAcc}" id="{$theAcc}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>	-->
-		      					<a href="#{$theData}" id="{$theData}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>	
-		      					
+		      					<xsl:choose>
+			      					<xsl:when test="$reporterType = 'AGILENT'">
+				      					<a href="#{$theData}" id="{$theData}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>			      					
+			      					</xsl:when>
+			      					<xsl:otherwise>
+				      					<a href="#{$theData}" id="{$theData}" onclick="javascript:spawnAnnot('reporterFromCC_cdna',this.id); return false;"><xsl:value-of select="Data"/></a>	
+									</xsl:otherwise>	      					
+								</xsl:choose>
 		      				</xsl:when>
 			      			<xsl:when test="$class = 'sample'">
 			      				<xsl:variable name="sample" select="Data"  />
