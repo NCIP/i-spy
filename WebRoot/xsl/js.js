@@ -163,7 +163,7 @@ function spawnAnnot(type, element)	{
 
 	if(type == "reporterFromCC_cdna")	{
 		if(element.indexOf("_")!= -1)
-			element = element.substring(0,element.indexOf("_"));
+			element = element.substring(0,element.lastIndexOf("_"));
 		type = type.substring(0,type.indexOf("_")); //fall back to regular CC
 		//alert(element);
 	}
