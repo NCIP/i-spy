@@ -1,29 +1,21 @@
 package gov.nih.nci.ispy.util;
 
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
-import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.util.PropertyLoader;
-import gov.nih.nci.ispy.cache.ISPYContextListener;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-import org.apache.log4j.Logger;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-import java.io.*;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-
-import com.sun.org.apache.xerces.internal.impl.xs.dom.DOMParser;
 /**
  * @todo comment this!
  * @author BhattarR, BauerD
@@ -157,7 +149,7 @@ public class ApplicationContext{
            
            @SuppressWarnings("unused") AnalysisServerClientManager analysisServerClientManager = AnalysisServerClientManager.getInstance();
 		   analysisServerClientManager.setCache(ApplicationFactory.getBusinessTierCache());
-		   analysisServerClientManager.setMessagingProperties(messagingProps);
+		   //analysisServerClientManager.setMessagingProperties(messagingProps);
 		   
 		   //create the file based annotation service
 		   
