@@ -1,5 +1,7 @@
 <%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean, gov.nih.nci.caintegrator.application.lists.ListManager, gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document"%>
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
+<script type='text/javascript' src='js/scriptaculous/effects.js'></script>
+
 <script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
@@ -235,7 +237,7 @@ function putDetails(userList){
                     + "<input type='checkbox' id='' name='" + listType + "' value='" +lists[t].getAttribute("name")+ "'/>"
                     + "<b title='"+lists[t].getAttribute("name")+"'>"
                     + shortName + "</b>"
-                    + " created on:" + lists[t].getAttribute("date") 
+                    + " created:" + lists[t].getAttribute("date") 
                     + " (" + lists[t].getAttribute("invalid") + " invalid) "
                     + "[<a href='#' onclick='deleteList(\""
                     + lists[t].getAttribute("name")
@@ -294,6 +296,27 @@ function putDetails(userList){
 			catch(err)	{}
 		}
 	};
+	
+	var FormChanger = {
+	//$('typeSelector').value , $('uploadRow') , $('listName') , $('uploadButton')
+		'upload2type' : function()	{
+
+			//hide the upload field and show a text area
+			$('uploadRow').style.display = "none";
+			$('textRow').style.display = "";
+			
+			$('uploadButton').onclick = TextFormList.processTextForm;
+			//alert($('uploadButton').onclick);
+		},
+		'type2upload' : function()	{
+			//hide the textarea field and show a upload
+			$('uploadRow').style.display = "";
+			$('textRow').style.display = "none";
+			
+			$('uploadButton').onclick = validateForm;
+			//alert($('uploadButton').onclick);
+		}
+	};
 </script>
 <style>	
 	.status {
@@ -305,32 +328,42 @@ function putDetails(userList){
 
 <span id="info">&nbsp;</span>
 
+<div style="text-align:center">
+	<a href="#geneLists">Gene Lists</a> | 
+	<a href="#patientLists">Patient Lists</a> | 
+	<a href="#addList">Add List</a>
+</div>
+<a name="patientLists"></a>
 <fieldset class="groupList" id="patientListsFS">
-	<legend>
+	<legend onclick="new Effect.toggle('patContainer')">
 		Patient Lists
 	</legend>
-	<br />
-	<div id="patientListDiv"></div>	
-	<script>ManageListHelper.getDefaultPatientLists();</script>
-	<div id="defaultPatientListDiv"></div>	
-	<script>ManageListHelper.getPatientLists();</script>
-	
-	
-	<div id="listDiv" />
-		New List Name:<input type="text" id="patientGroupName"/>
-		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'join')" value="Join Selected"/></b>	
-		<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'intersect')" value="Intersect Selected"/></b>	
-		<span class="status" id="patientGroupStatus"></span>
-	</div>
-	<div id="PatientDIDListMarker">
-		&nbsp;
+	<div id="patContainer">
+		<br/>
+		<div id="patientListDiv"></div>	
+		<script>ManageListHelper.getDefaultPatientLists();</script>
+		<div id="defaultPatientListDiv"></div>	
+		<script>ManageListHelper.getPatientLists();</script>
+		
+		
+		<div id="listDiv" />
+			New List Name:<input type="text" id="patientGroupName"/>
+			<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'join')" value="Join Selected"/></b>	
+			<b><input type="button" onclick="ManageListHelper.groupSelectedLists('patientListsFS', $('patientGroupName').value,'intersect')" value="Intersect Selected"/></b>	
+			<span class="status" id="patientGroupStatus"></span>
+		</div>
+		<div id="PatientDIDListMarker">
+			&nbsp;
+		</div>
 	</div>
 </fieldset>
 
+<a name="geneLists"></a>
 <fieldset class="groupList" id="geneListsFS">
-	<legend>
+	<legend onclick="new Effect.toggle('gContainer')">
 		Gene Symbol Lists
 	</legend>
+	<div id="gContainer">
 	<br />
 	
 	<div id="geneListDiv"></div>
@@ -346,14 +379,16 @@ function putDetails(userList){
 	<div id="GeneSymbolListMarker">
 		&nbsp;
 	</div>
+	</div>
 </fieldset>
 
-
+<a name="addList"></a>
 <fieldset class="listForm" id="listForm">
 	<legend class="listLegend">
-		upload list
+		<a onclick="FormChanger.type2upload();return false;" href="#">Upload List</a> -or- <a href="#" onclick="FormChanger.upload2type();return false;">Manually type List</a>
 	</legend>
-	<form id="uploadForm" method="post" action="upload.jsp" enctype="multipart/form-data" target="RSIFrame">
+	<div id="uploadListDiv">
+	<form id="uploadForm" method="post" action="upload.jsp" enctype="multipart/form-data" target="RSIFrame" onSubmit="return false;">
 		<table border="0" cellspacing="2" cellpadding="2">
 			<tr>
 				<td>
@@ -372,7 +407,7 @@ function putDetails(userList){
 					
 				</td>
 			</tr>
-			<tr>
+			<tr id="uploadRow">
 				<td>
 					Upload file:
 				</td>
@@ -380,21 +415,29 @@ function putDetails(userList){
 					<input type="file" id="upload" name="upload" size="25">
 				</td>
 			</tr>
+			<tr id="textRow" style="display:none">
+				<td>
+					Type Ids:<br/> (comma separated)
+				</td>
+				<td colspan="2">
+					<textarea id="typeListIds" style="width:300px"></textarea>
+				</td>
+			</tr>
 			<tr>
 				<td>
 					Name list:
 				</td>
-				<td>
+				<td colspan="2">
 					<input type="text" id="listName" name="listName" size="30">
-				</td>
-				<td style="text-align:right">
-					<input type="button" value="add list" onclick="validateForm()">
-					<span id="uploadStatus" style="display:none"><img src="images/indicator.gif"/>&nbsp; uploading...</span>
+					<input type="button" value="add list" onclick="validateForm()" id="uploadButton">
+					<span id="uploadStatus" style="display:none"><img src="images/indicator.gif"/>&nbsp; saving...</span>
 				</td>
 			</tr>
 
 		</table>
 	</form>
+	</div>
+	
 </fieldset>
 
 <script>
@@ -402,6 +445,8 @@ function putDetails(userList){
      // and list name collisions are checked. If there is a collision the user can either
      //overwrite the stored list with the current list or cancel the action and rename it. -KR
      
+     
+     //never gets called if you click <enter> on the keyboard, hence the onSubmit = return false; - RL
      function validateForm(){
      
      $('uploadStatus').style.display = "";
@@ -417,11 +462,57 @@ function putDetails(userList){
      	  
      	if(errors != ""){
      	    alert(errors);
+     	    $('uploadStatus').style.display = "none";
      	    return false;
      	 }
-     	 else {document.forms[0].submit();}
+     	 else {
+	     	$('uploadForm').submit();
+     	 	//document.forms[0].submit();
+     	 }
      	 
      }
+     
+    var TextFormList =	{
+    	'processTextForm' : function ()	{
+		     if($('typeListIds').value != "" && $('listName').value != "")	{
+		     
+		     	$('uploadStatus').style.display = "";
+		     	//construct array
+		     	var ids = Array();
+		     	ids = $('typeListIds').value.split(",");
+		     	//clean on the sside
+		     	//ajax call
+		     	try	{
+			     	if($('typeSelector').value == "patient")	{
+				    	DynamicListHelper.createPatientList(ids, $('listName').value, TextFormList.processTextForm_cb);
+				    }
+				    else	{
+				    	DynamicListHelper.createGeneList(ids, $('listName').value,TextFormList.processTextForm_cb);
+				    }
+			    }
+			    catch(err)	{
+				    $('uploadStatus').style.display = "";
+			    }
+		     	
+		     }
+		     else	{
+		     	alert("Please fill in all fields");
+		     } 
+	    },
+	    'processTextForm_cb' : function(res)	{
+	    	//clear form, refresh lists
+	    	if(res != "pass")
+	    		alert("List did not save correctly, please try again.");
+	    		
+	    	$('typeListIds').value = "";
+	    	$('listName').value = "";
+	    	
+	    	$('uploadStatus').style.display = "none";
+	    	generic_cb("none"); //reload all sidebars
+	    }
+	};
  
 </script>
-
+<div style="text-align:right; margin:10px;">
+<a href="#" onclick="javascript:scroll(0,0);return false;">[top]</a>
+</div>
