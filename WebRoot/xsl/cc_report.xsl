@@ -299,14 +299,18 @@
 		      			<xsl:choose>
 		      				<xsl:when test="$styleclass = 'gene' and $theData != '--' and $theData != '-' and $theData != ''">
 		  					 	<input type="checkbox" class="checkorradio" id="tmpReporter" name="tmpReporter" value="{$theData}" onclick="javascript:SaveGenes.A_saveTmpGene(this);" />
-		  					 	<xsl:value-of select="Data"/>
-		      				<!-- 
+		  					<!--
+		  					 	<a href=''><xsl:value-of select="Data"/></a>
+		      				 -->
 		      					<a href="#" onclick="javascript:spawnAnnot('gene', this); return false;"><xsl:value-of select="Data"/></a>
-		      				-->
+		      				
 		      				</xsl:when>
 		      				<xsl:when test="($styleclass = 'reporter' or $styleclass = 'cytoband') and $theData != '-'">
 		      					<!-- 	<input type="checkbox" class="checkorradio" id="tmpReporter" name="tmpReporter" value="{$theData}" onclick="javascript:A_saveTmpReporter(this);" /> -->
-		      					<a href="#{$theAcc}" id="{$theAcc}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>	
+		      					
+		      					<!--  <a href="#{$theAcc}" id="{$theAcc}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>	-->
+		      					<a href="#{$theData}" id="{$theData}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>	
+		      					
 		      				</xsl:when>
 			      			<xsl:when test="$class = 'sample'">
 			      				<xsl:variable name="sample" select="Data"  />
