@@ -73,7 +73,7 @@ public class DynamicListHelper {
 		//no duplicates
 		HashSet<String> h = new HashSet<String>();
 		for (int i = 0; i < list.length; i++)
-			h.add(list[i]);
+			h.add(list[i].trim());
 		List<String> cleanList = new ArrayList<String>();
 		for(String n : h)	{
 			cleanList.add(n);
