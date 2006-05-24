@@ -161,12 +161,11 @@ function showHelp(help)	{
 
 function spawnAnnot(type, element)	{
 
-alert(type);
 	if(type == "reporterFromCC_cdna")	{
 		if(element.indexOf("_")!= -1)
 			element = element.substring(0,element.indexOf("_"));
 		type = type.substring(0,type.indexOf("_")); //fall back to regular CC
-		alert(element);
+		//alert(element);
 	}
 	var el; //either accept and object or a string
 	if(element.innerHTML)
