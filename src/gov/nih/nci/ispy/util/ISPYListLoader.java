@@ -25,7 +25,7 @@ import gov.nih.nci.ispy.web.helper.ISPYListValidator;
  * placed in the dat_files directory of the project. It also loads (as "userLists")
  * all the predefined clinical status groups found in the ISPY study(e.g ER+, ER-, etc)
  * @author rossok
- * @param <es>
+ * @param 
  *
  */
 

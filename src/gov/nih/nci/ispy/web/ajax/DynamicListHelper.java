@@ -176,7 +176,10 @@ public class DynamicListHelper {
 				helper.uniteLists(al, groupName, lt);
 			}
 			else	{
-				helper.intersectLists(al, groupName, lt);
+                if(helper.isIntersection(al)){
+                    helper.intersectLists(al, groupName, lt);
+                }
+                else results = "fail";
 			}
 		}
 		catch(Exception e){
