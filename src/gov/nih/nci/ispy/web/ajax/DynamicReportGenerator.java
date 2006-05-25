@@ -167,6 +167,14 @@ public class DynamicReportGenerator {
 		return saveTmpGeneric("tmpGeneList", elem);
 	}
 	
+	public Map saveTmpGeneFromArray(String[] elems)	{
+		Map results = new HashMap();
+		for(String el : elems){
+			results = saveTmpGene(el);
+		}
+		
+		return results;
+	}
 	
 	
 	public Map saveTmpGeneric(String type, String elem)	{
