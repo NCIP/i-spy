@@ -182,6 +182,7 @@ public class ClassComparisonReport{
 			//process the query details
 			ArrayList<String> queryDetails = new ArrayList();
 			ClassComparisonQueryDTO ccdto = (ClassComparisonQueryDTO)ccf.getQueryDTO();
+			String reporterType = ccdto.getArrayPlatformDE().getValueObject();
 			
 			if(ccdto != null)	{
 				String tmp = "";
@@ -353,7 +354,7 @@ public class ClassComparisonReport{
 
 		        	dataRow = report.addElement("Row").addAttribute("name", "dataRow");
 			        cell = dataRow.addElement("Cell").addAttribute("type", "data").addAttribute("class", "reporter").addAttribute("group", "data");
-			        	data = cell.addElement("Data").addAttribute("type", "header").addText(ccre.getReporterId());
+			        	data = cell.addElement("Data").addAttribute("type", reporterType).addText(ccre.getReporterId());
 			        	data = null;
 			        cell = null;
 			        cell = dataRow.addElement("Cell").addAttribute("type", "data").addAttribute("class", "data").addAttribute("group", "data");
