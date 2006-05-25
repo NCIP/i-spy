@@ -53,6 +53,7 @@ var SaveGenes = {
 			SaveGenes.A_uncheckAll(document.getElementsByName('tmpReporter'));
 		},
 	'A_checkAll' : function(field)	{
+			//checks all on the Current page only
 			if(field.length > 1)	{
 				for (i = 0; i < field.length; i++)	{
 					field[i].checked = true ;
@@ -83,6 +84,30 @@ var SaveGenes = {
 				SaveGenes.A_uncheckAll(document.getElementsByName('tmpReporter'));
 			}
 		},
+	'A_checkAllOnAll' : function(box)	{
+		//clear the tmp ones weve already checked
+		//get all the genes on all pages and savethem
+		
+		//update the UI to show which ones are checked and precheck all the boxes
+		if(box.checked && allGenes.length && allGenes.length > 1)	{
+		//	SaveGenes.A_checkAll(allGenes);
+			if(allGenes.length > 1)	{
+				/*
+				for (i = 0; i < allGenes.length; i++)	{
+					DynamicReport.saveTmpGene(allGenes[i], SaveGenes.A_saveTmpGene_cb);
+				}
+				*/
+				
+				DynamicReport.saveTmpGeneFromArray(allGenes, SaveGenes.A_saveTmpGene_cb);
+				
+				setTimeout("SaveGenes.preCheckGenes()", 500);
+			}
+		}
+		else if(!box.checked)	{
+		
+			SaveGenes.A_clearTmpGenes();
+		}
+	},
 	'A_saveGenes' : function()	{
 			//get the name
 			var name = $("tmp_prb_queryName").value;
@@ -145,5 +170,22 @@ var SaveGenes = {
 				if(SaveGenes.currentTmpReporters.indexOf(field.value) != -1 )
 					field.checked = true;
 			}
-		}
+		},
+	'preCheckGenes' : function()	{
+		var field = document.getElementsByName('tmpReporter');
+		
+		//alert(SaveGenes.currentTmpReporters);
+		
+			if(field.length > 1 && SaveGenes.currentTmpReporters != "")	{
+				for (i = 0; i < field.length; i++)	{
+					if(SaveGenes.currentTmpReporters.indexOf(field[i].value) != -1 )
+						field[i].checked = true ;
+				}
+			}
+			else	{
+				if(SaveGenes.currentTmpReporters.indexOf(field.value) != -1 )
+					field.checked = true;
+			}
+	
+	}
 };

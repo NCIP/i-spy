@@ -171,7 +171,7 @@
 				<input type="button" name="filter_submit" value="Save Genes" onclick="javascript:SaveGenes.A_saveGenes();" />
 			
 				<xsl:text>&#160;</xsl:text>
-				<span id="checkAllBlock"><input type="checkbox" name="checkAll" id="checkAll" class="checkorradio" onclick="javascript:SaveGenes.manageCheckAll(this);"/> All on page</span>
+				<span id="checkAllBlock"><input type="checkbox" name="checkAll" id="checkAll" class="checkorradio" onclick="javascript:SaveGenes.A_checkAllOnAll(this);"/> Check All</span>
 			
 			 	<xsl:text>&#160;</xsl:text>
 			 	<a href="#" onclick="javascript:return false;" onmouseover="javascript:return showHelp(SaveGenes.savedHeader + SaveGenes.currentTmpReporters);" onmouseout="return nd();" id="reporterCount"></a>
@@ -242,6 +242,16 @@
 	 </div>
 	</div>
 </div>
+	<script language="javascript">
+		var allGenes = Array();
+	
+	<xsl:for-each select="Row/Cell[@class='gene']">
+		<xsl:if test="Data != ''">
+			allGenes.push('<xsl:value-of select="Data"/>');
+		</xsl:if>
+	</xsl:for-each>
+	</script>
+	
     <table cellpadding="0" cellspacing="0" id="dataTable">
 		<xsl:for-each select="Row[@name='headerRow']">
 			<tr class="headerRow">
@@ -311,7 +321,8 @@
 		      					<!--  <a href="#{$theAcc}" id="{$theAcc}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>	-->
 		      					<xsl:choose>
 			      					<xsl:when test="$reporterType = 'AGILENT'">
-				      					<a href="#{$theData}" id="{$theData}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>			      					
+				 						<xsl:value-of select="Data"/>		      					
+				      					<!-- 	<a href="#{$theData}" id="{$theData}" onclick="javascript:spawnAnnot('reporterFromCC',this.id); return false;"><xsl:value-of select="Data"/></a>	-->		      				
 			      					</xsl:when>
 			      					<xsl:otherwise>
 				      					<a href="#{$theData}" id="{$theData}" onclick="javascript:spawnAnnot('reporterFromCC_cdna',this.id); return false;"><xsl:value-of select="Data"/></a>	
