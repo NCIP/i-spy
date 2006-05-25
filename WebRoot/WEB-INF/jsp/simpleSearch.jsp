@@ -24,8 +24,8 @@
 			else	{
 				//alert("cant save : " + TmpRegistrants.length + " : " + $('regName').value.length);
 				//alert("Please select some registrants and enter a name for your group");
-				$('saveStatus').innerHTML = "<br/><br/><b>Error: Please select some registrants and enter a name for your group</b>";
-				setTimeout(function() { $('saveStatus').innerHTML = ""; }, 2000);
+				$('saveStatus').innerHTML = "<br/><br/><b>Error: Please select some patients and enter a name for your group</b>";
+				setTimeout(function() { $('saveStatus').innerHTML = ""; }, 8000);
 			}
 		},
 		'save' : function(regArray, name)	{
@@ -101,7 +101,7 @@
 			A_IdLookup.lookup($('lookupString').value);
 		},
 		'stop' : function(pats)	{
-			$('statusSpan').innerHTML = pats + " registrant(s) returned";
+			$('statusSpan').innerHTML = pats + " patients(s) returned";
 			$('lookupButton').value = "search";
 			$('lookupButton').disabled = false;
 			if(pats != 0)	{
@@ -236,7 +236,7 @@
 					
 					tDIV.appendChild(cBox);
 					
-					tDIV.appendChild(document.createTextNode(r+1 + ") Registrant: " + frameid + " | "));
+					tDIV.appendChild(document.createTextNode(r+1 + ") Patient: " + frameid + " | "));
 					
 					var eAnchor = document.createElement("a");
 					eAnchor.setAttribute("href","#");

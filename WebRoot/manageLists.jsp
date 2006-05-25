@@ -229,17 +229,17 @@ function putDetails(userList){
 			for(var t=0; t<lists.length; t++)	{
 			
 				var status = "<span id=\""+lists[t].getAttribute("name")+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
-				var shortName = lists[t].getAttribute("name").length>15 ? lists[t].getAttribute("name").substring(0,13) + "..." : lists[t].getAttribute("name");
+				var shortName = lists[t].getAttribute("name").length>25 ? lists[t].getAttribute("name").substring(0,23) + "..." : lists[t].getAttribute("name");
 				// += or =
 				$(listType+'ListDiv').innerHTML += "<div id='"
                 	+ lists[t].getAttribute("name")
                     + "' class='listListing'>" 
                     + "<input type='checkbox' id='' name='" + listType + "' value='" +lists[t].getAttribute("name")+ "'/>"
                     + "<b title='"+lists[t].getAttribute("name")+"'>"
-                    + shortName + "</b>"
-                    + " created:" + lists[t].getAttribute("date") 
-                    + " (" + lists[t].getAttribute("invalid") + " invalid) "
-                    + "[<a href='#' onclick='deleteList(\""
+                    + shortName + "</b> "
+                   // + " created:" + lists[t].getAttribute("date") 
+                  //  + " (" + lists[t].getAttribute("invalid") + " invalid) "
+                    + " [<a href='#' onclick='deleteList(\""
                     + lists[t].getAttribute("name")
                     + "\");return false;'>delete</a>]"
                     + "[<a href='#' onclick='getDetails(\""

@@ -77,7 +77,7 @@
 	var A_IdLookup = {
 		'lookup_cb' : function(txt)	{
 			var _myColumns = [
-					"RegID", "LabTrack ID", "Timepoint", "Core Type", "Section Info"
+					"ISPY ID", "LabTrak ID", "Timepoint", "Core Type", "Section Info"
 				];
 				
 			var _myData = Array();

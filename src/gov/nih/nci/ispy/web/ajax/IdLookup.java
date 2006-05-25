@@ -104,10 +104,12 @@ public class IdLookup {
 		inputList = Arrays.asList(st);		
 		List<RegistrantInfo> entries = idMapper.getMapperEntriesForIds(inputList);
 		
+		csv += "RegId,LabTrak ID,Core Type,Timepoint,Section\r\n";
+		
 		for (RegistrantInfo entry:entries) {
 			for(SampleInfo sampleInfo : entry.getAssociatedSamples())	{
 				csv += entry.getRegistrationId() + "," 
-					+ sampleInfo.getLabtrackId() + "','" 
+					+ sampleInfo.getLabtrackId() + "," 
 					+ sampleInfo.getCoreType().toString() + ","
 					+ sampleInfo.getTimepoint().toString() + ",'"
 					+ sampleInfo.getSectionInfo() + "'\r\n";
