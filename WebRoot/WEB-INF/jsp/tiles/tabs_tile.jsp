@@ -47,7 +47,7 @@
 		switch(sect)	{
 			case 1:
 				//1 is simple search
-				simple = "<span>ID Search</span>\n" + simpleSecondary;
+				simple = "<span>ID Lookup</span>\n" + simpleSecondary;
 				adv = "<a href=\"menu.do\" onclick=\"return false\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
@@ -55,7 +55,7 @@
 				break;
 			case 2:
 				//2 is adv
-				simple = "<a href=\"simpleSearch.do\">ID Search</a>";
+				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
 				adv = "<span>Advanced Search</span>\n" + advSecondary;
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
@@ -63,7 +63,7 @@
 				break;
 			case 3:
 			    //3 is high order analysis
-				simple = "<a href=\"simpleSearch.do\">ID Search</a>";
+				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
 				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<span>High Order Analysis</span>\n" + analysisSecondary;
@@ -71,7 +71,7 @@
 				break;
 			case 4:
 			    //4 is view results
-				simple = "<a href=\"simpleSearch.do\">ID Search</a>";
+				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
 				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<span>View Results&nbsp;&nbsp;</span>\n";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
@@ -79,7 +79,7 @@
 				break;
 			case 5:
 			    //4 is view results
-				simple = "<a href=\"simpleSearch.do\">ID Search</a>";
+				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
 				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
@@ -87,7 +87,7 @@
 				break;
 			default:
 				//simple = "<span>Simple Search</span>\n" + simpleSecondary;
-				simple = "<a href=\"simpleSearch.do\">ID Search</a>";
+				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
 				adv = "<a href=\"#\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
