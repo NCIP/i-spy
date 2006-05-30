@@ -45,7 +45,7 @@
 		if(document.getElementById(name+ "detailsDiv")==null){	    
 			if($(name+"status"))
 				$(name+"status").style.display = "";
-	    	UserListHelper.getDetailsFromList(name,putDetails);	    
+	    	UserListHelper.getDetailsFromList(name,putDetailsIHTML);	    
 	   	}
 	   	else	{
 	    	Element.remove(name+"detailsDiv");	     
@@ -183,6 +183,88 @@ function putDetails(userList){
 			}
 	}
 	
+	//same as above, but w/innerHTML
+	function putDetailsIHTML(userList){
+ 	try	{
+		var list = userList.getElementsByTagName("list");
+		listName = list[0].getAttribute("name");
+		listType = list[0].getAttribute("type");
+		listType = ""; //clear this for now
+		
+		var items = userList.getElementsByTagName("item");		
+		var invalidItems = userList.getElementsByTagName("invalidItem");	 
+		
+		var itemId;
+ 		var value;
+ 		var dDIV = document.createElement("div");
+ 		dDIV.setAttribute("id",listName + "detailsDiv");
+ 		dDIV.setAttribute("class", "listItemsDiv");
+ 		
+ 		//rcl - create and append our container
+ 		 document.getElementById(listName + "details").appendChild(dDIV);
+ 		
+ 		//setup a handle to the working container
+ 		var wDiv = $(listName + "detailsDiv");
+ 		
+ 		if(items.length > 0)	{
+ 		
+ 			var tmp = "";
+		 		for(var i=0; i<items.length; i++)	{
+		 		
+			 		
+		 			itemId = items[i].firstChild.data;	
+		 			
+		 			tmp += "<li id='"+listName + itemId + "_div"+"' class='detailsList'>"+(i+1) +") " +listType + " " + itemId;
+		 			
+					
+					var oc = new Function("deleteItem('"+listName+ "','" + itemId + "');return false;");
+					tmp += "<a href=\"#\" onclick=\"deleteItem('"+listName+ "','" + itemId + "');return false;\">[delete]</a></li>";
+					  
+			     }
+			     
+			     wDiv.innerHTML += tmp;
+			     
+				if(!invalidItems.length < 1){
+
+					wDiv.innerHTML += "<span id='invalid_span' style='color:gray; padding:3px'>Invalid items: ";
+					
+					
+					for(var i=0; i<invalidItems.length; i++){
+						invalidItemId = invalidItems[i].firstChild.data;
+						if((i+1) == invalidItems.length){
+							wDiv.innerHTML += invalidItemId;
+						}
+						else{
+							wDiv.innerHTML += invalidItemId + ",";
+						}
+					}
+					
+					wDiv.innerHTML += "<br/></span>";
+					
+				}
+				wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+listName+"';\" style='margin-top:10px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
+
+
+
+		}
+	     else{
+	        document.getElementById(listName + "details").appendChild(dDIV);
+	      	$(listName + "detailsDiv").innerHTML = "<span>No details found</span>";
+	     }
+	       
+	}
+	catch(err)	{
+		$("details").innerHTML = err;
+		$("details").style.display = "";
+	}
+	 		
+	if($(listName+"status"))	{
+		setTimeout(function()	{$(listName+"status").style.display = "none";}, 500);
+	}
+	
+	}
+	
+	
 	//this invokes and processes the Ajax call to generate the initial listing of lists
 	var ManageListHelper = {
 		'getPatientLists' : function()	{
@@ -247,7 +329,7 @@ function putDetails(userList){
                     + "<div style='cursor:pointer;margin-left:20px;;width:200px;display:inline;' onclick='getDetails(\""
                     + lists[t].getAttribute("name")
                     + "\");return false;'>"
-                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>details" + status + "</div>"
+                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>show/hide details" + status + "</div>"
                     + "</div><br /><div id='"
                     + lists[t].getAttribute("name")
                     + "details'></div>";
@@ -289,7 +371,7 @@ function putDetails(userList){
 		},
 		'groupSelectedLists_cb' : function(txt)	{
 			var res = txt.split(",");
-			//alert(txt);
+			//alert(res[0]);
 			try	{
 			
 				if(res[0].indexOf("pass")!=-1)	{
@@ -303,11 +385,14 @@ function putDetails(userList){
 					$(st).innerHTML = "Group Saved";
 					setTimeout(function()	{ $(st).innerHTML = ""; }, 2000);
 				}
+				else	{
+					alert("List did not save, please try again.");
+				}
 					
 				ManageListHelper.getAllLists();
 			   	SidebarHelper.loadSidebar();
 			}
-			catch(err)	{}
+			catch(err)	{alert(err);}
 		}
 	};
 	
@@ -336,6 +421,11 @@ function putDetails(userList){
 	.status {
 		color:#A90101;
 		font-weight:bold;
+	}
+	.groupList li	{
+		margin-left:20px;
+		list-type:none;
+		list-style-type: none;
 	}
 </style>
 <iframe id="RSIFrame" name="RSIFrame" style="width:0px; height:0px; border: 0px" src="blank.jsp"></iframe>
@@ -515,7 +605,8 @@ function putDetails(userList){
 	    },
 	    'processTextForm_cb' : function(res)	{
 	    	//clear form, refresh lists
-	    	if(res != "pass")
+	    	var r = res.split(",");
+	    	if(r[0] != "pass")
 	    		alert("List did not save correctly, please try again.");
 	    		
 	    	$('typeListIds').value = "";
