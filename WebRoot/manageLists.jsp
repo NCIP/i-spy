@@ -99,6 +99,7 @@ function putDetails(userList){
 		var list = userList.getElementsByTagName("list");
 		listName = list[0].getAttribute("name");
 		listType = list[0].getAttribute("type");
+		listType = ""; //clear this for now
 		
 		var items = userList.getElementsByTagName("item");		
 		var invalidItems = userList.getElementsByTagName("invalidItem");	 
@@ -117,7 +118,7 @@ function putDetails(userList){
 		 			var tDIV = document.createElement("div");
 					tDIV.setAttribute("id", listName + itemId + "_div");
 					tDIV.setAttribute("class","detailsList");
-					tDIV.appendChild(document.createTextNode(i+1 + ") " + listType + ": " + itemId + "  "));
+					tDIV.appendChild(document.createTextNode(i+1 + ") " + listType + " " + itemId + "  "));
 					
 					var eAnchor = document.createElement("a");					
 					eAnchor.setAttribute("href","#");					
