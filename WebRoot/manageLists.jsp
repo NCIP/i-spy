@@ -253,11 +253,21 @@ function putDetails(userList){
 		'groupSelectedLists' : function(listGroup, groupName, action)	{
 			var sLists = Array();
 			try	{
+				if(groupName == "")	{
+					alert("Please Enter a name for the new group");
+					throw("no name error");
+				}
 				var ls = $(listGroup).getElementsByTagName('input');
 				for(var i=0; i<ls.length; i++)	{
 					if(ls[i].type=='checkbox' && (ls[i].selected || ls[i].checked))
 						sLists.push(ls[i].value);
 				}
+				
+				if(sLists.length < 1)	{
+					alert("Please select some lists to " + action);
+					throw("no lists selected");
+				}
+				
 				var groupType = "patient";
 				
 				if(listGroup.indexOf('patient')!= -1)	{
