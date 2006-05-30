@@ -235,17 +235,20 @@ function putDetails(userList){
 				$(listType+'ListDiv').innerHTML += "<div id='"
                 	+ lists[t].getAttribute("name")
                     + "' class='listListing'>" 
-                    + "<input type='checkbox' id='' name='" + listType + "' value='" +lists[t].getAttribute("name")+ "'/>"
-                    + "<b title='"+lists[t].getAttribute("name")+"'>"
-                    + shortName + "</b> "
+                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +lists[t].getAttribute("name")+ "'/>"
+                    + "<b style='color:#000000;' title='"+lists[t].getAttribute("name")+"'>"
+                    + shortName + "</b>"
                    // + " created:" + lists[t].getAttribute("date") 
                   //  + " (" + lists[t].getAttribute("invalid") + " invalid) "
-                    + " [<a href='#' onclick='deleteList(\""
+                    + "<div style='cursor:pointer;margin-left:20px;;width:200px;display:inline;'  onclick='deleteList(\""
                     + lists[t].getAttribute("name")
-                    + "\");return false;'>delete</a>]"
-                    + "[<a href='#' onclick='getDetails(\""
+                    + "\");return false;'>"
+                    + "<img src='images/deleteCross20.png' border='0' style='vertical-align:text-bottom;'/>delete</div>"
+                    + "<div style='cursor:pointer;margin-left:20px;;width:200px;display:inline;' onclick='getDetails(\""
                     + lists[t].getAttribute("name")
-                    + "\");return false;'>details</a>] " + status + "</div><br /><div id='"
+                    + "\");return false;'>"
+                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>details" + status + "</div>"
+                    + "</div><br /><div id='"
                     + lists[t].getAttribute("name")
                     + "details'></div>";
 			}
