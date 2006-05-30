@@ -3,12 +3,20 @@
 <a href="manageLists.do">Manage Lists</a>
 </fieldset>
 </div>
+
+<style>
+#sidebar div b {
+	border-bottom: 1px solid #A90101;
+}
+</style>
 <div id="sidebar">
 <div style="text-align:left; margin-top:10px;">
-	<b>Patient Lists:</b>
+	<b>Patient Lists:</b><br/>
+	<br/><i>-Custom Lists</i>
 	<div id="sidebarPatientUL">
 		<img src="images/indicator.gif"/>
     </div>
+    <br/><i>-Pre-defined Lists</i>
     <div id="sidebarDPatientUL">
 		<img src="images/indicator.gif"/>
     </div>       
@@ -56,7 +64,7 @@ var SidebarHelper = {
 			SidebarHelper.createOnClicks('sidebarPatientUL');
 		}
 		else	
-			$('sidebarPatientUL').innerHTML = "*No Custom Patient Lists Saved*";
+			$('sidebarPatientUL').innerHTML = "<ul><li>No Lists Available</li></ul>";
 	},
 	'loadDefaultPatientUL_cb' : function(txt)	{
 		if(txt != "")	{
