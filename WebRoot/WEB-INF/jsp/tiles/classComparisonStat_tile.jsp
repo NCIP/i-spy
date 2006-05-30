@@ -31,7 +31,7 @@ Multiple Comparison Adjustment
 	
 	<fieldset class="gray">
 	<legend class="red">b) Select Constraint
-		<a href="javascript:void(0);" onmouseover="return overlib('Future implementation', CAPTION, 'Help');" onmouseout="return nd();">[?]</a>
+		<a href="javascript:void(0);" onmouseover="return overlib('Select or type a fold change filter to apply to the result. Type a p-Value filter to apply to the result.', CAPTION, 'Help');" onmouseout="return nd();">[?]</a>
 	</legend>
 
 	<html:radio property="foldChange" value="list" styleClass="radio"/>
