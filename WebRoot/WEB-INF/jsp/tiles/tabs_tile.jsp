@@ -35,7 +35,7 @@
 							"<li><a href=\"#\">Managed Saved Lists</a></li>\n" +
 							"</ul>\n";				
 	String simpleSecondary = "<ul id=\"secondary\">\n" +
-							"<li><a href=\"simpleSearch.do\">Simple Search Home</a></li>\n" +
+							"<li><a href=\"simpleSearch.do\">ID Lookup Home</a></li>\n" +
 							"</ul>\n";
 	String analysisSecondary = "<ul id=\"secondary\">\n" +
 							"<li><a href=\"analysisHome.do\">Analysis Home</a></li>\n" +
