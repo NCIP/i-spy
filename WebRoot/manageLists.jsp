@@ -322,14 +322,14 @@ function putDetails(userList){
                     + shortName + "</b>"
                    // + " created:" + lists[t].getAttribute("date") 
                   //  + " (" + lists[t].getAttribute("invalid") + " invalid) "
-                    + "<div style='cursor:pointer;margin-left:20px;;width:200px;display:inline;'  onclick='deleteList(\""
-                    + lists[t].getAttribute("name")
-                    + "\");return false;'>"
-                    + "<img src='images/deleteCross20.png' border='0' style='vertical-align:text-bottom;'/>delete</div>"
                     + "<div style='cursor:pointer;margin-left:20px;;width:200px;display:inline;' onclick='getDetails(\""
                     + lists[t].getAttribute("name")
                     + "\");return false;'>"
                     + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>show/hide details" + status + "</div>"
+                    + "<div style='cursor:pointer;margin-left:20px;;width:200px;display:inline;'  onclick='deleteList(\""
+                    + lists[t].getAttribute("name")
+                    + "\");return false;'>"
+                    + "<img src='images/deleteCross20.png' border='0' style='vertical-align:text-bottom;'/>delete</div>"
                     + "</div><br /><div id='"
                     + lists[t].getAttribute("name")
                     + "details'></div>";

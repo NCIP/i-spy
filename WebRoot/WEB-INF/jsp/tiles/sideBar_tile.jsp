@@ -16,7 +16,7 @@
 	<div id="sidebarPatientUL">
 		<img src="images/indicator.gif"/>
     </div>
-    <br/><i>-Pre-defined Lists</i>
+    <br/><i>-Default Lists</i>
     <div id="sidebarDPatientUL">
 		<img src="images/indicator.gif"/>
     </div>       
