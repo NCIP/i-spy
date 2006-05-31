@@ -385,8 +385,13 @@ function putDetails(userList){
 					$(st).innerHTML = "Group Saved";
 					setTimeout(function()	{ $(st).innerHTML = ""; }, 2000);
 				}
-				else	{
-					alert("List did not save, please try again.");
+				else {
+					if(res[2] == "join"){
+						alert("List did not save, please try again.");
+					}
+					else{
+						alert("The selected lists do not have any common entries.");
+					}
 				}
 					
 				ManageListHelper.getAllLists();

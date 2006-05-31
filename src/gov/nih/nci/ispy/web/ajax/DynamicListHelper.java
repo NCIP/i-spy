@@ -186,7 +186,7 @@ public class DynamicListHelper {
 			results = "fail";
 		}
 		
-		results += "," + groupType;
+		results += "," + groupType + "," + action;
 		return results;
 	}
 
