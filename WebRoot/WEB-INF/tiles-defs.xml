@@ -77,7 +77,7 @@
 	-->
 	<definition name="ispy.simpleSearch" extends="baseDef">
       <put name="mainForm" value="/WEB-INF/jsp/simpleSearch.jsp" />
-	  <put name="title" value="Simple Search" />
+	  <put name="title" value="ID Lookup" />
 	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
 	  <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=1" />
 	</definition>
