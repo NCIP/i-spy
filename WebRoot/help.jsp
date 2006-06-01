@@ -219,7 +219,7 @@ String menu = "<a href=\"#gplot\">Gene Expression Plot</a><br>\n"+
 For more assistance please 
 <!--view our <a href="#">tutorials</a>, or
 -->
-<a href="mailto:ncicb@pop.nci.nih.gov?subject=Rembrandt-0.5">email</a> NCICB Application Support.
+<a href="mailto:ncicb@pop.nci.nih.gov?subject=IspyPortal-0.5">email</a> NCICB Application Support.
 </p>
 </body>
 </html>
