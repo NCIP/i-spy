@@ -215,6 +215,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	  catch (Exception ex2) {
 	    logger.error("Caught Exception while loading gene annotation file=" + annotationFileName + " recordCount=" + recordCount);
 	    logger.error(ex2);
+	    return -recordCount;
 	  }
 	  return recordCount;
 	}

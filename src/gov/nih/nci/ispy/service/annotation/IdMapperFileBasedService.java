@@ -96,10 +96,15 @@ public class IdMapperFileBasedService {
 			}
 			
 		} catch (IOException e) {
-			logger.error("IOException setting id mapping file=" + mappingFileName);
+			logger.error("IOException setting id mapping file=" + mappingFileName + " recordsLoaded=" + recordsLoaded);
 			logger.error(e);
 			return -recordsLoaded;
 		}
+		catch (Exception ex2) {
+		  logger.error("Caught Exception while loading id mapping file=" + mappingFileName + " recordsLoaded=" + recordsLoaded);
+		  logger.error(ex2);
+		  return -recordsLoaded;
+	    }
 		return recordsLoaded;
 	}
 	
