@@ -354,3 +354,9 @@ function toggleSDiv(divId,aId){
 				}
 			}
    
+   //http://johankanngard.net/2005/11/14/remove-an-element-in-a-javascript-array/
+	Array.prototype.remove = function(s){
+		for(i=0;i<this.length;i++){
+			if(s==this[i]) this.splice(i, 1);
+		}
+	}
