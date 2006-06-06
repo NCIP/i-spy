@@ -95,9 +95,5 @@ public final class ispyConstants {
     
     public static final String ALL_USER_LISTS = "allUserLists.txt";
     
-    public static final String PATIENT_USER_LISTS_POSTFIX = "_patientList.txt";
-
-    public static final String GENE_USER_LISTS_POSTFIX = "_geneList.txt";
-
-
+   
 }
