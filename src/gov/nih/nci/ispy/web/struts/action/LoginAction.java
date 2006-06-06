@@ -73,7 +73,9 @@ public final class LoginAction extends Action
                      * directory.
                      */
                     ISPYListValidator listValidator = new ISPYListValidator();
-                    String filePath = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar;
+                    //String filePath = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar;
+                    
+                    String filePath = System.getProperty("gov.nih.nci.ispyportal.jboss_data_directory");
                     
                     userListBean = ISPYListLoader.loadLists(userListBean,ispyConstants.ALL_USER_LISTS, filePath, listValidator);  
                     // load IspySpecific clinical status lists
