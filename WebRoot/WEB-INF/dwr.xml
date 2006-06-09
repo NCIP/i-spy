@@ -14,7 +14,7 @@
       <param name="class" value="gov.nih.nci.ispy.web.ajax.IdLookup"/>
     </create>
     <create creator="new" javascript="UserListHelper">
-      <param name="class" value="gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper"/>
+      <param name="class" value="gov.nih.nci.caintegrator.application.lists.UserListBeanHelper"/>
     </create>
     <create creator="new" javascript="DynamicListHelper">
       <param name="class" value="gov.nih.nci.ispy.web.ajax.DynamicListHelper"/>

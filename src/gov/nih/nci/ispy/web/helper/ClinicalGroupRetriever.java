@@ -2,6 +2,7 @@ package gov.nih.nci.ispy.web.helper;
 
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
+import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
@@ -26,7 +27,7 @@ public class ClinicalGroupRetriever {
      * -KR
      */
     public List<LabelValueBean> getClinicalGroupsCollection(HttpSession session){
-        ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
+        UserListBeanHelper helper = new UserListBeanHelper(session);
         List<UserList> patientLists = helper.getLists(ListType.PatientDID);
         List<UserList> dpatientLists = helper.getLists(ListType.DefaultPatientDID);
         

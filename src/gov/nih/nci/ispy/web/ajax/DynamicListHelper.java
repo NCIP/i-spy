@@ -16,9 +16,10 @@ import gov.nih.nci.caintegrator.application.lists.ListManager;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
+import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
-import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -39,7 +40,7 @@ public class DynamicListHelper {
 		String results = "";
 		
 		HttpSession session = ExecutionContext.get().getSession(false);
-		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
+		UserListBeanHelper helper = new UserListBeanHelper(session);
                       
         List patientLists = helper.getLists(ty);
         if (!patientLists.isEmpty()) {
@@ -84,7 +85,7 @@ public class DynamicListHelper {
         ISPYListValidator listValidator = new ISPYListValidator();
 		try	{
 			UserList mylist = um.createList(type, name, cleanList, listValidator);
-			ISPYUserListBeanHelper ulbh = new ISPYUserListBeanHelper();
+			UserListBeanHelper ulbh = new UserListBeanHelper();
 			ulbh.addList(mylist);
 			success = "pass";
 		}
@@ -111,7 +112,7 @@ public class DynamicListHelper {
 	public static String exportListasTxt(String name, HttpSession session){
 		String txt = "";
 		
-		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
+		UserListBeanHelper helper = new UserListBeanHelper(session);
 		
         List<String> listItems = helper.getItemsFromList(name);
         txt = StringUtils.join(listItems.toArray(), "\r\n");
@@ -134,7 +135,7 @@ public class DynamicListHelper {
 		
 	   //HttpSession session = ExecutionContext.get().getSession(false);
 	   //ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
-	   ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper();
+	   UserListBeanHelper helper = new UserListBeanHelper();
 	   
 	   Collection<String> myLists = new ArrayList<String>();
 	   
@@ -168,7 +169,7 @@ public class DynamicListHelper {
 	public static String uniteLists(String[] sLists, String groupName, String groupType, String action)	{
 		String results = "pass";
 		
-		ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper();
+		UserListBeanHelper helper = new UserListBeanHelper();
 		try	{
 			List<String> al = Arrays.asList(sLists);
 			ListType lt = groupType.equals("gene") ? ListType.GeneSymbol : ListType.PatientDID;

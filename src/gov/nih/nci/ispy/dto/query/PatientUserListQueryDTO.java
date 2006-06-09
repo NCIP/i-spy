@@ -1,8 +1,8 @@
 package gov.nih.nci.ispy.dto.query;
 
+import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
-import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -35,7 +35,7 @@ public class PatientUserListQueryDTO implements ClinicalQueryDTO {
     }
 	
     public void setPatientDIDs(HttpSession session){        
-        ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);
+        UserListBeanHelper helper = new UserListBeanHelper(session);
         patientDIDs = helper.getItemsFromList(this.queryName);        
     }
     

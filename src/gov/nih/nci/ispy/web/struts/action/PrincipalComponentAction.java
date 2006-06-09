@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.web.struts.action;
 
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
 import gov.nih.nci.caintegrator.dto.de.CloneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
@@ -16,7 +17,6 @@ import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
-import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 import gov.nih.nci.ispy.web.struts.form.PrincipalComponentForm;
 
 import java.util.ArrayList;
@@ -142,7 +142,7 @@ public class PrincipalComponentAction extends DispatchAction {
         /*setup the defined Disease query names and the list of samples selected from a Resultset*/
         HttpSession session = request.getSession();
         String sessionId = request.getSession().getId(); 
-        ISPYUserListBeanHelper listHelper = new ISPYUserListBeanHelper(session);
+        UserListBeanHelper listHelper = new UserListBeanHelper(session);
         //fetch the users gene groups populate the dropdown
         List<String> names = listHelper.getGeneSymbolListNames();
         List<LabelValueBean> gsNameList = new ArrayList<LabelValueBean>();
@@ -159,7 +159,7 @@ public class PrincipalComponentAction extends DispatchAction {
     
     private PrincipalComponentAnalysisQueryDTO createPrincipalComponentAnalysisQueryDTO(PrincipalComponentForm principalComponentForm, HttpSession session) {
         String sessionId = session.getId();
-        ISPYUserListBeanHelper listHelper = new ISPYUserListBeanHelper(session);
+        UserListBeanHelper listHelper = new UserListBeanHelper(session);
         ISPYPrincipalComponentAnalysisQueryDTO principalComponentAnalysisQueryDTO = (ISPYPrincipalComponentAnalysisQueryDTO)ApplicationFactory.newQueryDTO(QueryType.PCA_QUERY);
         principalComponentAnalysisQueryDTO.setQueryName(principalComponentForm.getAnalysisResultName());
        

@@ -1,3 +1,13 @@
+function setBackToDefault(formType){
+		if(formType == "pca"){
+			document.getElementById("variancePercentile").value = "70.0";
+		}
+		else {document.getElementById("variancePercentile").value = "95.0";}
+		document.getElementById("geneList").value = "none";
+			
+	}
+	
+
 function checkNull(text){
 	
 	if(text.value == "")	{

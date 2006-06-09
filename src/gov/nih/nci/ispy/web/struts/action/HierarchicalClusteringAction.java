@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.web.struts.action;
 
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
 import gov.nih.nci.caintegrator.dto.de.CloneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.de.ClusterTypeDE;
@@ -22,7 +23,6 @@ import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
-import gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper;
 import gov.nih.nci.ispy.web.struts.form.HierarchicalClusteringForm;
 
 import java.util.ArrayList;
@@ -156,7 +156,7 @@ public class HierarchicalClusteringAction extends DispatchAction {
         HierarchicalClusteringForm hierarchicalClusteringForm = (HierarchicalClusteringForm) form;
         String sessionId = request.getSession().getId(); 
         HttpSession session = request.getSession();
-        ISPYUserListBeanHelper listHelper = new ISPYUserListBeanHelper(session);
+        UserListBeanHelper listHelper = new UserListBeanHelper(session);
         //fetch the users gene groups populate the dropdown
         List<String> names = listHelper.getGeneSymbolListNames();
         List<LabelValueBean> gsNameList = new ArrayList<LabelValueBean>();
@@ -170,7 +170,7 @@ public class HierarchicalClusteringAction extends DispatchAction {
         
     private HierarchicalClusteringQueryDTO createHierarchicalClusteringQueryDTO(HierarchicalClusteringForm hierarchicalClusteringForm, HttpSession session) {
           String sessionId = session.getId();
-          ISPYUserListBeanHelper listHelper = new ISPYUserListBeanHelper(session);
+          UserListBeanHelper listHelper = new UserListBeanHelper(session);
           ISPYHierarchicalClusteringQueryDTO hierarchicalClusteringQueryDTO = (ISPYHierarchicalClusteringQueryDTO)ApplicationFactory.newQueryDTO(QueryType.HC_QUERY);
           hierarchicalClusteringQueryDTO.setQueryName(hierarchicalClusteringForm.getAnalysisResultName());
           

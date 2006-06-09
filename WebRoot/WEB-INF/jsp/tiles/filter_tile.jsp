@@ -14,8 +14,14 @@
 <span id="confirm"></span>
 
 <br/>
-<html:radio styleClass="radio" property="filterType" value="default" onclick="tdiv(this);" />Default
-&nbsp;
+<logic:present name="principalComponentForm"> 
+	<html:radio styleClass="radio" property="filterType" value="default" onclick="tdiv(this,'pca');" />Default
+	&nbsp;
+</logic:present>
+<logic:present name="hierarchicalClusteringForm"> 
+	<html:radio styleClass="radio" property="filterType" value="default" onclick="tdiv(this,'hc');" />Default
+	&nbsp;
+</logic:present>
 <html:radio styleClass="radio" property="filterType" value="advanced" onclick="tdiv(this);"/>Advanced
 
 <script language="javascript">
@@ -30,18 +36,20 @@
     	
 	}
 
-	function tdiv(el)	{
+	function tdiv(el,formType)	{
 
 		//look at the 1st radio...this wont work with more than 2 options
 		var bigflag = document.getElementsByName("filterType")[0] ? document.getElementsByName("filterType")[0].checked : true;
 		
 		if(!bigflag)	{
 			if(win)	{ Effect.BlindDown('advFilter'); }
-			else	{ $('advFilter').style.display = "block"; }
+			else	{ $('advFilter').style.display = "block"; }			
 		}
 		else	{
+			//its default settings
 			if(win)	{ Effect.BlindUp('advFilter'); }
 			else	{ $("advFilter").style.display = "none"; } 
+			javascript:setBackToDefault(formType);
 		}
 			
 	}

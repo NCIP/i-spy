@@ -1,6 +1,8 @@
 package gov.nih.nci.ispy.web.helper;
 
 
+import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +105,7 @@ public class UIFormValidator {
                     List<String> userLists = new ArrayList<String>();
                     userLists.add(comparisonGroup[1]);
                     userLists.add(baselineGroup[1]);
-                    ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(session);                    
+                    UserListBeanHelper helper = new UserListBeanHelper(session);                    
                     if(helper.isIntersection(userLists)){
                         errors.add("selectedGroups2", new ActionError(
                         "gov.nih.nci.nautilus.ui.struts.form.groups.intersect.error")); 

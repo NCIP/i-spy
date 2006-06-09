@@ -4,7 +4,7 @@
 	gov.nih.nci.caintegrator.application.lists.UserListBean,
 	gov.nih.nci.ispy.web.helper.ISPYListValidator,
 	gov.nih.nci.caintegrator.application.lists.ListManager,
-	gov.nih.nci.ispy.web.helper.ISPYUserListBeanHelper,
+	gov.nih.nci.caintegrator.application.lists.UserListBeanHelper,
 	gov.nih.nci.caintegrator.application.lists.UserListGenerator,
 	org.apache.commons.fileupload.DiskFileUpload,
 	org.apache.commons.fileupload.FileUpload,
@@ -66,7 +66,7 @@
             Map paramMap = new HashMap();
             UserList myList = new UserList();
 
-            ISPYUserListBeanHelper helper = new ISPYUserListBeanHelper(request
+            UserListBeanHelper helper = new UserListBeanHelper(request
                     .getSession());
             if(type.equalsIgnoreCase("patient")){
 	             myList = uploadManager.createList(ListType.PatientDID,
