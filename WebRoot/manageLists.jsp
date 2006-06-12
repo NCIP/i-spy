@@ -289,11 +289,10 @@ function putDetails(userList){
 		},
 		'getGenericLists_cb' : function(listsDOM)	{
 			
-			
 			var tmp = listsDOM.getElementsByTagName("lists");
 			var listType = tmp[0] ? tmp[0].getAttribute("type") : "none";
 			if(listType == "none") return;
-			
+					
 			var lists = listsDOM.getElementsByTagName("list");
 			if(lists.length == 0)	{
 					//because we have default lists, do report that patient lists are empty
@@ -450,9 +449,9 @@ function putDetails(userList){
 	<div id="patContainer">
 		<br/>
 		<div id="patientListDiv"></div>	
-		<script>ManageListHelper.getDefaultPatientLists();</script>
+		<script>addLoadEvent(ManageListHelper.getDefaultPatientLists);</script>
 		<div id="defaultPatientListDiv"></div>	
-		<script>ManageListHelper.getPatientLists();</script>
+		<script>addLoadEvent(ManageListHelper.getPatientLists);</script>
 		
 		
 		<div id="listDiv" />
@@ -476,7 +475,7 @@ function putDetails(userList){
 	<br />
 	
 	<div id="geneListDiv"></div>
-	<script>ManageListHelper.getGeneLists();</script>
+	<script>addLoadEvent(ManageListHelper.getGeneLists);</script>
 	
 	<div id="listDiv" />
 		New List Name:<input type="text" id="geneGroupName"/>

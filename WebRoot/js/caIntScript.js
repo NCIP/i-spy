@@ -370,3 +370,19 @@ function toggleSDiv(divId,aId){
 			if(s==this[i]) this.splice(i, 1);
 		}
 	}
+
+//http://simon.incutio.com/archive/2004/05/26/addLoadEvent
+function addLoadEvent(func) {
+	var oldonload = window.onload;
+  	if (typeof window.onload != 'function') {
+    	window.onload = func;
+  	} 
+  	else {
+	    window.onload = function() {
+	    	if (oldonload) {
+	        	oldonload();
+	      	}
+			func();
+	    }
+ 	}
+}
