@@ -256,6 +256,11 @@
 						else	{
 							this.parentNode.style.color = "";
 							TmpRegistrants.remove(this.value);
+							try	{
+								$('checkAllBox').checked = false;
+								$('checkAllBox').selected = false;
+							}
+							catch(err){}
 						}
 						
 						//alert(TmpRegistrants);
