@@ -202,7 +202,7 @@ public class HierarchicalClusteringAction extends DispatchAction {
         
         if(hierarchicalClusteringForm.getGeneSetName()!=null && (!hierarchicalClusteringForm.getGeneSetName().equals("") && !hierarchicalClusteringForm.getGeneSetName().equals("none"))){
             geneIdentifierDECollection = listHelper.getGeneDEforList(hierarchicalClusteringForm.getGeneSetName());
-            if (geneIdentifierDECollection!=null){
+            if (geneIdentifierDECollection!=null && !geneIdentifierDECollection.isEmpty()){
                 logger.debug("geneIdentifierDECollection was found");
                 hierarchicalClusteringQueryDTO.setGeneIdentifierDEs(geneIdentifierDECollection);
             }
