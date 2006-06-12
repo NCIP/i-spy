@@ -191,7 +191,7 @@ public class PrincipalComponentAction extends DispatchAction {
         
         if(principalComponentForm.getGeneSetName()!= null && (!principalComponentForm.getGeneSetName().equals("") && !principalComponentForm.getGeneSetName().equals("none"))){
             geneIdentifierDECollection = listHelper.getGeneDEforList(principalComponentForm.getGeneSetName());
-            if (geneIdentifierDECollection!=null){
+            if (geneIdentifierDECollection!=null && !geneIdentifierDECollection.isEmpty()){
                 logger.debug("geneIdentifierDECollection was found");
                 principalComponentAnalysisQueryDTO.setGeneIdentifierDEs(geneIdentifierDECollection);
             }
