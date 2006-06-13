@@ -169,7 +169,7 @@ function putDetails(userList){
 				}
 		     else{
 		        document.getElementById(listName + "details").appendChild(dDIV);
-		      	$(listName + "detailsDiv").innerHTML = "<span>No details found</span>";
+		      	$(listName + "detailsDiv").innerHTML = "<span>No valid entries found</span>";
 		     	}
 		       
 	 		}
@@ -224,7 +224,18 @@ function putDetails(userList){
 			     
 			     wDiv.innerHTML += tmp;
 			     
-				if(!invalidItems.length < 1){
+				
+				wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+listName+"';\" style='margin-top:10px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
+
+
+
+		}
+	     else{
+	        document.getElementById(listName + "details").appendChild(dDIV);
+	      	$(listName + "detailsDiv").innerHTML = "<span>No valid items found</span><br />";
+	     }
+	     
+	     if(!invalidItems.length < 1){
 
 					wDiv.innerHTML += "<span id='invalid_span' style='color:gray; padding:3px'>Invalid items: ";
 					
@@ -242,15 +253,6 @@ function putDetails(userList){
 					wDiv.innerHTML += "<br/></span>";
 					
 				}
-				wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+listName+"';\" style='margin-top:10px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
-
-
-
-		}
-	     else{
-	        document.getElementById(listName + "details").appendChild(dDIV);
-	      	$(listName + "detailsDiv").innerHTML = "<span>No details found</span>";
-	     }
 	       
 	}
 	catch(err)	{

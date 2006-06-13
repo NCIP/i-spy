@@ -281,7 +281,7 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	 * @return
 	 */
 	public Set<ReporterAnnotation> getReportersForGeneSymbol(String geneSymbol) {
-	   Set<ReporterAnnotation> reporters = gene2reporterMap.get(geneSymbol);
+	   Set<ReporterAnnotation> reporters = gene2reporterMap.get(geneSymbol.toUpperCase().trim());
 	   return reporters;
 	}
 	
