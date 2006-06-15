@@ -95,9 +95,8 @@ var SidebarHelper = {
 
 		for(var i=0; i<lis.length; i++)	{
 			lis[i].ondblclick = function() { 
-			alert(encodeURIComponent(this.id));
-				var url = "listExport.jsp?list="+encodeURIComponent(this.id);
-				//alert(url);
+				var eid = encodeURIComponent(this.id);
+				var url = "listExport.jsp?list="+eid;
 				location.href=url;
 				//this = the li we want
 				//alert(this.innerHTML); 
