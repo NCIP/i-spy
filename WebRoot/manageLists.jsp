@@ -224,8 +224,8 @@ function putDetails(userList){
 			     
 			     wDiv.innerHTML += tmp;
 			     
-				
-				wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+listName+"';\" style='margin-top:10px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
+				var eid = encodeURIComponent(listName);
+				wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+eid+"';\" style='margin-top:10px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
 
 
 
@@ -506,10 +506,10 @@ function putDetails(userList){
 				</td>
 				<td colspan="2">
 					<select id="typeSelector" name="type">
-						<option>
+						<option value="patient">
 							patient
 						</option>
-						<option>
+						<option value="gene symbol">
 							gene symbol
 						</option>
 					</select>
@@ -593,7 +593,7 @@ function putDetails(userList){
 		     	//clean on the sside
 		     	//ajax call
 		     	try	{
-			     	if($('typeSelector').value == "patient")	{
+		     	   	if($('typeSelector').options[document.getElementById('typeSelector').selectedIndex].value == "patient")	{
 				    	DynamicListHelper.createPatientList(ids, $('listName').value, TextFormList.processTextForm_cb);
 				    }
 				    else	{
