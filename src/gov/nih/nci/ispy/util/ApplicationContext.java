@@ -8,8 +8,11 @@ import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -84,7 +87,7 @@ public class ApplicationContext{
 	private static Map mappings = new HashMap();
 	private static Logger logger = Logger.getLogger(ApplicationContext.class);
 	private static Properties labelProps = null;
-	private static Properties messagingProps = null;
+	//private static Properties messagingProps = null;
     private static Document doc =null;
    /**
     * COMMENT THIS
@@ -96,14 +99,14 @@ public class ApplicationContext{
     public static Map getDEtoBeanAttributeMappings() {
     	return mappings;
     }
-    public static Properties getJMSProperties(){
-    	return messagingProps;
-    }
+//    public static Properties getJMSProperties(){
+//    	return messagingProps;
+//    }
     @SuppressWarnings("unused")
 	public static void init() {
     	 logger.debug("Loading Application Resources");
          labelProps = PropertyLoader.loadProperties(ispyConstants.APPLICATION_RESOURCES);
-         messagingProps = PropertyLoader.loadProperties(ispyConstants.JMS_PROPERTIES);
+         //messagingProps = PropertyLoader.loadProperties(ispyConstants.JMS_PROPERTIES);
 //         try {
 //	          logger.debug("Bean to Attribute Mappings");
 //	          InputStream inStream = QueryHandler.class.getResourceAsStream(RembrandtConstants.DE_BEAN_FILE_NAME);
@@ -167,6 +170,27 @@ public class ApplicationContext{
 		   logger.info("Finished initializing GeneExprAnnotationService file=" + annotFileName + " time=" + elapsedTime + " numRecords=" + gxRecLoaded);
 		   
 		   
+		   //Load the the application properties and set them as system properties
+		   Properties ispyPortalProperties = new Properties();
+		   String appPropertiesFileName = System.getProperty("gov.nih.nci.ispyportal.propertiesFile");
+		   
+		   try {
+			   FileInputStream in = new FileInputStream(appPropertiesFileName);
+			   ispyPortalProperties.load(in);
+			   
+			   
+			   String key = null;
+			   String val = null;
+			   for (Iterator i = ispyPortalProperties.keySet().iterator(); i.hasNext(); ) {
+				  key = (String) i.next();
+				  val = ispyPortalProperties.getProperty(key);
+			      System.setProperty(key, val);
+			   }
+		   }
+		   catch (IOException ex) {
+		     logger.error("Error loading application properties from file:" + appPropertiesFileName);
+		   }
+		   		  
 		   String jmsProviderURL = System.getProperty("gov.nih.nci.ispyportal.jms.jboss_url");
 		   String jndiFactoryName = System.getProperty("gov.nih.nci.ispyportal.jms.factory_jndi");
 		   String requestQueueName = System.getProperty("gov.nih.nci.ispyportal.jms.analysis_request_queue");
