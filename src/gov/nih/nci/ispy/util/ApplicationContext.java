@@ -106,6 +106,7 @@ public class ApplicationContext{
 	public static void init() {
     	 logger.debug("Loading Application Resources");
          labelProps = PropertyLoader.loadProperties(ispyConstants.APPLICATION_RESOURCES);
+         String appPropertiesFileName = null;
          //messagingProps = PropertyLoader.loadProperties(ispyConstants.JMS_PROPERTIES);
 //         try {
 //	          logger.debug("Bean to Attribute Mappings");
@@ -125,6 +126,28 @@ public class ApplicationContext{
      
         try {
         	
+           //Load the the application properties and set them as system properties
+ 		   Properties ispyPortalProperties = new Properties();
+ 		   appPropertiesFileName = System.getProperty("gov.nih.nci.ispyportal.propertiesFile");
+ 		   
+ 		  
+ 		   logger.info("Attempting to load application system properties from file: " + appPropertiesFileName);
+ 		   
+ 		   FileInputStream in = new FileInputStream(appPropertiesFileName);
+ 		   ispyPortalProperties.load(in);
+ 		   
+ 		   if (ispyPortalProperties.isEmpty()) {
+ 		     logger.error("Error: no properties found when loading properties file: " + appPropertiesFileName);
+ 		   }
+ 		    		   
+ 		   String key = null;
+ 		   String val = null;
+ 		   for (Iterator i = ispyPortalProperties.keySet().iterator(); i.hasNext(); ) {
+ 			  key = (String) i.next();
+ 			  val = ispyPortalProperties.getProperty(key);
+ 		      System.setProperty(key, val);
+ 		   }
+        	
            //initialize the ClinicalFileBasedQueryService
            ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
            //String clinicalDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_14MARCH06.txt";
@@ -134,7 +157,7 @@ public class ApplicationContext{
         
 
            //String patientDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_patient_data_5_11.txt";
-           String patientDataFileName = System.getProperty("gov.nih.nci.ispyportal.jboss_data_directory") + System.getProperty("gov.nih.nci.ispyportal.patient_data");
+           String patientDataFileName = System.getProperty("gov.nih.nci.ispyportal.data_directory") + System.getProperty("gov.nih.nci.ispyportal.patient_data");
            logger.info("Clinical data service loading patient data fileName=" + patientDataFileName);
            int patientRecordsLoaded = cqs.setPatientDataMap(patientDataFileName);
            logger.info("Clinical data service successfully loaded patient data numRecords=" + patientRecordsLoaded);
@@ -145,7 +168,7 @@ public class ApplicationContext{
            //logger.info("Initializing file based id mapper service fileName=" + idMapperFileName);
            
            logger.info("Trying to get system property for mapper file: fileName=" + System.getProperty("gov.nih.nci.ispyportal.id_mapping_file"));
-           String idMapperFileName = System.getProperty("gov.nih.nci.ispyportal.jboss_data_directory") + System.getProperty("gov.nih.nci.ispyportal.id_mapping_file");
+           String idMapperFileName = System.getProperty("gov.nih.nci.ispyportal.data_directory") + System.getProperty("gov.nih.nci.ispyportal.id_mapping_file");
            logger.info("Initializing file based id mapper service fileName=" + idMapperFileName);
            int idRecLoaded = idMapper.setMappingFile(idMapperFileName);
            logger.info("Id mapper service initialized successfully loaded numRecords=" + idRecLoaded);
@@ -159,7 +182,7 @@ public class ApplicationContext{
 		   long startTime = System.currentTimeMillis();
 		   GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
 		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
-		   String annotFileName = System.getProperty("gov.nih.nci.ispyportal.jboss_data_directory") + System.getProperty("gov.nih.nci.ispyportal.gx_annotation_file");
+		   String annotFileName = System.getProperty("gov.nih.nci.ispyportal.data_directory") + System.getProperty("gov.nih.nci.ispyportal.gx_annotation_file");
 		   logger.info("Initializing GeneExprAnnotationService file=" + annotFileName);
 		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gx_annotations_5-19-06.txt";
 		   int gxRecLoaded = gxAnnotService.setAnnotationFile(annotFileName);
@@ -170,26 +193,7 @@ public class ApplicationContext{
 		   logger.info("Finished initializing GeneExprAnnotationService file=" + annotFileName + " time=" + elapsedTime + " numRecords=" + gxRecLoaded);
 		   
 		   
-		   //Load the the application properties and set them as system properties
-		   Properties ispyPortalProperties = new Properties();
-		   String appPropertiesFileName = System.getProperty("gov.nih.nci.ispyportal.propertiesFile");
-		   
-		   try {
-			   FileInputStream in = new FileInputStream(appPropertiesFileName);
-			   ispyPortalProperties.load(in);
-			   
-			   
-			   String key = null;
-			   String val = null;
-			   for (Iterator i = ispyPortalProperties.keySet().iterator(); i.hasNext(); ) {
-				  key = (String) i.next();
-				  val = ispyPortalProperties.getProperty(key);
-			      System.setProperty(key, val);
-			   }
-		   }
-		   catch (IOException ex) {
-		     logger.error("Error loading application properties from file:" + appPropertiesFileName);
-		   }
+		 
 		   		  
 		   String jmsProviderURL = System.getProperty("gov.nih.nci.ispyportal.jms.jboss_url");
 		   String jndiFactoryName = System.getProperty("gov.nih.nci.ispyportal.jms.factory_jndi");
@@ -208,6 +212,9 @@ public class ApplicationContext{
 	        logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
 			logger.error(e.getMessage());
 			logger.error(e);
+		} catch (IOException e) {
+		    logger.error("IOError loading properties file: " + appPropertiesFileName);
+		    logger.error(e);
 		}  catch(Throwable t) {
 			//logger.error(new IllegalStateException("Error getting an instance of AnalysisServerClientManager" ));
 			logger.error(t.getMessage());
