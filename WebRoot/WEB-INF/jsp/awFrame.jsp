@@ -3,15 +3,22 @@
 
 	<style> 
 		body, html {
-			margin:0px; padding: 0px; overflow: hidden;	
+			margin:0px; padding: 0px; 
+			/* overflow: hidden;	*/
 		} 
 		div	{ font-family: arial; font-size:11px;}
+		
+		#safTable tr td	{
+			font-size:10px;
+			border:1px solid #000;
+			padding: 5px;
+		}
 	</style>
 
 
 	<script type='text/javascript' src='dwr/interface/IdLookup.js'></script>
 	<script type='text/javascript' src='dwr/engine.js'></script>
-
+	<script type='text/javascript' src='js/box/browserSniff.js'></script>
 	<link href="js/activewidgets/runtime/styles/xp/grid.css" rel="stylesheet" type="text/css" ></link>
 	<script src="js/activewidgets/runtime/lib/grid.js"></script>
 
@@ -31,27 +38,47 @@
 		var Grid = {
 			'makeGrid' : function(myData, myColumns)	{
 			
-				//	create ActiveWidgets Grid javascript object
-				//note: this does not work with prototype
-				var obj = new Active.Controls.Grid;
-			
-				//	set number of rows/columns
-				obj.setRowProperty("count", myData.length);
-				obj.setColumnProperty("count", myColumns.length);
-			
-				//	provide cells and headers text
-				obj.setDataProperty("text", function(i, j){return myData[i][j]});
-				obj.setColumnProperty("text", function(i){return myColumns[i]});
-			
-				//	set headers width/height
-				obj.setRowHeaderWidth(20);
-				obj.setColumnHeaderHeight("20px");
-	
-				//obj.setRowText(function(i){return myData[i][0]});
-				//obj.setRowHeaderWidth("100px");
-
+				if(saf)	{
+					//alert("saf");
+					var obj = "<table id='safTable'>\n"; //some HTML for our table
+					obj+="<tr>\n";
+					for(var i=0; i<myColumns.length; i++)	{
+						obj+= "<td>"+myColumns[i]+"</td>\n";
+					}
+					obj+= "</tr>\n";
+					for(var j=0; j<myData.length; j++)	{
+						obj+= "<tr>\n";
+						for(var ii=0; ii<myData[j].length; ii++)	{
+							obj+="<td>"+myData[j][ii]+"</td>\n";
+						}				
+						obj+="</tr>\n";
+					}
+					obj+= "</table>";
+				}
+				else	{
+					//	create ActiveWidgets Grid javascript object
+					//note: this does not work with prototype
+					var obj = new Active.Controls.Grid;
+				
+					//	set number of rows/columns
+					obj.setRowProperty("count", myData.length);
+					obj.setColumnProperty("count", myColumns.length);
+				
+					//	provide cells and headers text
+					obj.setDataProperty("text", function(i, j){return myData[i][j]});
+					obj.setColumnProperty("text", function(i){return myColumns[i]});
+				
+					//	set headers width/height
+					obj.setRowHeaderWidth(20);
+					obj.setColumnHeaderHeight("20px");
+		
+					//obj.setRowText(function(i){return myData[i][0]});
+					//obj.setRowHeaderWidth("100px");
+				}
+				
 				document.getElementById("tbl").innerHTML = obj;
 			}
+			
 		};
 	
 	
@@ -76,6 +103,7 @@
 	
 	var A_IdLookup = {
 		'lookup_cb' : function(txt)	{
+
 			var _myColumns = [
 					"ISPY ID", "LabTrak ID", "Timepoint", "Core Type", "Section Info"
 				];
@@ -84,20 +112,23 @@
 				
 			try	{
 			
-	 			var registrants = txt.getElementsByTagName("registrant");
+	 			//var registrants = txt.getElementsByTagName("registrant");
+	 			
+		 		var registrants = eval(txt);
 		 		
-		 		if(registrants.length < 1)	{
+		 		if(registrants.length < 2)	{
 		 			//no records
 		 			throw("No records found. Please try again.");
 		 		}
 	
 	
-		 		var numpatients = registrants.length;
+		 		var numpatients = registrants.length-1;
 		 		var frameid;
 		 				
-		 		for(var r=0; r<registrants.length; r++)	{
+		 		for(var r=1; r<registrants.length; r++)	{
 		 			
-		 			var samples = registrants[r].getElementsByTagName("sample");
+		 			//var samples = registrants[r].getElementsByTagName("sample");
+		 			var samples = registrants[r].length > 0 ? registrants[r] : Array();
 		 			
 					for(i=0;i<samples.length;i++) {
 					
@@ -106,14 +137,20 @@
 						var tmp2d = new Array();
 						
 						data = samples[i].childNodes;
-						
+						/*
 						for(j=0;j<data.length;j++) {
 							if(data[j].nodeType == 1) {
 								//_myData[i][j] = data[j].childNodes[0].nodeValue;
 								tmp2d[j] = data[j].childNodes[0].nodeValue;
 							} 
 						}
-						
+						*/
+						tmp2d.push(samples[i].regId);
+						tmp2d.push(samples[i].labtrackId);
+						tmp2d.push(samples[i].timePoint);
+						tmp2d.push(samples[i].coreType);
+						tmp2d.push(samples[i].sectionInfo);
+
 						_myData.push(tmp2d);
 					}
 				}
