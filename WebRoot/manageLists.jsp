@@ -41,7 +41,7 @@
   // from the userListBean sitting in the session. -KR
   
 	function getDetails(name){   
-		  
+		  //alert("gd: " + name);
 		if(document.getElementById(name+ "detailsDiv")==null){	    
 			if($(name+"status"))
 				$(name+"status").style.display = "";
@@ -64,7 +64,7 @@
 	function generic_cb(name)	{
 		//lets refresh the sidebar...these functions are declared in sideBar_tile.jsp .. -RL
 		try	{
-				SidebarHelper.loadSidebar();
+			SidebarHelper.loadSidebar();
 		}
 		catch(err)	{
 			//alert(err);
@@ -186,13 +186,20 @@ function putDetails(userList){
 	//same as above, but w/innerHTML
 	function putDetailsIHTML(userList){
  	try	{
-		var list = userList.getElementsByTagName("list");
-		listName = list[0].getAttribute("name");
-		listType = list[0].getAttribute("type");
+		//var list = userList.getElementsByTagName("list");
+		var list = eval('(' + userList + ')');
+		listName = list.listName;
+		listType = list.listType;
+		
+		//listName = list[0].getAttribute("name");
+		//listType = list[0].getAttribute("type");
 		listType = ""; //clear this for now
 		
-		var items = userList.getElementsByTagName("item");		
-		var invalidItems = userList.getElementsByTagName("invalidItem");	 
+		//var items = userList.getElementsByTagName("item");		
+		var items = list.validItems ? list.validItems : Array();
+		
+		//var invalidItems = userList.getElementsByTagName("invalidItem");	 
+		var invalidItems = list.invalidItems ? list.invalidItems : Array();
 		
 		var itemId;
  		var value;
@@ -211,8 +218,9 @@ function putDetails(userList){
  			var tmp = "";
 		 		for(var i=0; i<items.length; i++)	{
 		 		
+			 		itemId = items[i];
 			 		
-		 			itemId = items[i].firstChild.data;	
+		 			//itemId = items[i].firstChild.data;	
 		 			
 		 			tmp += "<li id='"+listName + itemId + "_div"+"' class='detailsList'>"+(i+1) +") " +listType + " " + itemId;
 		 			
@@ -241,7 +249,8 @@ function putDetails(userList){
 					
 					
 					for(var i=0; i<invalidItems.length; i++){
-						invalidItemId = invalidItems[i].firstChild.data;
+						invalidItemId = invalidItems[i];
+						//invalidItemId = invalidItems[i].firstChild.data;
 						if((i+1) == invalidItems.length){
 							wDiv.innerHTML += invalidItemId;
 						}
@@ -256,8 +265,11 @@ function putDetails(userList){
 	       
 	}
 	catch(err)	{
-		$("details").innerHTML = err;
-		$("details").style.display = "";
+		if($('details'))	{
+			$("details").innerHTML = err;
+			$("details").style.display = "";
+		}
+		//alert(err);
 	}
 	 		
 	if($(listName+"status"))	{
@@ -266,75 +278,101 @@ function putDetails(userList){
 	
 	}
 	
-	
+
 	//this invokes and processes the Ajax call to generate the initial listing of lists
 	var ManageListHelper = {
 		'getPatientLists' : function()	{
 			//this function is dependent on the DynamicListHelper, included in the sidebar tile
 			// src='dwr/interface/DynamicListHelper.js'
-			DynamicListHelper.getAllLists("PatientDID", ManageListHelper.getGenericLists_cb);
+			DynamicListHelper.getAllLists("PatientDID", ManageListHelper.getGenericLists_cb );
 			
 		},
 		'getDefaultPatientLists' : function()	{
 			//this function is dependent on the DynamicListHelper, included in the sidebar tile
 			// src='dwr/interface/DynamicListHelper.js'
-			DynamicListHelper.getAllLists("DefaultPatientDID", ManageListHelper.getGenericLists_cb);
+			DynamicListHelper.getAllLists("DefaultPatientDID", ManageListHelper.getGenericLists_cb );
 			
 		},
 		'getGeneLists' : function()	{
-			DynamicListHelper.getAllLists("GeneSymbol", ManageListHelper.getGenericLists_cb);			
+			DynamicListHelper.getAllLists("GeneSymbol", ManageListHelper.getGenericLists_cb );			
 		},
 		'getAllLists' : function()	{
-			ManageListHelper.getGeneLists();
-			ManageListHelper.getPatientLists();
-			ManageListHelper.getDefaultPatientLists();
+			if(!saf)	{
+				ManageListHelper.getGeneLists();
+				ManageListHelper.getPatientLists();
+				ManageListHelper.getDefaultPatientLists();
+			}
+			else	{ //timing issue w/safari..go figure
+				setTimeout(function()	{ManageListHelper.getGeneLists();}, 100);
+				setTimeout(function()	{ManageListHelper.getPatientLists();}, 200);
+				setTimeout(function()	{ManageListHelper.getDefaultPatientLists();}, 300);
+			}
 		},
-		'getGenericLists_cb' : function(listsDOM)	{
+		'getGenericLists_cb' : function(txt)	{
 			
-			var tmp = listsDOM.getElementsByTagName("lists");
-			var listType = tmp[0] ? tmp[0].getAttribute("type") : "none";
-			if(listType == "none") return;
-					
-			var lists = listsDOM.getElementsByTagName("list");
-			if(lists.length == 0)	{
+			try	{
+				var listContainer = eval('(' + txt + ')');
+			
+				//alert(listContainer.listType);
+				
+				//var tmp = listsDOM.getElementsByTagName("lists");
+				var listType = listContainer.listType ? listContainer.listType : "none";
+				
+				//var listType = tmp[0] ? tmp[0].getAttribute("type") : "none";
+				if(listType == "none") return;
+						
+				//var lists = listsDOM.getElementsByTagName("list");
+				
+				var lists = listContainer.listItems;
+				
+				if(lists.length == 0)	{
 					//because we have default lists, do report that patient lists are empty
-					if(listType == "patient"){
-					  $(listType+'ListDiv').innerHTML = "<b>No custom "+ listType + " lists currently saved</b>";
+					if(listType == "patient")	{
+						$(listType+'ListDiv').innerHTML = "<b>No custom "+ listType + " lists currently saved</b>";
 					}
-					else{
-					  $(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b>";
+					else	{
+						$(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b>";
 				    }
-				return;
+					return;
+				}
+				
+				//alert(listType + " : " + lists.length);
+				
+				$(listType+'ListDiv').innerHTML = "";  //clear it, and repopulate
+				
+				var tst = "";
+				for(var t=0; t<lists.length; t++)	{
+				
+					var status = "<span id=\""+lists[t].listName+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
+					var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
+					var theName = lists[t].listName;
+					// += or =
+					tst +=  "<div id='"
+	                	+ theName
+	                    + "' class='listListing'>" 
+	                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +theName+ "'/>"
+	                    + "<b style='color:#000000;' title='"+theName+"'>"
+	                    + shortName + "</b>"
+	                   // + " created:" + lists[t].getAttribute("date") 
+	                  //  + " (" + lists[t].getAttribute("invalid") + " invalid) "
+	                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;' onclick='getDetails(\""
+	                    + theName
+	                    + "\");return false;'>"
+	                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>show/hide details" + status + "</div>"
+	                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;'  onclick='deleteList(\""
+	                    + theName
+	                    + "\");return false;'>"
+	                    + "<img src='images/deleteCross20.png' border='0' style='vertical-align:text-bottom;'/>delete</div>"
+	                    + "</div><br /><div id='"
+	                    + theName
+	                    + "details'></div>\n\n";    
+				}
+				$(listType+'ListDiv').innerHTML = tst;
 			}
-			//alert(listType + " : " + lists.length);
-			
-			$(listType+'ListDiv').innerHTML = "";  //clear it, and repopulate
-			
-			for(var t=0; t<lists.length; t++)	{
-			
-				var status = "<span id=\""+lists[t].getAttribute("name")+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
-				var shortName = lists[t].getAttribute("name").length>25 ? lists[t].getAttribute("name").substring(0,23) + "..." : lists[t].getAttribute("name");
-				// += or =
-				$(listType+'ListDiv').innerHTML += "<div id='"
-                	+ lists[t].getAttribute("name")
-                    + "' class='listListing'>" 
-                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +lists[t].getAttribute("name")+ "'/>"
-                    + "<b style='color:#000000;' title='"+lists[t].getAttribute("name")+"'>"
-                    + shortName + "</b>"
-                   // + " created:" + lists[t].getAttribute("date") 
-                  //  + " (" + lists[t].getAttribute("invalid") + " invalid) "
-                    + "<div style='cursor:pointer;margin-left:20px;;width:200px;display:inline;' onclick='getDetails(\""
-                    + lists[t].getAttribute("name")
-                    + "\");return false;'>"
-                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>show/hide details" + status + "</div>"
-                    + "<div style='cursor:pointer;margin-left:20px;;width:200px;display:inline;'  onclick='deleteList(\""
-                    + lists[t].getAttribute("name")
-                    + "\");return false;'>"
-                    + "<img src='images/deleteCross20.png' border='0' style='vertical-align:text-bottom;'/>delete</div>"
-                    + "</div><br /><div id='"
-                    + lists[t].getAttribute("name")
-                    + "details'></div>";
+			catch(err)	{
+				//alert("ERR: " + err);
 			}
+			 
 		},
 		'groupSelectedLists' : function(listGroup, groupName, action)	{
 			var sLists = Array();
@@ -451,9 +489,27 @@ function putDetails(userList){
 	<div id="patContainer">
 		<br/>
 		<div id="patientListDiv"></div>	
-		<script>addLoadEvent(ManageListHelper.getDefaultPatientLists);</script>
+		<script type="text/javascript">
+		/*
+			if(!saf)	{
+				addLoadEvent(ManageListHelper.getDefaultPatientLists);
+			}
+			else	{
+				ManageListHelper.getDefaultPatientLists();
+			}
+		*/	
+		</script>
 		<div id="defaultPatientListDiv"></div>	
-		<script>addLoadEvent(ManageListHelper.getPatientLists);</script>
+		<script type="text/javascript">
+		/*
+			if(!saf)	{
+				addLoadEvent(ManageListHelper.getPatientLists);
+			}
+			else	{
+				ManageListHelper.getPatientLists();
+			}
+		*/
+		</script>
 		
 		
 		<div id="listDiv" />
@@ -477,7 +533,22 @@ function putDetails(userList){
 	<br />
 	
 	<div id="geneListDiv"></div>
-	<script>addLoadEvent(ManageListHelper.getGeneLists);</script>
+	<script type="text/javascript">
+		/*
+		if(!saf)	{
+			addLoadEvent(ManageListHelper.getGeneLists); 
+		}
+		else	{
+			ManageListHelper.getGeneLists();
+		}
+		*/
+		if(!saf)	{
+			addLoadEvent(generic_cb); 
+		}
+		else	{
+			generic_cb("init");
+		}
+	</script>
 	
 	<div id="listDiv" />
 		New List Name:<input type="text" id="geneGroupName"/>
