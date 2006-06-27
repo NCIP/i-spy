@@ -2,8 +2,18 @@ function setBackToDefault(formType){
 		if(formType == "pca"){
 			document.getElementById("variancePercentile").value = "70.0";
 		}
-		else {document.getElementById("variancePercentile").value = "95.0";}
+		else if(formType == "hc"){
+		document.getElementById("variancePercentile").value = "95.0";
 		document.getElementById("geneList").value = "none";
+		}
+		else if(formType == "cc"){
+		document.getElementById("statisticalMethod").value = "TTest";
+		document.getElementById("comparisonAdjustment").value = "NONE";
+		document.getElementById("foldChange").value = "list";
+		document.getElementById("statisticalSignificance").value = .05;
+		document.getElementById("foldChangeManual").value = "";
+		document.getElementById("foldChangeAuto").value = "2";
+		}
 			
 	}
 	
@@ -344,6 +354,27 @@ for(i=0; i < boxLength; i++)
 }
 
 }
+function tdiv(el,div,formType)	{
+	
+	   
+	    var elName = el.name; //the element to check
+	    var hideable = div;  //the element to show or hide
+	  
+		//look at the 1st radio...this wont work with more than 2 options
+		var bigflag = document.getElementsByName(elName)[0] ? document.getElementsByName(elName)[0].checked : true;
+		
+		if(!bigflag)	{
+			if(win)	{ Effect.BlindDown(hideable); }
+			else	{ $(hideable).style.display = "block"; }			
+		}
+		else	{
+			//its default settings
+			if(win)	{ Effect.BlindUp(hideable); }
+			else	{ $(hideable).style.display = "none"; } 
+			javascript:setBackToDefault(formType);
+		}
+			
+	}
  
 function toggleSDiv(divId,aId){
 
