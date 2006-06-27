@@ -14,12 +14,5 @@
 	<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>
 	<script language="javascript" src="js/moveUpDown.js"></script>
 	<script language="javascript" src="js/overlib.js"></script>
-	<script language="javascript" src="js/overlib_hideform.js"></script>
-	
+	<script language="javascript" src="js/overlib_hideform.js"></script>	
 	<style type="text/css" media="screen">@import "css/tabs.css";</style>
-
-	<script language="javascript">
-		if(saf)	{
-			alert("MAC users:  Please use the Firefox Browser (freely available at: http://www.mozilla.com/firefox/) as Safari does not fully support the features of this application");
-		}
-	</script>
