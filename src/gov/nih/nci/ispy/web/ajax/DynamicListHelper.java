@@ -27,6 +27,8 @@ import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import uk.ltd.getahead.dwr.ExecutionContext;
 
@@ -131,6 +133,7 @@ public class DynamicListHelper {
 	}
 	*/
 	
+	/*
 	public static Document getAllLists(String listType){
 		
 	   //HttpSession session = ExecutionContext.get().getSession(false);
@@ -165,8 +168,64 @@ public class DynamicListHelper {
 	   
 	   return listDoc;
 	}
+	*/
+	
+	public static String getAllPatientLists()	{
+		return DynamicListHelper.getAllLists(ListType.PatientDID.toString());
+	}
+	
+	public static String getAllDefaultPatientLists()	{
+		return DynamicListHelper.getAllLists(ListType.DefaultPatientDID.toString());
+	}
+	public static String getAllGeneLists()	{
+		return DynamicListHelper.getAllLists(ListType.GeneSymbol.toString());
+	}
+	
+	public static String getAllLists(String listType){
+        
+        UserListBeanHelper helper = new UserListBeanHelper();
+        
+        Collection<String> myLists = new ArrayList<String>();
+        
+        JSONObject listContainer = new JSONObject();
+       
+        JSONArray myJSONLists = new JSONArray();
+        
+        if(listType.equals(ListType.PatientDID.toString()))  {
+            listContainer.put("listType", "patient");
+            myLists = helper.getPatientListNames();
+        }
+        else if(listType.equals(ListType.DefaultPatientDID.toString())) {
+            myLists = helper.getDefaultPatientListNames();     
+            listContainer.put("listType", "defaultPatient");
+        }
+        else if(listType.equals(ListType.GeneSymbol.toString())) {
+            myLists = helper.getGeneSymbolListNames();     
+            listContainer.put("listType", "gene");
+        }
+
+
+        for(String listName : myLists) {
+            UserList ul = helper.getUserList(listName);
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.US);
+            if(ul!=null)  {
+                JSONObject jsonListName = new JSONObject();
+                jsonListName.put("listName", ul.getName());
+                jsonListName.put("listDate", dateFormat.format(ul.getDateCreated()).toString());
+                jsonListName.put("itemCount", String.valueOf(ul.getItemCount()));
+                jsonListName.put("invalidItems", String.valueOf(ul.getInvalidList().size()));
+                myJSONLists.add(jsonListName);
+            }
+            
+        }
+        listContainer.put("listItems",myJSONLists);
+        
+        return listContainer.toString();
+     }
 	
 	public static String uniteLists(String[] sLists, String groupName, String groupType, String action)	{
+		
+		JSONObject res = new JSONObject();
 		String results = "pass";
 		
 		UserListBeanHelper helper = new UserListBeanHelper();
@@ -186,9 +245,11 @@ public class DynamicListHelper {
 		catch(Exception e){
 			results = "fail";
 		}
+		res.put("results", results);
+		res.put("groupType", groupType);
+		res.put("action", action);
 		
-		results += "," + groupType + "," + action;
-		return results;
+		return res.toString();
 	}
 
 }
