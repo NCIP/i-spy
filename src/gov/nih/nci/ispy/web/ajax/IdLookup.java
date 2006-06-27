@@ -12,6 +12,8 @@ import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class IdLookup {
 
@@ -22,7 +24,7 @@ public class IdLookup {
 		idMapper = IdMapperFileBasedService.getInstance();
 	}
 
-	public Document lookup(String ids)	{
+	public String lookup(String ids)	{
 		
 		String results = "";
 		//clean the input and validate
@@ -36,15 +38,31 @@ public class IdLookup {
 		List<RegistrantInfo> entries = idMapper.getMapperEntriesForIds(inputList);
 			
 		//process the results for return to presentation
-		Document document = DocumentHelper.createDocument();
-//		Element container = document.addElement("div");
+		//Document document = DocumentHelper.createDocument();
+		//Element container = document.addElement("div");
 		
-		Element report = document.addElement( "table" ).addAttribute("name", inputString);
+		JSONArray regs=new JSONArray(); //make an array of registrants
+		regs.add(inputString);
+	    
+		//Element report = document.addElement( "table" ).addAttribute("name", inputString);
 		for (RegistrantInfo entry:entries) {
-			Element reg = report.addElement( "registrant" ).addAttribute("regId", entry.getRegistrationId());
+			//Element reg = report.addElement( "registrant" ).addAttribute("regId", entry.getRegistrationId());
+			
+			//for each registrant make an array of samples
+			JSONArray sams=new JSONArray();
 			
 			for(SampleInfo sampleInfo : entry.getAssociatedSamples())	{
+				
+				JSONObject sam=new JSONObject();
+			    sam.put("regId",entry.getRegistrationId());
+			    sam.put("labtrackId",sampleInfo.getLabtrackId());
+			    sam.put("timePoint",String.valueOf(sampleInfo.getTimepoint()));
+			    sam.put("coreType",String.valueOf(sampleInfo.getCoreType()));
+			    sam.put("sectionInfo",String.valueOf(sampleInfo.getSectionInfo()));
+			    
+			    /*
 				Element row = reg.addElement( "sample" );
+
 				Element cell = row.addElement( "regId" );
 				
 				cell.addText(entry.getRegistrationId());
@@ -60,8 +78,13 @@ public class IdLookup {
 					cell = null;
 				cell = row.addElement( "sectionInfo" );
 				cell.addText(String.valueOf(sampleInfo.getSectionInfo()));
+				
+				*/
+			    
+			    sams.add(sam);
 			}
 			
+			regs.add(sams);
 		}
 		
 		/*
@@ -73,7 +96,8 @@ public class IdLookup {
 		}
 		*/
 		
-		return document;
+		//return document;
+		return regs.toString();
 		
 	}
 	
