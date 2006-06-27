@@ -147,21 +147,35 @@
 	 	},
 	 	'lookup_cb' : function(txt)	{
 	 		
+	 		
 	 		var numpatients = 0;
 	 		d = document;
 	 						
 	 		try	{
-	 			registrants = txt.getElementsByTagName("registrant");
+		 		//var registrants = eval(txt);
+		 		var registrants = eval('(' + txt + ')');
+		 		//alert(registrants.length-1 + " registrants");
+
+	 			//registrants = txt.getElementsByTagName("registrant");
 		 		
-		 		var searchedFor = txt.getElementsByTagName("table")[0].getAttribute("name");
+		 		//var searchedFor = txt.getElementsByTagName("table")[0].getAttribute("name");
+		 		
+		 		var searchedFor = registrants.length > 0 ? registrants[0] : "none";
 		 		//alert("searched for: " + searchedFor);
 		 		
+		 		/*
 		 		if(registrants.length < 1)	{
 		 			//no records
 		 			throw("No records found. Please try again.");
 		 		}
+		 		*/
 		 		
-		 		numpatients = registrants.length;
+		 		if(registrants.length<2)	{
+		 			throw("No records found searching for '"+searchedFor+"'.  Please try again.");
+		 		}
+		 		
+		 		//numpatients = registrants.length;
+		 		numpatients = registrants.length-1; //first one is the searchTerm
 		 		
 		 		var linkDIV = document.createElement("div");
 		 		linkDIV.style.marginTop = "20px";
@@ -182,7 +196,7 @@
 		 		var csvLink = document.createElement("a");
 				csvLink.setAttribute("href","#");
 				//csvLink.style.marginLeft = "10px";
-				csvLink.setAttribute("name", frameid);
+				//csvLink.setAttribute("name", frameid);
 				csvLink.onclick = function()  {
 					//alert(searchedFor);
 					var u = "idDownload.do?i="+searchedFor;
@@ -212,7 +226,7 @@
 					joinLink.setAttribute("href","#");
 					//joinLink.style.marginLeft = "10px";
 					//joinLink.style.marginTop = "100px";
-					joinLink.setAttribute("name", frameid);
+					//joinLink.setAttribute("name", frameid);
 					joinLink.onclick = function()  {
 						//alert(searchedFor);
 						var u = "awWrapper.do?reg="+searchedFor+"&sf="+searchedFor;
@@ -227,12 +241,13 @@
 		 		
 		 		
 		 		var frameid;
-		 		for(var r=0; r<registrants.length; r++)	{
+		 		for(var r=1; r<registrants.length; r++)	{ //1 not 0 for new
 		 			
-		 			games = registrants[r].getElementsByTagName("sample");
+		 			//games = registrants[r].getElementsByTagName("sample");
 		 			
 		 			//generate the iframe
-		 			frameid = registrants[r].getAttribute("regId");
+		 			//frameid = registrants[r].getAttribute("regId");
+		 			frameid = registrants[r].length > 0 ? registrants[r][0].regId : "99999"; //get the regId from the 1st sample
 		 			
 		 			var tDIV = document.createElement("div");
 					tDIV.setAttribute("id","div_"+frameid+"_div");
@@ -268,7 +283,7 @@
 					
 					tDIV.appendChild(cBox);
 					
-					tDIV.appendChild(document.createTextNode(r+1 + ") Patient: " + frameid + " | "));
+					tDIV.appendChild(document.createTextNode(r + ") Patient: " + frameid + " | "));
 					
 					
 					var iAnchor = document.createElement("img");
