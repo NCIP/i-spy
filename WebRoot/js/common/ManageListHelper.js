@@ -290,6 +290,39 @@
 			if($(listName+"status"))	{
 				setTimeout(function()	{$(listName+"status").style.display = "none";}, 500);
 			}		
-		}
+		},
+		//all form validation is done client side. The name and file fields are checked for null
+		// and list name collisions are checked. If there is a collision the user can either
+		//overwrite the stored list with the current list or cancel the action and rename it. -KR
+
+		//never gets called if you click <enter> on the keyboard, hence the onSubmit = return false; - RL
+		//moved here from inline - RL
+     	'validateForm' : function()	{
+			//optional args: listName, upload, uploadStatus
+			//loosely checking for presence
+			var listName = arguments.length>0 ? arguments[0] : 'listName';
+			var upload = arguments.length>1 ? arguments[1] : 'upload';
+			var uploadStatus = arguments.length> 2 ? arguments[2] : 'uploadStatus';
+			var uploadForm = arguments.length>3 ? arguments[3] : 'uploadForm';
+			
+			$(uploadStatus).style.display = "";
+	     	var thisListName = $(listName).value;
+			
+			var errors = "";
+	     	if(thisListName == ""){ 
+	     		errors += "please enter a name for this list. \n";     	    
+	     	}
+	     	if($(upload).value==""){
+	     		errors += "please enter a file for this list.";
+			}  
+	     	if(errors != ""){
+	     	    alert(errors);
+	     	    $(uploadStatus).style.display = "none";
+	     	    return false;
+	     	}
+	     	else {
+		    	$(uploadForm).submit();
+			} 
+	     }
 	};
 	
