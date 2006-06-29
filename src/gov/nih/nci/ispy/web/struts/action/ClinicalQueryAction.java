@@ -1,20 +1,53 @@
-package gov.nih.nci.ispy.web.struts.form;
+package gov.nih.nci.ispy.web.struts.action;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.List;
+
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.application.lists.UserList;
+import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
+import gov.nih.nci.caintegrator.dto.de.MultiGroupComparisonAdjustmentTypeDE;
+import gov.nih.nci.caintegrator.dto.de.StatisticTypeDE;
+import gov.nih.nci.caintegrator.dto.de.StatisticalSignificanceDE;
+import gov.nih.nci.caintegrator.dto.de.ExprFoldChangeDE.UpRegulation;
+import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
+import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
+import gov.nih.nci.caintegrator.dto.query.QueryType;
+import gov.nih.nci.caintegrator.enumeration.MultiGroupComparisonAdjustmentType;
+import gov.nih.nci.caintegrator.enumeration.Operator;
+import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
+import gov.nih.nci.caintegrator.enumeration.StatisticalSignificanceType;
+import gov.nih.nci.caintegrator.exceptions.FrameworkException;
+import gov.nih.nci.caintegrator.security.UserCredentials;
+import gov.nih.nci.caintegrator.service.findings.Finding;
+import gov.nih.nci.ispy.dto.query.ISPYClassComparisonQueryDTO;
+import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.dto.query.PatientUserListQueryDTO;
+import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
+import gov.nih.nci.ispy.service.clinical.ERstatusType;
+import gov.nih.nci.ispy.service.clinical.HER2statusType;
+import gov.nih.nci.ispy.service.clinical.PRstatusType;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.web.helper.ClassHelper;
+import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
+import gov.nih.nci.ispy.web.helper.EnumHelper;
+import gov.nih.nci.ispy.web.struts.form.ClassComparisonForm;
+import gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
-
-
- /**
- * This class encapsulates the properties of an caintergator
- * BaseForm object, it is a parent class for all form objects 
- * 
- * 
- * @author BhattarR,ZhangD
- *
- */
-
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.DispatchAction;
 
 
 
@@ -75,42 +108,47 @@ import org.apache.struts.action.ActionForm;
 * 
 */
 
-public class BaseForm extends ActionForm implements Serializable{
-    
-    private static Logger logger = Logger.getLogger(BaseForm.class);
-	private String method;	
-    private String patientGroup;
-    
+public class ClinicalQueryAction extends DispatchAction {
 	
-	/**
-     * @return Returns the patientGroup.
-     */
-    public String getPatientGroup() {
-        return patientGroup;
-    }
-
+	private UserCredentials credentials;  
+	private static Logger logger = Logger.getLogger(ClassComparisonAction.class);
+    private PresentationTierCache presentationTierCache = ApplicationFactory.getPresentationTierCache();
+   
     /**
-     * @param patientGroup The patientGroup to set.
+     * Method submittal
+     * 
+     * @param ActionMapping
+     *            mapping
+     * @param ActionForm
+     *            form
+     * @param HttpServletRequest
+     *            request
+     * @param HttpServletResponse
+     *            response
+     * @return ActionForward
+     * @throws Exception
      */
-    public void setPatientGroup(String patientGroup) {
-        this.patientGroup = patientGroup;
+    public ActionForward submit(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        ClinicalQueryForm clinicalForm = (ClinicalQueryForm) form;
+        HttpSession session = request.getSession();
+        
+        
+        return mapping.findForward("viewResults");
     }
-
-    public BaseForm(){
-		
-	}
-	
-    /**
-	 * @return Returns the method.
-	 */
-	public String getMethod() {
-		return method;
-	}
-	/**
-	 * @param method The method to set.
-	 */
-	public void setMethod(String method) {
-		this.method = method;
-	}
+    
+    public ActionForward setup(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+    throws Exception {
+        ClinicalQueryForm clinicalForm = (ClinicalQueryForm) form;
+        ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever();
+        
+        clinicalForm.setDiseaseStageCollection(clinicalGroupRetriever.getClinicalGroupsCollection(request.getSession()));
+        
+        
+        return mapping.findForward("backToClinicalQuery");
+    }
+  
+    
 }
-	

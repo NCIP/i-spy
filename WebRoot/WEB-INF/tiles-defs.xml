@@ -43,6 +43,20 @@
 		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
 		<put name="mainForm" value="/WEB-INF/jsp/analysisHome.jsp" />		
     </definition>
+    
+    <definition name="ispy.advancedHome" extends="baseDef">
+		<put name="title" value="I-SPY Advanced Queries" />
+		<!--  the common criteria  -->
+		<put name="htmlHead" value="/WEB-INF/jsp/tiles/htmlHead_tile.jsp" />
+		<put name="overlib" value="/WEB-INF/jsp/tiles/overlib_tile.jsp" />
+		<put name="header" value="/WEB-INF/jsp/header.jsp" />
+	    <put name="crumbMenu" value="/WEB-INF/jsp/tiles/crumbMenu_tile.jsp" />
+	    <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="footer" value="/WEB-INF/jsp/footer.jsp" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+		<put name="mainForm" value="/WEB-INF/jsp/advancedHome.jsp" />		
+    </definition>
    
     <definition name="ispy.classComparison" extends="baseDef">
       <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=classComparison" />
@@ -50,6 +64,22 @@
 	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
 	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
 	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+    </definition>
+    
+    <definition name="ispy.clinicalQuery" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=clinicalQuery" />
+	  <put name="title" value="Clinical Query Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+    </definition>
+    
+    <definition name="ispy.fishQuery" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=fishQuery" />
+	  <put name="title" value="FISH Query Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
     </definition>
     
     <definition name="ispy.principalComponent" extends="baseDef">

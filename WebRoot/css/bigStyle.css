@@ -316,3 +316,32 @@ fieldset.listForm{
 	font-size:12px;
 	color:#002185;
 	}
+
+.mains div b, #buttons b {
+			float:left;
+			width:130px;
+			margin-left:25px;
+			margin-top:5px;
+			}
+		
+.mains div b a{
+			font-weight:normal;
+			font-size:11px;
+			
+		}
+.mains input, .mains select	{
+			margin-bottom:5px;
+			margin-top:5px;
+			
+		}
+select[multiple=true] {
+			margin-top:5px;
+			width:200px;
+		
+		}
+b.subfield{
+	font-weight:normal;
+	color:#000;
+	font-style:italic;
+}
+	                                            

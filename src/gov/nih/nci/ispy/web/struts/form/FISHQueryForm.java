@@ -1,9 +1,14 @@
 package gov.nih.nci.ispy.web.struts.form;
 
+import gov.nih.nci.ispy.service.clinical.TimepointType;
+
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.util.LabelValueBean;
 
 
  /**
@@ -75,42 +80,83 @@ import org.apache.struts.action.ActionForm;
 * 
 */
 
-public class BaseForm extends ActionForm implements Serializable{
+public class FISHQueryForm extends BaseForm implements Serializable{
     
-    private static Logger logger = Logger.getLogger(BaseForm.class);
-	private String method;	
-    private String patientGroup;
+    private static Logger logger = Logger.getLogger(FISHQueryForm.class);
     
-	
-	/**
-     * @return Returns the patientGroup.
-     */
-    public String getPatientGroup() {
-        return patientGroup;
+    private String analysisResultName = "";    
+    private String[] timepoints;    
+    private Collection timepointCollection = new ArrayList();
+    private String[] biomarkers;
+    private String[] cnaStatus;
+    
+    public FISHQueryForm(){
+        for (TimepointType timepointType : TimepointType.values()){
+            timepointCollection.add(new LabelValueBean(timepointType.toString(),timepointType.name()));
+        }
     }
-
+    
+    
     /**
-     * @param patientGroup The patientGroup to set.
+     * @return Returns the analysisResultName.
      */
-    public void setPatientGroup(String patientGroup) {
-        this.patientGroup = patientGroup;
+    public String getAnalysisResultName() {
+        return analysisResultName;
     }
-
-    public BaseForm(){
-		
-	}
-	
     /**
-	 * @return Returns the method.
-	 */
-	public String getMethod() {
-		return method;
-	}
-	/**
-	 * @param method The method to set.
-	 */
-	public void setMethod(String method) {
-		this.method = method;
-	}
+     * @param analysisResultName The analysisResultName to set.
+     */
+    public void setAnalysisResultName(String analysisResultName) {
+        this.analysisResultName = analysisResultName;
+    }
+    /**
+     * @return Returns the biomarkers.
+     */
+    public String[] getBiomarkers() {
+        return biomarkers;
+    }
+    /**
+     * @param biomarkers The biomarkers to set.
+     */
+    public void setBiomarkers(String[] biomarkers) {
+        this.biomarkers = biomarkers;
+    }
+    /**
+     * @return Returns the cnaStatus.
+     */
+    public String[] getCnaStatus() {
+        return cnaStatus;
+    }
+    /**
+     * @param cnaStatus The cnaStatus to set.
+     */
+    public void setCnaStatus(String[] cnaStatus) {
+        this.cnaStatus = cnaStatus;
+    }
+    /**
+     * @return Returns the timepointCollection.
+     */
+    public Collection getTimepointCollection() {
+        return timepointCollection;
+    }
+    /**
+     * @param timepointCollection The timepointCollection to set.
+     */
+    public void setTimepointCollection(Collection timepointCollection) {
+        this.timepointCollection = timepointCollection;
+    }
+    /**
+     * @return Returns the timepoints.
+     */
+    public String[] getTimepoints() {
+        return timepoints;
+    }
+    /**
+     * @param timepoints The timepoints to set.
+     */
+    public void setTimepoints(String[] timepoints) {
+        this.timepoints = timepoints;
+    }
+	
 }
 	

@@ -48,7 +48,7 @@
 			case 1:
 				//1 is simple search
 				simple = "<span>ID Lookup</span>\n" + simpleSecondary;
-				adv = "<a href=\"menu.do\" onclick=\"return false\">Advanced Search</a>";
+				adv = "<a href=\"advancedHome.do\" onclick=\"return false\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<a href=\"manageLists.do\">Manage Lists</a>";
@@ -64,7 +64,7 @@
 			case 3:
 			    //3 is high order analysis
 				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
-				adv = "<a href=\"#\">Advanced Search</a>";
+				adv = "<a href=\"advancedHome.do\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<span>High Order Analysis</span>\n" + analysisSecondary;
 				list = "<a href=\"manageLists.do\">Manage Lists</a>";
@@ -72,7 +72,7 @@
 			case 4:
 			    //4 is view results
 				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
-				adv = "<a href=\"#\">Advanced Search</a>";
+				adv = "<a href=\"advancedHome.do\">Advanced Search</a>";
 				viewResults = "<span>View Results&nbsp;&nbsp;</span>\n";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<a href=\"manageLists.do\">Manage Lists</a>";
@@ -80,7 +80,7 @@
 			case 5:
 			    //4 is view results
 				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
-				adv = "<a href=\"#\">Advanced Search</a>";
+				adv = "<a href=\"advancedHome.do\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<span>Manage Lists</span>\n";
@@ -88,7 +88,7 @@
 			default:
 				//simple = "<span>Simple Search</span>\n" + simpleSecondary;
 				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
-				adv = "<a href=\"#\">Advanced Search</a>";
+				adv = "<a href=\"advancedHome.do\">Advanced Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<a href=\"manageLists.do\">Manage Lists</a>";
