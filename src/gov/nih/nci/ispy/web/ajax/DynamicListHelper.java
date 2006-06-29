@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Set;
 
 import gov.nih.nci.caintegrator.application.lists.ListManager;
+import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
@@ -39,6 +40,10 @@ public class DynamicListHelper {
 	
 	
 	public static String getListAsList(ListType ty){
+		
+		JSONObject res = new JSONObject();
+		res.put("listType", ty.toString());
+		
 		String results = "";
 		
 		HttpSession session = ExecutionContext.get().getSession(false);
@@ -51,24 +56,39 @@ public class DynamicListHelper {
                 ListManager uploadManager = (ListManager) ListManager.getInstance();
                 Map paramMap = uploadManager.getParams(list);
                 String commas = StringUtils.join(list.getList().toArray(), ",");
-                results += ("<li id='" + paramMap.get("listName") + "' title='"+commas+"'>"+paramMap.get("listName")+"</li>");
+                String sty = list.getListSubType()!=null && !list.getListSubType().contains(ListSubType.Default) ? "color:#A90101" : "";
+                results += ("<li id='" + paramMap.get("listName") + "' title='"+commas+"' style='"+sty+"'>"+paramMap.get("listName")+"</li>");
             }
         } else {
             results = "";
         }
-
-		return results;
+        res.put("LIs", results);
+		return res.toString();
 	}
 	
+	/*
     public static String getDefaultPatientListAsList() {
         return DynamicListHelper.getListAsList(ListType.DefaultPatientDID);
     }
+    */
+	
     public static String getPatientListAsList()	{
 		return DynamicListHelper.getListAsList(ListType.PatientDID);
 	}
 	
 	public static String getGeneListAsList()	{
 		return DynamicListHelper.getListAsList(ListType.GeneSymbol);
+	}
+	
+	public static String createGenericList(String listType, String[] list, String name)	{
+		try	{
+			ListType lt = ListType.valueOf(listType);
+			return DynamicListHelper.createGenericList(lt, list, name);
+		}
+		catch(Exception e)	{
+			//try as a patient list as default, will fail validation if its not accepted
+			return DynamicListHelper.createGenericList(ListType.PatientDID, list, name);
+		}
 	}
 	
 	public static String createGenericList(ListType type, String[] list, String name){
@@ -87,6 +107,8 @@ public class DynamicListHelper {
         ISPYListValidator listValidator = new ISPYListValidator();
 		try	{
 			UserList mylist = um.createList(type, name, cleanList, listValidator);
+			//set the sub-type to custom 
+			mylist.setListSubType(ListSubType.Custom);
 			UserListBeanHelper ulbh = new UserListBeanHelper();
 			ulbh.addList(mylist);
 			success = "pass";
@@ -102,10 +124,14 @@ public class DynamicListHelper {
 		return DynamicListHelper.createGenericList(ListType.PatientDID, list, name);
 	}
     
+	/*
     public static String createDefaultPatientList(String[] list, String name){
         //create list w/ type=defaultPatient
-        return DynamicListHelper.createGenericList(ListType.DefaultPatientDID, list, name);
+    	//will flag as subtype = custom
+        return DynamicListHelper.createGenericList(ListType.PatientDID, list, name);
+        
     }
+	*/
 	
 	public static String createGeneList(String[] list, String name){
 		return DynamicListHelper.createGenericList(ListType.GeneSymbol, list, name);
@@ -174,9 +200,12 @@ public class DynamicListHelper {
 		return DynamicListHelper.getAllLists(ListType.PatientDID.toString());
 	}
 	
+	/*
 	public static String getAllDefaultPatientLists()	{
 		return DynamicListHelper.getAllLists(ListType.DefaultPatientDID.toString());
 	}
+	*/
+	
 	public static String getAllGeneLists()	{
 		return DynamicListHelper.getAllLists(ListType.GeneSymbol.toString());
 	}
@@ -191,17 +220,23 @@ public class DynamicListHelper {
        
         JSONArray myJSONLists = new JSONArray();
         
+        listContainer.put("listType", listType);
+        //which do we want to display differently in the UI
+        listContainer.put("highlightType", ListSubType.Default.toString());
+        
         if(listType.equals(ListType.PatientDID.toString()))  {
-            listContainer.put("listType", "patient");
+           // listContainer.put("listType", "patient");
             myLists = helper.getPatientListNames();
         }
+        /*
         else if(listType.equals(ListType.DefaultPatientDID.toString())) {
             myLists = helper.getDefaultPatientListNames();     
-            listContainer.put("listType", "defaultPatient");
+          //  listContainer.put("listType", "defaultPatient");
         }
+        */
         else if(listType.equals(ListType.GeneSymbol.toString())) {
             myLists = helper.getGeneSymbolListNames();     
-            listContainer.put("listType", "gene");
+          //  listContainer.put("listType", "gene");
         }
 
 
@@ -209,7 +244,12 @@ public class DynamicListHelper {
             UserList ul = helper.getUserList(listName);
             DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aaa", Locale.US);
             if(ul!=null)  {
+            	JSONArray listSubTypes = new JSONArray();
+            	for(ListSubType lst : ul.getListSubType()){
+            		listSubTypes.add(lst.toString());
+            	}
                 JSONObject jsonListName = new JSONObject();
+                jsonListName.put("listSubTypes", listSubTypes);
                 jsonListName.put("listName", ul.getName());
                 jsonListName.put("listDate", dateFormat.format(ul.getDateCreated()).toString());
                 jsonListName.put("itemCount", String.valueOf(ul.getItemCount()));
@@ -231,13 +271,13 @@ public class DynamicListHelper {
 		UserListBeanHelper helper = new UserListBeanHelper();
 		try	{
 			List<String> al = Arrays.asList(sLists);
-			ListType lt = groupType.equals("gene") ? ListType.GeneSymbol : ListType.PatientDID;
+//			ListType lt = groupType.equals("gene") ? ListType.GeneSymbol : ListType.PatientDID;
 			if(action.equals("join"))	{
-				helper.uniteLists(al, groupName, lt);
+				helper.uniteLists(al, groupName, ListType.valueOf(groupType));
 			}
 			else	{
                 if(helper.isIntersection(al)){
-                    helper.intersectLists(al, groupName, lt);
+                    helper.intersectLists(al, groupName, ListType.valueOf(groupType));
                 }
                 else results = "fail";
 			}

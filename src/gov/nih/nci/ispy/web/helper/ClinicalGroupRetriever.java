@@ -29,14 +29,16 @@ public class ClinicalGroupRetriever {
     public List<LabelValueBean> getClinicalGroupsCollection(HttpSession session){
         UserListBeanHelper helper = new UserListBeanHelper(session);
         List<UserList> patientLists = helper.getLists(ListType.PatientDID);
-        List<UserList> dpatientLists = helper.getLists(ListType.DefaultPatientDID);
+        //List<UserList> dpatientLists = helper.getLists(ListType.DefaultPatientDID);
         
         for(UserList patientList: patientLists){
             clinicalGroupsCollection.add(new LabelValueBean(patientList.getName(),patientList.getClass().getCanonicalName() + "#" + patientList.getName()));
         }
+        /*
         for(UserList patientList: dpatientLists){
             clinicalGroupsCollection.add(new LabelValueBean(patientList.getName(),patientList.getClass().getCanonicalName() + "#" + patientList.getName()));
         }
+        */
         
         for (ClinicalResponseType clinicalResponseType : ClinicalResponseType.getDisplayValues()){
             clinicalGroupsCollection.add(new LabelValueBean(clinicalResponseType.toString(),clinicalResponseType.getDeclaringClass().getCanonicalName() + "#" + clinicalResponseType.name()));

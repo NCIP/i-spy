@@ -9,6 +9,7 @@ import java.util.Set;
 
 import gov.nih.nci.caintegrator.application.lists.ListLoader;
 import gov.nih.nci.caintegrator.application.lists.ListManager;
+import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
@@ -62,8 +63,9 @@ public class ISPYListLoader extends ListLoader{
             Set<String> clinicalStagePatients = cqs.getPatientDIDs(cDTO);
                 if(!clinicalStagePatients.isEmpty()){
                     List<String> dids = new ArrayList<String>(clinicalStagePatients);
-                    UserList myList = listManager.createList(ListType.DefaultPatientDID,clinicalStage.toString(),dids,listValidator);
+                    UserList myList = listManager.createList(ListType.PatientDID,clinicalStage.toString(),dids,listValidator);
                     if(!myList.getList().isEmpty()){
+                    	myList.setListSubType(ListSubType.Default);
                         userListBean.addList(myList);
                     }
                 }
@@ -78,8 +80,9 @@ public class ISPYListLoader extends ListLoader{
            Set<String> erStatusPatients = cqs.getPatientDIDs(cDTO);
                if(!erStatusPatients.isEmpty()){
                    List<String> dids = new ArrayList<String>(erStatusPatients);
-                   UserList myList = listManager.createList(ListType.DefaultPatientDID,erStatus.toString(),dids,listValidator);
+                   UserList myList = listManager.createList(ListType.PatientDID,erStatus.toString(),dids,listValidator);
                    if(!myList.getList().isEmpty()){
+                	   myList.setListSubType(ListSubType.Default);
                        userListBean.addList(myList);
                    }
                }
@@ -94,8 +97,9 @@ public class ISPYListLoader extends ListLoader{
            Set<String> her2StatusPatients = cqs.getPatientDIDs(cDTO);
                if(!her2StatusPatients.isEmpty()){
                    List<String> dids = new ArrayList<String>(her2StatusPatients);
-                   UserList myList = listManager.createList(ListType.DefaultPatientDID,her2Status.toString(),dids,listValidator);
+                   UserList myList = listManager.createList(ListType.PatientDID,her2Status.toString(),dids,listValidator);
                    if(!myList.getList().isEmpty()){
+                	   myList.setListSubType(ListSubType.Default);
                        userListBean.addList(myList);
                    }
                }
@@ -110,8 +114,9 @@ public class ISPYListLoader extends ListLoader{
            Set<String> prStatusPatients = cqs.getPatientDIDs(cDTO);
                if(!prStatusPatients.isEmpty()){
                    List<String> dids = new ArrayList<String>(prStatusPatients);
-                   UserList myList = listManager.createList(ListType.DefaultPatientDID,prStatus.toString(),dids,listValidator);
+                   UserList myList = listManager.createList(ListType.PatientDID,prStatus.toString(),dids,listValidator);
                    if(!myList.getList().isEmpty()){
+                	   myList.setListSubType(ListSubType.Default);
                        userListBean.addList(myList);
                    }
                }

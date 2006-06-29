@@ -1,5 +1,6 @@
 <%@ page
 	import="gov.nih.nci.caintegrator.application.lists.ListType,
+	gov.nih.nci.caintegrator.application.lists.ListSubType,
 	gov.nih.nci.caintegrator.application.lists.UserList,
 	gov.nih.nci.caintegrator.application.lists.UserListBean,
 	gov.nih.nci.ispy.web.helper.ISPYListValidator,
@@ -23,7 +24,8 @@
 
 	<body>
 
-		<%UserListGenerator listGenerator = new UserListGenerator();
+		<%
+		UserListGenerator listGenerator = new UserListGenerator();
 		ISPYListValidator listValidator = new ISPYListValidator();
 		String name = "";
 		String type = "";
@@ -66,36 +68,29 @@
             Map paramMap = new HashMap();
             UserList myList = new UserList();
 
-            UserListBeanHelper helper = new UserListBeanHelper(request
-                    .getSession());
-            if(type.equalsIgnoreCase("patient")){
-	             myList = uploadManager.createList(ListType.PatientDID,
-	                    name, myUndefinedList, listValidator);
-	        }
-	        else if(type.equalsIgnoreCase("gene symbol")){
-	             myList = uploadManager.createList(ListType.GeneSymbol,
-	                    name, myUndefinedList, listValidator);
-	        }
-	        
+            UserListBeanHelper helper = new UserListBeanHelper(request.getSession());
+            try	{
+	            myList = uploadManager.createList(ListType.valueOf(type), name, myUndefinedList, listValidator);
+    		}
+    		catch(Exception e)	{
+    			//myList = null;
+    		}        
 	        
             if (myList != null) {
+            	myList.setListSubType(ListSubType.Custom);
                 paramMap = uploadManager.getParams(myList);
                 helper.addList(myList);
             }
 
             %>
-
-
-		<script>
-var my_params= new Array()
-my_params["name"]="<%=paramMap.get("listName")%>";
-my_params["date"]="<%=paramMap.get("date")%>";
-my_params["count"]="<%=paramMap.get("items")%>";
-my_params["icount"]="<%=paramMap.get("invalidItems")%>";
-my_params["type"]="<%=paramMap.get("type")%>";
-
-window.parent.handleResponse(my_params);
-</script>
-
+		<script type="text/javascript">
+			var my_params= new Array()
+			my_params["name"]="<%=paramMap.get("listName")%>";
+			my_params["date"]="<%=paramMap.get("date")%>";
+			my_params["count"]="<%=paramMap.get("items")%>";
+			my_params["icount"]="<%=paramMap.get("invalidItems")%>";
+			my_params["type"]="<%=paramMap.get("type")%>";
+			window.parent.handleResponse(my_params);
+		</script>
 	</body>
 </html>
