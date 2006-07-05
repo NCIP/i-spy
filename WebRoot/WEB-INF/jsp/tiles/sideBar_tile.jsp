@@ -1,4 +1,4 @@
-<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType"%>
+<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.ispy.util.ISPYListFilter"%>
 <script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='js/common/SidebarHelper.js'/></script>
@@ -15,7 +15,7 @@
 
 <div id="sidebar">
 <%
-	ListType[] lts = ListType.values();
+	ListType[] lts = ISPYListFilter.values();
 	for(int i=0; i<lts.length; i++)	{
 		String label = lts[i].toString();
 %>

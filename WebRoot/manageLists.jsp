@@ -1,4 +1,4 @@
-<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean, gov.nih.nci.caintegrator.application.lists.ListManager, gov.nih.nci.caintegrator.application.lists.UserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document"%>
+<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean, gov.nih.nci.caintegrator.application.lists.ListManager, gov.nih.nci.caintegrator.application.lists.UserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document,gov.nih.nci.ispy.util.ISPYListFilter"%>
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <script type='text/javascript' src='js/scriptaculous/effects.js'></script>
 
@@ -34,7 +34,7 @@
 
 <div style="text-align:center">
 <%
-	ListType[] lts = ListType.values();
+	ListType[] lts = ISPYListFilter.values();
 	for(int i=0; i<lts.length; i++)	{
 		String label = lts[i].toString();
 %>
@@ -80,6 +80,8 @@
 		else	{
 			ManageListHelper.generic_cb("init");
 		}
+		
+		StatusMessage.showStatus("asdf");
 </script>
 
 <a name="addList"></a>

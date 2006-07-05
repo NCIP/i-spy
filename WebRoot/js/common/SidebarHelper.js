@@ -8,10 +8,12 @@ var SidebarHelper = {
 		SidebarHelper.loadGeneUL();
 	},
 	'loadPatientUL' : function()	{
-		$('sidebarPatientDIDUL').innerHTML = this.loadingImg;
-		setTimeout( function()	{
-			DynamicListHelper.getPatientListAsList(SidebarHelper.loadGenericUL_cb);
-			},SidebarHelper.delay);
+		if($('sidebarPatientDIDUL'))	{
+			$('sidebarPatientDIDUL').innerHTML = this.loadingImg;
+			setTimeout( function()	{
+				DynamicListHelper.getPatientListAsList(SidebarHelper.loadGenericUL_cb);
+				},SidebarHelper.delay);
+		}
 	},
 	'loadDefaultPatientUL' : function()	{
 		/*
@@ -41,10 +43,12 @@ var SidebarHelper = {
 	},
 	*/
 	'loadGeneUL' : function()	{
-		$('sidebarGeneSymbolUL').innerHTML = this.loadingImg;
-		setTimeout( function()	{
-			DynamicListHelper.getGeneListAsList(SidebarHelper.loadGenericUL_cb);
-		},SidebarHelper.delay);
+		if($('sidebarGeneSymbolUL'))	{
+			$('sidebarGeneSymbolUL').innerHTML = this.loadingImg;
+			setTimeout( function()	{
+				DynamicListHelper.getGeneListAsList(SidebarHelper.loadGenericUL_cb);
+			},SidebarHelper.delay);
+		}
 	},
 	/*
 	'loadGeneUL_cb' : function(txt)	{
