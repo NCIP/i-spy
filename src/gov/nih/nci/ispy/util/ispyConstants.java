@@ -95,5 +95,9 @@ public final class ispyConstants {
     
     public static final String ALL_USER_LISTS = "allUserLists.txt";
     
+    public static final String[] FISH_BIOMARKERS = {"TOPO2","ERBB2"};
+    
+    public static final String[] CNA_STATUS = {"Amplified", "Deleted", "Unchanged"};
+    
    
 }

@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.caintegrator.enumeration.Operator;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.util.LabelValueBean;
 
 
  /**
@@ -93,17 +95,18 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     private String[] agents;
     private List agentsCollection = new ArrayList();    
     private String[] response;
-    private List responseCollection = new ArrayList();    
-    private Operator diameterOperator;
+    private List responseCollection = new ArrayList(); 
+    private List operators = new ArrayList();
+    private String diameterOperator;    
     private int diameter;
-    private Operator microOperator;
+    private String microOperator;
     private int microSize;
     
     //MR parameters
     private String[] morphology;
-    private Operator ldLengthOperator;
+    private String ldLengthOperator;
     private int ldLength;
-    private Operator ldPercentChangeOperator;
+    private String ldPercentChangeOperator;
     private int ldPercentChange;
     
     //Receptor status
@@ -114,8 +117,26 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
 	
 
     public ClinicalQueryForm(){
-		
+        for (Operator operator : Operator.values()){
+            if(operator.equals(Operator.GE) || operator.equals(Operator.LE)){
+            operators.add(new LabelValueBean(operator.toString(),operator.name()));
+            }
+        }
 	}
+
+    /**
+     * @return Returns the operators.
+     */
+    public List getOperators() {
+        return operators;
+    }
+
+    /**
+     * @param operators The operators to set.
+     */
+    public void setOperators(List operators) {
+        this.operators = operators;
+    }
 
     /**
      * @return Returns the analysisResultName.
@@ -200,7 +221,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the diameterOperator.
      */
-    public Operator getDiameterOperator() {
+    public String getDiameterOperator() {
         return diameterOperator;
     }
 
@@ -210,7 +231,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param diameterOperator The diameterOperator to set.
      */
-    public void setDiameterOperator(Operator diameterOperator) {
+    public void setDiameterOperator(String diameterOperator) {
         this.diameterOperator = diameterOperator;
     }
 
@@ -320,7 +341,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the ldLengthOperator.
      */
-    public Operator getLdLengthOperator() {
+    public String getLdLengthOperator() {
         return ldLengthOperator;
     }
 
@@ -330,7 +351,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param ldLengthOperator The ldLengthOperator to set.
      */
-    public void setLdLengthOperator(Operator ldLengthOperator) {
+    public void setLdLengthOperator(String ldLengthOperator) {
         this.ldLengthOperator = ldLengthOperator;
     }
 
@@ -360,7 +381,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the ldPercentChangeOperator.
      */
-    public Operator getLdPercentChangeOperator() {
+    public String getLdPercentChangeOperator() {
         return ldPercentChangeOperator;
     }
 
@@ -370,7 +391,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param ldPercentChangeOperator The ldPercentChangeOperator to set.
      */
-    public void setLdPercentChangeOperator(Operator ldPercentChangeOperator) {
+    public void setLdPercentChangeOperator(String ldPercentChangeOperator) {
         this.ldPercentChangeOperator = ldPercentChangeOperator;
     }
 
@@ -380,7 +401,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the microOperator.
      */
-    public Operator getMicroOperator() {
+    public String getMicroOperator() {
         return microOperator;
     }
 
@@ -390,7 +411,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param microOperator The microOperator to set.
      */
-    public void setMicroOperator(Operator microOperator) {
+    public void setMicroOperator(String microOperator) {
         this.microOperator = microOperator;
     }
 

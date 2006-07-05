@@ -69,16 +69,14 @@
 			<div>
 					<b class="subfield">Diameter</b>
 					<html:select property="diameterOperator">			
-						<option>&ge;</option>
-						<option>&le;</option>
+						<html:optionsCollection property="operators" />
 	  				</html:select>
 					<html:text property="diameter" />(cm)
 			</div>
 			<div>
 					<b class="subfield">Micro Size</b>
 					<html:select property="microOperator">			
-						<option>&ge;</option>
-						<option>&le;</option>
+						<html:optionsCollection property="operators" />
 	  				</html:select>
 					<html:text property="microSize" />(cm)
 			</div>

@@ -18,16 +18,14 @@
 			<div>
 					<b class="subfield">LD (cm)</b>
 					<html:select property="ldLengthOperator">			
-						<option>&ge;</option>
-						<option>&le;</option>
+						<html:optionsCollection property="operators" />
 	  				</html:select>	  				
 					<html:text property="ldLength" />(cm)
 			</div>
 			<div>					
 					<b class="subfield">% Change</b>
 					<html:select property="ldPercentChangeOperator">			
-						<option>&ge;</option>
-						<option>&le;</option>
+						<html:optionsCollection property="operators" />
 	  				</html:select>
 					<html:text property="ldPercentChange" />(cm)
 			</div>

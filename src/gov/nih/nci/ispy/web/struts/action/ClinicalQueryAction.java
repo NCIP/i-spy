@@ -134,7 +134,6 @@ public class ClinicalQueryAction extends DispatchAction {
         ClinicalQueryForm clinicalForm = (ClinicalQueryForm) form;
         HttpSession session = request.getSession();
         
-        
         return mapping.findForward("viewResults");
     }
     
