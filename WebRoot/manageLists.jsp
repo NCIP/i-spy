@@ -81,7 +81,7 @@
 			ManageListHelper.generic_cb("init");
 		}
 		
-		StatusMessage.showStatus("asdf");
+		//StatusMessage.showStatus("asdf");
 </script>
 
 <a name="addList"></a>
