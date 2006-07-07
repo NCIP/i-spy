@@ -12,7 +12,7 @@ public class ISPYListFilter {
 	
 	public static ListType[] values()	{
 
-		ListType[] lsa = {ListType.GeneSymbol}; //no duplicates here
+		ListType[] lsa = {ListType.PatientDID,ListType.GeneSymbol}; //no duplicates here
 		
 		return lsa;
 	}
