@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 
+import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
@@ -21,6 +22,7 @@ import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
 import gov.nih.nci.caintegrator.enumeration.StatisticalSignificanceType;
 import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.security.UserCredentials;
+import gov.nih.nci.caintegrator.service.findings.ClinicalFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.ISPYClassComparisonQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
@@ -31,6 +33,7 @@ import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ClassHelper;
@@ -134,10 +137,25 @@ public class ClinicalQueryAction extends DispatchAction {
         ClinicalQueryForm clinicalForm = (ClinicalQueryForm) form;
         HttpSession session = request.getSession();
         
+       
+        ISPYclinicalDataQueryDTO clinicalDataQueryDTO = createClinicalDataQueryDTO(clinicalForm, session);
+        
+        
+        ISPYFindingsFactory factory = new ISPYFindingsFactory();
+        ISPYClinicalFinding finding = null;
+        
+        finding = factory.createClinicalFinding(clinicalDataQueryDTO, session.getId(), null);
+           
         return mapping.findForward("viewResults");
     }
     
-    public ActionForward setup(ActionMapping mapping, ActionForm form,
+    private ISPYclinicalDataQueryDTO createClinicalDataQueryDTO(ClinicalQueryForm clinicalForm, HttpSession session) {
+		ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
+		List<String> diseaseStages = clinicalForm.getDiseaseStageCollection();
+		return dto;
+	}
+
+	public ActionForward setup(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ClinicalQueryForm clinicalForm = (ClinicalQueryForm) form;
