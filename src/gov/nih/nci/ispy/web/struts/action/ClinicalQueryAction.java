@@ -152,6 +152,17 @@ public class ClinicalQueryAction extends DispatchAction {
     private ISPYclinicalDataQueryDTO createClinicalDataQueryDTO(ClinicalQueryForm clinicalForm, HttpSession session) {
 		ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
 		List<String> diseaseStages = clinicalForm.getDiseaseStageCollection();
+		
+		//HARDCODED Test.  
+//		EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.of(ClinicalResponseType.CR, ClinicalResponseType.PR);
+//		clinicalResponses.add(ClinicalResponseType.PR);
+//		clinicalResponses.add(ClinicalResponseType.CR);
+//		dto.setClinicalResponseValues(clinicalResponses);
+//		
+		dto.setHer2StatusValues(EnumSet.of(HER2statusType.HER2_POS));
+		//HARDCODED Test
+		
+		
 		return dto;
 	}
 
