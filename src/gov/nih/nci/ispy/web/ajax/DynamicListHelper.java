@@ -52,7 +52,7 @@ public class DynamicListHelper {
 		return CommonListFunctions.getListAsList(ListType.Gene);
 	}
 	
-	public static String createGenericList(String listType, String[] list, String name)	{
+	public static String createGenericList(String listType, List<String> list, String name)	{
 		try	{
 			ListType lt = ListType.valueOf(listType);
 			return CommonListFunctions.createGenericList(lt, list, name, new ISPYListValidator());
@@ -67,12 +67,15 @@ public class DynamicListHelper {
 		return CommonListFunctions.createGenericList(type, list, name, new ISPYListValidator());
 	}
 	*/
-	public static String createPatientList(String[] list, String name){
+	public static String createPatientList(List<String> list, String name){
 		return CommonListFunctions.createGenericList(ListType.PatientDID, list, name, new ISPYListValidator());
 	}
 
+	public static String createPatientList(String[] list, String name){
+		return CommonListFunctions.createGenericList(ListType.PatientDID, Arrays.asList(list), name, new ISPYListValidator());
+	}
 	
-	public static String createGeneList(String[] list, String name){
+	public static String createGeneList(List<String> list, String name){
 		return CommonListFunctions.createGenericList(ListType.Gene, list, name, new ISPYListValidator());
 	}
 

@@ -5,7 +5,7 @@
 */
 	var ManageListHelper = {
 		'getPatientLists' : function()	{
-			if (window.DynamicListHelper.getAllLists&&(typeof window.DynamicListHelper.getAllLists=="function")) {
+			if (window.DynamicListHelper.getAllPatientLists&&(typeof window.DynamicListHelper.getAllPatientLists=="function")) {
 				DynamicListHelper.getAllPatientLists(ManageListHelper.getGenericLists_cb );
 			}
 		},
@@ -34,60 +34,62 @@
 			// String listType : patient | gene | defaultPatient		
 			// Array<Object> listItems : { listName, listDate, itemCount, invalidItems }
 			try	{
-				var listContainer = eval('(' + txt + ')');
-				
-				var listType = listContainer.listType ? listContainer.listType : "none";
-				if(listType == "none") return;
-				
-				var lists = listContainer.listItems;
-				
-				//Note:  $('..'+"ListDiv") needs be be defined in the HTML src
-				// ^ now, should be auto generated 
-				
-				if(lists.length == 0)	{
-					//because we have default lists, do report that patient lists are empty
-					if($(listType+'ListDiv')){
-						$(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b><br/><br/>";
-				    }
-				    if($(listType+'UniteDiv')){
-				    	$(listType+'UniteDiv').style.display = "none";
-				    }
-					return;
-				}
-
-				if($(listType+'ListDiv'))
-					$(listType+'ListDiv').innerHTML = "";  //clear it, and repopulate
-				
-				var tst = "";
-				for(var t=0; t<lists.length; t++)	{
-				
-					var status = "<span id=\""+lists[t].listName+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
-					var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
-					var theName = lists[t].listName;
+				var listContainerArray = eval('(' + txt + ')');
+				for(var i=0; i<listContainerArray.length; i++)	{
+					var listContainer = listContainerArray[i];
+					var listType = listContainer.listType ? listContainer.listType : "none";
+					if(listType == "none") return;
 					
-					var listSubTypes = (lists[t].listSubTypes && lists[t].listSubTypes.length > 0) ? lists[t].listSubTypes.join(",") : Array();
-					var lstyle = listSubTypes.indexOf(listContainer.highlightType)!= -1 ? "color:#000000;" : "";			
-					// += or =
-					tst +=  "<div id='"
-	                	+ theName
-	                    + "' class='listListing'>" 
-	                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +theName+ "'/>"
-	                    + "<b style='"+lstyle+"' title='"+theName+"'>"
-	                    + shortName + "</b>"
-	                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;' onclick='ManageListHelper.getDetails(\""
-	                    + theName
-	                    + "\");return false;'>"
-	                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>show/hide details" + status + "</div>"
-	                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;'  onclick='ManageListHelper.deleteList(\""
-	                    + theName
-	                    + "\");return false;'>"
-	                    + "<img src='images/deleteCross20.png' border='0' style='vertical-align:text-bottom;'/>delete</div>"
-	                    + "</div><br /><div id='"
-	                    + theName
-	                    + "details'></div>\n\n";    
+					var lists = listContainer.listItems;
+					
+					//Note:  $('..'+"ListDiv") needs be be defined in the HTML src
+					// ^ now, should be auto generated 
+					
+					if(lists.length == 0)	{
+						//because we have default lists, do report that patient lists are empty
+						if($(listType+'ListDiv')){
+							$(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b><br/><br/>";
+					    }
+					    if($(listType+'UniteDiv')){
+					    	$(listType+'UniteDiv').style.display = "none";
+					    }
+						continue;
+					}
+	
+					if($(listType+'ListDiv'))
+						$(listType+'ListDiv').innerHTML = "";  //clear it, and repopulate
+					
+					var tst = "";
+					for(var t=0; t<lists.length; t++)	{
+					
+						var status = "<span id=\""+lists[t].listName+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
+						var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
+						var theName = lists[t].listName;
+						
+						var listSubTypes = (lists[t].listSubTypes && lists[t].listSubTypes.length > 0) ? lists[t].listSubTypes.join(",") : Array();
+						var lstyle = listSubTypes.indexOf(listContainer.highlightType)!= -1 ? "color:#000000;" : "";			
+						// += or =
+						tst +=  "<div id='"
+		                	+ theName
+		                    + "' class='listListing'>" 
+		                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +theName+ "'/>"
+		                    + "<b style='"+lstyle+"' title='"+theName+"'>"
+		                    + shortName + "</b>"
+		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;' onclick='ManageListHelper.getDetails(\""
+		                    + theName
+		                    + "\");return false;'>"
+		                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>show/hide details" + status + "</div>"
+		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;'  onclick='ManageListHelper.deleteList(\""
+		                    + theName
+		                    + "\");return false;'>"
+		                    + "<img src='images/deleteCross20.png' border='0' style='vertical-align:text-bottom;'/>delete</div>"
+		                    + "</div><br /><div id='"
+		                    + theName
+		                    + "details'></div>\n\n";    
+					}
+					if($(listType+'ListDiv'))
+						$(listType+'ListDiv').innerHTML = tst;
 				}
-				if($(listType+'ListDiv'))
-					$(listType+'ListDiv').innerHTML = tst;
 			}
 			catch(err)	{
 				//alert("ERR: " + err);

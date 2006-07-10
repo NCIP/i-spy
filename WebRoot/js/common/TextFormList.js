@@ -42,7 +42,7 @@
 			    		uploadStatus.style.display = "none";
 			    	}
 			    	}, 200);
-			    }
+			    } 
 		     }
 		     else	{
 		     	alert("Please fill in all fields");
