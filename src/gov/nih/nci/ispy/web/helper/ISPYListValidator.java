@@ -47,7 +47,7 @@ public class ISPYListValidator implements ListValidator{
            }
        }
        */
-       else if(listType == ListType.GeneSymbol){
+       else if(listType == ListType.Gene){
            for(String geneSymbol : myList){
                reporters = geneService.getReportersForGeneSymbol(geneSymbol);
                if(reporters!=null){
@@ -73,7 +73,7 @@ public class ISPYListValidator implements ListValidator{
             invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
         }
         */
-        else if(listType == ListType.GeneSymbol)	{
+        else if(listType == ListType.Gene)	{
             for(String geneSymbol : myList){
                 reporters = geneService.getReportersForGeneSymbol(geneSymbol);
                 if(reporters == null){
@@ -82,6 +82,16 @@ public class ISPYListValidator implements ListValidator{
             }
         }
         return invalidList;
+    }
+
+    public List getValidList() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public List getInvalidList() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

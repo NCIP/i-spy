@@ -43,8 +43,8 @@ var SidebarHelper = {
 	},
 	*/
 	'loadGeneUL' : function()	{
-		if($('sidebarGeneSymbolUL'))	{
-			$('sidebarGeneSymbolUL').innerHTML = this.loadingImg;
+		if($('sidebarGeneUL'))	{
+			$('sidebarGeneUL').innerHTML = this.loadingImg;
 			setTimeout( function()	{
 				DynamicListHelper.getGeneListAsList(SidebarHelper.loadGenericUL_cb);
 			},SidebarHelper.delay);

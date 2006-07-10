@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.web.struts.action;
 
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
 import gov.nih.nci.caintegrator.dto.de.CloneIdentifierDE;
@@ -144,7 +145,7 @@ public class PrincipalComponentAction extends DispatchAction {
         String sessionId = request.getSession().getId(); 
         UserListBeanHelper listHelper = new UserListBeanHelper(session);
         //fetch the users gene groups populate the dropdown
-        List<String> names = listHelper.getGeneSymbolListNames();
+        List<String> names = (List<String>) listHelper.getGenericListNames(ListType.Gene);
         List<LabelValueBean> gsNameList = new ArrayList<LabelValueBean>();
             for(String listName : names){
                 gsNameList.add(new LabelValueBean(listName,listName));

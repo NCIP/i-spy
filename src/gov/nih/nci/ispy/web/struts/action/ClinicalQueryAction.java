@@ -36,7 +36,7 @@ import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-import gov.nih.nci.ispy.web.helper.ClassHelper;
+import gov.nih.nci.caintegrator.application.util.ClassHelper;
 import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
 import gov.nih.nci.ispy.web.struts.form.ClassComparisonForm;

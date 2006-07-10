@@ -49,7 +49,7 @@ public class DynamicListHelper {
 	}
 	
 	public static String getGeneListAsList()	{
-		return CommonListFunctions.getListAsList(ListType.GeneSymbol);
+		return CommonListFunctions.getListAsList(ListType.Gene);
 	}
 	
 	public static String createGenericList(String listType, String[] list, String name)	{
@@ -73,7 +73,7 @@ public class DynamicListHelper {
 
 	
 	public static String createGeneList(String[] list, String name){
-		return CommonListFunctions.createGenericList(ListType.GeneSymbol, list, name, new ISPYListValidator());
+		return CommonListFunctions.createGenericList(ListType.Gene, list, name, new ISPYListValidator());
 	}
 
 	public static String exportListasTxt(String name, HttpSession session){
@@ -89,7 +89,7 @@ public class DynamicListHelper {
 	
 	public static String getAllGeneLists()	{
 		List<String> lt = new ArrayList();
-		lt.add(ListType.GeneSymbol.toString());
+		lt.add(ListType.Gene.toString());
 		return CommonListFunctions.getAllLists(lt);
 	}
 	/*
