@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.naming.OperationNotSupportedException;
+
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -101,7 +103,7 @@ public class IdLookup {
 		
 	}
 	
-	public String createPatientList(String[] list, String name){
+	public void createPatientList(String[] list, String name){
 		/*
 		//create list w/ type=patient
 		String success = "fail";
@@ -117,7 +119,12 @@ public class IdLookup {
 		}
 		return success;
 		*/
-		return DynamicListHelper.createPatientList(list, name);
+		try {
+            DynamicListHelper.createPatientList(list, name);
+        } catch (OperationNotSupportedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 	}
 	
 	public static String getCSV(String lookup)	{

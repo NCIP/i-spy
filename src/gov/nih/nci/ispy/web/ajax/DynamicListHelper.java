@@ -23,6 +23,7 @@ import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 
 
+import javax.naming.OperationNotSupportedException;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
@@ -52,14 +53,16 @@ public class DynamicListHelper {
 		return CommonListFunctions.getListAsList(ListType.Gene);
 	}
 	
-	public static String createGenericList(String listType, List<String> list, String name)	{
-		try	{
+	public static String createGenericList(String listType, List<String> list, String name) throws OperationNotSupportedException	{
+	    try	{
 			ListType lt = ListType.valueOf(listType);
-			return CommonListFunctions.createGenericList(lt, list, name, new ISPYListValidator());
+            ISPYListValidator listValidator = new ISPYListValidator(lt,list);
+			return CommonListFunctions.createGenericList(lt, list, name, listValidator);
 		}
 		catch(Exception e)	{
 			//try as a patient list as default, will fail validation if its not accepted
-			return CommonListFunctions.createGenericList(ListType.PatientDID, list, name, new ISPYListValidator());
+            ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,list);
+			return CommonListFunctions.createGenericList(ListType.PatientDID, list, name, listValidator);
 		}
 	}
 	/*
@@ -67,16 +70,19 @@ public class DynamicListHelper {
 		return CommonListFunctions.createGenericList(type, list, name, new ISPYListValidator());
 	}
 	*/
-	public static String createPatientList(List<String> list, String name){
-		return CommonListFunctions.createGenericList(ListType.PatientDID, list, name, new ISPYListValidator());
+	public static String createPatientList(List<String> list, String name) throws OperationNotSupportedException{
+        ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,list);
+		return CommonListFunctions.createGenericList(ListType.PatientDID, list, name, listValidator);
 	}
 
-	public static String createPatientList(String[] list, String name){
-		return CommonListFunctions.createGenericList(ListType.PatientDID, Arrays.asList(list), name, new ISPYListValidator());
+	public static String createPatientList(String[] list, String name) throws OperationNotSupportedException{ 
+        ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,Arrays.asList(list));
+		return CommonListFunctions.createGenericList(ListType.PatientDID, Arrays.asList(list), name, listValidator);
 	}
 	
-	public static String createGeneList(List<String> list, String name){
-		return CommonListFunctions.createGenericList(ListType.Gene, list, name, new ISPYListValidator());
+	public static String createGeneList(List<String> list, String name) throws OperationNotSupportedException{
+        ISPYListValidator listValidator = new ISPYListValidator(ListType.Gene,list);
+        return CommonListFunctions.createGenericList(ListType.Gene, list, name, listValidator);
 	}
 
 	public static String exportListasTxt(String name, HttpSession session){

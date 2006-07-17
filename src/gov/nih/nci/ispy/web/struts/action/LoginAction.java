@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.web.struts.action;
 
 
+import gov.nih.nci.caintegrator.application.cache.CacheConstants;
 import gov.nih.nci.caintegrator.application.lists.ListManager;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
 import gov.nih.nci.ispy.cache.ISPYContextListener;
@@ -81,7 +82,7 @@ public final class LoginAction extends Action
                     // load IspySpecific clinical status lists
                     userListBean = ISPYListLoader.loadStatusGroups(userListBean);
                     //add userListBean to session
-                    session.setAttribute(ispyConstants.USER_LISTS,userListBean);
+                    session.setAttribute(CacheConstants.USER_LISTS,userListBean);
                     
 					return (mapping.findForward("success"));	
 				}

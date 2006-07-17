@@ -26,7 +26,7 @@
 
 		<%
 		UserListGenerator listGenerator = new UserListGenerator();
-		ISPYListValidator listValidator = new ISPYListValidator();
+		
 		String name = "";
 		String type = "";
 		FileItem formFile = null;
@@ -69,6 +69,7 @@
             UserList myList = new UserList();
 
             UserListBeanHelper helper = new UserListBeanHelper(request.getSession());
+            ISPYListValidator listValidator = new ISPYListValidator(ListType.valueOf(type), myUndefinedList);
             try	{
 	            myList = uploadManager.createList(ListType.valueOf(type), name, myUndefinedList, listValidator);
     		}

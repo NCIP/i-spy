@@ -4,6 +4,7 @@
  */
 package gov.nih.nci.ispy.web.helper;
 
+import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.ListValidator;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
@@ -16,39 +17,49 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.naming.OperationNotSupportedException;
+
 /**
  * @author rossok
  * 
  */
-public class ISPYListValidator implements ListValidator{
-    
-    IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
-    GeneExprFileBasedAnnotationService geneService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
+public class ISPYListValidator extends ListValidator{    
    
-    public List<String> getValidList(ListType listType, List<String> myList) {
-       List<String> validList = new ArrayList<String>();
+    public ISPYListValidator() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    public ISPYListValidator(ListType listType, List<String> unvalidatedList) throws OperationNotSupportedException {        
+        super(listType, unvalidatedList);        
+    }
+    
+    public ISPYListValidator(ListType listType, ListSubType listSubType, List<String> unvalidatedList) throws OperationNotSupportedException {
+        super(listType, listSubType, unvalidatedList);             
+    }
+
+  
+    public void validate(ListType listType, List<String> myList) {
+        List<String> unvalidatedList = new ArrayList<String>();
+        for(String s : myList){         
+         unvalidatedList.add(s.toUpperCase());
+        }
+       IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
+       GeneExprFileBasedAnnotationService geneService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
        Set<String> geneSymbols = new HashSet<String>();
        Set<ReporterAnnotation> reporters = new HashSet<ReporterAnnotation>();
        Set<RegistrantInfo> riSet = new HashSet<RegistrantInfo>();
        
        if(listType == ListType.PatientDID){            
-            List<RegistrantInfo> entries = idMapper.getMapperEntriesForIds(myList);
+            List<RegistrantInfo> entries = idMapper.getMapperEntriesForIds(unvalidatedList);
             riSet.addAll( entries );
             for(RegistrantInfo ri : riSet){
                 validList.add(ri.getRegistrationId());
             }
         }
-      /*
-       else if(listType == ListType.DefaultPatientDID){            
-           List<RegistrantInfo> entries = idMapper.getMapperEntriesForIds(myList);
-           riSet.addAll( entries );
-           for(RegistrantInfo ri : riSet){
-               validList.add(ri.getRegistrationId());
-           }
-       }
-       */
+     
        else if(listType == ListType.Gene){
-           for(String geneSymbol : myList){
+           for(String geneSymbol : unvalidatedList){
                reporters = geneService.getReportersForGeneSymbol(geneSymbol);
                if(reporters!=null){
                    for(ReporterAnnotation a: reporters){
@@ -57,41 +68,38 @@ public class ISPYListValidator implements ListValidator{
                }
            }
        validList.addAll(geneSymbols);
-       }
        
-       return validList;
+       }
+       invalidList.addAll(unvalidatedList);
+       invalidList.removeAll(validList);
     }
 
-    public List<String> getInvalidList(ListType listType, List<String> myList) {
-        List<String> invalidList = new ArrayList<String>();
-        Set<ReporterAnnotation> reporters = new HashSet<ReporterAnnotation>();
-        if(listType == ListType.PatientDID){
-             invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
-        }
-        /*
-        else if(listType == ListType.DefaultPatientDID){
-            invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
-        }
-        */
-        else if(listType == ListType.Gene)	{
-            for(String geneSymbol : myList){
-                reporters = geneService.getReportersForGeneSymbol(geneSymbol);
-                if(reporters == null){
-                    invalidList.add(geneSymbol);
-                }
-            }
-        }
-        return invalidList;
-    }
-
-    public List getValidList() {
+    @Override
+    public void validate(ListType listType, ListSubType listSubType, List<String> unvalidatedList) throws OperationNotSupportedException {
         // TODO Auto-generated method stub
-        return null;
     }
 
-    public List getInvalidList() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+//    private List<String> getInvalidList(ListType listType, List<String> myList) {        
+//        Set<ReporterAnnotation> reporters = new HashSet<ReporterAnnotation>();
+//        if(listType == ListType.PatientDID){
+//             invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
+//        }
+//        /*
+//        else if(listType == ListType.DefaultPatientDID){
+//            invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
+//        }
+//        */
+//        else if(listType == ListType.Gene)	{
+//            for(String geneSymbol : myList){
+//                reporters = geneService.getReportersForGeneSymbol(geneSymbol);
+//                if(reporters == null){
+//                    invalidList.add(geneSymbol);
+//                }
+//            }
+//        }
+//        return invalidList;
+//    }
+
+   
 
 }
