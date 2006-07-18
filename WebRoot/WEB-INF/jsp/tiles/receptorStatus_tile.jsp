@@ -13,13 +13,7 @@
 	      <div>
 	        <b class="subfield">Status</b>
 					<html:select property="receptorStatus" multiple="true" size="4">
-							<option>ER+</option>
-							<option>ER-</option>
-							<option>HER2+</option>
-							<option>HER2-</option>
-							<option>PR+</option>
-							<option>PR-</option>
-							<option>...pulled as userlist</option>
+							<html:optionsCollection property="receptorCollection" />
 					</html:select>
 			</div>
 		</div>

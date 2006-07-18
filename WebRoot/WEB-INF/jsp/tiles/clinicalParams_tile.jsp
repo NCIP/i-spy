@@ -12,12 +12,7 @@
 	       <div>
 	        <b class="subfield">Disease Stage</b>
 					<html:select property="diseaseStages" multiple="true" size="4">
-							<option>Stage 2A</option>
-							<option>Stage 2B</option>
-							<option>Stage 3A</option>
-							<option>Stage 3B</option>
-							<option>Stage 3C</option>
-							<option>...pulled as userlist</option>
+							<html:optionsCollection property="diseaseStageCollection" />
 					</html:select>
 			</div>
 			<div>
@@ -60,10 +55,7 @@
 			<div>
 					<b class="subfield">Response</b>
 					<html:select property="response" size="4" multiple="true">
-						<option>Progressive Disease</option>
-						<option>Stable Disease</option>
-						<option>Partial Response</option>
-						<option>Complete Response</option>
+						<html:optionsCollection property="responseCollection" />
 					</html:select>
 			</div>
 			<div>

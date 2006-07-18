@@ -2,6 +2,7 @@ package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.util.ispyConstants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -108,9 +109,14 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     private int ldLength;
     private String ldPercentChangeOperator;
     private int ldPercentChange;
+    private String mriPercentChangeOperator;
+    private int mriPercentChange;
+    private String mriTimepointRange;
+    private List mriTimepointRangeCollection = new ArrayList();
     
     //Receptor status
     private String[] receptorStatus;
+    private List receptorCollection;
     
     private String analysisResultName = "";
   
@@ -121,6 +127,9 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
             if(operator.equals(Operator.GE) || operator.equals(Operator.LE)){
             operators.add(new LabelValueBean(operator.toString(),operator.name()));
             }
+        }
+        for (int i=0; i<ispyConstants.MRI_TIMEPOINT_RANGE.length;i++){
+            mriTimepointRangeCollection.add(new LabelValueBean(ispyConstants.MRI_TIMEPOINT_RANGE[i],ispyConstants.MRI_TIMEPOINT_RANGE[i]));
         }
 	}
 
@@ -567,6 +576,76 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
      */
     public void setAgentsCollection(List agentsCollection) {
         this.agentsCollection = agentsCollection;
+    }
+
+    /**
+     * @return Returns the mriPercentChange.
+     */
+    public int getMriPercentChange() {
+        return mriPercentChange;
+    }
+
+    /**
+     * @param mriPercentChange The mriPercentChange to set.
+     */
+    public void setMriPercentChange(int mriPercentChange) {
+        this.mriPercentChange = mriPercentChange;
+    }
+
+    /**
+     * @return Returns the mriPercentChangeOperator.
+     */
+    public String getMriPercentChangeOperator() {
+        return mriPercentChangeOperator;
+    }
+
+    /**
+     * @param mriPercentChangeOperator The mriPercentChangeOperator to set.
+     */
+    public void setMriPercentChangeOperator(String mriPercentChangeOperator) {
+        this.mriPercentChangeOperator = mriPercentChangeOperator;
+    }
+
+    /**
+     * @return Returns the mriTimepointRange.
+     */
+    public String getMriTimepointRange() {
+        return mriTimepointRange;
+    }
+
+    /**
+     * @param mriTimepointRange The mriTimepointRange to set.
+     */
+    public void setMriTimepointRange(String mriTimepointRange) {
+        this.mriTimepointRange = mriTimepointRange;
+    }
+
+    /**
+     * @return Returns the mriTimepointRangeCollection.
+     */
+    public List getMriTimepointRangeCollection() {
+        return mriTimepointRangeCollection;
+    }
+
+    /**
+     * @param mriTimepointRangeCollection The mriTimepointRangeCollection to set.
+     */
+    public void setMriTimepointRangeCollection(List mriTimepointRangeCollection) {
+        this.mriTimepointRangeCollection = mriTimepointRangeCollection;
+    }
+
+    /**
+     * @return Returns the receptorCollection.
+     */
+    public List getReceptorCollection() {
+        return receptorCollection;
+    }
+
+    /**
+     * @param receptorCollection The receptorCollection to set.
+     */
+    public void setReceptorCollection(List receptorCollection) {
+        this.receptorCollection = receptorCollection;
     }
 	
     

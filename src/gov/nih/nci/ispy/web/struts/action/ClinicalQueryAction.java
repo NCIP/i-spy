@@ -170,10 +170,10 @@ public class ClinicalQueryAction extends DispatchAction {
             HttpServletRequest request, HttpServletResponse response)
     throws Exception {
         ClinicalQueryForm clinicalForm = (ClinicalQueryForm) form;
-        ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever();
-        
-        clinicalForm.setDiseaseStageCollection(clinicalGroupRetriever.getClinicalGroupsCollection(request.getSession()));
-        
+        ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(request.getSession());        
+        clinicalForm.setDiseaseStageCollection(clinicalGroupRetriever.getClinicalStageCollection());
+        clinicalForm.setResponseCollection(clinicalGroupRetriever.getClinicalResponseCollection());
+        clinicalForm.setReceptorCollection(clinicalGroupRetriever.getReceptorCollection());
         
         return mapping.findForward("backToClinicalQuery");
     }

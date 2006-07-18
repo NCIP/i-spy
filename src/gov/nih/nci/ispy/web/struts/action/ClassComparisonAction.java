@@ -157,8 +157,8 @@ public class ClassComparisonAction extends DispatchAction {
     throws Exception {
         ClassComparisonForm classComparisonForm = (ClassComparisonForm) form;
         /*setup the defined Disease query names and the list of samples selected from a Resultset*/
-        ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever();
-        classComparisonForm.setExistingGroupsList(clinicalGroupRetriever.getClinicalGroupsCollection(request.getSession()));
+        ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(request.getSession());
+        classComparisonForm.setExistingGroupsList(clinicalGroupRetriever.getClinicalGroupsCollection());
         
         
         return mapping.findForward("backToClassComparison");

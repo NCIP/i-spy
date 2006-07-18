@@ -99,5 +99,6 @@ public final class ispyConstants {
     
     public static final String[] CNA_STATUS = {"Amplified", "Deleted", "Unchanged"};
     
+    public static final String[] MRI_TIMEPOINT_RANGE = {"T1_T2","T1_T3","T1_T4"};
    
 }

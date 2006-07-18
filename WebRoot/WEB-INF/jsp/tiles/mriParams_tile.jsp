@@ -29,6 +29,17 @@
 	  				</html:select>
 					<html:text property="ldPercentChange" />(cm)
 			</div>
+			<div>					
+					<b class="subfield">% Change over Timepoints</b>
+					<html:select property="mriTimepointRange">
+						<html:optionsCollection property="mriTimepointRangeCollection" />
+					</html:select>
+					
+					<html:select property="mriPercentChangeOperator">			
+						<html:optionsCollection property="operators" />
+	  				</html:select>
+					<html:text property="mriPercentChange" />(cm)
+			</div>
 			
 	</div>
 </fieldset>
