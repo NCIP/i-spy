@@ -17,10 +17,12 @@ import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
+import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 
 /**
@@ -57,6 +59,36 @@ public class ISPYListLoader extends ListLoader{
          * for each stage group, load the EnumSet, send the query, return a list,
          * set the list into a UserList and add it to the UserListBean.
          */
+        List<ClinicalResponseType> crt = ClinicalResponseType.getDisplayValues();
+        TimepointType[] timepoints = TimepointType.values();
+        for(ClinicalResponseType clinicalResponse : crt){
+            for(TimepointType type : timepoints){
+                //no data for timepoint one right now
+                if(type.equals(TimepointType.T1)){
+                    continue;
+                }
+                else{
+                    ISPYclinicalDataQueryDTO cDTO = new ISPYclinicalDataQueryDTO();
+                    EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.noneOf(ClinicalResponseType.class);
+                    EnumSet<TimepointType> tp = EnumSet.noneOf(TimepointType.class);
+                    clinicalResponses.add(clinicalResponse);
+                    tp.add(type);
+                    cDTO.setClinicalResponseValues(clinicalResponses);
+                    cDTO.setTimepointValues(tp);
+                    Set<String> clinicalResponsePatients = cqs.getPatientDIDs(cDTO);
+                        if(!clinicalResponsePatients.isEmpty()){
+                            List<String> dids = new ArrayList<String>(clinicalResponsePatients);
+                            ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,dids);
+                            UserList myList = listManager.createList(ListType.PatientDID,clinicalResponse.toString()+TimepointType.T1.toString()+"_"+type.toString(),dids,listValidator);
+                            if(!myList.getList().isEmpty()){
+                                myList.setListSubType(ListSubType.Default);
+                                userListBean.addList(myList);
+                            }
+                        }
+                }
+            }
+        }
+        
         List<ClinicalStageType> cst = ClinicalStageType.getDisplayValues();
         for(ClinicalStageType clinicalStage : cst){
             ISPYclinicalDataQueryDTO cDTO = new ISPYclinicalDataQueryDTO();

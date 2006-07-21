@@ -10,35 +10,30 @@
 </legend>
 	<div class="mains">
 	      <div>
-	        <b class="subfield">Morphology</b>
-					<html:textarea property="morphology" value="[keyword matches]" rows="3" cols="40" />
+	        <b class="subfield">Morphology <br/>(keyword matches)</b>
+					<html:textarea property="morphology" value="" rows="3" cols="40" />
 									
 			</div>		
 			
-			<div>
+			<!--<div>
 					<b class="subfield">LD (cm)</b>
 					<html:select property="ldLengthOperator">			
 						<html:optionsCollection property="operators" />
 	  				</html:select>	  				
 					<html:text property="ldLength" />(cm)
-			</div>
+			</div>-->
+			
 			<div>					
-					<b class="subfield">% Change</b>
+					<b class="subfield">% Change over Timepoints</b>
+					<html:select property="ldTimepointRange">
+						<html:option value="none">none</html:option>
+						<html:optionsCollection property="ldTimepointRangeCollection" />
+					</html:select>
+					
 					<html:select property="ldPercentChangeOperator">			
 						<html:optionsCollection property="operators" />
 	  				</html:select>
 					<html:text property="ldPercentChange" />(cm)
-			</div>
-			<div>					
-					<b class="subfield">% Change over Timepoints</b>
-					<html:select property="mriTimepointRange">
-						<html:optionsCollection property="mriTimepointRangeCollection" />
-					</html:select>
-					
-					<html:select property="mriPercentChangeOperator">			
-						<html:optionsCollection property="operators" />
-	  				</html:select>
-					<html:text property="mriPercentChange" />(cm)
 			</div>
 			
 	</div>

@@ -36,18 +36,9 @@
 					</html:select>
 			</div>
 			<div>
-					<b class="subfield">Agents<br/>
-					<span style="font-weight:normal">
-					<html:radio styleClass="radio" property="agentFilter" value="and" />And
-					<html:radio styleClass="radio" property="agentFilter" value="or" />Or
-					</span>
-					</b>
+					<b class="subfield">Agents<br/></b>
 					<html:select property="agents" size="4" multiple="true">
-						<option>ADRIAMYCIN</option>
-						<option>CYTOXAN</option>
-						<option>TAXOTERE</option>
-						<option>TZSOTERE</option>
-						<option>...pulled as userlist</option>
+						<html:optionsCollection property="agentsCollection" />
 					</html:select>
 					<br/>
 								

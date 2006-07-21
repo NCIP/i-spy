@@ -9,7 +9,8 @@
 <app:help help="Select a patient group to further filter the query" />
 </legend>
       <html:select style="margin-left:20px" property="patientGroup">			
-			<option>none</option>
+			<html:option value="none">none</html:option>
+			<html:optionsCollection property="patientGroupCollection" />
 	  </html:select>
 
 </fieldset>

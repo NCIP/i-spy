@@ -85,34 +85,34 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     
     private static Logger logger = Logger.getLogger(ClinicalQueryForm.class);
     
-    //Clinical parameters     
+    //Clinical parameters
+    
 	private String[] diseaseStages;    
     private List diseaseStageCollection;    
     private String[] histologyType;    
     private List histologyTypeCollection = new ArrayList();    
     private String[] nuclearGrade;    
     private List nuclearGradeCollection = new ArrayList();    
-    private String agentFilter = "or";
+    //private String agentFilter = "or";
     private String[] agents;
     private List agentsCollection = new ArrayList();    
     private String[] response;
     private List responseCollection = new ArrayList(); 
     private List operators = new ArrayList();
     private String diameterOperator;    
-    private int diameter;
+    private double diameter;
     private String microOperator;
-    private int microSize;
+    private double microSize;
     
     //MR parameters
-    private String[] morphology;
+    private String morphology;
     private String ldLengthOperator;
-    private int ldLength;
+    private double ldLength;
+    
     private String ldPercentChangeOperator;
-    private int ldPercentChange;
-    private String mriPercentChangeOperator;
-    private int mriPercentChange;
-    private String mriTimepointRange;
-    private List mriTimepointRangeCollection = new ArrayList();
+    private double ldPercentChange;    
+    private String ldTimepointRange;
+    private List ldTimepointRangeCollection = new ArrayList();
     
     //Receptor status
     private String[] receptorStatus;
@@ -127,10 +127,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
             if(operator.equals(Operator.GE) || operator.equals(Operator.LE)){
             operators.add(new LabelValueBean(operator.toString(),operator.name()));
             }
-        }
-        for (int i=0; i<ispyConstants.MRI_TIMEPOINT_RANGE.length;i++){
-            mriTimepointRangeCollection.add(new LabelValueBean(ispyConstants.MRI_TIMEPOINT_RANGE[i],ispyConstants.MRI_TIMEPOINT_RANGE[i]));
-        }
+        }        
 	}
 
     /**
@@ -163,22 +160,22 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     }
 
     
-    /**
-     * @return Returns the agentFilter.
-     */
-    public String getAgentFilter() {
-        return agentFilter;
-    }
-
-
-
-
-    /**
-     * @param agentFilter The agentFilter to set.
-     */
-    public void setAgentFilter(String agentFilter) {
-        this.agentFilter = agentFilter;
-    }
+//    /**
+//     * @return Returns the agentFilter.
+//     */
+//    public String getAgentFilter() {
+//        return agentFilter;
+//    }
+//
+//
+//
+//
+//    /**
+//     * @param agentFilter The agentFilter to set.
+//     */
+//    public void setAgentFilter(String agentFilter) {
+//        this.agentFilter = agentFilter;
+//    }
 
 
 
@@ -210,7 +207,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the diameter.
      */
-    public int getDiameter() {
+    public double getDiameter() {
         return diameter;
     }
 
@@ -220,7 +217,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param diameter The diameter to set.
      */
-    public void setDiameter(int diameter) {
+    public void setDiameter(double diameter) {
         this.diameter = diameter;
     }
 
@@ -330,7 +327,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the ldLength.
      */
-    public int getLdLength() {
+    public double getLdLength() {
         return ldLength;
     }
 
@@ -340,7 +337,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param ldLength The ldLength to set.
      */
-    public void setLdLength(int ldLength) {
+    public void setLdLength(double ldLength) {
         this.ldLength = ldLength;
     }
 
@@ -370,7 +367,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the ldPercentChange.
      */
-    public int getLdPercentChange() {
+    public double getLdPercentChange() {
         return ldPercentChange;
     }
 
@@ -380,7 +377,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param ldPercentChange The ldPercentChange to set.
      */
-    public void setLdPercentChange(int ldPercentChange) {
+    public void setLdPercentChange(double ldPercentChange) {
         this.ldPercentChange = ldPercentChange;
     }
 
@@ -430,7 +427,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the microSize.
      */
-    public int getMicroSize() {
+    public double getMicroSize() {
         return microSize;
     }
 
@@ -440,7 +437,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param microSize The microSize to set.
      */
-    public void setMicroSize(int microSize) {
+    public void setMicroSize(double microSize) {
         this.microSize = microSize;
     }
 
@@ -450,7 +447,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the morphology.
      */
-    public String[] getMorphology() {
+    public String getMorphology() {
         return morphology;
     }
 
@@ -460,7 +457,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param morphology The morphology to set.
      */
-    public void setMorphology(String[] morphology) {
+    public void setMorphology(String morphology) {
         this.morphology = morphology;
     }
 
@@ -578,60 +575,33 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
         this.agentsCollection = agentsCollection;
     }
 
-    /**
-     * @return Returns the mriPercentChange.
-     */
-    public int getMriPercentChange() {
-        return mriPercentChange;
-    }
-
-    /**
-     * @param mriPercentChange The mriPercentChange to set.
-     */
-    public void setMriPercentChange(int mriPercentChange) {
-        this.mriPercentChange = mriPercentChange;
-    }
-
-    /**
-     * @return Returns the mriPercentChangeOperator.
-     */
-    public String getMriPercentChangeOperator() {
-        return mriPercentChangeOperator;
-    }
-
-    /**
-     * @param mriPercentChangeOperator The mriPercentChangeOperator to set.
-     */
-    public void setMriPercentChangeOperator(String mriPercentChangeOperator) {
-        this.mriPercentChangeOperator = mriPercentChangeOperator;
-    }
-
+    
     /**
      * @return Returns the mriTimepointRange.
      */
-    public String getMriTimepointRange() {
-        return mriTimepointRange;
+    public String getLdTimepointRange() {
+        return ldTimepointRange;
     }
 
     /**
      * @param mriTimepointRange The mriTimepointRange to set.
      */
-    public void setMriTimepointRange(String mriTimepointRange) {
-        this.mriTimepointRange = mriTimepointRange;
+    public void setLdTimepointRange(String ldTimepointRange) {
+        this.ldTimepointRange = ldTimepointRange;
     }
 
     /**
      * @return Returns the mriTimepointRangeCollection.
      */
-    public List getMriTimepointRangeCollection() {
-        return mriTimepointRangeCollection;
+    public List getLdTimepointRangeCollection() {
+        return ldTimepointRangeCollection;
     }
 
     /**
      * @param mriTimepointRangeCollection The mriTimepointRangeCollection to set.
      */
-    public void setMriTimepointRangeCollection(List mriTimepointRangeCollection) {
-        this.mriTimepointRangeCollection = mriTimepointRangeCollection;
+    public void setLdTimepointRangeCollection(List ldTimepointRangeCollection) {
+        this.ldTimepointRangeCollection = ldTimepointRangeCollection;
     }
 
     /**
@@ -647,7 +617,8 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     public void setReceptorCollection(List receptorCollection) {
         this.receptorCollection = receptorCollection;
     }
-	
+
+    
     
 }
 	

@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.web.struts.form;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
@@ -79,7 +80,8 @@ public class BaseForm extends ActionForm implements Serializable{
     
     private static Logger logger = Logger.getLogger(BaseForm.class);
 	private String method;	
-    private String patientGroup;
+    private String patientGroup; 
+    private List patientGroupCollection; 
     
 	
 	/**
@@ -112,5 +114,19 @@ public class BaseForm extends ActionForm implements Serializable{
 	public void setMethod(String method) {
 		this.method = method;
 	}
+
+    /**
+     * @return Returns the patientGroupCollection.
+     */
+    public List getPatientGroupCollection() {
+        return patientGroupCollection;
+    }
+
+    /**
+     * @param patientGroupCollection The patientGroupCollection to set.
+     */
+    public void setPatientGroupCollection(List patientGroupCollection) {
+        this.patientGroupCollection = patientGroupCollection;
+    }
 }
 	

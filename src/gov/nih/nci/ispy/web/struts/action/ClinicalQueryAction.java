@@ -3,11 +3,14 @@ package gov.nih.nci.ispy.web.struts.action;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.lists.UserList;
+import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
 import gov.nih.nci.caintegrator.dto.de.MultiGroupComparisonAdjustmentTypeDE;
 import gov.nih.nci.caintegrator.dto.de.StatisticTypeDE;
@@ -31,7 +34,9 @@ import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
+import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
+import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
@@ -151,17 +156,152 @@ public class ClinicalQueryAction extends DispatchAction {
     
     private ISPYclinicalDataQueryDTO createClinicalDataQueryDTO(ClinicalQueryForm clinicalForm, HttpSession session) {
 		ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
-		List<String> diseaseStages = clinicalForm.getDiseaseStageCollection();
+        UserListBeanHelper helper = new UserListBeanHelper(session);
+        UserList myCurrentList;
+        Set<String> tempRestrainingSamples = new HashSet<String>();
+        
 		
-		//HARDCODED Test.  
-//		EnumSet<ClinicalResponseType> clinicalResponses = EnumSet.of(ClinicalResponseType.CR, ClinicalResponseType.PR);
-//		clinicalResponses.add(ClinicalResponseType.PR);
-//		clinicalResponses.add(ClinicalResponseType.CR);
-//		dto.setClinicalResponseValues(clinicalResponses);
-//		
-		dto.setHer2StatusValues(EnumSet.of(HER2statusType.HER2_POS));
-		//HARDCODED Test
-		
+        /**
+         * Grab custom as well as default userlists OR enumsets from all fields 
+         * where these lists are available. Within the dropdown selections,
+         * the query should join(OR) the selections and among all the fields, these
+         * selections should be intersected(ANDed) with the other fields. The selections
+         * take the form of PatientDIDs(samples) and are all added to the 
+         * "restraining samples" list.
+         */
+        
+        //set custom patient group
+        if(clinicalForm.getPatientGroup()!=null || !clinicalForm.getPatientGroup().equals("none")){
+            myCurrentList = helper.getUserList(clinicalForm.getPatientGroup());
+            if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
+                tempRestrainingSamples.addAll(myCurrentList.getList());
+            }
+        }
+        
+        //set disease stage groups
+        if(clinicalForm.getDiseaseStages()!=null || clinicalForm.getDiseaseStages().length>0){
+            String[] stages = clinicalForm.getDiseaseStages();
+            for(int i=0; i<stages.length;i++){
+                myCurrentList = helper.getUserList(stages[i]);
+                if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
+                    //attempt to intersect lists
+                    if(!tempRestrainingSamples.isEmpty()){
+                        tempRestrainingSamples.retainAll(myCurrentList.getList());
+                    }
+                    else{
+                        tempRestrainingSamples.addAll(myCurrentList.getList());  
+                    }
+                }
+            }
+        }       
+        
+        //set histology type groups
+        if(clinicalForm.getHistologyType()!=null && clinicalForm.getHistologyType().length>0){
+            String[] histology = clinicalForm.getHistologyType();
+            for(int i=0; i<histology.length;i++){
+                myCurrentList = helper.getUserList(histology[i]);
+                if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
+                    //attempt to intersect lists
+                    if(!tempRestrainingSamples.isEmpty()){
+                        tempRestrainingSamples.retainAll(myCurrentList.getList());
+                    }
+                    else{
+                        tempRestrainingSamples.addAll(myCurrentList.getList());  
+                    }
+                }
+            }
+        }
+        
+        //set agent groups
+        if(clinicalForm.getAgents()!=null && clinicalForm.getAgents().length>0){
+            EnumSet<NeoAdjuvantChemoRegimenType> agentSet = EnumSet.noneOf(NeoAdjuvantChemoRegimenType.class);
+            String[] agents = clinicalForm.getAgents();
+            for(int i=0; i<agents.length;i++){
+                String[] uiDropdownString = agents[i].split("#");
+                String myClassName = uiDropdownString[0];
+                String myValueName = uiDropdownString[1];    
+                Enum myType = EnumHelper.createType(myClassName,myValueName);
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType.class) {
+                    agentSet.add((NeoAdjuvantChemoRegimenType) myType);
+                }                
+            }
+            dto.setAgentValues(agentSet);
+        }
+        
+        //set clinical response groups
+        if(clinicalForm.getResponse()!=null && clinicalForm.getResponse().length>0){
+            String[] responses = clinicalForm.getResponse();
+            for(int i=0; i<responses.length;i++){
+                myCurrentList = helper.getUserList(responses[i]);
+                if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
+                    //attempt to intersect lists
+                    if(!tempRestrainingSamples.isEmpty()){
+                        tempRestrainingSamples.retainAll(myCurrentList.getList());
+                    }
+                    else{
+                        tempRestrainingSamples.addAll(myCurrentList.getList());  
+                    }
+                }
+            }
+        }
+        
+        //set receptor groups
+        if(clinicalForm.getReceptorStatus()!=null && clinicalForm.getReceptorStatus().length>0){
+            String[] receptors = clinicalForm.getReceptorStatus();
+            for(int i=0; i<receptors.length;i++){
+                myCurrentList = helper.getUserList(receptors[i]);
+                if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
+                    //attempt to intersect lists
+                    if(!tempRestrainingSamples.isEmpty()){
+                        tempRestrainingSamples.retainAll(myCurrentList.getList());
+                    }
+                    else{
+                        tempRestrainingSamples.addAll(myCurrentList.getList());  
+                    }
+                }
+            }
+        }
+        
+        //set restraining samples
+        dto.setRestrainingSamples(tempRestrainingSamples);
+        
+        //set diameter
+        dto.setDiameter(clinicalForm.getDiameter());
+        dto.setDiameterOperator(Operator.valueOf(clinicalForm.getDiameterOperator()));
+        
+        
+        //set micro size
+        dto.setMicroSize(clinicalForm.getMicroSize());
+        dto.setMicroOperator(Operator.valueOf(clinicalForm.getMicroOperator()));
+        
+        //set morphology keywords
+        if(clinicalForm.getMorphology()!=null && clinicalForm.getMorphology().equals("")){
+            //separate the keywords by parsing string separated by commas
+        }
+        
+        //set ld size ... future impl
+//        dto.setLdLength(clinicalForm.getLdLength());
+//        dto.setLdLengthOperator(clinicalForm.getLdLengthOperator());
+        
+        //set ld percent change
+        if(clinicalForm.getLdTimepointRange()!=null && !clinicalForm.getLdTimepointRange().equals("none")){
+                String percentLDChangeType = clinicalForm.getLdTimepointRange();            
+                String[] uiDropdownString = percentLDChangeType.split("#");
+                String myClassName = uiDropdownString[0];
+                String myValueName = uiDropdownString[1];    
+                Enum myType = EnumHelper.createType(myClassName,myValueName);
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.PercentLDChangeType.class) {
+                    dto.setPercentLDChangeType((PercentLDChangeType) myType);
+                }                
+           
+            
+            dto.setLdPercentChange(clinicalForm.getLdPercentChange());
+            dto.setLdPercentChangeOperator(Operator.valueOf(clinicalForm.getLdPercentChangeOperator()));
+        }
+                
+        
+        
+
 		
 		return dto;
 	}
@@ -174,6 +314,9 @@ public class ClinicalQueryAction extends DispatchAction {
         clinicalForm.setDiseaseStageCollection(clinicalGroupRetriever.getClinicalStageCollection());
         clinicalForm.setResponseCollection(clinicalGroupRetriever.getClinicalResponseCollection());
         clinicalForm.setReceptorCollection(clinicalGroupRetriever.getReceptorCollection());
+        clinicalForm.setPatientGroupCollection(clinicalGroupRetriever.getCustomPatientCollection());
+        clinicalForm.setAgentsCollection((clinicalGroupRetriever.getAgentsCollection()));
+        clinicalForm.setLdTimepointRangeCollection(clinicalGroupRetriever.getLdPercentChangeCollection());
         
         return mapping.findForward("backToClinicalQuery");
     }
