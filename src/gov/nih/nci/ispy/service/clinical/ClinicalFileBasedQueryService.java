@@ -16,10 +16,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Collections;
 
 import org.apache.log4j.Logger;
 
-public class ClinicalFileBasedQueryService {
+public class ClinicalFileBasedQueryService implements ClinicalDataService {
 
 	//private Map<String, ClinicalData> clinicalDataMap = new HashMap<String,ClinicalData>();
 	//private Map<TimepointType, Set<ClinicalData>> timepointMap = new HashMap<TimepointType, Set<ClinicalData>>(); 
@@ -503,6 +504,13 @@ public class ClinicalFileBasedQueryService {
 		return retList;	
 	}
 	
+	
+	public List<PatientData> getPatientDIDsForNeoAdjuvantChemoRegimen(Set<NeoAdjuvantChemoRegimenType> chemoTypes) {
+		
+		
+		return Collections.emptyList();
+	}
+	
 //	public ClinicalData getClinicalDataForPatientDID(String patientDID, TimepointType timepoint) {
 //	  
 //		Set<ClinicalData> clinDataSet = timepointMap.get(timepoint);
@@ -604,7 +612,13 @@ public class ClinicalFileBasedQueryService {
 		return patientDIDs;
 		
 	}
-	
+
+	public Set<PatientData> getClinicalData(ISPYclinicalDataQueryDTO dto) {
+		Set<String> patientDIDs = getPatientDIDs(dto);
+		List<PatientData> patientDataList = getPatientDataForPatientDIDs(new ArrayList(patientDIDs));
+		return new HashSet<PatientData>(patientDataList);
+	}
+
 	/**
 	 * Will get the labtrack ids associated with the parameters set in the ISPYclinicalDataQueryDTO
 	 * @param clinicalDataQueryDTO
