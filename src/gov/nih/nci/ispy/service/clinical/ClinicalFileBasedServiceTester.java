@@ -1,5 +1,7 @@
 package gov.nih.nci.ispy.service.clinical;
 
+import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
@@ -31,7 +33,14 @@ public class ClinicalFileBasedServiceTester {
         
         EnumSet<NeoAdjuvantChemoRegimenType> chemoRegimen = EnumSet.of(NeoAdjuvantChemoRegimenType.AC_TD);
         
-        Set<String> patientDIDs = cqs.getPatientDIDsForNeoAdjuvantChemoRegimen(chemoRegimen);
+        EnumSet<HER2statusType> her2 = EnumSet.of(HER2statusType.HER2_POS);
+        
+        ISPYclinicalDataQueryDTO cDTO = new ISPYclinicalDataQueryDTO();
+        
+        cDTO.setAgentValues(chemoRegimen);
+        cDTO.setHer2StatusValues(her2);
+        
+        Set<String> patientDIDs = cqs.getPatientDIDs(cDTO);
         
         dumpDIDs(patientDIDs);
 
