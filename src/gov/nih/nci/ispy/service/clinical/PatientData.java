@@ -12,7 +12,7 @@ private String  ispy_id,
 				race_id, 
 				sstat, 
 				survdtd, 
-				chemo, 
+				//chemo, 
 				tam, 
 				herceptin, 
 				menostatus, 
@@ -68,6 +68,8 @@ private String  ispy_id,
 	private PRstatusType prStatus;
 
 	private HER2statusType her2Status;
+	
+	private NeoAdjuvantChemoRegimenType neoChemo;
     
     
 	public PatientData(String ispy_id) {
@@ -85,12 +87,22 @@ private String  ispy_id,
 
 
 	public String getChemo() {
-		return chemo;
+		
+		if (neoChemo != null) {
+		  return neoChemo.toString();
+		}
+		
+		return "";
+	}
+	
+	public NeoAdjuvantChemoRegimenType getChemoValue() {
+	  return neoChemo;
 	}
 
 
 	public void setChemo(String chemo) {
-		this.chemo = chemo;
+		//this.chemo = chemo;
+		this.neoChemo = NeoAdjuvantChemoRegimenType.getValueForString(chemo);
 	}
 
 

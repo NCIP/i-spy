@@ -6,7 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -242,12 +244,6 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	}
 	
 	
-	public List<PatientData> getPatientDIDsForNeoAdjuvantChemoRegimen(Set<NeoAdjuvantChemoRegimenType> chemoTypes) {
-		
-		
-		return Collections.emptyList();
-	}
-	
 	/**
 	 * This method gets the patient DIDs corresponding to the constraints in the 
 	 * clinical data query dto .  Note in the future may want to add capability to 
@@ -281,8 +277,25 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		    }
 		}
 		
+		if ((cDTO.getAgentValues()!=null) &&(!cDTO.getAgentValues().isEmpty())) {
+		  patientDIDs.addAll(getPatientDIDsForNeoAdjuvantChemoRegimen(cDTO.getAgentValues()));
+		}
+		
+		
 		return patientDIDs;
 		
+	}
+
+	public Set<String> getPatientDIDsForNeoAdjuvantChemoRegimen(EnumSet<NeoAdjuvantChemoRegimenType> agentValues) {
+		Set<String> patientDIDs = new HashSet<String>();
+		NeoAdjuvantChemoRegimenType patientChemo;
+		for (PatientData pd : patientDataMap.values()) {
+			
+		    if (agentValues.contains(pd.getChemoValue())) {
+		      patientDIDs.add(pd.getISPY_ID());
+		    }
+		  }
+		return patientDIDs;
 	}
 
 	public Set<PatientData> getClinicalData(ISPYclinicalDataQueryDTO dto) {
