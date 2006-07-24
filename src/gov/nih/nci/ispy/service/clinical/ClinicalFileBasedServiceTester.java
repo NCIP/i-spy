@@ -4,6 +4,7 @@ import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +40,17 @@ public class ClinicalFileBasedServiceTester {
         
         cDTO.setAgentValues(chemoRegimen);
         cDTO.setHer2StatusValues(her2);
+        
+        Set<String> restrainingSamples = new HashSet<String>();
+        
+        restrainingSamples.add("1086");
+        restrainingSamples.add("1015");
+        restrainingSamples.add("1061");
+        restrainingSamples.add("1077");
+        restrainingSamples.add("1093");
+        restrainingSamples.add("1115");
+        
+        cDTO.setRestrainingSamples(restrainingSamples);
         
         Set<String> patientDIDs = cqs.getPatientDIDs(cDTO);
         
