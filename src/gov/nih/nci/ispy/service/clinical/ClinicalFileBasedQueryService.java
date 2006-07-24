@@ -244,6 +244,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	}
 	
 	
+	
 	/**
 	 * This method gets the patient DIDs corresponding to the constraints in the 
 	 * clinical data query dto .  Note in the future may want to add capability to 
@@ -252,35 +253,96 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	public Set<String> getPatientDIDs(ISPYclinicalDataQueryDTO cDTO) {
 	  
 		Set<TimepointType> timepoints = cDTO.getTimepointValues();
-		Set<String> patientDIDs = new HashSet<String>();
+		Set<String> patientDIDs = null;
+		Set<String> queryResult = null;
 				
-		if ((cDTO.getClinicalStageValues() != null)&&(!cDTO.getClinicalStageValues().isEmpty())) {
-		  patientDIDs.addAll(getPatientDIDsForClinicalStage(cDTO.getClinicalStageValues()));		  
+		//Get IDs for Clinical Stage
+		if ((cDTO.getClinicalStageValues() != null)&&(!cDTO.getClinicalStageValues().isEmpty())) {			
+		  queryResult = getPatientDIDsForClinicalStage(cDTO.getClinicalStageValues());
+			
+		  if (patientDIDs == null) {
+		     patientDIDs = new HashSet<String>();
+		     patientDIDs.addAll(queryResult);
+		  }
+		  else {
+		    patientDIDs.retainAll(queryResult);
+		  }
 		}
 		
+		//Get IDs for ER status
 		if ((cDTO.getErStatusValues() != null)&&(!cDTO.getErStatusValues().isEmpty())) {
-		  patientDIDs.addAll(getPatientDIDsForERstatus(cDTO.getErStatusValues()));		  
+			
+			queryResult = getPatientDIDsForERstatus(cDTO.getErStatusValues());
+			
+		    if (patientDIDs == null) {
+		      patientDIDs = new HashSet<String>();
+		      patientDIDs.addAll(queryResult);
+		    }
+		    else {
+		     patientDIDs.retainAll(queryResult);
+		    }	  
 		}
 		
+		//Get IDs for HER2 status
 		if ((cDTO.getHer2StatusValues() != null)&&(!cDTO.getHer2StatusValues().isEmpty())) {
-		  patientDIDs.addAll(getPatientDIDsForHER2status(cDTO.getHer2StatusValues()));		  
+		  
+			queryResult = getPatientDIDsForHER2status(cDTO.getHer2StatusValues());
+			
+		    if (patientDIDs == null) {
+		      patientDIDs = new HashSet<String>();
+		      patientDIDs.addAll(queryResult);
+		    }
+		    else {
+		     patientDIDs.retainAll(queryResult);
+		    }	  			
 		}
 		
+		//Get IDs for PR status
 		if ((cDTO.getPrStatusValues() != null)&&(!cDTO.getPrStatusValues().isEmpty())) {
-		  patientDIDs.addAll(getPatientDIDsForPRstatus(cDTO.getPrStatusValues()));				 
+		 		 
+		  queryResult = getPatientDIDsForPRstatus(cDTO.getPrStatusValues());
+			
+	      if (patientDIDs == null) {
+	        patientDIDs = new HashSet<String>();
+	        patientDIDs.addAll(queryResult);
+	      } 
+	      else {
+	        patientDIDs.retainAll(queryResult);
+	      }	  			
+		  
 		}
 				
+		
+		//Get IDs for Clinical Response
 		for (TimepointType tp:timepoints) {					  
 			if ((cDTO.getClinicalResponseValues()!= null)&&(!cDTO.getClinicalResponseValues().isEmpty())) {
-		      patientDIDs.addAll(getPatientDIDsForClinicalResponse(tp,cDTO.getClinicalResponseValues()));
+		      //patientDIDs.addAll(getPatientDIDsForClinicalResponse(tp,cDTO.getClinicalResponseValues()));
 		      
+			  queryResult = getPatientDIDsForClinicalResponse(tp,cDTO.getClinicalResponseValues());
+				
+		      if (patientDIDs == null) {
+		        patientDIDs = new HashSet<String>();
+		        patientDIDs.addAll(queryResult);
+		      } 
+		      else {
+		        patientDIDs.retainAll(queryResult);
+		      }	  		
 		    }
 		}
 		
-		if ((cDTO.getAgentValues()!=null) &&(!cDTO.getAgentValues().isEmpty())) {
-		  patientDIDs.addAll(getPatientDIDsForNeoAdjuvantChemoRegimen(cDTO.getAgentValues()));
-		}
 		
+		if ((cDTO.getAgentValues()!=null) &&(!cDTO.getAgentValues().isEmpty())) {
+		  //patientDIDs.addAll(getPatientDIDsForNeoAdjuvantChemoRegimen(cDTO.getAgentValues()));
+		  queryResult = getPatientDIDsForNeoAdjuvantChemoRegimen(cDTO.getAgentValues());
+			
+	      if (patientDIDs == null) {
+	        patientDIDs = new HashSet<String>();
+	        patientDIDs.addAll(queryResult);
+	      } 
+	      else {
+	        patientDIDs.retainAll(queryResult);
+	      }	  	
+		}
 		
 		return patientDIDs;
 		
