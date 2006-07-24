@@ -255,6 +255,8 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		Set<TimepointType> timepoints = cDTO.getTimepointValues();
 		Set<String> patientDIDs = null;
 		Set<String> queryResult = null;
+		
+		Set<String> restrainingSamples = cDTO.getRestrainingSamples();
 				
 		//Get IDs for Clinical Stage
 		if ((cDTO.getClinicalStageValues() != null)&&(!cDTO.getClinicalStageValues().isEmpty())) {			
@@ -342,6 +344,10 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	      else {
 	        patientDIDs.retainAll(queryResult);
 	      }	  	
+		}
+		
+		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
+		  patientDIDs.retainAll(restrainingSamples);
 		}
 		
 		return patientDIDs;
