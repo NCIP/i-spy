@@ -1,15 +1,12 @@
 package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.caintegrator.enumeration.Operator;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
-import gov.nih.nci.ispy.util.ispyConstants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionForm;
 import org.apache.struts.util.LabelValueBean;
 
 
@@ -83,6 +80,11 @@ import org.apache.struts.util.LabelValueBean;
 
 public class ClinicalQueryForm extends BaseForm implements Serializable{
     
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
     private static Logger logger = Logger.getLogger(ClinicalQueryForm.class);
     
     //Clinical parameters

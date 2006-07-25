@@ -14,7 +14,7 @@ public class ISPYClinicalFinding extends Finding  {
 	private List<PatientData> patientData = null;
 	
 	public ISPYClinicalFinding(String sessionId, String taskId, ISPYclinicalDataQueryDTO dto) {
-		super(sessionId, taskId, FindingStatus.Running);
+		super(sessionId, taskId, FindingStatus.Completed);
 	}
 
 	public void setPatientData(List<PatientData> patientData) {

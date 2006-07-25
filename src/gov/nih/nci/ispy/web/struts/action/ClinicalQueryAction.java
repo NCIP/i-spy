@@ -1,51 +1,23 @@
 package gov.nih.nci.ispy.web.struts.action;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
-import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
-import gov.nih.nci.caintegrator.dto.de.MultiGroupComparisonAdjustmentTypeDE;
-import gov.nih.nci.caintegrator.dto.de.StatisticTypeDE;
-import gov.nih.nci.caintegrator.dto.de.StatisticalSignificanceDE;
-import gov.nih.nci.caintegrator.dto.de.ExprFoldChangeDE.UpRegulation;
-import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
-import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
-import gov.nih.nci.caintegrator.dto.query.QueryType;
-import gov.nih.nci.caintegrator.enumeration.MultiGroupComparisonAdjustmentType;
 import gov.nih.nci.caintegrator.enumeration.Operator;
-import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
-import gov.nih.nci.caintegrator.enumeration.StatisticalSignificanceType;
-import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.security.UserCredentials;
-import gov.nih.nci.caintegrator.service.findings.ClinicalFinding;
-import gov.nih.nci.caintegrator.service.findings.Finding;
-import gov.nih.nci.ispy.dto.query.ISPYClassComparisonQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
-import gov.nih.nci.ispy.dto.query.PatientUserListQueryDTO;
-import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
-import gov.nih.nci.ispy.service.clinical.ERstatusType;
-import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
-import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-import gov.nih.nci.caintegrator.application.util.ClassHelper;
 import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
-import gov.nih.nci.ispy.web.struts.form.ClassComparisonForm;
 import gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm;
+
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -149,7 +121,7 @@ public class ClinicalQueryAction extends DispatchAction {
         ISPYFindingsFactory factory = new ISPYFindingsFactory();
         ISPYClinicalFinding finding = null;
         
-        finding = factory.createClinicalFinding(clinicalDataQueryDTO, session.getId(), null);
+        finding = factory.createClinicalFinding(clinicalDataQueryDTO, session.getId(), clinicalDataQueryDTO.getQueryName());
            
         return mapping.findForward("viewResults");
     }
@@ -159,7 +131,7 @@ public class ClinicalQueryAction extends DispatchAction {
         UserListBeanHelper helper = new UserListBeanHelper(session);
         UserList myCurrentList;
         Set<String> tempRestrainingSamples = new HashSet<String>();
-        
+        dto.setQueryName(clinicalForm.getAnalysisResultName());
 		
         /**
          * Grab custom as well as default userlists OR enumsets from all fields 
@@ -171,7 +143,7 @@ public class ClinicalQueryAction extends DispatchAction {
          */
         
         //set custom patient group
-        if(clinicalForm.getPatientGroup()!=null || !clinicalForm.getPatientGroup().equals("none")){
+        if(clinicalForm.getPatientGroup()!=null && !clinicalForm.getPatientGroup().equals("none")){
             myCurrentList = helper.getUserList(clinicalForm.getPatientGroup());
             if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
                 tempRestrainingSamples.addAll(myCurrentList.getList());
@@ -179,7 +151,7 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set disease stage groups
-        if(clinicalForm.getDiseaseStages()!=null || clinicalForm.getDiseaseStages().length>0){
+        if(clinicalForm.getDiseaseStages()!=null && clinicalForm.getDiseaseStages().length>0){
             String[] stages = clinicalForm.getDiseaseStages();
             for(int i=0; i<stages.length;i++){
                 myCurrentList = helper.getUserList(stages[i]);

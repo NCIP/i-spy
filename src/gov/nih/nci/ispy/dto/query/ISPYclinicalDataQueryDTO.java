@@ -301,14 +301,14 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 
 
     public void setQueryName(String name) {
-        // TODO Auto-generated method stub
+        this.queryName = name;
         
     }
 
 
     public String getQueryName() {
         // TODO Auto-generated method stub
-        return null;
+        return this.queryName;
     }
 
 

@@ -1,19 +1,20 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
+import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
-import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
-
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.PatientData;
+import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Strategy to get clinical findings from a file.
@@ -21,12 +22,16 @@ import gov.nih.nci.ispy.service.clinical.PatientData;
  *
  */
 
-public class ClinicalFindingStrategyFile extends ClinicalFindingStrategy {
+public class ClinicalFindingStrategyFile extends ClinicalFindingStrategy{
 
 	private ISPYClinicalFinding clinicalFinding;
+    private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
 	
 	public ClinicalFindingStrategyFile(String sessionId, String taskId, ISPYclinicalDataQueryDTO queryDTO) throws ValidationException {
 		super(sessionId, taskId, queryDTO);
+        
+        clinicalFinding = new ISPYClinicalFinding(sessionId, taskId, queryDTO);
+        
 	}
 
 	public boolean validate(QueryDTO query) throws ValidationException {
@@ -58,8 +63,8 @@ public class ClinicalFindingStrategyFile extends ClinicalFindingStrategy {
 	}
 
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
-		// TODO Auto-generated method stub
-		return false;
+        cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), clinicalFinding);
+		return true;
 	}
 
 	public Finding getFinding() {

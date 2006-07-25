@@ -3,11 +3,15 @@
 <%@ page import="java.util.ArrayList, gov.nih.nci.ispy.web.reports.quick.*" %>
 <%
 	String[] sampleArray = request.getParameterValues("sampleList");
+	String taskId = request.getParameter("taskId");
 	StringBuffer sb = new StringBuffer();
 	
-	if(sampleArray != null && sampleArray.length > 0)	{
+	if(sampleArray != null && sampleArray.length > 0 && taskId == null)	{
 		List samples = Arrays.asList(sampleArray);		
 		sb = QuickClinicalReport.quickSampleReport(samples);
+	}
+	else if(taskId != null){
+		sb = QuickClinicalReport.quickSampleReport(request.getSession().getId(), taskId);
 	}
 	else	{
 		sb.append("<br/><br/><b>No Samples Selected.  Please click back, and then select some samples.</b><br/>");
@@ -35,7 +39,7 @@
 		var tmpElements = Array();
 		
 		var Rules = {
-	 		'.gene, .patient': function(element) {
+	 		'.patient': function(element) {
 			    //element.setStyle({backgroundColor: '#ccc'});
 			    if(element.innerHTML != "")	{
 				    element.innerHTML += "<input name='checkable' class='saveElement' type='checkbox' value='"+element.id+"'/>";
