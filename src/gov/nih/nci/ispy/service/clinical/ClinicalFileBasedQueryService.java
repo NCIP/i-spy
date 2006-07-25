@@ -332,7 +332,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		    }
 		}
 		
-		
+		//Get IDs for NeoAdjuvantChemoRegimen
 		if ((cDTO.getAgentValues()!=null) &&(!cDTO.getAgentValues().isEmpty())) {
 		  //patientDIDs.addAll(getPatientDIDsForNeoAdjuvantChemoRegimen(cDTO.getAgentValues()));
 		  queryResult = getPatientDIDsForNeoAdjuvantChemoRegimen(cDTO.getAgentValues());
@@ -346,11 +346,26 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	      }	  	
 		}
 		
-		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
-		  patientDIDs.retainAll(restrainingSamples);
+		//Get IDs for % LD change
+		if (cDTO.getPercentLDChangeType()!=null) {
+		  
+		  // USE THESE to get the % ld values.
+		  //cDTO.getLdPercentChange();
+		  //cDTO.getLdPercentChangeOperator();
 		}
 		
-		return patientDIDs;
+		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
+		  if (patientDIDs != null) {
+		    patientDIDs.retainAll(restrainingSamples);
+		  }
+		}
+		
+		
+		if (patientDIDs != null) {
+		  return patientDIDs;
+		}
+		
+		return Collections.emptySet();
 		
 	}
 
