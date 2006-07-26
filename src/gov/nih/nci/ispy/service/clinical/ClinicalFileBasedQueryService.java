@@ -1,5 +1,6 @@
 package gov.nih.nci.ispy.service.clinical;
 
+import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 
 import java.io.BufferedReader;
@@ -352,6 +353,20 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  // USE THESE to get the % ld values.
 		  //cDTO.getLdPercentChange();
 		  //cDTO.getLdPercentChangeOperator();
+		  Double ldPctChange = cDTO.getLdPercentChange();
+		  Operator operator = cDTO.getLdPercentChangeOperator();
+		  PercentLDChangeType changeType = cDTO.getPercentLDChangeType();
+		  
+		  queryResult = getPatientDIDsForPctLDchange(ldPctChange, changeType, operator);
+		  
+		  if (patientDIDs == null) {
+		     patientDIDs = new HashSet<String>();
+		     patientDIDs.addAll(queryResult);
+		  } 
+		  else {
+		     patientDIDs.retainAll(queryResult);
+		  }	  	
+			
 		}
 		
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
@@ -367,6 +382,42 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		
 		return Collections.emptySet();
 		
+	}
+
+	private Set<String> getPatientDIDsForPctLDchange(Double ldPctChange, PercentLDChangeType changeType, Operator operator) {
+		Set<String> patientDIDs = new HashSet<String>();
+		Double changeValue = null;
+		
+		double ldPctReduction = -ldPctChange;
+		
+		for (PatientData pd : patientDataMap.values()) {
+			
+			if (changeType == PercentLDChangeType.PERCENT_LD_CHANGE_T1_T2) {
+			  changeValue = pd.getMriPctChangeT1_T2();
+			}
+			else if (changeType == PercentLDChangeType.PERCENT_LD_CHANGE_T1_T3) {
+			  changeValue = pd.getMriPctChangeT1_T3();
+			}
+			else if (changeType == PercentLDChangeType.PERCENT_LD_CHANGE_T1_T4) {
+			  changeValue = pd.getMriPctChangeT1_T4();
+			}
+			
+			if (changeValue == null) { continue; }
+			
+			if (operator == Operator.GE) {
+			  //get patients with tumor size reduction of changeValue or more
+			  if (changeValue <= ldPctReduction) {
+				  patientDIDs.add(pd.getISPY_ID());
+			  }
+			}
+			else if (operator == Operator.LE) {
+			  //get patients with tumor size reduction of less that changeValue
+			  if (changeValue >= ldPctReduction) {
+				  patientDIDs.add(pd.getISPY_ID());
+			  }				
+			}
+		  }
+		return patientDIDs;
 	}
 
 	public Set<String> getPatientDIDsForNeoAdjuvantChemoRegimen(EnumSet<NeoAdjuvantChemoRegimenType> agentValues) {
