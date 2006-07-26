@@ -42,10 +42,10 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	private EnumSet<PRstatusType> prStatusValues = null;
     
     private Operator diameterOperator;    
-    private double diameter;
+    private Double diameter = null;
     
     private Operator microOperator;
-    private double microSize;
+    private Double microSize = null;
     
     private String[] morphology;
     
@@ -53,7 +53,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 //    private double ldLength;
     
     private Operator ldPercentChangeOperator;
-    private double ldPercentChange;    
+    private Double ldPercentChange = null;    
     
 	
 	
