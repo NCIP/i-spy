@@ -2,6 +2,7 @@ package gov.nih.nci.ispy.dto.query;
 
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
 import gov.nih.nci.caintegrator.enumeration.Operator;
+import gov.nih.nci.ispy.service.clinical.AgeCategoryType;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
@@ -9,6 +10,7 @@ import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
+import gov.nih.nci.ispy.service.clinical.RaceType;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 
 import java.util.Collections;
@@ -40,6 +42,10 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	private EnumSet<HER2statusType> her2StatusValues = null;
 	
 	private EnumSet<PRstatusType> prStatusValues = null;
+	
+	private EnumSet<AgeCategoryType> ageCategoryValues = null;
+	
+	private EnumSet<RaceType> raceValues = null;
     
     private Operator diameterOperator;    
     private Double diameter = null;
@@ -62,7 +68,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-
+	
 	public Set<ClinicalResponseType> getClinicalResponseValues() {
 		return clinicalResponseValues;
 	}
@@ -255,7 +261,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
     /**
      * @return Returns the microSize.
      */
-    public double getMicroSize() {
+    public Double getMicroSize() {
         return microSize;
     }
 
@@ -263,7 +269,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
     /**
      * @param microSize The microSize to set.
      */
-    public void setMicroSize(double microSize) {
+    public void setMicroSize(Double microSize) {
         this.microSize = microSize;
     }
 
@@ -343,5 +349,25 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
             PercentLDChangeType percentLDChangeType) {
         this.percentLDChangeType = percentLDChangeType;
     }
+
+
+	public EnumSet<AgeCategoryType> getAgeCategoryValues() {
+		return ageCategoryValues;
+	}
+
+
+	public void setAgeCategoryValues(EnumSet<AgeCategoryType> ageCategoryValues) {
+		this.ageCategoryValues = ageCategoryValues;
+	}
+
+
+	public EnumSet<RaceType> getRaceValues() {
+		return raceValues;
+	}
+
+
+	public void setRaceValues(EnumSet<RaceType> raceValues) {
+		this.raceValues = raceValues;
+	}
 
 }
