@@ -92,7 +92,7 @@ private String  ispy_id,
 	public void setAgeCategory(String agecatStr) {
 		
 		if ((agecatStr == null)||(agecatStr.trim().length()==0)) {
-		  ageCategory = AgeCategoryType.Age_GE_89_OR_NA;
+		  ageCategory = AgeCategoryType.AGE_GE_89_OR_NA;
 		}
 		
 		this.ageCategory = AgeCategoryType.getValueForString(agecatStr);

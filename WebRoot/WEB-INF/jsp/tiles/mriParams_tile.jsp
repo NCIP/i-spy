@@ -24,7 +24,7 @@
 			</div>-->
 			
 			<div>					
-					<b class="subfield">% Change over Timepoints</b>
+					<b class="subfield">% Decrease/Increase over Timepoints</b>
 					<html:select property="ldTimepointRange">
 						<html:option value="none">none</html:option>
 						<html:optionsCollection property="ldTimepointRangeCollection" />

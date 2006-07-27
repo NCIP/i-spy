@@ -4,6 +4,7 @@ import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
+import gov.nih.nci.ispy.service.clinical.AgeCategoryType;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
@@ -11,6 +12,7 @@ import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
+import gov.nih.nci.ispy.service.clinical.RaceType;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -54,6 +56,22 @@ public class ClinicalGroupRetriever {
             agentsCollection.add(new LabelValueBean(agent.toString(),agent.getDeclaringClass().getCanonicalName() + "#" + agent.name()));
         }        
         return agentsCollection;
+    }
+    
+    public List<LabelValueBean> getAgeCollection(){
+        List<LabelValueBean> ageCollection = new ArrayList<LabelValueBean>();
+        for(AgeCategoryType age: AgeCategoryType.values()){
+            ageCollection.add(new LabelValueBean(age.toString(),age.getDeclaringClass().getCanonicalName() + "#" + age.name()));
+        }        
+        return ageCollection;
+    }
+    
+    public List<LabelValueBean> getRaceCollection(){
+        List<LabelValueBean> raceCollection = new ArrayList<LabelValueBean>();
+        for(RaceType race: RaceType.values()){
+            raceCollection.add(new LabelValueBean(race.toString(),race.getDeclaringClass().getCanonicalName() + "#" + race.name()));
+        }        
+        return raceCollection;
     }
     
     public List<LabelValueBean> getLdPercentChangeCollection(){

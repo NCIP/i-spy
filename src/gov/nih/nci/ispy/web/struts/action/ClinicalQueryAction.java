@@ -6,8 +6,10 @@ import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.service.clinical.AgeCategoryType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
+import gov.nih.nci.ispy.service.clinical.RaceType;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
@@ -151,8 +153,8 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set disease stage groups
-        if(clinicalForm.getDiseaseStages()!=null && clinicalForm.getDiseaseStages().length>0){
-            String[] stages = clinicalForm.getDiseaseStages();
+        if(clinicalForm.getClinicalStages()!=null && clinicalForm.getClinicalStages().length>0){
+            String[] stages = clinicalForm.getClinicalStages();
             for(int i=0; i<stages.length;i++){
                 myCurrentList = helper.getUserList(stages[i]);
                 if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
@@ -234,17 +236,67 @@ public class ClinicalQueryAction extends DispatchAction {
             }
         }
         
-        //set restraining samples
-        dto.setRestrainingSamples(tempRestrainingSamples);
+        if(clinicalForm.getPatientGroup()!=null && !clinicalForm.getPatientGroup().equals("none")){
+            //attempt to intersect lists
+            myCurrentList = helper.getUserList(clinicalForm.getPatientGroup());
+            if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
+                //attempt to intersect lists
+                if(!tempRestrainingSamples.isEmpty()){
+                    tempRestrainingSamples.retainAll(myCurrentList.getList());
+                }
+                else{
+                    tempRestrainingSamples.addAll(myCurrentList.getList());  
+                }
+            }
+        }
+        
+        if(!tempRestrainingSamples.isEmpty()){
+            dto.setRestrainingSamples(tempRestrainingSamples);
+        }
+        
+        //set age params
+        if(clinicalForm.getAge()!=null && clinicalForm.getAge().length>0 && !clinicalForm.getAge()[0].equalsIgnoreCase("allAges")){
+            EnumSet<AgeCategoryType> ageSet = EnumSet.noneOf(AgeCategoryType.class);
+            String[] ages = clinicalForm.getAge();
+            for(int i=0; i<ages.length;i++){
+                String[] uiDropdownString = ages[i].split("#");
+                String myClassName = uiDropdownString[0];
+                String myValueName = uiDropdownString[1];    
+                Enum myType = EnumHelper.createType(myClassName,myValueName);
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.AgeCategoryType.class) {
+                    ageSet.add((AgeCategoryType) myType);
+                }                
+            }
+            dto.setAgeCategoryValues(ageSet);
+        }
+        
+        //set race params
+        if(clinicalForm.getRace()!=null && clinicalForm.getRace().length>0 && !clinicalForm.getRace()[0].equalsIgnoreCase("allRaces")){
+            EnumSet<RaceType> raceSet = EnumSet.noneOf(RaceType.class);
+            String[] races = clinicalForm.getRace();
+            for(int i=0; i<races.length;i++){
+                String[] uiDropdownString = races[i].split("#");
+                String myClassName = uiDropdownString[0];
+                String myValueName = uiDropdownString[1];    
+                Enum myType = EnumHelper.createType(myClassName,myValueName);
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.RaceType.class) {
+                    raceSet.add((RaceType) myType);
+                }                
+            }
+            dto.setRaceValues(raceSet);
+        }
         
         //set diameter
-        dto.setDiameter(clinicalForm.getDiameter());
-        dto.setDiameterOperator(Operator.valueOf(clinicalForm.getDiameterOperator()));
-        
+        if(clinicalForm.getDiameter()!=null){
+            dto.setDiameter(clinicalForm.getDiameter());
+            dto.setDiameterOperator(Operator.valueOf(clinicalForm.getDiameterOperator()));
+        }
         
         //set micro size
-        dto.setMicroSize(clinicalForm.getMicroSize());
-        dto.setMicroOperator(Operator.valueOf(clinicalForm.getMicroOperator()));
+        if(clinicalForm.getPathTumorSize()!=null){
+            dto.setPathTumorSize(clinicalForm.getPathTumorSize());
+            dto.setPathTumorSizeOperator(Operator.valueOf(clinicalForm.getPathTumorSizeOperator()));
+        }
         
         //set morphology keywords
         if(clinicalForm.getMorphology()!=null && clinicalForm.getMorphology().equals("")){
@@ -252,8 +304,8 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set ld size ... future impl
-//        dto.setLdLength(clinicalForm.getLdLength());
-//        dto.setLdLengthOperator(clinicalForm.getLdLengthOperator());
+        //dto.setLdLength(clinicalForm.getLdLength());
+        //dto.setLdLengthOperator(clinicalForm.getLdLengthOperator());
         
         //set ld percent change
         if(clinicalForm.getLdTimepointRange()!=null && !clinicalForm.getLdTimepointRange().equals("none")){
@@ -270,11 +322,7 @@ public class ClinicalQueryAction extends DispatchAction {
             dto.setLdPercentChange(clinicalForm.getLdPercentChange());
             dto.setLdPercentChangeOperator(Operator.valueOf(clinicalForm.getLdPercentChangeOperator()));
         }
-                
-        
-        
-
-		
+      
 		return dto;
 	}
 
@@ -283,12 +331,14 @@ public class ClinicalQueryAction extends DispatchAction {
     throws Exception {
         ClinicalQueryForm clinicalForm = (ClinicalQueryForm) form;
         ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(request.getSession());        
-        clinicalForm.setDiseaseStageCollection(clinicalGroupRetriever.getClinicalStageCollection());
+        clinicalForm.setClinicalStageCollection(clinicalGroupRetriever.getClinicalStageCollection());
         clinicalForm.setResponseCollection(clinicalGroupRetriever.getClinicalResponseCollection());
         clinicalForm.setReceptorCollection(clinicalGroupRetriever.getReceptorCollection());
         clinicalForm.setPatientGroupCollection(clinicalGroupRetriever.getCustomPatientCollection());
         clinicalForm.setAgentsCollection((clinicalGroupRetriever.getAgentsCollection()));
         clinicalForm.setLdTimepointRangeCollection(clinicalGroupRetriever.getLdPercentChangeCollection());
+        clinicalForm.setRaceCollection(clinicalGroupRetriever.getRaceCollection());
+        clinicalForm.setAgeCollection(clinicalGroupRetriever.getAgeCollection());
         
         return mapping.findForward("backToClinicalQuery");
     }

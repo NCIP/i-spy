@@ -89,8 +89,8 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     
     //Clinical parameters
     
-	private String[] diseaseStages;    
-    private List diseaseStageCollection;    
+	private String[] clinicalStages;    
+    private List clinicalStageCollection;    
     private String[] histologyType;    
     private List histologyTypeCollection = new ArrayList();    
     private String[] nuclearGrade;    
@@ -102,9 +102,13 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     private List responseCollection = new ArrayList(); 
     private List operators = new ArrayList();
     private String diameterOperator;    
-    private double diameter;
-    private String microOperator;
-    private double microSize;
+    private Double diameter = null;
+    private String pathTumorSizeOperator;
+    private Double pathTumorSize = null;
+    private String[] age;
+    private List ageCollection;
+    private String[] race;
+    private List raceCollection;
     
     //MR parameters
     private String morphology;
@@ -209,7 +213,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the diameter.
      */
-    public double getDiameter() {
+    public Double getDiameter() {
         return diameter;
     }
 
@@ -219,7 +223,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param diameter The diameter to set.
      */
-    public void setDiameter(double diameter) {
+    public void setDiameter(Double diameter) {
         this.diameter = diameter;
     }
 
@@ -247,40 +251,40 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
 
 
     /**
-     * @return Returns the diseaseStageCollection.
+     * @return Returns the clinicalStageCollection.
      */
-    public List getDiseaseStageCollection() {
-        return diseaseStageCollection;
+    public List getClinicalStageCollection() {
+        return clinicalStageCollection;
     }
 
 
 
 
     /**
-     * @param diseaseStageCollection The diseaseStageCollection to set.
+     * @param clinicalStageCollection The clinicalStageCollection to set.
      */
-    public void setDiseaseStageCollection(List diseaseStageCollection) {
-        this.diseaseStageCollection = diseaseStageCollection;
+    public void setClinicalStageCollection(List clinicalStageCollection) {
+        this.clinicalStageCollection = clinicalStageCollection;
     }
 
 
 
 
     /**
-     * @return Returns the diseaseStages.
+     * @return Returns the clinicalStages.
      */
-    public String[] getDiseaseStages() {
-        return diseaseStages;
+    public String[] getClinicalStages() {
+        return clinicalStages;
     }
 
 
 
 
     /**
-     * @param diseaseStages The diseaseStages to set.
+     * @param clinicalStages The clinicalStages to set.
      */
-    public void setDiseaseStages(String[] diseaseStages) {
-        this.diseaseStages = diseaseStages;
+    public void setClinicalStages(String[] clinicalStages) {
+        this.clinicalStages = clinicalStages;
     }
 
 
@@ -407,40 +411,37 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
 
 
     /**
-     * @return Returns the microOperator.
+     * @return Returns the pathTumorSize.
      */
-    public String getMicroOperator() {
-        return microOperator;
+    public Double getPathTumorSize() {
+        return pathTumorSize;
+    }
+
+    /**
+     * @return Returns the pathTumorSizeOperator.
+     */
+    public String getPathTumorSizeOperator() {
+        return pathTumorSizeOperator;
     }
 
 
 
 
     /**
-     * @param microOperator The microOperator to set.
+     * @param pathTumorSizeOperator The pathTumorSizeOperator to set.
      */
-    public void setMicroOperator(String microOperator) {
-        this.microOperator = microOperator;
+    public void setPathTumorSizeOperator(String pathTumorSizeOperator) {
+        this.pathTumorSizeOperator = pathTumorSizeOperator;
     }
 
 
 
 
     /**
-     * @return Returns the microSize.
+     * @param pathTumorSize The pathTumorSize to set.
      */
-    public double getMicroSize() {
-        return microSize;
-    }
-
-
-
-
-    /**
-     * @param microSize The microSize to set.
-     */
-    public void setMicroSize(double microSize) {
-        this.microSize = microSize;
+    public void setPathTumorSize(Double pathTumorSize) {
+        this.pathTumorSize = pathTumorSize;
     }
 
 
@@ -618,6 +619,62 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
      */
     public void setReceptorCollection(List receptorCollection) {
         this.receptorCollection = receptorCollection;
+    }
+
+    /**
+     * @return Returns the age.
+     */
+    public String[] getAge() {
+        return age;
+    }
+
+    /**
+     * @param age The age to set.
+     */
+    public void setAge(String[] age) {
+        this.age = age;
+    }
+
+    /**
+     * @return Returns the ageCollection.
+     */
+    public List getAgeCollection() {
+        return ageCollection;
+    }
+
+    /**
+     * @param ageCollection The ageCollection to set.
+     */
+    public void setAgeCollection(List ageCollection) {
+        this.ageCollection = ageCollection;
+    }
+
+    /**
+     * @return Returns the race.
+     */
+    public String[] getRace() {
+        return race;
+    }
+
+    /**
+     * @param race The race to set.
+     */
+    public void setRace(String[] race) {
+        this.race = race;
+    }
+
+    /**
+     * @return Returns the raceCollection.
+     */
+    public List getRaceCollection() {
+        return raceCollection;
+    }
+
+    /**
+     * @param raceCollection The raceCollection to set.
+     */
+    public void setRaceCollection(List raceCollection) {
+        this.raceCollection = raceCollection;
     }
 
     

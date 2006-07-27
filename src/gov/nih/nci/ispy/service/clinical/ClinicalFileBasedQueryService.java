@@ -371,9 +371,9 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			
 		}
 		
-		if (cDTO.getMicroSize()!=null) {
-		  Double size = cDTO.getMicroSize();
-		  Operator operator = cDTO.getMicroOperator();
+		if (cDTO.getPathTumorSize()!=null) {
+		  Double size = cDTO.getPathTumorSize();
+		  Operator operator = cDTO.getPathTumorSizeOperator();
 		  
 		  queryResult = getPatientsDIDsForPrimaryPathoMicroscopicTumorSize(size, operator);
 		  
@@ -418,7 +418,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
 		  if (patientDIDs != null) {
 		    patientDIDs.retainAll(restrainingSamples);
-		  }
+		  }          
 		}
 		
 		

@@ -10,9 +10,9 @@
 </legend>
        <div class="mains">
 	       <div>
-	        <b class="subfield">Disease Stage</b>
-					<html:select property="diseaseStages" multiple="true" size="4">
-							<html:optionsCollection property="diseaseStageCollection" />
+	        <b class="subfield">Clinical Stage</b>
+					<html:select property="clinicalStages" multiple="true" size="4">
+							<html:optionsCollection property="clinicalStageCollection" />
 					</html:select>
 			</div>
 			<div>
@@ -57,12 +57,26 @@
 					<html:text property="diameter" />(cm)
 			</div>
 			<div>
-					<b class="subfield">Micro Size</b>
-					<html:select property="microOperator">			
+					<b class="subfield">Path. Tumor Size</b>
+					<html:select property="pathTumorSizeOperator">			
 						<html:optionsCollection property="operators" />
 	  				</html:select>
-					<html:text property="microSize" />(cm)
+					<html:text property="pathTumorSize" />(cm)
 			</div>
+			<div>
+			      <b class="subfield" multiple="true">Race</b>
+			      <html:select property="race">	
+			            <html:option value="allRaces">All Races</html:option>		
+						<html:optionsCollection property="raceCollection" />
+	  			  </html:select>
+	  	    </div>
+	  	    <div>
+			      <b class="subfield" multiple="true">Age</b>
+			      <html:select property="age">	
+			            <html:option value="allAges">All Ages</html:option>		
+						<html:optionsCollection property="ageCollection" />
+	  			  </html:select>
+	  	    </div>
 			
 	</div>
 

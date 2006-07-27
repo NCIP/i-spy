@@ -50,8 +50,8 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
     private Operator diameterOperator;    
     private Double diameter = null;
     
-    private Operator microOperator;
-    private Double microSize = null;
+    private Operator pathTumorSizeOperator;
+    private Double pathTumorSize = null;
     
     private String[] morphology;
     
@@ -243,34 +243,34 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 
 
     /**
-     * @return Returns the microOperator.
+     * @return Returns the pathTumorSizeOperator.
      */
-    public Operator getMicroOperator() {
-        return microOperator;
+    public Operator getPathTumorSizeOperator() {
+        return pathTumorSizeOperator;
     }
 
 
     /**
-     * @param microOperator The microOperator to set.
+     * @param pathTumorSizeOperator The pathTumorSizeOperator to set.
      */
-    public void setMicroOperator(Operator microOperator) {
-        this.microOperator = microOperator;
+    public void setPathTumorSizeOperator(Operator microOperator) {
+        this.pathTumorSizeOperator = microOperator;
     }
 
 
     /**
-     * @return Returns the microSize.
+     * @return Returns the pathTumorSize.
      */
-    public Double getMicroSize() {
-        return microSize;
+    public Double getPathTumorSize() {
+        return pathTumorSize;
     }
 
 
     /**
-     * @param microSize The microSize to set.
+     * @param pathTumorSize The pathTumorSize to set.
      */
-    public void setMicroSize(Double microSize) {
-        this.microSize = microSize;
+    public void setPathTumorSize(Double microSize) {
+        this.pathTumorSize = microSize;
     }
 
 
