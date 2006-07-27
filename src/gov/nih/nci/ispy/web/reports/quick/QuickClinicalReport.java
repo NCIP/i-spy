@@ -62,7 +62,7 @@ public class QuickClinicalReport {
                         tmp = pd.getInst_ID()!=null  ? pd.getInst_ID() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
-                        tmp = pd.getAgeCat()!=null  ? pd.getAgeCat() : dv;
+                        tmp = pd.getAgeCategory()!=null  ? pd.getAgeCategory().toString() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getRace_ID()!=null  ? pd.getRace_ID() : dv;
@@ -122,7 +122,7 @@ public class QuickClinicalReport {
                         tmp = pd.getDCISOnly()!=null  ? pd.getDCISOnly() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
-                        tmp = pd.getPTumor1SZCM_Micro()!=null  ? pd.getPTumor1SZCM_Micro() : dv;
+                        tmp = pd.getPTumor1SZCM_Micro()!=null  ? pd.getPTumor1SZCM_Micro().toString() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getHistologicGradePS()!=null  ? pd.getHistologicGradePS() : dv;
@@ -327,7 +327,7 @@ public class QuickClinicalReport {
 								tmp = pd.getInst_ID()!=null  ? pd.getInst_ID() : dv;
 								td = tr.addElement("td").addText(tmp);
 								
-								tmp = pd.getAgeCat()!=null  ? pd.getAgeCat() : dv;
+								tmp = pd.getAgeCategory()!=null  ? pd.getAgeCategory().toString() : dv;
 								td = tr.addElement("td").addText(tmp);
 								
 								tmp = pd.getRace_ID()!=null  ? pd.getRace_ID() : dv;
@@ -387,7 +387,7 @@ public class QuickClinicalReport {
 								tmp = pd.getDCISOnly()!=null  ? pd.getDCISOnly() : dv;
 								td = tr.addElement("td").addText(tmp);
 								
-								tmp = pd.getPTumor1SZCM_Micro()!=null  ? pd.getPTumor1SZCM_Micro() : dv;
+								tmp = pd.getPTumor1SZCM_Micro()!=null  ? pd.getPTumor1SZCM_Micro().toString() : dv;
 								td = tr.addElement("td").addText(tmp);
 								
 								tmp = pd.getHistologicGradePS()!=null  ? pd.getHistologicGradePS() : dv;
