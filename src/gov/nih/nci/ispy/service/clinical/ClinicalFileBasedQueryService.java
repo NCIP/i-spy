@@ -400,6 +400,18 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		      }	  	
 		}
 		
+		//Get IDs for Race		
+		if (cDTO.getRaceValues()!=null) {
+		  queryResult = getPatientDIDsForRace(cDTO.getRaceValues());
+			
+	      if (patientDIDs == null) {
+	        patientDIDs = new HashSet<String>();
+	        patientDIDs.addAll(queryResult);
+	      } 
+	      else {
+	        patientDIDs.retainAll(queryResult);
+	      }	  	
+		}
 		
 		
 				
@@ -528,6 +540,21 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  }
 		return patientDIDs;
 	}
+	
+	
+	
+	public Set<String> getPatientDIDsForRace(EnumSet<RaceType> raceValues) {
+		Set<String> patientDIDs = new HashSet<String>();
+		RaceType patientRace;
+		for (PatientData pd : patientDataMap.values()) {
+			
+		    if (raceValues.contains(pd.getRace())) {
+		      patientDIDs.add(pd.getISPY_ID());
+		    }
+		  }
+		return patientDIDs;
+	}
+	
 
 	public Set<PatientData> getClinicalData(ISPYclinicalDataQueryDTO dto) {
 		Set<String> patientDIDs = getPatientDIDs(dto);
