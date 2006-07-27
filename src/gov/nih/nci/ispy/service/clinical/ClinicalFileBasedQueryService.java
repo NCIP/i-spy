@@ -375,7 +375,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  Double size = cDTO.getMicroSize();
 		  Operator operator = cDTO.getMicroOperator();
 		  
-		  queryResult = getPatientsDIDsForMicroSize(size, operator);
+		  queryResult = getPatientsDIDsForPrimaryPathoMicroscopicTumorSize(size, operator);
 		  
 		  if (patientDIDs == null) {
 		     patientDIDs = new HashSet<String>();
@@ -424,19 +424,18 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	 * @return
 	 */
 	private Set<String> getPatientDIDsForAgeCategory(EnumSet<AgeCategoryType> ageCategoryValues) {
-//		Set<String> patientDIDs = new HashSet<String>();
-//		AgeCategoryType ageCategory;
-//		for (PatientData pd : patientDataMap.values()) {
-//			ageCategrpy = pd.getAgeCat();
-//		    if (ageCategoryValues.contains(pd.getChemoValue())) {
-//		      patientDIDs.add(pd.getISPY_ID());
-//		    }
-//		  }
-//		return patientDIDs;
-		return Collections.emptySet();
+		Set<String> patientDIDs = new HashSet<String>();
+		AgeCategoryType ageCategory;
+		for (PatientData pd : patientDataMap.values()) {
+			ageCategory = pd.getAgeCategory();
+		    if (ageCategoryValues.contains(pd.getAgeCategory())) {
+		      patientDIDs.add(pd.getISPY_ID());
+		    }
+		  }
+		return patientDIDs;
 	}
 
-	private Set<String> getPatientsDIDsForMicroSize(Double size, Operator operator) {
+	private Set<String> getPatientsDIDsForPrimaryPathoMicroscopicTumorSize(Double size, Operator operator) {
 		Double pdSize = null;
 		Set<String> patientDIDs = new HashSet<String>();
 		

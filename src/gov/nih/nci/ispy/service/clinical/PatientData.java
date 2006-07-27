@@ -8,8 +8,7 @@ private ClinicalStageType clinicalStage;
 private String  ispy_id, 
 				dataextractdt, 
 				inst_id, 
-				ageCategoryStr, 
-				race_id, 
+				//race_id, 
 				sstat, 
 				survdtd, 
 				//chemo, 
@@ -73,8 +72,9 @@ private String  ispy_id,
 	
 	private NeoAdjuvantChemoRegimenType neoChemo;
     
+	private AgeCategoryType ageCategory;
 	
-	private AgeCategoryType ageCategory; 
+	private RaceType race;
     
 	public PatientData(String ispy_id) {
 		this.ispy_id = ispy_id;
@@ -91,14 +91,11 @@ private String  ispy_id,
 
 	public void setAgeCategory(String agecatStr) {
 		
-//		if ((agecatStr == null)||(agecatStr.trim().length()==0)) {
-//		  ageCategory = AgeCategoryType.Age_GE_89_OR_NA;
-//		}
-//		
-//		this.ageCategory = AgeCategoryType.lookupValue(agecatStr);
-//		
+		if ((agecatStr == null)||(agecatStr.trim().length()==0)) {
+		  ageCategory = AgeCategoryType.Age_GE_89_OR_NA;
+		}
 		
-		this.ageCategory = AgeCategoryType.Age_GE_89_OR_NA;
+		this.ageCategory = AgeCategoryType.getValueForString(agecatStr);
 	}
 
 
@@ -380,13 +377,17 @@ private String  ispy_id,
 	}
 
 
-	public String getRace_ID() {
-		return race_id;
+	public RaceType getRace() {
+		return race;
 	}
 
 
-	public void setRace_ID(String race_id) {
-		this.race_id = race_id;
+	public void setRace_ID(String raceStr) {
+	  race = RaceType.getValueForString(raceStr);
+	}
+	
+	public void setRace_ID(RaceType race) {
+	  this.race = race;
 	}
 
 
