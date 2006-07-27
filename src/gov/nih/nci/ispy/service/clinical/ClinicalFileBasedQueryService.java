@@ -56,7 +56,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				
 				pd.setDataExtractDT(tokens[1]);
 				pd.setInst_ID(tokens[2]);
-				pd.setAgeCat(tokens[3]);
+				pd.setAgeCategory(tokens[3]);
 				pd.setRace_ID(tokens[4]);
 				pd.setSSTAT(tokens[5]);
 				pd.setSURVDTD(tokens[6]);
@@ -76,7 +76,12 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setINITLUMP_FUPMAST(tokens[20]);
 				pd.setSurgery(tokens[21]);
 				pd.setDCISOnly(tokens[22]);
-				pd.setPTumor1SZCM_MICRO(tokens[23]);
+				
+				String doubleStr = tokens[23];
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+				  pd.setPTumor1SZCM_MICRO(Double.valueOf(doubleStr.trim()));					  
+				}
+				
 				pd.setHistologicGradePS(tokens[24]);
 				pd.setNumPosNodes(tokens[25]);
 				pd.setNodesExamined(tokens[26]);
@@ -99,10 +104,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setClinRespT1_T3(tokens[43]);
 				pd.setClinRespT1_T4(tokens[44]);	
 				
-//              UNCOMMENT THE LINES BELOW WHEN THE NEW CLINICAL DATA IS AVAILABLE
-//              THE NEW DATA FILE SHOULD BE SET IN THE Application Context Class
-//
-				String doubleStr = tokens[45];
+				doubleStr = tokens[45];
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
 				}
@@ -369,6 +371,38 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			
 		}
 		
+		if (cDTO.getMicroSize()!=null) {
+		  Double size = cDTO.getMicroSize();
+		  Operator operator = cDTO.getMicroOperator();
+		  
+		  queryResult = getPatientsDIDsForMicroSize(size, operator);
+		  
+		  if (patientDIDs == null) {
+		     patientDIDs = new HashSet<String>();
+		     patientDIDs.addAll(queryResult);
+		  } 
+		  else {
+		     patientDIDs.retainAll(queryResult);
+		  }	  
+		  
+		}
+		
+		//Get IDs for AgeCategory
+		if (cDTO.getAgeCategoryValues()!=null) {
+			  queryResult = getPatientDIDsForAgeCategory(cDTO.getAgeCategoryValues());
+				
+		      if (patientDIDs == null) {
+		        patientDIDs = new HashSet<String>();
+		        patientDIDs.addAll(queryResult);
+		      } 
+		      else {
+		        patientDIDs.retainAll(queryResult);
+		      }	  	
+		}
+		
+		
+		
+				
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
 		  if (patientDIDs != null) {
 		    patientDIDs.retainAll(restrainingSamples);
@@ -383,6 +417,70 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		return Collections.emptySet();
 		
 	}
+	
+	/**
+	 * 
+	 * @param ageCategoryValues
+	 * @return
+	 */
+	private Set<String> getPatientDIDsForAgeCategory(EnumSet<AgeCategoryType> ageCategoryValues) {
+//		Set<String> patientDIDs = new HashSet<String>();
+//		AgeCategoryType ageCategory;
+//		for (PatientData pd : patientDataMap.values()) {
+//			ageCategrpy = pd.getAgeCat();
+//		    if (ageCategoryValues.contains(pd.getChemoValue())) {
+//		      patientDIDs.add(pd.getISPY_ID());
+//		    }
+//		  }
+//		return patientDIDs;
+		return Collections.emptySet();
+	}
+
+	private Set<String> getPatientsDIDsForMicroSize(Double size, Operator operator) {
+		Double pdSize = null;
+		Set<String> patientDIDs = new HashSet<String>();
+		
+		for (PatientData pd : patientDataMap.values()) {
+		  
+		  pdSize = pd.getPTumor1SZCM_Micro() ;
+			
+		  if (pdSize != null) {
+			  if ((operator == Operator.GE) && (pdSize >= size)) {
+			    patientDIDs.add(pd.getISPY_ID());
+			  }
+			  else if ((operator == Operator.LE) && (pdSize <= size)) {
+			    patientDIDs.add(pd.getISPY_ID());
+			  }
+		  }					  			
+		}
+		
+		return patientDIDs;
+	}
+	
+	private Set<String> getPatientDIDsForClinicalMeasurement(Double diameter, Operator operator) {
+//		Double pdSize = null;
+//		Set<String> patientDIDs = new HashSet<String>();
+//		
+//		for (PatientData pd : patientDataMap.values()) {
+//		  
+//		  pdSize = pd.getNSizeClinical();
+//			
+//		  if (pdSize != null) {
+//			  if ((operator == Operator.GE) && (pdSize >= size)) {
+//			    patientDIDs.add(pd.getISPY_ID());
+//			  }
+//			  else if ((operator == Operator.LE) && (pdSize <= size)) {
+//			    patientDIDs.add(pd.getISPY_ID());
+//			  }
+//		  }					  			
+//		}
+//		
+//		return patientDIDs;
+		
+		return Collections.emptySet();
+	}
+	
+	
 
 	private Set<String> getPatientDIDsForPctLDchange(Double ldPctChange, PercentLDChangeType changeType, Operator operator) {
 		Set<String> patientDIDs = new HashSet<String>();

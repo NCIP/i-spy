@@ -8,7 +8,7 @@ private ClinicalStageType clinicalStage;
 private String  ispy_id, 
 				dataextractdt, 
 				inst_id, 
-				agecat, 
+				ageCategoryStr, 
 				race_id, 
 				sstat, 
 				survdtd, 
@@ -28,7 +28,7 @@ private String  ispy_id,
 				initlump_fupmast, 
 				surgery, 
 				dcisonly, 
-				ptumor1szcm_micro, 
+				//ptumor1szcm_micro, 
 				histologicgradeps, 
 				numposnodes, 
 				nodesexamined, 
@@ -55,6 +55,8 @@ private String  ispy_id,
     private Double mriPctChangeT1_T3;
     private Double mriPctChangeT1_T4;
     
+    private Double ptumor1szcm_micro;
+    
     private String morphPatternBsl;
 
 	private ClinicalResponseType clinicalResponse_t1_t3;
@@ -71,18 +73,32 @@ private String  ispy_id,
 	
 	private NeoAdjuvantChemoRegimenType neoChemo;
     
+	
+	private AgeCategoryType ageCategory; 
     
 	public PatientData(String ispy_id) {
 		this.ispy_id = ispy_id;
 	}
 	
-	public String getAgeCat() {
-		return agecat;
+	public AgeCategoryType getAgeCategory() {
+		return ageCategory;
 	}
 
+	
+	public void setAgeCategory(AgeCategoryType ageCategory) {
+	  this.ageCategory = ageCategory;
+	}
 
-	public void setAgeCat(String agecat) {
-		this.agecat = agecat;
+	public void setAgeCategory(String agecatStr) {
+		
+//		if ((agecatStr == null)||(agecatStr.trim().length()==0)) {
+//		  ageCategory = AgeCategoryType.Age_GE_89_OR_NA;
+//		}
+//		
+//		this.ageCategory = AgeCategoryType.lookupValue(agecatStr);
+//		
+		
+		this.ageCategory = AgeCategoryType.Age_GE_89_OR_NA;
 	}
 
 
@@ -354,12 +370,12 @@ private String  ispy_id,
 	}
 
 
-	public String getPTumor1SZCM_Micro() {
+	public Double getPTumor1SZCM_Micro() {
 		return ptumor1szcm_micro;
 	}
 
 
-	public void setPTumor1SZCM_MICRO(String ptumor1szcm_micro) {
+	public void setPTumor1SZCM_MICRO(Double ptumor1szcm_micro) {
 		this.ptumor1szcm_micro = ptumor1szcm_micro;
 	}
 
