@@ -65,7 +65,7 @@ public class QuickClinicalReport {
                         tmp = pd.getAgeCategory()!=null  ? pd.getAgeCategory().toString() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
-                        tmp = pd.getRace_ID()!=null  ? pd.getRace_ID() : dv;
+                        tmp = pd.getRace()!=null  ? pd.getRace().toString() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getSSTAT()!=null  ? pd.getSSTAT() : dv;
@@ -330,7 +330,7 @@ public class QuickClinicalReport {
 								tmp = pd.getAgeCategory()!=null  ? pd.getAgeCategory().toString() : dv;
 								td = tr.addElement("td").addText(tmp);
 								
-								tmp = pd.getRace_ID()!=null  ? pd.getRace_ID() : dv;
+								tmp = pd.getRace()!=null  ? pd.getRace().toString() : dv;
 								td = tr.addElement("td").addText(tmp);
 								
 								tmp = pd.getSSTAT()!=null  ? pd.getSSTAT() : dv;
