@@ -24,7 +24,7 @@
 			</div>-->
 			
 			<div>					
-					<b class="subfield">% Decrease/Increase over Timepoints</b>
+					<b class="subfield">Percent LD Decrease</b>
 					<html:select property="ldTimepointRange">
 						<html:option value="none">none</html:option>
 						<html:optionsCollection property="ldTimepointRangeCollection" />
@@ -33,7 +33,7 @@
 					<html:select property="ldPercentChangeOperator">			
 						<html:optionsCollection property="operators" />
 	  				</html:select>
-					<html:text property="ldPercentChange" />(cm)
+					<html:text property="ldPercentChange" />%
 			</div>
 			
 	</div>

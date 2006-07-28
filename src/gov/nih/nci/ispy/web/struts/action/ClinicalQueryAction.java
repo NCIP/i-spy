@@ -299,8 +299,10 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set morphology keywords
-        if(clinicalForm.getMorphology()!=null && clinicalForm.getMorphology().equals("")){
-            //separate the keywords by parsing string separated by commas
+        if(clinicalForm.getMorphology()!=null && !clinicalForm.getMorphology().equals("")){
+            //separate the keywords by parsing string separated by lines
+            String[] keywords = clinicalForm.getMorphology().split(System.getProperty("line.separator"));
+            dto.setMorphology(keywords);
         }
         
         //set ld size ... future impl
