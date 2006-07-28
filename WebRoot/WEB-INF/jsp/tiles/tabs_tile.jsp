@@ -22,13 +22,11 @@
 	String list = "";
 	
 	String advSecondary = "<ul id=\"secondary\">\n" +
-							"<li><a href=\"menu.do\">Advanced Search Home</a></li>\n" +
-							"<li><a href=\"#\">Gene Expression</a></li>\n" +
-							"<li><a href=\"#\">CGH</a></li>\n" +
-							"<li><a href=\"#\">Clinical</a></li>\n" +
+							"<li><a href=\"advancedHome.do\">Advanced Search Home</a></li>\n" +
+							"<li><a href=\"clinicalQueryInit.do?method=setup\">Clinical</a></li>\n" +
 							"<li><a href=\"#\">IHC</a></li>\n" +
 							"<li><a href=\"#\">p53</a></li>\n" +
-							"<li><a href=\"#\">FISH</a></li>\n" +
+							"<li><a href=\"fishQueryInit.do?method=setup\">FISH</a></li>\n" +
 							"</ul>\n";
 	String resultsSecondary = "<ul id=\"secondary\">\n" +
 							"<li><a href=\"viewResults.do\">View Findings</a></li>\n" +

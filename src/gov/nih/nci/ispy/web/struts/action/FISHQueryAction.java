@@ -3,6 +3,7 @@ package gov.nih.nci.ispy.web.struts.action;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.struts.form.FISHQueryForm;
 
 import javax.servlet.http.HttpServletRequest;
@@ -110,6 +111,8 @@ public class FISHQueryAction extends DispatchAction {
         FISHQueryForm fishQueryForm = (FISHQueryForm) form;
         String sessionId = request.getSession().getId(); 
         HttpSession session = request.getSession();
+        ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(session);        
+        fishQueryForm.setPatientGroupCollection(clinicalGroupRetriever.getCustomPatientCollection());
         
         
         return mapping.findForward("backToFISHQuery");
