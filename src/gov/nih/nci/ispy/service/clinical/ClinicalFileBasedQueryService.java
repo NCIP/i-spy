@@ -123,6 +123,8 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 //
 				pd.setMorphPatternBsl(tokens[48]);
 				
+				
+				
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
 				
@@ -414,6 +416,11 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		}
 		
 		
+		//Get IDs for morpholigic stage
+		if ((cDTO.getMorphology()!=null)&&(cDTO.getMorphology().length > 0)) {
+		  queryResult = getPatientDIDsForMorphology(cDTO.getMorphology());
+		}
+		
 				
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
 		  if (patientDIDs != null) {
@@ -430,6 +437,30 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		
 	}
 	
+	private Set<String> getPatientDIDsForMorphology(String matchStr) {
+		Set<String> patientDIDs = new HashSet<String>();
+		String morphologyStr;
+		for (PatientData pd : patientDataMap.values()) {
+			morphologyStr = pd.getMorphPatternBsl();
+		    if (morphologyStr.indexOf(matchStr) >= 0) {
+		      patientDIDs.add(pd.getISPY_ID());
+		    }
+		  }
+		return patientDIDs;
+	}
+	
+	private Set<String> getPatientDIDsForMorphology(String[] morphology) {
+		String matchStr;
+		Set<String> matchingDIDs = new HashSet<String>();
+		for (int i=0; i < morphology.length; i++) {
+		  matchStr = morphology[i];
+		  if ((matchStr!=null)&&(matchStr.trim().length() > 0)) {
+		    matchingDIDs.addAll(getPatientDIDsForMorphology(matchStr));
+		  }
+		}
+		return matchingDIDs;
+	}
+
 	/**
 	 * 
 	 * @param ageCategoryValues
