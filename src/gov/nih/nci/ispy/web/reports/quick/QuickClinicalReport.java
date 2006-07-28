@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.web.reports.quick;
 
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
@@ -303,169 +304,174 @@ public class QuickClinicalReport {
 
 						if(si!=null)	{
 							
-							PatientData pd = cqs.getPatientDataForPatientDID(si.getISPYId());
-						
-							tr = table.addElement("tr").addAttribute("class", "data");
-							
-							String tmp = "";
-							
-							tmp = si.getISPYId()!=null  ? si.getISPYId() : dv;
-							td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp);
-							
-							tmp = si.getLabtrackId()!=null  ? si.getLabtrackId() : dv;
-							td = tr.addElement("td").addText(tmp);
-							
-							if(pd == null){
-								for(int i=0; i<heads.length-2;i++){
-									td = tr.addElement("td").addAttribute("class", "header").addText(dv);
-								}
-							}
-							else if(pd!=null){
-								tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
-								td = tr.addElement("td").addText(tmp);
-	
-								tmp = pd.getInst_ID()!=null  ? pd.getInst_ID() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getAgeCategory()!=null  ? pd.getAgeCategory().toString() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRace()!=null  ? pd.getRace().toString() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getSSTAT()!=null  ? pd.getSSTAT() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getSURVDTD()!=null  ? pd.getSURVDTD() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getChemo()!=null  ? pd.getChemo() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getTAM()!=null  ? pd.getTAM() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getHerceptin()!=null  ? pd.getHerceptin() : dv;
-								td = tr.addElement("td").addText(tmp);
-	
-								tmp = pd.getMenoStatus()!=null  ? pd.getMenoStatus() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getSentinelNodeSample()!=null  ? pd.getSentinelNodeSample() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getSentinelNodeResult()!=null  ? pd.getSentinelNodeResult() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getHistologicGradeOS()!=null  ? pd.getHistologicGradeOS() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getER_TS()!=null  ? pd.getER_TS() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getPGR_TS()!=null  ? pd.getPGR_TS() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getHER2CommunityPOS()!=null  ? pd.getHER2CommunityPOS() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getHER2CommunityMethod()!=null  ? pd.getHER2CommunityMethod() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getSurgeryLumpectomy()!=null  ? pd.getSurgeryLumpectomy() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getSurgeryMastectomy()!=null  ? pd.getSurgeryMastectomy() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getINITLUMP_FUPMAST()!=null  ? pd.getINITLUMP_FUPMAST() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getSurgery()!=null  ? pd.getSurgery() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getDCISOnly()!=null  ? pd.getDCISOnly() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getPTumor1SZCM_Micro()!=null  ? pd.getPTumor1SZCM_Micro().toString() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getHistologicGradePS()!=null  ? pd.getHistologicGradePS() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getNumPosNodes()!=null  ? pd.getNumPosNodes() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getNodesExamined()!=null  ? pd.getNodesExamined() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getPathologyStage()!=null  ? pd.getPathologyStage() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRTTherapy()!=null  ? pd.getRTTherapy() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRTBreast()!=null  ? pd.getRTBreast() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRTBOOST()!=null  ? pd.getRTBOOST() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRTAXILLA()!=null  ? pd.getRTAXILLA() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRTSNODE()!=null  ? pd.getRTSNODE() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRTIMAMNODE()!=null  ? pd.getRTIMAMNODE() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRTChestW()!=null  ? pd.getRTChestW() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getRTOTHER()!=null  ? pd.getRTOTHER() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getTSizeClinical()!=null  ? pd.getTSizeClinical() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getNSizeClinical()!=null  ? pd.getNSizeClinical() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getStageTE()!=null  ? pd.getStageTE() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getStageNE()!=null  ? pd.getStageNE() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getSTAGEME()!=null  ? pd.getSTAGEME() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getClinicalStageStr()!=null  ? pd.getClinicalStageStr() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getClinRespT1_T2()!=null  ? pd.getClinRespT1_T2() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getClinRespT1_T3()!=null  ? pd.getClinRespT1_T3() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getClinRespT1_T4()!=null  ? pd.getClinRespT1_T4() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getMorphPatternBsl()!=null  ? pd.getMorphPatternBsl() : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getMriPctChangeT1_T2()!=null  ? String.valueOf(pd.getMriPctChangeT1_T2()) : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getMriPctChangeT1_T3()!=null  ? String.valueOf(pd.getMriPctChangeT1_T3()) : dv;
-								td = tr.addElement("td").addText(tmp);
-								
-								tmp = pd.getMriPctChangeT1_T4()!=null  ? String.valueOf(pd.getMriPctChangeT1_T4()) : dv;
-								td = tr.addElement("td").addText(tmp);
-							}
-							
+							//PatientData pd = cqs.getPatientDataForPatientDID(si.getISPYId());
+                            Set<String> ispyIds = new HashSet<String>();
+                            ispyIds.add(si.getISPYId());
+                            ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
+                            dto.setRestrainingSamples(ispyIds);
+                            Set<PatientData> pdSet = cqs.getClinicalData(dto);
+                            for(PatientData pd:pdSet){    						
+    							tr = table.addElement("tr").addAttribute("class", "data");
+    							
+    							String tmp = "";
+    							
+    							tmp = si.getISPYId()!=null  ? si.getISPYId() : dv;
+    							td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp);
+    							
+    							tmp = si.getLabtrackId()!=null  ? si.getLabtrackId() : dv;
+    							td = tr.addElement("td").addText(tmp);
+    							
+    							if(pd == null){
+    								for(int i=0; i<heads.length-2;i++){
+    									td = tr.addElement("td").addAttribute("class", "header").addText(dv);
+    								}
+    							}
+    							else if(pd!=null){
+    								tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    	
+    								tmp = pd.getInst_ID()!=null  ? pd.getInst_ID() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getAgeCategory()!=null  ? pd.getAgeCategory().toString() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRace()!=null  ? pd.getRace().toString() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getSSTAT()!=null  ? pd.getSSTAT() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getSURVDTD()!=null  ? pd.getSURVDTD() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getChemo()!=null  ? pd.getChemo() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getTAM()!=null  ? pd.getTAM() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getHerceptin()!=null  ? pd.getHerceptin() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    	
+    								tmp = pd.getMenoStatus()!=null  ? pd.getMenoStatus() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getSentinelNodeSample()!=null  ? pd.getSentinelNodeSample() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getSentinelNodeResult()!=null  ? pd.getSentinelNodeResult() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getHistologicGradeOS()!=null  ? pd.getHistologicGradeOS() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getER_TS()!=null  ? pd.getER_TS() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getPGR_TS()!=null  ? pd.getPGR_TS() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getHER2CommunityPOS()!=null  ? pd.getHER2CommunityPOS() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getHER2CommunityMethod()!=null  ? pd.getHER2CommunityMethod() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getSurgeryLumpectomy()!=null  ? pd.getSurgeryLumpectomy() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getSurgeryMastectomy()!=null  ? pd.getSurgeryMastectomy() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getINITLUMP_FUPMAST()!=null  ? pd.getINITLUMP_FUPMAST() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getSurgery()!=null  ? pd.getSurgery() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getDCISOnly()!=null  ? pd.getDCISOnly() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getPTumor1SZCM_Micro()!=null  ? pd.getPTumor1SZCM_Micro().toString() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getHistologicGradePS()!=null  ? pd.getHistologicGradePS() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getNumPosNodes()!=null  ? pd.getNumPosNodes() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getNodesExamined()!=null  ? pd.getNodesExamined() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getPathologyStage()!=null  ? pd.getPathologyStage() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRTTherapy()!=null  ? pd.getRTTherapy() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRTBreast()!=null  ? pd.getRTBreast() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRTBOOST()!=null  ? pd.getRTBOOST() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRTAXILLA()!=null  ? pd.getRTAXILLA() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRTSNODE()!=null  ? pd.getRTSNODE() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRTIMAMNODE()!=null  ? pd.getRTIMAMNODE() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRTChestW()!=null  ? pd.getRTChestW() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getRTOTHER()!=null  ? pd.getRTOTHER() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getTSizeClinical()!=null  ? pd.getTSizeClinical() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getNSizeClinical()!=null  ? pd.getNSizeClinical() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getStageTE()!=null  ? pd.getStageTE() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getStageNE()!=null  ? pd.getStageNE() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getSTAGEME()!=null  ? pd.getSTAGEME() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getClinicalStageStr()!=null  ? pd.getClinicalStageStr() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getClinRespT1_T2()!=null  ? pd.getClinRespT1_T2() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getClinRespT1_T3()!=null  ? pd.getClinRespT1_T3() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getClinRespT1_T4()!=null  ? pd.getClinRespT1_T4() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getMorphPatternBsl()!=null  ? pd.getMorphPatternBsl() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getMriPctChangeT1_T2()!=null  ? String.valueOf(pd.getMriPctChangeT1_T2()) : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getMriPctChangeT1_T3()!=null  ? String.valueOf(pd.getMriPctChangeT1_T3()) : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getMriPctChangeT1_T4()!=null  ? String.valueOf(pd.getMriPctChangeT1_T4()) : dv;
+    								td = tr.addElement("td").addText(tmp);
+    							}
+                            }
 							/***************************/
 							/*
 							tmp = pd.getClinicalStage() != null && pd.getClinicalStage() != ClinicalStageType.MISSING ? pd.getClinicalStage().toString() : dv;

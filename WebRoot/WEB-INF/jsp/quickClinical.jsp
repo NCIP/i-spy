@@ -39,24 +39,21 @@
 		var tmpElements = Array();
 		
 		var Rules = {
-	 		'.patient': function(element) {
-			    //element.setStyle({backgroundColor: '#ccc'});
+	 		  '.patient': function(element) {
 			    if(element.innerHTML != "")	{
 				    element.innerHTML += "<input name='checkable' class='saveElement' type='checkbox' value='"+element.id+"'/>";
-				}
+				}					
 			  },
-			 
 			  '.saveElement:click' : function(element)	{
 					if(element.selected || element.checked)
 						tmpElements.push(element.value);
 					else
 						tmpElements.remove(element.value);
 			  }
-			 
-	 		
+			
 	 		};
 	 		
-	 			 		var CheckMgr = {
+	 	var CheckMgr = {
 	 		
 		 		'checkAll' : function(field)	{
 					if(field.length > 1)	{

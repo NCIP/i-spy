@@ -141,7 +141,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		
 	}
 	
-	public Set<String> getPatientDIDsForClinicalStage(Set<ClinicalStageType> clinicalStageSet) {
+	private Set<String> getPatientDIDsForClinicalStage(Set<ClinicalStageType> clinicalStageSet) {
 	
 		Set<String> patientDIDs = new HashSet<String>();
 		
@@ -165,7 +165,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		return patientDIDs;
 	}
 		
-	public Set<String> getPatientDIDsForClinicalResponse(TimepointType timepoint, Set<ClinicalResponseType> clinicalResponseSet) {
+	private Set<String> getPatientDIDsForClinicalResponse(TimepointType timepoint, Set<ClinicalResponseType> clinicalResponseSet) {
         Set<String> patientDIDs = new HashSet<String>();
 		
 		for (PatientData pd : patientDataMap.values()) {
@@ -178,7 +178,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	}
 	
 	
-	public Set<String> getPatientDIDsForERstatus(Set<ERstatusType> erStatusSet) {
+	private Set<String> getPatientDIDsForERstatus(Set<ERstatusType> erStatusSet) {
 	  
 	  Set<String> patientDIDs = new HashSet<String>();
 	  
@@ -191,7 +191,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	  return patientDIDs;
 	}
 		
-	public Set<String> getPatientDIDsForPRstatus(Set<PRstatusType> prStatusSet) {
+	private Set<String> getPatientDIDsForPRstatus(Set<PRstatusType> prStatusSet) {
 		  
 		  Set<String> patientDIDs = new HashSet<String>();
 		  
@@ -207,7 +207,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	}
 	
 	
-	public Set<String> getPatientDIDsForHER2status(Set<HER2statusType> her2StatusSet) {
+	private Set<String> getPatientDIDsForHER2status(Set<HER2statusType> her2StatusSet) {
 		  
 		  Set<String> patientDIDs = new HashSet<String>();
 		  
@@ -225,7 +225,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	
 
 	
-	public PatientData getPatientDataForPatientDID(String patientDID) {
+	private PatientData getPatientDataForPatientDID(String patientDID) {
 		
 		PatientData pd = patientDataMap.get(patientDID);
 		
@@ -236,7 +236,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		return pd;
 	}
 	
-	public List<PatientData> getPatientDataForPatientDIDs(List<String> patientDIDs) {
+	private List<PatientData> getPatientDataForPatientDIDs(List<String> patientDIDs) {
 		
 		List<PatientData> retList = new ArrayList<PatientData>();
 		for (String patientDID : patientDIDs) {
@@ -425,7 +425,9 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
 		  if (patientDIDs != null) {
 		    patientDIDs.retainAll(restrainingSamples);
-		  }          
+		  }  
+          else
+            patientDIDs = restrainingSamples;
 		}
 		
 		
@@ -560,7 +562,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		return patientDIDs;
 	}
 
-	public Set<String> getPatientDIDsForNeoAdjuvantChemoRegimen(EnumSet<NeoAdjuvantChemoRegimenType> agentValues) {
+	private Set<String> getPatientDIDsForNeoAdjuvantChemoRegimen(EnumSet<NeoAdjuvantChemoRegimenType> agentValues) {
 		Set<String> patientDIDs = new HashSet<String>();
 		NeoAdjuvantChemoRegimenType patientChemo;
 		for (PatientData pd : patientDataMap.values()) {
@@ -574,7 +576,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	
 	
 	
-	public Set<String> getPatientDIDsForRace(EnumSet<RaceType> raceValues) {
+	private Set<String> getPatientDIDsForRace(EnumSet<RaceType> raceValues) {
 		Set<String> patientDIDs = new HashSet<String>();
 		RaceType patientRace;
 		for (PatientData pd : patientDataMap.values()) {

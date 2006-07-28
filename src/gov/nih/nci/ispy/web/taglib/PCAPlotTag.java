@@ -8,6 +8,7 @@ import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFindi
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint;
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint.PCAcomponent;
 import gov.nih.nci.caintegrator.ui.graphing.util.ImageMapUtil;
+import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
@@ -26,8 +27,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -155,7 +158,7 @@ public class PCAPlotTag extends AbstractGraphingTag {
             
             PCAresultEntry entry;
             //ClinicalData clinData;
-            PatientData patientData;
+            //PatientData patientData;
             SampleInfo si;
             TimepointType timepoint;
             for (String id: sampleIds){
@@ -166,46 +169,53 @@ public class PCAPlotTag extends AbstractGraphingTag {
                 si = idMapper.getSampleInfoForLabtrackId(id);
                 
                 //clinData = cqs.getClinicalDataForPatientDID(si.getRegistrantId(), si.getTimepoint());
-                patientData = cqs.getPatientDataForPatientDID(si.getISPYId());
-                pcaPoint.setISPY_ID(si.getISPYId());
-                timepoint = si.getTimepoint();
-                
-                pcaPoint.setTimepoint(timepoint);
-                
-                if (patientData != null) {
-	                pcaPoint.setClinicalStage(patientData.getClinicalStage());
-	                
-	                int clinRespVal;
-	                Double mriPctChange = null;
-	                if (timepoint == TimepointType.T1) {
-	                  pcaPoint.setClinicalResponse(ClinicalResponseType.NA);
-	                  pcaPoint.setTumorMRIpctChange(null);
-	                }
-	                else if (timepoint == TimepointType.T2) {
-	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T2());
-	                  //set the clinical respoinse to the T1_T2
-	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
-	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T2());
-	                }
-	                else if (timepoint == TimepointType.T3) {
-	                  //set the clinical response to T1_T3
-	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T3());
-	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
-	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T3());
-	                }
-	                else if (timepoint == TimepointType.T4) {
-	                  //set the clinical response to T1_T4
-	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T4());
-	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
-	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T4());
-	                }
-	                else {
-	                  pcaPoint.setClinicalResponse(ClinicalResponseType.UNKNOWN);
-	                  pcaPoint.setTumorMRIpctChange(null);
-	                }
+                //patientData = cqs.getPatientDataForPatientDID(si.getISPYId());
+                Set<String> ispyIds = new HashSet<String>();
+                ispyIds.add(si.getISPYId());
+                ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
+                dto.setRestrainingSamples(ispyIds);
+                Set<PatientData> pdSet = cqs.getClinicalData(dto);
+                for(PatientData patientData: pdSet){
+                    pcaPoint.setISPY_ID(si.getISPYId());
+                    timepoint = si.getTimepoint();
+                    
+                    pcaPoint.setTimepoint(timepoint);
+                    
+                    if (patientData != null) {
+    	                pcaPoint.setClinicalStage(patientData.getClinicalStage());
+    	                
+    	                int clinRespVal;
+    	                Double mriPctChange = null;
+    	                if (timepoint == TimepointType.T1) {
+    	                  pcaPoint.setClinicalResponse(ClinicalResponseType.NA);
+    	                  pcaPoint.setTumorMRIpctChange(null);
+    	                }
+    	                else if (timepoint == TimepointType.T2) {
+    	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T2());
+    	                  //set the clinical respoinse to the T1_T2
+    	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
+    	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T2());
+    	                }
+    	                else if (timepoint == TimepointType.T3) {
+    	                  //set the clinical response to T1_T3
+    	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T3());
+    	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
+    	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T3());
+    	                }
+    	                else if (timepoint == TimepointType.T4) {
+    	                  //set the clinical response to T1_T4
+    	                  clinRespVal = PatientData.parseValue(patientData.getClinRespT1_T4());
+    	                  pcaPoint.setClinicalResponse(ClinicalResponseType.getTypeForValue(clinRespVal));
+    	                  pcaPoint.setTumorMRIpctChange(patientData.getMriPctChangeT1_T4());
+    	                }
+    	                else {
+    	                  pcaPoint.setClinicalResponse(ClinicalResponseType.UNKNOWN);
+    	                  pcaPoint.setTumorMRIpctChange(null);
+    	                }
+                    }
+                       
+                    pcaData.add(pcaPoint);
                 }
-                   
-                pcaData.add(pcaPoint);
             }
           
             
