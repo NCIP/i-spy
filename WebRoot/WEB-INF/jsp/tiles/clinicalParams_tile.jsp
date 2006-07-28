@@ -64,16 +64,14 @@
 					<html:text property="pathTumorSize" />(cm)
 			</div>
 			<div>
-			      <b class="subfield" multiple="true">Race</b>
-			      <html:select property="race">	
-			            <html:option value="allRaces">All Races</html:option>		
+			      <b class="subfield">Race</b>
+			      <html:select property="race" size="4" multiple="true">			            
 						<html:optionsCollection property="raceCollection" />
 	  			  </html:select>
 	  	    </div>
 	  	    <div>
-			      <b class="subfield" multiple="true">Age</b>
-			      <html:select property="age">	
-			            <html:option value="allAges">All Ages</html:option>		
+			      <b class="subfield">Age</b>
+			      <html:select property="age" size="4" multiple="true">				            
 						<html:optionsCollection property="ageCollection" />
 	  			  </html:select>
 	  	    </div>

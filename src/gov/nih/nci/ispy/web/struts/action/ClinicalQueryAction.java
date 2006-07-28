@@ -255,7 +255,7 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set age params
-        if(clinicalForm.getAge()!=null && clinicalForm.getAge().length>0 && !clinicalForm.getAge()[0].equalsIgnoreCase("allAges")){
+        if(clinicalForm.getAge()!=null && clinicalForm.getAge().length>0){
             EnumSet<AgeCategoryType> ageSet = EnumSet.noneOf(AgeCategoryType.class);
             String[] ages = clinicalForm.getAge();
             for(int i=0; i<ages.length;i++){
@@ -271,7 +271,7 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set race params
-        if(clinicalForm.getRace()!=null && clinicalForm.getRace().length>0 && !clinicalForm.getRace()[0].equalsIgnoreCase("allRaces")){
+        if(clinicalForm.getRace()!=null && clinicalForm.getRace().length>0){
             EnumSet<RaceType> raceSet = EnumSet.noneOf(RaceType.class);
             String[] races = clinicalForm.getRace();
             for(int i=0; i<races.length;i++){
