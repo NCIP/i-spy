@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMessage;
 
 /**
  * @author BauerD 
@@ -84,16 +85,31 @@ public class UIFormValidator {
 	public static ActionErrors validateQueryName(String queryName,
 			ActionErrors errors) {
 		if ((queryName == null || queryName.length() < 1)) {
-			errors.add("analysisResultName", new ActionError(
+			errors.add("analysisResultName", new ActionMessage(
 					"gov.nih.nci.nautilus.ui.struts.form.analysisResultName.no.error"));
 		}
 		return errors;
 	}
     
+    public static ActionErrors parseDouble(String doubleString, String field, ActionErrors errors){
+        try{
+            Double.parseDouble(doubleString);
+         }catch(NumberFormatException e){
+             logger.debug("the value " + doubleString + " cannot be parsed");
+             if(field.equalsIgnoreCase("pathTumorSize")){
+                 errors.add("pathTumorSizeParse", new ActionMessage("gov.nih.nci.nautilus.ui.struts.form.parse.error"));
+             }
+             if(field.equalsIgnoreCase("diameter")){
+                 errors.add("diameterParse", new ActionMessage("gov.nih.nci.nautilus.ui.struts.form.parse.error"));
+             }
+         }
+        return errors;
+    }
+    
     public static ActionErrors validateSelectedGroups(String[] selectedGroups, String timepointRange, String timepointBaseAcross, String timepointComparison, HttpSession session, ActionErrors errors){
             if(timepointRange.equalsIgnoreCase("fixed")){
                 if (selectedGroups == null || selectedGroups.length != 2){
-                    errors.add("selectedGroups1", new ActionError(
+                    errors.add("selectedGroups1", new ActionMessage(
                             "gov.nih.nci.nautilus.ui.struts.form.groups.two.error"));
                     return errors;
                 }
@@ -107,7 +123,7 @@ public class UIFormValidator {
                     userLists.add(baselineGroup[1]);
                     UserListBeanHelper helper = new UserListBeanHelper(session);                    
                     if(helper.isIntersection(userLists)){
-                        errors.add("selectedGroups2", new ActionError(
+                        errors.add("selectedGroups2", new ActionMessage(
                         "gov.nih.nci.nautilus.ui.struts.form.groups.intersect.error")); 
                     }
                 }
@@ -115,11 +131,11 @@ public class UIFormValidator {
             }
             else if(timepointRange.equalsIgnoreCase("across")){
                 if (timepointBaseAcross.equals(timepointComparison)){
-                    errors.add("timepoints", new ActionError(
+                    errors.add("timepoints", new ActionMessage(
                     "gov.nih.nci.nautilus.ui.struts.form.timepoints.same.error"));
                 }
                 if (selectedGroups == null || selectedGroups.length != 1){
-                    errors.add("selectedGroups3", new ActionError(
+                    errors.add("selectedGroups3", new ActionMessage(
                             "gov.nih.nci.nautilus.ui.struts.form.groups.no.error"));
                     return errors;
                 }

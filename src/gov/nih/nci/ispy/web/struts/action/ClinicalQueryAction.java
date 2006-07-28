@@ -287,14 +287,14 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set diameter
-        if(clinicalForm.getDiameter()!=null){
-            dto.setDiameter(clinicalForm.getDiameter());
+        if(clinicalForm.getDiameter()!=null && clinicalForm.getDiameter().trim().length()>0){
+            dto.setDiameter(Double.parseDouble(clinicalForm.getDiameter()));
             dto.setDiameterOperator(Operator.valueOf(clinicalForm.getDiameterOperator()));
         }
         
         //set micro size
-        if(clinicalForm.getPathTumorSize()!=null){
-            dto.setPathTumorSize(clinicalForm.getPathTumorSize());
+        if(clinicalForm.getPathTumorSize()!=null && clinicalForm.getPathTumorSize().trim().length()>0){
+            dto.setPathTumorSize(Double.parseDouble(clinicalForm.getPathTumorSize()));
             dto.setPathTumorSizeOperator(Operator.valueOf(clinicalForm.getPathTumorSizeOperator()));
         }
         

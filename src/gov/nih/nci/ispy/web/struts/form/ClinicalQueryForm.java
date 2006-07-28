@@ -1,12 +1,17 @@
 package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.caintegrator.enumeration.Operator;
+import gov.nih.nci.ispy.web.helper.UIFormValidator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
 import org.apache.struts.util.LabelValueBean;
 
 
@@ -102,9 +107,9 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     private List responseCollection = new ArrayList(); 
     private List operators = new ArrayList();
     private String diameterOperator;    
-    private Double diameter = null;
+    private String diameter = null;
     private String pathTumorSizeOperator;
-    private Double pathTumorSize = null;
+    private String pathTumorSize;
     private String[] age;
     private List ageCollection;
     private String[] race;
@@ -213,7 +218,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the diameter.
      */
-    public Double getDiameter() {
+    public String getDiameter() {
         return diameter;
     }
 
@@ -223,7 +228,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param diameter The diameter to set.
      */
-    public void setDiameter(Double diameter) {
+    public void setDiameter(String diameter) {
         this.diameter = diameter;
     }
 
@@ -413,7 +418,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the pathTumorSize.
      */
-    public Double getPathTumorSize() {
+    public String getPathTumorSize() {
         return pathTumorSize;
     }
 
@@ -440,7 +445,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param pathTumorSize The pathTumorSize to set.
      */
-    public void setPathTumorSize(Double pathTumorSize) {
+    public void setPathTumorSize(String pathTumorSize) {
         this.pathTumorSize = pathTumorSize;
     }
 
@@ -677,7 +682,33 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
         this.raceCollection = raceCollection;
     }
 
-    
+    /**
+     * Method validate
+     * 
+     * @param ActionMapping
+     *            mapping
+     * @param HttpServletRequest
+     *            request
+     * @return ActionErrors
+     */
+    public ActionErrors validate(ActionMapping mapping,
+            HttpServletRequest request) {
+
+        ActionErrors errors = new ActionErrors();
+      
+        //Analysis Query Name cannot be blank
+        errors = UIFormValidator.validateQueryName(analysisResultName, errors);
+        
+        //validate the diameter and pathological tumor size values
+        if(diameter!=null && diameter.trim().length()>0){        
+            errors = UIFormValidator.parseDouble(diameter,"diameter",errors);
+        }
+        if(pathTumorSize!=null && pathTumorSize.trim().length()>0){
+        errors = UIFormValidator.parseDouble(pathTumorSize,"pathTumorSize",errors);
+        }
+
+        return errors;
+    }
     
 }
 	

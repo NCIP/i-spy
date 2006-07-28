@@ -49,15 +49,17 @@
 						<html:optionsCollection property="responseCollection" />
 					</html:select>
 			</div>
+			<html:errors property="diameterParse" />
 			<div>
-					<b class="subfield">Diameter</b>
+					<b class="subfield">Diameter</b>					
 					<html:select property="diameterOperator">			
 						<html:optionsCollection property="operators" />
 	  				</html:select>
 					<html:text property="diameter" />(cm)
 			</div>
+			<html:errors property="pathTumorSizeParse" />
 			<div>
-					<b class="subfield">Path. Tumor Size</b>
+					<b class="subfield">Path. Tumor Size</b>					
 					<html:select property="pathTumorSizeOperator">			
 						<html:optionsCollection property="operators" />
 	  				</html:select>

@@ -100,8 +100,7 @@ public class FISHQueryAction extends DispatchAction {
         FISHQueryForm fishQueryForm = (FISHQueryForm) form;
         String sessionId = request.getSession().getId();
         HttpSession session = request.getSession();
-       
-        
+               
         return mapping.findForward("viewResults");
     }
   
@@ -113,7 +112,6 @@ public class FISHQueryAction extends DispatchAction {
         HttpSession session = request.getSession();
         ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(session);        
         fishQueryForm.setPatientGroupCollection(clinicalGroupRetriever.getCustomPatientCollection());
-        
         
         return mapping.findForward("backToFISHQuery");
     }
