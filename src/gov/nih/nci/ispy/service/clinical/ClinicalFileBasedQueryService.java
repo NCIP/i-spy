@@ -419,6 +419,15 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		//Get IDs for morpholigic stage
 		if ((cDTO.getMorphology()!=null)&&(cDTO.getMorphology().length > 0)) {
 		  queryResult = getPatientDIDsForMorphology(cDTO.getMorphology());
+		  
+		  if (patientDIDs == null) {
+	        patientDIDs = new HashSet<String>();
+	        patientDIDs.addAll(queryResult);
+	      } 
+	      else {
+	        patientDIDs.retainAll(queryResult);
+	      }	  	
+		  
 		}
 		
 				
@@ -441,13 +450,17 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	
 	private Set<String> getPatientDIDsForMorphology(String matchStr) {
 		Set<String> patientDIDs = new HashSet<String>();
-		String morphologyStr;
+		String morphologyStr, morphologyStrUpper;
+		String matchStrUpper = matchStr.toUpperCase().trim();
 		for (PatientData pd : patientDataMap.values()) {
 			morphologyStr = pd.getMorphPatternBsl();
-		    if (morphologyStr.indexOf(matchStr) >= 0) {
-		      patientDIDs.add(pd.getISPY_ID());
-		    }
-		  }
+			if ((morphologyStr!=null)&&(morphologyStr.trim().length()>0)) {
+				morphologyStrUpper = morphologyStr.toUpperCase().trim();
+				if (morphologyStrUpper.indexOf(matchStrUpper) >= 0) {
+				  patientDIDs.add(pd.getISPY_ID());
+				}
+			}
+		}
 		return patientDIDs;
 	}
 	
