@@ -13,9 +13,14 @@
 	      <logic:present name="fishQueryForm">
 	        <html:checkbox property="biomarkers" value="<%=ispyConstants.FISH_BIOMARKERS[0]%>" /><%=ispyConstants.FISH_BIOMARKERS[0]%>
 	      	<html:checkbox property="biomarkers" value="<%=ispyConstants.FISH_BIOMARKERS[1]%>" /><%=ispyConstants.FISH_BIOMARKERS[1]%>
-	      
 	      </logic:present>
-		  </div>
-			
+	      
+	       
+		 <logic:present name="ihcQueryForm">
+		 	&nbsp;&nbsp;<html:select property="biomarkers" multiple="true" size="4">						
+						<html:optionsCollection property="biomarkersCollection" />
+			</html:select>		
+		 </logic:present>	      
+		  </div>		
 	</div>
 </fieldset>

@@ -123,7 +123,7 @@ String helpLinkClose = "', 350, 500);\">"+
 		}
 		else	{
 			//no findings yet
-			out.println("<strong>No HOA Results at this time.</strong><br/><br/>");
+			out.println("<strong>No Report Results at this time.</strong><br/><br/>");
 		}
      
      

@@ -1,26 +1,21 @@
-package gov.nih.nci.ispy.web.struts.form;
+package gov.nih.nci.ispy.web.struts.action;
 
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.security.UserCredentials;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
+import gov.nih.nci.ispy.web.struts.form.FISHQueryForm;
+import gov.nih.nci.ispy.web.struts.form.IHCQueryForm;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.apache.struts.util.LabelValueBean;
-
-
-
-
- /**
- * This class encapsulates the properties of an caintergator
- * BaseForm object, it is a parent class for all form objects 
- * 
- * 
- * @author BhattarR,ZhangD
- *
- */
-
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.DispatchAction;
 
 
 
@@ -81,83 +76,49 @@ import org.apache.struts.util.LabelValueBean;
 * 
 */
 
-public class FISHQueryForm extends BaseForm implements Serializable{
-    
-    private static Logger logger = Logger.getLogger(FISHQueryForm.class);
-    
-    private String analysisResultName = "";    
-    private String[] timepoints;    
-    private Collection timepointCollection = new ArrayList();
-    private String[] biomarkers;
-    private String[] cnaStatus;
-    
-    public FISHQueryForm(){
-        for (TimepointType timepointType : TimepointType.values()){
-            timepointCollection.add(new LabelValueBean(timepointType.toString(),timepointType.name()));
-        }
-    }
-    
+public class IHCQueryAction extends DispatchAction {
+    private static Logger logger = Logger.getLogger(IHCQueryAction.class);
+    private UserCredentials credentials;
+    private PresentationTierCache presentationTierCache = ApplicationFactory.getPresentationTierCache();
     
     /**
-     * @return Returns the analysisResultName.
+     * Method submittal
+     * 
+     * @param ActionMapping
+     *            mapping
+     * @param ActionForm
+     *            form
+     * @param HttpServletRequest
+     *            request
+     * @param HttpServletResponse
+     *            response
+     * @return ActionForward
+     * @throws Exception
      */
-    public String getAnalysisResultName() {
-        return analysisResultName;
+    public ActionForward submit(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        IHCQueryForm ihcQueryForm = (IHCQueryForm) form;
+        String sessionId = request.getSession().getId();
+        HttpSession session = request.getSession();
+               
+        return mapping.findForward("viewResults");
     }
-    /**
-     * @param analysisResultName The analysisResultName to set.
-     */
-    public void setAnalysisResultName(String analysisResultName) {
-        this.analysisResultName = analysisResultName;
+  
+    public ActionForward setup(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+    throws Exception {
+        IHCQueryForm ihcQueryForm = (IHCQueryForm) form;
+        String sessionId = request.getSession().getId(); 
+        HttpSession session = request.getSession();
+        ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(session);        
+        ihcQueryForm.setPatientGroupCollection(clinicalGroupRetriever.getCustomPatientCollection());
+        
+        
+        return mapping.findForward("backToIHCQuery");
     }
-    /**
-     * @return Returns the biomarkers.
-     */
-    public String[] getBiomarkers() {
-        return biomarkers;
-    }
-    /**
-     * @param biomarkers The biomarkers to set.
-     */
-    public void setBiomarkers(String[] biomarkers) {
-        this.biomarkers = biomarkers;
-    }
-    /**
-     * @return Returns the cnaStatus.
-     */
-    public String[] getCnaStatus() {
-        return cnaStatus;
-    }
-    /**
-     * @param cnaStatus The cnaStatus to set.
-     */
-    public void setCnaStatus(String[] cnaStatus) {
-        this.cnaStatus = cnaStatus;
-    }
-    /**
-     * @return Returns the timepointCollection.
-     */
-    public Collection getTimepointCollection() {
-        return timepointCollection;
-    }
-    /**
-     * @param timepointCollection The timepointCollection to set.
-     */
-    public void setTimepointCollection(Collection timepointCollection) {
-        this.timepointCollection = timepointCollection;
-    }
-    /**
-     * @return Returns the timepoints.
-     */
-    public String[] getTimepoints() {
-        return timepoints;
-    }
-    /**
-     * @param timepoints The timepoints to set.
-     */
-    public void setTimepoints(String[] timepoints) {
-        this.timepoints = timepoints;
-    }
-	
+        
+    
+    
+    
 }
-	

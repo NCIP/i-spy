@@ -1,10 +1,15 @@
 package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.ihc.DistributionType;
+import gov.nih.nci.ispy.service.ihc.IHCFileBasedQueryService;
+import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
+import gov.nih.nci.ispy.service.ihc.LocalizationType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.util.LabelValueBean;
@@ -81,23 +86,180 @@ import org.apache.struts.util.LabelValueBean;
 * 
 */
 
-public class FISHQueryForm extends BaseForm implements Serializable{
+public class IHCQueryForm extends BaseForm implements Serializable{
     
-    private static Logger logger = Logger.getLogger(FISHQueryForm.class);
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    private static Logger logger = Logger.getLogger(IHCQueryForm.class);
     
     private String analysisResultName = "";    
     private String[] timepoints;    
     private Collection timepointCollection = new ArrayList();
     private String[] biomarkers;
-    private String[] cnaStatus;
+    private Collection biomarkersCollection = new ArrayList();
+    private String[] stainIntensity;
+    private Collection stainIntensityCollection = new ArrayList();
+    private int upPercentPositive = 100;
+    private int lowPercentPositive = 0;
+    private String[] stainLocalization;
+    private Collection stainLocalizationCollection = new ArrayList();    
+    private String[] stainDistribution;
+    private Collection stainDistributionCollection = new ArrayList();
     
-    public FISHQueryForm(){
+
+    public IHCQueryForm(){
         for (TimepointType timepointType : TimepointType.values()){
             timepointCollection.add(new LabelValueBean(timepointType.toString(),timepointType.name()));
         }
+        IHCFileBasedQueryService iqs = new IHCFileBasedQueryService();
+        Set<String> biomarkers = iqs.getBiomarkers();
+        for(String biomarker : biomarkers){
+            biomarkersCollection.add(new LabelValueBean(biomarker,biomarker));
+        }
+        for(IntensityOfStainType intensity : IntensityOfStainType.values()){
+            stainIntensityCollection.add(new LabelValueBean(intensity.toString(),intensity.getDeclaringClass().getCanonicalName() + "#" + intensity.name()));
+        }
+        for(LocalizationType locale: LocalizationType.values()){
+            stainLocalizationCollection.add(new LabelValueBean(locale.toString(), locale.getDeclaringClass().getCanonicalName() + "#" + locale.name()));
+        }
+        for(DistributionType dist: DistributionType.values()){
+            stainDistributionCollection.add(new LabelValueBean(dist.toString(), dist.getDeclaringClass().getCanonicalName() + "#" + dist.name()));
+        }
     }
     
-    
+    /**
+     * @return Returns the biomarkersCollection.
+     */
+    public Collection getBiomarkersCollection() {
+        return biomarkersCollection;
+    }
+
+
+    /**
+     * @param biomarkersCollection The biomarkersCollection to set.
+     */
+    public void setBiomarkersCollection(Collection biomarkersCollection) {
+        this.biomarkersCollection = biomarkersCollection;
+    }
+
+
+    /**
+     * @return Returns the stainDistributionCollection.
+     */
+    public Collection getStainDistributionCollection() {
+        return stainDistributionCollection;
+    }
+
+
+    /**
+     * @param stainDistributionCollection The stainDistributionCollection to set.
+     */
+    public void setStainDistributionCollection(
+            Collection stainDistributionCollection) {
+        this.stainDistributionCollection = stainDistributionCollection;
+    }
+
+
+    /**
+     * @return Returns the stainIntensityCollection.
+     */
+    public Collection getStainIntensityCollection() {
+        return stainIntensityCollection;
+    }
+
+
+    /**
+     * @param stainIntensityCollection The stainIntensityCollection to set.
+     */
+    public void setStainIntensityCollection(Collection stainIntensityCollection) {
+        this.stainIntensityCollection = stainIntensityCollection;
+    }
+
+
+    /**
+     * @return Returns the stainLocalizationCollection.
+     */
+    public Collection getStainLocalizationCollection() {
+        return stainLocalizationCollection;
+    }
+
+
+    /**
+     * @param stainLocalizationCollection The stainLocalizationCollection to set.
+     */
+    public void setStainLocalizationCollection(
+            Collection stainLocalizationCollection) {
+        this.stainLocalizationCollection = stainLocalizationCollection;
+    }
+
+
+    /**
+     * @return Returns the lowPercentPositive.
+     */
+    public int getLowPercentPositive() {
+        return lowPercentPositive;
+    }
+
+
+    /**
+     * @param lowPercentPositive The lowPercentPositive to set.
+     */
+    public void setLowPercentPositive(int lowPercentPositive) {
+        this.lowPercentPositive = lowPercentPositive;
+    }
+
+
+    /**
+     * @return Returns the stainDistribution.
+     */
+    public String[] getStainDistribution() {
+        return stainDistribution;
+    }
+
+
+    /**
+     * @param stainDistribution The stainDistribution to set.
+     */
+    public void setStainDistribution(String[] stainDistribution) {
+        this.stainDistribution = stainDistribution;
+    }
+
+
+    /**
+     * @return Returns the stainLocalization.
+     */
+    public String[] getStainLocalization() {
+        return stainLocalization;
+    }
+
+
+    /**
+     * @param stainLocalization The stainLocalization to set.
+     */
+    public void setStainLocalization(String[] stainLocalization) {
+        this.stainLocalization = stainLocalization;
+    }
+
+
+    /**
+     * @return Returns the upPercentPositive.
+     */
+    public int getUpPercentPositive() {
+        return upPercentPositive;
+    }
+
+
+    /**
+     * @param upPercentPositive The upPercentPositive to set.
+     */
+    public void setUpPercentPositive(int upPercentPositive) {
+        this.upPercentPositive = upPercentPositive;
+    }
+
+ 
     /**
      * @return Returns the analysisResultName.
      */
@@ -123,16 +285,16 @@ public class FISHQueryForm extends BaseForm implements Serializable{
         this.biomarkers = biomarkers;
     }
     /**
-     * @return Returns the cnaStatus.
+     * @return Returns the stainIntensity.
      */
-    public String[] getCnaStatus() {
-        return cnaStatus;
+    public String[] getStainIntensity() {
+        return stainIntensity;
     }
     /**
-     * @param cnaStatus The cnaStatus to set.
+     * @param stainIntensity The stainIntensity to set.
      */
-    public void setCnaStatus(String[] cnaStatus) {
-        this.cnaStatus = cnaStatus;
+    public void setStainIntensity(String[] stainIntensity) {
+        this.stainIntensity = stainIntensity;
     }
     /**
      * @return Returns the timepointCollection.
