@@ -6,13 +6,12 @@
 
 <fieldset class="gray">
 <legend class="red">MR Parameters
-<app:help help="Select mri parameters to further filter the query" />
+<app:help help="Select mri parameters to further filter the query. Morphology text area will parse a line delimited set of keywords." />
 </legend>
 	<div class="mains">
 	      <div>
 	        <b class="subfield">Morphology <br/>(keyword matches)</b>
-					<html:textarea property="morphology" value="" rows="3" cols="40" />
-									
+					<html:textarea property="morphology" value="" rows="3" cols="40" />									
 			</div>		
 			
 			<!--<div>
