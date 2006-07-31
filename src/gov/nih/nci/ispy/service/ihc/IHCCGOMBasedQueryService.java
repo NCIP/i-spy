@@ -21,4 +21,9 @@ public class IHCCGOMBasedQueryService implements IHCDataService {
 		return null;
 	}
 
+	public Set<String> getBiomarkers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

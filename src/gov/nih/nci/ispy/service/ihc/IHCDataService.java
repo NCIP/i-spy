@@ -11,4 +11,5 @@ public interface IHCDataService {
 	
 	public Set<IHCData> getIHCData(IHCqueryDTO dto);
 	
+	public Set<String> getBiomarkers();
 }
