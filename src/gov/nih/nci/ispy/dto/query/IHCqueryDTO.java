@@ -3,19 +3,20 @@ package gov.nih.nci.ispy.dto.query;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
 import gov.nih.nci.ispy.service.ihc.LocalizationType;
+import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
-public class IHCqueryDTO {
+public class IHCqueryDTO implements QueryDTO {
 
-	private List<String> biomarkers = null;
+	private Set<String> biomarkers = null;
 	private Integer percentPositiveMinValue = null;
 	private Integer percentPositiveMaxValue = null;
 	private EnumSet<IntensityOfStainType> intensityOfStainValues;
 	private EnumSet<LocalizationType> localizationValues;
-	
+	private String queryName;
 	private Set<String> restrainingSamples;      
 		
 	private EnumSet<TimepointType> timepointValues = EnumSet.noneOf(TimepointType.class);
@@ -25,11 +26,11 @@ public class IHCqueryDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<String> getBiomarkers() {
+	public Set<String> getBiomarkers() {
 		return biomarkers;
 	}
 
-	public void setBiomarkers(List<String> biomarkers) {
+	public void setBiomarkers(Set<String> biomarkers) {
 		this.biomarkers = biomarkers;
 	}
 
@@ -82,6 +83,14 @@ public class IHCqueryDTO {
 
 	public void setTimepointValues(EnumSet<TimepointType> timepointValues) {
 		this.timepointValues = timepointValues;
+	}
+
+	public void setQueryName(String name) {
+		this.queryName = name;
+	}
+
+	public String getQueryName() {
+		return queryName;
 	}
 
 	

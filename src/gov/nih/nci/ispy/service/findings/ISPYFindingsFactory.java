@@ -22,12 +22,15 @@ import gov.nih.nci.caintegrator.service.findings.HCAFinding;
 import gov.nih.nci.caintegrator.service.findings.KMFinding;
 import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.ispy.dto.query.IHCqueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
+import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategy;
+import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategyFile;
 import gov.nih.nci.ispy.service.findings.strategies.PrincipalComponentAnalysisFindingStrategy;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.caintegrator.application.util.ApplicationContext;
@@ -169,6 +172,41 @@ public class ISPYFindingsFactory implements FindingsFactory {
 		return null;
 	}
 
+	
+	/**
+	 * Create a clinical finding by executing the clinical strategy
+	 */
+	public IHCFinding createIHCFinding(IHCqueryDTO query, String sessionId, String taskId) {
+		IHCFinding ihcFinding = null;
+		
+		//Will substitute database version when it is ready
+		try {
+		IHCFindingStrategy strategy = new IHCFindingStrategyFile(sessionId, taskId, query);
+		
+		try {
+			
+			strategy.createQuery();
+			strategy.executeQuery();
+		    strategy.analyzeResultSet();
+		
+		} catch (FindingsQueryException e) {
+			logger.error("Caught FindingsQueryExcpetion in ClinicalFindingStrategy");
+			logger.error(e);
+		} catch (FindingsAnalysisException e) {
+			logger.error("Caught FindingsAnalsysisException in ClinicalFindingStrategy");
+			logger.error(e);
+		}
+		
+		ihcFinding = (IHCFinding) strategy.getFinding();
+		}
+		catch (ValidationException ex) {
+		  logger.error("Caught validationException when creating clinical finding strategy: sessionId=" + sessionId + " taskId=" + taskId + " queryName=" + query.getQueryName());
+		  logger.error(ex);
+		}
+		
+		
+		return ihcFinding;
+	}
 	
 	/**
 	 * Create a clinical finding by executing the clinical strategy
