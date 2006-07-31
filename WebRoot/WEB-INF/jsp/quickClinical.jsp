@@ -6,7 +6,7 @@
 	String taskId = request.getParameter("taskId");
 	StringBuffer sb = new StringBuffer();
 	
-	if(sampleArray != null && sampleArray.length > 0 && taskId == null)	{
+	if(sampleArray != null && sampleArray.length > 0)	{
 		List samples = Arrays.asList(sampleArray);		
 		sb = QuickClinicalReport.quickSampleReport(samples);
 	}
@@ -39,11 +39,11 @@
 		var tmpElements = Array();
 		
 		var Rules = {
-	 		  '.patient': function(element) {
-			    if(element.innerHTML != "")	{
-				    element.innerHTML += "<input name='checkable' class='saveElement' type='checkbox' value='"+element.id+"'/>";
-				}					
-			  },
+	 		  //'.gene,.patient': function(element) {
+			  //  if(element.innerHTML != "")	{
+			  //	    element.innerHTML += "<input name='checkable' class='saveElement' type='checkbox' value='"+element.id+"'/>";
+			//	}					
+			//  },
 			  '.saveElement:click' : function(element)	{
 					if(element.selected || element.checked)
 						tmpElements.push(element.value);

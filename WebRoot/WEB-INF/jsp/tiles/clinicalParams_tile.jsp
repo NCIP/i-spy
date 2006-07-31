@@ -15,7 +15,7 @@
 							<html:optionsCollection property="clinicalStageCollection" />
 					</html:select>
 			</div>
-			<div>
+			<!--<div>
 			 <b class="subfield">Histology Type</b>
 					<html:select property="histologyType" multiple="true" size="4">
 						<option>Necrosis</option>
@@ -34,7 +34,7 @@
 						<option>Grade I (low)</option>
 						<option>Indeterminate</option>
 					</html:select>
-			</div>
+			</div>-->
 			<div>
 					<b class="subfield">Agents<br/></b>
 					<html:select property="agents" size="4" multiple="true">
@@ -49,14 +49,14 @@
 						<html:optionsCollection property="responseCollection" />
 					</html:select>
 			</div>
-			<html:errors property="diameterParse" />
+			<!--<html:errors property="diameterParse" />
 			<div>
 					<b class="subfield">Diameter</b>					
 					<html:select property="diameterOperator">			
 						<html:optionsCollection property="operators" />
 	  				</html:select>
 					<html:text property="diameter" />(cm)
-			</div>
+			</div>-->
 			<html:errors property="pathTumorSizeParse" />
 			<div>
 					<b class="subfield">Path. Tumor Size</b>					

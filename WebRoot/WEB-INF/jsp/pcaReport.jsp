@@ -8,7 +8,7 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
 <html>
 <head>
-	<title>Rembrandt PCA Plots</title>
+	<title>I-SPY PCA Plots</title>
 	<LINK href="css/tabs.css" rel="stylesheet" type="text/css" />
 	
 	<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 

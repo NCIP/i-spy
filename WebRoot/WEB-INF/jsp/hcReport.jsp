@@ -44,12 +44,12 @@ if(request.getParameter("key")!=null)
 		}
 	
 	 		var Rules = {
-	 		'.gene, .patient': function(element) {
+	 		//'.gene, .patient': function(element) {
 			    //element.setStyle({backgroundColor: '#ccc'});
-			    if(element.innerHTML != "")	{
-				    element.innerHTML += "<input name='checkable' class='saveElement' type='checkbox' value='"+element.id+"'/>";
-				}
-			  },
+			//    if(element.innerHTML != "")	{
+			//	    element.innerHTML += "<input name='checkable' class='saveElement' type='checkbox' value='"+element.id+"'/>";
+			//	}
+			//  },
 			 
 			  '.saveElement:click' : function(element)	{
 					if(element.selected || element.checked)

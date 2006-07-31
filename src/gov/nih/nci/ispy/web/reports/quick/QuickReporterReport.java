@@ -42,9 +42,12 @@ public class QuickReporterReport {
 						if(geneSymbols != null){
 							genes = StringUtils.join(geneSymbols.toArray(), ",");
 						}
-						
-						td = tr.addElement("td").addText(genes).addAttribute("class", "gene").addAttribute("name", "gene").addAttribute("id", genes);
-						
+						if(!genes.equals("")){
+						td = tr.addElement("td").addText(genes).addAttribute("class", "gene").addAttribute("name", "gene").addAttribute("id", genes).addElement("input").addAttribute("type","checkbox").addAttribute("name","checkable").addAttribute("class","saveElement").addAttribute("value",genes);
+                        }
+                        else{
+                        td = tr.addElement("td").addText(genes).addAttribute("class", "gene").addAttribute("name", "gene").addAttribute("id", genes);   
+                        }
 						Collection<String> genBank_AccIDS = (Collection<String>)reporterAnnotation.getGenbankAccessions();
 						String accs = "";
 						if(genBank_AccIDS != null){

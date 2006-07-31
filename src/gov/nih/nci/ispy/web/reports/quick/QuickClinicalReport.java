@@ -55,7 +55,7 @@ public class QuickClinicalReport {
                     }
                     else if(pd!=null){
                         tmp = pd.getISPY_ID()!=null  ? pd.getISPY_ID() : dv;
-                        td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp);;
+                        td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp).addElement("input").addAttribute("type","checkbox").addAttribute("name","checkable").addAttribute("class","saveElement").addAttribute("value",pd.getISPY_ID());
                         
                         tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
                         td = tr.addElement("td").addText(tmp);
@@ -315,8 +315,8 @@ public class QuickClinicalReport {
     							
     							String tmp = "";
     							
-    							tmp = si.getISPYId()!=null  ? si.getISPYId() : dv;
-    							td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp);
+    							tmp = si.getISPYId()!=null  ? si.getISPYId() : dv;                                                                    
+    							td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp).addElement("input").addAttribute("type","checkbox").addAttribute("name","checkable").addAttribute("class","saveElement").addAttribute("value",pd.getISPY_ID());
     							
     							tmp = si.getLabtrackId()!=null  ? si.getLabtrackId() : dv;
     							td = tr.addElement("td").addText(tmp);
