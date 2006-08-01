@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class IHCFileBasedQueryService implements IHCDataService {
 
+	private static IHCFileBasedQueryService instance = null;
+	
 	public IHCFileBasedQueryService() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -34,6 +36,13 @@ public class IHCFileBasedQueryService implements IHCDataService {
 	  biomarkers.add("CCND1");
 	  biomarkers.add("P27");
 	  return biomarkers;
+	}
+
+	public static IHCFileBasedQueryService getInstance() {
+		if (instance == null) {
+		  instance = new IHCFileBasedQueryService();
+		}
+		return instance;
 	}
 
 	

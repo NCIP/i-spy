@@ -1,50 +1,69 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
+import java.util.ArrayList;
+import java.util.Set;
+
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.IHCqueryDTO;
+import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.service.clinical.PatientData;
+import gov.nih.nci.ispy.service.findings.IHCFinding;
+import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
+import gov.nih.nci.ispy.service.ihc.IHCData;
+import gov.nih.nci.ispy.service.ihc.IHCFileBasedQueryService;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 public class IHCFindingStrategyFile extends IHCFindingStrategy {
 
+   private IHCFinding ihcFinding = null;
+   private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
+		
+	
 	public IHCFindingStrategyFile(String sessionId, String taskId, IHCqueryDTO queryDTO)  throws ValidationException {
 		super(sessionId, taskId, queryDTO );
-		
+		ihcFinding = new IHCFinding(sessionId, taskId, queryDTO);
 	}
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	public boolean validate(QueryDTO query) throws ValidationException {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return true;
 	}
 
 	public boolean createQuery() throws FindingsQueryException {
-		// TODO Auto-generated method stub
-		return false;
+		IHCFileBasedQueryService iqs = IHCFileBasedQueryService.getInstance();
+		
+		
+		Set<IHCData> ihcData = iqs.getIHCData(getQueryDTO());
+		
+	  
+	    
+//	    
+//	    //put the result into the finding 
+	    IHCFinding ihcFinding = new IHCFinding(this.getSessionId(), this.getTaskId(), this.getQueryDTO());
+	    ihcFinding.setIHCData(new ArrayList<IHCData>(ihcData));
+	    
+	    return true;
 	}
 
 	public boolean executeQuery() throws FindingsQueryException {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
-	public boolean analyzeResultSet() throws FindingsAnalysisException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean analyzeResultSet() throws FindingsAnalysisException {		
+		cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), ihcFinding);
+		return true;
 	}
 
 	public Finding getFinding() {
-		// TODO Auto-generated method stub
-		return null;
+	  return ihcFinding;
 	}
+	
 
 }
