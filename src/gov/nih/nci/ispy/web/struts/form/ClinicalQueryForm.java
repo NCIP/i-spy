@@ -116,7 +116,8 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     private List raceCollection;
     
     //MR parameters
-    private String morphology;
+    private String[] morphology;
+    private List morphologyCollection;
     private String ldLengthOperator;
     private double ldLength;
     
@@ -455,7 +456,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @return Returns the morphology.
      */
-    public String getMorphology() {
+    public String[] getMorphology() {
         return morphology;
     }
 
@@ -465,7 +466,7 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     /**
      * @param morphology The morphology to set.
      */
-    public void setMorphology(String morphology) {
+    public void setMorphology(String[] morphology) {
         this.morphology = morphology;
     }
 
@@ -708,6 +709,20 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
         }
 
         return errors;
+    }
+
+    /**
+     * @return Returns the morphologyCollection.
+     */
+    public List getMorphologyCollection() {
+        return morphologyCollection;
+    }
+
+    /**
+     * @param morphologyCollection The morphologyCollection to set.
+     */
+    public void setMorphologyCollection(List morphologyCollection) {
+        this.morphologyCollection = morphologyCollection;
     }
     
 }

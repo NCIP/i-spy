@@ -192,9 +192,7 @@ public class ApplicationContext{
 		   long elapsedTime = System.currentTimeMillis() - startTime;
 		   logger.info("Finished initializing GeneExprAnnotationService file=" + annotFileName + " time=" + elapsedTime + " numRecords=" + gxRecLoaded);
 		   
-		   
-		 
-		   		  
+		   	   		  
 		   String jmsProviderURL = System.getProperty("gov.nih.nci.ispyportal.jms.jboss_url");
 		   String jndiFactoryName = System.getProperty("gov.nih.nci.ispyportal.jms.factory_jndi");
 		   String requestQueueName = System.getProperty("gov.nih.nci.ispyportal.jms.analysis_request_queue");

@@ -34,7 +34,7 @@
            name="loginForm"
            scope="request"
            input="/index.jsp">
-    <forward name="success" path="ispy.analysisHome"/> 
+    <forward name="success" path="ispy.advancedHome"/> 
     <forward name="failure" path="/index.jsp"/>    
     </action> 
     

@@ -18,7 +18,8 @@
 			     }
 		     	//construct array
 		     	var ids = Array();
-		     	ids = typeListIds.split(",");
+		     	//ids = typeListIds.split(",");
+		     	ids = typeListIds.split("\n");
 		     	//clean on the sside
 		     	//ajax call
 		     	try	{
@@ -38,9 +39,11 @@
 			    		listName = "";
 			    		$(listNameLabel).value = "";
 			    	}
+			    	/*
 			    	if(uploadStatus != ""){
 			    		uploadStatus.style.display = "none";
 			    	}
+			    	*/
 			    	}, 200);
 			    } 
 		     }
@@ -57,6 +60,10 @@
 			else	{
 				//StatusMessage.showStatus("List Saved...");
 			}    		
+			if( $('uploadStatus') && $('uploadStatus').style.display != 'none'){
+				$('uploadStatus').style.display = "none";
+			}
+				
 	    	ManageListHelper.generic_cb("none");
 	    }
 	};

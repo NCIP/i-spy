@@ -1,16 +1,16 @@
-<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean, gov.nih.nci.caintegrator.application.lists.ListManager, gov.nih.nci.caintegrator.application.lists.UserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document,gov.nih.nci.ispy.util.ISPYListFilter"%>
+<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.ListSubType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean, gov.nih.nci.caintegrator.application.lists.ListManager, gov.nih.nci.caintegrator.application.lists.UserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document,gov.nih.nci.ispy.util.ISPYListFilter"%>
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
-<script type='text/javascript' src='js/scriptaculous/effects.js'></script>
+<script type='text/javascript' src='js/lib/scriptaculous/effects.js'></script>
 
 <script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
 <script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
 
-<script type='text/javascript' src='js/common/ManageListHelper.js'></script>
-<script type='text/javascript' src='js/common/TextFormList.js'></script>
-<script type='text/javascript' src='js/common/FormChanger.js'></script>
-<script type='text/javascript' src='js/common/StatusMessage.js'></script>
+<script type='text/javascript' src='js/lib/common/ManageListHelper.js'></script>
+<script type='text/javascript' src='js/lib/common/TextFormList.js'></script>
+<script type='text/javascript' src='js/lib/common/FormChanger.js'></script>
+<script type='text/javascript' src='js/lib/common/StatusMessage.js'></script>
 
 <script type="text/javascript">
 	function handleResponse(msg)	{
@@ -26,6 +26,10 @@
 		margin-left:20px;
 		list-type:none;
 		list-style-type: none;
+	}
+
+	li.detailsList	{
+		padding:3px;
 	}
 </style>
 <iframe id="RSIFrame" name="RSIFrame" style="width:0px; height:0px; border: 0px" src="blank.jsp"></iframe>
@@ -101,15 +105,28 @@
 					<select id="typeSelector" name="type">
 <%
 					for(int i=0; i<lts.length; i++)	{
+						
 						String label = lts[i].toString();			
+						
+						//process the subtypes associated with this ListType
+						List subtypes = ISPYListFilter.getSubTypesForType(lts[i]);	
+						if(subtypes!=null && subtypes.size()>0)	{
+							for(int s=0; s<subtypes.size(); s++)	{
+								String lsts =((ListSubType)subtypes.get(s)).toString();
 %>
 						<option value="<%=label%>"><%=label%></option>
 <%
-					}					
+							}
+						}
+						else  {					
 %>
+						<option value="<%=label%>"><%=label%></option>
+<%
+						}
+					}
+%>					
 					</select>
-					<app:help help="There must only be one entry (id) per line." />
-					
+					<app:help help="There must only be one entry (id) per line." />					
 				</td>
 			</tr>
 			<tr id="uploadRow">
@@ -122,10 +139,10 @@
 			</tr>
 			<tr id="textRow" style="display:none">
 				<td>
-					Type Ids:<br/> (comma separated)
+					Type Ids:<br/> (one per line)
 				</td>
 				<td colspan="2">
-					<textarea id="typeListIds" style="width:300px"></textarea>
+					<textarea id="typeListIds" style="width:150px;height:100px"></textarea>
 				</td>
 			</tr>
 			<tr>

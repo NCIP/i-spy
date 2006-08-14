@@ -9,6 +9,7 @@ import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
+import gov.nih.nci.ispy.service.clinical.MorphologyType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
@@ -56,6 +57,14 @@ public class ClinicalGroupRetriever {
             agentsCollection.add(new LabelValueBean(agent.toString(),agent.getDeclaringClass().getCanonicalName() + "#" + agent.name()));
         }        
         return agentsCollection;
+    }
+    
+    public List<LabelValueBean> getMorphologyCollection(){
+        List<LabelValueBean> morphologyCollection = new ArrayList<LabelValueBean>();
+        for(MorphologyType morphology: MorphologyType.values()){
+            morphologyCollection.add(new LabelValueBean(morphology.toString(),morphology.getDeclaringClass().getCanonicalName() + "#" + morphology.name()));
+        }        
+        return morphologyCollection;
     }
     
     public List<LabelValueBean> getAgeCollection(){

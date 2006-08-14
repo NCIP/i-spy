@@ -13,6 +13,7 @@ import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
+import gov.nih.nci.ispy.service.imaging.ImagingFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.ArrayList;
@@ -32,14 +33,15 @@ public class QuickClinicalReport {
         ISPYClinicalFinding clinicalFinding = (ISPYClinicalFinding) cacheManager.getObjectFromSessionCache(sessionId, taskId);
         StringBuffer html = new StringBuffer();
         List<PatientData> patientsData = clinicalFinding.getPatientData();
-        if(!patientsData.isEmpty()){      
+        if(!patientsData.isEmpty()){  
+                ImagingFileBasedQueryService iqs = (ImagingFileBasedQueryService) ImagingFileBasedQueryService.getInstance();
                 Document document = DocumentHelper.createDocument();
                 Element table = document.addElement("table").addAttribute("id", "reportTable").addAttribute("class", "report");
                 Element tr = null;
                 Element td = null;
                 tr = table.addElement("tr").addAttribute("class", "header");
                 
-                String longHeaders = "ISPY_ID, DATAEXTRACTDT, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4";
+                String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4";
                 String[] heads = StringUtils.split(longHeaders, ",");
                 for(String h : heads){
                     td = tr.addElement("td").addAttribute("class", "header").addText(h.trim());
@@ -57,8 +59,16 @@ public class QuickClinicalReport {
                         tmp = pd.getISPY_ID()!=null  ? pd.getISPY_ID() : dv;
                         td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp).addElement("input").addAttribute("type","checkbox").addAttribute("name","checkable").addAttribute("class","saveElement").addAttribute("value",pd.getISPY_ID());
                         
-                        tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
-                        td = tr.addElement("td").addText(tmp);
+//                        tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
+//                        td = tr.addElement("td").addText(tmp);
+                        
+                        if(iqs.hasImagingData(pd.getISPY_ID())){
+                            String link = iqs.buildImagingLink(pd);
+                            td = tr.addElement("td").addElement("a").addAttribute("onclick","javascript:window.open('" + link + "','800','600');").addElement("img").addAttribute("src","images/nciaLink.png");
+                        }
+                        else{
+                            td = tr.addElement("td").addText(dv);
+                        }
         
                         tmp = pd.getInst_ID()!=null  ? pd.getInst_ID() : dv;
                         td = tr.addElement("td").addText(tmp);

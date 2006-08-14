@@ -4,33 +4,15 @@
 *	// also dependent on browserSniff.js, SidebarHelper.js, and prototype.js 1.5.x
 */
 	var ManageListHelper = {
-		'getPatientLists' : function()	{
-			if (window.DynamicListHelper.getAllPatientLists&&(typeof window.DynamicListHelper.getAllPatientLists=="function")) {
-				DynamicListHelper.getAllPatientLists(ManageListHelper.getGenericLists_cb );
-			}
-		},
-		'getDefaultPatientLists' : function()	{
-			alert("doesnt exist");
-			//DynamicListHelper.getAllDefaultPatientLists(ManageListHelper.getGenericLists_cb );	
-		},
-		'getGeneLists' : function()	{
-			DynamicListHelper.getAllGeneLists(ManageListHelper.getGenericLists_cb );			
+		'getGenericLists' : function(listType)	{
+			DynamicListHelper.getGenericLists(listType, ManageListHelper.getGenericLists_cb);
 		},
 		'getAllLists' : function()	{
 			//assumes browserSniff.js has already been included and declared the browser specific vars
-			if(!saf)	{
-				ManageListHelper.getGeneLists();
-				ManageListHelper.getPatientLists();
-				//ManageListHelper.getDefaultPatientLists();
-			}
-			else	{ //timing issue w/safari..go figure
-				setTimeout(function()	{ManageListHelper.getGeneLists();}, 100);
-				setTimeout(function()	{ManageListHelper.getPatientLists();}, 200);
-				//setTimeout(function()	{ManageListHelper.getDefaultPatientLists();}, 300);
-			}
+			DynamicListHelper.getAllLists(ManageListHelper.getGenericLists_cb);
 		},
 		'getGenericLists_cb' : function(txt)	{
-			//accepts a JSON object	
+			//accepts a JSON object	<- now accepts a json array
 			// String listType : patient | gene | defaultPatient		
 			// Array<Object> listItems : { listName, listDate, itemCount, invalidItems }
 			try	{
@@ -38,7 +20,9 @@
 				for(var i=0; i<listContainerArray.length; i++)	{
 					var listContainer = listContainerArray[i];
 					var listType = listContainer.listType ? listContainer.listType : "none";
-					if(listType == "none") return;
+					if(listType == "none") {
+						continue;
+					}
 					
 					var lists = listContainer.listItems;
 					
@@ -46,7 +30,6 @@
 					// ^ now, should be auto generated 
 					
 					if(lists.length == 0)	{
-						//because we have default lists, do report that patient lists are empty
 						if($(listType+'ListDiv')){
 							$(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b><br/><br/>";
 					    }
@@ -65,8 +48,9 @@
 						var status = "<span id=\""+lists[t].listName+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
 						var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
 						var theName = lists[t].listName;
+						var itemCount = lists[t].itemCount;
 						
-						var listSubTypes = (lists[t].listSubTypes && lists[t].listSubTypes.length > 0) ? lists[t].listSubTypes.join(",") : Array();
+						var listSubTypes = (lists[t].listSubTypes && lists[t].listSubTypes.length > 0) ? lists[t].listSubTypes.join(",") : "";
 						var lstyle = listSubTypes.indexOf(listContainer.highlightType)!= -1 ? "color:#000000;" : "";			
 						// += or =
 						tst +=  "<div id='"
@@ -74,11 +58,12 @@
 		                    + "' class='listListing'>" 
 		                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +theName+ "'/>"
 		                    + "<b style='"+lstyle+"' title='"+theName+"'>"
-		                    + shortName + "</b>"
+		                    + shortName + "</b> (" + listSubTypes + ") "
+		                    + "<span id='"+theName+"_count'>" + itemCount + " items</span>" 
 		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;' onclick='ManageListHelper.getDetails(\""
 		                    + theName
 		                    + "\");return false;'>"
-		                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>show/hide details" + status + "</div>"
+		                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>details" + status + "</div>"
 		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;'  onclick='ManageListHelper.deleteList(\""
 		                    + theName
 		                    + "\");return false;'>"
@@ -213,6 +198,11 @@
 			Element.remove(name + itemId + "_div");	
 			try	{
 				SidebarHelper.loadSidebar();
+				//update the count
+				if($(name+"_count"))	{
+					var tmp = $(name+"_count").innerHTML;
+					$(name+"_count").innerHTML = parseInt(tmp) - 1;
+				}
 			}
 			catch(err){} 	
 		},
@@ -248,6 +238,8 @@
 		 		 document.getElementById(listName + "details").appendChild(dDIV);
 		 		//setup a handle to the working container
 		 		var wDiv = $(listName + "detailsDiv");
+		 		wDiv.style.borderLeft = "1px dashed red";
+		 		wDiv.style.marginLeft = "20px";
 		 		if(items.length > 0)	{
 		 			var tmp = "";
 					for(var i=0; i<items.length; i++)	{
@@ -259,7 +251,7 @@
 					wDiv.innerHTML += tmp;
 					     
 					var eid = encodeURIComponent(listName);
-					wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+eid+"';\" style='margin-top:10px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
+					wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+eid+"';\" style='margin:20px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
 				}
 				else{
 			    	document.getElementById(listName + "details").appendChild(dDIV);
@@ -267,14 +259,14 @@
 				}
 			     
 			    if(!invalidItems.length < 1)	{
-					wDiv.innerHTML += "<span id='invalid_span' style='color:gray; padding:3px'>Invalid items: ";
+					wDiv.innerHTML += "<span id='invalid_span' style='color:gray; padding:3px'><br/>Invalid or does not exist in the database:<br/> ";
 					for(var i=0; i<invalidItems.length; i++){
 						invalidItemId = invalidItems[i];
 						if((i+1) == invalidItems.length){
 							wDiv.innerHTML += invalidItemId;
 						}
 						else{
-							wDiv.innerHTML += invalidItemId + ",";
+							wDiv.innerHTML += invalidItemId + ", ";
 						}
 					}
 							

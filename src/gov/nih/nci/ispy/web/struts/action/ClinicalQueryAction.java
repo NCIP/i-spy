@@ -7,6 +7,7 @@ import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.clinical.AgeCategoryType;
+import gov.nih.nci.ispy.service.clinical.MorphologyType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
 import gov.nih.nci.ispy.service.clinical.RaceType;
@@ -299,10 +300,22 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set morphology keywords
-        if(clinicalForm.getMorphology()!=null && !clinicalForm.getMorphology().equals("")){
+        if(clinicalForm.getMorphology()!=null && clinicalForm.getMorphology().length>0){
+            EnumSet<MorphologyType> morphologySet = EnumSet.noneOf(MorphologyType.class);
+            String[] morphology = clinicalForm.getMorphology();
+            for(int i=0; i<morphology.length;i++){
+                String[] uiDropdownString = morphology[i].split("#");
+                String myClassName = uiDropdownString[0];
+                String myValueName = uiDropdownString[1];    
+                Enum myType = EnumHelper.createType(myClassName,myValueName);
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.MorphologyType.class) {
+                    morphologySet.add((MorphologyType) myType);
+                }                
+            }
+            
             //separate the keywords by parsing string separated by lines
-            String[] keywords = clinicalForm.getMorphology().split(System.getProperty("line.separator"));
-            dto.setMorphology(keywords);
+            //String[] keywords = clinicalForm.getMorphology().split(System.getProperty("line.separator"));
+            dto.setMorphologyValues(morphologySet);
         }
         
         //set ld size ... future impl
@@ -341,6 +354,7 @@ public class ClinicalQueryAction extends DispatchAction {
         clinicalForm.setLdTimepointRangeCollection(clinicalGroupRetriever.getLdPercentChangeCollection());
         clinicalForm.setRaceCollection(clinicalGroupRetriever.getRaceCollection());
         clinicalForm.setAgeCollection(clinicalGroupRetriever.getAgeCollection());
+        clinicalForm.setMorphologyCollection(clinicalGroupRetriever.getMorphologyCollection());
         
         return mapping.findForward("backToClinicalQuery");
     }

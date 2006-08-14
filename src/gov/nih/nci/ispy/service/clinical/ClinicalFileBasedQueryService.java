@@ -416,19 +416,19 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		}
 		
 		
-		//Get IDs for morpholigic stage
-		if ((cDTO.getMorphology()!=null)&&(cDTO.getMorphology().length > 0)) {
-		  queryResult = getPatientDIDsForMorphology(cDTO.getMorphology());
-		  
-		  if (patientDIDs == null) {
-	        patientDIDs = new HashSet<String>();
-	        patientDIDs.addAll(queryResult);
-	      } 
-	      else {
-	        patientDIDs.retainAll(queryResult);
-	      }	  	
-		  
-		}
+//		//Get IDs for morpholigic stage
+//		if ((cDTO.getMorphology()!=null)&&(cDTO.getMorphology().length > 0)) {
+//		  queryResult = getPatientDIDsForMorphology(cDTO.getMorphology());
+//		  
+//		  if (patientDIDs == null) {
+//	        patientDIDs = new HashSet<String>();
+//	        patientDIDs.addAll(queryResult);
+//	      } 
+//	      else {
+//	        patientDIDs.retainAll(queryResult);
+//	      }	  	
+//		  
+//		}
 		
 				
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {

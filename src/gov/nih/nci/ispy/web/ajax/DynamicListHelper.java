@@ -80,6 +80,16 @@ public class DynamicListHelper {
 		return CommonListFunctions.createGenericList(ListType.PatientDID, Arrays.asList(list), name, listValidator);
 	}
 	
+	public static String getAllLists()	{
+		//create a list of allowable types
+		ArrayList listTypesList = new ArrayList();
+		for(ListType l  : ListType.values())	{
+			listTypesList.add(l.toString());
+		}
+		//call CommonListFunctions.getAllLists(listTypesList);
+		return CommonListFunctions.getAllLists(listTypesList);
+	}
+	
 	public static String createGeneList(List<String> list, String name) throws OperationNotSupportedException{
         ISPYListValidator listValidator = new ISPYListValidator(ListType.Gene,list);
         return CommonListFunctions.createGenericList(ListType.Gene, list, name, listValidator);

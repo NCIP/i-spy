@@ -7,6 +7,7 @@ import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
+import gov.nih.nci.ispy.service.clinical.MorphologyType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
@@ -44,6 +45,8 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	private EnumSet<PRstatusType> prStatusValues = null;
 	
 	private EnumSet<AgeCategoryType> ageCategoryValues = null;
+    
+    private EnumSet<MorphologyType> morphologyValues = null;
 	
 	private EnumSet<RaceType> raceValues = null;
     
@@ -53,7 +56,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
     private Operator pathTumorSizeOperator;
     private Double pathTumorSize = null;
     
-    private String[] morphology;
+//    private String[] morphology;
     
 //    private String ldLengthOperator;
 //    private double ldLength;
@@ -273,20 +276,20 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
         this.pathTumorSize = microSize;
     }
 
-
+    
     /**
-     * @return Returns the morphology.
+     * @return Returns the morphologyValues.
      */
-    public String[] getMorphology() {
-        return morphology;
+    public EnumSet<MorphologyType> getMorphologyValues() {
+        return morphologyValues;
     }
 
 
     /**
-     * @param morphology The morphology to set.
+     * @param morphologyValues The morphologyValues to set.
      */
-    public void setMorphology(String[] morphology) {
-        this.morphology = morphology;
+    public void setMorphologyValues(EnumSet<MorphologyType> morphologyValues) {
+        this.morphologyValues = morphologyValues;
     }
 
 
@@ -359,8 +362,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 	public void setAgeCategoryValues(EnumSet<AgeCategoryType> ageCategoryValues) {
 		this.ageCategoryValues = ageCategoryValues;
 	}
-
-
+	
 	public EnumSet<RaceType> getRaceValues() {
 		return raceValues;
 	}

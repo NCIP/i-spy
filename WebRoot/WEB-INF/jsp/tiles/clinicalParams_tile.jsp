@@ -44,7 +44,7 @@
 								
 			</div>
 			<div>
-					<b class="subfield">Response</b>
+					<b class="subfield">Clinical Response</b>
 					<html:select property="response" size="4" multiple="true">
 						<html:optionsCollection property="responseCollection" />
 					</html:select>
@@ -57,14 +57,7 @@
 	  				</html:select>
 					<html:text property="diameter" />(cm)
 			</div>-->
-			<html:errors property="pathTumorSizeParse" />
-			<div>
-					<b class="subfield">Path. Tumor Size</b>					
-					<html:select property="pathTumorSizeOperator">			
-						<html:optionsCollection property="operators" />
-	  				</html:select>
-					<html:text property="pathTumorSize" />(cm)
-			</div>
+			
 			<div>
 			      <b class="subfield">Race</b>
 			      <html:select property="race" size="4" multiple="true">			            

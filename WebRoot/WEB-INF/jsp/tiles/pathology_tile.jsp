@@ -5,11 +5,18 @@
 
 
 <fieldset class="gray">
-<legend class="red">Receptor Status
+<legend class="red">Pathology
 <app:help help="Select receptor status to further filter the query" />
 </legend>
 	      <div class="mains">
-	      
+	      <html:errors property="pathTumorSizeParse" />
+			<div>
+					<b class="subfield">Path. Tumor Size</b>					
+					<html:select property="pathTumorSizeOperator">			
+						<html:optionsCollection property="operators" />
+	  				</html:select>
+					<html:text property="pathTumorSize" />(cm)
+			</div>
 	      <div>
 	        <b class="subfield">Status</b>
 					<html:select property="receptorStatus" multiple="true" size="4">

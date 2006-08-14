@@ -10,8 +10,11 @@
 </legend>
 	<div class="mains">
 	      <div>
-	        <b class="subfield">Morphology <br/>(keyword matches)</b>
-					<html:textarea property="morphology" value="" rows="3" cols="40" />									
+	        <b class="subfield">Morphology</b>
+					<!--<html:textarea property="morphology" value="" rows="3" cols="40" />	-->
+					<html:select property="morphology" multiple="true" size="4">			
+						<html:optionsCollection property="morphologyCollection" />
+	  				</html:select>								
 			</div>		
 			
 			<!--<div>
