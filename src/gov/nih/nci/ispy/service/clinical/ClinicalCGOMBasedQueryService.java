@@ -569,9 +569,10 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////
         // Handle the node morphology list
         /////////////////////////////////////////////////////
-        if (dto.getMorphology() != null)
+        if (dto.getMorphologyValues() != null)
         {
-            String[] theMorphology = dto.getMorphology();
+        	/*
+            EnumSet<MorphologyType> theMorphology = dto.getMorphologyValues();
             Set<String> theNodalMorphList = new HashSet<String>();
 
             for (int i = 0; i < theMorphology.length; i++)
@@ -580,6 +581,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
             }
 
             theBCCriteria.setNodalMorphologyCollection(theNodalMorphList);
+            */
         }
 
         /////////////////////////////////////////////////////
