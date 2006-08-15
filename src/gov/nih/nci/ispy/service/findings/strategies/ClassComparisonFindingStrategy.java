@@ -118,7 +118,7 @@ import org.apache.log4j.Logger;
 * 
 */
 
-public class ClassComparisonFindingStrategy implements FindingStrategy {
+public class ClassComparisonFindingStrategy extends SessionBasedFindingStrategy {
 	private static Logger logger = Logger.getLogger(ClassComparisonFindingStrategy.class);	
 	@SuppressWarnings("unused")
 	private ClassComparisonQueryDTO myQueryDTO;
@@ -127,21 +127,20 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 	//@SuppressWarnings({"unchecked"})
 	private List<SampleGroup> sampleGroups = new ArrayList<SampleGroup>(); 
 	private Collection<SampleIDDE> samplesNotFound = new HashSet<SampleIDDE>(); 
-	private String sessionId;
-	private String taskId;
 	private ClassComparisonRequest classComparisonRequest = null;
 	private ClassComparisonFinding classComparisonFinding;
 	private AnalysisServerClientManager analysisServerClientManager;
 	private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
 	
 	public ClassComparisonFindingStrategy(String sessionId, String taskId, ClassComparisonQueryDTO queryDTO) throws ValidationException {
+		
+		super(sessionId, taskId);
 		//Check if the passed query is valid
 		
 		//if(validate(queryDTO)){
 			myQueryDTO = queryDTO;
-			this.sessionId = sessionId;
-			this.taskId = taskId;
-			classComparisonRequest = new ClassComparisonRequest(this.sessionId,this.taskId);
+			
+			classComparisonRequest = new ClassComparisonRequest(getSessionId(),getTaskId());
             try {
                 analysisServerClientManager = AnalysisServerClientManager.getInstance();
             } catch (NamingException e) {               
@@ -439,14 +438,14 @@ public class ClassComparisonFindingStrategy implements FindingStrategy {
 		}		
 		return _valid;
 	}
-	private void setSamplesNotFound(Collection<SampleIDDE>  samplesNotFound ){
-		classComparisonFinding = (ClassComparisonFinding) cacheManager.getSessionFinding(sessionId, taskId);
-		if(classComparisonFinding != null){
-			classComparisonFinding.setSamplesNotFound(samplesNotFound);
-			
-		}
-		cacheManager.addToSessionCache(sessionId, taskId, classComparisonFinding);
-
-	}
+//	private void setSamplesNotFound(Collection<SampleIDDE>  samplesNotFound ){
+//		classComparisonFinding = (ClassComparisonFinding) cacheManager.getSessionFinding(getSessionId(), getTaskId());
+//		if(classComparisonFinding != null){
+//			classComparisonFinding.setSamplesNotFound(samplesNotFound);
+//			
+//		}
+//		cacheManager.addToSessionCache(getSessionId(), getTaskId(), classComparisonFinding);
+//
+//	}
 
 }

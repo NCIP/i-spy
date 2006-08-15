@@ -118,14 +118,13 @@ import org.apache.log4j.Logger;
 * 
 */
 
-public class PrincipalComponentAnalysisFindingStrategy implements FindingStrategy {
+public class PrincipalComponentAnalysisFindingStrategy extends SessionBasedFindingStrategy {
 	private static Logger logger = Logger.getLogger(PrincipalComponentAnalysisFindingStrategy.class);	
 	@SuppressWarnings("unused")
 	private ISPYPrincipalComponentAnalysisQueryDTO myQueryDTO;
 	private ReporterGroup reporterGroup; 
 	private SampleGroup sampleGroup = new SampleGroup("validatedSamples");
-	private String sessionId;
-	private String taskId;
+
 //    private Collection<ClinicalDataQuery> clinicalQueries;
 //	private GeneExpressionQuery geneExprQuery;
 	private Collection<CloneIdentifierDE> reportersNotFound;
@@ -138,12 +137,13 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 	
 	
 	public PrincipalComponentAnalysisFindingStrategy(String sessionId, String taskId, PrincipalComponentAnalysisQueryDTO queryDTO) throws ValidationException {
+		super(sessionId, taskId);
+		
 		//Check if the passed query is valid
 		if(validate(queryDTO)){
 			myQueryDTO = (ISPYPrincipalComponentAnalysisQueryDTO) queryDTO;
-			this.sessionId = sessionId;
-			this.taskId = taskId;
-			pcaRequest = new PrincipalComponentAnalysisRequest(this.sessionId,this.taskId);
+		
+			pcaRequest = new PrincipalComponentAnalysisRequest(getSessionId(),getTaskId());
             try {
                 analysisServerClientManager = AnalysisServerClientManager.getInstance();
             } catch (NamingException e) {               
@@ -359,7 +359,7 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 	 * @see gov.nih.nci.caintegrator.service.findings.strategies.FindingStrategy#analyzeResultSet()
 	 */
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
-		pcaRequest = new PrincipalComponentAnalysisRequest(sessionId, taskId);
+		pcaRequest = new PrincipalComponentAnalysisRequest(getSessionId(), getTaskId());
 		pcaRequest.setVarianceFilterValue(myQueryDTO.getGeneVectorPercentileDE().getDecimalValue());
 		
 		ArrayPlatformType arrayPlatform = myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();
@@ -430,30 +430,30 @@ public class PrincipalComponentAnalysisFindingStrategy implements FindingStrateg
 		return _valid;	
 	}
 	private void setSamplesNotFound(Collection<SampleIDDE>  samplesNotFound ){
-		pcaFinding = (PrincipalComponentAnalysisFinding) cacheManager.getSessionFinding(sessionId, taskId);
+		pcaFinding = (PrincipalComponentAnalysisFinding) cacheManager.getSessionFinding(getSessionId(), getTaskId());
 		if(pcaFinding != null){
 			pcaFinding.setSamplesNotFound(samplesNotFound);
 			
 		}
-		cacheManager.addToSessionCache(sessionId, taskId, pcaFinding);
+		cacheManager.addToSessionCache(getSessionId(), getTaskId(), pcaFinding);
 
 	}
 	private void setReportsNotFound(Collection<CloneIdentifierDE> reportersNotFound){
-		pcaFinding = (PrincipalComponentAnalysisFinding) cacheManager.getSessionFinding(sessionId, taskId);
+		pcaFinding = (PrincipalComponentAnalysisFinding) cacheManager.getSessionFinding(getSessionId(), getTaskId());
 		if(pcaFinding != null){
 			pcaFinding.setReportersNotFound(reportersNotFound);
 			
 		}
-		cacheManager.addToSessionCache(sessionId, taskId, pcaFinding);
+		cacheManager.addToSessionCache(getSessionId(), getTaskId(), pcaFinding);
 
 	}
 	private void setGenesNotFound(Collection<GeneIdentifierDE> genesNotFound ){
-		pcaFinding = (PrincipalComponentAnalysisFinding) cacheManager.getSessionFinding(sessionId, taskId);
+		pcaFinding = (PrincipalComponentAnalysisFinding) cacheManager.getSessionFinding(getSessionId(), getTaskId());
 		if(pcaFinding != null){
 			pcaFinding.setGenesNotFound(genesNotFound);
 			
 		}
-		cacheManager.addToSessionCache(sessionId, taskId, pcaFinding);
+		cacheManager.addToSessionCache(getSessionId(), getTaskId(), pcaFinding);
 
 	}
 }

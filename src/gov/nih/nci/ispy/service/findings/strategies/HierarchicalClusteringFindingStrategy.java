@@ -119,14 +119,13 @@ import org.apache.log4j.Logger;
 * 
 */
 
-public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
+public class HierarchicalClusteringFindingStrategy extends SessionBasedFindingStrategy {
 	private static Logger logger = Logger.getLogger(HierarchicalClusteringFindingStrategy.class);	
 	@SuppressWarnings("unused")
 	private ISPYHierarchicalClusteringQueryDTO myQueryDTO;
 	private ReporterGroup reporterGroup; 
 	private SampleGroup sampleGroup;
-	private String sessionId;
-	private String taskId;
+	
 	private Collection<CloneIdentifierDE> reportersNotFound;
 	private Collection<GeneIdentifierDE> genesNotFound;
 	private Collection<SampleIDDE> samplesNotFound;
@@ -139,12 +138,14 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 	private List<String> labtrackIds = Collections.EMPTY_LIST;
 	
 	public HierarchicalClusteringFindingStrategy(String sessionId, String taskId, HierarchicalClusteringQueryDTO queryDTO) throws ValidationException {
+		
+		super(sessionId, taskId);
+		
 		//Check if the passed query is valid
 		if(validate(queryDTO)){
 			myQueryDTO = (ISPYHierarchicalClusteringQueryDTO) queryDTO;
-			this.sessionId = sessionId;
-			this.taskId = taskId;
-			hcRequest = new HierarchicalClusteringRequest(this.sessionId,this.taskId);
+			
+			hcRequest = new HierarchicalClusteringRequest(getSessionId(),getTaskId());
             try {
                 analysisServerClientManager = AnalysisServerClientManager.getInstance();
             } catch (NamingException e) {               
@@ -349,7 +350,7 @@ public class HierarchicalClusteringFindingStrategy implements FindingStrategy {
 	 * @see gov.nih.nci.caintegrator.service.findings.strategies.FindingStrategy#analyzeResultSet()
 	 */
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
-		hcRequest = new HierarchicalClusteringRequest(sessionId, taskId);
+		hcRequest = new HierarchicalClusteringRequest(getSessionId(), getTaskId());
 		hcRequest.setVarianceFilterValue(myQueryDTO.getGeneVectorPercentileDE().getDecimalValue());
 		
 		ArrayPlatformType arrayPlatform = myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType();
