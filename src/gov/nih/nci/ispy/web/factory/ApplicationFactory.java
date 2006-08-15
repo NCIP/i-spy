@@ -1,13 +1,11 @@
 package gov.nih.nci.ispy.web.factory;
 
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.application.cache.CacheFactory;
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.dto.query.QueryType;
 import gov.nih.nci.caintegrator.service.findings.FindingsFactory;
-import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
-import gov.nih.nci.caintegrator.application.cache.BusinessCacheManager;
-import gov.nih.nci.caintegrator.application.cache.CacheFactory;
-import gov.nih.nci.caintegrator.application.cache.PresentationCacheManager;
-import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.ispy.dto.query.ClassComparisonQueryDTOImpl;
 import gov.nih.nci.ispy.dto.query.HierarchicalClusteringQueryDTOImpl;
 import gov.nih.nci.ispy.dto.query.PrincipalComponentAnalysisQueryDTOImpl;
