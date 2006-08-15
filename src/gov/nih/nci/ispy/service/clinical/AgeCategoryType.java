@@ -11,7 +11,10 @@ public enum AgeCategoryType {
 	AGE_50_60  { public String toString() { return "4=50-60"; }
    			     public String getLookupString() { return toString();}} ,			 
     
-   	AGE_60_70  { public String toString() { return "6=70-80"; }
+    AGE_60_70  { public String toString() { return "5=60-70"; }
+                 public String getLookupString() { return toString();}} ,    
+                 
+   	AGE_70_80  { public String toString() { return "6=70-80"; }
 	 			 public String getLookupString() { return toString();}} ,	 		 
 	
 	AGE_80_89  { public String toString() { return "7=80-89"; }
