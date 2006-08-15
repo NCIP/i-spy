@@ -150,6 +150,9 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                 BreastCancerClinicalFinding theBCFinding = (BreastCancerClinicalFinding) theFinding;
                 theReturnSet.add(populatePatientData(theBCFinding));
             }
+
+            // Populate the T2 to T4 data in one big chunk
+            populateT2ToT4Data(theReturnSet);
         }
         catch (Exception e)
         {
@@ -332,19 +335,19 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         //////////////////////////////////////////////////////////
         if (inFinding.getSentinalNodeSampleCollection() != null)
         {
-            if (inFinding.getSentinalNodeSampleCollection().equals("Yes"))
+            if (inFinding.getSentinalNodeSampleCollection().getValue().equals("Yes"))
             {
                 thePatientData.setSentinelNodeSample(POSITIVE_RESULT);
 
                 if (inFinding.getSentinalNodeResult() != null)
                 {
-                    if (inFinding.getSentinalNodeResult().equals("Positive"))
+                    if (inFinding.getSentinalNodeResult().getValue().equals("Positive"))
                     {
-                        thePatientData.setSentinelNodeResult(POSITIVE_RESULT);
+                        thePatientData.setSentinelNodeResult("1=Positive");
                     }
-                    else if (inFinding.getSentinalNodeResult().equals("Negative"))
+                    else if (inFinding.getSentinalNodeResult().getValue().equals("Negative"))
                     {
-                        thePatientData.setSentinelNodeResult(NEGATIVE_RESULT);
+                        thePatientData.setSentinelNodeResult("0=Negative");
                     }
                 }
             }
@@ -375,7 +378,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////////
         if (inFinding.getTumorSizeClinical() != null)
         {
-            thePatientData.setTSizeClinical(inFinding.getTumorSizeClinical().toString());
+            thePatientData.setTSizeClinical(inFinding.getTumorSizeClinical().getAbsoluteValue().toString());
         }
 
         /////////////////////////////////////////////////////////
@@ -383,7 +386,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////////
         if (inFinding.getNodeSizeClinical() != null)
         {
-            thePatientData.setNSizeClinical(inFinding.getNodeSizeClinical().toString());
+            thePatientData.setNSizeClinical(inFinding.getNodeSizeClinical().getAbsoluteValue().toString());
         }
 
         /////////////////////////////////////////////////////////
@@ -474,18 +477,37 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
             thePatientData.setTAM(inFinding.getTamoxifenReceived().getValue());
         }
 
+        logger.debug("Exiting populatePatientData");
+
+        return thePatientData;
+    }
+
+    // Populate the specific T2 to T4 data 
+    private void populateT2ToT4Data(Set<PatientData> inPatientDataSet)
+    {
+
+        // Loop through the patient data set, and create a hashtable based on the DID as
+        // well as a list of all the DIDs
+        Map<String, PatientData> theHash = new Hashtable<String, PatientData>();
+        Set<String> thePatientDIDs = new HashSet<String>();
+
+        for (PatientData thePatientData : inPatientDataSet)
+        {
+            thePatientDIDs.add(thePatientData.getISPY_ID());
+            theHash.put(thePatientData.getISPY_ID(), thePatientData);
+
+            System.out.println("Putting: " + thePatientData.getISPY_ID() + " " + thePatientData);
+        }
+
         ////////////////////////////////////////////////////////
-        // Populate the T2-T4 data.  Default T1 item has most
-        // of the global data
+        // Query for the T2-T4 data.
         ////////////////////////////////////////////////////////
         ISPYclinicalDataQueryDTO theNonBaselineDTO = new ISPYclinicalDataQueryDTO();
-        Set<String> theRestrainingSamples = new HashSet<String>();
-        theRestrainingSamples.add(thePatientData.getISPY_ID());
 
         EnumSet<TimepointType> theTimeCourseSet = EnumSet.allOf(TimepointType.class);
         theTimeCourseSet.remove(TimepointType.T1);
 
-        theNonBaselineDTO.setRestrainingSamples(theRestrainingSamples);
+        theNonBaselineDTO.setRestrainingSamples(thePatientDIDs);
         theNonBaselineDTO.setTimepointValues(theTimeCourseSet);
         Collection<? extends ClinicalFinding> theFindings = getFindings(theNonBaselineDTO);
 
@@ -496,6 +518,8 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
             {
                 BreastCancerClinicalFinding theBCFinding = (BreastCancerClinicalFinding) theFinding;
 
+                PatientData thePatientData = theHash.get(theBCFinding.getStudyParticipant().getId());
+                
                 if (theBCFinding.getTimeCourse() != null)
                 {
                     // Handle T2 values
@@ -538,10 +562,6 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                 }
             }
         }
-
-        logger.debug("Exiting populatePatientData");
-
-        return thePatientData;
     }
 
     /**
@@ -559,7 +579,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
     }
 
     // Get the findings based on the DTO
-    private Collection<? extends ClinicalFinding> getFindings(ISPYclinicalDataQueryDTO dto)
+    private Collection<? extends ClinicalFinding> getFindings(ISPYclinicalDataQueryDTO inDTO)
     {
         logger.debug("Exiting getFindings");
 
@@ -567,29 +587,27 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         StudyParticipantCriteria theSPCriteria = new StudyParticipantCriteria();
 
         /////////////////////////////////////////////////////
-        // Handle the node morphology list
+        // TODO: Fix Handle the node morphology list
         /////////////////////////////////////////////////////
-        if (dto.getMorphologyValues() != null)
-        {
-        	/*
-            EnumSet<MorphologyType> theMorphology = dto.getMorphologyValues();
-            Set<String> theNodalMorphList = new HashSet<String>();
-
-            for (int i = 0; i < theMorphology.length; i++)
-            {
-                theNodalMorphList.add(theMorphology[i]);
-            }
-
-            theBCCriteria.setNodalMorphologyCollection(theNodalMorphList);
-            */
-        }
+//        if (inDTO.getMorphology() != null)
+//        {
+//            String[] theMorphology = inDTO.getMorphology();
+//            Set<String> theNodalMorphList = new HashSet<String>();
+//
+//            for (int i = 0; i < theMorphology.length; i++)
+//            {
+//                theNodalMorphList.add(theMorphology[i]);
+//            }
+//
+//            theBCCriteria.setNodalMorphologyCollection(theNodalMorphList);
+//        }
 
         /////////////////////////////////////////////////////
         // Handle the agent names list
         /////////////////////////////////////////////////////
-        if (dto.getAgentValues() != null)
+        if (inDTO.getAgentValues() != null)
         {
-            EnumSet<NeoAdjuvantChemoRegimenType> theAgents = dto.getAgentValues();
+            EnumSet<NeoAdjuvantChemoRegimenType> theAgents = inDTO.getAgentValues();
 
             Set<String> theAgentNames = new HashSet<String>();
 
@@ -605,52 +623,106 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////
         // Handle the clinical responses list
         /////////////////////////////////////////////////////
-        if (dto.getClinicalResponseValues() != null)
+        if (inDTO.getClinicalResponseValues() != null)
         {
-            Set<ClinicalResponseType> theClinicalResponses = dto.getClinicalResponseValues();
+            Set<ClinicalResponseType> theClinicalResponses = inDTO.getClinicalResponseValues();
 
             Set<String> theClinicalResponseNames = new HashSet<String>();
 
             for (ClinicalResponseType theClinicalResponse : theClinicalResponses)
             {
-                theClinicalResponseNames.add(theClinicalResponse.toString());
+                if (theClinicalResponse.equals(ClinicalResponseType.CR))
+                {
+                    theClinicalResponseNames.add("1 = CR");
+                }
+                else if (theClinicalResponse.equals(ClinicalResponseType.PR))
+                {
+                    theClinicalResponseNames.add("2 = PR");
+                }
+                else if (theClinicalResponse.equals(ClinicalResponseType.SD))
+                {
+                    theClinicalResponseNames.add("3 = Stable Disease");
+                }
             }
-
+            
+            if (theClinicalResponseNames.size() == 0)
+            {
+                theClinicalResponseNames.add("NO_MATCH");
+            }
             theBCCriteria.setClinicalResponseCollection(theClinicalResponseNames);
         }
 
         /////////////////////////////////////////////////////
         // Handle the clinical stages list
         /////////////////////////////////////////////////////
-        if (dto.getClinicalStageValues() != null)
+        if (inDTO.getClinicalStageValues() != null)
         {
-            Set<ClinicalStageType> theClinicalStages = dto.getClinicalStageValues();
+            Set<ClinicalStageType> theClinicalStages = inDTO.getClinicalStageValues();
 
             Set<String> theClinicalStageNames = new HashSet<String>();
 
             for (ClinicalStageType theClinicalStage : theClinicalStages)
             {
-                theClinicalStageNames.add(theClinicalStage.toString());
+                if (theClinicalStage.equals(ClinicalStageType.I))
+                {
+                    theClinicalStageNames.add("2 = Stage I");
+                }
+                else if (theClinicalStage.equals(ClinicalStageType.II_ALL))
+                {
+                    theClinicalStageNames.add("3 = Stage IIA");
+                    theClinicalStageNames.add("4 = Stage IIB");
+                }
+                else if (theClinicalStage.equals(ClinicalStageType.II_A))
+                {
+                    theClinicalStageNames.add("3 = Stage IIA");
+                }
+                else if (theClinicalStage.equals(ClinicalStageType.II_B))
+                {
+                    theClinicalStageNames.add("4 = Stage IIB");
+                }
+                else if (theClinicalStage.equals(ClinicalStageType.III_ALL))
+                {
+                    theClinicalStageNames.add("5 = Stage IIIA");
+                    theClinicalStageNames.add("6 = Stage IIIB");
+                    theClinicalStageNames.add("7 = Stage IIIC");
+                }
+                else if (theClinicalStage.equals(ClinicalStageType.III_A))
+                {
+                    theClinicalStageNames.add("5 = Stage IIIA");
+                }
+                else if (theClinicalStage.equals(ClinicalStageType.III_B))
+                {
+                    theClinicalStageNames.add("6 = Stage IIIB");
+                }
+                else if (theClinicalStage.equals(ClinicalStageType.III_C))
+                {
+                    theClinicalStageNames.add("7 = Stage IIIC");
+                }
             }
 
+            // Add something that will not match
+            if (theClinicalStageNames.size() == 0)
+            {
+                theClinicalStageNames.add("NO_MATCH");
+            }
             theBCCriteria.setClinicalStageCollection(theClinicalStageNames);
         }
 
         /////////////////////////////////////////////////////
         // Handle the LD 
         /////////////////////////////////////////////////////
-        if (dto.getDiameterOperator() != null)
+        if (inDTO.getDiameterOperator() != null)
         {
-            theBCCriteria.setLongestDiameter(dto.getDiameter());
-            theBCCriteria.setLongestDiameterOperator(dto.getDiameterOperator());
+            theBCCriteria.setLongestDiameter(inDTO.getDiameter());
+            theBCCriteria.setLongestDiameterOperator(inDTO.getDiameterOperator());
         }
 
         /////////////////////////////////////////////////////
         // Handle the ER status values
         /////////////////////////////////////////////////////
-        if (dto.getErStatusValues() != null)
+        if (inDTO.getErStatusValues() != null)
         {
-            Set<ERstatusType> theErStatuses = dto.getErStatusValues();
+            Set<ERstatusType> theErStatuses = inDTO.getErStatusValues();
 
             Set<String> theErStatusNames = new HashSet<String>();
 
@@ -672,9 +744,9 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////
         // Handle the HER2 status values
         /////////////////////////////////////////////////////
-        if (dto.getHer2StatusValues() != null)
+        if (inDTO.getHer2StatusValues() != null)
         {
-            Set<HER2statusType> theHer2Statuses = dto.getHer2StatusValues();
+            Set<HER2statusType> theHer2Statuses = inDTO.getHer2StatusValues();
 
             Set<String> theHer2StatusNames = new HashSet<String>();
 
@@ -690,38 +762,38 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                 }
             }
 
-            theBCCriteria.setHer2CommunityAssessmentCollection(theHer2StatusNames);
+            theBCCriteria.setHer2AssessmentCollection(theHer2StatusNames);
         }
 
         /////////////////////////////////////////////////////
         // Handle the LD percent change
         /////////////////////////////////////////////////////
-        if (dto.getLdPercentChangeOperator() != null && dto.getPercentLDChangeType() != null)
+        if (inDTO.getLdPercentChangeOperator() != null && inDTO.getPercentLDChangeType() != null)
         {
             // Grab the second argument after the _
-            String theChangeType = dto.getPercentLDChangeType().toString();
+            String theChangeType = inDTO.getPercentLDChangeType().toString();
             String theTimeCourse = theChangeType.substring(theChangeType.indexOf('_') + 1);
 
-            theBCCriteria.setPercentLDChange(dto.getLdPercentChange());
-            theBCCriteria.setPercentLDChangeOperator(dto.getLdPercentChangeOperator());
+            theBCCriteria.setPercentLDChange(inDTO.getLdPercentChange());
+            theBCCriteria.setPercentLDChangeOperator(inDTO.getLdPercentChangeOperator());
             theBCCriteria.setPercentLDChangeTimeCourse(theTimeCourse);
         }
 
         /////////////////////////////////////////////////////
         // Handle the pathological tumor size
         /////////////////////////////////////////////////////
-        if (dto.getPathTumorSizeOperator() != null)
+        if (inDTO.getPathTumorSizeOperator() != null)
         {
-            theBCCriteria.setPathologicalTumorSize(dto.getPathTumorSize());
-            theBCCriteria.setPathologicalTumorSizeOperator(dto.getPathTumorSizeOperator());
+            theBCCriteria.setPathologicalTumorSize(inDTO.getPathTumorSize());
+            theBCCriteria.setPathologicalTumorSizeOperator(inDTO.getPathTumorSizeOperator());
         }
 
         /////////////////////////////////////////////////////
         // Handle the PR status values
         /////////////////////////////////////////////////////
-        if (dto.getPrStatusValues() != null)
+        if (inDTO.getPrStatusValues() != null)
         {
-            Set<PRstatusType> thePrStatuses = dto.getPrStatusValues();
+            Set<PRstatusType> thePrStatuses = inDTO.getPrStatusValues();
 
             Set<String> thePrStatusNames = new HashSet<String>();
 
@@ -743,9 +815,9 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////
         // Handle the TimeCourse values
         /////////////////////////////////////////////////////
-        if (dto.getTimepointValues() != null)
+        if (inDTO.getTimepointValues() != null)
         {
-            Set<TimepointType> theTimeCourses = dto.getTimepointValues();
+            Set<TimepointType> theTimeCourses = inDTO.getTimepointValues();
 
             Set<String> theTimecourseNames = new HashSet<String>();
 
@@ -760,9 +832,9 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////
         // Handle the restraining values
         /////////////////////////////////////////////////////
-        if (dto.getRestrainingSamples() != null)
+        if (inDTO.getRestrainingSamples() != null)
         {
-            theSPCriteria.setStudyParticipantIDCollection(dto.getRestrainingSamples());
+            theSPCriteria.setStudyParticipantIDCollection(inDTO.getRestrainingSamples());
             theBCCriteria.setStudyParticipantCriteria(theSPCriteria);
         }
 
