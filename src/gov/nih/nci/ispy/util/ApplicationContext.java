@@ -4,6 +4,8 @@ import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager
 import gov.nih.nci.caintegrator.application.util.PropertyLoader;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
@@ -149,7 +151,13 @@ public class ApplicationContext{
  		   }
         	
            //initialize the ClinicalFileBasedQueryService
-           ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
+           
+ 		   
+ 		   
+ 		   //ClinicalDataService cqs = ClinicalFileBasedQueryService.getInstance();
+           
+             ClinicalDataService cqs = ClinicalDataServiceFactory.getInstance();
+           
            //String clinicalDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_clinical_data_14MARCH06.txt";
            //logger.info("Initializing file based clinical data service fileName=" + clinicalDataFileName);
            //int clinRecordsLoaded  = cqs.setClinicalDataFile(clinicalDataFileName);
@@ -159,8 +167,11 @@ public class ApplicationContext{
            //String patientDataFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_patient_data_5_11.txt";
            String patientDataFileName = System.getProperty("gov.nih.nci.ispyportal.data_directory") + System.getProperty("gov.nih.nci.ispyportal.patient_data");
            logger.info("Clinical data service loading patient data fileName=" + patientDataFileName);
-           int patientRecordsLoaded = cqs.setPatientDataMap(patientDataFileName);
-           logger.info("Clinical data service successfully loaded patient data numRecords=" + patientRecordsLoaded);
+           
+           
+           //TODO put back if using file based
+           //int patientRecordsLoaded = cqs.setPatientDataMap(patientDataFileName);
+           //logger.info("Clinical data service successfully loaded patient data numRecords=" + patientRecordsLoaded);
            
            
            IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();

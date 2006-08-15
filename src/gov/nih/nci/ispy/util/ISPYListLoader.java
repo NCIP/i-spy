@@ -16,6 +16,8 @@ import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ERstatusType;
@@ -47,7 +49,7 @@ public class ISPYListLoader extends ListLoader{
      * @throws OperationNotSupportedException 
      */
     public static UserListBean loadStatusGroups(UserListBean userListBean) throws OperationNotSupportedException{
-        ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
+        ClinicalDataService cqs = ClinicalDataServiceFactory.getInstance();
         ListManager listManager = new ListManager();
         
         /**

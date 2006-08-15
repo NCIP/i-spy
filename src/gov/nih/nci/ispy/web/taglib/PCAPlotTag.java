@@ -11,7 +11,8 @@ import gov.nih.nci.caintegrator.ui.graphing.util.ImageMapUtil;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
-import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
@@ -152,7 +153,7 @@ public class PCAPlotTag extends AbstractGraphingTag {
             
             
             //Get the clinical data for the sampleIds
-        	ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
+        	ClinicalDataService cqs = ClinicalDataServiceFactory.getInstance();
         	IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
             //Map<String, ClinicalData> clinicalDataMap = cqs.getClinicalDataMapForLabtrackIds(sampleIds);              
             
