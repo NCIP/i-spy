@@ -4,19 +4,13 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
-import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
-import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
-import gov.nih.nci.ispy.service.clinical.ERstatusType;
-import gov.nih.nci.ispy.service.clinical.HER2statusType;
-import gov.nih.nci.ispy.service.clinical.PRstatusType;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.PatientData;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.imaging.ImagingFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -242,7 +236,7 @@ public class QuickClinicalReport {
 				//List<RegistrantInfo> registrants = 
 				List<SampleInfo> samples = idMapper.getSampleInfoForLabtrackIds(sampleIds);
 				//List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
-				ClinicalFileBasedQueryService cqs = ClinicalFileBasedQueryService.getInstance();
+				ClinicalDataService cqs = ClinicalDataServiceFactory.getInstance();
 				
 				if(samples.isEmpty())	{
 					html.append("No Data");
