@@ -2,56 +2,27 @@ package gov.nih.nci.ispy.service.findings.strategies;
 
 import gov.nih.nci.caintegrator.analysis.messaging.ClassComparisonRequest;
 import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
-import gov.nih.nci.caintegrator.dto.critieria.InstitutionCriteria;
-import gov.nih.nci.caintegrator.dto.de.ExprFoldChangeDE;
-import gov.nih.nci.caintegrator.dto.de.SampleIDDE;
-import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
-import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
-import gov.nih.nci.caintegrator.dto.query.QueryDTO;
-import gov.nih.nci.caintegrator.dto.view.ClinicalSampleView;
-import gov.nih.nci.caintegrator.dto.view.ViewFactory;
-import gov.nih.nci.caintegrator.dto.view.ViewType;
-import gov.nih.nci.caintegrator.dto.view.Viewable;
-import gov.nih.nci.caintegrator.enumeration.FindingStatus;
-import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
-import gov.nih.nci.caintegrator.enumeration.StatisticalSignificanceType;
-import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
-import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
-import gov.nih.nci.caintegrator.exceptions.ValidationException;
-import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
-import gov.nih.nci.caintegrator.service.findings.Finding;
-import gov.nih.nci.caintegrator.service.findings.strategies.FindingStrategy;
-import gov.nih.nci.caintegrator.util.ValidationUtility;
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
-//import gov.nih.nci.rembrandt.dto.query.ClinicalDataQuery;
-//import gov.nih.nci.rembrandt.dto.query.CompoundQuery;
-//import gov.nih.nci.rembrandt.queryservice.ResultsetManager;
-//import gov.nih.nci.rembrandt.queryservice.resultset.Resultant;
-//import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
-//import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
-import gov.nih.nci.caintegrator.application.util.ApplicationContext;
+import gov.nih.nci.caintegrator.dto.de.ExprFoldChangeDE;
+import gov.nih.nci.caintegrator.dto.de.SampleIDDE;
+import gov.nih.nci.caintegrator.dto.query.*;
+import gov.nih.nci.caintegrator.enumeration.*;
+import gov.nih.nci.caintegrator.exceptions.*;
+import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
+import gov.nih.nci.caintegrator.service.findings.Finding;
+import gov.nih.nci.caintegrator.util.ValidationUtility;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.dto.query.PatientUserListQueryDTO;
-import gov.nih.nci.ispy.service.annotation.ISPYDataType;
-import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
-import gov.nih.nci.ispy.service.annotation.SampleInfo;
-import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
-import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.annotation.*;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
+import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
-import javax.naming.OperationNotSupportedException;
 
 import org.apache.log4j.Logger;
 
@@ -212,7 +183,7 @@ public class ClassComparisonFindingStrategy extends SessionBasedFindingStrategy 
 		List<ClinicalQueryDTO> clinicalQueries = myQueryDTO.getComparisonGroups();
 		
 		Set<String> labtrackIds = new HashSet<String>();
-		ClinicalFileBasedQueryService qs = ClinicalFileBasedQueryService.getInstance();
+        ClinicalDataService qs = ClinicalDataServiceFactory.getInstance();
 		IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
 		
 		for (ClinicalQueryDTO cq : clinicalQueries) {
