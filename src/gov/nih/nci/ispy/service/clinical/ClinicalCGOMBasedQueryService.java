@@ -240,6 +240,38 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         }
 
         //////////////////////////////////////////////////////////
+        // Map the HER2 assessment method
+        //////////////////////////////////////////////////////////
+        if (inFinding.getHer2AssessmentMethod() != null)
+        {
+            thePatientData.setHER2CommunityMethod(inFinding.getHer2AssessmentMethod().getValue().toString());
+        }
+
+        //////////////////////////////////////////////////////////
+        // Map the HER2 assessment
+        //////////////////////////////////////////////////////////
+        if (inFinding.getHer2Assessment() != null)
+        {
+            thePatientData.setHER2CommunityPOS(inFinding.getHer2Assessment().getValue().toString());
+        }
+
+        //////////////////////////////////////////////////////////
+        // Map pathlogical tumor size
+        //////////////////////////////////////////////////////////
+        if (inFinding.getPathologicalTumorSize() != null)
+        {
+            thePatientData.setPTumor1SZCM_MICRO(inFinding.getPathologicalTumorSize().getAbsoluteValue());
+        }
+
+        //////////////////////////////////////////////////////////
+        // Map clinical stage
+        //////////////////////////////////////////////////////////
+        if (inFinding.getClinicalStage() != null)
+        {
+            thePatientData.setClinicalStage(inFinding.getClinicalStage().getValue());
+        }
+
+        //////////////////////////////////////////////////////////
         // Handle the Activity mapping
         //////////////////////////////////////////////////////////
         if (inFinding.getStudyParticipant().getActivityCollection() != null)
@@ -519,7 +551,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                 BreastCancerClinicalFinding theBCFinding = (BreastCancerClinicalFinding) theFinding;
 
                 PatientData thePatientData = theHash.get(theBCFinding.getStudyParticipant().getId());
-                
+
                 if (theBCFinding.getTimeCourse() != null)
                 {
                     // Handle T2 values
@@ -587,20 +619,20 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         StudyParticipantCriteria theSPCriteria = new StudyParticipantCriteria();
 
         /////////////////////////////////////////////////////
-        // TODO: Fix Handle the node morphology list
+        // Handle the morphology TODO: Fix once it's determined what to do
         /////////////////////////////////////////////////////
-//        if (inDTO.getMorphology() != null)
-//        {
-//            String[] theMorphology = inDTO.getMorphology();
-//            Set<String> theNodalMorphList = new HashSet<String>();
-//
-//            for (int i = 0; i < theMorphology.length; i++)
-//            {
-//                theNodalMorphList.add(theMorphology[i]);
-//            }
-//
-//            theBCCriteria.setNodalMorphologyCollection(theNodalMorphList);
-//        }
+        if (inDTO.getMorphologyValues() != null)
+        {
+            //            EnumSet<MorphologyType> theMorphologyValues = inDTO.getMorphologyValues();
+            //            Set<String> theNodalMorphList = new HashSet<String>();
+            //
+            //            for (MorphologyType theMorphologyType : theMorphologyValues)
+            //            {
+            //                theNodalMorphList.add(theMorphologyType.name());
+            //            }
+            //
+            //            theBCCriteria.setNodalMorphologyCollection(theNodalMorphList);
+        }
 
         /////////////////////////////////////////////////////
         // Handle the agent names list
@@ -644,7 +676,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                     theClinicalResponseNames.add("3 = Stable Disease");
                 }
             }
-            
+
             if (theClinicalResponseNames.size() == 0)
             {
                 theClinicalResponseNames.add("NO_MATCH");
@@ -813,22 +845,40 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         }
 
         /////////////////////////////////////////////////////
+        // Handle the RaceType values
+        /////////////////////////////////////////////////////
+        if (inDTO.getRaceValues() != null)
+        {
+            Set<RaceType> theRaceTypes = inDTO.getRaceValues();
+
+            Set<String> theRaceTypeNames = new HashSet<String>();
+
+            for (RaceType theRaceType : theRaceTypes)
+            {
+                theRaceTypeNames.add(theRaceType.toString());
+            }
+
+            theSPCriteria.setRaceCodeCollection(theRaceTypeNames);
+            theBCCriteria.setStudyParticipantCriteria(theSPCriteria);
+        }
+
+        /////////////////////////////////////////////////////
         // Handle the TimeCourse values
         /////////////////////////////////////////////////////
         if (inDTO.getTimepointValues() != null)
         {
-            Set<TimepointType> theTimeCourses = inDTO.getTimepointValues();
+            Set<TimepointType> theTimepointTypes = inDTO.getTimepointValues();
 
-            Set<String> theTimecourseNames = new HashSet<String>();
+            Set<String> theTimepointNames = new HashSet<String>();
 
-            for (TimepointType theTimecourse : theTimeCourses)
+            for (TimepointType theTimepointType : theTimepointTypes)
             {
-                theTimecourseNames.add(theTimecourse.toString());
+                theTimepointNames.add(theTimepointType.toString());
             }
 
-            theBCCriteria.setTimeCourseCollection(theTimecourseNames);
+            theBCCriteria.setTimeCourseCollection(theTimepointNames);
         }
-
+        
         /////////////////////////////////////////////////////
         // Handle the restraining values
         /////////////////////////////////////////////////////
