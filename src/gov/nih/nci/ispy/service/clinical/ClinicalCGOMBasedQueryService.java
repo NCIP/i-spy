@@ -152,7 +152,10 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
             }
 
             // Populate the T2 to T4 data in one big chunk
-            populateT2ToT4Data(theReturnSet);
+            if (theReturnSet.size() > 0)
+            {
+                populateT2ToT4Data(theReturnSet);
+            }
         }
         catch (Exception e)
         {
