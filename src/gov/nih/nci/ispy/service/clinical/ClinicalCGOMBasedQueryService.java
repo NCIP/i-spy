@@ -527,8 +527,6 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         {
             thePatientDIDs.add(thePatientData.getISPY_ID());
             theHash.put(thePatientData.getISPY_ID(), thePatientData);
-
-            System.out.println("Putting: " + thePatientData.getISPY_ID() + " " + thePatientData);
         }
 
         ////////////////////////////////////////////////////////
@@ -634,6 +632,67 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
             //            theBCCriteria.setNodalMorphologyCollection(theNodalMorphList);
         }
 
+        //////////////////////////////////////////////////////////
+        // Handle the age 
+        //////////////////////////////////////////////////////////
+        if (inDTO.getAgeCategoryValues() != null)
+        {
+            EnumSet<AgeCategoryType> theAgeCategoryValues = inDTO.getAgeCategoryValues();
+
+            Set<NumericMeasurement> theAges = new HashSet<NumericMeasurement>();
+
+            for (AgeCategoryType theAgeCategory : theAgeCategoryValues)
+            {
+                NumericMeasurement theAgeMeasurement = new NumericMeasurement();
+
+                if (theAgeCategory.equals(AgeCategoryType.AGE_18_30))
+                {
+                    theAgeMeasurement.setMinValue(18.0);
+                    theAgeMeasurement.setMaxValue(30.0);
+                }
+                else if (theAgeCategory.equals(AgeCategoryType.AGE_31_40))
+                {
+                    theAgeMeasurement.setMinValue(31.0);
+                    theAgeMeasurement.setMaxValue(40.0);
+                }
+                else if (theAgeCategory.equals(AgeCategoryType.AGE_40_50))
+                {
+                    theAgeMeasurement.setMinValue(40.0);
+                    theAgeMeasurement.setMaxValue(50.0);
+                }
+                else if (theAgeCategory.equals(AgeCategoryType.AGE_50_60))
+                {
+                    theAgeMeasurement.setMinValue(50.0);
+                    theAgeMeasurement.setMaxValue(60.0);
+                }
+                else if (theAgeCategory.equals(AgeCategoryType.AGE_60_70))
+                {
+                    theAgeMeasurement.setMinValue(60.0);
+                    theAgeMeasurement.setMaxValue(70.0);
+                }
+                else if (theAgeCategory.equals(AgeCategoryType.AGE_70_80))
+                {
+                    theAgeMeasurement.setMinValue(70.0);
+                    theAgeMeasurement.setMaxValue(80.0);
+                }
+                else if (theAgeCategory.equals(AgeCategoryType.AGE_80_89))
+                {
+                    theAgeMeasurement.setMinValue(80.0);
+                    theAgeMeasurement.setMaxValue(89.0);
+                }
+                else if (theAgeCategory.equals(AgeCategoryType.AGE_GE_89_OR_NA))
+                {
+                    theAgeMeasurement.setMinValue(89.0);
+                    theAgeMeasurement.setMaxValue(9999.0);
+                }
+
+                theAges.add(theAgeMeasurement);
+            }
+
+            theSPCriteria.setAgeCollection(theAges);
+            theBCCriteria.setStudyParticipantCriteria(theSPCriteria);
+        }
+
         /////////////////////////////////////////////////////
         // Handle the agent names list
         /////////////////////////////////////////////////////
@@ -648,8 +707,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                 theAgentNames.add(theAgent.toString());
             }
 
-            theSPCriteria.setAgentNames(theAgentNames);
-            theBCCriteria.setStudyParticipantCriteria(theSPCriteria);
+            theBCCriteria.setChemoCollection(theAgentNames);
         }
 
         /////////////////////////////////////////////////////
@@ -878,7 +936,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
 
             theBCCriteria.setTimeCourseCollection(theTimepointNames);
         }
-        
+
         /////////////////////////////////////////////////////
         // Handle the restraining values
         /////////////////////////////////////////////////////
@@ -928,7 +986,6 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         dto.setLdPercentChangeOperator(Operator.GE);
 
         long theStartTime = System.currentTimeMillis();
-
 
         Set<PatientData> thePatientSet = getInstance().getClinicalData(dto);
 
