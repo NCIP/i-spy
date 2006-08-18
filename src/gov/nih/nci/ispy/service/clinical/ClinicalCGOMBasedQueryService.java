@@ -487,11 +487,11 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                 /////////////////////////////////////////////////////////
                 // Specifically handle the surgery
                 /////////////////////////////////////////////////////////
-                if (theSurgery.getName() != null && theSurgery.getName().equals("SURGERY") && theSurgery.getDescription() == null)
+                if (theSurgery.getProcedureType() != null && theSurgery.getProcedureType().equals("SURGERY") && theSurgery.getProcedureName() == null)
                 {
                     inPatientData.setSurgery(theSurgery.getStatus());
                 }
-                else if (theSurgery.getDescription() != null)
+                else if (theSurgery.getProcedureName() != null)
                 {
                     ///////////////////////////////////////////////////
                     // Get the status, set it to Yes if it has been 
@@ -507,15 +507,15 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                     ///////////////////////////////////////////////////
                     // Handle the different surgery types
                     ///////////////////////////////////////////////////
-                    if (theSurgery.getDescription().equals("SURGERYLUMPECTOMY"))
+                    if (theSurgery.getProcedureName().equals("SURGERYLUMPECTOMY"))
                     {
                         inPatientData.setSurgeryLumpectomy(theStatus);
                     }
-                    else if (theSurgery.getDescription().equals("SURGERYMASTECTOMY"))
+                    else if (theSurgery.getProcedureName().equals("SURGERYMASTECTOMY"))
                     {
                         inPatientData.setSurgeryMastectomy(theStatus);
                     }
-                    else if (theSurgery.getDescription().equals("INITLUMP_FUPMAST"))
+                    else if (theSurgery.getProcedureName().equals("INITLUMP_FUPMAST"))
                     {
                         inPatientData.setINITLUMP_FUPMAST(theStatus);
                     }
