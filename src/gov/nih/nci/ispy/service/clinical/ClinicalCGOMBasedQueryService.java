@@ -63,8 +63,7 @@ import gov.nih.nci.breastCancer.service.ClinicalFindingHandler;
 import gov.nih.nci.caintegrator.domain.common.bean.NumericMeasurement;
 import gov.nih.nci.caintegrator.domain.finding.clinical.bean.ClinicalFinding;
 import gov.nih.nci.caintegrator.domain.finding.clinical.breastCancer.bean.BreastCancerClinicalFinding;
-import gov.nih.nci.caintegrator.domain.study.bean.Activity;
-import gov.nih.nci.caintegrator.domain.study.bean.Procedure;
+import gov.nih.nci.caintegrator.domain.study.bean.*;
 import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.caintegrator.util.HibernateUtil;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
@@ -227,11 +226,21 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         }
 
         //////////////////////////////////////////////////////////
-        // Map the survival status - TODO make sure the data is in the DB correctly
+        // Map the survival status
         //////////////////////////////////////////////////////////
         if (inFinding.getStudyParticipant().getSurvivalStatus() != null)
         {
-            thePatientData.setSSTAT(inFinding.getStudyParticipant().getSurvivalStatus());
+            String theSStat = "";
+            if (inFinding.getStudyParticipant().getSurvivalStatus().equals("Y")) {
+                theSStat = "7=Alive";
+            }
+            else if (inFinding.getStudyParticipant().getSurvivalStatus().equals("N")) {
+                theSStat = "8=Dead";
+            }
+            else if (inFinding.getStudyParticipant().getSurvivalStatus().equals("U")) {
+                theSStat = "9=Lost";
+            }
+            thePatientData.setSSTAT(theSStat);
         }
 
         //////////////////////////////////////////////////////////
@@ -279,82 +288,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         //////////////////////////////////////////////////////////
         if (inFinding.getStudyParticipant().getActivityCollection() != null)
         {
-            Set<Activity> theActivities = inFinding.getStudyParticipant().getActivityCollection();
-
-            for (Activity theActivity : theActivities)
-            {
-                /////////////////////////////////////////////////////////
-                // Handle the procedure types
-                /////////////////////////////////////////////////////////
-                if (theActivity instanceof Procedure)
-                {
-                    Procedure theProcedure = (Procedure) theActivity;
-
-                    /////////////////////////////////////////////////////////
-                    // Specifically handle the radiation
-                    /////////////////////////////////////////////////////////
-                    if (theProcedure.getName().equals("RADIATION THERAPY"))
-                    {
-                        ///////////////////////////////////////////////////
-                        // Get the status, set it to Yes if it has been 
-                        // administered
-                        ///////////////////////////////////////////////////
-                        String theStatus = NEGATIVE_RESULT;
-
-                        if (theProcedure.getStatus().contains("Yes"))
-                        {
-                            theStatus = POSITIVE_RESULT;
-                        }
-
-                        // No target site; flag for entire therapy, and handle status slightly differently
-                        if (theProcedure.getTargetSiteCode() == null)
-                        {
-                            if (theStatus.equals(POSITIVE_RESULT))
-                            {
-                                thePatientData.setRTTherapy("2=Yes");
-                            }
-                            else
-                            {
-                                thePatientData.setRTTherapy("1=No");
-                            }
-                        }
-                        else
-                        {
-                            ///////////////////////////////////////////////////
-                            // Handle the different locations
-                            ///////////////////////////////////////////////////
-                            if (theProcedure.getTargetSiteCode().equals("RTBREAST"))
-                            {
-                                thePatientData.setRTBreast(theStatus);
-                            }
-                            else if (theProcedure.getTargetSiteCode().equals("RTBOOST"))
-                            {
-                                thePatientData.setRTBOOST(theStatus);
-                            }
-                            else if (theProcedure.getTargetSiteCode().equals("RTAXILLA"))
-                            {
-                                thePatientData.setRTAXILLA(theStatus);
-                            }
-                            else if (theProcedure.getTargetSiteCode().equals("RTSNODE"))
-                            {
-                                thePatientData.setRTSNODE(theStatus);
-                            }
-                            else if (theProcedure.getTargetSiteCode().equals("RTIMAMNODE"))
-                            {
-                                thePatientData.setRTIMAMNODE(theStatus);
-                            }
-                            else if (theProcedure.getTargetSiteCode().equals("RTCHESTW"))
-                            {
-                                thePatientData.setRTChestW(theStatus);
-                            }
-                            else if (theProcedure.getTargetSiteCode().equals("RTOTHER"))
-                            {
-                                thePatientData.setRTOTHER(theStatus);
-                            }
-                        }
-                    }
-                }
-            }
+            handleActivities(inFinding, thePatientData);
         }
 
         //////////////////////////////////////////////////////////
@@ -461,7 +395,8 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////////
         if (inFinding.getNumNodesExamined() != null)
         {
-            thePatientData.setNodesExamined(inFinding.getNumNodesExamined().getAbsoluteValue().toString());
+            Integer theNumNodesExamined = inFinding.getNumNodesExamined().getAbsoluteValue().intValue();
+            thePatientData.setNodesExamined(theNumNodesExamined.toString());
         }
 
         /////////////////////////////////////////////////////////
@@ -469,7 +404,8 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////////
         if (inFinding.getNumPosNodes() != null)
         {
-            thePatientData.setNumPosNodes(inFinding.getNumPosNodes().getAbsoluteValue().toString());
+            Integer theNumPosNodes = inFinding.getNumPosNodes().getAbsoluteValue().intValue();
+            thePatientData.setNumPosNodes(theNumPosNodes.toString());
         }
 
         /////////////////////////////////////////////////////////
@@ -512,9 +448,152 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
             thePatientData.setTAM(inFinding.getTamoxifenReceived().getValue());
         }
 
+        /////////////////////////////////////////////////////////
+        // DCIS Only
+        /////////////////////////////////////////////////////////
+        if (inFinding.getDcisOnly() != null)
+        {
+            thePatientData.setDCISOnly(inFinding.getDcisOnly().getValue());
+        }
+
+        /////////////////////////////////////////////////////////
+        // Pathology Stage
+        /////////////////////////////////////////////////////////
+        if (inFinding.getPathologyStage() != null)
+        {
+            thePatientData.setPathologyStage(inFinding.getPathologyStage().getValue());
+        }
+
         logger.debug("Exiting populatePatientData");
 
         return thePatientData;
+    }
+
+    // Map the different activity types to the patient object
+    private void handleActivities(BreastCancerClinicalFinding inFinding,
+                                  PatientData inPatientData)
+    {
+        Set<Activity> theActivities = inFinding.getStudyParticipant().getActivityCollection();
+
+        for (Activity theActivity : theActivities)
+        {
+            /////////////////////////////////////////////////////////
+            // Handle the surgery types
+            /////////////////////////////////////////////////////////
+            if (theActivity instanceof Surgery)
+            {
+                Surgery theSurgery = (Surgery) theActivity;
+
+                /////////////////////////////////////////////////////////
+                // Specifically handle the surgery
+                /////////////////////////////////////////////////////////
+                if (theSurgery.getName() != null && theSurgery.getName().equals("SURGERY") && theSurgery.getDescription() == null)
+                {
+                    inPatientData.setSurgery(theSurgery.getStatus());
+                }
+                else if (theSurgery.getDescription() != null)
+                {
+                    ///////////////////////////////////////////////////
+                    // Get the status, set it to Yes if it has been 
+                    // administered
+                    ///////////////////////////////////////////////////
+                    String theStatus = NEGATIVE_RESULT;
+
+                    if (theSurgery.getStatus().contains("yes"))
+                    {
+                        theStatus = POSITIVE_RESULT;
+                    }
+
+                    ///////////////////////////////////////////////////
+                    // Handle the different surgery types
+                    ///////////////////////////////////////////////////
+                    if (theSurgery.getDescription().equals("SURGERYLUMPECTOMY"))
+                    {
+                        inPatientData.setSurgeryLumpectomy(theStatus);
+                    }
+                    else if (theSurgery.getDescription().equals("SURGERYMASTECTOMY"))
+                    {
+                        inPatientData.setSurgeryMastectomy(theStatus);
+                    }
+                    else if (theSurgery.getDescription().equals("INITLUMP_FUPMAST"))
+                    {
+                        inPatientData.setINITLUMP_FUPMAST(theStatus);
+                    }
+                }
+            }
+
+            /////////////////////////////////////////////////////////
+            // Handle the procedure types
+            /////////////////////////////////////////////////////////
+            else if (theActivity instanceof Procedure)
+            {
+                Procedure theProcedure = (Procedure) theActivity;
+
+                /////////////////////////////////////////////////////////
+                // Specifically handle the radiation
+                /////////////////////////////////////////////////////////
+                if (theProcedure.getName().equals("RADIATION THERAPY"))
+                {
+                    ///////////////////////////////////////////////////
+                    // Get the status, set it to Yes if it has been 
+                    // administered
+                    ///////////////////////////////////////////////////
+                    String theStatus = NEGATIVE_RESULT;
+
+                    if (theProcedure.getStatus().contains("Yes"))
+                    {
+                        theStatus = POSITIVE_RESULT;
+                    }
+
+                    // No target site; flag for entire therapy, and handle status slightly differently
+                    if (theProcedure.getTargetSiteCode() == null)
+                    {
+                        if (theStatus.equals(POSITIVE_RESULT))
+                        {
+                            inPatientData.setRTTherapy("2=Yes");
+                        }
+                        else
+                        {
+                            inPatientData.setRTTherapy("1=No");
+                        }
+                    }
+                    else
+                    {
+                        ///////////////////////////////////////////////////
+                        // Handle the different locations
+                        ///////////////////////////////////////////////////
+                        if (theProcedure.getTargetSiteCode().equals("RTBREAST"))
+                        {
+                            inPatientData.setRTBreast(theStatus);
+                        }
+                        else if (theProcedure.getTargetSiteCode().equals("RTBOOST"))
+                        {
+                            inPatientData.setRTBOOST(theStatus);
+                        }
+                        else if (theProcedure.getTargetSiteCode().equals("RTAXILLA"))
+                        {
+                            inPatientData.setRTAXILLA(theStatus);
+                        }
+                        else if (theProcedure.getTargetSiteCode().equals("RTSNODE"))
+                        {
+                            inPatientData.setRTSNODE(theStatus);
+                        }
+                        else if (theProcedure.getTargetSiteCode().equals("RTIMAMNODE"))
+                        {
+                            inPatientData.setRTIMAMNODE(theStatus);
+                        }
+                        else if (theProcedure.getTargetSiteCode().equals("RTCHESTW"))
+                        {
+                            inPatientData.setRTChestW(theStatus);
+                        }
+                        else if (theProcedure.getTargetSiteCode().equals("RTOTHER"))
+                        {
+                            inPatientData.setRTOTHER(theStatus);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     // Populate the specific T2 to T4 data 
