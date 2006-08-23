@@ -33,6 +33,13 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		
 		  if (instance == null) {
 		    instance = new ClinicalFileBasedQueryService();
+		    
+		    String patientDataFileName = System.getProperty("gov.nih.nci.ispyportal.data_directory") + System.getProperty("gov.nih.nci.ispyportal.patient_data");
+	        logger.info("Clinical data service loading patient data fileName=" + patientDataFileName);
+	           
+	        int patientRecordsLoaded = instance.setPatientDataMap(patientDataFileName);
+	        logger.info("Clinical data service successfully loaded patient data numRecords=" + patientRecordsLoaded);
+	           
 		  }
 		  return instance;
 	}
