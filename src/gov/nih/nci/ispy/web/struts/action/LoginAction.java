@@ -1,10 +1,9 @@
 package gov.nih.nci.ispy.web.struts.action;
 
-
 import gov.nih.nci.caintegrator.application.cache.CacheConstants;
-import gov.nih.nci.caintegrator.application.lists.ListManager;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
-import gov.nih.nci.ispy.cache.ISPYContextListener;
+import gov.nih.nci.caintegrator.security.SecurityManager;
+import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.ispy.util.ISPYListLoader;
 import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
@@ -30,10 +29,7 @@ public final class LoginAction extends Action
 {
     private static Logger logger = Logger.getLogger(ispyConstants.LOGGER);
     private static String SEPERATOR = File.separator;
-    private  ListManager uploadManager =(ListManager) ListManager.getInstance();
-    
-    
-    
+
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
@@ -42,50 +38,65 @@ public final class LoginAction extends Action
 		String password = f.getPassword();
 		
 		boolean valid = false;		
-		//load the props file
-		Properties props = new Properties();
 		HttpSession session = request.getSession();
-		ServletContext context = session.getServletContext();
         FileInputStream fsi = null;
+
+		Properties props = new Properties();
+		ServletContext context = session.getServletContext();
         
-	    try {
-            fsi = new FileInputStream(context.getRealPath("WEB-INF")+ SEPERATOR + "users.properties"); 
-	        logger.debug("loading props...");
-	   		props.load(fsi);
-	   		logger.debug("props file length: " + props.size());	
-            fsi.close();
+	    try {				   
+        
+			fsi = new FileInputStream(context.getRealPath("WEB-INF")+ SEPERATOR + "users.properties"); 
+			logger.debug("loading props...");
+			props.load(fsi);
+			logger.debug("props file length: " + props.size());	
+			fsi.close();
+			String authType = props.getProperty("authentication") ;
 			
-			String u = "";
-			String p = "";			
-		
+			if(authType != null && authType.equals("file"))
+			{
+				String u = "";
+				String p = "";			
+			
 				u = props.getProperty("username");
 				p = props.getProperty("password");
-								
+									
 				if(userName.equals(u) && password.equals(p))
 				{
-					//set something in the session here
-					valid = true;
-
-					session.setAttribute("logged", "yes");
-                    session.setAttribute("name", userName);
-                    UserListBean userListBean = new UserListBean();
-                    /*
-                     * instantiate pre-cooked user lists. Files are .txt files in our 
-                     * directory.
-                     */
-                    ISPYListValidator listValidator = new ISPYListValidator();
-                    //String filePath = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar;
-                    
-                    String filePath = System.getProperty("gov.nih.nci.ispyportal.data_directory");
-                    
-                    userListBean = ISPYListLoader.loadLists(userListBean,ispyConstants.ALL_USER_LISTS, filePath, listValidator);  
-                    // load IspySpecific clinical status lists
-                    userListBean = ISPYListLoader.loadStatusGroups(userListBean);
-                    //add userListBean to session
-                    session.setAttribute(CacheConstants.USER_LISTS,userListBean);
-                    
-					return (mapping.findForward("success"));	
+					valid = true ;
 				}
+			}
+			else if(authType != null && authType.equals("ldap"))
+			{
+			    UserCredentials user = null;	    			
+				SecurityManager secManager =  SecurityManager.getInstance() ;
+				user = secManager.authenticate(userName,password);
+				if(user != null)
+				{
+					valid = true ;
+				}						
+			}
+				    	
+										
+			if(valid)
+			{
+				session.setAttribute("logged", "yes");
+                session.setAttribute("name", userName);
+                                   
+                UserListBean userListBean = new UserListBean();
+
+                ISPYListValidator listValidator = new ISPYListValidator();
+                
+                String filePath = System.getProperty("gov.nih.nci.ispyportal.data_directory");
+                
+                userListBean = ISPYListLoader.loadLists(userListBean,ispyConstants.ALL_USER_LISTS, filePath, listValidator);  
+                // load IspySpecific clinical status lists
+                userListBean = ISPYListLoader.loadStatusGroups(userListBean);
+                //add userListBean to session
+                session.setAttribute(CacheConstants.USER_LISTS,userListBean);
+                
+				return (mapping.findForward("success"));	
+			}
 			
 		} catch (Exception e) {
 		    logger.error("Can't read user props");
