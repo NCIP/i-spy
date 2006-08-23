@@ -4,11 +4,26 @@ public class PatientImagingInfo {
 
 	private ImageInfo preImage = null;
 	private ImageInfo postImage = null;
-	private String patientUID = null;
+	private String ispy_id = null;
+	private String acrinPatientId = null;
 	
-	public PatientImagingInfo(String patientUID) {
-	  this.patientUID = patientUID;
+	public PatientImagingInfo(String ispy_id) {
+	  this.ispy_id = ispy_id;
 	}
+	
+
+
+	public String getAcrinPatientId() {
+		return acrinPatientId;
+	}
+
+
+
+	public void setAcrinPatientId(String acrinPatientId) {
+		this.acrinPatientId = acrinPatientId;
+	}
+
+
 
 	public ImageInfo getPostImage() {
 		return postImage;
@@ -26,8 +41,8 @@ public class PatientImagingInfo {
 		this.preImage = preImage;
 	}
 
-	public String getPatientUID() {
-		return patientUID;
+	public String getISPY_id() {
+		return ispy_id;
 	}
 
 }
