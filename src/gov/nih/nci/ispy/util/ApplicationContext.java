@@ -6,15 +6,16 @@ import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
-import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
+import gov.nih.nci.ispy.service.imaging.ImagingDataServiceFactory;
+import gov.nih.nci.ispy.service.imaging.ImagingDataService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -197,6 +198,8 @@ public class ApplicationContext{
 		   logger.info("Initializing GeneExprAnnotationService file=" + annotFileName);
 		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gx_annotations_5-19-06.txt";
 		   int gxRecLoaded = gxAnnotService.setAnnotationFile(annotFileName);
+		   
+		   ImagingDataService ids = ImagingDataServiceFactory.getImagingDataService();
 		   
 		   analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
 		   
