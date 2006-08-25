@@ -10,6 +10,8 @@ import gov.nih.nci.ispy.service.imaging.ImagingDataServiceFactory;
 import gov.nih.nci.ispy.service.imaging.ImagingDataService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
+import gov.nih.nci.ispy.service.imaging.PatientImagingInfo;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -199,7 +201,9 @@ public class ApplicationContext{
 		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gx_annotations_5-19-06.txt";
 		   int gxRecLoaded = gxAnnotService.setAnnotationFile(annotFileName);
 		   
-		   ImagingDataService ids = ImagingDataServiceFactory.getImagingDataService();
+		   ImagingDataServiceFactory.getImagingDataService();  //will initialize the service
+		   
+		   logger.info("ImagingDataService initialized.");
 		   
 		   analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
 		   

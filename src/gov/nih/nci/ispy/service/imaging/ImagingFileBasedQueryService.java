@@ -27,10 +27,12 @@ public class ImagingFileBasedQueryService implements ImagingDataService {
 	public static ImagingDataService getInstance() {
 		
 		String imageMappingFile = System.getProperty("gov.nih.nci.ispyportal.data_directory") + System.getProperty("gov.nih.nci.ispyportal.image_mapping_file");
-		
+		int numMappings = 0;
 		if (instance == null) {
 		   instance = new ImagingFileBasedQueryService();
-		   instance.loadMappingData(imageMappingFile);
+		   numMappings = instance.loadMappingData(imageMappingFile);
+		   
+		   logger.info("Successfully loaded numMappings=" + numMappings);
 		}
 		
 		return instance;
