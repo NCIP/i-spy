@@ -387,7 +387,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////////
         if (inFinding.getNodalMorphology() != null)
         {
-            thePatientData.setMorphPatternBsl(inFinding.getNodalMorphology().getValue());
+            thePatientData.setMorphology(inFinding.getNodalMorphology().getValue());
         }
 
         /////////////////////////////////////////////////////////

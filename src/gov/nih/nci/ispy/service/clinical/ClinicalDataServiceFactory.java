@@ -9,7 +9,8 @@ public class ClinicalDataServiceFactory {
 	}
 	
 	public static ClinicalDataService getInstance() {
-	  return ClinicalCGOMBasedQueryService.getInstance();
+	  //return ClinicalCGOMBasedQueryService.getInstance();
+	  return ClinicalFileBasedQueryService.getInstance();
 	}
 
 }

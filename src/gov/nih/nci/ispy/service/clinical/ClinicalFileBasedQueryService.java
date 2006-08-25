@@ -44,6 +44,21 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  return instance;
 	}
 	
+	
+	/**
+	 * This method checks the tokens array length and returns the token at the 
+	 * specified index.  If the index is longer than the array of tokens, null is returned
+	 * 
+	 * @param tokens
+	 * @return
+	 */
+	private String getToken(String[] tokens, int index) {
+	  if (index >= tokens.length) return null;
+	  
+	  return tokens[index];
+		
+	}
+	
 	public int setPatientDataMap(String patientDataFileName) {
 		
 		int numRecordsLoaded = 0;
@@ -59,76 +74,76 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			while ((line=in.readLine()) != null) {
 				tokens = line.split("\t", -2);
 								
-				PatientData pd = new PatientData(tokens[0]);
+				PatientData pd = new PatientData(getToken(tokens,0));
 				
-				pd.setDataExtractDT(tokens[1]);
-				pd.setInst_ID(tokens[2]);
-				pd.setAgeCategory(tokens[3]);
-				pd.setRace_ID(tokens[4]);
-				pd.setSSTAT(tokens[5]);
-				pd.setSURVDTD(tokens[6]);
-				pd.setChemo(tokens[7]);
-				pd.setTAM(tokens[8]);
-				pd.setHerceptin(tokens[9]);
-				pd.setMenoStatus(tokens[10]);
-				pd.setSentinelNodeSample(tokens[11]);
-				pd.setSentinelNodeResult(tokens[12]);
-				pd.setHistologicGradeOS(tokens[13]);
-				pd.setER_TS(tokens[14]);
-				pd.setPGR_TS(tokens[15]);
-				pd.setHER2CommunityPOS(tokens[16]);
-				pd.setHER2CommunityMethod(tokens[17]);
-				pd.setSurgeryLumpectomy(tokens[18]);
-				pd.setSurgeryMastectomy(tokens[19]);
-				pd.setINITLUMP_FUPMAST(tokens[20]);
-				pd.setSurgery(tokens[21]);
-				pd.setDCISOnly(tokens[22]);
+				pd.setDataExtractDT(getToken(tokens,1));
+				pd.setInst_ID(getToken(tokens,2));
+				pd.setAgeCategory(getToken(tokens,3));
+				pd.setRace_ID(getToken(tokens,4));
+				pd.setSSTAT(getToken(tokens,5));
+				pd.setSURVDTD(getToken(tokens,6));
+				pd.setChemo(getToken(tokens,7));
+				pd.setTAM(getToken(tokens,8));
+				pd.setHerceptin(getToken(tokens,9));
+				pd.setMenoStatus(getToken(tokens,10));
+				pd.setSentinelNodeSample(getToken(tokens,11));
+				pd.setSentinelNodeResult(getToken(tokens,12));
+				pd.setHistologicGradeOS(getToken(tokens,13));
+				pd.setER_TS(getToken(tokens,14));
+				pd.setPGR_TS(getToken(tokens,15));
+				pd.setHER2CommunityPOS(getToken(tokens,16));
+				pd.setHER2CommunityMethod(getToken(tokens,17));
+				pd.setSurgeryLumpectomy(getToken(tokens,18));
+				pd.setSurgeryMastectomy(getToken(tokens,19));
+				pd.setINITLUMP_FUPMAST(getToken(tokens,20));
+				pd.setSurgery(getToken(tokens,21));
+				pd.setDCISOnly(getToken(tokens,22));
 				
-				String doubleStr = tokens[23];
+				String doubleStr = getToken(tokens,23);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setPTumor1SZCM_MICRO(Double.valueOf(doubleStr.trim()));					  
 				}
 				
-				pd.setHistologicGradePS(tokens[24]);
-				pd.setNumPosNodes(tokens[25]);
-				pd.setNodesExamined(tokens[26]);
-				pd.setPathologyStage(tokens[27]);
-				pd.setRTTherapy(tokens[28]);
-				pd.setRTBreast(tokens[29]);
-				pd.setRTBOOST(tokens[30]);
-				pd.setRTAXILLA(tokens[31]);
-				pd.setRTSNODE(tokens[32]);
-				pd.setRTIMAMNODE(tokens[33]);
-				pd.setRTChestW(tokens[34]);
-				pd.setRTOTHER(tokens[35]);
-				pd.setTSizeClinical(tokens[36]);
-				pd.setNSizeClinical(tokens[37]);
-				pd.setStageTE(tokens[38]);
-				pd.setStageNE(tokens[39]);
-				pd.setStageME(tokens[40]);
-				pd.setClinicalStage(tokens[41]);
-				pd.setClinRespT1_T2(tokens[42]);
-				pd.setClinRespT1_T3(tokens[43]);
-				pd.setClinRespT1_T4(tokens[44]);	
+				pd.setHistologicGradePS(getToken(tokens,24));
+				pd.setNumPosNodes(getToken(tokens,25));
+				pd.setNodesExamined(getToken(tokens,26));
+				pd.setPathologyStage(getToken(tokens,27));
+				pd.setRTTherapy(getToken(tokens,28));
+				pd.setRTBreast(getToken(tokens,29));
+				pd.setRTBOOST(getToken(tokens,30));
+				pd.setRTAXILLA(getToken(tokens,31));
+				pd.setRTSNODE(getToken(tokens,32));
+				pd.setRTIMAMNODE(getToken(tokens,33));
+				pd.setRTChestW(getToken(tokens,34));
+				pd.setRTOTHER(getToken(tokens,35));
+				pd.setTSizeClinical(getToken(tokens,36));
+				pd.setNSizeClinical(getToken(tokens,37));
+				pd.setStageTE(getToken(tokens,38));
+				pd.setStageNE(getToken(tokens,39));
+				pd.setStageME(getToken(tokens,40));
+				pd.setClinicalStage(getToken(tokens,41));
+				pd.setClinRespT1_T2(getToken(tokens,42));
+				pd.setClinRespT1_T3(getToken(tokens,43));
+				pd.setClinRespT1_T4(getToken(tokens,44));	
 				
-				doubleStr = tokens[45];
+				doubleStr = getToken(tokens,45);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
 				}
 //				
-				doubleStr = tokens[46];
+				doubleStr = getToken(tokens,46);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
 			    }
 //				
-				doubleStr = tokens[47];
+				doubleStr = getToken(tokens,47);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
 			    }
 //				
 //				
 //
-				pd.setMorphPatternBsl(tokens[48]);
+				pd.setMorphology(getToken(tokens,48));
 				
 				
 				
@@ -423,19 +438,19 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		}
 		
 		
-//		//Get IDs for morpholigic stage
-//		if ((cDTO.getMorphology()!=null)&&(cDTO.getMorphology().length > 0)) {
-//		  queryResult = getPatientDIDsForMorphology(cDTO.getMorphology());
-//		  
-//		  if (patientDIDs == null) {
-//	        patientDIDs = new HashSet<String>();
-//	        patientDIDs.addAll(queryResult);
-//	      } 
-//	      else {
-//	        patientDIDs.retainAll(queryResult);
-//	      }	  	
-//		  
-//		}
+		//Get the ids for morphology
+		if ((cDTO.getMorphologyValues()!= null)&&(!cDTO.getMorphologyValues().isEmpty())) {
+		      
+			  queryResult = getPatientDIDsForMorphology(cDTO.getMorphologyValues());
+				
+		      if (patientDIDs == null) {
+		        patientDIDs = new HashSet<String>();
+		        patientDIDs.addAll(queryResult);
+		      } 
+		      else {
+		        patientDIDs.retainAll(queryResult);
+		      }	  		
+		}
 		
 				
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
@@ -455,33 +470,17 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		
 	}
 	
-	private Set<String> getPatientDIDsForMorphology(String matchStr) {
+	private Set<String> getPatientDIDsForMorphology(Set<MorphologyType> morphologySet) {
 		Set<String> patientDIDs = new HashSet<String>();
-		String morphologyStr, morphologyStrUpper;
-		String matchStrUpper = matchStr.toUpperCase().trim();
-		for (PatientData pd : patientDataMap.values()) {
-			morphologyStr = pd.getMorphPatternBsl();
-			if ((morphologyStr!=null)&&(morphologyStr.trim().length()>0)) {
-				morphologyStrUpper = morphologyStr.toUpperCase().trim();
-				if (morphologyStrUpper.indexOf(matchStrUpper) >= 0) {
-				  patientDIDs.add(pd.getISPY_ID());
-				}
+		
+		for (PatientData pd : patientDataMap.values()) {			
+			if (morphologySet.contains(pd.getMorphology())) {
+			  patientDIDs.add(pd.getISPY_ID());
 			}
 		}
 		return patientDIDs;
 	}
 	
-	private Set<String> getPatientDIDsForMorphology(String[] morphology) {
-		String matchStr;
-		Set<String> matchingDIDs = new HashSet<String>();
-		for (int i=0; i < morphology.length; i++) {
-		  matchStr = morphology[i];
-		  if ((matchStr!=null)&&(matchStr.trim().length() > 0)) {
-		    matchingDIDs.addAll(getPatientDIDsForMorphology(matchStr));
-		  }
-		}
-		return matchingDIDs;
-	}
 
 	/**
 	 * 
@@ -598,7 +597,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	
 	private Set<String> getPatientDIDsForRace(EnumSet<RaceType> raceValues) {
 		Set<String> patientDIDs = new HashSet<String>();
-		RaceType patientRace;
+
 		for (PatientData pd : patientDataMap.values()) {
 			
 		    if (raceValues.contains(pd.getRace())) {
@@ -611,7 +610,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 
 	public Set<PatientData> getClinicalData(ISPYclinicalDataQueryDTO dto) {
 		Set<String> patientDIDs = getPatientDIDs(dto);
-		List<PatientData> patientDataList = getPatientDataForPatientDIDs(new ArrayList(patientDIDs));
+		List<PatientData> patientDataList = getPatientDataForPatientDIDs(new ArrayList<String>(patientDIDs));
 		return new HashSet<PatientData>(patientDataList);
 	}
 

@@ -56,7 +56,9 @@ private String  ispy_id,
     
     private Double ptumor1szcm_micro;
     
-    private String morphPatternBsl;
+    //private String morphPatternBsl;
+    
+    private MorphologyType morphology;
 
 	private ClinicalResponseType clinicalResponse_t1_t3;
 
@@ -630,12 +632,18 @@ private String  ispy_id,
 		this.mriPctChangeT1_T4 = mriPctChangeT1_T4;
 	}
 
-	public String getMorphPatternBsl() {
-		return morphPatternBsl;
+	public MorphologyType getMorphology() {
+		return morphology;
 	}
 
-	public void setMorphPatternBsl(String morphPatternBsl) {
-		this.morphPatternBsl = morphPatternBsl;
+	public void setMorphology(MorphologyType morphology) {
+		this.morphology = morphology;
+	}
+	
+	public void setMorphology(String morphologyStr) {
+	  int morphValue = parseValue(morphologyStr);
+	  MorphologyType morphType = MorphologyType.getTypeForValue(morphValue);
+	  setMorphology(morphType);		
 	}
 
 	public ERstatusType getErStatus() {
