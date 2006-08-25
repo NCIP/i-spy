@@ -193,7 +193,7 @@ public class QuickClinicalReport {
                         tmp = pd.getClinRespT1_T4()!=null  ? pd.getClinRespT1_T4() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
-                        tmp = pd.getMorphPatternBsl()!=null  ? pd.getMorphPatternBsl() : dv;
+                        tmp = pd.getMorphology()!=null  ? pd.getMorphology().toString() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getMriPctChangeT1_T2()!=null  ? String.valueOf(pd.getMriPctChangeT1_T2()) : dv;
@@ -463,7 +463,7 @@ public class QuickClinicalReport {
     								tmp = pd.getClinRespT1_T4()!=null  ? pd.getClinRespT1_T4() : dv;
     								td = tr.addElement("td").addText(tmp);
     								
-    								tmp = pd.getMorphPatternBsl()!=null  ? pd.getMorphPatternBsl() : dv;
+    								tmp = pd.getMorphology()!=null  ? pd.getMorphology().toString() : dv;
     								td = tr.addElement("td").addText(tmp);
     								
     								tmp = pd.getMriPctChangeT1_T2()!=null  ? String.valueOf(pd.getMriPctChangeT1_T2()) : dv;
