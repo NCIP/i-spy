@@ -62,11 +62,11 @@ import java.io.Serializable;
 */
 
 public enum MorphologyType{
-	PATTERN_1{ public String toString(){return "1";}},
-    PATTERN_2{ public String toString(){return "2";}},
-    PATTERN_3{ public String toString(){return "3";}},
-    PATTERN_4{ public String toString(){return "4";}},
-    PATTERN_5{ public String toString(){return "5";}},
+	PATTERN_1{ public String toString(){return "1=Single uni-centric mass with well-defined margin";}},
+    PATTERN_2{ public String toString(){return "2=Multi-lobulated mass with well-defined margin";}},
+    PATTERN_3{ public String toString(){return "3=Area enhancement with irregular margins - with nodularity";}},
+    PATTERN_4{ public String toString(){return "4=Area enhancement with irregular margins - without nodularity";}},
+    PATTERN_5{ public String toString(){return "5=Septal spreading; streaming";}},
     
 }
 
