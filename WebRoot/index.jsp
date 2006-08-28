@@ -117,13 +117,19 @@ response.setHeader("Location",newLocn);
 																	<html:submit />
 																	&nbsp;&nbsp;
 																	<html:reset />
-																</td>
+																</td>																	      
 															</tr>
+													
 														</table>
 
 
 													</html:form>
 													<!--end login form-->
+													<div style="width:80%;margin-left:-20px;">
+												      <ul>
+												       <li><a style="font-size:.9em;" href="mailto:ncicb@pop.nci.nih.gov?subject=ISPY: Request username/password">request username/password</a></li>
+													  <ul>
+													 </div>
 												</div>
 											</div>
 
