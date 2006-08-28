@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 //import gov.nih.nci.caintegrator.application.service.annotation.ReporterResultset;
 //import gov.nih.nci.caintegrator.dto.de.DatumDE;
 
-public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationService {
+public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationService {
 
 	private String annotationFileName;  //full path name to the annotation file.
 	private static GeneExprFileBasedAnnotationService instance = null;
@@ -225,7 +225,18 @@ public class GeneExprFileBasedAnnotationService extends GeneExprAnnotationServic
 	public static GeneExprAnnotationService getInstance() {
 		
 	  if (instance == null) {
+         //if no previous instance of service, load up the annotation file
 	    instance = new GeneExprFileBasedAnnotationService();
+        String annotFileName = System.getProperty("gov.nih.nci.ispyportal.data_directory") + System.getProperty("gov.nih.nci.ispyportal.gx_annotation_file");
+        logger.info("Initializing GeneExprAnnotationService file=" + annotFileName);
+        
+        //set file and calculate duration and number of records loaded
+        int gxRecLoaded = instance.setAnnotationFile(annotFileName);           
+        long startTime = System.currentTimeMillis();
+        long elapsedTime = System.currentTimeMillis() - startTime;
+        logger.info("Finished initializing GeneExprAnnotationService file=" + annotFileName + " time=" + elapsedTime + " numRecords=" + gxRecLoaded);
+           
+           
 	  }
 	  return instance;
 	}

@@ -1,48 +1,25 @@
 package gov.nih.nci.ispy.web.xml;
 
-import gov.nih.nci.caintegrator.analysis.messaging.ClassComparisonResult;
 import gov.nih.nci.caintegrator.analysis.messaging.ClassComparisonResultEntry;
-import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE.GeneSymbol;
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
+import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
 import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
+import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
 
-import gov.nih.nci.caintegrator.application.service.annotation.*;
-import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
-/*
-import gov.nih.nci.rembrandt.queryservice.queryprocessing.ge.annotations.AnnotationHandler;
-import gov.nih.nci.rembrandt.queryservice.queryprocessing.ge.annotations.ReporterAnnotations;
-import gov.nih.nci.rembrandt.queryservice.resultset.DimensionalViewContainer;
-import gov.nih.nci.rembrandt.queryservice.resultset.Resultant;
-import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
-import gov.nih.nci.rembrandt.queryservice.resultset.annotation.GeneExprAnnotationService;
-import gov.nih.nci.rembrandt.queryservice.resultset.gene.GeneExprSingleViewResultsContainer;
-import gov.nih.nci.rembrandt.queryservice.resultset.gene.GeneResultset;
-import gov.nih.nci.rembrandt.queryservice.resultset.gene.ReporterResultset;
-import gov.nih.nci.rembrandt.queryservice.resultset.gene.SampleFoldChangeValuesResultset;
-import gov.nih.nci.rembrandt.queryservice.resultset.gene.ViewByGroupResultset;
-import gov.nih.nci.ispy.web.helper.FilterHelper;
-*/
-import gov.nih.nci.ispy.web.struts.form.ClassComparisonForm;
-
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-
-import java.math.BigDecimal;
 
 /**
  * @author LandyR
@@ -310,7 +287,8 @@ public class ClassComparisonReport{
 				
 				Map reporterResultsetMap = null;
 				try {
-					reporterResultsetMap = GeneExprFileBasedAnnotationService.getInstance().getAnnotationsMapForReporters(reporterIds);
+                    GeneExprAnnotationService geService =  GeneExprAnnotationServiceFactory.getInstance();
+					reporterResultsetMap = geService.getAnnotationsMapForReporters(reporterIds);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -3,6 +3,7 @@
  */
 package gov.nih.nci.ispy.service.findings;
 
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.PrincipalComponentAnalysisQueryDTO;
@@ -21,19 +22,16 @@ import gov.nih.nci.caintegrator.service.findings.GEIntensityFinding;
 import gov.nih.nci.caintegrator.service.findings.HCAFinding;
 import gov.nih.nci.caintegrator.service.findings.KMFinding;
 import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
-import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.ispy.dto.query.IHCqueryDTO;
-import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
-import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
+import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategyFile;
 import gov.nih.nci.ispy.service.findings.strategies.PrincipalComponentAnalysisFindingStrategy;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 
 import org.apache.log4j.Logger;
 
@@ -216,7 +214,7 @@ public class ISPYFindingsFactory implements FindingsFactory {
 		
 		//Will substitute database version when it is ready
 		try {
-		ClinicalFindingStrategy strategy = new ClinicalFindingStrategyFile(sessionId, taskId, query);
+		ClinicalFindingStrategy strategy = new ClinicalFindingStrategyCGOM(sessionId, taskId, query);
 		
 		try {
 			

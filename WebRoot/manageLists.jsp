@@ -1,11 +1,11 @@
 <%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.ListSubType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean, gov.nih.nci.caintegrator.application.lists.ListManager, gov.nih.nci.caintegrator.application.lists.UserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document,gov.nih.nci.ispy.util.ISPYListFilter"%>
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <script type='text/javascript' src='js/lib/scriptaculous/effects.js'></script>
-
 <script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
-<script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
+
+<!--<script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>-->
 
 <script type='text/javascript' src='js/lib/common/ManageListHelper.js'></script>
 <script type='text/javascript' src='js/lib/common/TextFormList.js'></script>

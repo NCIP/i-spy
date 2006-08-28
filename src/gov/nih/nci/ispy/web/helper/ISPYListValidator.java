@@ -7,8 +7,9 @@ package gov.nih.nci.ispy.web.helper;
 import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.ListValidator;
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
-import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
+import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.RegistrantInfo;
 
@@ -45,7 +46,7 @@ public class ISPYListValidator extends ListValidator{
          unvalidatedList.add(s.toUpperCase());
         }
        IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
-       GeneExprFileBasedAnnotationService geneService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
+       GeneExprAnnotationService geneService = GeneExprAnnotationServiceFactory.getInstance();
        Set<String> geneSymbols = new HashSet<String>();
        Set<ReporterAnnotation> reporters = new HashSet<ReporterAnnotation>();
        Set<RegistrantInfo> riSet = new HashSet<RegistrantInfo>();

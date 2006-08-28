@@ -3,6 +3,7 @@ package gov.nih.nci.ispy.service.findings.strategies;
 import java.util.ArrayList;
 import java.util.Set;
 
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
@@ -13,6 +14,7 @@ import gov.nih.nci.ispy.service.clinical.ClinicalCGOMBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 /**
  * Strategy to get Clinical findings from the CGOM.
@@ -21,6 +23,8 @@ import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 public class ClinicalFindingStrategyCGOM extends ClinicalFindingStrategy {
 
 	private ISPYClinicalFinding clinicalFinding;
+    private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
+    
 	
 	public ClinicalFindingStrategyCGOM(String sessionId, String taskId, ISPYclinicalDataQueryDTO queryDTO) throws ValidationException {
 		super(sessionId, taskId, queryDTO);
@@ -52,8 +56,8 @@ public class ClinicalFindingStrategyCGOM extends ClinicalFindingStrategy {
 	}
 
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
-		// TODO Auto-generated method stub
-		return false;
+        cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), clinicalFinding);
+        return true;
 	}
 
 	public Finding getFinding() {

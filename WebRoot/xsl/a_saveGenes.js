@@ -146,7 +146,7 @@ var SaveGenes = {
 			//attempt to refresh the parents sidebar
 			if(!window.opener.closed)	{
 				try	{
-					window.opener.SidebarHelper.loadGeneUL();
+					window.opener.SidebarHelper.loadSidebar();
 				}
 				catch(err)	{
 					alert("cant update sidebar: " + err);

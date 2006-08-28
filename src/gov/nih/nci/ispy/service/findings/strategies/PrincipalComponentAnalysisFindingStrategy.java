@@ -26,6 +26,7 @@ import gov.nih.nci.caintegrator.service.findings.strategies.FindingStrategy;
 import gov.nih.nci.caintegrator.util.ValidationUtility;
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 //import gov.nih.nci.rembrandt.dto.query.ClinicalDataQuery;
 //import gov.nih.nci.rembrandt.dto.query.CompoundQuery;
 //import gov.nih.nci.rembrandt.dto.query.GeneExpressionQuery;
@@ -35,6 +36,7 @@ import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 //import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
 //import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYPrincipalComponentAnalysisQueryDTO;
+import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.annotation.ISPYDataType;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
@@ -325,7 +327,7 @@ public class PrincipalComponentAnalysisFindingStrategy extends SessionBasedFindi
                  * if DEs will be used, so we use them until we do not need to and extract the strings
                  * from them
                  */
-				GeneExprFileBasedAnnotationService geService = (GeneExprFileBasedAnnotationService)GeneExprFileBasedAnnotationService.getInstance();
+				GeneExprAnnotationService geService = GeneExprAnnotationServiceFactory.getInstance();
                 //remove items from DEs as Strings
                 Collection<GeneIdentifierDE> deList = myQueryDTO.getGeneIdentifierDEs();
                 Collection<String> stringList = new ArrayList();

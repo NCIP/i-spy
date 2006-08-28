@@ -1,13 +1,14 @@
 package gov.nih.nci.ispy.util;
 
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.util.PropertyLoader;
-import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
+import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
-import gov.nih.nci.ispy.service.imaging.ImagingDataServiceFactory;
 import gov.nih.nci.ispy.service.imaging.ImagingDataService;
+import gov.nih.nci.ispy.service.imaging.ImagingDataServiceFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import gov.nih.nci.ispy.service.imaging.PatientImagingInfo;
@@ -193,13 +194,10 @@ public class ApplicationContext{
 		   
 		   //create the file based annotation service
 		   
-		   long startTime = System.currentTimeMillis();
-		   GeneExprFileBasedAnnotationService gxAnnotService = (GeneExprFileBasedAnnotationService) GeneExprFileBasedAnnotationService.getInstance();
+		   
+		   GeneExprAnnotationService gxAnnotService = GeneExprAnnotationServiceFactory.getInstance();
 		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gene_annotations.txt";
-		   String annotFileName = System.getProperty("gov.nih.nci.ispyportal.data_directory") + System.getProperty("gov.nih.nci.ispyportal.gx_annotation_file");
-		   logger.info("Initializing GeneExprAnnotationService file=" + annotFileName);
 		   //String annotFileName = ISPYContextListener.getDataFilesDirectoryPath() + File.separatorChar + "ispy_gx_annotations_5-19-06.txt";
-		   int gxRecLoaded = gxAnnotService.setAnnotationFile(annotFileName);
 		   
 		   ImagingDataServiceFactory.getImagingDataService();  //will initialize the service
 		   
@@ -207,8 +205,6 @@ public class ApplicationContext{
 		   
 		   analysisServerClientManager.setGeneExprAnnotationService(gxAnnotService);
 		   
-		   long elapsedTime = System.currentTimeMillis() - startTime;
-		   logger.info("Finished initializing GeneExprAnnotationService file=" + annotFileName + " time=" + elapsedTime + " numRecords=" + gxRecLoaded);
 		   
 		   	   		  
 		   String jmsProviderURL = System.getProperty("gov.nih.nci.ispyportal.jms.jboss_url");

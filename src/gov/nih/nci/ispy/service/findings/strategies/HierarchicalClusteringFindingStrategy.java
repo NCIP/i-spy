@@ -3,17 +3,14 @@ package gov.nih.nci.ispy.service.findings.strategies;
 import gov.nih.nci.caintegrator.analysis.messaging.HierarchicalClusteringRequest;
 import gov.nih.nci.caintegrator.analysis.messaging.ReporterGroup;
 import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
-import gov.nih.nci.caintegrator.dto.critieria.InstitutionCriteria;
+import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.dto.de.CloneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.de.SampleIDDE;
 import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
-import gov.nih.nci.caintegrator.dto.query.QueryType;
-import gov.nih.nci.caintegrator.dto.view.ClinicalSampleView;
-import gov.nih.nci.caintegrator.dto.view.ViewFactory;
-import gov.nih.nci.caintegrator.dto.view.ViewType;
-import gov.nih.nci.caintegrator.dto.view.Viewable;
 import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
@@ -21,27 +18,15 @@ import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.caintegrator.service.findings.HCAFinding;
-import gov.nih.nci.caintegrator.service.findings.strategies.FindingStrategy;
 import gov.nih.nci.caintegrator.util.ValidationUtility;
-import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
-import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
-//import gov.nih.nci.rembrandt.dto.query.ClinicalDataQuery;
-//import gov.nih.nci.rembrandt.dto.query.CompoundQuery;
-//import gov.nih.nci.rembrandt.dto.query.GeneExpressionQuery;
-//import gov.nih.nci.rembrandt.queryservice.QueryManager;
-//import gov.nih.nci.rembrandt.queryservice.ResultsetManager;
-//import gov.nih.nci.rembrandt.queryservice.resultset.Resultant;
-//import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
-//import gov.nih.nci.rembrandt.queryservice.validation.DataValidator;
-import gov.nih.nci.caintegrator.application.util.ApplicationContext;
 import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
-import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
 import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.annotation.ISPYDataType;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
-import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,7 +37,6 @@ import java.util.Set;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
-import javax.naming.OperationNotSupportedException;
 
 import org.apache.log4j.Logger;
 
@@ -314,12 +298,8 @@ public class HierarchicalClusteringFindingStrategy extends SessionBasedFindingSt
 //				set.removeAll(validGeneDEs);
 //				genesNotFound = set;
                 
-               /**
-                 * Temporary hack until we supplant the new query service...do not know
-                 * if DEs will be used, so we use them until we do not need to and extract the strings
-                 * from them
-                 */
-                GeneExprFileBasedAnnotationService geService = (GeneExprFileBasedAnnotationService)GeneExprFileBasedAnnotationService.getInstance();
+               
+                GeneExprAnnotationService geService = GeneExprAnnotationServiceFactory.getInstance();
                 //remove items from DEs as Strings
                 Collection<GeneIdentifierDE> deList = myQueryDTO.getGeneIdentifierDEs();
                 Collection<String> stringList = new ArrayList();

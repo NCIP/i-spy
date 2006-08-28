@@ -232,7 +232,8 @@ public class QuickClinicalReport {
 			try {
 		
 				IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
-				
+				ImagingFileBasedQueryService iqs = (ImagingFileBasedQueryService) ImagingFileBasedQueryService.getInstance();
+                
 				//List<RegistrantInfo> registrants = 
 				List<SampleInfo> samples = idMapper.getSampleInfoForLabtrackIds(sampleIds);
 				//List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
@@ -263,7 +264,7 @@ public class QuickClinicalReport {
 					Element td = null;
 					tr = table.addElement("tr").addAttribute("class", "header");
 					
-					String longHeaders = "ISPY_ID, LabTrak ID, DATAEXTRACTDT, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4";
+					String longHeaders = "ISPY_ID, LabTrak ID, NCIA_IMAGE, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4";
 					String[] heads = StringUtils.split(longHeaders, ",");
 					for(String h : heads){
 						td = tr.addElement("td").addAttribute("class", "header").addText(h.trim());
@@ -331,8 +332,16 @@ public class QuickClinicalReport {
     								}
     							}
     							else if(pd!=null){
-    								tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
-    								td = tr.addElement("td").addText(tmp);
+//    								tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
+//    								td = tr.addElement("td").addText(tmp);
+                                    
+                                    if(iqs.hasImagingData(pd.getISPY_ID())){
+                                        String link = iqs.buildImagingLink(pd);
+                                        td = tr.addElement("td").addElement("a").addAttribute("onclick","javascript:window.open('" + link + "','800','600');").addElement("img").addAttribute("src","images/nciaLink.png");
+                                    }
+                                    else{
+                                        td = tr.addElement("td").addText(dv);
+                                    }
     	
     								tmp = pd.getInst_ID()!=null  ? pd.getInst_ID() : dv;
     								td = tr.addElement("td").addText(tmp);

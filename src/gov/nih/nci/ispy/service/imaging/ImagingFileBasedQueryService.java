@@ -94,12 +94,16 @@ public class ImagingFileBasedQueryService implements ImagingDataService {
         if(info!=null){
             ImageInfo pre = info.getPreImage();
             ImageInfo post = info.getPostImage();
+            //remove when we put in real data
+            String test = "test";
+            int data = 99;
+            String acrinId = info.getAcrinPatientId();
             if(pre!=null && post!=null){
-                link+="?source=ISPY&image1Label=Pre&image1TrialId=ISPY&image1PatientId=1.3.6.1.4.1.9328.50.1.0001&image1StudyInstanceUid=1.3.6.1.4.1.9328.50.1.2&image1SeriesInstanceUid=1.3.6.1.4.1.9328.50.1.3&image1ImageSopInstanceUid=1.3.6.1.4.1.9328.50.1.39408&image1dataName=Longest%20Diameter&image1dataValue=25&image1dataName=XXXX&image1dataValue=1111&image2Label=Post&image2TrialId=ISPY&image2PatientId=1.3.6.1.4.1.9328.50.1.0001&image2StudyInstanceUid=1.3.6.1.4.1.9328.50.1.4&image2SeriesInstanceUid=1.3.6.1.4.1.9328.50.1.5&image2ImageSopInstanceUid=1.3.6.1.4.1.9328.50.1.39408&image2dataName=Longest%20Diameter&image2dataValue=18&image2dataName=YYYY&image2dataValue=564";
+                link+="?source=ISPY&image1Label=Pre&image1TrialId=ISPY&image1PatientId=" + acrinId + "&image1StudyInstanceUid=" + pre.getStudyId() + "&image1SeriesInstanceUid=" + pre.getSeriesId() + "&image1ImageSopInstanceUid=" + pre.getImageId() + "&image1dataName=Longest%20Diameter&image1dataValue=" + 25 + "&image1dataName=" + test + "&image1dataValue=" + data + "&image2Label=Post&image2TrialId=ISPY&image2PatientId=" + acrinId + "&image2StudyInstanceUid=" + post.getStudyId() + "&image2SeriesInstanceUid=" + post.getSeriesId() + "&image2ImageSopInstanceUid=" + post.getImageId() + "&image2dataName=Longest%20Diameter&image2dataValue=" + 18 + "&image2dataName=" + test + "&image2dataValue=" + data;
             }            
         }
         else{
-            link+="?source=ISPY&image1Label=Pre&image1TrialId=ISPY&image1PatientId=1.3.6.1.4.1.9328.50.1.0001&image1StudyInstanceUid=1.3.6.1.4.1.9328.50.1.2&image1SeriesInstanceUid=1.3.6.1.4.1.9328.50.1.3&image1ImageSopInstanceUid=1.3.6.1.4.1.9328.50.1.39408&image1dataName=Longest%20Diameter&image1dataValue=25&image1dataName=XXXX&image1dataValue=1111&image2Label=Post&image2TrialId=ISPY&image2PatientId=1.3.6.1.4.1.9328.50.1.0001&image2StudyInstanceUid=1.3.6.1.4.1.9328.50.1.4&image2SeriesInstanceUid=1.3.6.1.4.1.9328.50.1.5&image2ImageSopInstanceUid=1.3.6.1.4.1.9328.50.1.39408&image2dataName=Longest%20Diameter&image2dataValue=18&image2dataName=YYYY&image2dataValue=564";
+            link="";
         }
         
         return link;

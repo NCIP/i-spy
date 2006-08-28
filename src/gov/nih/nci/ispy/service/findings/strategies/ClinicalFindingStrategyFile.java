@@ -58,7 +58,7 @@ public class ClinicalFindingStrategyFile extends ClinicalFindingStrategy{
 	    //put the result into the finding 
 	    clinicalFinding = new ISPYClinicalFinding(this.getSessionId(), this.getTaskId(), this.getQueryDTO());
 	    clinicalFinding.setPatientData(new ArrayList<PatientData>(patientData));
-	    
+       
 	    return true;
 	}
 

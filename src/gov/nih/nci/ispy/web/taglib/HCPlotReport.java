@@ -3,14 +3,11 @@ package gov.nih.nci.ispy.web.taglib;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.application.cache.CacheFactory;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
-import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
 import gov.nih.nci.caintegrator.service.findings.HCAFinding;
-import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.web.reports.quick.QuickClinicalReport;
 import gov.nih.nci.ispy.web.reports.quick.QuickReporterReport;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
@@ -18,11 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 
 
 

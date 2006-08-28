@@ -1,7 +1,8 @@
 package gov.nih.nci.ispy.web.reports.quick;
 
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
 import gov.nih.nci.caintegrator.application.service.annotation.ReporterAnnotation;
-import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
+import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +29,9 @@ public class QuickReporterReport {
 		
 		if(reporters != null)	{
 			try {
-				List<ReporterAnnotation> reporterAnnotations = GeneExprFileBasedAnnotationService.getInstance().getAnnotationsListForReporters(reporters);
+                GeneExprAnnotationService geService =  GeneExprAnnotationServiceFactory.getInstance();
+                
+				List<ReporterAnnotation> reporterAnnotations = geService.getAnnotationsListForReporters(reporters);
 				for(ReporterAnnotation reporterAnnotation: reporterAnnotations){
 					if(reporterAnnotation != null){
 						
