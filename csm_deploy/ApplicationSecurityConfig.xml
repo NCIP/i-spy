@@ -18,7 +18,7 @@
 					<!-- Fully qualified class name-->
 				</authorization-provider-class>
 				<hibernate-config-file>
-					/usr/local/jboss402/server/ncicb-app/conf/rembrandt.hibernate.cfg.xml
+					/usr/local/jboss402/server/ncicb-app/conf/ispy.hibernate.cfg.xml
 				</hibernate-config-file>
 			</authorization>
 		</application>
