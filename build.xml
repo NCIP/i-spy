@@ -118,11 +118,11 @@
 			<copy file="conf/csm/ApplicationSecurityConfig.xml.template" tofile="csm_deploy/ApplicationSecurityConfig.xml"/>
 			<replaceregexp file="csm_deploy/ApplicationSecurityConfig.xml" match="@CONTEXT_NAME@" replace="${app.war.name}" flags="g"/>
 			<replaceregexp file="csm_deploy/ApplicationSecurityConfig.xml" match="@HIBERNATE_CONFIG_FILE@" replace="${csm.hibernate.config.file}" flags="g"/>
-			<!-- Configuring rembrandt.hibernate.cfg.xml -->
-			<echo message="Setting rembrandt.hibernate.cfg.xml"/>
-			<delete file="conf/csm/rembrandt.hibernate.cfg.xml"/>
-			<copy file="conf/csm/rembrandt.hibernate.cfg.xml.template" tofile="csm_deploy/rembrandt.hibernate.cfg.xml"/>
-			<replaceregexp file="csm_deploy/rembrandt.hibernate.cfg.xml" match="@DATASOURCE_JNDI@" replace="${csm.jndi.connection.datasource}" flags="g"/>
+			<!-- Configuring ispy.hibernate.cfg.xml -->
+			<echo message="Setting ispy.hibernate.cfg.xml"/>
+			<delete file="conf/csm/ispy.hibernate.cfg.xml"/>
+			<copy file="conf/csm/ispy.hibernate.cfg.xml.template" tofile="csm_deploy/ispy.hibernate.cfg.xml"/>
+			<replaceregexp file="csm_deploy/ispy.hibernate.cfg.xml" match="@DATASOURCE_JNDI@" replace="${csm.jndi.connection.datasource}" flags="g"/>
 			<!-- Configuring oracle-ds.xml -->
 			<echo message="Configuring oracle-ds.xml"/>
 			<delete file="csm_deploy/oracle-ds.xml"/>
@@ -149,7 +149,7 @@
 			<!-- Copy it to Jboss Deploy folder -->
 			<copy file="csm_deploy/oracle-ds.xml" todir="${jboss.deploy.dir}"/>
 			<!-- Copy it to Jboss Conf folder -->
-			<copy file="csm_deploy/rembrandt.hibernate.cfg.xml" todir="${jboss.conf.dir}"/>
+			<copy file="csm_deploy/ispy.hibernate.cfg.xml" todir="${jboss.conf.dir}"/>
 			<!-- Copy it to Jboss Conf folder -->
 			<copy file="csm_deploy/ApplicationSecurityConfig.xml" todir="${jboss.conf.dir}"/>
 		</target>
