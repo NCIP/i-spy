@@ -64,7 +64,7 @@ public class ISPYListValidator extends ListValidator{
                reporters = geneService.getReportersForGeneSymbol(geneSymbol);
                if(reporters!=null){
                    for(ReporterAnnotation a: reporters){
-                       geneSymbols.addAll(a.getGeneSymbols());
+                       geneSymbols.add(geneSymbol);
                    }
                }
            }

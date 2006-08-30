@@ -158,7 +158,7 @@ public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationSer
 		        reporters = gene2reporterMap.get(geneSymbol);
 		        if (reporters == null) {
 		          reporters = new HashSet<ReporterAnnotation>(3);
-		          gene2reporterMap.put(geneSymbol, reporters);
+		          gene2reporterMap.put(geneSymbol.toUpperCase().trim(), reporters);
 		        }
 		        reporters.add(reporterAnnotation);
 		      }
