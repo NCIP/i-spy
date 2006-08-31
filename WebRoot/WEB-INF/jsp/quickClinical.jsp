@@ -149,12 +149,10 @@
 					
 					
 					try	{
-						if(!window.opener.closed)	{
-							if(reportType == "GENE")
-								window.opener.SidebarHelper.loadGeneUL();
-							else
-								window.opener.SidebarHelper.loadPatientUL();
+						if(!window.opener.closed)	{							
+						  window.opener.SidebarHelper.loadSidebar();
 						}
+							
 						
 					}
 					catch(err)	{
