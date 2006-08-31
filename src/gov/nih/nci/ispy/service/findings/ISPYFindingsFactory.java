@@ -27,6 +27,7 @@ import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyCGOM;
+import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategyFile;
@@ -214,7 +215,7 @@ public class ISPYFindingsFactory implements FindingsFactory {
 		
 		//Will substitute database version when it is ready
 		try {
-		ClinicalFindingStrategy strategy = new ClinicalFindingStrategyCGOM(sessionId, taskId, query);
+		ClinicalFindingStrategy strategy = new ClinicalFindingStrategyFile(sessionId, taskId, query);
 		
 		try {
 			
