@@ -13,6 +13,7 @@
 	<script language="javascript" src="js/box/browserSniff.js"></script>
 	<script language="javascript" src="js/prototype.js"></script>
 	
+	
 	<script language="javascript" src="js/lib/common/JSLoader.js"></script>
 	<script language="javascript" src="js/lib/window.js"></script>
 	<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>

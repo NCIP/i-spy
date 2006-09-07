@@ -9,6 +9,7 @@
     	<form-bean name="viewResultsForm" type="gov.nih.nci.ispy.web.struts.form.ViewResultsForm"/>
    		<form-bean name="classComparisonForm" type="gov.nih.nci.ispy.web.struts.form.ClassComparisonForm"/>
 		<form-bean name="principalComponentForm" type="gov.nih.nci.ispy.web.struts.form.PrincipalComponentForm"/>
+		<form-bean name="correlationScatterForm" type="gov.nih.nci.ispy.web.struts.form.CorrelationScatterForm"/>
 		<form-bean name="clinicalQueryForm" type="gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm"/>		
 		<form-bean name="fishQueryForm" type="gov.nih.nci.ispy.web.struts.form.FISHQueryForm"/>			
 		<form-bean name="ihcQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCQueryForm"/>	
@@ -74,6 +75,31 @@
 		parameter="method">
 		<forward name="backToClinicalQuery" path="ispy.clinicalQuery" />
 		<forward name="clinicalQuerySetup" path="/clinicalQueryInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/correlationScatter"
+		forward="ispy.correlationScatter" />
+		
+	<action path="/correlationScatterInit"
+		type="gov.nih.nci.ispy.web.struts.action.CorrelationScatterAction"
+		name="correlationScatterForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToCorrelationScatter" path="ispy.correlationScatter" />
+		<forward name="correlationScatterSetup" path="/correlationScatterInit.do?method=setup" />
+	</action>
+	
+	<action path="/correlationscatter"
+	    input="/correlationScatterInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.CorrelationScatterAction"
+		name="correlationScatterForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToCorrelationScatter" path="ispy.correlationScatter" />
+		<forward name="correlationScatterSetup" path="/correlationScatterInit.do?method=setup" />
 		<forward name="viewResults" path="/viewResults.do" />
 	</action>
 	

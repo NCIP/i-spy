@@ -74,6 +74,14 @@
 	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
     </definition>
     
+    <definition name="ispy.correlationScatter" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=correlationScatter" />
+	  <put name="title" value="Correlation Scatter Analysis Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+    </definition>
+    
     <definition name="ispy.fishQuery" extends="baseDef">
       <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=fishQuery" />
 	  <put name="title" value="FISH Query Form" />

@@ -13,15 +13,15 @@ public class ImageInfo {
 	}
 
 	public String getImageId() {
-		return imageId;
+		return imageId.trim();
 	}
 
 	public String getSeriesId() {
-		return seriesId;
+		return seriesId.trim();
 	}
 	
 	public String getStudyId() {
-	    return studyId;
+	    return studyId.trim();
 	}
 
 }

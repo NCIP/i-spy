@@ -1,4 +1,37 @@
+function ediv(el,div,changeParam)	{				   
+	    				var el = el.value; //the element value to check
+	    				var elId = el.id;	    				
+	    				var hideable = div;  //the element to show or hide
+						var bigflag = false;	
+		
+						if(el == changeParam) {
+							bigflag = true;
+						}
+						else{						
+							bigflag = false;
+						}		
+						if(bigflag)	{
+							
+							if(win)	{ Effect.BlindDown(hideable); }
+							else	{ $(hideable).style.display = "block"; }			
+						}
+						else	{							
+							//its default settings							
+							if(win)	{ 
+							
+									setBackToDefault(elId);									
+									Effect.BlindUp(hideable); 							
+									}
+							else	{ 									
+									$(hideable).style.display = "none"; 									
+									setBackToDefault(el);
+									} 			
+						}
+			
+					}
+
 function setBackToDefault(formType){
+		alert(formType);
 		if(formType == "pca"){
 			document.getElementById("variancePercentile").value = "70.0";
 		}
@@ -14,6 +47,12 @@ function setBackToDefault(formType){
 		document.getElementById("foldChangeManual").value = "";
 		document.getElementById("foldChangeAuto").value = "2";
 		}
+		else if(formType == "xaxis"){
+		document.getElementById("geneSymbolX").value = "";
+		document.getElementById("reporterX").options[0] = "none";
+		document.getElementById("reporterX").options.length = 1;		
+		}
+		
 			
 	}
 	

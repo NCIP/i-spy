@@ -11,6 +11,8 @@ import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.imaging.ImagingFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -58,7 +60,14 @@ public class QuickClinicalReport {
                         
                         if(iqs.hasImagingData(pd.getISPY_ID())){
                             String link = iqs.buildImagingLink(pd);
-                            td = tr.addElement("td").addElement("a").addAttribute("onclick","javascript:window.open('" + link + "','800','600');").addElement("img").addAttribute("src","images/nciaLink.png");
+                            try {
+                                String encodedLink = URLEncoder.encode(link, "UTF-8");
+                                td = tr.addElement("td").addElement("a").addAttribute("onclick","javascript:window.open('" + link + "','new','toolbar=yes,width=800,height=600,location=yes,status=yes,menubar=yes,scrollbars=yes,resizable=yes');").addElement("img").addAttribute("src","images/nciaLink.png");
+                            } catch (UnsupportedEncodingException e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                            
                         }
                         else{
                             td = tr.addElement("td").addText(dv);

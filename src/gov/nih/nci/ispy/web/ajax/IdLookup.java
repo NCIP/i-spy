@@ -57,7 +57,7 @@ public class IdLookup {
 				
 				JSONObject sam=new JSONObject();
 			    sam.put("regId",entry.getRegistrationId());
-			    sam.put("labtrackId",sampleInfo.getLabtrackId());
+			    sam.put("labtrackId","<a href='http://www.cnn.com' target='_blank'>"+sampleInfo.getLabtrackId() + "</a>");
 			    sam.put("timePoint",String.valueOf(sampleInfo.getTimepoint()));
 			    sam.put("coreType",String.valueOf(sampleInfo.getCoreType()));
 			    sam.put("sectionInfo",String.valueOf(sampleInfo.getSectionInfo()));
