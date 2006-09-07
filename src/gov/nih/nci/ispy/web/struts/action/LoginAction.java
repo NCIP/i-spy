@@ -69,7 +69,7 @@ public final class LoginAction extends Action
 			else if(authType != null && authType.equals("ldap"))
 			{
 			    UserCredentials user = null;	    			
-				SecurityManager secManager =  SecurityManager.getInstance() ;
+				SecurityManager secManager =  SecurityManager.getInstance("ispy") ;
 				user = secManager.authenticate(userName,password);
 				if(user != null)
 				{
@@ -77,7 +77,8 @@ public final class LoginAction extends Action
 				}						
 			}
 				    	
-										
+						
+			
 			if(valid)
 			{
 				session.setAttribute("logged", "yes");
