@@ -7,33 +7,7 @@
 <script type='text/javascript' src='dwr/util.js'></script>
 <script type="text/javascript">
 
-	function getReporterList(element, gene, platform, elementToUpdate){
-		
-    	ReporterLookup.lookup(gene, platform, elementToUpdate, createReporterList);
-	}
-	function createReporterList(txt){  
-	 	
-    	try	{
-				var res = eval('(' + txt + ')');
-				
-				var result = res[0].results;
-				var elementToUpdate = res[0].elementId;
-				var reporters = res[0].reporters;
-				
-				if(result == "found"){				
-					DWRUtil.removeAllOptions(elementToUpdate);    			
-    				DWRUtil.addOptions(elementToUpdate, reporters);
-    			}
-    			else{
-    				DWRUtil.removeAllOptions(elementToUpdate);    			
-    				DWRUtil.addOptions(elementToUpdate, ['none']);
-    				alert("No reporters found for: " + res[0].gene);
-    			}
-			}
-		catch(err){
-				alert(err);
-			}    	
-	}
+	
 </script>
 
 <div class="report" style="padding:3px">   

@@ -99,6 +99,10 @@
 					alert("Please select some lists to " + action);
 					throw("no lists selected");
 				}
+				if(sLists.length>2 && action == "difference")	{
+					alert("Please select only 2 groups");
+					throw("too many selected");
+				}
 								
 				DynamicListHelper.uniteLists(sLists, groupName, groupType, action, ManageListHelper.groupSelectedLists_cb );
 			}

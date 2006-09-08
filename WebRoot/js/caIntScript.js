@@ -1,3 +1,30 @@
+function getReporterList(element, gene, platform, elementToUpdate){		
+    	ReporterLookup.lookup(gene, platform, elementToUpdate, createReporterList);
+	}
+	function createReporterList(txt){  
+	 	
+    	try	{
+				var res = eval('(' + txt + ')');
+				
+				var result = res[0].results;
+				var elementToUpdate = res[0].elementId;
+				var reporters = res[0].reporters;
+				
+				if(result == "found"){				
+					DWRUtil.removeAllOptions(elementToUpdate);    			
+    				DWRUtil.addOptions(elementToUpdate, reporters);
+    			}
+    			else{
+    				DWRUtil.removeAllOptions(elementToUpdate);    			
+    				DWRUtil.addOptions(elementToUpdate, ['none']);
+    				alert("No reporters found for: " + res[0].gene);
+    			}
+			}
+		catch(err){
+				alert(err);
+			}    	
+	}
+	
 function ediv(el,div,changeParam)	{				   
 	    				var el = el.value; //the element value to check
 	    				var elId = el.id;	    				
