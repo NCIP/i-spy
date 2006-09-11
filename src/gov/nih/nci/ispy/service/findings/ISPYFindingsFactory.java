@@ -23,6 +23,7 @@ import gov.nih.nci.caintegrator.service.findings.HCAFinding;
 import gov.nih.nci.caintegrator.service.findings.KMFinding;
 import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
 import gov.nih.nci.ispy.dto.query.IHCqueryDTO;
+import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
@@ -301,4 +302,9 @@ public class ISPYFindingsFactory implements FindingsFactory {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    public Finding createCorrelationScatterFinding(ISPYCorrelationScatterQueryDTO correlationScatterQueryDTO, String id, String queryName) {
+        
+        return null;
+    }
 }
