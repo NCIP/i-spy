@@ -19,6 +19,8 @@ public class CorrelationScatterForm extends BaseForm{
     private String yaxis;
     private String reporterX;
     private String reporterY;
+    private String geneX;
+    private String geneY;
     private String correlationMethod;
     private List continuousCollection = new ArrayList();
     private List correlationMethodCollection = new ArrayList();
@@ -26,7 +28,37 @@ public class CorrelationScatterForm extends BaseForm{
     private String platformY;
     private String platformX;
     private String analysisResultName = "";
+    private String patientGroup;
+    private List patientGroupCollection;
     
+    /**
+     * @return Returns the patientGroup.
+     */
+    public String getPatientGroup() {
+        return patientGroup;
+    }
+
+    /**
+     * @param patientGroup The patientGroup to set.
+     */
+    public void setPatientGroup(String patientGroup) {
+        this.patientGroup = patientGroup;
+    }
+
+    /**
+     * @return Returns the patientGroupCollection.
+     */
+    public List getPatientGroupCollection() {
+        return patientGroupCollection;
+    }
+
+    /**
+     * @param patientGroupCollection The patientGroupCollection to set.
+     */
+    public void setPatientGroupCollection(List patientGroupCollection) {
+        this.patientGroupCollection = patientGroupCollection;
+    }
+
     /**
      * @return Returns the analysisResultName.
      */
@@ -50,14 +82,14 @@ public class CorrelationScatterForm extends BaseForm{
             }
         }
         
-        //setup continuousCollection
-        for(ContinuousType ct : ContinuousType.values()){
-            continuousCollection.add(new LabelValueBean(ct.toString(),ct.name()));
-        }
+        //setup continuous collection
+        for(ContinuousType continuousType : ContinuousType.values()){
+            continuousCollection.add(new LabelValueBean(continuousType.toString(),continuousType.getDeclaringClass().getCanonicalName() + "#" + continuousType.name()));
+        } 
         
         //setup correlationMethodCollection
         for(CorrelationType cmt : CorrelationType.values()){
-            correlationMethodCollection.add(new LabelValueBean(cmt.toString(),cmt.name()));
+            correlationMethodCollection.add(new LabelValueBean(cmt.toString(),cmt.getDeclaringClass().getCanonicalName() + "#" + cmt.name()));
         }
     }
 
@@ -199,6 +231,34 @@ public class CorrelationScatterForm extends BaseForm{
      */
     public void setCorrelationMethodCollection(List correlationMethodCollection) {
         this.correlationMethodCollection = correlationMethodCollection;
+    }
+
+    /**
+     * @return Returns the geneX.
+     */
+    public String getGeneX() {
+        return geneX;
+    }
+
+    /**
+     * @param geneX The geneX to set.
+     */
+    public void setGeneX(String geneX) {
+        this.geneX = geneX;
+    }
+
+    /**
+     * @return Returns the geneY.
+     */
+    public String getGeneY() {
+        return geneY;
+    }
+
+    /**
+     * @param geneY The geneY to set.
+     */
+    public void setGeneY(String geneY) {
+        this.geneY = geneY;
     }
 
     

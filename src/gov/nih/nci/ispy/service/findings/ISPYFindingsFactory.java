@@ -16,6 +16,7 @@ import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
 import gov.nih.nci.caintegrator.service.findings.ClinicalFinding;
 import gov.nih.nci.caintegrator.service.findings.CopyNumberFinding;
+import gov.nih.nci.caintegrator.service.findings.CorrelationFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.caintegrator.service.findings.FindingsFactory;
 import gov.nih.nci.caintegrator.service.findings.GEIntensityFinding;
@@ -27,8 +28,8 @@ import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
-import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
+import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategyFile;
@@ -303,8 +304,29 @@ public class ISPYFindingsFactory implements FindingsFactory {
 		return null;
 	}
 
-    public Finding createCorrelationScatterFinding(ISPYCorrelationScatterQueryDTO correlationScatterQueryDTO, String id, String queryName) {
-        
-        return null;
+    public Finding createCorrelationScatterFinding(ISPYCorrelationScatterQueryDTO correlationScatterQueryDTO, String id, String queryName) throws FrameworkException{
+        CorrelationFinding finding = null;
+        try {
+            CorrelationFindingStrategy strategy = new CorrelationFindingStrategy(id,queryName,correlationScatterQueryDTO);
+            strategy.createQuery();
+            strategy.executeQuery();
+            strategy.analyzeResultSet();
+            finding = (CorrelationFinding)strategy.getFinding();
+
+//        } catch (ValidationException e) {
+//            logger.error(e);
+//            changeStatusToError(id,queryName,e.getMessage());
+//            throw(e);
+        } catch (FindingsQueryException e) {
+            logger.error(e);
+            changeStatusToError(id,queryName,e.getMessage());
+            throw(e);
+        } catch (FindingsAnalysisException e) {
+            logger.error(e);
+            changeStatusToError(id,queryName,e.getMessage());
+            throw(e);
+        }
+        return finding;
     }
+    
 }

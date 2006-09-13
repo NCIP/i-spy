@@ -25,9 +25,12 @@ function getReporterList(element, gene, platform, elementToUpdate){
 			}    	
 	}
 	
-function ediv(el,div,changeParam)	{				   
-	    				var el = el.value; //the element value to check
-	    				var elId = el.id;	    				
+function ediv(el,div,changeParam)	{	
+						var elId = el.id;	
+						//alert(elId);		   
+	    				var el = el.value; //the element value to check	
+	    				//alert(el);
+	    				//alert(changeParam);	    				
 	    				var hideable = div;  //the element to show or hide
 						var bigflag = false;	
 		
@@ -44,21 +47,20 @@ function ediv(el,div,changeParam)	{
 						}
 						else	{							
 							//its default settings							
-							if(win)	{ 
-							
+							if(win)	{
 									setBackToDefault(elId);									
 									Effect.BlindUp(hideable); 							
 									}
-							else	{ 									
+							else	{ 
+									setBackToDefault(elId);									
 									$(hideable).style.display = "none"; 									
-									setBackToDefault(el);
 									} 			
 						}
 			
 					}
 
 function setBackToDefault(formType){
-		alert(formType);
+		//alert(formType);
 		if(formType == "pca"){
 			document.getElementById("variancePercentile").value = "70.0";
 		}
@@ -76,8 +78,16 @@ function setBackToDefault(formType){
 		}
 		else if(formType == "xaxis"){
 		document.getElementById("geneSymbolX").value = "";
-		document.getElementById("reporterX").options[0] = "none";
-		document.getElementById("reporterX").options.length = 1;		
+		document.getElementById("reporterX").options[0].value = "none";	
+		document.getElementById("reporterX").options[0].text = "none";	
+		document.getElementById("reporterX").options.length = 1;
+						
+		}
+		else if(formType == "yaxis"){
+		document.getElementById("geneSymbolY").value = "";
+		document.getElementById("reporterY").options[0].value = "none";
+		document.getElementById("reporterY").options[0].text = "none";
+		document.getElementById("reporterY").options.length = 1;						
 		}
 		
 			

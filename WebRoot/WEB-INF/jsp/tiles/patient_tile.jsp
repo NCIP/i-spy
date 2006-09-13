@@ -12,5 +12,4 @@
 			<html:option value="none">none</html:option>
 			<html:optionsCollection property="patientGroupCollection" />
 	  </html:select>
-
 </fieldset>

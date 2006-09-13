@@ -21,7 +21,7 @@
 <br/>
 
  
-	<html:select styleId="xaxis" property="xaxis" onchange="ediv(this,'advX',this[1].value);">
+	<html:select style="margin-left:20px" styleId="xaxis" property="xaxis" onchange="ediv(this,'advX',this[1].value);">
 		<html:option value="none">select a category...</html:option>
 		<html:optionsCollection property="continuousCollection" />		
 	</html:select>
@@ -32,7 +32,7 @@
 	<br />
 	       <div style="margin-left:20px;padding:5px;border: 1px dotted red"> 
 	       Gene Symbol:&nbsp;&nbsp;
-				<input type="text" id="geneSymbolX" size="10" /><br /><br />
+				<html:text property="geneX" styleId="geneSymbolX" size="10" /><br /><br />
 		   Array Platform:
 				<html:select property="platformX" styleId="platformX">				    
 				    <html:optionsCollection property="arrayPlatformCollection" />	
@@ -44,7 +44,7 @@
 			<br /><br />
 			
 			Available Reporters: &nbsp;&nbsp;
-			    <html:select property="reporterX" styleId="reporterX">
+			    <html:select  property="reporterX" styleId="reporterX">
 				 	<html:option value="availableReporters1">none</html:option>
 				</html:select>
 			
@@ -67,7 +67,7 @@
 <br/>
 
  
-	<html:select property="yaxis" styleId="yaxis" onchange="ediv(this,'advY',this[1].value);">
+	<html:select style="margin-left:20px" property="yaxis" styleId="yaxis" onchange="ediv(this,'advY',this[1].value);">
 		<html:option value="none">select a category...</html:option>
 		<html:optionsCollection property="continuousCollection" />		
 	</html:select>
@@ -78,7 +78,7 @@
 	<br />
 	        <div style="margin-left:20px;padding:5px;border: 1px dotted red"> 
 	       Gene Symbol:&nbsp;&nbsp;
-				<input type="text" id="geneSymbolY" size="10" /><br /><br />
+				<html:text property="geneY" styleId="geneSymbolY" size="10" /><br /><br />
 		   Array Platform:
 				<html:select property="platformY" styleId="platformY">
 				    <html:optionsCollection property="arrayPlatformCollection" />			 	
@@ -110,7 +110,7 @@
 		Correlation Method
 </legend>
 <br>
-	<html:select property="correlationMethod">		
+	<html:select style="margin-left:20px" property="correlationMethod">		
 		<html:optionsCollection property="correlationMethodCollection" />		
 	</html:select>
 

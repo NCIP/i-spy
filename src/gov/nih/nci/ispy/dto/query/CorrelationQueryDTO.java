@@ -2,21 +2,11 @@ package gov.nih.nci.ispy.dto.query;
 
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 
-public class CorrelationQueryDTO implements QueryDTO {
+public interface CorrelationQueryDTO extends QueryDTO {
 
-	public CorrelationQueryDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	public void setQueryName(String name) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void setQueryName(String name);
 
-	public String getQueryName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public String getQueryName();
 
 }

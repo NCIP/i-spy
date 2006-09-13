@@ -1,27 +1,19 @@
 package gov.nih.nci.ispy.web.struts.action;
 
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
-import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
-import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
-import gov.nih.nci.caintegrator.dto.de.GeneVectorPercentileDE;
-import gov.nih.nci.caintegrator.dto.query.PrincipalComponentAnalysisQueryDTO;
-import gov.nih.nci.caintegrator.dto.query.QueryType;
-import gov.nih.nci.caintegrator.enumeration.Operator;
+import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
+import gov.nih.nci.caintegrator.enumeration.CorrelationType;
 import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
-import gov.nih.nci.ispy.dto.query.ISPYPrincipalComponentAnalysisQueryDTO;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.clinical.ContinuousType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
 import gov.nih.nci.ispy.web.struts.form.CorrelationScatterForm;
-import gov.nih.nci.ispy.web.struts.form.PrincipalComponentForm;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +24,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
-import org.apache.struts.util.LabelValueBean;
 
 
 
@@ -128,6 +119,9 @@ public class CorrelationScatterAction extends DispatchAction {
             finding = factory.createCorrelationScatterFinding(correlationScatterQueryDTO,session.getId(),correlationScatterQueryDTO.getQueryName());
         } catch (Exception e) {
             e.printStackTrace();
+        } catch (FrameworkException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
                 
         return mapping.findForward("viewResults");
@@ -141,9 +135,58 @@ public class CorrelationScatterAction extends DispatchAction {
         
         dto.setQueryName(correlationScatterForm.getAnalysisResultName());
         
+        //TODO: need null checks etc for all this
+        //set patient userlist in dto
+        dto.setPatientList(listHelper.getUserList(correlationScatterForm.getPatientGroup()));
         
+        //set continuousTypes
+        String[] uiDropdownString = correlationScatterForm.getXaxis().split("#");
+        String myClassName = uiDropdownString[0];
+        String myValueName = uiDropdownString[1];    
+        Enum myType = EnumHelper.createType(myClassName,myValueName);
+        dto.setContinuousType1((ContinuousType) myType);
         
-        return null;
+        uiDropdownString = correlationScatterForm.getYaxis().split("#");
+        myClassName = uiDropdownString[0];
+        myValueName = uiDropdownString[1];    
+        myType = EnumHelper.createType(myClassName,myValueName);
+        dto.setContinuousType2((ContinuousType) myType);
+        
+        //set reporters
+        if(!correlationScatterForm.getReporterX().equalsIgnoreCase("none")){
+            dto.setReporter1Name(correlationScatterForm.getReporterX());
+            //set gene name
+            dto.setGeneX(correlationScatterForm.getGeneX());
+            
+            //set platform type
+            uiDropdownString = correlationScatterForm.getPlatformX().split("#");
+            myClassName = uiDropdownString[0];
+            myValueName = uiDropdownString[1];    
+            myType = EnumHelper.createType(myClassName,myValueName);
+            dto.setPlatformTypeX((ArrayPlatformType) myType);
+        }
+        
+        if(!correlationScatterForm.getReporterY().equalsIgnoreCase("none")){
+            dto.setReporter2Name(correlationScatterForm.getReporterY());
+            //set gene name
+            dto.setGeneY(correlationScatterForm.getGeneY());
+            
+            //set platform type
+            uiDropdownString = correlationScatterForm.getPlatformY().split("#");
+            myClassName = uiDropdownString[0];
+            myValueName = uiDropdownString[1];    
+            myType = EnumHelper.createType(myClassName,myValueName);
+            dto.setPlatformTypeY((ArrayPlatformType) myType);
+        }
+        
+        //set correlationType
+        uiDropdownString = correlationScatterForm.getCorrelationMethod().split("#");
+        myClassName = uiDropdownString[0];
+        myValueName = uiDropdownString[1];    
+        myType = EnumHelper.createType(myClassName,myValueName);
+        dto.setCorrelationType((CorrelationType) myType);
+        
+        return dto;
     }
 
 
@@ -153,8 +196,11 @@ public class CorrelationScatterAction extends DispatchAction {
         CorrelationScatterForm correlationScatterForm = (CorrelationScatterForm) form;
         /*setup the defined Disease query names and the list of samples selected from a Resultset*/
         HttpSession session = request.getSession();
-        String sessionId = request.getSession().getId(); 
-          
+        
+        ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(session);        
+        correlationScatterForm.setPatientGroupCollection(clinicalGroupRetriever.getClinicalGroupsCollection());
+        
+        
         return mapping.findForward("backToCorrelationScatter");
     }
    
