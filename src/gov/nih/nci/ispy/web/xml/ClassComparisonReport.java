@@ -361,7 +361,7 @@ public class ClassComparisonReport{
 			        
 			        //if only showing genes
 			        if(!allAnnotations && reporterResultsetMap != null)	{
-			        	String reporterId = ccre.getReporterId();
+			        	String reporterId = ccre.getReporterId().toUpperCase().trim();
 			        	String genes = reporterResultsetMap.get(reporterId)!=null ? (String)reporterResultsetMap.get(reporterId) : defaultV;
 				        cell = dataRow.addElement("Cell").addAttribute("type", "data").addAttribute("class", "gene").addAttribute("group", "data");
 				        	data = cell.addElement("Data").addAttribute("type", "header").addText(genes);
@@ -381,7 +381,7 @@ public class ClassComparisonReport{
 				          
 							if(reporterResultsetMap != null ){ // && reporterIds != null
 								//int count = 0;
-								String reporterId = ccre.getReporterId();
+								String reporterId = ccre.getReporterId().toUpperCase().trim();
 								//ReporterResultset reporterResultset = reporterResultsetMap.get(reporterId);
 								ReporterAnnotation ra = (ReporterAnnotation) reporterResultsetMap.get(reporterId);
 								
