@@ -155,10 +155,12 @@ public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationSer
 		      //add the reporter annotation to the gene symbol map
 		      Set<ReporterAnnotation> reporters = null;
 		      for (String geneSymbol : geneSymbols) {
-		        reporters = gene2reporterMap.get(geneSymbol);
+		        //reporters = gene2reporterMap.get(geneSymbol);
+		    	reporters = getReportersForGeneSymbol(geneSymbol);
 		        if (reporters == null) {
 		          reporters = new HashSet<ReporterAnnotation>(3);
-		          gene2reporterMap.put(geneSymbol.toUpperCase().trim(), reporters);
+		          //gene2reporterMap.put(geneSymbol, reporters);
+		          storeGene2ReporterMapping(geneSymbol, reporters);
 		        }
 		        reporters.add(reporterAnnotation);
 		      }
@@ -198,8 +200,8 @@ public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationSer
 		    }
 		    //System.out.println("  goIdsStr: " + goIdsStr);
 		    
-		    
-		    reporterMap.put(reporterName, reporterAnnotation);
+		    storeReporterMapping(reporterName, reporterAnnotation);
+		    //reporterMap.put(reporterName, reporterAnnotation);
 		    recordCount++;
 			  
 		  }
@@ -218,6 +220,26 @@ public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationSer
 	    return -recordCount;
 	  }
 	  return recordCount;
+	}
+	
+	/**
+	 * Method handles case issues when storing to the hash map
+	 * @param geneSymbol
+	 * @param reporters
+	 */
+	private void storeGene2ReporterMapping(String geneSymbol, Set<ReporterAnnotation> reporters) {
+	  String geneSymbolUC = geneSymbol.toUpperCase().trim();
+	  gene2reporterMap.put(geneSymbolUC, reporters);
+	}
+	
+	/**
+	 * Method handles case issues when storing to the hash map
+	 * @param reporterName
+	 * @param annotation
+	 */
+	private void storeReporterMapping(String reporterName, ReporterAnnotation annotation) {
+	  String reporterNameUC = reporterName.toUpperCase().trim();
+	  reporterMap.put(reporterNameUC, annotation);
 	}
 	
 	
@@ -243,7 +265,7 @@ public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationSer
 
 
 	public Map<String, ReporterAnnotation> getAnnotationsMapForReporters(List<String> reporterIDs) throws Exception {
-		
+
 		if (!annotationFileSet) {
 		  throw new IllegalStateException("Must call setAnnotationFile() before calling getAnnotationsMapForReporters().");
 		}
@@ -252,14 +274,16 @@ public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationSer
 		
 	
 		ReporterAnnotation reporterAnnotation;
+		String reporterIdUC = null;
 		for (String reporterId: reporterIDs) {
-		  reporterAnnotation = reporterMap.get(reporterId);
+		  //reporterAnnotation = reporterMap.get(reporterId);
+		  reporterIdUC = reporterId.toUpperCase().trim();
+		  reporterAnnotation = getAnnotationForReporter(reporterIdUC);
 		  
 		  if (reporterAnnotation != null) {
-		    returnMap.put(reporterId, reporterAnnotation);
+		    returnMap.put(reporterIdUC, reporterAnnotation);
 		  }
 		}
-		
 		
 		return returnMap;
 	}
@@ -275,8 +299,8 @@ public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationSer
 	
 		ReporterAnnotation reporterAnnotation;
 		for (String reporterId: reporterIDs) {
-		  reporterAnnotation = reporterMap.get(reporterId);
-		  
+		  //reporterAnnotation = reporterMap.get(reporterId);
+		  reporterAnnotation = getAnnotationForReporter(reporterId);
 		  if (reporterAnnotation != null) {
 		    returnList.add(reporterAnnotation);
 		  }
@@ -287,14 +311,30 @@ public class GeneExprFileBasedAnnotationService implements GeneExprAnnotationSer
 	}
 	
 	/**
+	 * Handles case issues with looking up reporterIds
+	 * @param reporterId
+	 * @return
+	 */
+	private ReporterAnnotation getAnnotationForReporter(String reporterId) {
+	  String reporterIdUC = reporterId.toUpperCase().trim();
+	  ReporterAnnotation annotation = reporterMap.get(reporterIdUC);
+	  
+	  return annotation;
+	  
+	}
+	
+	/**
 	 * Get the reporters for a given gene symbol
 	 * @param geneSymbol
 	 * @return
 	 */
 	public Set<ReporterAnnotation> getReportersForGeneSymbol(String geneSymbol) {
-	   Set<ReporterAnnotation> reporters = gene2reporterMap.get(geneSymbol.toUpperCase().trim());
+	   String geneSymbolUC = geneSymbol.toUpperCase().trim();
+	   Set<ReporterAnnotation> reporters = gene2reporterMap.get(geneSymbolUC);
 	   return reporters;
 	}
+	
+	
 	
 	/**
 	 * Get the reporters for a collection of gene symbols
