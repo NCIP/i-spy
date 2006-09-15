@@ -21,6 +21,7 @@ public class ISPYCorrelationScatterQueryDTO implements CorrelationQueryDTO {
     private ArrayPlatformType platformTypeY;
     private String geneX;
     private String geneY;
+    private String queryName;
 
     /**
      * @return Returns the geneX.
@@ -140,13 +141,12 @@ public class ISPYCorrelationScatterQueryDTO implements CorrelationQueryDTO {
     }
 
     public void setQueryName(String name) {
-        // TODO Auto-generated method stub
+        this.queryName = name;
         
     }
 
     public String getQueryName() {
-        // TODO Auto-generated method stub
-        return null;
+        return queryName;
     }
 
     /**
