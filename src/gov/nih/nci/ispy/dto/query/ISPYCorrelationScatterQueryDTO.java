@@ -23,6 +23,15 @@ public class ISPYCorrelationScatterQueryDTO implements CorrelationQueryDTO {
     private String geneY;
     private String queryName;
 
+    public void setQueryName(String name) {
+      this.queryName = name;        
+    }
+
+
+    public String getQueryName() {
+      return queryName;
+    }
+    
     /**
      * @return Returns the geneX.
      */
@@ -140,14 +149,7 @@ public class ISPYCorrelationScatterQueryDTO implements CorrelationQueryDTO {
         // TODO Auto-generated constructor stub
     }
 
-    public void setQueryName(String name) {
-        this.queryName = name;
-        
-    }
-
-    public String getQueryName() {
-        return queryName;
-    }
+    
 
     /**
      * @return Returns the platformTypeX.
