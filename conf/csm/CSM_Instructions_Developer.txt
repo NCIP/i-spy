@@ -1,27 +1,84 @@
-Developer Steps for setting up CSM locally:
+Developer Steps for setting up CSM locally: (updated 9/20/06 by: Kevin Rosso)
+************************************
+1. In build.properties, make sure that the jboss.install.dir property 
+   points to your local jboss directory.
+ 
+	 For example 
+	 jboss.install.dir=C:/jboss-4.0.2
+ 
+************************************
+  
+ 2. In build.properties, uncomment the "local developer settings" as 
+    shown below for CSM
+
+	###################################
+	# CSM properties				  #
+	###################################
+	#local developer settings
+	csm.application.config.file=${jboss.conf.dir}/ApplicationSecurityConfig.xml
+	csm.hibernate.config.file=${jboss.conf.dir}/ispy.hibernate.cfg.xml
+	
+************************************
+  
+ 3. In build.properties, uncomment the "local developer settings" as shown
+    below for Database Props and add the following  db username and pw
+
+	###################################
+	# Dev Database Properties#
+	#	-DO NOT MODIFY			  
+	###################################
+	urlDbalias=thin:@cbiodb2-d.nci.nih.gov:1521:RBTDEV
+	databaseUser=CSM_CAINTEGRATOR
+	databasePassword=csm#951
+	
+************************************
+  
+ 4. In build.properties, note the name of the .war file, as this property
+    will be used in the following step. To make things easy, the .war
+    should be called ispy.war
+ 	
+ 	Here is the example
+ 	#name of the war file
+	app.war.name=ispy
+
 ************************************
 
-1. Make sure that the jboss.install.dir property points to your local jboss
- directory.
- 
- For example 
- jboss.install.dir=C:/jboss-4.0.2
-   also uncomment the "local developer settings" as shown below
- 
-###################################
-# CSM properties				  #
-###################################
-#local developer settings
-csm.application.config.file=${jboss.conf.dir}/ApplicationSecurityConfig.xml
-csm.hibernate.config.file=${jboss.conf.dir}/ispy.hibernate.cfg.xml
+5. Open users.properties and change the authentication method to ldap instead of file
+   if it does not already. Also, make sure jdom.jar is in your classpath if it is not 
+   already.
+   
+   Here is the example
+   # valid values ldap or file
+   authentication = ldap
+
+************************************
+
+NOTE: This next step only pertains to REMBRANDT developers. Otherwise, go to step 6.
+	
+6. If you currently work with the REMBRANDT app, open ApplicationSecurityConfig.xml
+   (jboss/default/conf) dir and copy the section of code pertaining to REMBRANDT
+   and paste in separate text editor. (You will need to paste back later)
+   The section should begin with:
+   
+   <application>
+			<context-name>
+				rembrandt.....
+				
+	Now open oracle-ds.xml (jboss/default/deploy) and do the same for the REMB section
+	The section should begin with:
+	
+	<local-tx-datasource>
+               <jndi-name>rembrandtcsm</jndi-name>....
+               
+    Once these sections have been preserved, you can move forward.    
 
 *************************************
 
-2. Run the ant script task target "developement_config_common_security_module"
+7. Run the ant script task target "developement_config_common_security_module"
 
 *************************************
     
-3. Verify the following files have been placed in your JBossDir/server/default/conf
+8. Verify the following files have been placed in your JBossDir/server/default/conf
 	(for e.g. C:/JBoss/jboss-4.0.2/server/default/conf/)
 	
 	ApplicationSecurityConfig.xml
@@ -29,12 +86,18 @@ csm.hibernate.config.file=${jboss.conf.dir}/ispy.hibernate.cfg.xml
 
 **************************************
 
-4. Verify that oracle-ds.xml has been placed it in JBossDir/server/default/deploy/
+9. Verify that oracle-ds.xml has been placed it in JBossDir/server/default/deploy/
 
 **************************************
 
-5. Grab the text that is inside the file csm_deploy/properties-service.xml which should
-look something like:
+10. For REMBRANDT developers, copy back in the respective sections into the 
+   appropriate places of ApplicationSecurityConfig.xml and oracle-ds.xml. 
+   This should be consolidated into a common csm build soon.
+   
+***************************************
+
+11. Grab the text that is inside the file csm_deploy/properties-service.xml which should
+	look something like:
 	<attribute name="Properties">
       gov.nih.nci.security.configFile=C:/JBoss/jboss-4.0.2/server/default/conf/ApplicationSecurityConfig.xml
 	</attribute>
@@ -47,7 +110,7 @@ look something like:
 
 ***************************************
 
-6. Add the following lines to jboss-4.0.2\server\default\conf\login-config.xml
+12. Add the following lines to jboss-4.0.2\server\default\conf\login-config.xml
 
     <application-policy name="ispy">
 		<authentication>
@@ -61,7 +124,7 @@ look something like:
 	
 ****************************************
 
-7.  Lastly, until the CSM is upgraded you must delete the conficting folder that
+13.  Lastly, until the CSM is upgraded you must delete the conficting folder that
 	is JBoss/server/default/deploy/jboss-hibernate.deployer.
 
 	Right now there is a conflict between the different versions of hibernate.

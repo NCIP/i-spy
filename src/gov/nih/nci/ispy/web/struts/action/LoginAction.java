@@ -69,7 +69,7 @@ public final class LoginAction extends Action
 			else if(authType != null && authType.equals("ldap"))
 			{
 			    UserCredentials user = null;	    			
-				SecurityManager secManager =  SecurityManager.getInstance("ispyportal") ;
+				SecurityManager secManager =  SecurityManager.getInstance("ispy") ;
 				user = secManager.authenticate(userName,password);
 				if(user != null)
 				{
