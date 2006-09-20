@@ -203,12 +203,13 @@ public class CorrelationFindingStrategy extends SessionBasedFindingStrategy {
 	}
 
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
-//        try {
-//            analysisServerClientManager.sendRequest(correlationRequest);
-//        } catch (JMSException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+        try {
+            analysisServerClientManager.sendRequest(correlationRequest);
+        } catch (JMSException e) {
+        	logger.error("Caught JMSException when appempting to send request to analysis server. Request=" + correlationRequest);
+        	logger.error(e);
+        	return false;
+        }
         return true;
 	}
 
