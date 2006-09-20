@@ -1,8 +1,33 @@
-function getReporterList(element, gene, platform, elementToUpdate){		
-    	ReporterLookup.lookup(gene, platform, elementToUpdate, createReporterList);
+
+function checkReporterSelection(elementX, elementY, reporterX, reporterY, targetValue, name){
+	elementX = elementX.value;
+	elementY = elementY.value;
+	reporterX = reporterX.value;
+	reporterY = reporterY.value;
+	//alert("targertval: " + targetValue);
+	
+	if(elementX != "none"){
+		if (elementX == targetValue && reporterX == "none"){	
+			$('reporterStatusX').innerHTML = "<div class='err'><img src='images/err_y.png' align='left'>Please select a reporter</div>";
+			return false;
+		}
 	}
-	function createReporterList(txt){  
-	 	
+	if(elementY != "none"){
+		if (elementY == targetValue && reporterY == "none"){	
+			$('reporterStatusY').innerHTML = "<div class='err'><img src='images/err_y.png' align='left'>Please select a reporter</div>";
+			return false;
+		}
+	}	
+	
+}
+
+function getReporterList(element, gene, platform, elementToUpdate){    	
+    	if(gene!=""){
+    		ReporterLookup.lookup(gene, platform, elementToUpdate, createReporterList);
+    	}
+	}
+	
+function createReporterList(txt){  	 	
     	try	{
 				var res = eval('(' + txt + ')');
 				
@@ -25,7 +50,7 @@ function getReporterList(element, gene, platform, elementToUpdate){
 			}    	
 	}
 	
-function ediv(el,div,changeParam)	{	
+function ediv(el,div,changeParam)	{							
 						var elId = el.id;	
 						//alert(elId);		   
 	    				var el = el.value; //the element value to check	

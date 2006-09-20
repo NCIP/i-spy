@@ -2,6 +2,7 @@ package gov.nih.nci.ispy.web.helper;
 
 
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
+import gov.nih.nci.ispy.util.ispyConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 
@@ -148,8 +148,40 @@ public class UIFormValidator {
     public static ActionErrors validateHCTimepoints(String[] timepoints,
             ActionErrors errors) {
         if ((timepoints == null || timepoints.length < 1)) {
-            errors.add("timepoints", new ActionError(
+            errors.add("timepoints", new ActionMessage(
                     "gov.nih.nci.nautilus.ui.struts.form.timepoints.no.error"));
+        }
+        return errors;
+    }
+
+    public static ActionErrors validatePatientGroup(String patientGroup, ActionErrors errors) {
+        if(patientGroup.equalsIgnoreCase("none")){
+            errors.add("patients", new ActionMessage(
+                    "gov.nih.nci.nautilus.ui.struts.form.patients.no.error"));
+        }
+        return errors;
+    }
+
+    public static ActionErrors validateReporterSelection(String xaxis, String yaxis, String reporterX, String reporterY, ActionErrors errors) {
+        if(xaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING) && (reporterX.equalsIgnoreCase("none") || reporterX.equalsIgnoreCase(""))){
+            errors.add("reporterSelectionX", new ActionMessage(
+                "gov.nih.nci.nautilus.ui.struts.form.reporterSelection.no.error"));
+        }
+        if(yaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING) && reporterY.equalsIgnoreCase("none")){
+            errors.add("reporterSelectionY", new ActionMessage(
+                "gov.nih.nci.nautilus.ui.struts.form.reporterSelection.no.error"));
+        }
+        return errors;
+    }
+
+    public static ActionErrors validateAxis(String xaxis, String yaxis, ActionErrors errors) {
+        if(xaxis.equalsIgnoreCase("none")){
+            errors.add("xaxis", new ActionMessage(
+            "gov.nih.nci.nautilus.ui.struts.form.axis.no.error"));
+        }
+        if(yaxis.equalsIgnoreCase("none")){
+            errors.add("yaxis", new ActionMessage(
+            "gov.nih.nci.nautilus.ui.struts.form.axis.no.error"));
         }
         return errors;
     }

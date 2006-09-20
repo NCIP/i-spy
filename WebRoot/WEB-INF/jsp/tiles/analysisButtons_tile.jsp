@@ -13,9 +13,8 @@ document.forms[0].target = "_self";
 
 <div align="center">
 <html:reset styleId="clearButton" styleClass="xbutton" value="clear" />&nbsp;&nbsp;
-<html:submit styleId="submittalButton" styleClass="subButton" property="method" value="submit" onclick="javascript:saveMe(document.getElementById('selectedGroups'),document.getElementById('nonselectedGroups'));return checkNull(document.forms[0].analysisResultName)">
-     
+<html:submit styleId="submittalButton" styleClass="subButton" property="method" value="submit" onclick="javascript:saveMe(document.getElementById('selectedGroups'),document.getElementById('nonselectedGroups'));return checkNull(document.forms[0].analysisResultName)"> 
 </html:submit>
-</div>
+
 
 

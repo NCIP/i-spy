@@ -111,10 +111,10 @@ public class CorrelationScatterAction extends DispatchAction {
         
         CorrelationScatterForm correlationScatterForm = (CorrelationScatterForm) form;
         HttpSession session = request.getSession();
-        ISPYCorrelationScatterQueryDTO correlationScatterQueryDTO = createISPYCorrelationScatterQueryDTO(correlationScatterForm,session);
-        
-        ISPYFindingsFactory factory = new ISPYFindingsFactory();
-        Finding finding = null;
+       ISPYCorrelationScatterQueryDTO correlationScatterQueryDTO = createISPYCorrelationScatterQueryDTO(correlationScatterForm,session);
+       
+       ISPYFindingsFactory factory = new ISPYFindingsFactory();
+       Finding finding = null;
         try {
             finding = factory.createCorrelationScatterFinding(correlationScatterQueryDTO,session.getId(),correlationScatterQueryDTO.getQueryName());
         } catch (Exception e) {

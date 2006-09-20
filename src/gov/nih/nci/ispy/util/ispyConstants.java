@@ -101,4 +101,5 @@ public final class ispyConstants {
     
     public static final String[] MRI_TIMEPOINT_RANGE = {"T1_T2","T1_T3","T1_T4"};
    
+    public static final String CONTINUOUS_GENE_STRING = "gov.nih.nci.ispy.service.clinical.ContinuousType#GENE";
 }

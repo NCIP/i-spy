@@ -3,10 +3,15 @@ package gov.nih.nci.ispy.web.struts.form;
 import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
 import gov.nih.nci.caintegrator.enumeration.CorrelationType;
 import gov.nih.nci.ispy.service.clinical.ContinuousType;
+import gov.nih.nci.ispy.web.helper.UIFormValidator;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionMapping;
 import org.apache.struts.util.LabelValueBean;
 
 public class CorrelationScatterForm extends BaseForm{
@@ -261,6 +266,36 @@ public class CorrelationScatterForm extends BaseForm{
         this.geneY = geneY;
     }
 
-    
+    /**
+     * Method validate
+     * 
+     * @param ActionMapping
+     *            mapping
+     * @param HttpServletRequest
+     *            request
+     * @return ActionErrors
+     */
+    public ActionErrors validate(ActionMapping mapping,
+            HttpServletRequest request) {
+
+        ActionErrors errors = new ActionErrors();
+      
+        //Analysis Query Name cannot be blank
+        errors = UIFormValidator.validateQueryName(analysisResultName, errors);
+        
+        //validate patient groups
+        errors = UIFormValidator.validatePatientGroup(patientGroup, errors);
+        
+        //validate axises
+        errors = UIFormValidator.validateAxis(xaxis, yaxis, errors);  
+        
+        //validate reporters
+        errors = UIFormValidator.validateReporterSelection(xaxis, yaxis, reporterX, reporterY, errors);       
+       
+       
+       
+        return errors;
+    }
+
 
 }

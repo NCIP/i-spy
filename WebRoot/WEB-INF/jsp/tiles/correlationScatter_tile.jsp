@@ -5,10 +5,7 @@
 <script type='text/javascript' src='dwr/interface/ReporterLookup.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
 <script type='text/javascript' src='dwr/util.js'></script>
-<script type="text/javascript">
 
-	
-</script>
 
 <div class="report" style="padding:3px">   
 
@@ -16,20 +13,23 @@
 <legend class="red">
 	X-Axis
 </legend>
-<span id="confirm"></span>
+
 
 <br/>
-
- 
+		
+		
+	
+ 	<html:errors property="xaxis" />
 	<html:select style="margin-left:20px" styleId="xaxis" property="xaxis" onchange="ediv(this,'advX',this[1].value);">
 		<html:option value="none">select a category...</html:option>
 		<html:optionsCollection property="continuousCollection" />		
 	</html:select>
 	&nbsp;
-
-
+	
+	
 	<div id="advX" style="display:none; margin-left:20px;">
 	<br />
+	       <span id="reporterStatusX">Search for a reporter below</span>
 	       <div style="margin-left:20px;padding:5px;border: 1px dotted red"> 
 	       Gene Symbol:&nbsp;&nbsp;
 				<html:text property="geneX" styleId="geneSymbolX" size="10" /><br /><br />
@@ -39,17 +39,22 @@
 				</html:select>
 			
 			<input type="button" onclick="getReporterList(this, $('geneSymbolX').value , $('platformX').options[$('platformX').selectedIndex].value , $('reporterX').name);" id="lookupButtonX" value="lookup reporters">
-			<span id="reporterStatus">&nbsp;</span>
 			
+			<html:errors property="reporterSelectionX" />
 			<br /><br />
 			
 			Available Reporters: &nbsp;&nbsp;
 			    <html:select  property="reporterX" styleId="reporterX">
-				 	<html:option value="availableReporters1">none</html:option>
+				 	<html:option value="none">none</html:option>
 				</html:select>
 			
 			</div>
-			
+			<script type="text/javascript">
+				ediv($('xaxis'),'advX',$('xaxis')[1].value);
+				if($('geneSymbolX').value!=""){
+					getReporterList($('geneSymbolX'), $('geneSymbolX').value , $('platformX').options[$('platformX').selectedIndex].value , $('reporterX').name);
+				}
+			</script>
 			
 	<br /><br />
 	</div>	
@@ -62,11 +67,11 @@
 <legend class="red">
 	Y-Axis
 </legend>
-<span id="confirm"></span>
+
 
 <br/>
-
- 
+	
+ 	<html:errors property="yaxis" />
 	<html:select style="margin-left:20px" property="yaxis" styleId="yaxis" onchange="ediv(this,'advY',this[1].value);">
 		<html:option value="none">select a category...</html:option>
 		<html:optionsCollection property="continuousCollection" />		
@@ -76,6 +81,7 @@
 
 	<div id="advY" style="display:none; margin-left:20px;">
 	<br />
+			<span id="reporterStatusY">Search for a reporter below</span>
 	        <div style="margin-left:20px;padding:5px;border: 1px dotted red"> 
 	       Gene Symbol:&nbsp;&nbsp;
 				<html:text property="geneY" styleId="geneSymbolY" size="10" /><br /><br />
@@ -85,16 +91,21 @@
 				</html:select>
 			
 			<input type="button" onclick="getReporterList(this, $('geneSymbolY').value , $('platformY').options[$('platformY').selectedIndex].value , $('reporterY').name);" id="lookupButtonY" value="lookup reporters" />
-			<span id="reporterStatus">&nbsp;</span>
+			<html:errors property="reporterSelectionY" />
 			<br /><br />
 			
 			Available Reporters: &nbsp;&nbsp;
 			    <html:select property="reporterY" styleId="reporterY">
 			        <html:option value="none">none</html:option>
-				 	<html:option value="availableReporters1">none</html:option>
 				</html:select>
 			</div>
 			
+			<script type="text/javascript">
+				ediv($('yaxis'),'advY',$('yaxis')[1].value);
+				if($('geneSymbolY').value!=""){
+					getReporterList($('geneSymbolY'), $('geneSymbolY').value , $('platformY').options[$('platformY').selectedIndex].value , $('reporterY').name);
+				}
+			</script>
 			
 			
 			
