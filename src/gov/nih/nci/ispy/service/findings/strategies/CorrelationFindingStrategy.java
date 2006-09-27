@@ -151,7 +151,9 @@ public class CorrelationFindingStrategy extends SessionBasedFindingStrategy {
                     }
                 }
                 DoubleVector vector1 = new DoubleVector("correlationVector1", values);
-                correlationRequest.setVector1(vector1);
+                //correlationRequest.setVector1(vector1);
+                //@TODO need to revisit this
+                
             }
             //end x-axis setup
             
@@ -190,7 +192,8 @@ public class CorrelationFindingStrategy extends SessionBasedFindingStrategy {
                         }
                     }
                     DoubleVector vector2 = new DoubleVector("correlationVector2", values);
-                    correlationRequest.setVector2(vector2);
+                    //correlationRequest.setVector2(vector2);
+                    //@TODO need to revisit this
                 }
             //end Y-axis setup
             
