@@ -5,7 +5,6 @@ import gov.nih.nci.caintegrator.enumeration.AxisType;
 import gov.nih.nci.caintegrator.ui.graphing.data.DataRange;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.ui.graphing.data.ISPYPlotPoint;
-import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -16,8 +15,8 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
+import java.text.NumberFormat;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
@@ -39,19 +38,24 @@ public class ISPYCorrelationScatterPlot {
 	private JFreeChart corrChart = null;
 	private String xLabel;
 	private String yLabel;
+	private Double corrValue;
+	private NumberFormat nf = NumberFormat.getNumberInstance();
 	
-	public ISPYCorrelationScatterPlot(Collection<ISPYPlotPoint> dataPoints, String xLabel, String yLabel) {
+	public ISPYCorrelationScatterPlot(Collection<ISPYPlotPoint> dataPoints, String xLabel, String yLabel, Double correlationValue) {
 		this.dataPoints = dataPoints;
 		this.xLabel = xLabel;
 		this.yLabel = yLabel;
-		
+		this.corrValue = correlationValue;
+		nf.setMinimumFractionDigits(1);
 		createChart();
 		
 	}
 
 	private void createChart() {
 		
-		corrChart = ChartFactory.createScatterPlot("Correlation Scatter Plot",xLabel, yLabel, null,  PlotOrientation.VERTICAL,
+		String title = "Correlation Scatter Plot  correlationCoefficient=" + nf.format(corrValue);
+		
+		corrChart = ChartFactory.createScatterPlot(title,xLabel, yLabel, null,  PlotOrientation.VERTICAL,
 	            true, 
 	            true, 
 	            false );
@@ -263,6 +267,10 @@ public class ISPYCorrelationScatterPlot {
 	    plot.addAnnotation(glyph);
 	  }
 		
+	}
+	
+	public JFreeChart getChart() {
+		return corrChart;
 	}
 	
 	private class CorrLegendItemSource implements LegendItemSource {
