@@ -71,7 +71,7 @@ public class CorrelationFindingStrategy extends SessionBasedFindingStrategy {
      */
     
     FindingStatus currentStatus = FindingStatus.Running;
-    correlationFinding = new CorrelationFinding(sessionId, taskId, currentStatus, null);
+    correlationFinding = new CorrelationFinding(sessionId, taskId, currentStatus);
     correlationFinding.setQueryDTO(correlationQueryDTO);
     cacheManager.addToSessionCache(sessionId, taskId, correlationFinding);
 
