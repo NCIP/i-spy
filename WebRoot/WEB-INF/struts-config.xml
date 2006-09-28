@@ -237,6 +237,7 @@
 	
 	<action path="/pcaReport" forward="/WEB-INF/jsp/pcaReport.jsp" />
 	
+	<action path="/corrReport" forward="/WEB-INF/jsp/corrReport.jsp" />
 	
 	<action path="/hcReport" forward="/WEB-INF/jsp/hcReport.jsp" />
 

@@ -48,6 +48,24 @@
 		</attribute>
 	</tag>
 	<tag>
+		<name>CorrPlot</name>
+		<tag-class>
+			gov.nih.nci.ispy.web.taglib.CorrScatterPlotTag
+		</tag-class>
+		<bodycontent>empty</bodycontent>
+		<desciption>The Correlation Analysis Plots</desciption>
+		<attribute>
+			<name>taskId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>colorBy</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
 		<name>HCPlot</name>
 		<tag-class>
 			gov.nih.nci.ispy.web.taglib.HCPlotTag

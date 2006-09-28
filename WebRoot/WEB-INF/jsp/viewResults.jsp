@@ -115,7 +115,7 @@ String helpLinkClose = "', 350, 500);\">"+
 					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('pcaReport.do?key=" + f.getTaskId() + "', 900, 600,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(PCA)</i> ");
 				}
 				if(f instanceof CorrelationFinding){
-					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('quickClinical.do?taskId=" + f.getTaskId() + "', 750, 500,'clinical_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Correlation)</i> ");
+					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('corrReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Correlation)</i> ");
 				}
 				
 				out.println("<span style=\"font-size:10px\">(elapsed time: <span id=\"" + f.getTaskId() + "_time\" >" + f.getElapsedTime() + "</span>ms) </span>");
