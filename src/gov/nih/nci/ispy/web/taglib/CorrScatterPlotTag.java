@@ -174,28 +174,34 @@ public class CorrScatterPlotTag extends AbstractGraphingTag {
                plotPoints.add(pp);
                
                si = idMapper.getSampleInfoForLabtrackId(p.getId());
-               pp.setSampleInfo(si);
                
-               dto = new ISPYclinicalDataQueryDTO();
-               sampleHolder.clear();
-               sampleHolder.add(si.getISPYId());
-               dto.setRestrainingSamples(sampleHolder);
-               dataHolder.clear();
-               dataHolder = cqs.getClinicalData(dto);
-               
-               if (dataHolder.size() == 1) {
-                 Iterator i = dataHolder.iterator();
-                 pd = (PatientData) i.next();
-                 pp.setPatientData(pd);
+               if (si != null) {
+	               pp.setSampleInfo(si);
+	               
+	               dto = new ISPYclinicalDataQueryDTO();
+	               sampleHolder.clear();
+	               sampleHolder.add(si.getISPYId());
+	               dto.setRestrainingSamples(sampleHolder);
+	               dataHolder.clear();
+	               dataHolder = cqs.getClinicalData(dto);
+	               
+	               if (dataHolder.size() == 1) {
+	                 Iterator i = dataHolder.iterator();
+	                 pd = (PatientData) i.next();
+	                 pp.setPatientData(pd);
+	               }
+	               else {
+	                 logger.error("Internal Error. Did not get correct patient data back for patientId=" + si.getISPYId());
+	               }
                }
                else {
-                 logger.error("Internal Error. Did not get correct patient data back for patientId=" + si.getISPYId());
+            	   logger.warn("Could not find mapper entry for id=" + p.getId());
                }
                plotPoints.add(pp);
             }
             
-            ISPYCorrelationScatterPlot plot = new ISPYCorrelationScatterPlot(plotPoints, correlationFinding.getGroup1Name(), correlationFinding.getGroup2Name());
-             
+            ISPYCorrelationScatterPlot plot = new ISPYCorrelationScatterPlot(plotPoints, correlationFinding.getGroup1Name(), correlationFinding.getGroup2Name(), correlationFinding.getCorrelationValue());
+            chart = plot.getChart();
             ISPYImageFileHandler imageHandler = new ISPYImageFileHandler(session.getId(),"png",650,600);
 			//The final complete path to be used by the webapplication
 			String finalPath = imageHandler.getSessionTempFolder();
