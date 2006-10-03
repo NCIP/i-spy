@@ -5,7 +5,7 @@ import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 public class ISPYPlotPoint extends PlotPoint {
 
