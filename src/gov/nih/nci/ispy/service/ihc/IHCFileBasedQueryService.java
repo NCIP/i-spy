@@ -1,6 +1,8 @@
 package gov.nih.nci.ispy.service.ihc;
 
-import gov.nih.nci.ispy.dto.query.IHCqueryDTO;
+
+
+import gov.nih.nci.caintegrator.dto.query.IHCqueryDTO;
 
 import java.util.HashSet;
 import java.util.Set;
