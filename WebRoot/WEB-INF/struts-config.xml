@@ -12,7 +12,7 @@
 		<form-bean name="correlationScatterForm" type="gov.nih.nci.ispy.web.struts.form.CorrelationScatterForm"/>
 		<form-bean name="clinicalQueryForm" type="gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm"/>		
 		<form-bean name="fishQueryForm" type="gov.nih.nci.ispy.web.struts.form.FISHQueryForm"/>			
-		<form-bean name="ihcQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCQueryForm"/>	
+		<form-bean name="ihcQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLevelOfExpressionQueryForm"/>	
 		<form-bean name="userPreferencesBean" type="gov.nih.nci.ispy.web.struts.bean.UserPreferencesBean"/>				
 		<form-bean name="hierarchicalClusteringForm" type="gov.nih.nci.ispy.web.struts.form.HierarchicalClusteringForm"/>
 		<form-bean name="loginForm" type="gov.nih.nci.ispy.web.struts.form.LoginForm"/>
@@ -132,7 +132,7 @@
 		forward="ispy.ihc" />
 		
 	<action path="/ihcQueryInit"
-		type="gov.nih.nci.ispy.web.struts.action.IHCQueryAction"
+		type="gov.nih.nci.ispy.web.struts.action.IHCLevelOfExpressionQueryAction"
 		name="ihcQueryForm"
 		scope="request"
 		validate="false"
@@ -143,7 +143,7 @@
 	
 	<action path="/ihcquery"
 	    input="/ihcQueryInit.do?method=setup"
-		type="gov.nih.nci.ispy.web.struts.action.IHCQueryAction"
+		type="gov.nih.nci.ispy.web.struts.action.IHCLevelOfExpressionQueryAction"
 		name="ihcQueryForm"
 		scope="request"
 		validate="true"
