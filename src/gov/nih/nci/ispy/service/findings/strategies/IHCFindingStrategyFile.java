@@ -4,29 +4,32 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.dto.query.IHCqueryDTO;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
-import gov.nih.nci.ispy.dto.query.IHCqueryDTO;
+import gov.nih.nci.ispy.dto.query.IHCLevelOfExpressionQueryDTO;
 import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.PatientData;
-import gov.nih.nci.ispy.service.findings.IHCFinding;
+
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
+import gov.nih.nci.ispy.service.findings.ISPYIHCLevelOfExpressionFinding;
 import gov.nih.nci.ispy.service.ihc.IHCData;
 import gov.nih.nci.ispy.service.ihc.IHCFileBasedQueryService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 public class IHCFindingStrategyFile extends IHCFindingStrategy {
 
-   private IHCFinding ihcFinding = null;
+  // private IHCFinding ihcFinding = null;
+   private ISPYIHCLevelOfExpressionFinding ihcLevelOfExpFinding = null;
    private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
 		
 	
 	public IHCFindingStrategyFile(String sessionId, String taskId, IHCqueryDTO queryDTO)  throws ValidationException {
 		super(sessionId, taskId, queryDTO );
-		ihcFinding = new IHCFinding(sessionId, taskId, queryDTO);
+		ihcLevelOfExpFinding = new ISPYIHCLevelOfExpressionFinding(sessionId, taskId, queryDTO);
 	}
 
 	
@@ -46,7 +49,7 @@ public class IHCFindingStrategyFile extends IHCFindingStrategy {
 	    
 //	    
 //	    //put the result into the finding 
-	    IHCFinding ihcFinding = new IHCFinding(this.getSessionId(), this.getTaskId(), this.getQueryDTO());
+		ISPYIHCLevelOfExpressionFinding ihcFinding = new ISPYIHCLevelOfExpressionFinding(this.getSessionId(), this.getTaskId(), this.getQueryDTO());
 	    ihcFinding.setIHCData(new ArrayList<IHCData>(ihcData));
 	    
 	    return true;
@@ -57,12 +60,12 @@ public class IHCFindingStrategyFile extends IHCFindingStrategy {
 	}
 
 	public boolean analyzeResultSet() throws FindingsAnalysisException {		
-		cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), ihcFinding);
+		cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), ihcLevelOfExpFinding);
 		return true;
 	}
 
 	public Finding getFinding() {
-	  return ihcFinding;
+	  return ihcLevelOfExpFinding;
 	}
 	
 
