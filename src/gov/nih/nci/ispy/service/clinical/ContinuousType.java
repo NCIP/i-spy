@@ -65,6 +65,7 @@ import java.util.List;
 
 public enum ContinuousType implements Serializable {
 	GENE { public String toString() { return "Gene"; }},
+	PERCENT_LD_CHANGE { public String toString() { return "PERCENT_LD_CHANGE";}},
     PERCENT_LD_CHANGE_T1_T2{ public String toString() { return "PERCENT LD CHANGE_T1_T2";}},
     PERCENT_LD_CHANGE_T1_T3{ public String toString() { return "PERCENT_LD_CHANGE_T1_T3";}},
     PERCENT_LD_CHANGE_T1_T4{ public String toString() { return "PERCENT_LD_CHANGE_T1_T4";}}
