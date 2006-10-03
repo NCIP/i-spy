@@ -8,7 +8,7 @@ import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.de.GeneVectorPercentileDE;
 import gov.nih.nci.caintegrator.dto.de.InstitutionDE;
 import gov.nih.nci.caintegrator.dto.de.LinkageMethodTypeDE;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.util.Collection;
 import java.util.List;

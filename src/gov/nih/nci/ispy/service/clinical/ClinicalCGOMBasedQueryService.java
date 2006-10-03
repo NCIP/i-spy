@@ -67,6 +67,7 @@ import gov.nih.nci.caintegrator.domain.study.bean.*;
 import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.caintegrator.util.HibernateUtil;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.util.*;
 

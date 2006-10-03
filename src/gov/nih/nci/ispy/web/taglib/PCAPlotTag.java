@@ -15,7 +15,7 @@ import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPCAcolorByType;
 import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPrincipalComponentAnalysisPlot;
 import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;

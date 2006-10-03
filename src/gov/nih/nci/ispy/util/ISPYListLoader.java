@@ -24,7 +24,7 @@ import gov.nih.nci.ispy.service.clinical.ERstatusType;
 import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 
 /**

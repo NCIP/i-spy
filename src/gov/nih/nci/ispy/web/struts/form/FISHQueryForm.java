@@ -1,6 +1,6 @@
 package gov.nih.nci.ispy.web.struts.form;
 
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.io.Serializable;
 import java.util.ArrayList;

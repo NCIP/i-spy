@@ -2,7 +2,7 @@ package gov.nih.nci.ispy.service.annotation;
 
 import java.util.EnumSet;
 
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 public class SampleInfo {
 	

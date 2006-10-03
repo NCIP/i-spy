@@ -5,7 +5,7 @@ package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.caintegrator.enumeration.DistanceMatrixType;
 import gov.nih.nci.caintegrator.enumeration.LinkageMethodType;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.web.helper.UIFormValidator;
 
 import java.util.ArrayList;

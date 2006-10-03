@@ -14,7 +14,7 @@ import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.ISPYPrincipalComponentAnalysisQueryDTO;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.EnumHelper;

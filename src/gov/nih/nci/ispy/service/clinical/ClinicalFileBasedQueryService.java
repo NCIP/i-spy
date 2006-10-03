@@ -2,6 +2,7 @@ package gov.nih.nci.ispy.service.clinical;
 
 import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

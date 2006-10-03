@@ -1,7 +1,7 @@
 package gov.nih.nci.ispy.dto.query;
 
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.util.List;
 

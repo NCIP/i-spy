@@ -1,6 +1,6 @@
 package gov.nih.nci.ispy.service.annotation;
 
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.util.ArrayList;
 import java.util.HashSet;

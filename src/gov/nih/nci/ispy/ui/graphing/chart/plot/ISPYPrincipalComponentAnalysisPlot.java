@@ -6,7 +6,7 @@ import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.Prin
 import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint.PCAcomponent;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
 
 import java.awt.BasicStroke;

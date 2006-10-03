@@ -10,7 +10,7 @@ import gov.nih.nci.caintegrator.dto.de.GeneVectorPercentileDE;
 import gov.nih.nci.caintegrator.dto.de.InstitutionDE;
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.PrincipalComponentAnalysisQueryDTO;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.util.Collection;
 import java.util.List;

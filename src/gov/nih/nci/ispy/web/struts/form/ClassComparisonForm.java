@@ -2,7 +2,7 @@ package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.caintegrator.enumeration.MultiGroupComparisonAdjustmentType;
 import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.helper.UIFormValidator;
 
