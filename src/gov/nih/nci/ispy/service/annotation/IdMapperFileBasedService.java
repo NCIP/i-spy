@@ -109,6 +109,20 @@ public class IdMapperFileBasedService {
 	}
 	
 	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public RegistrantInfo getMapperEntryForId(String id) {
+		RegistrantInfo entry = idMap.get(id);
+		
+	    if (entry == null) {
+	      logger.warn("Could not find id mapper entry for id=" + id);
+	    }
+	    return entry;
+	}
+	
+	/**
 	 * Return all mapping information for the ids specifed in the id list.
 	 * 
 	 */
