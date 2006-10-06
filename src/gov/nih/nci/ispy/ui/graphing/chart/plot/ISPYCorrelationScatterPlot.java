@@ -40,6 +40,7 @@ public class ISPYCorrelationScatterPlot {
 	private String yLabel;
 	private Double corrValue;
 	private NumberFormat nf = NumberFormat.getNumberInstance();
+	private static final double glyphSize = 8.0;
 	
 	public ISPYCorrelationScatterPlot(Collection<ISPYPlotPoint> dataPoints, String xLabel, String yLabel, Double correlationValue) {
 		this.dataPoints = dataPoints;
@@ -85,37 +86,58 @@ public class ISPYCorrelationScatterPlot {
         DataRange Xrange = PlotPoint.getDataRange(plotPoints, AxisType.X_AXIS );
         DataRange Yrange = PlotPoint.getDataRange(plotPoints, AxisType.Y_AXIS);
         
-        Double xAbsMax = Math.max(Math.abs(Xrange.getMaxRange()), Math.abs(Xrange.getMinRange()));
-        Double yAbsMax = Math.max(Math.abs(Yrange.getMaxRange()), Math.abs(Yrange.getMinRange()));
-        
-        Double maxAbsVal = Math.max(xAbsMax, yAbsMax);
+//        Double xAbsMax = Math.max(Math.abs(Xrange.getMaxRange()), Math.abs(Xrange.getMinRange()));
+//        Double yAbsMax = Math.max(Math.abs(Yrange.getMaxRange()), Math.abs(Yrange.getMinRange()));
+//        
+//        Double maxAbsVal = Math.max(xAbsMax, yAbsMax);
            
         domainAxis.setAutoRangeIncludesZero(false);
          
         
-        double tickUnit = 25.0;
+        double xTick = 10.0;
+        double yTick = 10.0;
         
-        if (maxAbsVal <= 25.0) {
-          tickUnit =5.0;
+        double xdist = Math.abs(Xrange.getMaxRange()-Xrange.getMinRange());
+        double ydist = Math.abs(Yrange.getMaxRange()-Yrange.getMinRange());
+        if (xdist < 10.0) {
+          xTick = 1.0;
         }
-        else if (maxAbsVal <= 50.0) {
-          tickUnit = 10.0;
+        
+        
+        if (ydist < 10.0) {
+          yTick = 1.0;
         }
         
-        domainAxis.setTickUnit(new NumberTickUnit(tickUnit));
-        rangeAxis.setTickUnit(new NumberTickUnit(tickUnit));
+//        if (maxAbsVal <= 25.0) {
+//          tickUnit =5.0;
+//        }
+//        else if (maxAbsVal <= 50.0) {
+//          tickUnit = 10.0;
+//        }
         
-        double glyphScaleFactor = (maxAbsVal*2.0)/600.0;   //assuming 600 pixels for the graph
+        domainAxis.setTickUnit(new NumberTickUnit(xTick));
+        rangeAxis.setTickUnit(new NumberTickUnit(yTick));
         
-        double adjAbsVal = Math.ceil(maxAbsVal + (glyphScaleFactor*8.0));
+        //double glyphScaleFactor = (maxAbsVal*2.0)/600.0;   //assuming 600 pixels for the graph
+        double xScale = xdist / 600.0;
+        //double glyphScaleFactor = 1.0;
+        double yScale = ydist / 600.0;
+        
+        
+        //double adjAbsVal = Math.ceil(maxAbsVal + (glyphScaleFactor*8.0));
         
         //domainAxis.setRange(-maxAbsVal, maxAbsVal);
-        domainAxis.setRange(-adjAbsVal, adjAbsVal);
+        double xMin = Xrange.getMinRange()-xScale*glyphSize;
+        double xMax = Xrange.getMaxRange()+xScale*glyphSize;
+        double yMin = Yrange.getMinRange()-yScale*glyphSize;
+        double yMax = Yrange.getMaxRange()+yScale*glyphSize;
+        
+        domainAxis.setRange(xMin, xMax);
         
         //rangeAxis.setRange(-maxAbsVal, maxAbsVal);
-        rangeAxis.setRange(-adjAbsVal, adjAbsVal);
+        rangeAxis.setRange(yMin, yMax);
         
-	    createGlyphsAndAddToPlot(plot, glyphScaleFactor); 	 
+	    createGlyphsAndAddToPlot(plot, xScale, yScale); 	 
 	    
 	   // Paint p = new GradientPaint(0, 0, Color.white, 1000, 0, Color.green);
 	    //try and match the UI e9e9e9
@@ -186,15 +208,18 @@ public class ISPYCorrelationScatterPlot {
 		
 	}
 
-	private void createGlyphsAndAddToPlot(XYPlot plot, double glyphScaleFactor) {
+	private void createGlyphsAndAddToPlot(XYPlot plot, double xScale, double yScale) {
 	  XYShapeAnnotation glyph;
 	  Shape glyphShape = null;
 	  Color glyphColor;
 	  
-	  double glyphSize = 8.0;   //pixels
+	  //double glyphSize = 8.0;   //pixels
 	  
-	  double glyphIncrement = (glyphSize * glyphScaleFactor)/2.0;
-	  float gi = (float) glyphIncrement;
+	  double glyphIncrementX = (glyphSize * xScale)/2.0;
+	  double glyphIncrementY = (glyphSize * yScale)/2.0;
+	  float gi_x = (float) glyphIncrementX;
+	  float gi_y = (float) glyphIncrementY;
+	  
 	  PatientData pd;
 	  
 	  double x, y;
@@ -210,7 +235,7 @@ public class ISPYCorrelationScatterPlot {
 		      //data is missing
 		      Rectangle2D.Double rect = new Rectangle2D.Double();
 			  //rect.setFrameFromCenter(x,y, x+1.25,y+1.25);
-		      rect.setFrameFromCenter(x,y, x+glyphIncrement,y+glyphIncrement);
+		      rect.setFrameFromCenter(x,y, x+glyphIncrementX,y+glyphIncrementY);
 			  glyphShape = rect;
 		}
 	    else if (mriPctChange <= -30.0) {
@@ -222,8 +247,8 @@ public class ISPYCorrelationScatterPlot {
 	     
 	      //make a triangle
 	     gp.moveTo(xf,yf);
-	     gp.lineTo(xf-gi,yf+gi);
-	     gp.lineTo(xf+gi,yf+gi);
+	     gp.lineTo(xf-gi_x,yf+gi_y);
+	     gp.lineTo(xf+gi_x,yf+gi_y);
 	     gp.closePath();
 	     glyphShape = gp;
 	    }
@@ -235,8 +260,8 @@ public class ISPYCorrelationScatterPlot {
 		  float yf = (float)y;
 	      //make a triangle
 	      gp.moveTo(xf,yf);
-	      gp.lineTo(xf+gi,yf-gi);
-	      gp.lineTo(xf-gi,yf-gi);
+	      gp.lineTo(xf+gi_x,yf-gi_y);
+	      gp.lineTo(xf-gi_x,yf-gi_y);
 	      gp.closePath();
 	      glyphShape = gp;
 	      	
@@ -248,7 +273,7 @@ public class ISPYCorrelationScatterPlot {
 	      //no change or reduction in tumor size but less than 30% reduction
 	      Ellipse2D.Double circle = new Ellipse2D.Double();
 	      //circle.setFrameFromCenter(x,y,x+1.25,y+1.25);
-	      circle.setFrameFromCenter(x,y,x+gi,y+gi);
+	      circle.setFrameFromCenter(x,y,x+gi_x,y+gi_y);
 	      glyphShape = circle;	
 	    	
 	    }
