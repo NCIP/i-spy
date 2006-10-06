@@ -156,8 +156,8 @@ public class UIFormValidator {
 
     public static ActionErrors validatePatientGroup(String patientGroup, ActionErrors errors) {
         if(patientGroup.equalsIgnoreCase("none")){
-            errors.add("patients", new ActionMessage(
-                    "gov.nih.nci.nautilus.ui.struts.form.patients.no.error"));
+//            errors.add("patients", new ActionMessage(
+//                    "gov.nih.nci.nautilus.ui.struts.form.patients.no.error"));
         }
         return errors;
     }
