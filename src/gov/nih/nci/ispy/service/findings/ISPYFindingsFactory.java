@@ -33,6 +33,7 @@ import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
 import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy;
+import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy2;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategyFile;
@@ -356,7 +357,7 @@ public class ISPYFindingsFactory implements FindingsFactory {
     public Finding createCorrelationScatterFinding(ISPYCorrelationScatterQueryDTO correlationScatterQueryDTO, String id, String queryName) throws FrameworkException{
         CorrelationFinding finding = null;
         try {
-            CorrelationFindingStrategy strategy = new CorrelationFindingStrategy(id,queryName,correlationScatterQueryDTO);
+            CorrelationFindingStrategy2 strategy = new CorrelationFindingStrategy2(id,queryName,correlationScatterQueryDTO);
             strategy.createQuery();
             strategy.executeQuery();
             strategy.analyzeResultSet();
