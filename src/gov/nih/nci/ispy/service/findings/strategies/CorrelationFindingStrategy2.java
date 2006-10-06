@@ -3,6 +3,7 @@ package gov.nih.nci.ispy.service.findings.strategies;
 import gov.nih.nci.caintegrator.analysis.messaging.CorrelationRequest;
 import gov.nih.nci.caintegrator.analysis.messaging.DataPoint;
 import gov.nih.nci.caintegrator.analysis.messaging.DoubleVector;
+import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
 import gov.nih.nci.caintegrator.analysis.messaging.IdList;
 import gov.nih.nci.caintegrator.analysis.messaging.ReporterInfo;
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
@@ -100,16 +101,27 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
             ISPYCorrelationScatterQueryDTO scatterQueryDTO = (ISPYCorrelationScatterQueryDTO) queryDTO;
             ReporterInfo reporterInfo;
             IdMapperFileBasedService im = IdMapperFileBasedService.getInstance();
+            IdList patientList = null;
+            
             
             //populate pdids
             UserList ul = scatterQueryDTO.getPatientList();
-            IdList patientList = new IdList(ul.getName());
-            patientList.addAll(ul.getList());
+            
+            
+            if (ul != null) {
+              patientList = new IdList(ul.getName());
+              patientList.addAll(ul.getList());  
+            }
+            else {
+              patientList = new IdList("AllPatients");
+              patientList.addAll(im.getAllISPYIds());
+              logger.info("No user list specified, using all patient ids. NumIds=" + patientList.size());
+            }
+            
             correlationRequest.setPatientIds(patientList);
             
-            
             //set the restricting sample ids
-            List<RegistrantInfo> rinfo = im.getMapperEntriesForIds(ul.getList());   
+            List<RegistrantInfo> rinfo = im.getMapperEntriesForIds(patientList);   
             for(RegistrantInfo info : rinfo){
                 List<SampleInfo> sinfo = info.getAssociatedSamples();
                 for(SampleInfo s : sinfo){
@@ -119,8 +131,6 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
             if(!labtrackIds.isEmpty()){
                 correlationRequest.setSampleIds(labtrackIds);
             }
-            
-            
             
             //Setup the data vectors
             List<DataPoint> dataPoints1 = null;
@@ -199,9 +209,24 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
 			       case T4: val = pd.getMriPctChangeT1_T4(); break;	    	   
 		       }	    	 
 		       break;
-		     case PERCENT_LD_CHANGE_T1_T2: val = pd.getMriPctChangeT1_T2(); break; 	       
-		     case PERCENT_LD_CHANGE_T1_T3: val = pd.getMriPctChangeT1_T3(); break;
-		     case PERCENT_LD_CHANGE_T1_T4: val = pd.getMriPctChangeT1_T4(); break;
+		     case PERCENT_LD_CHANGE_T1_T2: {
+		    	 if (tp == TimepointType.T2) {
+		    	   val = pd.getMriPctChangeT1_T2();
+		    	 }
+		    	 break; 	       
+		     }
+		     case PERCENT_LD_CHANGE_T1_T3: {
+		    	 if (tp == TimepointType.T3) {
+		    	   val = pd.getMriPctChangeT1_T3();
+		    	 }
+		    	 break;
+		     }
+		     case PERCENT_LD_CHANGE_T1_T4: { 
+		    	if (tp == TimepointType.T4) {
+		    		val = pd.getMriPctChangeT1_T4();
+		    	}
+		    	break;
+		     }
 	     }
 	   
 	     
@@ -236,15 +261,25 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
          DataPoint dp;
          IdMapperFileBasedService im = IdMapperFileBasedService.getInstance();
          List<DataPoint> dataPoints = new ArrayList<DataPoint>();
+         IdGroup patientGroup = new IdGroup(patientIds.getName());
          
-         for (String pid : patientIds) {
+         if ((patientIds!=null)&&(!patientIds.isEmpty())) {
+            patientGroup.addAll(patientIds);
+         }
+         
+         if (patientGroup.isEmpty()) {
+           //use all patient ids
+           patientGroup = im.getAllISPYIds();	 
+         }
+        
+         for (String pid : patientGroup) {
            //go through each id an get the associated samples.	
            info =im.getMapperEntryForId(pid);
            pd = getPatientDataForId(pid);
            if (info != null) {
              sampleInfoList = info.getAssociatedSamples();
              for (SampleInfo si  : sampleInfoList) {
-                dp = getDataPoint(si, pd, continuousType, true, false);
+                dp = getDataPoint(si, pd, continuousType, setXval, setYval);
                 if (dp != null) {
             	  dataPoints.add(dp);
                 }
@@ -278,7 +313,7 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
           
           return data;
         }
-        
+       
         logger.warn("No patient data found for patientId=" + patientId);
         return null;
 	  
