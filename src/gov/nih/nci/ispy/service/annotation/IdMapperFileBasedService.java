@@ -1,5 +1,7 @@
 package gov.nih.nci.ispy.service.annotation;
 
+import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
+import gov.nih.nci.caintegrator.analysis.messaging.IdList;
 import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.io.BufferedReader;
@@ -307,5 +309,18 @@ public class IdMapperFileBasedService {
 		  }
 		}
 		return retList;
+	}
+
+	/**
+	 * Get a list of all ISPY ids.
+	 * @return
+	 */
+	public IdGroup getAllISPYIds() {
+	  IdGroup allISPYIds = new IdGroup("All_ISPY_IDs");
+	  
+	  for (RegistrantInfo info : idMap.values()) {
+	    allISPYIds.add(info.getRegistrationId());
+	  }
+	  return allISPYIds;
 	}
 }
