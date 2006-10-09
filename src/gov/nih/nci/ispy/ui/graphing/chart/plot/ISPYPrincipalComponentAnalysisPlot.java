@@ -114,7 +114,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	
 	
 	
-	private ISPYPCAcolorByType colorBy;
+	private ColorByType colorBy;
 	private PCAcomponent component1;
 	private PCAcomponent component2;
 	//private Map diseaseColorMap = new HashMap();
@@ -122,7 +122,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	private JFreeChart pcaChart = null;
 	private NumberFormat nf = NumberFormat.getNumberInstance();
 	
-	public ISPYPrincipalComponentAnalysisPlot(Collection<PrincipalComponentAnalysisDataPoint> dataPoints, PCAcomponent component1, PCAcomponent component2, ISPYPCAcolorByType colorBy) {
+	public ISPYPrincipalComponentAnalysisPlot(Collection<PrincipalComponentAnalysisDataPoint> dataPoints, PCAcomponent component1, PCAcomponent component2, ColorByType colorBy) {
 	  this.colorBy = colorBy;
 	  this.component1 = component1;
 	  this.component2 = component2;
@@ -257,7 +257,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	  legendSrc.addLegendItem(item);
 	  
 	  
-	  if (colorBy == ISPYPCAcolorByType.CLINICALRESPONSE) {
+	  if (colorBy == ColorByType.CLINICALRESPONSE) {
 	    
 		for (ClinicalResponseType cr : ClinicalResponseType.values()) {
 		  item = new LegendItem(cr.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), cr.getColor());
@@ -265,7 +265,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 		}
 
 	  }
-	  else if (colorBy == ISPYPCAcolorByType.DISEASESTAGE) {
+	  else if (colorBy == ColorByType.DISEASESTAGE) {
 		  
 		  for (ClinicalStageType ds : ClinicalStageType.values()) {
 			if (!ds.name().endsWith("ALL")) {
@@ -274,7 +274,7 @@ public class ISPYPrincipalComponentAnalysisPlot {
 			}
 		  }
 	  }
-	  else if (colorBy == ISPYPCAcolorByType.TIMEPOINT) {
+	  else if (colorBy == ColorByType.TIMEPOINT) {
 		  for (TimepointType tp : TimepointType.values()) {
 			item = new LegendItem(tp.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), tp.getColor());
 			legendSrc.addLegendItem(item);
@@ -386,19 +386,19 @@ public class ISPYPrincipalComponentAnalysisPlot {
 	  ClinicalResponseType clinResp =null;
 	  ClinicalStageType clinStage = null;
 	  TimepointType timepoint = null;
-	  if (colorBy == ISPYPCAcolorByType.CLINICALRESPONSE) {
+	  if (colorBy == ColorByType.CLINICALRESPONSE) {
 		clinResp = pcaPoint.getClinicalResponse();
 		if (clinResp != null) {
 		  retColor = clinResp.getColor();
 		}
 	  }
-	  else if (colorBy == ISPYPCAcolorByType.DISEASESTAGE) {
+	  else if (colorBy == ColorByType.DISEASESTAGE) {
 		clinStage = pcaPoint.getClinicalStage();
 		if (clinStage != null) {
 	      retColor = clinStage.getColor();
 		}
 	  }
-	  else if (colorBy == ISPYPCAcolorByType.TIMEPOINT) {
+	  else if (colorBy == ColorByType.TIMEPOINT) {
 	    timepoint = pcaPoint.getTimepoint();
 	    if (timepoint != null) {
 	      retColor = timepoint.getColor();

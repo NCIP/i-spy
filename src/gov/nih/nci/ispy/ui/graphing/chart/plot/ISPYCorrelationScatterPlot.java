@@ -3,8 +3,15 @@ package gov.nih.nci.ispy.ui.graphing.chart.plot;
 import gov.nih.nci.caintegrator.application.graphing.PlotPoint;
 import gov.nih.nci.caintegrator.enumeration.AxisType;
 import gov.nih.nci.caintegrator.ui.graphing.data.DataRange;
+import gov.nih.nci.ispy.service.clinical.ContinuousType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.ui.graphing.data.ISPYPlotPoint;
+import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
+
+import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
+import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
+import java.awt.geom.Line2D;
+import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -38,15 +45,21 @@ public class ISPYCorrelationScatterPlot {
 	private JFreeChart corrChart = null;
 	private String xLabel;
 	private String yLabel;
+	private ContinuousType ct1;
+	private ContinuousType ct2;
 	private Double corrValue;
 	private NumberFormat nf = NumberFormat.getNumberInstance();
 	private static final double glyphSize = 8.0;
+	private ColorByType colorBy = ColorByType.CLINICALRESPONSE;
 	
-	public ISPYCorrelationScatterPlot(Collection<ISPYPlotPoint> dataPoints, String xLabel, String yLabel, Double correlationValue) {
+	public ISPYCorrelationScatterPlot(Collection<ISPYPlotPoint> dataPoints, String xLabel, String yLabel, ContinuousType contType1, ContinuousType contType2, Double correlationValue, ColorByType colorBy) {
 		this.dataPoints = dataPoints;
 		this.xLabel = xLabel;
 		this.yLabel = yLabel;
+		this.ct1 = contType1;
+		this.ct2 = contType2;
 		this.corrValue = correlationValue;
+		this.colorBy = colorBy;
 		nf.setMinimumFractionDigits(1);
 		createChart();
 		
@@ -179,29 +192,29 @@ public class ISPYCorrelationScatterPlot {
 	  legendSrc.addLegendItem(item);
 	  
 	  
-//	  if (colorBy == ISPYPCAcolorByType.CLINICALRESPONSE) {
-//	    
-//		for (ClinicalResponseType cr : ClinicalResponseType.values()) {
-//		  item = new LegendItem(cr.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), cr.getColor());
-//		  legendSrc.addLegendItem(item);
-//		}
-//
-//	  }
-//	  else if (colorBy == ISPYPCAcolorByType.DISEASESTAGE) {
-//		  
-//		  for (ClinicalStageType ds : ClinicalStageType.values()) {
-//			if (!ds.name().endsWith("ALL")) {
-//		      item = new LegendItem(ds.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ds.getColor());
-//		      legendSrc.addLegendItem(item);
-//			}
-//		  }
-//	  }
-//	  else if (colorBy == ISPYPCAcolorByType.TIMEPOINT) {
-//		  for (TimepointType tp : TimepointType.values()) {
-//			item = new LegendItem(tp.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), tp.getColor());
-//			legendSrc.addLegendItem(item);
-//		  }
-//	  }
+	  if (colorBy == ColorByType.CLINICALRESPONSE) {
+	    
+		for (ClinicalResponseType cr : ClinicalResponseType.values()) {
+		  item = new LegendItem(cr.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), cr.getColor());
+		  legendSrc.addLegendItem(item);
+		}
+
+	  }
+	  else if (colorBy == ColorByType.DISEASESTAGE) {
+		  
+		  for (ClinicalStageType ds : ClinicalStageType.values()) {
+			if (!ds.name().endsWith("ALL")) {
+		      item = new LegendItem(ds.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ds.getColor());
+		      legendSrc.addLegendItem(item);
+			}
+		  }
+	  }
+	  else if (colorBy == ColorByType.TIMEPOINT) {
+		  for (TimepointType tp : TimepointType.values()) {
+			item = new LegendItem(tp.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), tp.getColor());
+			legendSrc.addLegendItem(item);
+		  }
+	  }
 	  
 	  sources[0] = legendSrc;
 	  legend.setSources(sources);
@@ -228,8 +241,11 @@ public class ISPYCorrelationScatterPlot {
 	    
 	    x = corrPoint.getX();
 	    y = corrPoint.getY();
-	     	   
-	   mriPctChange = corrPoint.getMRITumorPctChange();
+	   
+	   
+	    mriPctChange = corrPoint.getMRITumorPctChange();
+	  
+	   
 	     
 	   if (mriPctChange == null) {
 		      //data is missing
@@ -279,8 +295,9 @@ public class ISPYCorrelationScatterPlot {
 	    }
 	   
 	    
-	    glyphColor = Color.BLUE; 
+	    //glyphColor = Color.BLUE; 
 	    //later can set color based on 
+	   glyphColor = getColorForDataPoint(corrPoint);
 	    
 	    glyph = new XYShapeAnnotation(glyphShape, new BasicStroke(1.0f), Color.BLACK, glyphColor);
            
@@ -292,6 +309,42 @@ public class ISPYCorrelationScatterPlot {
 	    plot.addAnnotation(glyph);
 	  }
 		
+	}
+	
+	private Color getColorForDataPoint(ISPYPlotPoint plotPoint) {
+	  Color defaultColor = Color.GRAY;
+	  Color retColor = null;
+	  ClinicalResponseType clinResp =null;
+	  ClinicalStageType clinStage = null;
+	  TimepointType timepoint = null;
+	  PatientData pd = plotPoint.getPatientData();
+	  
+	  if (pd == null) {return defaultColor; }
+	  
+	  if (colorBy == ColorByType.CLINICALRESPONSE) {
+		clinResp = plotPoint.getClinicalResponse();
+		if (clinResp != null) {
+		  retColor = clinResp.getColor();
+		}
+	  }
+	  else if (colorBy == ColorByType.DISEASESTAGE) {
+		clinStage = plotPoint.getClinicalStage();
+		if (clinStage != null) {
+	      retColor = clinStage.getColor();
+		}
+	  }
+	  else if (colorBy == ColorByType.TIMEPOINT) {
+	    timepoint = plotPoint.getTimepoint();
+	    if (timepoint != null) {
+	      retColor = timepoint.getColor();
+	    }
+	  }
+	  
+	  if (retColor == null) {
+	    retColor = defaultColor;
+	  }
+	  
+	  return retColor;
 	}
 	
 	public JFreeChart getChart() {
@@ -311,7 +364,5 @@ public class ISPYCorrelationScatterPlot {
 		}
 		
 	}
-	
-	
 
 }

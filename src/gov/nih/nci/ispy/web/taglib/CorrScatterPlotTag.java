@@ -19,8 +19,9 @@ import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
+import gov.nih.nci.ispy.service.findings.ISPYCorrelationFinding;
 import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYCorrelationScatterPlot;
-import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPCAcolorByType;
+import gov.nih.nci.ispy.ui.graphing.chart.plot.ColorByType;
 import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPrincipalComponentAnalysisPlot;
 import gov.nih.nci.ispy.ui.graphing.data.ISPYPlotPoint;
 import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
@@ -148,13 +149,13 @@ public class CorrScatterPlotTag extends AbstractGraphingTag {
 		
 		try {
             //retrieve the Finding from cache and build the list of PCAData points
-            CorrelationFinding correlationFinding = (CorrelationFinding)businessTierCache.getSessionFinding(session.getId(),taskId);
+            ISPYCorrelationFinding corrFinding = (ISPYCorrelationFinding)businessTierCache.getSessionFinding(session.getId(),taskId);
             
             Collection<ClinicalFactorType> clinicalFactors = new ArrayList<ClinicalFactorType>();
             List<String> sampleIds = new ArrayList<String>();
             
             
-            List<DataPoint> points = correlationFinding.getDataPoints();
+            List<DataPoint> points = corrFinding.getDataPoints();
             
             ClinicalDataService cqs = ClinicalDataServiceFactory.getInstance();
         	IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
@@ -171,16 +172,27 @@ public class CorrScatterPlotTag extends AbstractGraphingTag {
                pp.setX(p.getX());
                pp.setY(p.getY());
                pp.setZ(p.getZ());
-               plotPoints.add(pp);
                
-               si = idMapper.getSampleInfoForLabtrackId(p.getId());
+               String patientId = null;
                
-               if (si != null) {
+               if (corrFinding.isSampleBased()) {
+                 si = idMapper.getSampleInfoForLabtrackId(p.getId());       
+                 if (si != null) {
 	               pp.setSampleInfo(si);
-	               
+	               patientId = si.getISPYId();
+                 }
+                 else {
+            	   logger.warn("Could not get sample info for DataPoint=" + p.getId());
+                 }
+               }
+               else if (corrFinding.isPatientBased()) {
+                 patientId = p.getId();
+               }
+                 
+               if (patientId != null) {  
 	               dto = new ISPYclinicalDataQueryDTO();
 	               sampleHolder.clear();
-	               sampleHolder.add(si.getISPYId());
+	               sampleHolder.add(patientId);
 	               dto.setRestrainingSamples(sampleHolder);
 	               dataHolder.clear();
 	               dataHolder = cqs.getClinicalData(dto);
@@ -191,16 +203,15 @@ public class CorrScatterPlotTag extends AbstractGraphingTag {
 	                 pp.setPatientData(pd);
 	               }
 	               else {
-	                 logger.error("Internal Error. Did not get correct patient data back for patientId=" + si.getISPYId());
+	                 logger.error("Internal Error. Did not get back correct patient data for  patientId=" + patientId);
 	               }
                }
-               else {
-            	   logger.warn("Could not find mapper entry for id=" + p.getId());
-               }
+               
                plotPoints.add(pp);
             }
             
-            ISPYCorrelationScatterPlot plot = new ISPYCorrelationScatterPlot(plotPoints, correlationFinding.getGroup1Name(), correlationFinding.getGroup2Name(), correlationFinding.getCorrelationValue());
+            
+            ISPYCorrelationScatterPlot plot = new ISPYCorrelationScatterPlot(plotPoints, corrFinding.getGroup1Name(), corrFinding.getGroup2Name(), corrFinding.getContinuousType1(), corrFinding.getContinuousType2(), corrFinding.getCorrelationValue(),ColorByType.valueOf(ColorByType.class,colorBy.toUpperCase()));
             chart = plot.getChart();
             ISPYImageFileHandler imageHandler = new ISPYImageFileHandler(session.getId(),"png",650,600);
 			//The final complete path to be used by the webapplication
