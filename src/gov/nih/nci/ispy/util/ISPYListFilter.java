@@ -26,10 +26,10 @@ public class ISPYListFilter {
         ArrayList<ListSubType> lsta = new ArrayList();
         if(lt == ListType.Reporter){
             //list the reporter subtypes here and return them
-            lsta.add(ListSubType.PROBE_SET);
+            //lsta.add(ListSubType.PROBE_SET);
             lsta.add(ListSubType.IMAGE_CLONE);
             lsta.add(ListSubType.DBSNP);
-            lsta.add(ListSubType.SNP_PROBESET);
+            //lsta.add(ListSubType.SNP_PROBESET);
         }
         else if(lt == ListType.Gene){
             //ListSubType[] lsta = {ListSubType.GENBANK_ACCESSION_NUMBER, ListSubType.GENESYMBOL, ListSubType.LOCUS_LINK};
