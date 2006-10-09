@@ -28,6 +28,7 @@ import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.ContinuousType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.common.TimepointType;
+import gov.nih.nci.ispy.service.findings.ISPYCorrelationFinding;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
 	private CorrelationQueryDTO queryDTO;
 	private CorrelationRequest correlationRequest;
     private AnalysisServerClientManager analysisServerClientManager;
-    private CorrelationFinding correlationFinding;
+    private ISPYCorrelationFinding correlationFinding;
     private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
     private ClinicalDataService clinicalService = ClinicalDataServiceFactory.getInstance();
     private IdList labtrackIds = new IdList("labIds");
@@ -75,7 +76,7 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
      */
     
     FindingStatus currentStatus = FindingStatus.Running;
-    correlationFinding = new CorrelationFinding(sessionId, taskId, currentStatus);
+    correlationFinding = new ISPYCorrelationFinding(sessionId, taskId, currentStatus);
     correlationFinding.setQueryDTO(correlationQueryDTO);
     cacheManager.addToSessionCache(sessionId, taskId, correlationFinding);
 
@@ -136,6 +137,16 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
             List<DataPoint> dataPoints1 = null;
             List<DataPoint> dataPoints2 = null;   
             
+            ContinuousType ct1 = scatterQueryDTO.getContinuousType1();
+            ContinuousType ct2 = scatterQueryDTO.getContinuousType2();
+            
+            boolean usePatientIdsForPoints = ((ct1!=ContinuousType.GENE)&&(ct2!=ContinuousType.GENE));
+            correlationFinding.setPatientBased(usePatientIdsForPoints);
+            correlationFinding.setSampleBased(!usePatientIdsForPoints);
+            correlationFinding.setContinuousType1(ct1);
+            correlationFinding.setContinuousType2(ct2);
+            
+            
             //begin setup of the X axis and place in request
             if(scatterQueryDTO.getContinuousType1() == ContinuousType.GENE){
                 String dataFilename = "";
@@ -148,9 +159,8 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
                 reporterInfo = new ReporterInfo(scatterQueryDTO.getReporter1Name(),scatterQueryDTO.getGeneX(),dataFilename); 
                 correlationRequest.setReporter1(reporterInfo);
             }
-            else{ 
-            	ContinuousType ct1 = scatterQueryDTO.getContinuousType1();
-            	dataPoints1 = getDataPoints(patientList,ct1,true,false);
+            else{             	
+            	dataPoints1 = getDataPoints(patientList,ct1,true,false, usePatientIdsForPoints);            	
                 correlationRequest.setVector1(dataPoints1);
             }
             //end x-axis setup
@@ -168,8 +178,8 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
                 correlationRequest.setReporter2(reporterInfo);
             }
             else{ 
-            	ContinuousType ct2 = scatterQueryDTO.getContinuousType2();
-            	dataPoints2 = getDataPoints(patientList, ct2, false,true);
+            	
+            	dataPoints2 = getDataPoints(patientList, ct2, false,true, usePatientIdsForPoints);
             	correlationRequest.setVector2(dataPoints2);
             }
             //end Y-axis setup
@@ -182,6 +192,55 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
 		return true;
 	}
 	
+	private Double getValueForTimepoint(TimepointType timepoint, PatientData pd){
+		
+		if ((timepoint == null)||(pd == null)) return null;
+		
+		switch(timepoint) {
+	       case T2: return pd.getMriPctChangeT1_T2();
+	       case T3: return pd.getMriPctChangeT1_T3();
+	       case T4: return pd.getMriPctChangeT1_T4();	 
+		}
+		return null;
+	}
+	
+	private TimepointType getEndpoint(ContinuousType continuousType) {
+		switch(continuousType){
+		case PERCENT_LD_CHANGE_T1_T2: return TimepointType.T2;
+		case PERCENT_LD_CHANGE_T1_T3: return TimepointType.T3;
+		case PERCENT_LD_CHANGE_T1_T4: return TimepointType.T4;
+		}
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param pd
+	 * @param continuousType
+	 * @param setXval
+	 * @param setYval
+	 * @return
+	 */
+	private DataPoint getDataPoint(PatientData pd, ContinuousType continuousType, boolean setXval, boolean setYval) {
+		
+		if (pd == null) return null;
+		
+		DataPoint dp = new DataPoint(pd.getISPY_ID());
+		TimepointType tp = getEndpoint(continuousType);
+		Double val = getValueForTimepoint(tp,pd);
+		
+		if (val == null) return null;
+		
+		if (setXval){
+		 dp.setX(val);
+		}
+		if (setYval) {
+		 dp.setY(val);
+		}
+		return dp;
+		
+	}
+	
 	/**
 	 * Get a data point
 	 * @param sampleInfo
@@ -189,6 +248,7 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
 	 * @param continuousType
 	 * @param setXval
 	 * @param setYval
+	 * @param usePatientIdsForPoints 
 	 * @return
 	 */
 	private DataPoint getDataPoint(SampleInfo sampleInfo, PatientData pd,  ContinuousType continuousType, boolean setXval, boolean setYval) {
@@ -197,63 +257,39 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
 	  if ((sampleInfo == null) || (pd == null)) return null;
 	  
 	  
-	     TimepointType tp = sampleInfo.getTimepoint();
-	     Double val = null;
+	  TimepointType sampleTP = sampleInfo.getTimepoint();
+	  Double val = null;
+	  
 	     
-	     switch (continuousType) {
-		     case PERCENT_LD_CHANGE:
-		       switch(tp) {
-			       case T1: val = null; break;
-			       case T2: val = pd.getMriPctChangeT1_T2(); break;
-			       case T3: val = pd.getMriPctChangeT1_T3(); break;
-			       case T4: val = pd.getMriPctChangeT1_T4(); break;	    	   
-		       }	    	 
-		       break;
-		     case PERCENT_LD_CHANGE_T1_T2: {
-		    	 if (tp == TimepointType.T2) {
-		    	   val = pd.getMriPctChangeT1_T2();
-		    	 }
-		    	 break; 	       
-		     }
-		     case PERCENT_LD_CHANGE_T1_T3: {
-		    	 if (tp == TimepointType.T3) {
-		    	   val = pd.getMriPctChangeT1_T3();
-		    	 }
-		    	 break;
-		     }
-		     case PERCENT_LD_CHANGE_T1_T4: { 
-		    	if (tp == TimepointType.T4) {
-		    		val = pd.getMriPctChangeT1_T4();
-		    	}
-		    	break;
-		     }
-	     }
-	   
+	  if (continuousType == ContinuousType.PERCENT_LD_CHANGE) {
+		 val = getValueForTimepoint(sampleTP,pd);
+	  }
+	  else {
+		 TimepointType pctChangeEndTP = getEndpoint(continuousType);
+	     val = getValueForTimepoint(pctChangeEndTP, pd);
+	  }
 	     
-	     if (val != null) {
-	    	 point = new DataPoint(sampleInfo.getLabtrackId());
-	    	 if (setXval) {
-	           point.setX(val);
-	    	 }
+	  if (val != null) {
+    	point = new DataPoint(sampleInfo.getLabtrackId());
+    	 
+    	if (setXval) { point.setX(val);}
+    	if (setYval) { point.setY(val);}
 	    	 
-	    	 if (setYval) {
-	    	   point.setY(val);
-	    	 }
-	    	 
-	     }
+	  }
 	     
-	     return point;
+	  return point;
 	    	   
 	    	 
 	}
 	
 	/**
 	 * Get the DataPoints to be used in the correlation analysis 
+	 * @param createPointsBasedOnPatientIds 
 	 * @param patientId
 	 * @param variableType
 	 * @return a list  of data points to be used.
 	 */
-	private List<DataPoint> getDataPoints(IdList patientIds, ContinuousType continuousType, boolean setXval, boolean setYval){
+	private List<DataPoint> getDataPoints(IdList patientIds, ContinuousType continuousType, boolean setXval, boolean setYval, boolean createPointsBasedOnPatientIds){
 		 
 		 RegistrantInfo info;
          List<SampleInfo> sampleInfoList;
@@ -276,19 +312,30 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
            //go through each id an get the associated samples.	
            info =im.getMapperEntryForId(pid);
            pd = getPatientDataForId(pid);
-           if (info != null) {
-             sampleInfoList = info.getAssociatedSamples();
-             for (SampleInfo si  : sampleInfoList) {
-                dp = getDataPoint(si, pd, continuousType, setXval, setYval);
-                if (dp != null) {
-            	  dataPoints.add(dp);
-                }
-             }  
+           if (createPointsBasedOnPatientIds){
+        	   dp = getDataPoint(pd, continuousType, setXval, setYval);  
+        	   if (dp != null){
+        	     dataPoints.add(dp);
+        	   }
            }
+           else  {
+        	   //create points based sample ids
+	           if (info != null) {
+	             sampleInfoList = info.getAssociatedSamples();
+	             for (SampleInfo si  : sampleInfoList) {
+	                dp = getDataPoint(si, pd, continuousType, setXval, setYval);
+	                if (dp != null) {
+	            	  dataPoints.add(dp);
+	                }
+	             }  
+	           }
+           }           
          }
          return dataPoints;
 	}
 	
+	
+
 	/**
 	 * Method to get patient data for a given id using the clinical query
 	 * DTO
