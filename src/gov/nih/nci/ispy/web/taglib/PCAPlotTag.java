@@ -16,7 +16,7 @@ import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.common.TimepointType;
-import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPCAcolorByType;
+import gov.nih.nci.ispy.ui.graphing.chart.plot.ColorByType;
 import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPrincipalComponentAnalysisPlot;
 import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
@@ -222,15 +222,15 @@ public class PCAPlotTag extends AbstractGraphingTag {
             
             //check the components to see which graph to get
 			if(components.equalsIgnoreCase("PC1vsPC2")){                 
-                ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC2, PCAcomponent.PC1, ISPYPCAcolorByType.valueOf(ISPYPCAcolorByType.class,colorBy.toUpperCase()));
+                ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC2, PCAcomponent.PC1, ColorByType.valueOf(ColorByType.class,colorBy.toUpperCase()));
             	chart = plot.getChart();                
             }
             if(components.equalsIgnoreCase("PC1vsPC3")){            	
-                ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC3, PCAcomponent.PC1, ISPYPCAcolorByType.valueOf(ISPYPCAcolorByType.class,colorBy.toUpperCase()));
+                ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC3, PCAcomponent.PC1, ColorByType.valueOf(ColorByType.class,colorBy.toUpperCase()));
             	chart = plot.getChart();                
             }
             if(components.equalsIgnoreCase("PC2vsPC3")){
-            	ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC3, PCAcomponent.PC2, ISPYPCAcolorByType.valueOf(ISPYPCAcolorByType.class,colorBy.toUpperCase()));
+            	ISPYPrincipalComponentAnalysisPlot plot = new ISPYPrincipalComponentAnalysisPlot(pcaData, PCAcomponent.PC3, PCAcomponent.PC2, ColorByType.valueOf(ColorByType.class,colorBy.toUpperCase()));
             	chart = plot.getChart();
             }
             
