@@ -4,6 +4,7 @@ import gov.nih.nci.caintegrator.application.graphing.PlotPoint;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
+import gov.nih.nci.ispy.service.clinical.ContinuousType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.common.TimepointType;
 
@@ -11,6 +12,8 @@ public class ISPYPlotPoint extends PlotPoint {
 
 	private PatientData patientData = null;
 	private SampleInfo  sampleInfo = null;
+	private ContinuousType continuousType = null;
+	
 	
 	public ISPYPlotPoint(String id) {
 		super(id);
@@ -42,22 +45,38 @@ public class ISPYPlotPoint extends PlotPoint {
 		this.sampleInfo = sampleInfo;
 	}
 	
+	public boolean hasSampleInfo() { 
+	 
+		return sampleInfo != null;
+		
+	}
+	
+	public boolean hasPatientData() {
+		
+       return patientData != null;
+       
+	}
+	
+	public Double getMRITumorPctChange(TimepointType timepoint) {
+		if (patientData == null) {
+			return null;
+		}
+		
+		switch(timepoint) {
+		case T2: return patientData.getMriPctChangeT1_T2();
+		case T3: return patientData.getMriPctChangeT1_T3();
+		case T4: return patientData.getMriPctChangeT1_T4();
+		}
+		
+		return null;
+	}
+	
 	public Double getMRITumorPctChange() {
-	  if ((sampleInfo == null) || (patientData == null)) {
+	  if (sampleInfo == null) {
 		  return null;
 	  }
 	  
-	  if (sampleInfo.getTimepoint() == TimepointType.T2) {
-		return patientData.getMriPctChangeT1_T2();
-	  }
-	  else if (sampleInfo.getTimepoint() == TimepointType.T3) {
-		return patientData.getMriPctChangeT1_T3();
-	  }
-	  else if (sampleInfo.getTimepoint() == TimepointType.T4) {
-		return patientData.getMriPctChangeT1_T4();
-	  }
-	  
-	  return null;
+	  return getMRITumorPctChange(sampleInfo.getTimepoint());
 	}
 	
 	public ClinicalResponseType getClinicalResponse() {
@@ -68,10 +87,46 @@ public class ISPYPlotPoint extends PlotPoint {
 	  return patientData.getClinicalResponse(sampleInfo.getTimepoint());
 	}
 	
+	public TimepointType getTimepoint() {
+      if (sampleInfo == null) return null;
+      
+      return sampleInfo.getTimepoint();
+      
+	}
+	
+	public ClinicalStageType getClinicalStage() {
+		 if ((sampleInfo == null) || (patientData == null)) {
+			  return null;
+		  }
+		 
+		  return patientData.getClinicalStage();
+		
+	}
+	
 	public String getTag() {
 	  StringBuffer sb = new StringBuffer();	
-	  sb.append(patientData.getISPY_ID()).append(" ").append(sampleInfo.getLabtrackId()).append(sampleInfo.getTimepoint());
+	   
+	  if (sampleInfo != null) {
+		    sb.append(sampleInfo.getLabtrackId()).append(" ");
+	  }
+	  
+	  if (patientData != null) {
+	    sb.append(patientData.getISPY_ID()).append(" ");
+	  }
+	  
+	  if ((sampleInfo!=null)&&(sampleInfo.getTimepoint()!=null)) {
+	    sb.append(sampleInfo.getTimepoint());
+	  }
+	  
 	  return sb.toString();
+	}
+
+	public ContinuousType getContinuousType() {
+		return continuousType;
+	}
+
+	public void setContinuousType(ContinuousType continuousType) {
+		this.continuousType = continuousType;
 	}
 
 	
