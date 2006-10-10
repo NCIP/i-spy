@@ -264,9 +264,9 @@ public class ISPYFindingsFactory implements FindingsFactory {
 		
 		//Will substitute database version when it is ready
 		try {
-		//ClinicalFindingStrategy strategy = new ClinicalFindingStrategyFile(sessionId, taskId, query);
+		ClinicalFindingStrategy strategy = new ClinicalFindingStrategyFile(sessionId, taskId, query);
 		
-		ClinicalFindingStrategy strategy = new ClinicalFindingStrategyCGOM(sessionId, taskId, query);
+		//ClinicalFindingStrategy strategy = new ClinicalFindingStrategyCGOM(sessionId, taskId, query);
 		
 		
 		try {
