@@ -122,9 +122,7 @@ public class ClinicalQueryAction extends DispatchAction {
         
         
         ISPYFindingsFactory factory = new ISPYFindingsFactory();
-        ISPYClinicalFinding finding = null;
-        
-        finding = factory.createClinicalFinding(clinicalDataQueryDTO, session.getId(), clinicalDataQueryDTO.getQueryName());
+        ISPYClinicalFinding finding = factory.createClinicalFinding(clinicalDataQueryDTO, session.getId(), clinicalDataQueryDTO.getQueryName());
            
         return mapping.findForward("viewResults");
     }
@@ -132,8 +130,7 @@ public class ClinicalQueryAction extends DispatchAction {
     private ISPYclinicalDataQueryDTO createClinicalDataQueryDTO(ClinicalQueryForm clinicalForm, HttpSession session) {
 		ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
         UserListBeanHelper helper = new UserListBeanHelper(session);
-        UserList myCurrentList;
-        Set<String> tempRestrainingSamples = new HashSet<String>();
+        Set<String> restrainingSamples = new HashSet<String>();
         dto.setQueryName(clinicalForm.getAnalysisResultName());
 		
         /**
@@ -146,47 +143,31 @@ public class ClinicalQueryAction extends DispatchAction {
          */
         
         //set custom patient group
-        if(clinicalForm.getPatientGroup()!=null && !clinicalForm.getPatientGroup().equals("none")){
-            myCurrentList = helper.getUserList(clinicalForm.getPatientGroup());
-            if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
-                tempRestrainingSamples.addAll(myCurrentList.getList());
-            }
-        }
         
-        //set disease stage groups
+        if(clinicalForm.getPatientGroup()!=null && !clinicalForm.getPatientGroup().equals("none")){
+        	Set<String> patientGroupIds = new HashSet<String>();
+        	String[] patientGroupNames = new String[1];
+        	patientGroupNames[0] = clinicalForm.getPatientGroup();
+        	addSamplesFromUserLists(helper, patientGroupIds, patientGroupNames);
+        	intersectOrAddSamples(restrainingSamples, patientGroupIds);
+        }
+                
+        //set disease stage groups        
         if(clinicalForm.getClinicalStages()!=null && clinicalForm.getClinicalStages().length>0){
+        	Set<String> clinicalStageIds = new HashSet<String>();
             String[] stages = clinicalForm.getClinicalStages();
-            for(int i=0; i<stages.length;i++){
-                myCurrentList = helper.getUserList(stages[i]);
-                if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
-                    //attempt to intersect lists
-                    if(!tempRestrainingSamples.isEmpty()){
-                        tempRestrainingSamples.retainAll(myCurrentList.getList());
-                    }
-                    else{
-                        tempRestrainingSamples.addAll(myCurrentList.getList());  
-                    }
-                }
-            }
+            addSamplesFromUserLists(helper, clinicalStageIds, stages );
+            intersectOrAddSamples(restrainingSamples,clinicalStageIds);
         }       
         
-        //set histology type groups
+        //set histology type groups        
         if(clinicalForm.getHistologyType()!=null && clinicalForm.getHistologyType().length>0){
+        	Set<String> histologyIds = new HashSet<String>();
             String[] histology = clinicalForm.getHistologyType();
-            for(int i=0; i<histology.length;i++){
-                myCurrentList = helper.getUserList(histology[i]);
-                if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
-                    //attempt to intersect lists
-                    if(!tempRestrainingSamples.isEmpty()){
-                        tempRestrainingSamples.retainAll(myCurrentList.getList());
-                    }
-                    else{
-                        tempRestrainingSamples.addAll(myCurrentList.getList());  
-                    }
-                }
-            }
+            addSamplesFromUserLists(helper, histologyIds, histology);
+            intersectOrAddSamples(restrainingSamples, histologyIds);
         }
-        
+                      
         //set agent groups
         if(clinicalForm.getAgents()!=null && clinicalForm.getAgents().length>0){
             EnumSet<NeoAdjuvantChemoRegimenType> agentSet = EnumSet.noneOf(NeoAdjuvantChemoRegimenType.class);
@@ -204,55 +185,27 @@ public class ClinicalQueryAction extends DispatchAction {
         }
         
         //set clinical response groups
+        
         if(clinicalForm.getResponse()!=null && clinicalForm.getResponse().length>0){
-            String[] responses = clinicalForm.getResponse();
-            for(int i=0; i<responses.length;i++){
-                myCurrentList = helper.getUserList(responses[i]);
-                if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
-                    //attempt to intersect lists
-                    if(!tempRestrainingSamples.isEmpty()){
-                        tempRestrainingSamples.retainAll(myCurrentList.getList());
-                    }
-                    else{
-                        tempRestrainingSamples.addAll(myCurrentList.getList());  
-                    }
-                }
-            }
+	    	Set<String> clinicalResponseIds = new HashSet<String>();
+	        String[] responses = clinicalForm.getResponse();
+	        addSamplesFromUserLists(helper, clinicalResponseIds, responses);
+	        intersectOrAddSamples(restrainingSamples,clinicalResponseIds);            
         }
+        
+        
         
         //set receptor groups
+       
         if(clinicalForm.getReceptorStatus()!=null && clinicalForm.getReceptorStatus().length>0){
+        	Set<String> receptorIds = new HashSet<String>();
             String[] receptors = clinicalForm.getReceptorStatus();
-            for(int i=0; i<receptors.length;i++){
-                myCurrentList = helper.getUserList(receptors[i]);
-                if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
-                    //attempt to intersect lists
-                    if(!tempRestrainingSamples.isEmpty()){
-                        tempRestrainingSamples.retainAll(myCurrentList.getList());
-                    }
-                    else{
-                        tempRestrainingSamples.addAll(myCurrentList.getList());  
-                    }
-                }
-            }
+            addSamplesFromUserLists(helper, receptorIds, receptors);
+            intersectOrAddSamples(restrainingSamples, receptorIds);
         }
-        
-        if(clinicalForm.getPatientGroup()!=null && !clinicalForm.getPatientGroup().equals("none")){
-            //attempt to intersect lists
-            myCurrentList = helper.getUserList(clinicalForm.getPatientGroup());
-            if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
-                //attempt to intersect lists
-                if(!tempRestrainingSamples.isEmpty()){
-                    tempRestrainingSamples.retainAll(myCurrentList.getList());
-                }
-                else{
-                    tempRestrainingSamples.addAll(myCurrentList.getList());  
-                }
-            }
-        }
-        
-        if(!tempRestrainingSamples.isEmpty()){
-            dto.setRestrainingSamples(tempRestrainingSamples);
+                       
+        if(!restrainingSamples.isEmpty()){
+            dto.setRestrainingSamples(restrainingSamples);
         }
         
         //set age params
@@ -340,6 +293,43 @@ public class ClinicalQueryAction extends DispatchAction {
       
 		return dto;
 	}
+    
+    /**
+     * This method will get each user list in the array of list names and add all samples
+     * in the list to the sample set
+     * @param userListNames
+     */
+    private void addSamplesFromUserLists(UserListBeanHelper helper, Set<String> sampleSet, String[] userListNames) {
+    	UserList myCurrentList;
+    	for(int i=0; i<userListNames.length;i++){
+            myCurrentList = helper.getUserList(userListNames[i]);
+            if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
+              sampleSet.addAll(myCurrentList.getList());
+            }
+        }
+    }
+    
+    /**
+     * This method will retain all samples in the sampleCollection that intersect with the samples 
+     * in the samplesToIntersect set. If the sample collection is empty then the samples will be 
+     * added to the sampleCollection
+     * 
+     * @param sampleCollection
+     * @param samplesToIntersect
+     */
+    private void intersectOrAddSamples(Set<String> sampleCollection, Set<String> samplesToIntersect) {
+    	
+    	 if (samplesToIntersect.isEmpty())  {
+    		 return;
+    	 }
+    	
+    	 if(sampleCollection.isEmpty()){
+    		 sampleCollection.addAll(samplesToIntersect);               
+         }
+         else{
+        	 sampleCollection.retainAll(samplesToIntersect);
+         }
+    }
 
 	public ActionForward setup(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
