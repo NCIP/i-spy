@@ -30,7 +30,7 @@ public class ClinicalFindingStrategyFile extends ClinicalFindingStrategy{
 	public ClinicalFindingStrategyFile(String sessionId, String taskId, ISPYclinicalDataQueryDTO queryDTO) throws ValidationException {
 		super(sessionId, taskId, queryDTO);
         
-        clinicalFinding = new ISPYClinicalFinding(sessionId, taskId, queryDTO);
+        clinicalFinding = new ISPYClinicalFinding(sessionId, taskId, queryDTO, FindingStatus.Running);
         
 	}
 
@@ -55,8 +55,7 @@ public class ClinicalFindingStrategyFile extends ClinicalFindingStrategy{
 	    
 	    
 	    
-	    //put the result into the finding 
-	    clinicalFinding = new ISPYClinicalFinding(this.getSessionId(), this.getTaskId(), this.getQueryDTO());
+	    //put the result into the finding
 	    clinicalFinding.setPatientData(new ArrayList<PatientData>(patientData));
        
 	    return true;
@@ -64,6 +63,7 @@ public class ClinicalFindingStrategyFile extends ClinicalFindingStrategy{
 
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
         cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), clinicalFinding);
+        clinicalFinding.setStatus(FindingStatus.Completed);
 		return true;
 	}
 

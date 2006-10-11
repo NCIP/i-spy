@@ -12,9 +12,11 @@ import gov.nih.nci.ispy.service.clinical.PatientData;
 public class ISPYClinicalFinding extends Finding  {
 
 	private List<PatientData> patientData = null;
+	private ISPYclinicalDataQueryDTO dto = null;
 	
-	public ISPYClinicalFinding(String sessionId, String taskId, ISPYclinicalDataQueryDTO dto) {
-		super(sessionId, taskId, FindingStatus.Completed);
+	public ISPYClinicalFinding(String sessionId, String taskId, ISPYclinicalDataQueryDTO dto, FindingStatus status) {
+		super(sessionId, taskId, status);
+		this.dto = dto;
 	}
 
 	public void setPatientData(List<PatientData> patientData) {
