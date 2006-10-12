@@ -186,7 +186,7 @@ public class UIFormValidator {
             "gov.nih.nci.nautilus.ui.struts.form.axis.no.error"));
         }
         
-        if (!xaxis.toLowerCase().endsWith("gene") && !yaxis.toLowerCase().endsWith("gene")) {
+        if (!xaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING) && !yaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING)) {
         	errors.add("nogene", new ActionMessage(
             "gov.nih.nci.nautilus.ui.struts.form.axis.notbothgene.error"));
         }
