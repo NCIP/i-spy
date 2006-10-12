@@ -8,6 +8,7 @@
 
 
 <div class="report" style="padding:3px">   
+<html:errors property="nogene" />
 
 <fieldset class="gray" style="text-align:left">
 <legend class="red">
