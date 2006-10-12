@@ -162,6 +162,7 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
             else{             	
             	dataPoints1 = getDataPoints(patientList,ct1,true,false, usePatientIdsForPoints);            	
                 correlationRequest.setVector1(dataPoints1);
+                correlationRequest.setVector1Name(ct1.toString());
             }
             //end x-axis setup
             
@@ -181,6 +182,7 @@ public class CorrelationFindingStrategy2 extends SessionBasedFindingStrategy {
             	
             	dataPoints2 = getDataPoints(patientList, ct2, false,true, usePatientIdsForPoints);
             	correlationRequest.setVector2(dataPoints2);
+            	correlationRequest.setVector2Name(ct2.toString());
             }
             //end Y-axis setup
             
