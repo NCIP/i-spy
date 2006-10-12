@@ -67,7 +67,7 @@ public class ISPYCorrelationScatterPlot {
 
 	private void createChart() {
 		
-		String title = "Correlation Scatter Plot  correlationCoefficient=" + nf.format(corrValue);
+		String title = "Correlation Scatter Plot  correlationCoefficient=" + nf.format(corrValue) + " N=" + dataPoints.size();
 		
 		corrChart = ChartFactory.createScatterPlot(title,xLabel, yLabel, null,  PlotOrientation.VERTICAL,
 	            true, 
