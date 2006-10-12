@@ -13,6 +13,8 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 
+import sun.security.krb5.internal.crypto.e;
+
 /**
  * @author BauerD 
  * Dec 15, 2004 
@@ -183,6 +185,12 @@ public class UIFormValidator {
             errors.add("yaxis", new ActionMessage(
             "gov.nih.nci.nautilus.ui.struts.form.axis.no.error"));
         }
+        
+        if (!xaxis.toLowerCase().endsWith("gene") && !yaxis.toLowerCase().endsWith("gene")) {
+        	errors.add("nogene", new ActionMessage(
+            "gov.nih.nci.nautilus.ui.struts.form.axis.notbothgene.error"));
+        }
+        
         return errors;
     }
     
