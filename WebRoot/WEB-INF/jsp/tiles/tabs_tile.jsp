@@ -24,8 +24,8 @@
 	String advSecondary = "<ul id=\"secondary\">\n" +
 							"<li><a href=\"advancedHome.do\">Search Home</a></li>\n" +
 							"<li><a href=\"clinicalQueryInit.do?method=setup\">Clinical</a></li>\n" +
-							//"<li><a href=\"ihcQueryInit.do?method=setup\">IHC</a></li>\n" +							
-							//"<li><a href=\"fishQueryInit.do?method=setup\">FISH</a></li>\n" +
+							"<li><a href=\"ihcQueryInit.do?method=setup\">IHC</a></li>\n" +							
+							"<li><a href=\"fishQueryInit.do?method=setup\">FISH</a></li>\n" +
 							//"<li><a href=\"#\">p53</a></li>\n" +
 							"</ul>\n";
 	String resultsSecondary = "<ul id=\"secondary\">\n" +
