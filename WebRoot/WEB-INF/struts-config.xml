@@ -10,6 +10,7 @@
    		<form-bean name="classComparisonForm" type="gov.nih.nci.ispy.web.struts.form.ClassComparisonForm"/>
 		<form-bean name="principalComponentForm" type="gov.nih.nci.ispy.web.struts.form.PrincipalComponentForm"/>
 		<form-bean name="correlationScatterForm" type="gov.nih.nci.ispy.web.struts.form.CorrelationScatterForm"/>
+		<form-bean name="categoricalCorrelationForm" type="gov.nih.nci.ispy.web.struts.form.CategoricalCorrelationForm"/>
 		<form-bean name="clinicalQueryForm" type="gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm"/>		
 		<form-bean name="fishQueryForm" type="gov.nih.nci.ispy.web.struts.form.FISHQueryForm"/>			
 		<form-bean name="ihcQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLevelOfExpressionQueryForm"/>	
@@ -100,6 +101,31 @@
 		parameter="method">
 		<forward name="backToCorrelationScatter" path="ispy.correlationScatter" />
 		<forward name="correlationScatterSetup" path="/correlationScatterInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/categoricalCorrelation"
+		forward="ispy.categoricalCorrelation" />
+		
+	<action path="/categoricalCorrelationInit"
+		type="gov.nih.nci.ispy.web.struts.action.CategoricalCorrelationAction"
+		name="categoricalCorrelationForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToCategoricalCorrelation" path="ispy.categoricalCorrelation" />
+		<forward name="categoricalCorrelationSetup" path="/categoricalCorrelationInit.do?method=setup" />
+	</action>
+	
+	<action path="/categoricalcorrelation"
+	    input="/categoricalCorrelationInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.CategoricalCorrelationAction"
+		name="categoricalCorrelationForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToCategoricalCorrelation" path="ispy.categoricalCorrelation" />
+		<forward name="categoricalCorrelationSetup" path="/categoricalCorrelationInit.do?method=setup" />
 		<forward name="viewResults" path="/viewResults.do" />
 	</action>
 	

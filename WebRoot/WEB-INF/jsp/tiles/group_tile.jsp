@@ -5,15 +5,17 @@
 
 
 <fieldset class="gray">
-<legend class="red">Select Group<b class="req">*</b>
+<logic:notPresent name="categoricalCorrelationForm">
+<legend class="red">Select Group<b class="req">*</b></legend>
 <app:help help="If you have chosen to compare groups with ONE fixed timepoint, only move two groups into the selected groups box. Your baseline group will be determined by the second group in the box. If you have chosen to compare groups ACROSS timepoints, you can move one group into the selected groups box. Your baseline group is now determined by the first timepoint you have chosen." />
-</legend>
+</logic:notPresent>
 
-<logic:present name="principalComponentForm">
+<logic:present name="categoricalCorrelationForm">
+<legend class="red"><b>X-Axis</b></legend>
+</logic:present>
 
-<html:radio property="groupsOption" styleClass="radio" value="allSamples" onclick="onRadio(this,'allSamples');" />Show all samples<br /><br />
-
-<html:radio property="groupsOption" styleId="variousSamplesRadio" styleClass="radio" value="variousSamples" onclick="onRadio(this,'variousSamples');" />Select samples<br />
+<logic:present name="categoricalCorrelationForm">
+<html:errors property="selectedGroups3"/>
 <table align="center" border="0">
     <tr style="vertical-align:top">
     	<td>Existing Groups
@@ -23,8 +25,8 @@
 			</html:select>
 		</td>
 		<td style="vertical-align:middle">
-			<input id="button1" onclick="preMove(document.getElementById('variousSamplesRadio').checked, document.getElementById('selectedGroups'),document.getElementById('nonselectedGroups'))" value="<<" type="button" disabled="true" /><br />
-			<input id="button2" onclick="preMove(document.getElementById('variousSamplesRadio').checked, document.getElementById('nonselectedGroups'),document.getElementById('selectedGroups'))" value=">>" type="button" disabled="true" />
+			<input onclick="move(document.getElementById('selectedGroups'),document.getElementById('nonselectedGroups'))" value="<<" type="button"/><br />
+			<input onclick="move(document.getElementById('nonselectedGroups'),document.getElementById('selectedGroups'))" value=">>" type="button"/>
 		</td>
 		<td>Selected Groups
 			<br/>

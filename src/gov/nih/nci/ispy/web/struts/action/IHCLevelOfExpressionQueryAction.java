@@ -1,31 +1,24 @@
 package gov.nih.nci.ispy.web.struts.action;
 
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
-
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.ispy.dto.query.IHCLevelOfExpressionQueryDTO;
-import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
-import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
-
-import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
+import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLevelOfExpressionFinding;
-import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.ihc.DistributionType;
 import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
 import gov.nih.nci.ispy.service.ihc.LocalizationType;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
-import gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm;
-import gov.nih.nci.ispy.web.struts.form.FISHQueryForm;
 import gov.nih.nci.ispy.web.struts.form.IHCLevelOfExpressionQueryForm;
 
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

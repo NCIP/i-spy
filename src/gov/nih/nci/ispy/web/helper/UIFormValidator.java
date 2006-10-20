@@ -13,8 +13,6 @@ import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 
-import sun.security.krb5.internal.crypto.e;
-
 /**
  * @author BauerD 
  * Dec 15, 2004 
@@ -147,6 +145,14 @@ public class UIFormValidator {
         return errors;
     }
     
+    public static ActionErrors validateSelectedGroups(String[] selectedGroups, ActionErrors errors){
+        if (selectedGroups == null || selectedGroups.length < 1){
+            errors.add("selectedGroups3", new ActionMessage(
+                    "gov.nih.nci.nautilus.ui.struts.form.groups.no.error"));            
+        }
+        return errors;
+    }
+    
     public static ActionErrors validateHCTimepoints(String[] timepoints,
             ActionErrors errors) {
         if ((timepoints == null || timepoints.length < 1)) {
@@ -165,9 +171,11 @@ public class UIFormValidator {
     }
 
     public static ActionErrors validateReporterSelection(String xaxis, String yaxis, String reporterX, String reporterY, ActionErrors errors) {
-        if(xaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING) && (reporterX.equalsIgnoreCase("none") || reporterX.equalsIgnoreCase(""))){
-            errors.add("reporterSelectionX", new ActionMessage(
-                "gov.nih.nci.nautilus.ui.struts.form.reporterSelection.no.error"));
+        if(xaxis!=null){
+            if(xaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING) && (reporterX.equalsIgnoreCase("none") || reporterX.equalsIgnoreCase(""))){
+                errors.add("reporterSelectionX", new ActionMessage(
+                    "gov.nih.nci.nautilus.ui.struts.form.reporterSelection.no.error"));
+            }
         }
         if(yaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING) && reporterY.equalsIgnoreCase("none")){
             errors.add("reporterSelectionY", new ActionMessage(
@@ -177,18 +185,22 @@ public class UIFormValidator {
     }
 
     public static ActionErrors validateAxis(String xaxis, String yaxis, ActionErrors errors) {
-        if(xaxis.equalsIgnoreCase("none")){
+        if(xaxis!=null){
+            if(xaxis.equalsIgnoreCase("none")){
             errors.add("xaxis", new ActionMessage(
             "gov.nih.nci.nautilus.ui.struts.form.axis.no.error"));
+            }
         }
         if(yaxis.equalsIgnoreCase("none")){
             errors.add("yaxis", new ActionMessage(
             "gov.nih.nci.nautilus.ui.struts.form.axis.no.error"));
         }
         
-        if (!xaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING) && !yaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING)) {
-        	errors.add("nogene", new ActionMessage(
-            "gov.nih.nci.nautilus.ui.struts.form.axis.notbothgene.error"));
+        if(xaxis!=null){
+            if (!xaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING) && !yaxis.equalsIgnoreCase(ispyConstants.CONTINUOUS_GENE_STRING)) {
+            	errors.add("nogene", new ActionMessage(
+                "gov.nih.nci.nautilus.ui.struts.form.axis.notbothgene.error"));
+            }
         }
         
         return errors;

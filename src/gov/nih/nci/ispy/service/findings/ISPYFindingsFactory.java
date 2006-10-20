@@ -4,7 +4,6 @@
 package gov.nih.nci.ispy.service.findings;
 
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
-import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.LevelOfExpressionIHCFinding;
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.IHCqueryDTO;
@@ -25,18 +24,15 @@ import gov.nih.nci.caintegrator.service.findings.GEIntensityFinding;
 import gov.nih.nci.caintegrator.service.findings.HCAFinding;
 import gov.nih.nci.caintegrator.service.findings.KMFinding;
 import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
-import gov.nih.nci.ispy.dto.query.IHCLevelOfExpressionQueryDTO;
+import gov.nih.nci.ispy.dto.query.ISPYCategoricalCorrelationQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
-import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
-import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy2;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategy;
-import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategyFile;
 import gov.nih.nci.ispy.service.findings.strategies.IHCLevelOfExpressionFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.PrincipalComponentAnalysisFindingStrategy;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
@@ -358,6 +354,31 @@ public class ISPYFindingsFactory implements FindingsFactory {
         CorrelationFinding finding = null;
         try {
             CorrelationFindingStrategy2 strategy = new CorrelationFindingStrategy2(id,queryName,correlationScatterQueryDTO);
+            strategy.createQuery();
+            strategy.executeQuery();
+            strategy.analyzeResultSet();
+            finding = (CorrelationFinding)strategy.getFinding();
+
+//        } catch (ValidationException e) {
+//            logger.error(e);
+//            changeStatusToError(id,queryName,e.getMessage());
+//            throw(e);
+        } catch (FindingsQueryException e) {
+            logger.error(e);
+            changeStatusToError(id,queryName,e.getMessage());
+            throw(e);
+        } catch (FindingsAnalysisException e) {
+            logger.error(e);
+            changeStatusToError(id,queryName,e.getMessage());
+            throw(e);
+        }
+        return finding;
+    }
+    
+    public Finding createCategoricalCorrelationFinding(ISPYCategoricalCorrelationQueryDTO categoricalCorrelationQueryDTO, String id, String queryName) throws FrameworkException{
+        CorrelationFinding finding = null;
+        try {
+            CorrelationFindingStrategy2 strategy = new CorrelationFindingStrategy2(id,queryName,categoricalCorrelationQueryDTO);
             strategy.createQuery();
             strategy.executeQuery();
             strategy.analyzeResultSet();
