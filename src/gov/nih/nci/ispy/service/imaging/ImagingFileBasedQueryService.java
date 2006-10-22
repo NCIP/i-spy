@@ -109,6 +109,7 @@ public class ImagingFileBasedQueryService implements ImagingDataService {
             	sb.append("&image1SeriesInstanceUid=").append(pre.getSeriesId());
             	sb.append("&image1ImageSopInstanceUid=").append(pre.getImageId());
             	
+            	sb.append("&image1dataName=").append("Patient%20Id").append("&image1dataValue=").append(acrinId);
             	sb.append("&image1dataName=").append("Study%20Uid").append("&image1dataValue=").append(pre.getStudyId());
             	sb.append("&image1dataName=").append("Series%20Uid").append("&image1dataValue=").append(pre.getSeriesId());
             	sb.append("&image1dataName=").append("Image%20Sop%20Uid").append("&image1dataValue=").append(pre.getImageId());            	
@@ -121,6 +122,7 @@ public class ImagingFileBasedQueryService implements ImagingDataService {
             	sb.append("&image2ImageSopInstanceUid=").append(post.getImageId());
             	
             	sb.append("&image2Label=Post&image2TrialId=ISPY&image2PatientId=").append(acrinId);
+            	sb.append("&image2dataName=").append("Patient%20Id").append("&image2dataValue=").append(acrinId);
             	sb.append("&image2dataName=").append("Study%20Uid").append("&image2dataValue=").append(post.getStudyId());
             	sb.append("&image2dataName=").append("Series%20Uid").append("&image2dataValue=").append(post.getSeriesId());
             	sb.append("&image2dataName=").append("Image%20Sop%20Uid").append("&image2dataValue=").append(post.getImageId());            	

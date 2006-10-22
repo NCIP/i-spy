@@ -192,6 +192,10 @@ public class ISPYCorrelationScatterPlot {
 	  legendSrc.addLegendItem(item);
 	  
 	  
+	 
+	  item = new LegendItem("Tumor size change N/A", null, null, null, new Rectangle2D.Double(0,0,8,8), Color.BLACK);
+	  legendSrc.addLegendItem(item);
+	  
 	  if (colorBy == ColorByType.CLINICALRESPONSE) {
 	    
 		for (ClinicalResponseType cr : ClinicalResponseType.values()) {
