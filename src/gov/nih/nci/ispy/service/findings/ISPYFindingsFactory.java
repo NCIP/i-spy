@@ -27,6 +27,7 @@ import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFindi
 import gov.nih.nci.ispy.dto.query.ISPYCategoricalCorrelationQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+import gov.nih.nci.ispy.service.findings.strategies.CategoricalCorrelationFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
@@ -377,13 +378,13 @@ public class ISPYFindingsFactory implements FindingsFactory {
     }
     
     public Finding createCategoricalCorrelationFinding(ISPYCategoricalCorrelationQueryDTO categoricalCorrelationQueryDTO, String id, String queryName) throws FrameworkException{
-        CorrelationFinding finding = null;
+        ISPYCategoricalCorrelationFinding finding = null;
         try {
-            CorrelationFindingStrategy2 strategy = new CorrelationFindingStrategy2(id,queryName,categoricalCorrelationQueryDTO);
+            CategoricalCorrelationFindingStrategy strategy = new CategoricalCorrelationFindingStrategy(id,queryName,categoricalCorrelationQueryDTO);
             strategy.createQuery();
             strategy.executeQuery();
             strategy.analyzeResultSet();
-            finding = (CorrelationFinding)strategy.getFinding();
+            finding = (ISPYCategoricalCorrelationFinding)strategy.getFinding();
 
 //        } catch (ValidationException e) {
 //            logger.error(e);
