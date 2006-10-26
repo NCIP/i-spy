@@ -52,7 +52,7 @@ public class CategoricalCorrelationFindingStrategy extends SessionBasedFindingSt
 
 	private static Logger logger = Logger.getLogger(CategoricalCorrelationFindingStrategy.class);	
 	
-	private CorrelationQueryDTO queryDTO;
+	private ISPYCategoricalCorrelationQueryDTO queryDTO;
 	private CategoricalCorrelationRequest catCorrRequest;
     private AnalysisServerClientManager analysisServerClientManager;
     private ISPYCategoricalCorrelationFinding correlationFinding;
@@ -60,7 +60,7 @@ public class CategoricalCorrelationFindingStrategy extends SessionBasedFindingSt
     private ClinicalDataService clinicalService = ClinicalDataServiceFactory.getInstance();
     //private IdList labtrackIds = new IdList("labIds");
     
-	public CategoricalCorrelationFindingStrategy(String sessionId, String taskId, CorrelationQueryDTO correlationQueryDTO) {
+	public CategoricalCorrelationFindingStrategy(String sessionId, String taskId, ISPYCategoricalCorrelationQueryDTO correlationQueryDTO) {
 	  super(sessionId, taskId);
       queryDTO = correlationQueryDTO;        
       catCorrRequest = new CategoricalCorrelationRequest(getSessionId(),getTaskId());
@@ -84,6 +84,7 @@ public class CategoricalCorrelationFindingStrategy extends SessionBasedFindingSt
     FindingStatus currentStatus = FindingStatus.Running;
     correlationFinding = new ISPYCategoricalCorrelationFinding(sessionId, taskId, currentStatus);
     correlationFinding.setQueryDTO(correlationQueryDTO);
+    correlationFinding.setContType(correlationQueryDTO.getContinuousType1());
     cacheManager.addToSessionCache(sessionId, taskId, correlationFinding);
 
 
