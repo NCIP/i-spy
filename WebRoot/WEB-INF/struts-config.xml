@@ -265,6 +265,8 @@
 	
 	<action path="/corrReport" forward="/WEB-INF/jsp/corrReport.jsp" />
 	
+	<action path="/catCorrReport" forward="/WEB-INF/jsp/catCorrReport.jsp" />
+	
 	<action path="/hcReport" forward="/WEB-INF/jsp/hcReport.jsp" />
 
 	<action path="/quickClinical" forward="/WEB-INF/jsp/quickClinical.jsp" />
