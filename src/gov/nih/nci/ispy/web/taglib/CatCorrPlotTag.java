@@ -1,20 +1,20 @@
 package gov.nih.nci.ispy.web.taglib;
 
 import gov.nih.nci.caintegrator.analysis.messaging.DataPointVector;
+import gov.nih.nci.caintegrator.analysis.messaging.ReporterInfo;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.ui.graphing.util.ImageMapUtil;
+import gov.nih.nci.ispy.service.clinical.ContinuousType;
 import gov.nih.nci.ispy.service.findings.ISPYCategoricalCorrelationFinding;
+import gov.nih.nci.ispy.ui.graphing.chart.plot.ColorByType;
 import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYCategoricalCorrelationPlot;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ISPYImageFileHandler;
-import gov.nih.nci.ispy.ui.graphing.chart.plot.ColorByType;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
@@ -127,7 +127,25 @@ public class CatCorrPlotTag extends AbstractGraphingTag {
 		
 	    try {
             List<DataPointVector> dataSet = corrFinding.getDataVectors();
-            ISPYCategoricalCorrelationPlot plot = new ISPYCategoricalCorrelationPlot(dataSet,"Category","Value",corrFinding.getContType(),ColorByType.CLINICALRESPONSE);
+            List<ReporterInfo> reporterInfoList = corrFinding.getCatCorrRequest().getReporters();
+            
+            
+            //get better labels for X and Y axis.
+            ContinuousType ct = corrFinding.getContType();
+            String xLabel, yLabel;
+            if (ct == ContinuousType.GENE) {
+               yLabel = "Log base 2 expression value";
+            }
+            else {
+               yLabel = ct.toString();
+            }
+            
+            
+            
+            //if there are reporters involved then send them in so that they can be used to create
+            //a series.
+            
+            ISPYCategoricalCorrelationPlot plot = new ISPYCategoricalCorrelationPlot(dataSet, reporterInfoList,"Category",yLabel,corrFinding.getContType(),ColorByType.CLINICALRESPONSE);
             
             chart = plot.getChart();
             ISPYImageFileHandler imageHandler = new ISPYImageFileHandler(session.getId(),"png",650,600);
