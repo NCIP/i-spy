@@ -4,6 +4,7 @@ import java.util.List;
 
 import gov.nih.nci.caintegrator.analysis.messaging.AnalysisResult;
 import gov.nih.nci.caintegrator.analysis.messaging.CategoricalCorrelationResult;
+import gov.nih.nci.caintegrator.analysis.messaging.CategoricalCorrelationRequest;
 import gov.nih.nci.caintegrator.analysis.messaging.CorrelationResult;
 import gov.nih.nci.caintegrator.analysis.messaging.DataPointVector;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
@@ -13,6 +14,7 @@ import gov.nih.nci.ispy.service.clinical.ContinuousType;
 
 public class ISPYCategoricalCorrelationFinding extends AnalysisFinding {
 
+	private CategoricalCorrelationRequest catCorrRequest;
 	private CategoricalCorrelationResult catCorrResult;
 	private ContinuousType contType; 
 	
@@ -45,6 +47,14 @@ public class ISPYCategoricalCorrelationFinding extends AnalysisFinding {
 
 	public void setContType(ContinuousType contType) {
 		this.contType = contType;
+	}
+
+	public CategoricalCorrelationRequest getCatCorrRequest() {
+		return catCorrRequest;
+	}
+
+	public void setCatCorrRequest(CategoricalCorrelationRequest catCorrRequest) {
+		this.catCorrRequest = catCorrRequest;
 	}
 	
 	
