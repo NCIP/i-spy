@@ -165,6 +165,8 @@ public class CategoricalCorrelationFindingStrategy extends SessionBasedFindingSt
               catCorrRequest.setDataVectors(groupVectors);
             }
         }
+        
+        correlationFinding.setCatCorrRequest(catCorrRequest);
                                                                                             
 		return true;
 	}
@@ -205,19 +207,25 @@ public class CategoricalCorrelationFindingStrategy extends SessionBasedFindingSt
 		  
 		  if ((continuousType == ContinuousType.PERCENT_LD_CHANGE_T1_T2)||(continuousType == ContinuousType.PERCENT_LD_CHANGE)) {
 		    dp = new DataPoint(ispyId + "_T1_T2");
-		    dp.setX(pd.getMriPctChangeT1_T2());
+		    if (pd != null) {
+		      dp.setX(pd.getMriPctChangeT1_T2());
+		    }
 		    dataVector.addDataPoint(dp);
 		  }
 		  		  
 		  if ((continuousType == ContinuousType.PERCENT_LD_CHANGE_T1_T3)||(continuousType == ContinuousType.PERCENT_LD_CHANGE)) {
 		    dp = new DataPoint(ispyId + "_T1_T3");
-		    dp.setX(pd.getMriPctChangeT1_T3());
+		    if (pd != null) {
+		      dp.setX(pd.getMriPctChangeT1_T3());
+		    }
 		    dataVector.addDataPoint(dp);
 		  }
 		  
 		  if ((continuousType == ContinuousType.PERCENT_LD_CHANGE_T1_T4) || (continuousType == ContinuousType.PERCENT_LD_CHANGE)) {
 		    dp = new DataPoint(ispyId + "_T1_T4");
-		    dp.setX(pd.getMriPctChangeT1_T4());
+		    if (pd != null) {
+		      dp.setX(pd.getMriPctChangeT1_T4());
+		    }
 		    dataVector.addDataPoint(dp);
 		  }		  		  
 		}
