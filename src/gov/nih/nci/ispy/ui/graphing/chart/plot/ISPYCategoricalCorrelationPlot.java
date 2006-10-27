@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.ui.graphing.chart.plot;
 
 import gov.nih.nci.caintegrator.analysis.messaging.DataPointVector;
+import gov.nih.nci.caintegrator.analysis.messaging.ReporterInfo;
 import gov.nih.nci.caintegrator.application.graphing.PlotPoint;
 import gov.nih.nci.caintegrator.enumeration.AxisType;
 import gov.nih.nci.caintegrator.ui.graphing.data.DataRange;
@@ -60,13 +61,15 @@ public class ISPYCategoricalCorrelationPlot {
 	private NumberFormat nf = NumberFormat.getNumberInstance();
 	private static final double glyphSize = 8.0;
 	private ColorByType colorBy = ColorByType.CLINICALRESPONSE;
+	private List<ReporterInfo> reporterInfoList;
 	
-	public ISPYCategoricalCorrelationPlot(List<DataPointVector> categoryData, String xLabel, String yLabel, ContinuousType contType, ColorByType colorBy) {
+	public ISPYCategoricalCorrelationPlot(List<DataPointVector> categoryData, List<ReporterInfo> reporterInfoList, String xLabel, String yLabel, ContinuousType contType, ColorByType colorBy) {
 		this.categoryData = categoryData;
 		this.xLabel = xLabel;
 		this.yLabel = yLabel;
 		this.continuousType = contType;
 		this.colorBy = colorBy;
+		this.reporterInfoList = reporterInfoList;
 		nf.setMinimumFractionDigits(1);
 		createChart();		
 	}
@@ -201,11 +204,21 @@ public class ISPYCategoricalCorrelationPlot {
 		DefaultBoxAndWhiskerCategoryDataset dataSet 
         = new DefaultBoxAndWhiskerCategoryDataset();
 		
+		
+		int i=0;
+		ReporterInfo ri;
+		String sequenceName = "";
 		for (DataPointVector vec : categoryData) {
+			if ((reporterInfoList!=null)&&(!reporterInfoList.isEmpty())) {
+			  ri = reporterInfoList.get(i);
+			  if (ri != null) {
+			     sequenceName = ri.getGeneSymbol() + " " + ri.getReporterName();
+			  }
+			}
 			//only using the X component of the vector to hold the data y and z are not used.
 			List<Double> values = vec.getXValues();
 			String categoryName = vec.getName() + " N=" + values.size();
-			dataSet.add(values,"reporterName",categoryName);
+			dataSet.add(values,sequenceName,categoryName);
 			
 		}
 		return dataSet;
