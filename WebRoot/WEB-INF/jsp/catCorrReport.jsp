@@ -51,92 +51,16 @@ String key = request.getParameter("key")!=null ? (String) request.getParameter("
 %>
 
 
-<div id="main" style="font-family:arial; font-size:12px">
-<div style="margin-left:10px">
-<b>Color By: </b>
-<%
-if(colorBy.equals("ClinicalResponse"))
-	out.write("Clinical Response");	
-else
-	out.write("<a href=\"catCorrReport.do?key="+key+"&colorBy=ClinicalResponse\">Clinical Response</a>");	
-	
-out.write("&nbsp; | &nbsp;");
-
-if(colorBy.equals("DiseaseStage"))
-	out.write("Disease Stage");
-else	
-	out.write("<a href=\"catCorrReport.do?key="+key+"&colorBy=DiseaseStage\">Disease Stage</a>");	
-	
-out.write("&nbsp; | &nbsp;");
-
-if(colorBy.equals("Timepoint"))
-	out.write("Timepoint");	
-else	
-	out.write("<a href=\"catCorrReport.do?key="+key+"&colorBy=Timepoint\">Timepoint</a>");	
-
-%>
-<br/>
-</div>
 <table>
 	<tr>
 		<td>
 		<graphing:CatCorrPlot taskId="<%=key%>" colorBy="<%=colorBy%>" />
 
 		</td>
-		<td style="vertical-align:top">
-		<div style="border:1px dashed silver;height:300px;width:100px; margin-left:10px; margin-top:30px; overflow:auto;" id="sample_list">
-			<div style="background-color: #ffffff; width:100px; font-weight: bold; text-align:center;">Samples:</div><br/>
-			<div style="font-size:9px; text-align:center;" id="sampleCount"></div><br/>
-			<span id="pending_samples" style="font-size:11px"></span>
-		</div>
-		<br/>
-		<div style="margin-left:10px; text-align:center">
-		<%
-			//<input type="text" id="sampleGroupName" name="sampleGroupName" style="width:95px"/><br/>
-			//<input type="button" style="width:95px" value="save samples" onclick="javascript:A_saveSamples();" /><br/>			
-		%>
-			<a href="#" onclick="processQuickClinical(); return false;">view clinical data</a><br/><br/>		
-		</div>
-		<div style="margin-left:10px; font-size:11px; text-decoration:none; text-align:center;">
-			<a href="#" onclick="javascript: if(confirm('clear samples?')) { clearPending();return false; } ">[clear samples]</a><br/>
-		</div>
-		</td>
+		
 	</tr>
 </table>
 </div>
-
-<script language="javascript" src="js/box/lassoHelper.js"></script>
-
-
-<!--  translate samples to clinical report -->
-<form id="quickClinicalWrapper"></form>
-
-<script language="javascript">
-
-	function processQuickClinical()	{
-		var f = document.getElementById("quickClinicalWrapper");
-		
-		//quickly clear the node, so we dont get duplicate elements when the back button is used
-		while(f.firstChild) f.removeChild(f.firstChild);
-		
-		if(!f)	{ return; }
-		//set up the form
-		f.setAttribute("method", "post");
-		f.setAttribute("action", "quickClinical.do");
-		f.setAttribute("name", "quickClinicalWrapper");
-		
-		for(var i=0; i<pendingSamples.length; i++)	{
-			var hid = document.createElement("input");
-			hid.setAttribute("type", "hidden");
-			hid.setAttribute("name", "sampleList");
-			hid.setAttribute("value", pendingSamples[i]);
-			f.appendChild(hid);
-		}
-		
-		f.submit();
-	}
-</script>
-
 
 </body>
 </html>
