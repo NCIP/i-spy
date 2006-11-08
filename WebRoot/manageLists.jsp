@@ -1,4 +1,15 @@
-<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,gov.nih.nci.caintegrator.application.lists.ListSubType,gov.nih.nci.caintegrator.application.lists.UserList,gov.nih.nci.caintegrator.application.lists.UserListBean, gov.nih.nci.caintegrator.application.lists.ListManager, gov.nih.nci.caintegrator.application.lists.UserListBeanHelper,org.apache.struts.upload.FormFile,java.io.File,java.util.Map,java.util.HashMap,java.util.List,org.dom4j.Document,gov.nih.nci.ispy.util.ISPYListFilter"%>
+<%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,
+				gov.nih.nci.caintegrator.application.lists.ListSubType,
+				gov.nih.nci.caintegrator.application.lists.UserList,
+				gov.nih.nci.caintegrator.application.lists.UserListBean,
+ 				gov.nih.nci.caintegrator.application.lists.ListManager, 
+				gov.nih.nci.caintegrator.application.lists.UserListBeanHelper,
+				org.apache.struts.upload.FormFile,
+				java.io.File,
+				java.util.Map,
+				java.util.HashMap,
+				java.util.List,
+				org.dom4j.Document,gov.nih.nci.ispy.util.ISPYListFilter"%>
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <script type='text/javascript' src='js/lib/scriptaculous/effects.js'></script>
 <script type='text/javascript' src='dwr/interface/UserListHelper.js'></script>
@@ -16,6 +27,22 @@
 	function handleResponse(msg)	{
 		ManageListHelper.handleResponse(msg);
 	}
+	
+	//http://simon.incutio.com/archive/2004/05/26/addLoadEvent
+	function addLoadEvent(func) {
+	var oldonload = window.onload;
+  	if (typeof window.onload != 'function') {
+    	window.onload = func;
+  	} 
+  	else {
+	    window.onload = function() {
+	    	if (oldonload) {
+	        	oldonload();
+	      	}
+			func();
+	    }
+ 	}
+}
 </script>
 <style>	
 	.status {
@@ -115,7 +142,7 @@
 							for(int s=0; s<subtypes.size(); s++)	{
 								String lsts =((ListSubType)subtypes.get(s)).toString();
 %>
-						<option value="<%=label%>"><%=label%></option>
+						<option value="<%=label%>|<%=lsts%>"><%=label%>-<%=lsts%></option>
 <%
 							}
 						}

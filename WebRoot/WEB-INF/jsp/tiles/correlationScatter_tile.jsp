@@ -46,15 +46,12 @@
 			
 			Available Reporters: &nbsp;&nbsp;
 			    <html:select  property="reporterX" styleId="reporterX">
-				 	<html:option value="none">none</html:option>
+				 	<html:option value="<bean:write name='correlationScatterForm' property='reporterX'/>"><bean:write name='correlationScatterForm' property='reporterX'/></html:option>
 				</html:select>
 			
 			</div>
 			<script type="text/javascript">
-				ediv($('xaxis'),'advX',$('xaxis')[1].value);
-				if($('geneSymbolX').value!=""){
-					getReporterList($('geneSymbolX'), $('geneSymbolX').value , $('platformX').options[$('platformX').selectedIndex].value , $('reporterX').name);
-				}
+				ediv($('xaxis'),'advX',$('xaxis')[1].value);				
 			</script>
 			
 	<br /><br />
@@ -97,15 +94,12 @@
 			
 			Available Reporters: &nbsp;&nbsp;
 			    <html:select property="reporterY" styleId="reporterY">
-			        <html:option value="none">none</html:option>
+			        <html:option value="<bean:write name='correlationScatterForm' property='reporterY'/>"><bean:write name='correlationScatterForm' property='reporterY'/></html:option>
 				</html:select>
 			</div>
 			
 			<script type="text/javascript">
-				ediv($('yaxis'),'advY',$('yaxis')[1].value);
-				if($('geneSymbolY').value!=""){
-					getReporterList($('geneSymbolY'), $('geneSymbolY').value , $('platformY').options[$('platformY').selectedIndex].value , $('reporterY').name);
-				}
+				ediv($('yaxis'),'advY',$('yaxis')[1].value);				
 			</script>
 			
 			

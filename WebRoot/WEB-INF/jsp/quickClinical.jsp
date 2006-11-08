@@ -6,6 +6,7 @@
 	String taskId = request.getParameter("taskId");
 	StringBuffer sb = new StringBuffer();
 	
+	
 	if(sampleArray != null && sampleArray.length > 0)	{
 		List samples = Arrays.asList(sampleArray);		
 		sb = QuickClinicalReport.quickSampleReport(samples);
@@ -175,9 +176,15 @@
 		</style>
 	</head>
 	<body>
+		<%
+		String isPCA = request.getParameter("isPCA");		
+		if(isPCA!=null && isPCA.equalsIgnoreCase("true")){
+		%>
 		<div>
+		
 			<a href="javascript:history.back()">&lt;&lt;&lt;back</a><br/>
 		</div>
+		<%}%>
 		<div>
 		Save Selected: <input type="text" id="listName"/>
 		<input type="button" value="save checked" onclick="SaveElements.save();"/>

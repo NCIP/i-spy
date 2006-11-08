@@ -1,34 +1,31 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-
-import gov.nih.nci.caintegrator.domain.finding.bean.SpecimenBasedMolecularFinding;
-import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.LevelOfExpressionIHCFinding;
-import gov.nih.nci.caintegrator.dto.query.IHCqueryDTO;
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
+import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
-
-import gov.nih.nci.ispy.dto.query.IHCLevelOfExpressionQueryDTO;
-import gov.nih.nci.ispy.service.clinical.ClinicalCGOMBasedQueryService;
-import gov.nih.nci.ispy.service.clinical.PatientData;
+import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
+import gov.nih.nci.caintegrator.studyQueryService.ihc.LevelOfExpressionIHCFindingHandler;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLevelOfExpressionFinding;
-import gov.nih.nci.ispy.service.ihc.IHCCGOMBasedQueryService;
-import gov.nih.nci.ispy.service.ihc.IHCData;
-import gov.nih.nci.ispy.service.ihc.IHCLevelOfExpressionData;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
-public class IHCLevelOfExpressionFindingStrategyCGOM extends IHCFindingStrategy {
+import java.util.Collection;
+
+public class IHCLevelOfExpressionFindingStrategyCGOM extends SessionBasedFindingStrategy {
 	
-	private ISPYIHCLevelOfExpressionFinding ihcLevelOfEpxFinding;
+	
+    private LevelOfExpressionIHCFindingCriteria criteria;
+    private ISPYIHCLevelOfExpressionFinding finding;
+    private BusinessTierCache cacheManager = ApplicationFactory.getBusinessTierCache();
+    
 
-	public IHCLevelOfExpressionFindingStrategyCGOM(String sessionId, String taskId, IHCqueryDTO queryDTO)  throws ValidationException {
-		super(sessionId, taskId, queryDTO);
-		// TODO Auto-generated constructor stub
+	public IHCLevelOfExpressionFindingStrategyCGOM(String sessionId, String taskId, LevelOfExpressionIHCFindingCriteria criteria)  throws ValidationException {
+		super(sessionId, taskId);
+		this.criteria = criteria;
 	}
 	
 
@@ -42,20 +39,15 @@ public class IHCLevelOfExpressionFindingStrategyCGOM extends IHCFindingStrategy 
 		return true;
 	}
 
-	public boolean executeQuery() throws FindingsQueryException {
-		
-		IHCCGOMBasedQueryService ihcqs = IHCCGOMBasedQueryService.getInstance();
-		Set<IHCLevelOfExpressionData> levelOfExpIHCData = ihcqs.getIHCLevelOfExpData((IHCLevelOfExpressionQueryDTO)this.getQueryDTO());		
-		
-	    
-	    //put the result into the finding 
-		ihcLevelOfEpxFinding = new ISPYIHCLevelOfExpressionFinding(this.getSessionId(), this.getTaskId(), this.getQueryDTO());
-		ihcLevelOfEpxFinding.setIHCData(new ArrayList<IHCData>(levelOfExpIHCData));
-	    
-	    return true;
-	    
-
-	    
+	public boolean executeQuery() throws FindingsQueryException {		
+        LevelOfExpressionIHCFindingHandler theHandler = criteria.getHandler();
+        Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> theFindings = theHandler.getLevelExpFindings(criteria);
+        finding = new ISPYIHCLevelOfExpressionFinding(this.getSessionId(), this.getTaskId());
+        finding.setQueryDTO(criteria);
+        finding.setDomainFindings(theFindings);
+        cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), finding);
+        finding.setStatus(FindingStatus.Completed);
+        return true;      
 	}
 
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
@@ -63,10 +55,10 @@ public class IHCLevelOfExpressionFindingStrategyCGOM extends IHCFindingStrategy 
 		return false;
 	}
 
-	public Finding getFinding() {
-		// TODO Auto-generated method stub		
-	return ihcLevelOfEpxFinding;
 	
-	}
+    public Finding getFinding() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

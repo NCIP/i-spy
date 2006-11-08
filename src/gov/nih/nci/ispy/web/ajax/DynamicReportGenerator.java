@@ -1,26 +1,25 @@
 package gov.nih.nci.ispy.web.ajax;
 
+import gov.nih.nci.caintegrator.application.bean.FindingReportBean;
+import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.application.cache.CacheFactory;
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.application.lists.ListSubType;
+import gov.nih.nci.caintegrator.application.lists.ajax.CommonListFunctions;
+import gov.nih.nci.caintegrator.service.findings.Finding;
+import gov.nih.nci.ispy.web.helper.ISPYListValidator;
+import gov.nih.nci.ispy.web.helper.ReportGeneratorHelper;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
-
-import gov.nih.nci.caintegrator.dto.de.CloneIdentifierDE;
-import gov.nih.nci.caintegrator.dto.de.DomainElement;
-import gov.nih.nci.caintegrator.dto.de.SampleIDDE;
-import gov.nih.nci.caintegrator.service.findings.Finding;
-import gov.nih.nci.caintegrator.application.cache.*;
-import gov.nih.nci.ispy.util.ispyConstants;
-import gov.nih.nci.ispy.web.bean.FindingReportBean;
-
-//import gov.nih.nci.rembrandt.web.bean.SessionCriteriaBag.ListType;
-import gov.nih.nci.ispy.web.helper.ReportGeneratorHelper;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 
 import uk.ltd.getahead.dwr.ExecutionContext;
@@ -89,51 +88,53 @@ public class DynamicReportGenerator {
 		
 	public DynamicReportGenerator()	{}
 	
-	public void generateDynamicReport(String key, Map<String, String> params)	{
-		String html = new String();
-
-		HttpSession session = ExecutionContext.get().getSession(false);
-		PresentationTierCache ptc = CacheFactory.getPresentationTierCache();
-		BusinessTierCache btc = CacheFactory.getBusinessTierCache();
-		HttpServletRequest request = ExecutionContext.get().getHttpServletRequest();
-//		HttpServletResponse response = ExecutionContext.get().getHttpServletResponse();
-		
-		//lets hold a list of xml generating jobs, so we dont keep kicking off the same job
-		ArrayList jobs = session.getAttribute("xmlJobs")!=null ? (ArrayList) session.getAttribute("xmlJobs") : new ArrayList();
-		
-		//only generate XML if its not already cached...leave off for debug
-		//RCL - remove this constraint for now, to avoid caching for tasks with the same key/id
-		//if(ptc.getPersistableObjectFromSessionCache(session.getId(), key) == null && !jobs.contains(key))	{
-			Object o = btc.getObjectFromSessionCache(session.getId(), key);
-			Finding finding = (Finding) o; 
-			//generate the XML and cached it
-			ReportGeneratorHelper.generateReportXML(finding);
-			if(!jobs.contains(key))
-				jobs.add(key);
-			session.setAttribute("xmlJobs", jobs);
-		//}
-		Object ob = ptc.getPersistableObjectFromSessionCache(session.getId(), key);
-		if(ob != null && ob instanceof FindingReportBean)	{
-			try	{
-				FindingReportBean frb = (FindingReportBean) ob;
-				Document reportXML = (Document) frb.getXmlDoc();
-			
-				html = ReportGeneratorHelper.renderReport(params, reportXML,"cc_report.xsl");
-				
-				jobs.remove(key);
-				session.setAttribute("xmlJobs", jobs);
-			}
-			catch(Exception e)	{
-				html = "Error Generating the report.";
-			}
-		}
-		else	{
-			html = "Error generating the report";
-		}
-		//out the XHTML in the session for reference in presentation...could store in Prescache
-		session.setAttribute(key+"_xhtml", html);
-		return;
-	}
+	
+    
+    public void generateDynamicReport(String key, Map<String, String> params, String stylesheet)   {
+        String html = new String();      
+        
+        HttpSession session = ExecutionContext.get().getSession(false);
+        PresentationTierCache ptc = CacheFactory.getPresentationTierCache();
+        BusinessTierCache btc = CacheFactory.getBusinessTierCache();
+        HttpServletRequest request = ExecutionContext.get().getHttpServletRequest();
+//      HttpServletResponse response = ExecutionContext.get().getHttpServletResponse();
+        
+        //lets hold a list of xml generating jobs, so we dont keep kicking off the same job
+        ArrayList jobs = session.getAttribute("xmlJobs")!=null ? (ArrayList) session.getAttribute("xmlJobs") : new ArrayList();
+        
+        //only generate XML if its not already cached...leave off for debug
+        //RCL - remove this constraint for now, to avoid caching for tasks with the same key/id
+        //if(ptc.getPersistableObjectFromSessionCache(session.getId(), key) == null && !jobs.contains(key)) {
+            Object o = btc.getObjectFromSessionCache(session.getId(), key);
+            Finding finding = (Finding) o; 
+            //generate the XML and cached it
+            ReportGeneratorHelper.generateReportXML(finding);
+            if(!jobs.contains(key))
+                jobs.add(key);
+            session.setAttribute("xmlJobs", jobs);
+        //}
+        Object ob = ptc.getPersistableObjectFromSessionCache(session.getId(), key);
+        if(ob != null && ob instanceof FindingReportBean)   {
+            try {
+                FindingReportBean frb = (FindingReportBean) ob;
+                Document reportXML = (Document) frb.getXmlDoc();
+            
+                html = ReportGeneratorHelper.renderReport(params, reportXML,stylesheet);
+                
+                jobs.remove(key);
+                session.setAttribute("xmlJobs", jobs);
+            }
+            catch(Exception e)  {
+                html = "Error Generating the report.";
+            }
+        }
+        else    {
+            html = "Error generating the report";
+        }
+        //out the XHTML in the session for reference in presentation...could store in Prescache
+        session.setAttribute(key+"_xhtml", html);
+        return;
+    }
 	
 	/*
 	public Map saveTmpReporter(String rep)	{
@@ -202,15 +203,19 @@ public class DynamicReportGenerator {
 	
 	
 	
-	/*
-	public Map saveTmpSamples(String elem){
-		return saveTmpGeneric("pca_tmpSampleList", elem);
-	}
-	
+    public Map saveTmpSamplesFromArray(String[] elems) {
+        Map results = new HashMap();
+        for(String el : elems){
+            results = saveTmpSamplesFromClinical(el);
+        }
+        
+        return results;
+    }
+    
 	public Map saveTmpSamplesFromClinical(String elem){
 		return saveTmpGeneric("clinical_tmpSampleList", elem);
 	}
-	*/
+	
 	
 	/*
 	public Map removeTmpReporter(String rep)	{
@@ -259,7 +264,7 @@ public class DynamicReportGenerator {
 	/*
 	public Map removeTmpSample(String elem)	{
 		return removeTmpGeneric("pca_tmpSampleList", elem);
-	}
+	}*/
 	
 	public Map removeTmpSampleFromClinical(String elem)	{
 		return removeTmpGeneric("clinical_tmpSampleList", elem);
@@ -269,7 +274,7 @@ public class DynamicReportGenerator {
 		HttpSession session = ExecutionContext.get().getSession(false);
 		session.removeAttribute("tmpReporterList"); //put back in session
 	}
-	*/
+	
 	public void clearTmpGenes()	{
 		HttpSession session = ExecutionContext.get().getSession(false);
 		session.removeAttribute("tmpGeneList"); 
@@ -279,12 +284,12 @@ public class DynamicReportGenerator {
 		HttpSession session = ExecutionContext.get().getSession(false);
 		session.removeAttribute("pca_tmpSampleList"); //put back in session
 	}
-	
+	*/
 	public void clearTmpSamplesFromClinical()	{
 		HttpSession session = ExecutionContext.get().getSession(false);
 		session.removeAttribute("clinical_tmpSampleList"); //put back in session
 	}
-	*/
+	
 	/*
 	public String saveGenes(String commaSepList, String name)	{
 		return "pass"; //using new stuff instead
@@ -322,42 +327,21 @@ public class DynamicReportGenerator {
 		return success;
 	}
 	*/
-	/*
+	
 	public String saveSamples(String commaSepList, String name)	{
-		String success = "fail";
-		HttpSession session = ExecutionContext.get().getSession(false);
-		PresentationTierCache ptc = ApplicationFactory.getPresentationTierCache();
-		SessionCriteriaBag sessionCriteriaBag = ptc.getSessionCriteriaBag(session.getId());
-		
-		//hold the list of DE's
-		List<DomainElement> domainElementList = new ArrayList();
-		
-		try {
-			//break the comma list
-			StringTokenizer tk = new StringTokenizer(commaSepList, ",");
-			while (tk.hasMoreTokens()) {
-				String element = tk.nextToken();
-				//iterate through and create domain elements
-				SampleIDDE sampleDE = new SampleIDDE(element);
-				domainElementList.add(sampleDE);
-			}
-
-			//check name for collision...or dont, so to enable overwriting
-			if(sessionCriteriaBag.getUserList(ListType.SampleIdentifierSet,name) != null)	{
-				//make a new name
-	            long randomness = System.currentTimeMillis(); //prevent image caching
-	            name = name + "_" + randomness;
-			}
-			sessionCriteriaBag.putUserList(ListType.SampleIdentifierSet,name,domainElementList); 
-			ptc.putSessionCriteriaBag(session.getId(),sessionCriteriaBag);
-			success = "pass";
-		} catch (ClassCastException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        String success = "fail";
+        String[] listArr = StringUtils.split(commaSepList, ",");
+        List<String> list = Arrays.asList(listArr);
+        try {
+            ISPYListValidator listValidator = new ISPYListValidator(gov.nih.nci.caintegrator.application.lists.ListType.PatientDID, list);            
+            success = CommonListFunctions.createGenericList(gov.nih.nci.caintegrator.application.lists.ListType.PatientDID, list, name, listValidator);
+        }
+        catch(Exception e) {
+            //most likely cant access the session
+        }
 		
 		return success;
 	}
-	*/
+	
 
 }

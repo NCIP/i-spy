@@ -105,6 +105,9 @@ String helpLinkClose = "', 350, 500);\">"+
 				if(f instanceof ISPYClinicalFinding){
 					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('quickClinical.do?taskId=" + f.getTaskId() + "', 750, 500,'clinical_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Clinical)</i> ");
 				}
+				if(f instanceof ISPYIHCLevelOfExpressionFinding){
+					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=" + f.getTaskId() + "', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC)</i> ");
+				}
 				if(f instanceof ClassComparisonFinding){
 					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('testReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(CC)</i> ");
 				}

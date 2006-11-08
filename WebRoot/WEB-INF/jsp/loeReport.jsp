@@ -13,8 +13,9 @@
 		<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 
 		<script language="JavaScript" type="text/javascript" src="xsl/js.js"></script>
 		<script language="JavaScript" type="text/javascript" src="xsl/a_js.js"></script> 
-		<script language="JavaScript" type="text/javascript" src="xsl/a_saveGenes.js"></script>
-		<LINK href="xsl/css.css" rel="stylesheet" type="text/css" />
+		<script language="JavaScript" type="text/javascript" src="xsl/a_saveSamples.js"></script>
+		 <LINK href="xsl/css.css" rel="stylesheet" type="text/css" />
+		 
 		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 		<META HTTP-EQUIV="Expires" CONTENT="-1">
 		
@@ -33,8 +34,8 @@
 //these will actually be given to the XSL for transformation via AJAX
 
 String key = "test";
-if(request.getParameter("key")!=null)
-	key = (String) request.getParameter("key");
+if(request.getParameter("taskId")!=null)
+	key = (String) request.getParameter("taskId");
 
 
 String xhtml = "nada";
@@ -42,7 +43,7 @@ if(session.getAttribute(key+"_xhtml")!=null)	{
 	//display the report, and run some init JS functions on the page
 	xhtml = (String) session.getAttribute(key+"_xhtml");
 	out.println(xhtml);
-	out.println("<script language='javascript'>SaveGenes.A_initSaveGene(); checkStep(); initSortArrows();</script>");
+	out.println("<script language='javascript'>A_initSaveSample(); checkStep(); initSortArrows();</script>");
 	session.removeAttribute(key+"_xhtml");
 }
 else	{
@@ -62,17 +63,7 @@ else	{
 	if(request.getParameter("p_step")!=null)
 		p_step = (String) request.getParameter("p_step");
 	
-	//for p-value filtering
-	String p_pval_filter_mode = "";
-	if(request.getParameter("p_pval_filter_mode")!=null)
-		p_pval_filter_mode = (String) request.getParameter("p_pval_filter_mode");
-	String p_pval_filter_value = "";
-	if(request.getParameter("p_pval_filter_value")!=null)
-		p_pval_filter_value = (String) request.getParameter("p_pval_filter_value");
 	
-	String p_pval_filter_op = "lt";
-	if(request.getParameter("p_pval_filter_op")!=null)
-		p_pval_filter_op = (String) request.getParameter("p_pval_filter_op");
 	
 	//for sorting
 	String p_sort_method = request.getParameter("p_sort_method")!=null ? (String) request.getParameter("p_sort_method") : "ascending";
@@ -104,18 +95,14 @@ else	{
 			a["p_highlight_op"] = "<%=p_highlight_op%>";
 			
 			a["p_page"] = "<%=p_page%>";
-			a["p_step"] = "<%=p_step%>";
-			
-			a["p_pval_filter_mode"] = "<%=p_pval_filter_mode%>";
-			a["p_pval_filter_value"] = "<%=p_pval_filter_value%>";
-			//a["p_pval_filter_op"] = "<%=p_pval_filter_op%>";
+			a["p_step"] = "<%=p_step%>";			
 			
 			a["p_sort_element"] = "<%=p_sort_element%>";
 			a["p_sort_method"] = "<%=p_sort_method%>";
 			
 			//a["two"] = "atwo";
 			//var a = { key1:"value1", key2:"value2" };
-			DynamicReport.generateDynamicReport(key, a, "cc_report.xsl", A_getReport_cb);
+			DynamicReport.generateDynamicReport(key, a, "loe_report.xsl" , A_getReport_cb);
 		}
 		
 		function A_getReport_cb(html)	{

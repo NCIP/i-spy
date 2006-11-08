@@ -43,7 +43,7 @@
 	</div>
 </fieldset>
 
-<fieldset class="gray">
+<!--<fieldset class="gray">
 <legend class="red">Distribution of Stain
 <app:help help="Select distribution of stain to further filter the query." />
 </legend>
@@ -54,5 +54,5 @@
 					</html:select>				
 		 </div>
 	</div>
-</fieldset>
+</fieldset>-->
 

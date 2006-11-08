@@ -99,9 +99,9 @@
 					alert("Please select some lists to " + action);
 					throw("no lists selected");
 				}
-				if(sLists.length>2 && action == "difference")	{
+				if(sLists.length!=2 && action == "difference")	{
 					alert("Please select only 2 groups");
-					throw("too many selected");
+					throw("incorrect amount of lists");
 				}
 								
 				DynamicListHelper.uniteLists(sLists, groupName, groupType, action, ManageListHelper.groupSelectedLists_cb );
@@ -244,6 +244,7 @@
 		 		var wDiv = $(listName + "detailsDiv");
 		 		wDiv.style.borderLeft = "1px dashed red";
 		 		wDiv.style.marginLeft = "20px";
+				wDiv.style.width="300px";
 		 		if(items.length > 0)	{
 		 			var tmp = "";
 					for(var i=0; i<items.length; i++)	{
@@ -259,21 +260,24 @@
 				}
 				else{
 			    	document.getElementById(listName + "details").appendChild(dDIV);
-			    	$(listName + "detailsDiv").innerHTML = "<span>No valid items found</span><br />";
+			    	wDiv.innerHTML = "<span>No valid items found</span><br />";
 				}
 			     
 			    if(!invalidItems.length < 1)	{
-					wDiv.innerHTML += "<span id='invalid_span' style='color:gray; padding:3px'><br/>Invalid or does not exist in the database:<br/> ";
+					var intmp = "<div style='margin-left:20px;'><span id='invalid_span' style='color:gray; padding:3px;'><br/>Invalid or does not exist in the database:<br/> ";
+					//wDiv.innerHTML += "<span id='invalid_span' style='color:gray; padding:3px'><br/>Invalid or does not exist in the database:<br/> ";
 					for(var i=0; i<invalidItems.length; i++){
 						invalidItemId = invalidItems[i];
 						if((i+1) == invalidItems.length){
-							wDiv.innerHTML += invalidItemId;
+							//wDiv.innerHTML += invalidItemId;
+							intmp += invalidItemId;
 						}
 						else{
-							wDiv.innerHTML += invalidItemId + ", ";
+							intmp += invalidItemId + ", ";
+							//wDiv.innerHTML += invalidItemId + ", ";							
 						}
 					}
-							
+					wDiv.innerHTML +=intmp;		
 					wDiv.innerHTML += "<br/></span>";
 							
 				}    

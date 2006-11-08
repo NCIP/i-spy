@@ -166,7 +166,11 @@ else
 			hid.setAttribute("value", pendingSamples[i]);
 			f.appendChild(hid);
 		}
-		
+		var otherHid = document.createElement("input");
+		otherHid.setAttribute("type", "hidden");
+		otherHid.setAttribute("name", "isPCA");
+		otherHid.setAttribute("value", "true");
+		f.appendChild(otherHid);
 		f.submit();
 	}
 </script>

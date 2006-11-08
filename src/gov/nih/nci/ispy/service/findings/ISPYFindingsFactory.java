@@ -6,7 +6,6 @@ package gov.nih.nci.ispy.service.findings;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
-import gov.nih.nci.caintegrator.dto.query.IHCqueryDTO;
 import gov.nih.nci.caintegrator.dto.query.PrincipalComponentAnalysisQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
@@ -24,6 +23,7 @@ import gov.nih.nci.caintegrator.service.findings.GEIntensityFinding;
 import gov.nih.nci.caintegrator.service.findings.HCAFinding;
 import gov.nih.nci.caintegrator.service.findings.KMFinding;
 import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
+import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
 import gov.nih.nci.ispy.dto.query.ISPYCategoricalCorrelationQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
@@ -34,7 +34,6 @@ import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
 import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy2;
 import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy3;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
-import gov.nih.nci.ispy.service.findings.strategies.IHCFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCLevelOfExpressionFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.PrincipalComponentAnalysisFindingStrategy;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
@@ -180,41 +179,30 @@ public class ISPYFindingsFactory implements FindingsFactory {
 	/**
 	 * Create a IHCLevelOfExpressionFinding by executing the IHCLevelOfExpression strategy
 	 */
-	public ISPYIHCLevelOfExpressionFinding createIHCFinding(IHCqueryDTO query, String sessionId, String taskId) {
-		ISPYIHCLevelOfExpressionFinding ihcLevelOfExpFinding = null;
+	public void createIHCLevelOfExpressionFinding(LevelOfExpressionIHCFindingCriteria criteria, String sessionId, String taskId) {
+	    try {
+            IHCLevelOfExpressionFindingStrategyCGOM strategy = new IHCLevelOfExpressionFindingStrategyCGOM(sessionId, taskId, criteria);		
+        		try {
+        			
+        			strategy.createQuery();
+        			strategy.executeQuery();
+        		    strategy.analyzeResultSet();
+        		
+        		} catch (FindingsQueryException e) {
+        			logger.error("Caught FindingsQueryExcpetion in ClinicalFindingStrategy");
+        			logger.error(e);
+        		} catch (FindingsAnalysisException e) {
+        			logger.error("Caught FindingsAnalsysisException in ClinicalFindingStrategy");
+        			logger.error(e);
+        		}
 		
-		//Will substitute database version when it is ready
-		try {
-			
-			// once the db version is done, needs to swap with db one
-		//IHCFindingStrategy strategy = new IHCFindingStrategyFile(sessionId, taskId, query);
-		
-		IHCFindingStrategy strategy = new IHCLevelOfExpressionFindingStrategyCGOM(sessionId, taskId, query);
-		
-		
-		try {
-			
-			strategy.createQuery();
-			strategy.executeQuery();
-		    strategy.analyzeResultSet();
-		
-		} catch (FindingsQueryException e) {
-			logger.error("Caught FindingsQueryExcpetion in ClinicalFindingStrategy");
-			logger.error(e);
-		} catch (FindingsAnalysisException e) {
-			logger.error("Caught FindingsAnalsysisException in ClinicalFindingStrategy");
-			logger.error(e);
-		}
-		
-		ihcLevelOfExpFinding = (ISPYIHCLevelOfExpressionFinding) strategy.getFinding();
+        		
 		}
 		catch (ValidationException ex) {
-		  logger.error("Caught validationException when creating clinical finding strategy: sessionId=" + sessionId + " taskId=" + taskId + " queryName=" + query.getQueryName());
+		  logger.error("Caught validationException when creating clinical finding strategy: sessionId=" + sessionId + " taskId=" + taskId + " queryName=" + criteria.getQueryName());
 		  logger.error(ex);
 		}
-		
-		
-		return ihcLevelOfExpFinding;
+	
 	}
 	
 	

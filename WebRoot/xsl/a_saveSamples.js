@@ -2,9 +2,28 @@
 SAVE SAMPLES
 *****************/
 
-var savedHeader = "Selected Samples:\n<br/>";
-var currentTmpSamples = "";
-var currentTmpSamplesCount = 0;
+var SaveSamples = {
+	'savedHeader' : "Selected Items:\n<br/>",
+	'currentTmpSamples' : "",
+	'currentTmpSamplesCount' : 0,
+	'preCheckSamples' : function() {
+		var field = document.getElementsByName('samples');
+		
+		//alert(SaveGenes.currentTmpReporters);
+		
+			if(field.length > 1 && currentTmpSamples != "")	{				
+				for (i = 0; i < field.length; i++)	{
+					if(currentTmpSamples.indexOf(field[i].value) != -1 )						
+						field[i].checked = true;				
+				}
+			}
+			else	{
+				if(currentTmpSamples.indexOf(field.value) != -1 )
+					field.checked = true;
+			}
+	
+	}
+}
 
 function A_saveTmpSample(sample)	{
 	var sam = sample.value;
@@ -23,9 +42,10 @@ function A_saveTmpSample_cb(txt)	{
 	//look9ing for txt["count"] and txt["elements"]..txt["elements"] is a <br/> delim string
 	//sample has been added to the list,
 	//show how many we've saved,
+	
 	if(txt["count"] > -1) {
 		if($("sampleCount"))
-			$("sampleCount").innerHTML = txt["count"] + " samples selected";
+			$("sampleCount").innerHTML = txt["count"] + " patients selected";
 		currentTmpSamplesCount = txt["count"];
 		
 		//update the running tab for overlib if this is not an init call
@@ -75,7 +95,27 @@ function A_clearTmpSamples_cb(txt)	{
 		A_uncheckAll(document.getElementsByName('samples'));
 }
 
+function A_checkAllOnAll(box)	{
+		//clear the tmp ones weve already checked
+		//get all the samples on all pages and savethem
+		
+		//update the UI to show which ones are checked and precheck all the boxes
+		if(box.checked && allSamples.length && allSamples.length > 1)	{		
+			
+			if(allSamples.length > 1)	{				
+				
+				DynamicReport.saveTmpSamplesFromArray(allSamples, A_saveTmpSample_cb);				
+				setTimeout("SaveSamples.preCheckSamples()", 500);
+			}
+		}
+		else if(!box.checked)	{
+		
+			A_clearTmpSamples();
+		}
+}
+
 function A_checkAll(field)	{
+		
 		if(field.length > 1)	{
 			for (i = 0; i < field.length; i++)	{
 				field[i].checked = true ;
@@ -140,6 +180,15 @@ function A_saveSamples_cb(txt)	{
 		//clear the sample list
 		A_clearTmpSamples();
 	}
+	//attempt to refresh the parents sidebar
+			if(!window.opener.closed)	{
+				try	{
+					window.opener.SidebarHelper.loadSidebar();
+				}
+				catch(err)	{
+					alert("cant update sidebar: " + err);
+				}
+			}
 	
 }
 

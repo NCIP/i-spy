@@ -260,6 +260,7 @@
 		<forward name="hierarchicalClusteringSetup" path="/hierarchicalclustering.do?method=setup" />
 	</action>
 	
+	<action path="/loeReport" forward="/WEB-INF/jsp/loeReport.jsp" />
 	
 	<action path="/pcaReport" forward="/WEB-INF/jsp/pcaReport.jsp" />
 	

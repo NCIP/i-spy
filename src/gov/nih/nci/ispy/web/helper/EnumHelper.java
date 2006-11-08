@@ -120,7 +120,7 @@ public class EnumHelper {
         
         try {
             Class enumClass = Class.forName(className);
-            classInstance = Enum.valueOf(enumClass, valueName.toUpperCase());
+            classInstance = Enum.valueOf(enumClass, valueName);
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

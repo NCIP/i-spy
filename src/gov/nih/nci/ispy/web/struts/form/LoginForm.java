@@ -4,12 +4,15 @@ import gov.nih.nci.caintegrator.application.lists.UserListBean;
 import gov.nih.nci.caintegrator.security.SecurityManager;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.ispy.util.ISPYListLoader;
+import gov.nih.nci.ispy.util.UILookupMapLoader;
 import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.servlet.ServletContext;
@@ -124,7 +127,11 @@ public ActionErrors validate(ActionMapping mapping,
             // load IspySpecific clinical status lists
             userListBean = ISPYListLoader.loadStatusGroups(userListBean);
             //add userListBean to session
-            session.setAttribute(CacheConstants.USER_LISTS,userListBean);           
+            session.setAttribute(CacheConstants.USER_LISTS,userListBean);  
+            
+            //load database-dependent dropdowns
+            Map<String,Collection> uiLookupMap = UILookupMapLoader.getMap();
+            session.setAttribute(ispyConstants.UI_LOOKUPS,uiLookupMap);
         }
         
     } catch (Exception e) {

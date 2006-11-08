@@ -2,9 +2,9 @@ package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.ihc.DistributionType;
-import gov.nih.nci.ispy.service.ihc.IHCFileBasedQueryService;
 import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
 import gov.nih.nci.ispy.service.ihc.LocalizationType;
+import gov.nih.nci.ispy.web.helper.BiomarkerRetriever;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -114,12 +114,9 @@ public class IHCLevelOfExpressionQueryForm extends BaseForm implements Serializa
     public IHCLevelOfExpressionQueryForm(){
         for (TimepointType timepointType : TimepointType.values()){
             timepointCollection.add(new LabelValueBean(timepointType.toString(),timepointType.name()));
-        }
-        IHCFileBasedQueryService iqs = new IHCFileBasedQueryService();
-        Set<String> biomarkers = iqs.getBiomarkers();
-        for(String biomarker : biomarkers){
-            biomarkersCollection.add(new LabelValueBean(biomarker,biomarker));
-        }
+        }    
+        
+        
         for(IntensityOfStainType intensity : IntensityOfStainType.values()){
             stainIntensityCollection.add(new LabelValueBean(intensity.toString(),intensity.getDeclaringClass().getCanonicalName() + "#" + intensity.name()));
         }

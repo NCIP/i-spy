@@ -28,6 +28,8 @@ function getReporterList(element, gene, platform, elementToUpdate){
 	}
 	
 function createReporterList(txt){  	 	
+    	
+    	
     	try	{
 				var res = eval('(' + txt + ')');
 				

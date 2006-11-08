@@ -1,65 +1,35 @@
 package gov.nih.nci.ispy.web.helper;
 
-import gov.nih.nci.caintegrator.dto.critieria.SampleCriteria;
-import gov.nih.nci.caintegrator.dto.de.SampleIDDE;
-import gov.nih.nci.caintegrator.dto.query.OperatorType;
-import gov.nih.nci.caintegrator.dto.view.View;
-import gov.nih.nci.caintegrator.dto.view.Viewable;
+import gov.nih.nci.caintegrator.application.bean.FindingReportBean;
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.application.report.LevelOfExpressionIHCReport;
+import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.LevelOfExpressionIHCFinding;
+import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
-import gov.nih.nci.caintegrator.application.cache.*;
-/*
-import gov.nih.nci.rembrandt.cache.RembrandtContextListener;
-import gov.nih.nci.rembrandt.dto.query.CompoundQuery;
-import gov.nih.nci.rembrandt.dto.query.Queriable;
-import gov.nih.nci.rembrandt.dto.query.Query;
-import gov.nih.nci.rembrandt.queryservice.ResultsetManager;
-import gov.nih.nci.rembrandt.queryservice.resultset.DimensionalViewContainer;
-import gov.nih.nci.rembrandt.queryservice.resultset.Resultant;
-import gov.nih.nci.rembrandt.queryservice.resultset.ResultsContainer;
-import gov.nih.nci.rembrandt.queryservice.resultset.sample.SampleResultset;
-import gov.nih.nci.rembrandt.queryservice.resultset.sample.SampleViewResultsContainer;
-*/
-
 import gov.nih.nci.ispy.cache.ISPYContextListener;
+import gov.nih.nci.ispy.service.findings.ISPYIHCLevelOfExpressionFinding;
 import gov.nih.nci.ispy.util.ApplicationContext;
 import gov.nih.nci.ispy.util.MoreStringUtils;
-
 import gov.nih.nci.ispy.util.ispyConstants;
-import gov.nih.nci.ispy.web.bean.FindingReportBean;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.xml.ClassComparisonReport;
-//import gov.nih.nci.ispy.web.xml.ReportGenerator;
-//import gov.nih.nci.ispy.web.xml.ReportGeneratorFactory;
 import gov.nih.nci.ispy.web.xml.Transformer;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
-import javax.naming.OperationNotSupportedException;
-import javax.servlet.GenericServlet;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspWriter;
+
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
 import org.dom4j.io.HTMLWriter;
 import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
 
 /**
  * The ReportGeneratorHelper was written to act as a Report Generation manager
@@ -562,19 +532,38 @@ public class ReportGeneratorHelper {
 	}
 	*/
 	
-	//ISPY USES THIS _ RCL 3/2
-	public static void generateReportXML(Finding finding)	{
-		//TODO: shouldnt be called until findings are populated (!= running)
-		//TODO: is threadsafe?
-		//TODO: instance of
-		Document xmlDocument = ClassComparisonReport.getReportXML(finding, new HashMap());
-		FindingReportBean frb = new FindingReportBean();
-		frb.setFinding(finding);
-		frb.setXmlDoc(xmlDocument);
-		logger.debug(xmlDocument.asXML());
-		//TODO: check cache for collision - second param is key
-		ApplicationFactory.getPresentationTierCache().addPersistableToSessionCache(finding.getSessionId(),finding.getTaskId(), frb);
-	}
+//	//ISPY USES THIS _ RCL 3/2
+//	public static void generateReportXML(Finding finding)	{
+//		//TODO: shouldnt be called until findings are populated (!= running)
+//		//TODO: is threadsafe?
+//		//TODO: instance of
+//		Document xmlDocument = ClassComparisonReport.getReportXML(finding, new HashMap());
+//		FindingReportBean frb = new FindingReportBean();
+//		frb.setFinding(finding);
+//		frb.setXmlDoc(xmlDocument);
+//		logger.debug(xmlDocument.asXML());
+//		//TODO: check cache for collision - second param is key
+//		ApplicationFactory.getPresentationTierCache().addPersistableToSessionCache(finding.getSessionId(),finding.getTaskId(), frb);
+//	}
+    
+	
+    public static void generateReportXML(Finding finding)   {
+        //TODO: shouldnt be called until findings are populated (!= running)
+        //TODO: is threadsafe?
+        Document xmlDocument = null;
+        if(finding instanceof ISPYIHCLevelOfExpressionFinding){              
+                xmlDocument = LevelOfExpressionIHCReport.getReportXML(finding, new HashMap());           
+        }
+        else if(finding instanceof ClassComparisonFinding){
+                 xmlDocument = ClassComparisonReport.getReportXML(finding, new HashMap());
+        }       
+        FindingReportBean frb = new FindingReportBean();
+        frb.setFinding(finding);
+        frb.setXmlDoc(xmlDocument);
+        logger.debug(xmlDocument.asXML());
+        //TODO: check cache for collision - second param is key
+        ApplicationFactory.getPresentationTierCache().addPersistableToSessionCache(finding.getSessionId(),finding.getTaskId(), frb);
+    }
 	
 	/**
 	 * This executes the current Compound Query that is referenced in the _cQuery
