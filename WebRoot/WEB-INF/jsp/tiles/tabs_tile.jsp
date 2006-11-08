@@ -46,7 +46,7 @@
 			case 1:
 				//1 is simple search
 				simple = "<span>ID Lookup</span>\n" + simpleSecondary;
-				adv = "<a href=\"advancedHome.do\" onclick=\"return false\">Search</a>";
+				adv = "<a href=\"advancedHome.do\">Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<a href=\"manageLists.do\">Manage Lists</a>";
