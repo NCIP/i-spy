@@ -31,7 +31,7 @@
 
 <xsl:variable name="dtype">
 	<xsl:choose>
-		<xsl:when test="$p_sort_element != '1' and $p_sort_element != '5'">number</xsl:when>
+		<xsl:when test="$p_sort_element = '1'">number</xsl:when>
 		<xsl:otherwise>text</xsl:otherwise>		
 	</xsl:choose>
 </xsl:variable>
@@ -205,17 +205,19 @@
 			<tr class="headerRow">
 		  	<xsl:for-each select="Cell[@class != 'csv']">
 			<xsl:choose>
-					<xsl:when test="@group='header'">
-					<xsl:variable name="currentone" select="position()"/>					
+					<xsl:when test="@group='header'">										
 					<xsl:variable name="colspan" select="count(/Report/Row[@name='tpHeaderRow']/Cell[@group='tpHeader'])"/>						
 						<td style="color:red" colspan="{$colspan}">
-							<xsl:value-of select="Data" />							
+							<xsl:value-of select="Data" />																			
 						</td>									
 				  </xsl:when>
 				  <xsl:otherwise>
 				  <xsl:variable name="rowspan" select="count(/Report/Row[@name='headerRow']/Cell[@group='ntpHeader'])"/>					
+				  <xsl:variable name="currentone" select="position()"/>
 				  		<td style="color:red" rowspan="{$rowspan}">
 							<xsl:value-of select="Data" />
+							<img id="{$currentone}_sort_img_up" style="margin-left:5px;" src="images/openUpArrow.png" onclick="javascript:goSort('{$currentone}','ascending', '{$key}');" />
+							<img id="{$currentone}_sort_img_down" style="margin-left:0px;" src="images/openDownArrow.png" onclick="javascript:goSort('{$currentone}','descending', '{$key}');" />
 						</td>
 				  </xsl:otherwise>				  
 			</xsl:choose>
@@ -224,14 +226,14 @@
 		 </xsl:for-each>
 		 
 		 
-		  <xsl:for-each select="Row[@name='tpHeaderRow']">
+		  <xsl:for-each select="Row[@name='tpHeaderRow']">		  										    
 							<tr class="headerRow">
 							   <xsl:for-each select="/Report/Row[@name='headerRow']/Cell[@group='header']">
-		  						<xsl:for-each select="/Report/Row[@name='tpHeaderRow']/Cell[@group='tpHeader']">									
-									<td style="color:red">
-										<xsl:value-of select="Data" />							
-									</td>									
-		    					</xsl:for-each>
+		  						<xsl:for-each select="/Report/Row[@name='tpHeaderRow']/Cell[@group='tpHeader']">												   
+													    <td style="color:red">   
+													 	<xsl:value-of select="Data" />
+														</td>													
+						    	</xsl:for-each>
 		    					</xsl:for-each>
 		    				</tr>
 		  
@@ -261,7 +263,7 @@
 		  	  			<xsl:variable name="theType" select="@type"/>		  	  			
 		  	  			<xsl:variable name="reporterType" select="Data/@type"/>
 		  	  			
-		      			<td class="{$class}" id="{$theType}" name="{$theType}">
+		      			<td class="tpBorder" id="{$theType}" name="{$theType}">
 						
 		      			<xsl:choose>      				
 		      				<xsl:when test="$p_highlight_op != ''">

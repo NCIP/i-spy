@@ -181,15 +181,8 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
              //EnumSet<IntensityOfStainType> stainIntensitySet = EnumSet.noneOf(IntensityOfStainType.class);
              Set<String> stainIntensitySet = new HashSet<String>();
              String[] stainIntensities = ihcLevelOfExpQueryForm.getStainIntensity();
-             for(int i=0; i<stainIntensities.length;i++){
-                 String[] uiDropdownString = stainIntensities[i].split("#");
-                 String myClassName = uiDropdownString[0];
-                 String myValueName = uiDropdownString[1];    
-                 Enum myType = EnumHelper.createType(myClassName,myValueName);
-                 if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.ihc.IntensityOfStainType.class) {
-                     myType = (IntensityOfStainType) myType;
-                     stainIntensitySet.add(myType.name());
-                 }                
+             for(int i=0; i<stainIntensities.length;i++){                 
+                     stainIntensitySet.add(stainIntensities[i]);                              
              }
              dto.setStainIntensityCollection(stainIntensitySet);
          }
@@ -210,15 +203,8 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
          if(ihcLevelOfExpQueryForm.getStainLocalization()!=null && ihcLevelOfExpQueryForm.getStainLocalization().length>0){
              Set<String> localizationSet = new HashSet<String>();
              String[] localizations = ihcLevelOfExpQueryForm.getStainLocalization();
-             for(int i=0; i<localizations.length;i++){
-                 String[] uiDropdownString = localizations[i].split("#");
-                 String myClassName = uiDropdownString[0];
-                 String myValueName = uiDropdownString[1];    
-                 Enum myType = EnumHelper.createType(myClassName,myValueName);
-                 if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.ihc.LocalizationType.class) {
-                     myType = (LocalizationType)myType;
-                     localizationSet.add(myType.name());
-                 }                
+             for(int i=0; i<localizations.length;i++){                 
+                  localizationSet.add(localizations[i]);                            
              }
              dto.setStainLocalizationCollection(localizationSet);
          }
@@ -258,6 +244,8 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
         ihcQueryForm.setPatientGroupCollection(clinicalGroupRetriever.getClinicalGroupsCollection());
         IHCRetriever ihcRetriever = new IHCRetriever(session);
         ihcQueryForm.setBiomarkersCollection(ihcRetriever.getBiomarkers()); 
+        ihcQueryForm.setStainIntensityCollection(ihcRetriever.getIntensity());
+        ihcQueryForm.setStainLocalizationCollection(ihcRetriever.getLocalization());
         
         return mapping.findForward("backToIHCQuery");
     }

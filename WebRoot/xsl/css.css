@@ -95,6 +95,9 @@
 		padding:5px;
 		padding-bottom:1px;
 	}
+	.tpBorder{
+		border-left:1 px solid #000;
+    }
   	INPUT, SELECT { 
 		/*color: #002185;*/
 		font-family: arial; 

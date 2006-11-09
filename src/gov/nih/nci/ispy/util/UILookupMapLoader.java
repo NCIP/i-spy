@@ -14,22 +14,47 @@ public class UILookupMapLoader {
     static private Map<String, Collection> lookupMap = new HashMap<String, Collection>();
     
     public static Map<String, Collection> getMap(){
-        
-        //GET BIOMARKERS
-        StringBuilder theHQL = new StringBuilder();
-        // Start of the where clause
-        theHQL.append("from ProteinBiomarker AS p  ");
         Session theSession = HibernateUtil.getSession();
         theSession.beginTransaction();
-        Query theQuery = theSession.createQuery(theHQL.toString());
-        System.out.println("HQL: " + theHQL.toString());        
-        Collection objs = theQuery.list();
+        String theHQL = "";
+        Query theQuery = null;
+        Collection objs = null;
+        
+        try{
+        //GET BIOMARKERS       
+        theHQL = "from ProteinBiomarker AS p";        
+        theQuery = theSession.createQuery(theHQL);
+        System.out.println("HQL: " + theHQL);        
+        objs = theQuery.list();
         ArrayList<String> biomarkers = new ArrayList<String>(objs);
         lookupMap.put(ispyConstants.IHC_BIOMARKERS,biomarkers);
-        
+                
         //GET INTENSITIES
+        theHQL = "select distinct loe.stainIntensity from LevelOfExpressionIHCFinding loe where loe.stainIntensity!=null";
+        theQuery = theSession.createQuery(theHQL);
+        System.out.println("HQL: " + theHQL);        
+        objs = theQuery.list();
+        ArrayList<String> intensityValues = new ArrayList<String>(objs);
+        lookupMap.put(ispyConstants.IHC_STAIN_INTENSITY,intensityValues);
         
+        //GET LOCALIZATION
+        theHQL = "select distinct loe.stainLocalization from LevelOfExpressionIHCFinding loe where loe.stainLocalization!=null";
+        theQuery = theSession.createQuery(theHQL);
+        System.out.println("HQL: " + theHQL);        
+        objs = theQuery.list();
+        ArrayList<String> localeValues = new ArrayList<String>(objs);
+        lookupMap.put(ispyConstants.IHC_STAIN_LOCALIZATION,localeValues);
         
+        }
+        finally
+        {
+            // Close the session if necessart
+            if (theSession != null)
+            {
+                theSession.close();
+            }
+        }
+
         return lookupMap;
     }
 
