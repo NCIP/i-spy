@@ -1,11 +1,14 @@
 package gov.nih.nci.ispy.util;
 
+import gov.nih.nci.caintegrator.application.service.LevelOfExpressionIHCService;
 import gov.nih.nci.caintegrator.util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;

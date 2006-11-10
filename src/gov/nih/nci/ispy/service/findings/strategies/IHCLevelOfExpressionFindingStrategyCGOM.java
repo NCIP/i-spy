@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.application.service.LevelOfExpressionIHCService;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
@@ -8,8 +9,6 @@ import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
-import gov.nih.nci.caintegrator.studyQueryService.ihc.LevelOfExpressionIHCFindingHandler;
-import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLevelOfExpressionFinding;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
@@ -40,8 +39,8 @@ public class IHCLevelOfExpressionFindingStrategyCGOM extends SessionBasedFinding
 	}
 
 	public boolean executeQuery() throws FindingsQueryException {		
-        LevelOfExpressionIHCFindingHandler theHandler = criteria.getHandler();
-        Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> theFindings = theHandler.getLevelExpFindings(criteria);
+        LevelOfExpressionIHCService loeService = LevelOfExpressionIHCService.getInstance();
+        Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> theFindings = loeService.getFindings(criteria);
         finding = new ISPYIHCLevelOfExpressionFinding(this.getSessionId(), this.getTaskId());
         finding.setQueryDTO(criteria);
         finding.setDomainFindings(theFindings);
