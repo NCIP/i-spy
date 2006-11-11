@@ -3,6 +3,8 @@
  */
 package gov.nih.nci.ispy.service.findings;
 
+import java.util.List;
+
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
@@ -15,6 +17,7 @@ import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
 import gov.nih.nci.caintegrator.service.findings.ClinicalFinding;
+import gov.nih.nci.caintegrator.service.findings.CompoundClassComparisonFinding;
 import gov.nih.nci.caintegrator.service.findings.CopyNumberFinding;
 import gov.nih.nci.caintegrator.service.findings.CorrelationFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
@@ -389,5 +392,10 @@ public class ISPYFindingsFactory implements FindingsFactory {
         }
         return finding;
     }
+
+	public CompoundClassComparisonFinding createCompoundClassComparisonFinding(List<ClassComparisonQueryDTO> queryList, String sessionID, String taskID) throws FrameworkException {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
