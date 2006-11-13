@@ -24,8 +24,8 @@
 	String advSecondary = "<ul id=\"secondary\">\n" +
 							"<li><a href=\"advancedHome.do\">Search Home</a></li>\n" +
 							"<li><a href=\"clinicalQueryInit.do?method=setup\">Clinical</a></li>\n" +
-							//"<li><a href=\"ihcQueryInit.do?method=setup\">IHC</a></li>\n" +							
-							//"<li><a href=\"fishQueryInit.do?method=setup\">FISH</a></li>\n" +
+							"<li><a href=\"ihcQueryInit.do?method=setup\">IHC</a></li>\n" +							
+							"<li><a href=\"fishQueryInit.do?method=setup\">FISH</a></li>\n" +
 							//"<li><a href=\"#\">p53</a></li>\n" +
 							"</ul>\n";
 	String resultsSecondary = "<ul id=\"secondary\">\n" +
@@ -46,7 +46,7 @@
 			case 1:
 				//1 is simple search
 				simple = "<span>ID Lookup</span>\n" + simpleSecondary;
-				adv = "<a href=\"advancedHome.do\" onclick=\"return false\">Search</a>";
+				adv = "<a href=\"advancedHome.do\">Search</a>";
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<a href=\"manageLists.do\">Manage Lists</a>";
