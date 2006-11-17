@@ -5,17 +5,16 @@ import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
+import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.protein.ProteinBiomarkerCriteia;
 import gov.nih.nci.caintegrator.studyQueryService.dto.study.SpecimenCriteria;
 import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
-import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
-import gov.nih.nci.ispy.service.ihc.LocalizationType;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.helper.EnumHelper;
 import gov.nih.nci.ispy.web.helper.IHCRetriever;
-import gov.nih.nci.ispy.web.struts.form.IHCLevelOfExpressionQueryForm;
+import gov.nih.nci.ispy.web.struts.form.IHCLossOfExpressionQueryForm;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -89,8 +88,8 @@ import org.apache.struts.actions.DispatchAction;
 * 
 */
 
-public class IHCLevelOfExpressionQueryAction extends DispatchAction {
-    private static Logger logger = Logger.getLogger(IHCLevelOfExpressionQueryAction.class);
+public class IHCLossOfExpressionQueryAction extends DispatchAction {
+    private static Logger logger = Logger.getLogger(IHCLossOfExpressionQueryAction.class);
     private UserCredentials credentials;
     private PresentationTierCache presentationTierCache = ApplicationFactory.getPresentationTierCache();
     
@@ -112,37 +111,34 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
     	
-    	IHCLevelOfExpressionQueryForm ihcLevelOfExpQueryForm = (IHCLevelOfExpressionQueryForm) form;
+    	IHCLossOfExpressionQueryForm ihcLossOfExpQueryForm = (IHCLossOfExpressionQueryForm) form;
         String sessionId = request.getSession().getId();
         HttpSession session = request.getSession();
-        
-        // put values from the ui page to the IHCLevelOfExpressionQueryDTO
-        //IHCLevelOfExpressionQueryDTO ihcLevelOfExpDataQueryDTO = createIHCLevelOfExpQueryDTO(ihcLevelOfExpQueryForm, session);
-        LevelOfExpressionIHCFindingCriteria levelOfExpressionIHCFindingCriteria = createLevelOfExpressionIHCFindingCriteria(ihcLevelOfExpQueryForm, session);
+       
+        LossOfExpressionIHCFindingCriteria lossOfExpressionIHCFindingCriteria = createLossOfExpressionIHCFindingCriteria(ihcLossOfExpQueryForm, session);
         
         // in ISPYFindingsFactory objects, all the findings are created, such as clinical, ihc, class comparison etc        
         ISPYFindingsFactory factory = new ISPYFindingsFactory();
-        factory.createIHCLevelOfExpressionFinding(levelOfExpressionIHCFindingCriteria, sessionId, levelOfExpressionIHCFindingCriteria.getQueryName());
+        factory.createIHCLossOfExpressionFinding(lossOfExpressionIHCFindingCriteria, sessionId, lossOfExpressionIHCFindingCriteria.getQueryName());
         return mapping.findForward("viewResults");        
         
      
     }
     
-    private LevelOfExpressionIHCFindingCriteria createLevelOfExpressionIHCFindingCriteria(IHCLevelOfExpressionQueryForm ihcLevelOfExpQueryForm, HttpSession session) {
-    	 //IHCLevelOfExpressionQueryDTO dto = new IHCLevelOfExpressionQueryDTO();
-         LevelOfExpressionIHCFindingCriteria dto = new LevelOfExpressionIHCFindingCriteria();
+    private LossOfExpressionIHCFindingCriteria createLossOfExpressionIHCFindingCriteria(IHCLossOfExpressionQueryForm ihcLossOfExpQueryForm, HttpSession session) {
+    	 LossOfExpressionIHCFindingCriteria dto = new LossOfExpressionIHCFindingCriteria();
          SpecimenCriteria theSPCriteria = new SpecimenCriteria();
          ProteinBiomarkerCriteia thePBCriteria = new ProteinBiomarkerCriteia();
     	 UserListBeanHelper helper = new UserListBeanHelper(session);
     	 UserList myCurrentList;
     	 
     	 
-    	 dto.setQueryName(ihcLevelOfExpQueryForm.getAnalysisResultName());
+    	 dto.setQueryName(ihcLossOfExpQueryForm.getAnalysisResultName());
     	 
     	 //set custom patient group    	 
-    	 if(ihcLevelOfExpQueryForm.getPatientGroup()!=null && !ihcLevelOfExpQueryForm.getPatientGroup().equals("none")){    		
+    	 if(ihcLossOfExpQueryForm.getPatientGroup()!=null && !ihcLossOfExpQueryForm.getPatientGroup().equals("none")){    		
              Set<String> tempRestrainingPatientDIDs = new HashSet<String>();
-             myCurrentList = helper.getUserList(ihcLevelOfExpQueryForm.getPatientGroup());
+             myCurrentList = helper.getUserList(ihcLossOfExpQueryForm.getPatientGroup());
              if(myCurrentList!=null && !myCurrentList.getList().isEmpty()){
                  tempRestrainingPatientDIDs.addAll(myCurrentList.getList());
              }
@@ -150,9 +146,9 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
          }
     	 
     	 //set time point          
-         if(ihcLevelOfExpQueryForm.getTimepoints()!=null && ihcLevelOfExpQueryForm.getTimepoints().length>0){        	 
+         if(ihcLossOfExpQueryForm.getTimepoints()!=null && ihcLossOfExpQueryForm.getTimepoints().length>0){        	 
              Set<String> tpSet = new HashSet<String>();
-             String[] tps = ihcLevelOfExpQueryForm.getTimepoints();
+             String[] tps = ihcLossOfExpQueryForm.getTimepoints();
              for(int i=0; i<tps.length;i++){
             	 Enum myType = EnumHelper.createType(TimepointType.class.getName(),tps[i]);
                  myType = (TimepointType) myType;
@@ -164,8 +160,8 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
          
     	 
          // set biomarkers          
-         if(ihcLevelOfExpQueryForm.getBiomarkers()!=null && ihcLevelOfExpQueryForm.getBiomarkers().length>0){
-             String[] bioMarkers = ihcLevelOfExpQueryForm.getBiomarkers();
+         if(ihcLossOfExpQueryForm.getBiomarkers()!=null && ihcLossOfExpQueryForm.getBiomarkers().length>0){
+             String[] bioMarkers = ihcLossOfExpQueryForm.getBiomarkers();
              Set<String> bioSet = new HashSet<String>();          
              for(int i=0; i<bioMarkers.length;i++){
             	 String bioMarker = (String)bioMarkers[i];
@@ -176,59 +172,7 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
           dto.setProteinBiomarkerCrit(thePBCriteria);    
          }    
          
-         // set stainIntensity         
-         if(ihcLevelOfExpQueryForm.getStainIntensity()!=null && ihcLevelOfExpQueryForm.getStainIntensity().length>0){
-             //EnumSet<IntensityOfStainType> stainIntensitySet = EnumSet.noneOf(IntensityOfStainType.class);
-             Set<String> stainIntensitySet = new HashSet<String>();
-             String[] stainIntensities = ihcLevelOfExpQueryForm.getStainIntensity();
-             for(int i=0; i<stainIntensities.length;i++){                 
-                     stainIntensitySet.add(stainIntensities[i]);                              
-             }
-             dto.setStainIntensityCollection(stainIntensitySet);
-         }
          
-            
-         // set persent positive lower side
-         if(new Integer(ihcLevelOfExpQueryForm.getLowPercentPositive())!= null){
-        	 dto.setPercentPositiveRangeMin(new Integer(ihcLevelOfExpQueryForm.getLowPercentPositive()));      	
-         
-         }
-         // set persent positive upper side
-         if(new Integer(ihcLevelOfExpQueryForm.getUpPercentPositive())!= null){
-        	 dto.setPercentPositiveRangeMax(new Integer(ihcLevelOfExpQueryForm.getUpPercentPositive()));      	
-         
-         }
-         
-         // set localization of stain           
-         if(ihcLevelOfExpQueryForm.getStainLocalization()!=null && ihcLevelOfExpQueryForm.getStainLocalization().length>0){
-             Set<String> localizationSet = new HashSet<String>();
-             String[] localizations = ihcLevelOfExpQueryForm.getStainLocalization();
-             for(int i=0; i<localizations.length;i++){                 
-                  localizationSet.add(localizations[i]);                            
-             }
-             dto.setStainLocalizationCollection(localizationSet);
-         }
-         
-         
-        /* 
-         * DO NOT HAVE DATA FOR DISTRIBUTION RIGHT NOW
-         * set distribution of stain         
-         if(ihcLevelOfExpQueryForm.getStainDistribution()!=null && ihcLevelOfExpQueryForm.getStainDistribution().length>0){
-             Set<String> distributionSet = new HashSet<String>();
-             String[] distributions = ihcLevelOfExpQueryForm.getStainDistribution();
-             for(int i=0; i<distributions.length;i++){
-                 String[] uiDropdownString = distributions[i].split("#");
-                 String myClassName = uiDropdownString[0];
-                 String myValueName = uiDropdownString[1];    
-                 Enum myType = EnumHelper.createType(myClassName,myValueName);
-                 if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.ihc.DistributionType.class) {
-                	 myType = (DistributionType) myType;
-                     distributionSet.add(myType.name());
-                 }                
-             }
-             dto.setStainDistributionCollection(distributionSet);
-         }
-         */
          dto.setSpecimenCriteria(theSPCriteria);
          
     	 return  dto;
@@ -238,16 +182,15 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
     public ActionForward setup(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
     throws Exception {
-    	IHCLevelOfExpressionQueryForm ihcQueryForm = (IHCLevelOfExpressionQueryForm) form;        
+    	IHCLossOfExpressionQueryForm ihcQueryForm = (IHCLossOfExpressionQueryForm) form;        
         HttpSession session = request.getSession();
         ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(session);        
         ihcQueryForm.setPatientGroupCollection(clinicalGroupRetriever.getClinicalGroupsCollection());
         IHCRetriever ihcRetriever = new IHCRetriever(session);
-        ihcQueryForm.setBiomarkersCollection(ihcRetriever.getBiomarkers()); 
-        ihcQueryForm.setStainIntensityCollection(ihcRetriever.getIntensity());
-        ihcQueryForm.setStainLocalizationCollection(ihcRetriever.getLocalization());
+        //ihcQueryForm.setBiomarkersCollection(ihcRetriever.getBiomarkers()); 
         
-        return mapping.findForward("backToIHCLevelQuery");
+        
+        return mapping.findForward("backToIHCLossQuery");
     }
         
     

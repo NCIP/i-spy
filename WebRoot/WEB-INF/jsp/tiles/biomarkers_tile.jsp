@@ -16,11 +16,17 @@
 	      </logic:present>
 	      
 	       
-		 <logic:present name="ihcQueryForm">
+		 <logic:present name="ihcLevelQueryForm">
 		 	&nbsp;&nbsp;<html:select property="biomarkers" multiple="true" size="4">						
 						<html:optionsCollection property="biomarkersCollection" />
 			</html:select>		
-		 </logic:present>	      
+		 </logic:present>
+		 
+		  <logic:present name="ihcLossQueryForm">
+		 	&nbsp;&nbsp;<html:select property="biomarkers">						
+						<html:optionsCollection property="biomarkersCollection" />
+			</html:select>		
+		 </logic:present>	  	      
 		  </div>		
 	</div>
 </fieldset>

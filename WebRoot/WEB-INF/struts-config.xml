@@ -13,7 +13,8 @@
 		<form-bean name="categoricalCorrelationForm" type="gov.nih.nci.ispy.web.struts.form.CategoricalCorrelationForm"/>
 		<form-bean name="clinicalQueryForm" type="gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm"/>		
 		<form-bean name="fishQueryForm" type="gov.nih.nci.ispy.web.struts.form.FISHQueryForm"/>			
-		<form-bean name="ihcQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLevelOfExpressionQueryForm"/>	
+		<form-bean name="ihcLevelQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLevelOfExpressionQueryForm"/>	
+		<form-bean name="ihcLossQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLossOfExpressionQueryForm"/>	
 		<form-bean name="userPreferencesBean" type="gov.nih.nci.ispy.web.struts.bean.UserPreferencesBean"/>				
 		<form-bean name="hierarchicalClusteringForm" type="gov.nih.nci.ispy.web.struts.form.HierarchicalClusteringForm"/>
 		<form-bean name="loginForm" type="gov.nih.nci.ispy.web.struts.form.LoginForm"/>
@@ -154,28 +155,53 @@
 		<forward name="viewResults" path="/viewResults.do" />
 	</action>
 	
-	<action path="/ihc"
-		forward="ispy.ihc" />
+	<action path="/ihcLevel"
+		forward="ispy.ihcLevel" />
 		
-	<action path="/ihcQueryInit"
+	<action path="/ihcLevelQueryInit"
 		type="gov.nih.nci.ispy.web.struts.action.IHCLevelOfExpressionQueryAction"
-		name="ihcQueryForm"
+		name="ihcLevelQueryForm"
 		scope="request"
 		validate="false"
 		parameter="method">
-		<forward name="backToIHCQuery" path="ispy.ihcQuery" />
-		<forward name="ihcQuerySetup" path="/ihcQueryInit.do?method=setup" />
+		<forward name="backToIHCLevelQuery" path="ispy.ihcLevelQuery" />
+		<forward name="ihcLevelQuerySetup" path="/ihcLevelQueryInit.do?method=setup" />
 	</action>
 	
-	<action path="/ihcquery"
-	    input="/ihcQueryInit.do?method=setup"
+	<action path="/ihclevelquery"
+	    input="/ihcLevelQueryInit.do?method=setup"
 		type="gov.nih.nci.ispy.web.struts.action.IHCLevelOfExpressionQueryAction"
-		name="ihcQueryForm"
+		name="ihcLevelQueryForm"
 		scope="request"
 		validate="true"
 		parameter="method">
-		<forward name="backToIHCQuery" path="ispy.ihcQuery" />
-		<forward name="ihcQuerySetup" path="/ihcQueryInit.do?method=setup" />
+		<forward name="backToIHCLevelQuery" path="ispy.ihcLevelQuery" />
+		<forward name="ihcLevelQuerySetup" path="/ihcLevelQueryInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/ihcLoss"
+		forward="ispy.ihcLoss" />
+		
+	<action path="/ihcLossQueryInit"
+		type="gov.nih.nci.ispy.web.struts.action.IHCLossOfExpressionQueryAction"
+		name="ihcLossQueryForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToIHCLossQuery" path="ispy.ihcLossQuery" />
+		<forward name="ihcLossQuerySetup" path="/ihcLossQueryInit.do?method=setup" />
+	</action>
+	
+	<action path="/ihclossquery"
+	    input="/ihcLossQueryInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.IHCLossOfExpressionQueryAction"
+		name="ihcLossQueryForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToIHCLossQuery" path="ispy.ihcLosslQuery" />
+		<forward name="ihcLossQuerySetup" path="/ihcLossQueryInit.do?method=setup" />
 		<forward name="viewResults" path="/viewResults.do" />
 	</action>
 	   
