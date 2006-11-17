@@ -3,8 +3,6 @@
  */
 package gov.nih.nci.ispy.service.findings;
 
-import java.util.List;
-
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
@@ -27,6 +25,7 @@ import gov.nih.nci.caintegrator.service.findings.HCAFinding;
 import gov.nih.nci.caintegrator.service.findings.KMFinding;
 import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
+import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
 import gov.nih.nci.ispy.dto.query.ISPYCategoricalCorrelationQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
@@ -34,12 +33,14 @@ import gov.nih.nci.ispy.service.findings.strategies.CategoricalCorrelationFindin
 import gov.nih.nci.ispy.service.findings.strategies.ClassComparisonFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.ClinicalFindingStrategyFile;
-import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy2;
 import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy3;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCLevelOfExpressionFindingStrategyCGOM;
+import gov.nih.nci.ispy.service.findings.strategies.IHCLossOfExpressionFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.PrincipalComponentAnalysisFindingStrategy;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -192,21 +193,50 @@ public class ISPYFindingsFactory implements FindingsFactory {
         		    strategy.analyzeResultSet();
         		
         		} catch (FindingsQueryException e) {
-        			logger.error("Caught FindingsQueryExcpetion in ClinicalFindingStrategy");
+        			logger.error("Caught FindingsQueryExcpetion in IHCLevelFindingStrategy");
         			logger.error(e);
         		} catch (FindingsAnalysisException e) {
-        			logger.error("Caught FindingsAnalsysisException in ClinicalFindingStrategy");
+        			logger.error("Caught FindingsAnalsysisException in IHCLevelFindingStrategy");
         			logger.error(e);
         		}
 		
         		
 		}
 		catch (ValidationException ex) {
-		  logger.error("Caught validationException when creating clinical finding strategy: sessionId=" + sessionId + " taskId=" + taskId + " queryName=" + criteria.getQueryName());
+		  logger.error("Caught validationException when creating ihcLevel finding strategy: sessionId=" + sessionId + " taskId=" + taskId + " queryName=" + criteria.getQueryName());
 		  logger.error(ex);
 		}
 	
 	}
+    
+    /**
+     * Create a IHCLossOfExpressionFinding by executing the IHCLossOfExpression strategy
+     */
+    public void createIHCLossOfExpressionFinding(LossOfExpressionIHCFindingCriteria criteria, String sessionId, String taskId) {
+        try {
+            IHCLossOfExpressionFindingStrategyCGOM strategy = new IHCLossOfExpressionFindingStrategyCGOM(sessionId, taskId, criteria);        
+                try {
+                    
+                    strategy.createQuery();
+                    strategy.executeQuery();
+                    strategy.analyzeResultSet();
+                
+                } catch (FindingsQueryException e) {
+                    logger.error("Caught FindingsQueryExcpetion in ClinicalFindingStrategy");
+                    logger.error(e);
+                } catch (FindingsAnalysisException e) {
+                    logger.error("Caught FindingsAnalsysisException in ClinicalFindingStrategy");
+                    logger.error(e);
+                }
+        
+                
+        }
+        catch (ValidationException ex) {
+          logger.error("Caught validationException when creating clinical finding strategy: sessionId=" + sessionId + " taskId=" + taskId + " queryName=" + criteria.getQueryName());
+          logger.error(ex);
+        }
+    
+    }
 	
 	
 	/**
@@ -393,9 +423,9 @@ public class ISPYFindingsFactory implements FindingsFactory {
         return finding;
     }
 
-	public CompoundClassComparisonFinding createCompoundClassComparisonFinding(List<ClassComparisonQueryDTO> queryList, String sessionID, String taskID) throws FrameworkException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public CompoundClassComparisonFinding createCompoundClassComparisonFinding(List<ClassComparisonQueryDTO> queryList, String sessionID, String taskID) throws FrameworkException {
+        // TODO Auto-generated method stub
+        return null;
+    }
     
 }
