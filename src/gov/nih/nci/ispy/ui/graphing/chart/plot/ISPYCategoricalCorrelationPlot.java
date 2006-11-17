@@ -7,6 +7,7 @@ import gov.nih.nci.ispy.service.clinical.ContinuousType;
 import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
@@ -107,6 +108,16 @@ public class ISPYCategoricalCorrelationPlot {
 	public JFreeChart getChart() {
 		return catCorrChart;
 	}
+	
+	private List<Double> removeNaNandNulls(List<Double> inputList) {
+	  List<Double> dList = new ArrayList<Double>();
+	  for (Double d : inputList) {
+	    if ((d != null) && (!d.isNaN())) {
+	      dList.add(d);
+	    }
+	  }
+	  return dList;
+	}
 
 	private DefaultBoxAndWhiskerCategoryDataset createChartData() {
 		
@@ -125,7 +136,7 @@ public class ISPYCategoricalCorrelationPlot {
 			  }
 			}
 			//only using the X component of the vector to hold the data y and z are not used.
-			List<Double> values = vec.getXValues();
+			List<Double> values = removeNaNandNulls(vec.getXValues());
 			String categoryName = vec.getName() + " N=" + values.size();
 			dataSet.add(values,sequenceName,categoryName);
 			
