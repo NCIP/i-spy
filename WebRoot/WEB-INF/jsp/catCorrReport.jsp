@@ -8,7 +8,7 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
 <html>
 <head>
-	<title>I-SPY Categorical Correlation Plots</title>
+	<title>I-SPY Categorical Plots</title>
 	<LINK href="css/tabs.css" rel="stylesheet" type="text/css" />
 	
 	<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 

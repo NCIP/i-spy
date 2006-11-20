@@ -44,7 +44,7 @@ public class ISPYCategoricalCorrelationPlot {
 
 	private void createChart() {
 		
-		String title = "Categorical Correlation Plot";
+		String title = "Categorical Plot";
 		
 		CategoryDataset chartData = createChartData();
 		
