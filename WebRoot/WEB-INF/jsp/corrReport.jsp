@@ -69,10 +69,20 @@ else
 	
 out.write("&nbsp; | &nbsp;");
 
+
 if(colorBy.equals("Timepoint"))
 	out.write("Timepoint");	
 else	
 	out.write("<a href=\"corrReport.do?key="+key+"&colorBy=Timepoint\">Timepoint</a>");	
+	
+out.write("&nbsp; | &nbsp;");
+	
+if(colorBy.equals("IHC_EXPRESSION"))
+	out.write("IHC Expression");	
+else	
+	out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION\">IHC Expression</a>");	
+
+	
 
 %>
 <br/>
