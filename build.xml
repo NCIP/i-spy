@@ -15,7 +15,7 @@
 				</fileset>
 				<fileset dir="${source.nondeploy.lib.dir}">
 					<include name="*.jar"/>
-				</fileset>
+				</fileset>				
 				<fileset dir="${anthill.dependency.artifacts.dir}">
 					<include name="*.jar"/>					
 				</fileset>
@@ -86,7 +86,7 @@
 		This will build the war file and should be used instead of the 
 		build_war_anthill task (which is intended to be used by SCM)
 	-->
-	<target name="build_war_anthill" depends="copy_resources">
+	<target name="build_war_anthill" depends="copy_resources,config_application_context">
 		<delete file="${app.war.name}.war"/>
 		<war destfile="${app.war.name}.war" webxml="${webapp.dir}/WEB-INF/web.xml">
 			<fileset file="${webapp.dir}/*.*"/>
@@ -109,7 +109,7 @@
 			<delete file="DataSourceContext.properties"/>
 			<copy file="conf/DataSourceContext.properties.template" tofile="DataSourceContext.properties"/>
 	        <replaceregexp file="DataSourceContext.properties" match="__APPLICATION_NAME__" replace="${application_name}" flags="g"/>
-			<move file="DataSourceContext.properties" todir="${build.classes.dir}"/>
+			<move file="DataSourceContext.properties" todir="${source.dir}"/>
 	</target>
 
 </project>
