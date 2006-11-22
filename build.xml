@@ -86,7 +86,7 @@
 		This will build the war file and should be used instead of the 
 		build_war_anthill task (which is intended to be used by SCM)
 	-->
-	<target name="build_war_anthill" depends="copy_resources,config_application_context">
+	<target name="build_war_anthill" depends="config_application_context,copy_resources">
 		<delete file="${app.war.name}.war"/>
 		<war destfile="${app.war.name}.war" webxml="${webapp.dir}/WEB-INF/web.xml">
 			<fileset file="${webapp.dir}/*.*"/>
