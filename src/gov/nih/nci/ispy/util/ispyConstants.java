@@ -109,6 +109,8 @@ public final class ispyConstants {
     
     public static final String IHC_BIOMARKERS =  "IHC_BIOMARKERS";
     
+    public static final String IHC_LOSS_RESULTCODES =  "IHC_LOSS_RESULTCODES";
+    
     public static final String TIMEPOINTS =  "TIMEPOINTS";
     
     public static final String UI_LOOKUPS = "UI_LOOKUPS";

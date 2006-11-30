@@ -54,17 +54,33 @@ public class DynamicListHelper {
 	}
 	
 	public static String createGenericList(String listType, List<String> list, String name) throws OperationNotSupportedException	{
-	    try	{
-			ListType lt = ListType.valueOf(listType);
-            ISPYListValidator listValidator = new ISPYListValidator(lt,list);
-			return CommonListFunctions.createGenericList(lt, list, name, listValidator);
-		}
-		catch(Exception e)	{
-			//try as a patient list as default, will fail validation if its not accepted
-            ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,list);
-			return CommonListFunctions.createGenericList(ListType.PatientDID, list, name, listValidator);
-		}
-	}
+        try {
+            String[] tps = CommonListFunctions.parseListType(listType);
+            //tps[0] = ListType
+            //tps[1] = ListSubType (if not null)
+            ListType lt = ListType.valueOf(tps[0]);
+            if(tps.length > 1 && tps[1] != null){
+                //create a list out of [1]
+                ArrayList<ListSubType> lst = new ArrayList();
+                lst.add(ListSubType.valueOf(tps[1]));
+                ISPYListValidator lv = new ISPYListValidator(ListType.valueOf(tps[0]), ListSubType.valueOf(tps[1]), list);
+                return CommonListFunctions.createGenericList(lt, lst, list, name, lv);
+            }
+            else if(tps.length >0 && tps[0] != null)    {
+                //no subtype, only a primary type - typically a PatientDID then
+                ISPYListValidator lv = new ISPYListValidator(ListType.valueOf(tps[0]), ListSubType.Custom, list);
+                return CommonListFunctions.createGenericList(lt, list, name, lv);
+            }
+            else    {
+                //no type or subtype, not good, force to clinical in catch                
+                throw new Exception();
+            }
+        }
+        catch(Exception e)  {
+            //try as a patient list as default, will fail validation if its not accepted
+            return CommonListFunctions.createGenericList(ListType.PatientDID, list, name, new ISPYListValidator(ListType.PatientDID, list));
+        }
+    }
 	/*
 	public static String createGenericList(ListType type, String[] list, String name){
 		return CommonListFunctions.createGenericList(type, list, name, new ISPYListValidator());

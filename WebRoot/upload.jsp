@@ -12,9 +12,11 @@
 	org.apache.commons.fileupload.FileItem,
 	java.io.File,
 	java.util.Map,
+	java.util.ArrayList,
 	java.util.HashMap,
 	java.util.Iterator,
 	java.util.List,
+	gov.nih.nci.caintegrator.application.lists.ajax.*,
 	org.dom4j.Document"%>
 <html>
 	<head>
@@ -61,36 +63,46 @@
         } catch (Exception e) {
             System.out.println(e);
         }
-		List myUndefinedList = listGenerator.generateList(formFile);
-            
-            ListManager uploadManager = (ListManager) ListManager
-                    .getInstance();
-            Map paramMap = new HashMap();
+			
+			List myUndefinedList = listGenerator.generateList(formFile); 
+			           
+            ListManager uploadManager = (ListManager) ListManager.getInstance();            
             UserList myList = new UserList();
-
             UserListBeanHelper helper = new UserListBeanHelper(request.getSession());
-            ISPYListValidator listValidator = new ISPYListValidator(ListType.valueOf(type), myUndefinedList);
-            try	{
-	            myList = uploadManager.createList(ListType.valueOf(type), name, myUndefinedList, listValidator);
+            
+            String[] tps = CommonListFunctions.parseListType(type);
+			ISPYListValidator listValidator = new ISPYListValidator();
+            if(tps.length > 1)	{
+            	//primary and sub
+	            listValidator = new ISPYListValidator(ListType.valueOf(tps[0]), ListSubType.valueOf(tps[1]), myUndefinedList); //st, t, l
+	        }
+	        else if(tps.length == 1)	{
+	        	//just a primary type, no sub
+	       		listValidator = new ISPYListValidator(ListType.valueOf(tps[0]), myUndefinedList); // t, l
+	        }
+
+			try	{
+	            myList = uploadManager.createList(ListType.valueOf(tps[0]), name, myUndefinedList, listValidator);
     		}
     		catch(Exception e)	{
     			//myList = null;
     		}        
 	        
             if (myList != null) {
-            	myList.setListSubType(ListSubType.Custom);
-                paramMap = uploadManager.getParams(myList);
+            	ArrayList subs = new ArrayList();
+            	
+            	if(tps.length > 1 && tps[1]!=null)	{
+            		subs.add(ListSubType.valueOf(tps[1]));
+            	}
+            	subs.add(ListSubType.Custom);
+            	myList.setListSubType(subs);
+                //paramMap = uploadManager.getParams(myList);
                 helper.addList(myList);
             }
-
             %>
 		<script type="text/javascript">
 			var my_params= new Array()
-			my_params["name"]="<%=paramMap.get("listName")%>";
-			my_params["date"]="<%=paramMap.get("date")%>";
-			my_params["count"]="<%=paramMap.get("items")%>";
-			my_params["icount"]="<%=paramMap.get("invalidItems")%>";
-			my_params["type"]="<%=paramMap.get("type")%>";
+
 			window.parent.handleResponse(my_params);
 		</script>
 	</body>

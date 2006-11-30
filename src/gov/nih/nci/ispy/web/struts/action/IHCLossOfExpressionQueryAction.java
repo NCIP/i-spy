@@ -3,8 +3,8 @@ package gov.nih.nci.ispy.web.struts.action;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
+import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.caintegrator.security.UserCredentials;
-import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.protein.ProteinBiomarkerCriteia;
 import gov.nih.nci.caintegrator.studyQueryService.dto.study.SpecimenCriteria;
@@ -172,6 +172,36 @@ public class IHCLossOfExpressionQueryAction extends DispatchAction {
           dto.setProteinBiomarkerCrit(thePBCriteria);    
          }    
          
+         //set invasive range
+         if(new Integer(ihcLossOfExpQueryForm.getInvasiveRange())!=null && !ihcLossOfExpQueryForm.getInvasiveRangeOperator().equalsIgnoreCase("none")){
+             String operatorString= EnumHelper.getEnumTypeToString(ihcLossOfExpQueryForm.getInvasiveRangeOperator(),Operator.values());
+             if(operatorString!=null) {                 
+                 dto.setInvasiveSumOperator(operatorString);
+             }
+             dto.setInvasiveSum(new Integer(ihcLossOfExpQueryForm.getInvasiveRange()));
+         }
+         
+         
+         //set benign range
+         if(new Integer(ihcLossOfExpQueryForm.getBenignRange())!=null && !ihcLossOfExpQueryForm.getBenignRangeOperator().equalsIgnoreCase("none")){
+             String operatorString= EnumHelper.getEnumTypeToString(ihcLossOfExpQueryForm.getBenignRangeOperator(),Operator.values());
+             if(operatorString!=null) {                 
+                 dto.setBenignSumOperator(operatorString);
+             }
+             dto.setBenignSum(new Integer(ihcLossOfExpQueryForm.getBenignRange()));
+         }
+         
+         //set result code
+         if(ihcLossOfExpQueryForm.getLossResult()!=null && ihcLossOfExpQueryForm.getLossResult().length>0){
+             String[] codes = ihcLossOfExpQueryForm.getLossResult();
+             Set<String> lossSet = new HashSet<String>();          
+             for(int i=0; i<codes.length;i++){
+                 String code = (String)codes[i];
+                 lossSet.add(code);
+             }
+             dto.setResultCodeCollection(lossSet);    
+          }
+         
          
          dto.setSpecimenCriteria(theSPCriteria);
          
@@ -187,8 +217,8 @@ public class IHCLossOfExpressionQueryAction extends DispatchAction {
         ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(session);        
         ihcQueryForm.setPatientGroupCollection(clinicalGroupRetriever.getClinicalGroupsCollection());
         IHCRetriever ihcRetriever = new IHCRetriever(session);
-        //ihcQueryForm.setBiomarkersCollection(ihcRetriever.getBiomarkers()); 
-        
+        ihcQueryForm.setBiomarkersCollection(ihcRetriever.getLossBiomarkers()); 
+        ihcQueryForm.setLossCollection(ihcRetriever.ihcLossResultCodes());
         
         return mapping.findForward("backToIHCLossQuery");
     }

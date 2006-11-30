@@ -40,7 +40,7 @@ public class ISPYListValidator extends ListValidator{
     }
 
   
-    public void validate(ListType listType, List<String> myList) {
+    public void validate(ListType listType, ListSubType listSubType, List<String> myList) {
         List<String> unvalidatedList = new ArrayList<String>();
         for(String s : myList){         
          unvalidatedList.add(s.toUpperCase());
@@ -76,30 +76,9 @@ public class ISPYListValidator extends ListValidator{
     }
 
     @Override
-    public void validate(ListType listType, ListSubType listSubType, List<String> unvalidatedList) throws OperationNotSupportedException {
-        // TODO Auto-generated method stub
+    public void validate(ListType listType, List<String> unvalidatedList) throws OperationNotSupportedException {
+        validate(listType, null, unvalidatedList);
     }
-
-//    private List<String> getInvalidList(ListType listType, List<String> myList) {        
-//        Set<ReporterAnnotation> reporters = new HashSet<ReporterAnnotation>();
-//        if(listType == ListType.PatientDID){
-//             invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
-//        }
-//        /*
-//        else if(listType == ListType.DefaultPatientDID){
-//            invalidList = idMapper.getInvalidMapperEntriesForIds(myList);
-//        }
-//        */
-//        else if(listType == ListType.Gene)	{
-//            for(String geneSymbol : myList){
-//                reporters = geneService.getReportersForGeneSymbol(geneSymbol);
-//                if(reporters == null){
-//                    invalidList.add(geneSymbol);
-//                }
-//            }
-//        }
-//        return invalidList;
-//    }
 
    
 

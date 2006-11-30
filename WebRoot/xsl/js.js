@@ -343,7 +343,7 @@ function goPage(p)	{
 	try	{
 	 	document.forms['paginate'].filter_value2.value = p;
 	 }
-	 catch(er)	{
+	 catch(er)	{	 	
 	 	document.forms['paginate'].p_page.value = p;
 	 }
 	 	document.forms['paginate'].submit();

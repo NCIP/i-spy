@@ -243,7 +243,7 @@ public class IHCLevelOfExpressionQueryAction extends DispatchAction {
         ClinicalGroupRetriever clinicalGroupRetriever = new ClinicalGroupRetriever(session);        
         ihcQueryForm.setPatientGroupCollection(clinicalGroupRetriever.getClinicalGroupsCollection());
         IHCRetriever ihcRetriever = new IHCRetriever(session);
-        ihcQueryForm.setBiomarkersCollection(ihcRetriever.getBiomarkers()); 
+        ihcQueryForm.setBiomarkersCollection(ihcRetriever.getLevelBiomarkers()); 
         ihcQueryForm.setStainIntensityCollection(ihcRetriever.getIntensity());
         ihcQueryForm.setStainLocalizationCollection(ihcRetriever.getLocalization());
         

@@ -103,6 +103,18 @@ public class EnumHelper {
         }
 		return myString;
 	}
+    
+    public static String getEnumTypeToString(String value, Enum[] possibleValues) {
+        String myString = null;
+        for(Enum myType: possibleValues) {
+            if(value.equalsIgnoreCase(myType.name())) {
+                myString = myType.toString();
+                break;
+            }
+        }
+        return myString;
+    }
+    
     public static String[] getEnumTypeNames(String[] values, Enum[] possibleValues) {
         String[] myStrings = new String[values.length];
         for(int i =0; i<values.length;i++){

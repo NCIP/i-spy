@@ -3,11 +3,12 @@ package gov.nih.nci.ispy.web.helper;
 import gov.nih.nci.caintegrator.application.bean.FindingReportBean;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.report.LevelOfExpressionIHCReport;
-import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.LevelOfExpressionIHCFinding;
+import gov.nih.nci.caintegrator.application.report.LossOfExpressionIHCReport;
 import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.cache.ISPYContextListener;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLevelOfExpressionFinding;
+import gov.nih.nci.ispy.service.findings.ISPYIHCLossOfExpressionFinding;
 import gov.nih.nci.ispy.util.ApplicationContext;
 import gov.nih.nci.ispy.util.MoreStringUtils;
 import gov.nih.nci.ispy.util.ispyConstants;
@@ -553,6 +554,9 @@ public class ReportGeneratorHelper {
         Document xmlDocument = null;
         if(finding instanceof ISPYIHCLevelOfExpressionFinding){              
                 xmlDocument = LevelOfExpressionIHCReport.getReportXML(finding, new HashMap());           
+        }
+        if(finding instanceof ISPYIHCLossOfExpressionFinding){              
+            xmlDocument = LossOfExpressionIHCReport.getReportXML(finding, new HashMap());           
         }
         else if(finding instanceof ClassComparisonFinding){
                  xmlDocument = ClassComparisonReport.getReportXML(finding, new HashMap());

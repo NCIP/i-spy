@@ -109,7 +109,7 @@ else	{
 			//html is nothing now
 			imgC.style.display = "none";
 			location.replace(window.location);
-			//location.replace("/rembrandt/testReport.do?key=<%=key%>");
+			//location.replace("/ispy/loeReport.do?taskId=<%=key%>");
 		}
 		
 		setTimeout("A_getReport('<%=key%>')", 0100);

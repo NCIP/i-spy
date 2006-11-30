@@ -2,16 +2,11 @@ package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.ispy.service.common.TimepointType;
-import gov.nih.nci.ispy.service.ihc.DistributionType;
-import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
-import gov.nih.nci.ispy.service.ihc.LocalizationType;
-import gov.nih.nci.ispy.web.helper.BiomarkerRetriever;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.util.LabelValueBean;
@@ -100,28 +95,27 @@ public class IHCLossOfExpressionQueryForm extends BaseForm implements Serializab
     private String analysisResultName = "";    
     private String[] timepoints;    
     private Collection timepointCollection = new ArrayList();
-    private String[] biomarkers = {"p27"};  //REMOVE when implementing
+    private String[] biomarkers;  
     private Collection biomarkersCollection = new ArrayList();    
     private List operators = new ArrayList();
     private String invasiveRangeOperator;
-    private double invasiveRange;
+    private int invasiveRange;
     private String benignRangeOperator;
-    private double benignRange;
+    private int benignRange;
     private String[] lossResult;
     private Collection lossCollection = new ArrayList();
     
 
     public IHCLossOfExpressionQueryForm(){
-        biomarkersCollection.add(new LabelValueBean("p27","p27"));  //REMOVE when implementing
         
         for (TimepointType timepointType : TimepointType.values()){
             timepointCollection.add(new LabelValueBean(timepointType.toString(),timepointType.name()));
-        }    
-        for (Operator operator : Operator.values()){
-            if(operator.equals(Operator.GE) || operator.equals(Operator.LE)){
+        }  
+        operators.add(new LabelValueBean("any","none"));
+        for (Operator operator : Operator.values()){            
+            if(operator.equals(Operator.EQ) || operator.equals(Operator.GE) || operator.equals(Operator.LE)){
             operators.add(new LabelValueBean(operator.toString(),operator.name()));            }
-        } 
-       
+        }         
     }
     
     /**
@@ -167,14 +161,14 @@ public class IHCLossOfExpressionQueryForm extends BaseForm implements Serializab
     /**
      * @return Returns the benignRange.
      */
-    public double getBenignRange() {
+    public int getBenignRange() {
         return benignRange;
     }
 
     /**
      * @param benignRange The benignRange to set.
      */
-    public void setBenignRange(double benignRange) {
+    public void setBenignRange(int benignRange) {
         this.benignRange = benignRange;
     }
 
@@ -195,14 +189,14 @@ public class IHCLossOfExpressionQueryForm extends BaseForm implements Serializab
     /**
      * @return Returns the invasiveRange.
      */
-    public double getInvasiveRange() {
+    public int getInvasiveRange() {
         return invasiveRange;
     }
 
     /**
      * @param invasiveRange The invasiveRange to set.
      */
-    public void setInvasiveRange(double invasiveRange) {
+    public void setInvasiveRange(int invasiveRange) {
         this.invasiveRange = invasiveRange;
     }
 

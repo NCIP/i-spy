@@ -18,6 +18,7 @@ public class UILookupMapLoader {
     
     public static Map<String, Collection> getMap(){
         Session theSession = HibernateUtil.getSession();
+        //Session theSession = HibernateUtil.getSessionFactory().getCurrentSession();
         theSession.beginTransaction();
         String theHQL = "";
         Query theQuery = null;
@@ -48,7 +49,15 @@ public class UILookupMapLoader {
         ArrayList<String> localeValues = new ArrayList<String>(objs);
         lookupMap.put(ispyConstants.IHC_STAIN_LOCALIZATION,localeValues);
         
+        //GET IHC_LOSS_RESULTCODES
+        theHQL = "select distinct lossExp.lossResult from LossOfExpressionIHCFinding lossExp where lossExp.lossResult!=null";
+        theQuery = theSession.createQuery(theHQL);
+        System.out.println("HQL: " + theHQL);        
+        objs = theQuery.list();
+        ArrayList<String> resultCodes = new ArrayList<String>(objs);
+        lookupMap.put(ispyConstants.IHC_LOSS_RESULTCODES,resultCodes);
         }
+        
         finally
         {
             // Close the session if necessart

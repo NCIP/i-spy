@@ -116,16 +116,6 @@ public class IHCLevelOfExpressionQueryForm extends BaseForm implements Serializa
             timepointCollection.add(new LabelValueBean(timepointType.toString(),timepointType.name()));
         }    
         
-        
-        for(IntensityOfStainType intensity : IntensityOfStainType.values()){
-            stainIntensityCollection.add(new LabelValueBean(intensity.toString(),intensity.getDeclaringClass().getCanonicalName() + "#" + intensity.name()));
-        }
-        for(LocalizationType locale: LocalizationType.values()){
-            stainLocalizationCollection.add(new LabelValueBean(locale.toString(), locale.getDeclaringClass().getCanonicalName() + "#" + locale.name()));
-        }
-        for(DistributionType dist: DistributionType.values()){
-            stainDistributionCollection.add(new LabelValueBean(dist.toString(), dist.getDeclaringClass().getCanonicalName() + "#" + dist.name()));
-        }
     }
     
     /**

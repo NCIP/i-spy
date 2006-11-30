@@ -22,11 +22,23 @@ public class IHCRetriever {
         this.lookupMap = (Map) session.getAttribute(ispyConstants.UI_LOOKUPS);
     }
     
-    public List getBiomarkers(){        
+    public List getLevelBiomarkers(){        
         Collection biomarkers = (Collection) lookupMap.get(ispyConstants.IHC_BIOMARKERS);      
         ArrayList<ProteinBiomarker> biomarkerList = new ArrayList<ProteinBiomarker>(biomarkers);
         ArrayList<LabelValueBean> biomarkerCollection = new ArrayList<LabelValueBean>();
         for(ProteinBiomarker bioName: biomarkerList){
+            if(!bioName.getName().equalsIgnoreCase("P27"))
+            biomarkerCollection.add(new LabelValueBean(bioName.getName(),bioName.getName()));
+        }
+      return biomarkerCollection;
+    }
+    
+    public List getLossBiomarkers(){        
+        Collection biomarkers = (Collection) lookupMap.get(ispyConstants.IHC_BIOMARKERS);      
+        ArrayList<ProteinBiomarker> biomarkerList = new ArrayList<ProteinBiomarker>(biomarkers);
+        ArrayList<LabelValueBean> biomarkerCollection = new ArrayList<LabelValueBean>();
+        for(ProteinBiomarker bioName: biomarkerList){
+            if(bioName.getName().equalsIgnoreCase("P27"))
             biomarkerCollection.add(new LabelValueBean(bioName.getName(),bioName.getName()));
         }
       return biomarkerCollection;
@@ -50,6 +62,16 @@ public class IHCRetriever {
             localeCollection.add(new LabelValueBean(localeName,localeName));
         }
       return localeCollection;
+    }
+    
+    public List ihcLossResultCodes(){        
+        Collection resultCodes = (Collection) lookupMap.get(ispyConstants.IHC_LOSS_RESULTCODES);      
+        ArrayList<String> resultCodesList = new ArrayList<String>(resultCodes);
+        ArrayList<LabelValueBean> resultCodesCollection = new ArrayList<LabelValueBean>();
+        for(String resultCodeName: resultCodesList){
+            resultCodesCollection.add(new LabelValueBean(resultCodeName,resultCodeName));
+        }
+      return resultCodesCollection;
     }
     
 
