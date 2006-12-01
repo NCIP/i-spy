@@ -14,6 +14,11 @@ public class SampleInfo {
 	private String sectionInfo;
 
 	private String calgId;
+	
+	public SampleInfo(String ispyId, TimepointType timepoint) {
+	  this.ispyId = ispyId;
+	  this.timepoint = timepoint;
+	}
 
 	public SampleInfo(String ispyId, String labtrackId) {
 	  this.ispyId = ispyId;
