@@ -100,8 +100,9 @@ public ActionErrors validate(ActionMapping mapping,
             SecurityManager secManager =  SecurityManager.getInstance("ispy") ;
             user = secManager.authenticate(userName,password);
             if(user != null)
-            {
+            {                
                 userLoggedIn = true ;
+                userName = user.getFirstName();
             } 
             else {
                 errors.add("invalidLogin", new ActionMessage(
