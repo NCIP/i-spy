@@ -427,5 +427,10 @@ public class ISPYFindingsFactory implements FindingsFactory {
         // TODO Auto-generated method stub
         return null;
     }
+
+	public CompoundClassComparisonFinding createCompoundClassComparisonFinding(List<ClassComparisonQueryDTO> queryList, String sessionID, String taskID, List<String> reporterList) throws FrameworkException {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
