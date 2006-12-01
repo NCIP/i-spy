@@ -77,12 +77,17 @@ else
 	
 out.write("&nbsp; | &nbsp;");
 	
-if(colorBy.equals("IHC_EXPRESSION"))
-	out.write("IHC Expression");	
+if(colorBy.equals("IHC_EXPRESSION_X"))
+	out.write("IHC Expression (X axis)");	
 else	
-	out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION\">IHC Expression</a>");	
+	out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_X\">IHC Expression (X axis)</a>");	
 
+out.write("&nbsp; | &nbsp;");
 	
+if(colorBy.equals("IHC_EXPRESSION_Y"))
+	out.write("IHC Expression (Y axis)");	
+else	
+	out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_Y\">IHC Expression (Y axis)</a>");	
 
 %>
 <br/>
