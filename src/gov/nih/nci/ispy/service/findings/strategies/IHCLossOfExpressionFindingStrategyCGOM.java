@@ -1,7 +1,6 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
-import gov.nih.nci.caintegrator.application.service.LossOfExpressionIHCService;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
@@ -11,6 +10,7 @@ import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLossOfExpressionFinding;
+import gov.nih.nci.ispy.service.ihc.LossOfExpressionIHCService;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.Collection;

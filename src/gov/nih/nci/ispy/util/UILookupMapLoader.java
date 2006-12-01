@@ -1,7 +1,7 @@
 package gov.nih.nci.ispy.util;
 
-import gov.nih.nci.caintegrator.application.service.LevelOfExpressionIHCService;
 import gov.nih.nci.caintegrator.util.HibernateUtil;
+import gov.nih.nci.ispy.service.ihc.LevelOfExpressionIHCService;
 
 import java.util.ArrayList;
 import java.util.Collection;
