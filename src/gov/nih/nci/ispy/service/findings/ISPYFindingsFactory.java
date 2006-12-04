@@ -423,10 +423,6 @@ public class ISPYFindingsFactory implements FindingsFactory {
         return finding;
     }
 
-    public CompoundClassComparisonFinding createCompoundClassComparisonFinding(List<ClassComparisonQueryDTO> queryList, String sessionID, String taskID) throws FrameworkException {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
 	public CompoundClassComparisonFinding createCompoundClassComparisonFinding(List<ClassComparisonQueryDTO> queryList, String sessionID, String taskID, List<String> reporterList) throws FrameworkException {
 		// TODO Auto-generated method stub
