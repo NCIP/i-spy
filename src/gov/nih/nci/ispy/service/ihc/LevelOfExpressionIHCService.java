@@ -41,7 +41,7 @@ public class LevelOfExpressionIHCService {
     }
     
     /**
-     * Convenience method that takes sampleIds, builds specimen criteria itself and fetches findings
+     * Convenience method that takes sampleInfo, builds specimen criteria itself and fetches findings
      * -KR
      * @param sampleIds
      * @return theFindings

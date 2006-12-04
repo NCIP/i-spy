@@ -1,11 +1,12 @@
 package gov.nih.nci.ispy.service.ihc;
 
-import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.study.SpecimenCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.ihc.LossOfExpressionIHCFindingHandler;
+import gov.nih.nci.ispy.service.annotation.SampleInfo;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -40,15 +41,24 @@ public class LossOfExpressionIHCService {
     }
     
     /**
-     * Convenience method that takes sampleIds, builds specimen criteria itself and fetches findings
+     * Convenience method that takes sampleInfo, builds specimen criteria itself and fetches findings
      * -KR
      * @param sampleIds
      * @return theFindings
      */
-    public Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> getFindingsFromSampleIds(Set<String> sampleIds){
+    public Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> getFindingsFromSampleInfo(Set<SampleInfo> sampleInfo){
         SpecimenCriteria theSPCriteria = new SpecimenCriteria();
         LossOfExpressionIHCFindingCriteria criteria = new LossOfExpressionIHCFindingCriteria();
-        theSPCriteria.setSpecimenIdentifierCollection(sampleIds);
+        Set<String> patientDids = new HashSet<String>();
+        Set<String> timepoints = new HashSet<String>();
+        for(SampleInfo info : sampleInfo){
+            if(info.getISPYId()!=null && info.getTimepoint()!=null){
+                patientDids.add(info.getISPYId());
+                timepoints.add(info.getTimepoint().toString());
+            }            
+        }
+        theSPCriteria.setPatientIdentifierCollection(patientDids);
+        theSPCriteria.setTimeCourseCollection(timepoints);
         criteria.setSpecimenCriteria(theSPCriteria);        
         Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> theFindings = getFindings(criteria);
         return theFindings;
