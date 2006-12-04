@@ -1,8 +1,12 @@
 package gov.nih.nci.ispy.ui.graphing.chart.plot;
 
 import gov.nih.nci.caintegrator.application.graphing.PlotPoint;
+import gov.nih.nci.caintegrator.domain.annotation.protein.bean.ProteinBiomarker;
 import gov.nih.nci.caintegrator.domain.finding.bean.Finding;
 import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.IHCFinding;
+import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.LevelOfExpressionIHCFinding;
+import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.LossOfExpressionIHCFinding;
+import gov.nih.nci.caintegrator.domain.study.bean.Specimen;
 import gov.nih.nci.caintegrator.enumeration.AxisType;
 import gov.nih.nci.caintegrator.ui.graphing.data.DataRange;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
@@ -14,6 +18,7 @@ import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.ihc.LevelOfExpressionIHCService;
 import gov.nih.nci.ispy.service.ihc.LossOfExpressionIHCService;
 import gov.nih.nci.ispy.ui.graphing.data.ISPYPlotPoint;
+import java.util.Collections;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -60,6 +65,8 @@ public class ISPYCorrelationScatterPlot {
 	private static final double glyphSize = 8.0;
 	private ColorByType colorBy = ColorByType.CLINICALRESPONSE;
 	private static Logger logger = Logger.getLogger(ISPYCorrelationScatterPlot.class);	
+	private Map<String, List<IHCFinding>> ihcData;
+	
 	
 	public ISPYCorrelationScatterPlot(Collection<ISPYPlotPoint> dataPoints, String xLabel, String yLabel, ContinuousType contType1, ContinuousType contType2, Double correlationValue, ColorByType colorBy) {
 		this.dataPoints = dataPoints;
@@ -180,6 +187,19 @@ public class ISPYCorrelationScatterPlot {
           }
           
           Collection<? extends Finding> loeFindings = loeService.getFindingsFromSampleInfo(infoSet);
+          Collection<? extends Finding> lossFindings = lossService.getFindingsFromSampleInfo(infoSet);
+          
+          List<IHCFinding> findings = new ArrayList<IHCFinding>();
+          
+          for (Finding f : loeFindings) {
+          	findings.add((IHCFinding) f);
+          }
+          
+          for (Finding f : lossFindings) {
+            findings.add((IHCFinding) f);
+          }
+          
+          List<IHCFinding> filteredList = getIHCFindingsForBiomarker(findings, "EGFR");
           
           //TEST Case
 //          Set<String> testIds = new HashSet<String>();
@@ -191,11 +211,31 @@ public class ISPYCorrelationScatterPlot {
           
           //Collection<? extends Finding> lossFindings = lossService.getFindingsFromSampleIds(sampleIds);
           
-          Map ihcData = new HashMap<String, IHCFinding>();
+          ihcData = new HashMap<String, List<IHCFinding>>();
           IHCFinding loeFinding;
-          for (Finding finding : loeFindings) {
+          List<IHCFinding> findingList;
+          Specimen specimen = null;
+          String patientDID = null;
+          for (Finding finding : filteredList) {
         	loeFinding = (IHCFinding) finding;
-            ihcData.put(loeFinding.getId(), loeFinding);
+        	specimen = loeFinding.getSpecimen();
+        	if ((specimen != null) && (specimen.getPatientDID()!=null)) {
+        	  patientDID = specimen.getPatientDID();
+        	}
+        	else {
+              logger.warn("loeFinding id=" + loeFinding.getId() + " has null specimen or patientDID. Skipping..");
+        	}
+        	
+        	findingList = ihcData.get(patientDID);
+        	
+        	if (findingList == null) {
+        	  findingList = new ArrayList<IHCFinding>();
+        	  ihcData.put(patientDID, findingList);
+        	}
+        	
+        	findingList.add(loeFinding);
+        	
+            
           }
 //          IHCFinding lossFinding;
 //          for (Finding finding : lossFindings) {
@@ -213,6 +253,33 @@ public class ISPYCorrelationScatterPlot {
 	    Paint p = new Color(233, 233, 233);
 	    
 	    corrChart.setBackgroundPaint(p);
+		
+		
+	}
+	
+	/**
+	 * 
+	 * @param ihcFindings
+	 * @param biomarkerName
+	 * @return
+	 */
+	private List<IHCFinding> getIHCFindingsForBiomarker(Collection<? extends Finding> ihcFindings, String biomarkerName) {
+	    String name = null;
+	    ProteinBiomarker protBM = null;
+	    IHCFinding ihcFinding;
+	    List<IHCFinding> returnList = new ArrayList<IHCFinding>();
+	    
+		for (Finding finding : ihcFindings) {
+		  ihcFinding = (IHCFinding) finding;
+		  protBM = ihcFinding.getProteinBiomarker();
+		  name = protBM.getName();
+		  if (name.equalsIgnoreCase(biomarkerName)) {
+		    returnList.add(ihcFinding);
+		  }
+		}
+		
+		return returnList;
+		
 		
 		
 	}
@@ -407,12 +474,37 @@ public class ISPYCorrelationScatterPlot {
 	  }
 	  else if ((colorBy == ColorByType.IHC_EXPRESSION_X) || (colorBy == ColorByType.IHC_EXPRESSION_Y) ) {
 	    SampleInfo info = plotPoint.getSampleInfo();
-	    //get the IHC expression for the point
+//	    //get the IHC expression for the point
+//	    
+//	    String labtrakId = info.getLabtrackId();
+//	    
+//	    logger.info("geting ihc info for labtrakId=" + labtrakId);
 	    
-	    String labtrakId = info.getLabtrackId();
+		String patientDID = info.getISPYId();
+		String tp = info.getTimepoint().name();
+		
+		List<IHCFinding> ihcfList = ihcData.get(patientDID);
+		IHCFinding theFinding = null;
+	    for (IHCFinding ihcf : ihcfList) {
+	      if (ihcf.getSpecimen().getTimePoint().equalsIgnoreCase(tp)) {
+	        theFinding = ihcf;
+	      }
+	    }
 	    
-	    logger.info("geting ihc info for labtrakId=" + labtrakId);
-	    
+	    if (theFinding != null) {
+	      //figure out the color to use
+	      if (theFinding instanceof LossOfExpressionIHCFinding) {
+	    	  LossOfExpressionIHCFinding loef = (LossOfExpressionIHCFinding) theFinding;
+	    	  @SuppressWarnings("unused") String result = loef.getLossResult();
+	    	  retColor = getColorForIHCLossResult(result);
+	    	  
+	      }
+	      else if (theFinding instanceof LevelOfExpressionIHCFinding) {
+	    	  LevelOfExpressionIHCFinding lossf = (LevelOfExpressionIHCFinding) theFinding;
+	    	  @SuppressWarnings("unused") String result = lossf.getOverallExpression();
+	    	  retColor = getColorForIHCLevelResult(result);
+	      }
+	    }
 	    
 	    
 	  }
@@ -426,6 +518,61 @@ public class ISPYCorrelationScatterPlot {
 	
 	public JFreeChart getChart() {
 		return corrChart;
+	}
+	
+	private Color getColorForIHCLevelResult(String result) {
+
+		//OVEREXPRESSED,POSITIVE,HIGH
+		String res = result.trim();
+		
+		if (res.equalsIgnoreCase("OVEREXPRESSED") ||
+		    res.equalsIgnoreCase("POSITIVE") ||
+			res.equalsIgnoreCase("HIGH")) { 
+		  return Color.RED;
+		}
+		
+		
+		//INTERMEDIATE,BORDERLINE,LOW,WEAK OVEREXPRESSED
+		if (res.equalsIgnoreCase("INTERMEDIATE") ||
+			    res.equalsIgnoreCase("BORDERLINE") ||
+				res.equalsIgnoreCase("LOW") ||
+				res.equalsIgnoreCase("WEAK OVEREXPRESSED")) { 
+			  return Color.YELLOW;
+		}
+		
+		
+		//NEGATIVE,NO OVEREXPRESSION, ZERO
+		if (res.equalsIgnoreCase("NEGATIVE") ||
+			    res.equalsIgnoreCase("NO OVEREXPRESSION") ||
+				res.equalsIgnoreCase("ZERO")) { 
+			  return Color.GREEN;
+		}
+		
+		
+		return Color.GRAY;
+	}
+	
+	private Color getColorForIHCLossResult(String result) {
+
+		String res = result.trim();
+		
+		//NO LOSS
+		if (res.equalsIgnoreCase("NO LOSS")) {
+		  return Color.GREEN;
+		}
+		
+		if (res.equalsIgnoreCase("PARTIAL LOSS")) {
+		  return Color.YELLOW;
+		}
+		//PARTIAL LOSS
+		
+		//TOTAL LOSS
+		if (res.equalsIgnoreCase("TOTAL LOSS")) {
+		  return Color.BLUE;
+		}
+		
+		return Color.GRAY;
+		
 	}
 	
 	private class CorrLegendItemSource implements LegendItemSource {
