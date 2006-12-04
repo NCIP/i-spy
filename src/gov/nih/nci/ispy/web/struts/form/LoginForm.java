@@ -98,7 +98,9 @@ public ActionErrors validate(ActionMapping mapping,
         {
             UserCredentials user = null;                    
             SecurityManager secManager =  SecurityManager.getInstance("ispy") ;
-            user = secManager.authenticate(userName,password);
+            if(secManager.authenticate(userName, password)){
+				user = secManager.authorization(userName);
+				}
             if(user != null)
             {                
                 userLoggedIn = true ;
