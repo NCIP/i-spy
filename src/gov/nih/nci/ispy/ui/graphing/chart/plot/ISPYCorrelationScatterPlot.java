@@ -1,24 +1,19 @@
 package gov.nih.nci.ispy.ui.graphing.chart.plot;
 
 import gov.nih.nci.caintegrator.application.graphing.PlotPoint;
-import gov.nih.nci.caintegrator.application.service.LevelOfExpressionIHCService;
-import gov.nih.nci.caintegrator.application.service.LossOfExpressionIHCService;
 import gov.nih.nci.caintegrator.domain.finding.bean.Finding;
 import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.IHCFinding;
-import gov.nih.nci.caintegrator.domain.finding.protein.ihc.bean.LevelOfExpressionIHCFinding;
 import gov.nih.nci.caintegrator.enumeration.AxisType;
 import gov.nih.nci.caintegrator.ui.graphing.data.DataRange;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
-import gov.nih.nci.ispy.service.clinical.ContinuousType;
-import gov.nih.nci.ispy.service.clinical.PatientData;
-import gov.nih.nci.ispy.ui.graphing.data.ISPYPlotPoint;
-import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
-
 import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.ClinicalStageType;
-import java.awt.geom.Line2D;
+import gov.nih.nci.ispy.service.clinical.ContinuousType;
+import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.common.TimepointType;
-import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy3;
+import gov.nih.nci.ispy.service.ihc.LevelOfExpressionIHCService;
+import gov.nih.nci.ispy.service.ihc.LossOfExpressionIHCService;
+import gov.nih.nci.ispy.ui.graphing.data.ISPYPlotPoint;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -26,7 +21,9 @@ import java.awt.Paint;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,7 +31,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.text.NumberFormat;
 
 import org.apache.log4j.Logger;
 import org.jfree.chart.ChartFactory;
@@ -162,6 +158,7 @@ public class ISPYCorrelationScatterPlot {
         
         //rangeAxis.setRange(-maxAbsVal, maxAbsVal);
         rangeAxis.setRange(yMin, yMax);
+        Set<SampleInfo> infoSet = new HashSet<SampleInfo>();
         
         if ((colorBy == ColorByType.IHC_EXPRESSION_X) || (colorBy == ColorByType.IHC_EXPRESSION_Y)) {
           //Get the IHC data for the samples to be graphed	
@@ -169,19 +166,20 @@ public class ISPYCorrelationScatterPlot {
           LossOfExpressionIHCService lossService = LossOfExpressionIHCService.getInstance();
           Set<String> sampleIds = new HashSet<String>();
           String labtrackId;
-          SampleInfo info;
+          SampleInfo info;          
           for (ISPYPlotPoint corrPoint : dataPoints) {
         	  info = corrPoint.getSampleInfo();
         	  if (info != null) {
         		  labtrackId = corrPoint.getSampleInfo().getLabtrackId();
             	  sampleIds.add(labtrackId);
+                  infoSet.add(info);
         	  }
         	  else {
         	      logger.warn("Point id=" + corrPoint.getId() + " has no sample info. Skipping point");
         	  }
           }
           
-          Collection<? extends Finding> loeFindings = loeService.getFindingsFromSampleIds(sampleIds);
+          Collection<? extends Finding> loeFindings = loeService.getFindingsFromSampleInfo(infoSet);
           
           //TEST Case
 //          Set<String> testIds = new HashSet<String>();
