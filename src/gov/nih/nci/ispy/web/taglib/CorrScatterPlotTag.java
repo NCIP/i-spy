@@ -31,6 +31,8 @@ import gov.nih.nci.ispy.web.helper.ISPYImageFileHandler;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -264,7 +266,10 @@ public class CorrScatterPlotTag extends AbstractGraphingTag {
 		}catch (IOException e) {
 			logger.error(e);
 		}catch(Exception e) {
-			logger.error(e);
+			 StringWriter sw = new StringWriter();
+		     PrintWriter pw  = new PrintWriter(sw);
+		     e.printStackTrace(pw);
+		    logger.error(sw.toString());
 		}catch(Throwable t) {
 			logger.error(t);
 		}
