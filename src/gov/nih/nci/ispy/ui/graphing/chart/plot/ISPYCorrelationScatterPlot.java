@@ -168,6 +168,35 @@ public class ISPYCorrelationScatterPlot {
         Set<SampleInfo> infoSet = new HashSet<SampleInfo>();
         
         if ((colorBy == ColorByType.IHC_EXPRESSION_X) || (colorBy == ColorByType.IHC_EXPRESSION_Y)) {
+          String geneName = null;
+          if ((colorBy == ColorByType.IHC_EXPRESSION_X)&&(ct1 != ContinuousType.GENE)) {
+        	 logger.info("User attempted to color by ihc x on non gene continuous type.");
+        	 //need to show validation error
+        	 return;
+          }
+          else if ((colorBy == ColorByType.IHC_EXPRESSION_Y)&&(ct2 != ContinuousType.GENE)) {
+        	  logger.info("User attempted to color by ihc y on non gene continuous type.");
+        	  //need to show validation error
+        	  return;
+          }
+          else {
+        	 if (colorBy == ColorByType.IHC_EXPRESSION_X) {
+        	   //parse the gene name from the xLabel
+        	   geneName = xLabel.substring(0,xLabel.indexOf('_'));
+        	 }
+        	 else if (colorBy == ColorByType.IHC_EXPRESSION_Y) {
+        	   //parse the gene name from the yLabel
+        	   geneName = yLabel.substring(0, yLabel.indexOf('_'));
+        	 }
+        	 
+        	 
+        	 //Need to handle mapping names to IHC biomarker names.
+        	 //EGFR, FAK, HER2, Ki-67, P53, bcl, p27
+        	 
+        	 
+        	    
+          }
+        	
           //Get the IHC data for the samples to be graphed	
           LevelOfExpressionIHCService loeService = LevelOfExpressionIHCService.getInstance();
           LossOfExpressionIHCService lossService = LossOfExpressionIHCService.getInstance();
@@ -199,7 +228,9 @@ public class ISPYCorrelationScatterPlot {
             findings.add((IHCFinding) f);
           }
           
-          List<IHCFinding> filteredList = getIHCFindingsForBiomarker(findings, "EGFR");
+          
+          
+          List<IHCFinding> filteredList = getIHCFindingsForBiomarker(findings, geneName);
           
           //TEST Case
 //          Set<String> testIds = new HashSet<String>();
