@@ -66,7 +66,7 @@ public class ISPYCorrelationScatterPlot {
 	private ColorByType colorBy = ColorByType.CLINICALRESPONSE;
 	private static Logger logger = Logger.getLogger(ISPYCorrelationScatterPlot.class);	
 	private Map<String, List<IHCFinding>> ihcData;
-	
+	private IHCBiomarkerType ihcBiomarkerType = IHCBiomarkerType.NONE;
 	
 	public ISPYCorrelationScatterPlot(Collection<ISPYPlotPoint> dataPoints, String xLabel, String yLabel, ContinuousType contType1, ContinuousType contType2, Double correlationValue, ColorByType colorBy) {
 		this.dataPoints = dataPoints;
@@ -91,8 +91,6 @@ public class ISPYCorrelationScatterPlot {
 	            false );
 		
 		XYPlot plot = (XYPlot) corrChart.getPlot();
-		
-		buildLegend();
 		
 	    plot.setNoDataMessage(null);
 	    XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
@@ -229,19 +227,32 @@ public class ISPYCorrelationScatterPlot {
      	 String ihcBiomarker = geneName;
      	 if (geneName.equalsIgnoreCase("PTK2")) {
      	   ihcBiomarker = "FAK";
+     	   ihcBiomarkerType = IHCBiomarkerType.FAK;
      	 }
      	 else if (geneName.equalsIgnoreCase("ERBB2")) {
      	   ihcBiomarker = "HER2";
+     	   ihcBiomarkerType = IHCBiomarkerType.HER2;
      	 }
      	 else if (geneName.equalsIgnoreCase("MKI67")) {
      	   //need to check this one
      	   ihcBiomarker = "Ki-67";
+     	   ihcBiomarkerType = IHCBiomarkerType.KI67;
      	 }
      	 else if (geneName.equalsIgnoreCase("TP53")) {
      	   ihcBiomarker = "P53";	 
+     	   ihcBiomarkerType = IHCBiomarkerType.P53;
      	 }
      	 else if (geneName.equalsIgnoreCase("Cdkn1b")) {
      	   ihcBiomarker = "P27";
+     	   ihcBiomarkerType = IHCBiomarkerType.P27;
+     	 }
+     	 else if (geneName.equalsIgnoreCase("BCL2")) {
+     	   ihcBiomarker = "BCL2";
+     	   ihcBiomarkerType = IHCBiomarkerType.BCL2;
+     	 }
+     	 else if (geneName.equalsIgnoreCase("EGFR")) {
+           ihcBiomarker = "EGFR";
+           ihcBiomarkerType = IHCBiomarkerType.EGFR;
      	 }
           
           List<IHCFinding> filteredList = getIHCFindingsForBiomarker(findings, ihcBiomarker);
@@ -297,6 +308,8 @@ public class ISPYCorrelationScatterPlot {
 	    Paint p = new Color(233, 233, 233);
 	    
 	    corrChart.setBackgroundPaint(p);
+	    
+	    buildLegend();
 		
 		
 	}
@@ -387,10 +400,53 @@ public class ISPYCorrelationScatterPlot {
 		  }
 	  }
 	  else if ((colorBy == ColorByType.IHC_EXPRESSION_X) || (colorBy == ColorByType.IHC_EXPRESSION_Y)) {
-	      for (CorrScatterColorByIHCType ihcType : CorrScatterColorByIHCType.values()) {
-	    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
-			legendSrc.addLegendItem(item);  
+//	      for (CorrScatterColorByIHCType ihcType : CorrScatterColorByIHCType.values()) {
+//	    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+//			legendSrc.addLegendItem(item);  
+//	      }
+	      if (ihcBiomarkerType == IHCBiomarkerType.BCL2) {
+		      for (BCL2ihcType ihcType : BCL2ihcType.values()) {
+			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+					legendSrc.addLegendItem(item);  
+			  }
 	      }
+	      else if (ihcBiomarkerType == IHCBiomarkerType.EGFR) {
+		      for (EGFRihcType ihcType : EGFRihcType.values()) {
+			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+					legendSrc.addLegendItem(item);  
+			  }
+	      }
+	      else if (ihcBiomarkerType == IHCBiomarkerType.FAK) {
+		      for (FAKihcType ihcType : FAKihcType.values()) {
+			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+					legendSrc.addLegendItem(item);  
+			  }
+	      }
+	      else if (ihcBiomarkerType == IHCBiomarkerType.HER2) {
+		      for (HER2ihcType ihcType : HER2ihcType.values()) {
+			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+					legendSrc.addLegendItem(item);  
+			  }
+	      }
+	      else if (ihcBiomarkerType == IHCBiomarkerType.KI67) {
+		      for (Ki67ihcType ihcType : Ki67ihcType.values()) {
+			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+					legendSrc.addLegendItem(item);  
+			  }
+	      }
+	      else if (ihcBiomarkerType == IHCBiomarkerType.P27) {
+	    	  for (P27ihcType ihcType : P27ihcType.values()) {
+			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+					legendSrc.addLegendItem(item);  
+			  }
+	      }
+	      else if (ihcBiomarkerType == IHCBiomarkerType.P53) {
+	    	  for (P53ihcType ihcType : P53ihcType.values()) {
+			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+					legendSrc.addLegendItem(item);  
+			  }
+	      }
+	      
 	  }
 	  
 	  sources[0] = legendSrc;
@@ -541,15 +597,21 @@ public class ISPYCorrelationScatterPlot {
 		    if (theFinding != null) {
 		      //figure out the color to use
 		      if (theFinding instanceof LossOfExpressionIHCFinding) {
-		    	  LossOfExpressionIHCFinding loef = (LossOfExpressionIHCFinding) theFinding;
-		    	  @SuppressWarnings("unused") String result = loef.getLossResult();
-		    	  retColor = getColorForIHCLossResult(result);
+		    	  LossOfExpressionIHCFinding lossf = (LossOfExpressionIHCFinding) theFinding;
+		    	  String result = lossf.getLossResult();
+		    	  if (result != null) {
+		    	    result = result.replace(' ', '_');
+		    	    retColor = getColorForIHCResult(result, ihcBiomarkerType);
+		    	  }
 		    	  
 		      }
 		      else if (theFinding instanceof LevelOfExpressionIHCFinding) {
-		    	  LevelOfExpressionIHCFinding lossf = (LevelOfExpressionIHCFinding) theFinding;
-		    	  @SuppressWarnings("unused") String result = lossf.getOverallExpression();
-		    	  retColor = getColorForIHCLevelResult(result);
+		    	  LevelOfExpressionIHCFinding levf = (LevelOfExpressionIHCFinding) theFinding;
+		    	  String result = levf.getOverallExpression();
+		    	  if (result != null) {
+		    	    result = result.replace(' ', '_');
+		    	    retColor = getColorForIHCResult(result, ihcBiomarkerType);
+		    	  }
 		      }
 		    }
 		}
@@ -567,6 +629,20 @@ public class ISPYCorrelationScatterPlot {
 	
 	public JFreeChart getChart() {
 		return corrChart;
+	}
+	
+	
+	private Color getColorForIHCResult(String result, IHCBiomarkerType biomarkerType) {
+      switch(biomarkerType) {
+    	  case BCL2: return BCL2ihcType.valueOf(result).getColor();
+    	  case EGFR: return EGFRihcType.valueOf(result).getColor();
+    	  case FAK: return FAKihcType.valueOf(result).getColor();
+    	  case HER2: return HER2ihcType.valueOf(result).getColor();
+    	  case KI67: return Ki67ihcType.valueOf(result).getColor();
+    	  case P27: return P27ihcType.valueOf(result).getColor();
+    	  case P53: return P53ihcType.valueOf(result).getColor();
+      }
+      return Color.GRAY;
 	}
 	
 	private Color getColorForIHCLevelResult(String result) {
