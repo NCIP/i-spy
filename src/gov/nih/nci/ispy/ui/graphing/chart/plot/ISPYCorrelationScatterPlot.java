@@ -221,21 +221,20 @@ public class ISPYCorrelationScatterPlot {
         	specimen = loeFinding.getSpecimen();
         	if ((specimen != null) && (specimen.getPatientDID()!=null)) {
         	  patientDID = specimen.getPatientDID();
+        	  findingList = ihcData.get(patientDID);
+          	
+	          if (findingList == null) {
+	          	  findingList = new ArrayList<IHCFinding>();
+	          	  ihcData.put(patientDID, findingList);
+	          }
+	          	
+	          findingList.add(loeFinding);
         	}
         	else {
               logger.warn("loeFinding id=" + loeFinding.getId() + " has null specimen or patientDID. Skipping..");
         	}
         	
-        	findingList = ihcData.get(patientDID);
         	
-        	if (findingList == null) {
-        	  findingList = new ArrayList<IHCFinding>();
-        	  ihcData.put(patientDID, findingList);
-        	}
-        	
-        	findingList.add(loeFinding);
-        	
-            
           }
 //          IHCFinding lossFinding;
 //          for (Finding finding : lossFindings) {
@@ -485,28 +484,33 @@ public class ISPYCorrelationScatterPlot {
 		
 		List<IHCFinding> ihcfList = ihcData.get(patientDID);
 		IHCFinding theFinding = null;
-	    for (IHCFinding ihcf : ihcfList) {
-	      if (ihcf.getSpecimen().getTimePoint().equalsIgnoreCase(tp)) {
-	        theFinding = ihcf;
-	      }
-	    }
-	    
-	    if (theFinding != null) {
-	      //figure out the color to use
-	      if (theFinding instanceof LossOfExpressionIHCFinding) {
-	    	  LossOfExpressionIHCFinding loef = (LossOfExpressionIHCFinding) theFinding;
-	    	  @SuppressWarnings("unused") String result = loef.getLossResult();
-	    	  retColor = getColorForIHCLossResult(result);
-	    	  
-	      }
-	      else if (theFinding instanceof LevelOfExpressionIHCFinding) {
-	    	  LevelOfExpressionIHCFinding lossf = (LevelOfExpressionIHCFinding) theFinding;
-	    	  @SuppressWarnings("unused") String result = lossf.getOverallExpression();
-	    	  retColor = getColorForIHCLevelResult(result);
-	      }
-	    }
-	    
-	    
+		if (ihcfList != null) {
+			//the list could be null if there are no ihc findings for the patientDID
+		    for (IHCFinding ihcf : ihcfList) {
+		      if (ihcf.getSpecimen().getTimePoint().equalsIgnoreCase(tp)) {
+		        theFinding = ihcf;
+		        break;
+		      }
+		    }
+		    
+		    if (theFinding != null) {
+		      //figure out the color to use
+		      if (theFinding instanceof LossOfExpressionIHCFinding) {
+		    	  LossOfExpressionIHCFinding loef = (LossOfExpressionIHCFinding) theFinding;
+		    	  @SuppressWarnings("unused") String result = loef.getLossResult();
+		    	  retColor = getColorForIHCLossResult(result);
+		    	  
+		      }
+		      else if (theFinding instanceof LevelOfExpressionIHCFinding) {
+		    	  LevelOfExpressionIHCFinding lossf = (LevelOfExpressionIHCFinding) theFinding;
+		    	  @SuppressWarnings("unused") String result = lossf.getOverallExpression();
+		    	  retColor = getColorForIHCLevelResult(result);
+		      }
+		    }
+		}
+		else {
+		  logger.info("PatientDID: " + patientDID + " has no ihc findings. Using default color.");
+		}
 	  }
 	  
 	  if (retColor == null) {
