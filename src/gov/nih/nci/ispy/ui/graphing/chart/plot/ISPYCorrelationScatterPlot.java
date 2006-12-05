@@ -188,13 +188,6 @@ public class ISPYCorrelationScatterPlot {
         	   //parse the gene name from the yLabel
         	   geneName = yLabel.substring(0, yLabel.indexOf('_'));
         	 }
-        	 
-        	 
-        	 //Need to handle mapping names to IHC biomarker names.
-        	 //EGFR, FAK, HER2, Ki-67, P53, bcl, p27
-        	 
-        	 
-        	    
           }
         	
           //Get the IHC data for the samples to be graphed	
@@ -228,9 +221,30 @@ public class ISPYCorrelationScatterPlot {
             findings.add((IHCFinding) f);
           }
           
+//        Need to handle mapping names to IHC biomarker names.
+     	 //EGFR (ok), FAK (PTK2), HER2 (ERBB2), Ki-67, P53, bcl2 (ok), p27
+     	 //Translate the gene names into the biomarker names 
+     	 //used by ihc. This code should be removed once protein biomarker
+     	 //alias is implmented.
+     	 String ihcBiomarker = geneName;
+     	 if (geneName.equalsIgnoreCase("PTK2")) {
+     	   ihcBiomarker = "FAK";
+     	 }
+     	 else if (geneName.equalsIgnoreCase("ERBB2")) {
+     	   ihcBiomarker = "HER2";
+     	 }
+     	 else if (geneName.equalsIgnoreCase("MKI67")) {
+     	   //need to check this one
+     	   ihcBiomarker = "Ki-67";
+     	 }
+     	 else if (geneName.equalsIgnoreCase("TP53")) {
+     	   ihcBiomarker = "P53";	 
+     	 }
+     	 else if (geneName.equalsIgnoreCase("Cdkn1b")) {
+     	   ihcBiomarker = "P27";
+     	 }
           
-          
-          List<IHCFinding> filteredList = getIHCFindingsForBiomarker(findings, geneName);
+          List<IHCFinding> filteredList = getIHCFindingsForBiomarker(findings, ihcBiomarker);
           
           //TEST Case
 //          Set<String> testIds = new HashSet<String>();
@@ -563,7 +577,7 @@ public class ISPYCorrelationScatterPlot {
 		if (res.equalsIgnoreCase("OVEREXPRESSED") ||
 		    res.equalsIgnoreCase("POSITIVE") ||
 			res.equalsIgnoreCase("HIGH")) { 
-		  return Color.RED;
+		  return Color.GREEN;
 		}
 		
 		
@@ -580,7 +594,7 @@ public class ISPYCorrelationScatterPlot {
 		if (res.equalsIgnoreCase("NEGATIVE") ||
 			    res.equalsIgnoreCase("NO OVEREXPRESSION") ||
 				res.equalsIgnoreCase("ZERO")) { 
-			  return Color.GREEN;
+			  return Color.RED;
 		}
 		
 		
