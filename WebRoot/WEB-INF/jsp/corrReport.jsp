@@ -48,6 +48,9 @@
 <%
 String colorBy = request.getParameter("colorBy")!=null ? (String) request.getParameter("colorBy") : "ClinicalResponse"; 
 String key = request.getParameter("key")!=null ? (String) request.getParameter("key") : "taskId";
+String geneX = request.getParameter("geneX")!=null ? (String) request.getParameter("geneX") : "false";
+String geneY = request.getParameter("geneY")!=null ? (String) request.getParameter("geneY") : "false";
+
 %>
 
 
@@ -77,18 +80,21 @@ else
 	
 out.write("&nbsp; | &nbsp;");
 	
-if(colorBy.equals("IHC_EXPRESSION_X"))
-	out.write("IHC Expression (X axis)");	
-else	
-	out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_X\">IHC Expression (X axis)</a>");	
-
-out.write("&nbsp; | &nbsp;");
+if(geneX.equalsIgnoreCase("true")){
+	if(colorBy.equals("IHC_EXPRESSION_X"))
+		out.write("IHC Expression (X axis)");	
+	else	
+		out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_X\">IHC Expression (X axis)</a>");	
 	
-if(colorBy.equals("IHC_EXPRESSION_Y"))
-	out.write("IHC Expression (Y axis)");	
-else	
-	out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_Y\">IHC Expression (Y axis)</a>");	
+	out.write("&nbsp; | &nbsp;");
+}
+if(geneY.equalsIgnoreCase("true")){	
+	if(colorBy.equals("IHC_EXPRESSION_Y"))
+		out.write("IHC Expression (Y axis)");	
+	else	
+		out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_Y\">IHC Expression (Y axis)</a>");	
 
+}
 %>
 <br/>
 </div>

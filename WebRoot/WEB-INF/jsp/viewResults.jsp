@@ -6,6 +6,7 @@
 
 <%@ page import="java.util.*, java.lang.*, java.io.*, java.net.URLEncoder " %>
 <%@ page import="gov.nih.nci.ispy.web.factory.ApplicationFactory" %>
+<%@ page import="gov.nih.nci.ispy.service.clinical.ContinuousType" %>
 <%@ page import="gov.nih.nci.caintegrator.application.cache.*" %>
 <%@ page import="gov.nih.nci.caintegrator.service.findings.*" %>
 <%@ page import="gov.nih.nci.caintegrator.enumeration.*" %>
@@ -120,8 +121,20 @@ String helpLinkClose = "', 350, 500);\">"+
 				if(f instanceof PrincipalComponentAnalysisFinding){
 					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('pcaReport.do?key=" + f.getTaskId() + "', 900, 600,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(PCA)</i> ");
 				}
-				if(f instanceof CorrelationFinding){
-					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('corrReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Correlation)</i> ");
+				if(f instanceof ISPYCorrelationFinding){
+					ISPYCorrelationFinding myFinding = (ISPYCorrelationFinding)f;
+					String geneString = "";
+					if(myFinding.getContinuousType1() == ContinuousType.GENE && myFinding.getContinuousType2() == ContinuousType.GENE){
+						geneString += "&geneX=true&geneY=true";
+					}
+					if(myFinding.getContinuousType1() == ContinuousType.GENE && myFinding.getContinuousType2() != ContinuousType.GENE){
+						geneString += "&geneX=true&geneY=false";
+					}
+					if(myFinding.getContinuousType1() != ContinuousType.GENE && myFinding.getContinuousType2() == ContinuousType.GENE){
+						geneString += "&geneX=false&geneY=true";
+					}
+					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('corrReport.do?key=" + f.getTaskId() + geneString + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Correlation)</i> ");
+					
 				}
 				if(f instanceof ISPYCategoricalCorrelationFinding){
 					out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('catCorrReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Categorical Plot)</i> ");

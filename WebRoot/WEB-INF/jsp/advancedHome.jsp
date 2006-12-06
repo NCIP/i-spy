@@ -14,7 +14,7 @@
 				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="Clinical Query" onclick="javascript:location.href='clinicalQueryInit.do?method=setup';"></td></tr>
 				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="IHC Level of Expression Query" onclick="javascript:location.href='ihcLevelQueryInit.do?method=setup';"></td></tr>
 				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="IHC Loss of Expression Query" onclick="javascript:location.href='ihcLossQueryInit.do?method=setup';"></td></tr>
-				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="FISH Query" onclick="javascript:location.href='fishQueryInit.do?method=setup';"></td></tr>									
+				<!--<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="FISH Query" onclick="javascript:location.href='fishQueryInit.do?method=setup';"></td></tr>	-->								
 			</table>
 	</fieldset>
 	</td></tr>
