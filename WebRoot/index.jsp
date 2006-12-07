@@ -26,6 +26,7 @@ response.setHeader("Location",newLocn);
 		<script language="javascript" src="js/caIntScript.js"></script>
 		<script language="javascript" src="js/box/browserSniff.js"></script>
 		<script language="javascript" src="js/prototype.js"></script>
+		<script language="javascript" src="js/Help.js"></script>
 		<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>
 
 		<script language="javascript" src="js/overlib.js"></script>
@@ -108,6 +109,9 @@ response.setHeader("Location",newLocn);
 																<td>
 																	<html:text property="userName" />
 																</td>
+																<td rowspan="3">
+																	  <script type="text/javascript">Help.insertHelp("Logging_in", " align='right'", "padding:2px;");</script>												
+																</td>
 															</tr>
 															<tr>
 																<Td>
@@ -133,8 +137,8 @@ response.setHeader("Location",newLocn);
 													<div style="width:80%;margin-left:-20px;">
 												      <ul>
 												       <li><a style="font-size:.9em;" href="mailto:ncicb@pop.nci.nih.gov?subject=ISPY: Request username/password">request username/password</a></li>
-													  <ul>
-													 </div>
+													  <ul>													
+													</div>													 
 												</div>
 											</div>
 

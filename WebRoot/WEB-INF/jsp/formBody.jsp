@@ -50,6 +50,9 @@ action = param.toLowerCase();
 
   	    	  
   	String strIncFile = "";
+  	%>
+    <script type="text/javascript">Help.convertHelp("<%=action%>", " align='right'", "float:right;padding:2px;");</script>
+  	<%
   	for (int t=1; t<props.size()+1; t++)	{
   		strIncFile = "/WEB-INF/jsp/tiles/"+props.getProperty(String.valueOf(t))+"_tile.jsp";
  	%>

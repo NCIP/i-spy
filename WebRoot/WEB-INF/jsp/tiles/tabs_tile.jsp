@@ -38,6 +38,11 @@
 							"</ul>\n";
 	String analysisSecondary = "<ul id=\"secondary\">\n" +
 							"<li><a href=\"analysisHome.do\">Analysis Home</a></li>\n" +
+							"<li><a href=\"classcomparisonInit.do?method=setup\">Class Comparison</a></li>\n" +
+							"<li><a href=\"principalcomponentInit.do?method=setup\">PCA</a></li>\n" +
+							"<li><a href=\"hierarchicalclusteringInit.do?method=setup\">HC</a></li>\n" +										
+							"<li><a href=\"correlationScatterInit.do?method=setup\">Correlation Scatter</a></li>\n" +
+							"<li><a href=\"categoricalCorrelationInit.do?method=setup\">Categorical Correlation</a></li>\n" +
 							"</ul>\n";
 							
 	String s = (String) request.getParameter("s");
@@ -102,6 +107,6 @@
 		<li><%= adv %></li>
 		<li><%= analysis %></li>
 		<li><%= viewResults %></li>
-		<li><%= list %></li>
+		<li><%= list %></li>			
 	</ul>
 </div>

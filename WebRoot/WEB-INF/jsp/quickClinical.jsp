@@ -177,8 +177,8 @@
 	</head>
 	<body>
 		<%
-		String isPCA = request.getParameter("isPCA");		
-		if(isPCA!=null && isPCA.equalsIgnoreCase("true")){
+		String fromGraph = request.getParameter("fromGraph");		
+		if(fromGraph!=null && fromGraph.equalsIgnoreCase("true")){
 		%>
 		<div>
 		

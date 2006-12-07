@@ -1,5 +1,5 @@
 var Help = {
-	url : "helpDocs/ISPY_Online_Help1.0/index.html?single=true&context=I-SPY_Online_Help1.0&topic=",
+	url : "helpDocs/ISPY_Online_Help1.0/index.html?single=false&context=I-SPY_Online_Help1.0&topic=",
 	popHelp: function(topic) {
 		window.open (Help.url+topic, "Help", "status,scrollbars,resizable,width=800,height=500");  
 		//use the below if you want the "always on top" feature, most dont like it
@@ -25,15 +25,20 @@ var Help = {
 		var exst = arguments[2] ? arguments[2] : "";
 		var ta = "";
 		switch(topic)	{
-			case "geneexpression":
-				ta = "Advanced_gene_expression";
+			case "clinicalquery":
+				ta = "Clinical_query_analysis";
 				break;
-			case "comparitivegenomic":
-				ta = "Advanced_copy_number";
+			case "correlationscatter":
+				ta = "Correlation_scatter_analysis";
+				break;				
+			case "categoricalcorrelation":
+				ta = "Explanatory_data_analysis";
 				break;
-				
-			case "clinical":
-				ta = "Advanced_clinical_data";
+			case "ihclevelquery":
+				ta = "IHC_LOE_query_analysis";
+				break;
+			case "ihclossquery":
+				ta = "IHC_Loss_query_analysis";
 				break;
 			case "classcomparison":
 				ta = "Class_comparison";
@@ -43,7 +48,7 @@ var Help = {
 				break;
 			case "hierarchicalclustering":
 				ta = "HCA_analysis";
-				break;
+				break;			
 			default:
 				break;
 		

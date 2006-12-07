@@ -10,6 +10,9 @@
 				<a href="http://www.nih.gov/"><img src="images/footer_nih.gif" width="46" height="31" alt="National Institutes of Health" border="0"></a>
 				<a href="http://www.firstgov.gov/"><img src="images/footer_firstgov.gif" width="91" height="31" alt="FirstGov.gov" border="0"></a>
 			</td>
+			<td>
+				<div align="right"><script type="text/javascript">Help.insertHelp("Welcome", " align='right'", "padding:2px;");</script></div>
+			</td>
 		</tr>
 	</table>
 <!-- End Footer table -->

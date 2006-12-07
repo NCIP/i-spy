@@ -19,7 +19,7 @@
 		<script language="javascript" src="js/box/browserSniff.js"></script>
 		<script language="javascript" src="js/prototype.js"></script>
 		<script language="javascript" src="js/scriptaculous/scriptaculous.js"></script>
-
+		<script language="javascript" src="js/Help.js"></script>
 		<script language="javascript" src="js/overlib.js"></script>
 		<script language="javascript" src="js/overlib_hideform.js"></script>
 
@@ -56,8 +56,9 @@
 				<img src="images/ispyPortalHeader.gif" width="765" height="65" border="0" usemap="#ispyPortalMap">
 			</div>
 			<!--end all headers-->
-
-
+<div style="width:765px;margin-bottom:25px;">
+<script type="text/javascript">Help.insertHelp("Rules_of_the_road", " align='right'", "padding:2px;");</script>
+</div>
 <fieldset style="border: 1px solid #000066;width:765px">
 <legend style="text-align:center;background-color:#ffffff">LEGAL RULES OF THE ROAD</legend>
 <p style="text-align:left">The ISPY database is provided as a public service by the National
@@ -81,7 +82,7 @@
 		
 		<p style="color:#002185;font-weight:bold;text-align:left">I HAVE READ AND UNDERSTOOD THE ABOVE PROVISIONS,
 		AND SIGNIFY MY AGREEMENT BY <a href="analysisHome.do">CLICKING HERE</a> </p>
-
+		
 </fieldset>
 
 
@@ -96,6 +97,7 @@
 	<a href="http://www.nih.gov/"><img src="images/footer_nih.gif" width="46" height="31" alt="National Institutes of Health" border="0"></a>
 	<a href="http://www.firstgov.gov/"><img src="images/footer_firstgov.gif" width="91" height="31" alt="FirstGov.gov" border="0"></a></div>
 </td>
+
 </tr>
 </table>
 <!--end NCI footer-->

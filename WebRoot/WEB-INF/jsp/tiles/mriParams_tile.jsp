@@ -26,16 +26,23 @@
 			</div>-->
 			
 			<div>					
-					<b class="subfield">Percent LD Decrease</b>
-					<html:select property="ldTimepointRange">
+					<b class="subfield">% LD Decrease</b><br/>
+					<table align="left">
+					  <tr><td>
+					     <html:select property="ldTimepointRange">
 						<html:option value="none">none</html:option>
 						<html:optionsCollection property="ldTimepointRangeCollection" />
 					</html:select>
+					   </td>
 					
-					<html:select property="ldPercentChangeOperator">			
+					<td>
+					    <html:select property="ldPercentChangeOperator">			
 						<html:optionsCollection property="operators" />
-	  				</html:select>
+	  				    </html:select>
+	  				 </td>
+					<td>
 					<html:text property="ldPercentChange" />%
+					</td></tr></table>
 			</div>
 			
 	</div>

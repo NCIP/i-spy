@@ -1,0 +1,26 @@
+function FileData_Pairs(x)
+{
+x.t("advanced","queries");
+x.t("overview","conducting");
+x.t("overview","search");
+x.t("conducting","searches");
+x.t("searches","search");
+x.t("enables","perform");
+x.t("perform","advanced");
+x.t("search","overview");
+x.t("search","function");
+x.t("queries","following");
+x.t("function","enables");
+x.t("loss","expression");
+x.t("level","expression");
+x.t("performing","ihc");
+x.t("performing","clinical");
+x.t("categories:","clinical");
+x.t("ihc","loss");
+x.t("ihc","level");
+x.t("expression","query");
+x.t("query","performing");
+x.t("query","ihc");
+x.t("following","categories:");
+x.t("clinical","query");
+}

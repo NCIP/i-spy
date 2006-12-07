@@ -168,7 +168,7 @@ else
 		}
 		var otherHid = document.createElement("input");
 		otherHid.setAttribute("type", "hidden");
-		otherHid.setAttribute("name", "isPCA");
+		otherHid.setAttribute("name", "fromGraph");
 		otherHid.setAttribute("value", "true");
 		f.appendChild(otherHid);
 		f.submit();

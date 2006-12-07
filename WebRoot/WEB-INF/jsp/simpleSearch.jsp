@@ -37,7 +37,7 @@
 				IdLookup.createPatientList(regArray, name, SaveRegs.save_cb);
 				}, 500);
 		},
-		'save_cb' : function(txt)	{
+		'save_cb' : function(txt)	{			
 			if(txt == "pass")	{
 				//alert("List saved successfully");
 				$('saveStatus').innerHTML = "<b>List Saved Successfully</b>";
@@ -58,7 +58,7 @@
 				
 				//reload our lists if we can
 				if(SidebarHelper)	{
-					SidebarHelper.loadPatientUL();
+					SidebarHelper.loadSidebar();
 				}
 			}
 			else	{
@@ -392,11 +392,12 @@
 	</style>
 	
 <br/>
+<script type="text/javascript">Help.insertHelp("ID_lookup_overview", " align='right'", "padding:2px;");</script>
 <fieldset id="lookupDiv">
 	<legend>Patient or Sample Id(s)</legend><br/>
 	<form id="theForm" action="#" method="get" onsubmit="return false;">
 	Please enter ID(s) in a comma seperated format (ex. 123,456,789)
-	<app:help help="You may enter Patient Ids or Sample Ids.  Use a comma to seperate multiple Ids.  The results will display id information about the corresponding patients." />
+	<app:help help="You may enter Patient Ids or Sample Ids.  Use a comma to separate multiple Ids.  The results will display id information about the corresponding patients." />
 	
 	<br/>
 	<br/>

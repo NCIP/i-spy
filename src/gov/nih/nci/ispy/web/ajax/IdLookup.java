@@ -103,8 +103,9 @@ public class IdLookup {
 		
 	}
 	
-	public void createPatientList(String[] list, String name){
-		/*
+	public String createPatientList(String[] list, String name){
+        String success = "fail";
+        /*
 		//create list w/ type=patient
 		String success = "fail";
 		ISPYListManager um = ISPYListManager.getInstance();
@@ -120,11 +121,13 @@ public class IdLookup {
 		return success;
 		*/
 		try {
-            DynamicListHelper.createPatientList(list, name);
+            success = DynamicListHelper.createPatientList(list, name);
+           
         } catch (OperationNotSupportedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return success;
 	}
 	
 	public static String getCSV(String lookup)	{

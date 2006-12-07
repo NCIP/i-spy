@@ -59,6 +59,7 @@
 		padding:3px;
 	}
 </style>
+<script type="text/javascript">Help.insertHelp("Manage_lists_overview", " align='right'", "padding:2px;");</script>
 <iframe id="RSIFrame" name="RSIFrame" style="width:0px; height:0px; border: 0px" src="blank.jsp"></iframe>
 
 <span id="info">&nbsp;</span>
