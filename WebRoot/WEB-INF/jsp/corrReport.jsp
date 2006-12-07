@@ -6,6 +6,10 @@
 <%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
+<%@ page import="gov.nih.nci.ispy.web.factory.ApplicationFactory" %>
+<%@ page import="gov.nih.nci.ispy.service.findings.ISPYCorrelationFinding" %>
+<%@ page import="gov.nih.nci.ispy.service.clinical.ContinuousType" %>
+<%@ page import="gov.nih.nci.caintegrator.application.cache.BusinessTierCache" %>
 <html>
 <head>
 	<title>I-SPY CorrelationPlots</title>
@@ -48,9 +52,6 @@
 <%
 String colorBy = request.getParameter("colorBy")!=null ? (String) request.getParameter("colorBy") : "ClinicalResponse"; 
 String key = request.getParameter("key")!=null ? (String) request.getParameter("key") : "taskId";
-String geneX = request.getParameter("geneX")!=null ? (String) request.getParameter("geneX") : "false";
-String geneY = request.getParameter("geneY")!=null ? (String) request.getParameter("geneY") : "false";
-
 %>
 
 
@@ -79,21 +80,22 @@ else
 	out.write("<a href=\"corrReport.do?key="+key+"&colorBy=Timepoint\">Timepoint</a>");	
 	
 out.write("&nbsp; | &nbsp;");
-	
-if(geneX.equalsIgnoreCase("true")){
-	if(colorBy.equals("IHC_EXPRESSION_X"))
+
+BusinessTierCache btc = ApplicationFactory.getBusinessTierCache();
+ISPYCorrelationFinding corrFinding = (ISPYCorrelationFinding)btc.getSessionFinding(request.getSession().getId(),key);
+           
+if(corrFinding.getContinuousType1().equals(ContinuousType.GENE)){
+      if(colorBy.equals("IHC_EXPRESSION_X"))
 		out.write("IHC Expression (X axis)");	
-	else	
-		out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_X\">IHC Expression (X axis)</a>");	
-	
+	  else	
+		out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_X\">IHC Expression (X axis)</a>");
+}		
+if(corrFinding.getContinuousType2().equals(ContinuousType.GENE)){   
 	out.write("&nbsp; | &nbsp;");
-}
-if(geneY.equalsIgnoreCase("true")){	
 	if(colorBy.equals("IHC_EXPRESSION_Y"))
 		out.write("IHC Expression (Y axis)");	
 	else	
 		out.write("<a href=\"corrReport.do?key="+key+"&colorBy=IHC_EXPRESSION_Y\">IHC Expression (Y axis)</a>");	
-
 }
 %>
 <br/>

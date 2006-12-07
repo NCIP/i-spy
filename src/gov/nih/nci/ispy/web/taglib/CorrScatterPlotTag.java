@@ -1,30 +1,20 @@
 package gov.nih.nci.ispy.web.taglib;
 
 import gov.nih.nci.caintegrator.analysis.messaging.DataPoint;
-import gov.nih.nci.caintegrator.analysis.messaging.PCAresultEntry;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
-import gov.nih.nci.caintegrator.application.graphing.PlotPoint;
 import gov.nih.nci.caintegrator.enumeration.ClinicalFactorType;
-import gov.nih.nci.caintegrator.service.findings.CorrelationFinding;
-import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
-import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint;
-import gov.nih.nci.caintegrator.ui.graphing.data.principalComponentAnalysis.PrincipalComponentAnalysisDataPoint.PCAcomponent;
 import gov.nih.nci.caintegrator.ui.graphing.util.ImageMapUtil;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
-import gov.nih.nci.ispy.service.clinical.ClinicalResponseType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
-import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYCorrelationFinding;
-import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYCorrelationScatterPlot;
 import gov.nih.nci.ispy.ui.graphing.chart.plot.ColorByType;
-import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYPrincipalComponentAnalysisPlot;
+import gov.nih.nci.ispy.ui.graphing.chart.plot.ISPYCorrelationScatterPlot;
 import gov.nih.nci.ispy.ui.graphing.data.ISPYPlotPoint;
-import gov.nih.nci.ispy.ui.graphing.data.principalComponentAnalysis.ISPYPCADataPoint;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ISPYImageFileHandler;
 
@@ -35,11 +25,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletRequest;
