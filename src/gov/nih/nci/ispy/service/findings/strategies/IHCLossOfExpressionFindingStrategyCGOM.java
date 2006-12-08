@@ -41,8 +41,9 @@ public class IHCLossOfExpressionFindingStrategyCGOM extends SessionBasedFindingS
 
 	public boolean executeQuery() throws FindingsQueryException {		
         LossOfExpressionIHCService loeService = LossOfExpressionIHCService.getInstance();
-        Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> theFindings = loeService.getFindings(criteria);
         finding = new ISPYIHCLossOfExpressionFinding(this.getSessionId(), this.getTaskId());
+        finding.setStatus(FindingStatus.Running);
+        Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> theFindings = loeService.getFindings(criteria);        
         finding.setQueryDTO(criteria);
         finding.setDomainFindings(theFindings);
         cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), finding);
