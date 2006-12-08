@@ -220,7 +220,7 @@ public class ISPYCorrelationScatterPlot {
           }
           
 //        Need to handle mapping names to IHC biomarker names.
-     	 //EGFR (ok), FAK (PTK2), HER2 (ERBB2), Ki-67, P53, bcl2 (ok), p27
+     	 //EGFR (ok), FAK (PTK2), HER2 (ERBB2), Ki-67, P53, bcl2 (ok), p27, CYCLIN_D1 (CCND1)
      	 //Translate the gene names into the biomarker names 
      	 //used by ihc. This code should be removed once protein biomarker
      	 //alias is implmented.
@@ -254,6 +254,10 @@ public class ISPYCorrelationScatterPlot {
            ihcBiomarker = "EGFR";
            ihcBiomarkerType = IHCBiomarkerType.EGFR;
      	 }
+     	else if (geneName.equalsIgnoreCase("CCND1")) {
+            ihcBiomarker = "CYCLIN_D1";
+            ihcBiomarkerType = IHCBiomarkerType.CYCLIN_D1;
+      	}
           
           List<IHCFinding> filteredList = getIHCFindingsForBiomarker(findings, ihcBiomarker);
           
@@ -442,6 +446,12 @@ public class ISPYCorrelationScatterPlot {
 	      }
 	      else if (ihcBiomarkerType == IHCBiomarkerType.P53) {
 	    	  for (P53ihcType ihcType : P53ihcType.values()) {
+			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
+					legendSrc.addLegendItem(item);  
+			  }
+	      }
+	      else if (ihcBiomarkerType == IHCBiomarkerType.CYCLIN_D1) {
+	    	  for (CCND1ihcType ihcType : CCND1ihcType.values()) {
 			    	item = new LegendItem(ihcType.toString(), null, null, null, new Line2D.Double(0,0,6,6), new BasicStroke(3.0f), ihcType.getColor());
 					legendSrc.addLegendItem(item);  
 			  }
@@ -641,6 +651,7 @@ public class ISPYCorrelationScatterPlot {
     	  case KI67: return Ki67ihcType.valueOf(result).getColor();
     	  case P27: return P27ihcType.valueOf(result).getColor();
     	  case P53: return P53ihcType.valueOf(result).getColor();
+    	  case CYCLIN_D1: return CCND1ihcType.valueOf(result).getColor();
       }
       return Color.GRAY;
 	}
