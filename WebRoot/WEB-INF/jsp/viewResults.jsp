@@ -19,14 +19,7 @@
 		location.replace("viewResults.do");
 	}
 </script>
-<%
-String helpLink = "<a href=\"javascript: spawn('help.jsp";
-String helpLinkClose = "', 350, 500);\">"+
-				"<img align=\"right\" src=\"images/help.png\" border=\"0\" "+
-				"onmouseover=\"return overlib('Click here for additional information about the view results page.', CAPTION, 'Help', OFFSETX, -50);\" onmouseout=\"return nd();\">"+
-				"</a><br clear=\"all\">";
-%> 
-<%=helpLink%>?sect=viewResults<%=helpLinkClose%>
+<script type="text/javascript">Help.insertHelp("View_results_overview", " align='right'", "padding:2px;");</script>
 
       
            
