@@ -81,8 +81,8 @@ public class IdMapperFileBasedService {
 			    sample.addDataType(ISPYDataType.AGILENT);
 			  }
 			  
-  
-			  if ((sampleData[7]!=null)&&(sampleData[7].trim().length()>0)) {
+              
+			  if (sampleData.length>=8 &&(sampleData[7]!=null)&&(sampleData[7].trim().length()>0)) {
 				sample.addDataType(ISPYDataType.CDNA);
 			  }
 			  
