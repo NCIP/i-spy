@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+ <!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+       "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+<tiles-definitions>
+    <definition name="baseDef" path="/WEB-INF/jsp/layout.jsp">
+		<put name="title" value="ISPY Post Analysis Portal" />
+		<!--  the common criteria  -->
+		<put name="htmlHead" value="/WEB-INF/jsp/tiles/htmlHead_tile.jsp" />
+		<put name="overlib" value="/WEB-INF/jsp/tiles/overlib_tile.jsp" />
+		<put name="header" value="/WEB-INF/jsp/header.jsp" />
+	    <put name="crumbMenu" value="/WEB-INF/jsp/tiles/crumbMenu_tile.jsp" />
+		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="footer" value="/WEB-INF/jsp/footer.jsp" />
+		<!--  form specific criteria  -->
+		<put name="mainForm" value="" />		<!-- main form page, read from props file -->
+	</definition>
+	
+	<definition name="noSidebar" path="/WEB-INF/jsp/layoutNoSidebar.jsp">
+		<put name="title" value="ISPY Post Analysis Portal" />
+		<!--  the common criteria  -->
+		<put name="htmlHead" value="/WEB-INF/jsp/tiles/htmlHead_tile.jsp" />
+		<put name="overlib" value="/WEB-INF/jsp/tiles/overlib_tile.jsp" />
+		<put name="header" value="/WEB-INF/jsp/header.jsp" />
+	    <put name="crumbMenu" value="/WEB-INF/jsp/tiles/crumbMenu_tile.jsp" />
+		<put name="footer" value="/WEB-INF/jsp/footer.jsp" />
+		<!--  form specific criteria  -->
+		<put name="mainForm" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
+	</definition>
+	
+		
+	<definition name="ispy.analysisHome" extends="baseDef">
+		<put name="title" value="I-SPY High Order Analysis" />
+		<!--  the common criteria  -->
+		<put name="htmlHead" value="/WEB-INF/jsp/tiles/htmlHead_tile.jsp" />
+		<put name="overlib" value="/WEB-INF/jsp/tiles/overlib_tile.jsp" />
+		<put name="header" value="/WEB-INF/jsp/header.jsp" />
+	    <put name="crumbMenu" value="/WEB-INF/jsp/tiles/crumbMenu_tile.jsp" />
+	    <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="footer" value="/WEB-INF/jsp/footer.jsp" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+		<put name="mainForm" value="/WEB-INF/jsp/analysisHome.jsp" />		
+    </definition>
+    
+    <definition name="ispy.advancedHome" extends="baseDef">
+		<put name="title" value="I-SPY Advanced Queries" />
+		<!--  the common criteria  -->
+		<put name="htmlHead" value="/WEB-INF/jsp/tiles/htmlHead_tile.jsp" />
+		<put name="overlib" value="/WEB-INF/jsp/tiles/overlib_tile.jsp" />
+		<put name="header" value="/WEB-INF/jsp/header.jsp" />
+	    <put name="crumbMenu" value="/WEB-INF/jsp/tiles/crumbMenu_tile.jsp" />
+	    <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="footer" value="/WEB-INF/jsp/footer.jsp" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+		<put name="mainForm" value="/WEB-INF/jsp/advancedHome.jsp" />		
+    </definition>
+   
+    <definition name="ispy.classComparison" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=classComparison" />
+	  <put name="title" value="Class Comparison Analysis Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+    </definition>
+    
+    <definition name="ispy.clinicalQuery" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=clinicalQuery" />
+	  <put name="title" value="Clinical Query Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+    </definition>
+    
+    <definition name="ispy.correlationScatter" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=correlationScatter" />
+	  <put name="title" value="Correlation Scatter Analysis Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+    </definition>
+    
+    <definition name="ispy.categoricalCorrelation" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=categoricalCorrelation" />
+	  <put name="title" value="Categorical Plot Analysis Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+    </definition>
+    
+    <definition name="ispy.fishQuery" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=fishQuery" />
+	  <put name="title" value="FISH Query Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+    </definition>
+    
+    <definition name="ispy.ihcLevelQuery" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=ihcLevelQuery" />
+	  <put name="title" value="IHC Level of Expression Query Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+    </definition>
+    
+    <definition name="ispy.ihcLossQuery" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=ihcLossQuery" />
+	  <put name="title" value="IHC Loss of Expression Query Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+    </definition>
+    
+    <definition name="ispy.principalComponent" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=principalComponent" />
+	  <put name="title" value="Principal Component Analysis (PCA) Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+    </definition>
+    
+     <definition name="ispy.hierarchicalClustering" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=hierarchicalClustering" />
+	  <put name="title" value="Hierarchical Clustering Analysis Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+    </definition>
+    <!-- 
+	<definition name="ispy.menu" extends="baseDef">
+      <put name="mainForm" value="/jsp/menu.jsp" />
+	  <put name="title" value="Advanced Search - Build Query" />
+	   <put name="reqdFieldsMsg" value="/jsp/tiles/empty_tile.jsp" />
+	   <put name="tabs" value="/jsp/tiles/tabs_tile.jsp?s=2" />
+	</definition>
+	-->
+	<definition name="ispy.simpleSearch" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/simpleSearch.jsp" />
+	  <put name="title" value="ID Lookup" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />
+	  <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=1" />
+	</definition>
+	
+	<definition name="ispy.viewResults" extends="baseDef">
+		<put name="title" value="I-SPY View Results" />
+		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="mainForm" value="/WEB-INF/jsp/viewResults.jsp" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=4" />
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
+    </definition>  
+    
+    <definition name="ispy.manageLists" extends="baseDef">
+		<put name="title" value="I-SPY Manage Lists" />
+		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="mainForm" value="/manageLists.jsp" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=5" />
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
+    </definition>  
+	  
+    <definition name="graph" path="/jsp/layoutGraph.jsp">
+		<put name="title" value="caIntegrator" />
+		<!--  the common criteria  -->
+		<put name="htmlHead" value="/jsp/tiles/htmlHead_tile.jsp" />
+		<put name="overlib" value="/jsp/tiles/overlib_tile.jsp" />
+		<put name="header" value="/jsp/header.jsp" />
+		<put name="footer" value="/jsp/footer.jsp" />
+	    <put name="crumbMenu" value="/jsp/tiles/crumbMenu_tile.jsp" />
+		<!--  form specific criteria  -->
+		<put name="tabs" value="/jsp/tiles/tabs_tile.jsp?s=1" />
+		<put name="mainForm" value="" />		<!-- main form page, read from props file -->
+    </definition>
+    
+    <definition name="ispy.graph" extends="graph">
+      <put name="mainForm" value="/graph.jsp" />
+	  <put name="title" value="caIntegrator Gene Expression Plot" />
+    </definition>
+
+    
+</tiles-definitions>
