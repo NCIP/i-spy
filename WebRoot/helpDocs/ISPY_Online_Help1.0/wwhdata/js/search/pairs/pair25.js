@@ -1,6 +1,6 @@
 function FileData_Pairs(x)
 {
-x.t("analyses:","class");
+x.t("analyses:","performing");
 x.t("correlation","scatter");
 x.t("hierarchical","clustering");
 x.t("listed","view");
@@ -11,10 +11,8 @@ x.t("overview","high");
 x.t("high","order");
 x.t("enables","perform");
 x.t("perform","following");
-x.t("comparison","principal");
-x.t("comparison","analysis");
+x.t("comparison","performing");
 x.t("component","analysis");
-x.t("heiarchical","clustering");
 x.t("function","enables");
 x.t("report","results");
 x.t("clustering","analysis");
@@ -25,21 +23,16 @@ x.t("performing","principal");
 x.t("performing","class");
 x.t("principal","component");
 x.t("view","results");
-x.t("(pca)","performing");
 x.t("page","high");
 x.t("order","analysis");
 x.t("following","analyses:");
 x.t("class","comparison");
 x.t("plot","analysis");
-x.t("analysis","correlation");
-x.t("analysis","categorical");
 x.t("analysis","results");
 x.t("analysis","overview");
 x.t("analysis","high");
-x.t("analysis","heiarchical");
 x.t("analysis","function");
 x.t("analysis","report");
 x.t("analysis","performing");
-x.t("analysis","(pca)");
 x.t("scatter","plot");
 }

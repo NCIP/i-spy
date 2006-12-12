@@ -17,7 +17,7 @@ if(P=="IHC_Loss_query_analysis")C="i-spy_Searches.6.5.html#1155446";
 if(P=="HOA_overview")C="i-spy_High_Order_Analysis.7.2.html#1100411";
 if(P=="Class_comparison")C="i-spy_High_Order_Analysis.7.3.html#1092908";
 if(P=="PCA_analysis")C="i-spy_High_Order_Analysis.7.4.html#1092212";
-if(P=="HCA_analysis")C="i-spy_High_Order_Analysis.7.5.html#1076040";
+if(P=="HCA_analysis")C="i-spy_High_Order_Analysis.7.5.html#1102928";
 if(P=="Correlation_scatter_analysis")C="i-spy_High_Order_Analysis.7.6.html#1096216";
 if(P=="Explanatory_data_analysis")C="i-spy_High_Order_Analysis.7.7.html#1101457";
 if(P=="Manage_lists_overview")C="i-spy_Manage_Lists.8.2.html#1067499";

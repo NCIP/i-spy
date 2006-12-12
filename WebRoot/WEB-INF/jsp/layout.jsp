@@ -29,10 +29,7 @@
 			<tr>
 				<td width="575"> 
 					<table cellpadding="4" cellspacing="2" border="0" width="100%"> 
-					<script language="javascript">
-						document.getElementById("h3Header").innerHTML = "<tiles:getAsString name="title"/>";
-					</script>
-						<!--  <tr class="report"><td><b><tiles:getAsString name="title"/></b></td></tr>   -->
+					<tr class="report"><td><b><tiles:getAsString name="title"/></b></td></tr>
 						<tr><td>
 						<tiles:insert attribute="tabs"/>
 						<div id="main">
