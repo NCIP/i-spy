@@ -14,6 +14,7 @@
 		<script language="JavaScript" type="text/javascript" src="xsl/js.js"></script>
 		<script language="JavaScript" type="text/javascript" src="xsl/a_js.js"></script> 
 		<script language="JavaScript" type="text/javascript" src="xsl/a_saveGenes.js"></script>
+		<script language="javascript" src="js/Help.js"></script>
 		<LINK href="xsl/css.css" rel="stylesheet" type="text/css" />
 		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 		<META HTTP-EQUIV="Expires" CONTENT="-1">

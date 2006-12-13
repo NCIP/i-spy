@@ -19,7 +19,7 @@ if(request.getParameter("key")!=null)
 		<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 
 		<script language="JavaScript" type="text/javascript" src="XSL/js.js"></script>
 		<script language="JavaScript" type="text/javascript" src="XSL/a_js.js"></script>
-
+		<script language="javascript" src="js/Help.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/prototype_1.5pre.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/scriptaculous/scriptaculous.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/event-selectors.js"></script>
@@ -190,7 +190,7 @@ if(request.getParameter("key")!=null)
 <span style="z-index:1000; float:right;">
 	<!-- navigation icons courtesy of:  Anthony J. Brutico, D.O. -->
 	<a href="javascript:top.close()"><img align="right" src="images/close.png" border="0"></a>
-	<a href="javascript: spawn('help.jsp?sect=hcPlot', 350, 500);"><img align="right" src="images/help.png" border="0" onmouseover="return overlib('Click here for additional information about this report.', CAPTION, 'Help', CSSCLASS,TEXTFONTCLASS,'fontClass',FGCLASS,'fgClass',BGCLASS,'bgClass',CAPTIONFONTCLASS,'capfontClass', OFFSETX, -50);" onmouseout="return nd();" /></a>
+	<script type="text/javascript">Help.insertHelp("HCA_report", " align='right'", "padding:2px;");</script>
 	<a href="#" onclick="javascript:window.print();"><img align="right" src="images/print.png" border="0" onmouseover="return overlib('Print this report.', CAPTION, 'Help', CSSCLASS,TEXTFONTCLASS,'fontClass',FGCLASS,'fgClass',BGCLASS,'bgClass',CAPTIONFONTCLASS,'capfontClass', OFFSETX, -50);" onmouseout="return nd();"/> </a> 	
 </span>
 

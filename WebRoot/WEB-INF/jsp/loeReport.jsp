@@ -7,7 +7,7 @@
 	<head>
 		<title>ISPY Report</title>
 		<script language="JavaScript" src="js/box/browserSniff.js"></script>
-		
+			<script language="javascript" src="js/Help.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/overlib.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/overlib_hideform.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 

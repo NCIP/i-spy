@@ -27,7 +27,7 @@
 	<script language="JavaScript" src="js/box/x_dom.js"></script>
 	<script language="JavaScript" src="js/box/x_drag.js"></script>
 	<script language="JavaScript" src="js/box/wz_jsgraphics.js"></script>
-
+	<script language="javascript" src="js/Help.js"></script>
 	<script language="JavaScript" src="js/box/dbox.js"></script>
 	<script type="text/javascript" src="js/overlib.js"><!-- overLIB (c) Erik Bosrup --></script>
 		
@@ -38,7 +38,7 @@
 <span style="z-index:1000; float:right;">
 	<!-- navigation icons courtesy of:  Anthony J. Brutico, D.O. -->
 	<a href="javascript:top.close()"><img align="right" src="images/close.png" border="0"></a>
-	<a href="javascript: spawn('help.jsp?sect=catCorrPlot', 350, 500);"><img align="right" src="images/help.png" border="0" onmouseover="return overlib('Click here for additional information about this report.', CAPTION, 'Help');" onmouseout="return nd();" /></a>
+	<script type="text/javascript">Help.insertHelp("Explanatory_data_analysis_plot", " align='right'", "padding:2px;");</script>
 	<a href="#" onclick="javascript:window.print();"><img align="right" src="images/print.png" border="0" onmouseover="return overlib('Print this report.', CAPTION, 'Help');" onmouseout="return nd();"/> </a> 
 	
 </span>
