@@ -79,7 +79,7 @@
 	</target>
 		
 		<target name="config-jbossmq">
-			<copy file="${source.dir}\ispy-jbossmq-destinations-service.xml" todir="${jboss.deploy.dir}"/>
+			<copy file="conf\ispy-jbossmq-destinations-service.xml" todir="${jboss.deploy.dir}\jms"/>
 		</target>
 	<!--
 		TARGET: build_war
