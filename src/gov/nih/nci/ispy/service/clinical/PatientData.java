@@ -50,7 +50,14 @@ private String  ispy_id,
 				clinicalstageStr, 
 				clinrespt1_t2, 
 				clinrespt1_t3, 
-				clinrespt1_t4;
+				clinrespt1_t4,
+				chemoCat,
+			    dosedenseanthra,
+				dosedensetaxane,
+			    LES_T1,
+				LES_T2,
+				LES_T3,
+				LES_T4;
 
     private Double mriPctChangeT1_T2;
     private Double mriPctChangeT1_T3;
@@ -658,6 +665,62 @@ private String  ispy_id,
 
 	public HER2statusType getHER2status() {
 	  return her2Status;
+	}
+
+	public String getChemoCat() {
+		return chemoCat;
+	}
+
+	public void setChemoCat(String chemoCat) {
+		this.chemoCat = chemoCat;
+	}
+
+	public String getDosedenseanthra() {
+		return dosedenseanthra;
+	}
+
+	public void setDosedenseanthra(String dosedenseanthra) {
+		this.dosedenseanthra = dosedenseanthra;
+	}
+
+	public String getDosedensetaxane() {
+		return dosedensetaxane;
+	}
+
+	public void setDosedensetaxane(String dosedensetaxane) {
+		this.dosedensetaxane = dosedensetaxane;
+	}
+
+	public String getLES_T1() {
+		return LES_T1;
+	}
+
+	public void setLES_T1(String les_t1) {
+		LES_T1 = les_t1;
+	}
+
+	public String getLES_T2() {
+		return LES_T2;
+	}
+
+	public void setLES_T2(String les_t2) {
+		LES_T2 = les_t2;
+	}
+
+	public String getLES_T3() {
+		return LES_T3;
+	}
+
+	public void setLES_T3(String les_t3) {
+		LES_T3 = les_t3;
+	}
+
+	public String getLES_T4() {
+		return LES_T4;
+	}
+
+	public void setLES_T4(String les_t4) {
+		LES_T4 = les_t4;
 	}
 
 }
