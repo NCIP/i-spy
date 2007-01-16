@@ -127,26 +127,34 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setClinRespT1_T3(getToken(tokens,43));
 				pd.setClinRespT1_T4(getToken(tokens,44));	
 				
-				doubleStr = getToken(tokens,45);
+				pd.setChemoCat(getToken(tokens,45));
+				pd.setDosedenseanthra(getToken(tokens,46));
+				pd.setDosedensetaxane(getToken(tokens,47));
+				
+				pd.setLES_T1(getToken(tokens,48));
+				pd.setLES_T2(getToken(tokens,49));
+				pd.setLES_T3(getToken(tokens,50));
+				pd.setLES_T4(getToken(tokens,51));
+				
+				
+				doubleStr = getToken(tokens,52);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
 				}
 //				
-				doubleStr = getToken(tokens,46);
+				doubleStr = getToken(tokens,53);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
 			    }
 //				
-				doubleStr = getToken(tokens,47);
+				doubleStr = getToken(tokens,54);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
 			    }
 //				
 //				
 //
-				pd.setMorphology(getToken(tokens,48));
-				
-				
+				pd.setMorphology(getToken(tokens,55));
 				
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
