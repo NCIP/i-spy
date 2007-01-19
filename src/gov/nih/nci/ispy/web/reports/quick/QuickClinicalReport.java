@@ -37,7 +37,7 @@ public class QuickClinicalReport {
                 Element td = null;
                 tr = table.addElement("tr").addAttribute("class", "header");
                 
-                String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4";
+                String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4, LES_T1, LES_T2, LES_T3, LES_T4";
                 String[] heads = StringUtils.split(longHeaders, ",");
                 for(String h : heads){
                     td = tr.addElement("td").addAttribute("class", "header").addText(h.trim());
@@ -88,6 +88,9 @@ public class QuickClinicalReport {
                         tmp = pd.getSURVDTD()!=null  ? pd.getSURVDTD() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
+                        tmp = pd.getChemoCat()!=null ? pd.getChemoCat() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
                         tmp = pd.getChemo()!=null  ? pd.getChemo() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
@@ -96,7 +99,13 @@ public class QuickClinicalReport {
                         
                         tmp = pd.getHerceptin()!=null  ? pd.getHerceptin() : dv;
                         td = tr.addElement("td").addText(tmp);
-        
+                        
+                        tmp = pd.getDosedenseanthra()!=null  ? pd.getDosedenseanthra() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        tmp = pd.getDosedensetaxane()!=null  ? pd.getDosedensetaxane() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
                         tmp = pd.getMenoStatus()!=null  ? pd.getMenoStatus() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
@@ -210,8 +219,20 @@ public class QuickClinicalReport {
                         
                         tmp = pd.getMriPctChangeT1_T3()!=null  ? String.valueOf(pd.getMriPctChangeT1_T3()) : dv;
                         td = tr.addElement("td").addText(tmp);
-                        
+                                                                        
                         tmp = pd.getMriPctChangeT1_T4()!=null  ? String.valueOf(pd.getMriPctChangeT1_T4()) : dv;
+                        td = tr.addElement("td").addText(tmp);
+                                               
+                        tmp = pd.getLES_T1()!=null  ? pd.getLES_T1() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        tmp = pd.getLES_T2()!=null  ? pd.getLES_T2() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        tmp = pd.getLES_T3()!=null  ? pd.getLES_T3() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        tmp = pd.getLES_T4()!=null  ? pd.getLES_T4() : dv;
                         td = tr.addElement("td").addText(tmp);
                     }
                 }  
