@@ -1,12 +1,8 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
 import gov.nih.nci.caintegrator.analysis.messaging.CategoricalCorrelationRequest;
-import gov.nih.nci.caintegrator.analysis.messaging.CorrelationRequest;
 import gov.nih.nci.caintegrator.analysis.messaging.DataPoint;
 import gov.nih.nci.caintegrator.analysis.messaging.DataPointVector;
-import gov.nih.nci.caintegrator.analysis.messaging.DoubleVector;
-import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
-import gov.nih.nci.caintegrator.analysis.messaging.IdList;
 import gov.nih.nci.caintegrator.analysis.messaging.ReporterInfo;
 import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
@@ -18,11 +14,9 @@ import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
-import gov.nih.nci.caintegrator.service.findings.CorrelationFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
-import gov.nih.nci.ispy.dto.query.CorrelationQueryDTO;
+import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
 import gov.nih.nci.ispy.dto.query.ISPYCategoricalCorrelationQueryDTO;
-import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.annotation.ISPYDataType;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
@@ -34,12 +28,10 @@ import gov.nih.nci.ispy.service.clinical.ContinuousType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYCategoricalCorrelationFinding;
-import gov.nih.nci.ispy.service.findings.ISPYCorrelationFinding;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 

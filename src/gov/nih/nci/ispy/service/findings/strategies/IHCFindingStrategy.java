@@ -1,8 +1,8 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
-import gov.nih.nci.caintegrator.dto.query.IHCqueryDTO;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
+import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
 
 
 public abstract class IHCFindingStrategy extends SessionBasedFindingStrategy {

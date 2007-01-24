@@ -11,6 +11,7 @@ import gov.nih.nci.caintegrator.enumeration.*;
 import gov.nih.nci.caintegrator.exceptions.*;
 import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
+import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
 import gov.nih.nci.caintegrator.util.ValidationUtility;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.dto.query.PatientUserListQueryDTO;

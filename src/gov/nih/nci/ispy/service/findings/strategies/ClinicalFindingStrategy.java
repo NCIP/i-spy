@@ -1,6 +1,7 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
+import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 
 

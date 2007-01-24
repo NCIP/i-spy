@@ -18,6 +18,7 @@ import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.caintegrator.service.findings.HCAFinding;
+import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
 import gov.nih.nci.caintegrator.util.ValidationUtility;
 import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
