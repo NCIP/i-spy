@@ -1,6 +1,7 @@
 <%@ page language="java" %>
 <%@ page import="java.util.*, java.lang.*, java.net.URLEncoder " %>
 <%@ page import="java.util.ArrayList, gov.nih.nci.ispy.web.reports.quick.*" %>
+<script language="javascript" src="js/Help.js"></script>
 <%
 	String[] sampleArray = request.getParameterValues("sampleList");
 	String taskId = request.getParameter("taskId");
@@ -179,13 +180,18 @@
 		<%
 		String fromGraph = request.getParameter("fromGraph");		
 		if(fromGraph!=null && fromGraph.equalsIgnoreCase("true")){
+		
 		%>
 		<div>
 		
 			<a href="javascript:history.back()">&lt;&lt;&lt;back</a><br/>
+			
+	
 		</div>
 		<%}%>
 		<div>
+		<script type="text/javascript">Help.insertHelp("Clinical_report", " align='left'", "padding:2px;");</script>
+		
 		Save Selected: <input type="text" id="listName"/>
 		<input type="button" value="save checked" onclick="SaveElements.save();"/>
 		<input type="checkbox" id="checkAll" onclick="CheckMgr.manageCheckAll(this)"/>All?
