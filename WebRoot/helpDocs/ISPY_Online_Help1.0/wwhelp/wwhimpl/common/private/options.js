@@ -3,11 +3,11 @@
 
 function  WWHCommonSettings_Object()
 {
-  this.mTitle = "I-SPY Online Help1.0";
+  this.mTitle = "I-SPY 1.0 Online Help";
 
   this.mbCookies            = true;
   this.mCookiesDaysToExpire = 30;
-  this.mCookiesID           = "BCE7B1545226E42F";
+  this.mCookiesID           = "108AC4E1EC9E143";
 
   this.mAccessible = "false";
 

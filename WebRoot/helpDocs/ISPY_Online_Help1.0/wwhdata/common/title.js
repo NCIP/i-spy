@@ -1,4 +1,4 @@
 function  WWHBookData_Title()
 {
-  return "I-SPY Online Help1.0";
+  return "I-SPY 1.0 Online Help";
 }

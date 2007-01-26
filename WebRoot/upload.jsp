@@ -14,6 +14,7 @@
 	java.util.Map,
 	java.util.ArrayList,
 	java.util.HashMap,
+	java.util.HashSet,
 	java.util.Iterator,
 	java.util.List,
 	gov.nih.nci.caintegrator.application.lists.ajax.*,
@@ -28,6 +29,9 @@
 
 		<%
 		UserListGenerator listGenerator = new UserListGenerator();
+		
+		// !! - need to use the new listValidator constructor here that takes sub-types
+		//ISPYListValidator listValidator = new ISPYListValidator();
 		
 		String name = "";
 		String type = "";
@@ -66,28 +70,69 @@
 			
 			List myUndefinedList = listGenerator.generateList(formFile); 
 			           
-            ListManager uploadManager = (ListManager) ListManager.getInstance();            
+            //no duplicates
+			HashSet h = new HashSet();
+			for (int i = 0; i < myUndefinedList.size(); i++)	{
+				if(myUndefinedList.get(i)!=null && !myUndefinedList.get(i).equals(""))
+					h.add(((String)myUndefinedList.get(i)).trim());
+			}
+			List cleanList = new ArrayList();			
+			cleanList.addAll(h);
+			myUndefinedList.clear();
+			myUndefinedList = cleanList;
+			
+			ListManager uploadManager = (ListManager) ListManager.getInstance();            
             UserList myList = new UserList();
             UserListBeanHelper helper = new UserListBeanHelper(request.getSession());
             
             String[] tps = CommonListFunctions.parseListType(type);
+			String res = "fail";
+            ArrayList lst = new ArrayList();
+            
 			ISPYListValidator listValidator = new ISPYListValidator();
-            if(tps.length > 1)	{
+            try	{
+			/*
+				if(tps.length > 1)	{
             	//primary and sub
+	            lst = new ArrayList();
+				lst.add((ListSubType) ListSubType.valueOf(tps[1]));
 	            listValidator = new ISPYListValidator(ListType.valueOf(tps[0]), ListSubType.valueOf(tps[1]), myUndefinedList); //st, t, l
 	        }
-	        else if(tps.length == 1)	{
-	        	//just a primary type, no sub
-	       		listValidator = new ISPYListValidator(ListType.valueOf(tps[0]), myUndefinedList); // t, l
-	        }
+	        else if(tps.length >0 && tps[0] != null)	{
+		        	//just a primary type, no sub
+		       		listValidator = new ISPYListValidator(ListSubType.Custom, ListType.valueOf(tps[0]), myUndefinedList); // t, l
+		    }
+		        else	{
+		        	listValidator = new ISPYListValidator(ListType.PatientDID, myUndefinedList);
+		    }
+            
+            	res = CommonListFunctions.createGenericListWithSession(ListType.valueOf(tps[0]), lst, myUndefinedList, name, listValidator, session);
+	           // myList = uploadManager.createList(ListType.valueOf(tps[0]), name, myUndefinedList, listValidator);
+	         */
 
-			try	{
-	            myList = uploadManager.createList(ListType.valueOf(tps[0]), name, myUndefinedList, listValidator);
+			ListType lt = ListType.valueOf(tps[0]);
+			if(tps.length > 1 && tps[1] != null){
+				//create a list out of [1]
+				lst = new ArrayList();
+				lst.add(ListSubType.valueOf(tps[1]));
+				res =  CommonListFunctions.createGenericListWithSession(lt, lst, myUndefinedList, name, new ISPYListValidator(ListType.valueOf(tps[0]), ListSubType.valueOf(tps[1]), myUndefinedList), session);
+			}
+			else if(tps.length >0 && tps[0] != null)	{
+				//no subtype, only a primary type - typically a PatientDID then
+				res = CommonListFunctions.createGenericListWithSession(lt, lst, myUndefinedList, name, new ISPYListValidator(ListType.valueOf(tps[0]), ListSubType.Custom, myUndefinedList), session);
+			}
+			else	{
+				//no type or subtype, not good, force to clinical in catch
+				throw new Exception();
+			}
+		
     		}
     		catch(Exception e)	{
     			//myList = null;
-    		}        
-	        
+    			System.out.println("upload failed");
+    			System.out.println(e);
+    		} 
+/*  
             if (myList != null) {
             	ArrayList subs = new ArrayList();
             	
@@ -99,6 +144,8 @@
                 //paramMap = uploadManager.getParams(myList);
                 helper.addList(myList);
             }
+*/
+
             %>
 		<script type="text/javascript">
 			var my_params= new Array()
