@@ -65,10 +65,7 @@ public final class ispyConstants {
     //Specifies the location in the webapp classes directory
     //to find ApplicationResources.properties
     public static final String  APPLICATION_RESOURCES = "ApplicationResources";
-    //Specifies where in the webapps classes directory to find
- 	//log4j.properties
- 	public static final String LOGGING_PROPERTIES = "log4j.properties";
-
+   
     public static final String CACHE_PROPERTIES = "rembrandtCache";
 
 	public static final String LOGGER = "gov.nih.nci.ispy";
