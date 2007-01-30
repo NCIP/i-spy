@@ -1,0 +1,16 @@
+<caintegrator-config>
+	<upt-context-name>
+		<!-- Context Name for the UPT Application -->
+	</upt-context-name>
+	<application-list>
+	<!-- For every application using the security api an entry should be made here -->
+		<application>
+			<context-name>
+				ispy
+			</context-name>
+			<hibernate-config-file>
+				/local/content/ispyportal/config/ispy-domain-hibernate.cfg.xml
+			</hibernate-config-file>
+		</application>
+	</application-list>
+</caintegrator-config>
