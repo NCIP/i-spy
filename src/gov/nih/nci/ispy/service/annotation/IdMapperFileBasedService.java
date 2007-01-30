@@ -1,7 +1,6 @@
 package gov.nih.nci.ispy.service.annotation;
 
 import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
-import gov.nih.nci.caintegrator.analysis.messaging.IdList;
 import gov.nih.nci.ispy.service.common.TimepointType;
 
 import java.io.BufferedReader;

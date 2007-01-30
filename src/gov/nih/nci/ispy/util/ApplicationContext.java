@@ -7,11 +7,8 @@ import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
-import gov.nih.nci.ispy.service.imaging.ImagingDataService;
 import gov.nih.nci.ispy.service.imaging.ImagingDataServiceFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-
-import gov.nih.nci.ispy.service.imaging.PatientImagingInfo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
