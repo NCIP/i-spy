@@ -75,22 +75,25 @@ public class IdMapperFileBasedService {
 			    sample.setCoreType(SampleCoreType.NA);
 			  }
 			  
-			  sample.setSectionInfo(sampleData[4]);
+			  if (sampleData.length>=5 && (sampleData[4]!=null) && (sampleData[4].trim().length() >0)) {
+				  sample.setSectionInfo(sampleData[4]);
+			  }
 			  
-			  if ((sampleData[5]!=null)&&(sampleData[5].trim().length()>0)) {
+			  
+			  if (sampleData.length>=6 && (sampleData[5]!=null)&&(sampleData[5].trim().length()>0)) {
 			    sample.addDataType(ISPYDataType.AGILENT);
 			  }
 			  
               
-			  if (sampleData.length>=8 &&(sampleData[7]!=null)&&(sampleData[7].trim().length()>0)) {
+			  if (sampleData.length>=7 &&(sampleData[6]!=null)&&(sampleData[6].trim().length()>0)) {
 				sample.addDataType(ISPYDataType.CDNA);
 			  }
 			  
 
-			  String calgbId = sampleData[6];
+			  //String calgbId = sampleData[6];
 			  //idMap.put(calgbId, entry); UNCOMMENT THIS LINE WHEN WE HAVE REAL CALGBIDS
 			  
-			  sample.setCalgId(calgbId);
+			  //sample.setCalgId(calgbId);
 			  
 			  entry.addSample(sample);
 			  
