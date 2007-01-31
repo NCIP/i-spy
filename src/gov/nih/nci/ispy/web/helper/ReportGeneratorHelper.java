@@ -564,7 +564,7 @@ public class ReportGeneratorHelper {
         FindingReportBean frb = new FindingReportBean();
         frb.setFinding(finding);
         frb.setXmlDoc(xmlDocument);
-        logger.debug(xmlDocument.asXML());
+        //logger.debug(xmlDocument.asXML());
         //TODO: check cache for collision - second param is key
         ApplicationFactory.getPresentationTierCache().addPersistableToSessionCache(finding.getSessionId(),finding.getTaskId(), frb);
     }
