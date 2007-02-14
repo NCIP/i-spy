@@ -119,7 +119,7 @@ public class ClassComparisonForm extends ActionForm {
     
     private List foldChangeAutoList = new ArrayList();
     
-    private String foldChangeManual;
+    private int foldChangeManual;
     
     private Double statisticalSignificance = .05;
     
@@ -373,7 +373,7 @@ public class ClassComparisonForm extends ActionForm {
     /**
      * @return Returns the foldChangeManual.
      */
-    public String getFoldChangeManual() {
+    public int getFoldChangeManual() {
         return foldChangeManual;
     }
 
@@ -382,7 +382,7 @@ public class ClassComparisonForm extends ActionForm {
     /**
      * @param foldChangeManual The foldChangeManual to set.
      */
-    public void setFoldChangeManual(String foldChangeManual) {
+    public void setFoldChangeManual(int foldChangeManual) {
         this.foldChangeManual = foldChangeManual;
     }
     
@@ -530,6 +530,14 @@ public class ClassComparisonForm extends ActionForm {
         
         //User must select exactly 2 comparison Groups
         errors = UIFormValidator.validateSelectedGroups(selectedGroups, timepointRange, timepointBaseAcross, timepointComparison, request.getSession(), errors);
+        
+        //look at the manual FC to check for neg value
+        //this is validated in the UI, so its put here only as a failsafe
+        if(foldChangeManual < 0){
+            int tmp = Math.abs(foldChangeManual);
+            foldChangeManual = tmp;
+        }
+        
         
 
         return errors;
