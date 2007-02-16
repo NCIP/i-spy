@@ -139,7 +139,9 @@ public class ClassComparisonForm extends ActionForm {
         }        
         
         for (StatisticalMethodType statisticalMethodType : StatisticalMethodType.values()){
-            statisticalMethodCollection.add(new LabelValueBean(statisticalMethodType.toString(),statisticalMethodType.name()));  
+            if(statisticalMethodType != StatisticalMethodType.FTest){
+            statisticalMethodCollection.add(new LabelValueBean(statisticalMethodType.toString(),statisticalMethodType.name())); 
+            }
         }
         
         for (int i=0; i<ispyConstants.FOLD_CHANGE_DEFAULTS.length;i++){
