@@ -733,9 +733,9 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
                     theAgeMeasurement.setMinValue(18.0);
                     theAgeMeasurement.setMaxValue(30.0);
                 }
-                else if (theAgeCategory.equals(AgeCategoryType.AGE_31_40))
+                else if (theAgeCategory.equals(AgeCategoryType.AGE_30_40))
                 {
-                    theAgeMeasurement.setMinValue(31.0);
+                    theAgeMeasurement.setMinValue(30.0);
                     theAgeMeasurement.setMaxValue(40.0);
                 }
                 else if (theAgeCategory.equals(AgeCategoryType.AGE_40_50))
