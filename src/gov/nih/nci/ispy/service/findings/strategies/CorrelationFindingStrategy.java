@@ -39,6 +39,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.EnumSet;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -159,7 +160,7 @@ public class CorrelationFindingStrategy extends SessionBasedFindingStrategy {
                 reporterInfo1 = new ReporterInfo(scatterQueryDTO.getReporter1Name(),scatterQueryDTO.getGeneX(),dataFilename);
                 
                 //set the samples to use 
-                SampleGroup sg1 = getSamplesToUse(patientList, ispyDataType1, timepoints);
+                SampleGroup sg1 = getSamplesForPatients(patientList, ispyDataType1);
                 reporterInfo1.setSampleGroup(sg1);
                 
                 correlationRequest.setReporter1(reporterInfo1);
@@ -178,7 +179,7 @@ public class CorrelationFindingStrategy extends SessionBasedFindingStrategy {
                 reporterInfo2 = new ReporterInfo(scatterQueryDTO.getReporter2Name(),scatterQueryDTO.getGeneY(),dataFilename);
                 
                 //set the samples to use
-                SampleGroup sg2 = getSamplesToUse(patientList, ispyDataType2, timepoints);
+                SampleGroup sg2 = getSamplesForPatients(patientList, ispyDataType2);
                 reporterInfo2.setSampleGroup(sg2);
                 correlationRequest.setReporter2(reporterInfo2);
             }
@@ -233,10 +234,13 @@ public class CorrelationFindingStrategy extends SessionBasedFindingStrategy {
 	 * @param timepoints
 	 * @return SampleGroup
 	 */
-	private SampleGroup getSamplesToUse(IdList patientList, ISPYDataType ispyDataType, Set<TimepointType> timepoints) {
+	private SampleGroup getSamplesForPatients(IdList patientList, ISPYDataType ispyDataType) {
 	   SampleGroup sg = new SampleGroup();
 	   IdMapperFileBasedService im = IdMapperFileBasedService.getInstance();
 	   List<RegistrantInfo> rinfo = im.getMapperEntriesForIds(patientList);   
+	   
+	   
+	   EnumSet<TimepointType> timepoints = EnumSet.allOf(TimepointType.class);
        for(RegistrantInfo info : rinfo){
          Set<SampleInfo> sinfo = info.getSamplesForDataTypeAndTimepoints(ispyDataType, timepoints);
          for(SampleInfo s : sinfo){
