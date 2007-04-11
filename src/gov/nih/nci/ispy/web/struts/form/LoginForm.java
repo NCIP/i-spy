@@ -1,6 +1,8 @@
 package gov.nih.nci.ispy.web.struts.form;
 import gov.nih.nci.caintegrator.application.cache.CacheConstants;
+import gov.nih.nci.caintegrator.application.configuration.SpringContext;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
+import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.security.SecurityManager;
 import gov.nih.nci.caintegrator.security.UserCredentials;
 import gov.nih.nci.ispy.util.ISPYListLoader;
@@ -20,13 +22,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
 public final class LoginForm extends BaseForm
 {
+/**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 private static Logger logger = Logger.getLogger(ispyConstants.LOGGER);
 private static String SEPERATOR = File.separator;
 private boolean userLoggedIn = false;
@@ -130,10 +135,13 @@ public ActionErrors validate(ActionMapping mapping,
             // load IspySpecific clinical status lists
             userListBean = ISPYListLoader.loadStatusGroups(userListBean);
             //add userListBean to session
-            session.setAttribute(CacheConstants.USER_LISTS,userListBean);  
+            UserListBeanHelper userListBeanHelper = new UserListBeanHelper(session.getId());
+            userListBeanHelper.addBean(session.getId(),CacheConstants.USER_LISTS,userListBean);
+            //session.setAttribute(CacheConstants.USER_LISTS,userListBean);  
             
             //load database-dependent dropdowns
-            Map<String,Collection> uiLookupMap = UILookupMapLoader.getMap();
+            UILookupMapLoader uiLookupMapLoader = (UILookupMapLoader)SpringContext.getBean("uiLookupLoader");
+            Map<String,Collection> uiLookupMap = uiLookupMapLoader.getMap();
             session.setAttribute(ispyConstants.UI_LOOKUPS,uiLookupMap);
         }
         
