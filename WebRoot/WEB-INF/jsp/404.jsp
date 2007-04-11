@@ -23,7 +23,7 @@
 		<script language="javascript" src="js/overlib.js"></script>
 		<script language="javascript" src="js/overlib_hideform.js"></script>
 
-		<style type="text/css" media="screen">@import "css/tabs.css"</style>
+		<style type="text/css" media="screen">@import "/css/tabs.css"</style>
 
 	</head>
 

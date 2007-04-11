@@ -22,7 +22,6 @@ import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingS
 import gov.nih.nci.caintegrator.util.ValidationUtility;
 import gov.nih.nci.ispy.dto.query.ISPYHierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
-import gov.nih.nci.ispy.service.annotation.GeneExprFileBasedAnnotationService;
 import gov.nih.nci.ispy.service.annotation.ISPYDataType;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;

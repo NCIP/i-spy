@@ -5,9 +5,9 @@ import gov.nih.nci.caintegrator.analysis.messaging.ReporterInfo;
 import gov.nih.nci.ispy.service.clinical.ContinuousType;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.ArrayList;
 
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;

@@ -1,8 +1,8 @@
 package gov.nih.nci.ispy.service.annotation;
 
-import java.util.EnumSet;
-
 import gov.nih.nci.ispy.service.common.TimepointType;
+
+import java.util.EnumSet;
 
 public class SampleInfo {
 	

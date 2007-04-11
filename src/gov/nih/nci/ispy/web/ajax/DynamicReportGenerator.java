@@ -4,7 +4,6 @@ import gov.nih.nci.caintegrator.application.bean.FindingReportBean;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.application.cache.CacheFactory;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
-import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ajax.CommonListFunctions;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;

@@ -1,12 +1,13 @@
 package gov.nih.nci.ispy.web.helper;
 
+import gov.nih.nci.caintegrator.application.cache.CacheFactory;
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
+import gov.nih.nci.caintegrator.ui.graphing.util.FileDeleter;
+import gov.nih.nci.ispy.cache.ISPYContextListener;
+
 import java.io.File;
 
 import org.apache.log4j.Logger;
-
-import gov.nih.nci.caintegrator.ui.graphing.util.FileDeleter;
-import gov.nih.nci.caintegrator.application.cache.*;
-import gov.nih.nci.ispy.cache.ISPYContextListener;
 
 /**
  * This class handles image files for the rembrandt application.  Since this 

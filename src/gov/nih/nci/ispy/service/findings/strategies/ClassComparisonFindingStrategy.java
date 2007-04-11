@@ -5,22 +5,33 @@ import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.de.ExprFoldChangeDE;
-import gov.nih.nci.caintegrator.dto.de.SampleIDDE;
-import gov.nih.nci.caintegrator.dto.query.*;
-import gov.nih.nci.caintegrator.enumeration.*;
-import gov.nih.nci.caintegrator.exceptions.*;
+import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
+import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
+import gov.nih.nci.caintegrator.dto.query.QueryDTO;
+import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
+import gov.nih.nci.caintegrator.enumeration.FindingStatus;
+import gov.nih.nci.caintegrator.enumeration.StatisticalMethodType;
+import gov.nih.nci.caintegrator.enumeration.StatisticalSignificanceType;
+import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
+import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
+import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.ClassComparisonFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
 import gov.nih.nci.caintegrator.util.ValidationUtility;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.dto.query.PatientUserListQueryDTO;
-import gov.nih.nci.ispy.service.annotation.*;
+import gov.nih.nci.ispy.service.annotation.ISPYDataType;
+import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
+import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.jms.JMSException;
 import javax.naming.NamingException;
@@ -94,11 +105,8 @@ public class ClassComparisonFindingStrategy extends SessionBasedFindingStrategy 
 	private static Logger logger = Logger.getLogger(ClassComparisonFindingStrategy.class);	
 	@SuppressWarnings("unused")
 	private ClassComparisonQueryDTO myQueryDTO;
-	//@SuppressWarnings("unused")
-	//private Collection<ClinicalDataQuery> clinicalQueries;
-	//@SuppressWarnings({"unchecked"})
-	private List<SampleGroup> sampleGroups = new ArrayList<SampleGroup>(); 
-	private Collection<SampleIDDE> samplesNotFound = new HashSet<SampleIDDE>(); 
+	
+	
 	private ClassComparisonRequest classComparisonRequest = null;
 	private ClassComparisonFinding classComparisonFinding;
 	private AnalysisServerClientManager analysisServerClientManager;

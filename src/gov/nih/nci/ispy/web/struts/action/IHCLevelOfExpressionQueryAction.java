@@ -9,8 +9,6 @@ import gov.nih.nci.caintegrator.studyQueryService.dto.protein.ProteinBiomarkerCr
 import gov.nih.nci.caintegrator.studyQueryService.dto.study.SpecimenCriteria;
 import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
-import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
-import gov.nih.nci.ispy.service.ihc.LocalizationType;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
 import gov.nih.nci.ispy.web.helper.EnumHelper;

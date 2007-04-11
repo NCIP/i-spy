@@ -14,8 +14,6 @@ import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
 import gov.nih.nci.ispy.service.clinical.RaceType;
 import gov.nih.nci.ispy.service.common.TimepointType;
 
-
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 

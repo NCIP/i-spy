@@ -63,13 +63,20 @@ import gov.nih.nci.breastCancer.service.ClinicalFindingHandler;
 import gov.nih.nci.caintegrator.domain.common.bean.NumericMeasurement;
 import gov.nih.nci.caintegrator.domain.finding.clinical.bean.ClinicalFinding;
 import gov.nih.nci.caintegrator.domain.finding.clinical.breastCancer.bean.BreastCancerClinicalFinding;
-import gov.nih.nci.caintegrator.domain.study.bean.*;
+import gov.nih.nci.caintegrator.domain.study.bean.Activity;
+import gov.nih.nci.caintegrator.domain.study.bean.Procedure;
+import gov.nih.nci.caintegrator.domain.study.bean.Surgery;
 import gov.nih.nci.caintegrator.enumeration.Operator;
 import gov.nih.nci.caintegrator.util.HibernateUtil;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.common.TimepointType;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -105,7 +112,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
             // Loop through the set and get the ID's
             for (ClinicalFinding theFinding : theFindings)
             {
-                theReturnSet.add(theFinding.getStudyParticipant().getId());
+                theReturnSet.add(theFinding.getStudyParticipant().getStudySubjectIdentifier());
             }
 
             logger.info("DIDs " + theReturnSet);
@@ -178,7 +185,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
     {
         logger.debug("Entering populatePatientData");
 
-        PatientData thePatientData = new PatientData(inFinding.getStudyParticipant().getId());
+        PatientData thePatientData = new PatientData(inFinding.getStudyParticipant().getStudySubjectIdentifier());
 
         //////////////////////////////////////////////////////////
         // Map the age 

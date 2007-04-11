@@ -4,6 +4,8 @@
 <%@ taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app"%>
 
+
+       
 <%
 if(session.getAttribute("logged") == "yes")
 {
@@ -38,7 +40,7 @@ response.setHeader("Location",newLocn);
 
 	<body>
 
-
+ 
 		<!--header NCI logo-->
 		<table width="765" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#A90101">
 			<tr bgcolor="#A90101">

@@ -1,10 +1,10 @@
 package gov.nih.nci.ispy.test;
 
+import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
+import gov.nih.nci.ispy.service.annotation.RegistrantInfo;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import gov.nih.nci.ispy.service.annotation.RegistrantInfo;
-import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 
 public class IdMapperFileBasedServiceTester {
 

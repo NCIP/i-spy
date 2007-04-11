@@ -1,29 +1,16 @@
 package gov.nih.nci.ispy.web.taglib;
 
-import gov.nih.nci.caintegrator.service.findings.HCAFinding;
-
-import gov.nih.nci.caintegrator.ui.graphing.util.ImageMapUtil;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.application.cache.CacheFactory;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
-import gov.nih.nci.caintegrator.application.cache.*;
-
+import gov.nih.nci.caintegrator.service.findings.HCAFinding;
 import gov.nih.nci.ispy.web.helper.ISPYImageFileHandler;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Toolkit;
-import java.awt.image.ImageObserver;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -32,10 +19,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
 import org.apache.log4j.Logger;
-import org.jfree.chart.ChartRenderingInfo;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.entity.StandardEntityCollection;
 
 /**
  * this class generates a PCAPlot tag which will take a taskId, the components

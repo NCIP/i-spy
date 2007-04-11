@@ -1,30 +1,42 @@
 package gov.nih.nci.ispy.util;
 
-import gov.nih.nci.caintegrator.util.HibernateUtil;
-import gov.nih.nci.ispy.service.ihc.LevelOfExpressionIHCService;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 public class UILookupMapLoader {
     static private Map<String, Collection> lookupMap = new HashMap<String, Collection>();
+    // This is the Hibernate Session factory that is injected by Spring
+    private SessionFactory sessionFactory;
     
-    public static Map<String, Collection> getMap(){
-        Session theSession = HibernateUtil.getSession();
+    /**
+     * @return Returns the sessionFactory.
+     */
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    /**
+     * @param sessionFactory The sessionFactory to set.
+     */
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    public Map<String, Collection> getMap(){
+        //Session theSession = HibernateUtil.getSession();
+        Session theSession = sessionFactory.getCurrentSession();
         //Session theSession = HibernateUtil.getSessionFactory().getCurrentSession();
-        theSession.beginTransaction();
+        //theSession.beginTransaction();
         String theHQL = "";
         Query theQuery = null;
         Collection objs = null;
         
-        try{
         //GET BIOMARKERS       
         theHQL = "from ProteinBiomarker AS p";        
         theQuery = theSession.createQuery(theHQL);
@@ -56,17 +68,8 @@ public class UILookupMapLoader {
         objs = theQuery.list();
         ArrayList<String> resultCodes = new ArrayList<String>(objs);
         lookupMap.put(ispyConstants.IHC_LOSS_RESULTCODES,resultCodes);
-        }
         
-        finally
-        {
-            // Close the session if necessart
-            if (theSession != null)
-            {
-                theSession.close();
-            }
-        }
-
+        
         return lookupMap;
     }
 

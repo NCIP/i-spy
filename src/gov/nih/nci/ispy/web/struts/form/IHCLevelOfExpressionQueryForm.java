@@ -1,15 +1,10 @@
 package gov.nih.nci.ispy.web.struts.form;
 
 import gov.nih.nci.ispy.service.common.TimepointType;
-import gov.nih.nci.ispy.service.ihc.DistributionType;
-import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
-import gov.nih.nci.ispy.service.ihc.LocalizationType;
-import gov.nih.nci.ispy.web.helper.BiomarkerRetriever;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.util.LabelValueBean;

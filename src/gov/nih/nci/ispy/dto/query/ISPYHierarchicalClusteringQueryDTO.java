@@ -1,9 +1,9 @@
 package gov.nih.nci.ispy.dto.query;
 
-import java.util.List;
-
 import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
 import gov.nih.nci.ispy.service.common.TimepointType;
+
+import java.util.List;
 
 
 public interface ISPYHierarchicalClusteringQueryDTO extends HierarchicalClusteringQueryDTO {

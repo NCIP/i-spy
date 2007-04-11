@@ -1,8 +1,5 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
@@ -12,10 +9,12 @@ import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.clinical.ClinicalCGOMBasedQueryService;
-import gov.nih.nci.ispy.service.clinical.ClinicalFileBasedQueryService;
 import gov.nih.nci.ispy.service.clinical.PatientData;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Strategy to get Clinical findings from the CGOM.

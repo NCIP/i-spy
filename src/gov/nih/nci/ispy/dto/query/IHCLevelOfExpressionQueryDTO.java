@@ -1,15 +1,13 @@
 package gov.nih.nci.ispy.dto.query;
 
 
+import gov.nih.nci.caintegrator.dto.query.IHCqueryDTO;
 import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.ihc.DistributionType;
 import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
 import gov.nih.nci.ispy.service.ihc.LocalizationType;
-import gov.nih.nci.caintegrator.dto.query.IHCqueryDTO;
-import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Set;
 
 public class IHCLevelOfExpressionQueryDTO implements IHCqueryDTO {

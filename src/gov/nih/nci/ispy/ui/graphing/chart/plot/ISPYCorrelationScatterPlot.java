@@ -18,7 +18,6 @@ import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.service.ihc.LevelOfExpressionIHCService;
 import gov.nih.nci.ispy.service.ihc.LossOfExpressionIHCService;
 import gov.nih.nci.ispy.ui.graphing.data.ISPYPlotPoint;
-import java.util.Collections;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

@@ -1,8 +1,8 @@
 package gov.nih.nci.ispy.service.clinical;
 
-import java.util.Set;
-
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
+
+import java.util.Set;
 
 /**
  * The ClinicalDataService should be implemented by all services

@@ -1,15 +1,12 @@
 package gov.nih.nci.ispy.web.helper;
 
-import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.domain.annotation.protein.bean.ProteinBiomarker;
 import gov.nih.nci.ispy.util.ispyConstants;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 

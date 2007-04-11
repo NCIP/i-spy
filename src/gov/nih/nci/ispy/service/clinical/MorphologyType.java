@@ -1,6 +1,5 @@
 package gov.nih.nci.ispy.service.clinical;
 
-import java.io.Serializable;
 
 
 

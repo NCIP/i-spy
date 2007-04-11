@@ -4,16 +4,11 @@ import gov.nih.nci.caintegrator.application.lists.ListManager;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBean;
-import gov.nih.nci.ispy.util.ApplicationContext;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 
-
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.dom4j.Document;
 
 
 

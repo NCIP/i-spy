@@ -1,13 +1,7 @@
 package gov.nih.nci.ispy.web.helper;
 
-import gov.nih.nci.caintegrator.application.lists.UserList;
-
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
-import org.apache.struts.util.LabelValueBean;
 
 public class BiomarkerRetriever {
     

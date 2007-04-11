@@ -1,15 +1,11 @@
 package gov.nih.nci.ispy.web.taglib;
 
-import gov.nih.nci.ispy.util.ispyConstants;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-
-import org.apache.struts.config.ModuleConfig;
 
 /**
 * caIntegrator License

@@ -2,10 +2,8 @@ package gov.nih.nci.ispy.service.clinical;
 
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 
-import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class ClinicalFileBasedServiceTester {

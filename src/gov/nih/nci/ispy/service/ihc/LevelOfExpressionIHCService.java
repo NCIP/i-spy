@@ -1,5 +1,6 @@
 package gov.nih.nci.ispy.service.ihc;
 
+import gov.nih.nci.caintegrator.application.configuration.SpringContext;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.study.SpecimenCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.ihc.LevelOfExpressionIHCFindingHandler;
@@ -35,7 +36,7 @@ public class LevelOfExpressionIHCService {
      * @return theFindings
      */
     public Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> getFindings(LevelOfExpressionIHCFindingCriteria criteria){
-        LevelOfExpressionIHCFindingHandler theHandler = criteria.getHandler();
+        LevelOfExpressionIHCFindingHandler theHandler = (LevelOfExpressionIHCFindingHandler) SpringContext.getBean("levelOfExpressionFindingsHandler");
         Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> theFindings = theHandler.getLevelExpFindings(criteria);
         return theFindings;
     }

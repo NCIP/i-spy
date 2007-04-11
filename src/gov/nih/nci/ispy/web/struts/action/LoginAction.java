@@ -1,23 +1,13 @@
 package gov.nih.nci.ispy.web.struts.action;
 
-import gov.nih.nci.caintegrator.application.cache.CacheConstants;
-import gov.nih.nci.caintegrator.application.lists.UserListBean;
-import gov.nih.nci.caintegrator.security.SecurityManager;
-import gov.nih.nci.caintegrator.security.UserCredentials;
-import gov.nih.nci.ispy.util.ISPYListLoader;
 import gov.nih.nci.ispy.util.ispyConstants;
-import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 import gov.nih.nci.ispy.web.struts.form.LoginForm;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Properties;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;

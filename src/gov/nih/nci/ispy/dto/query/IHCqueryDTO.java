@@ -1,12 +1,11 @@
 package gov.nih.nci.ispy.dto.query;
 
+import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.ispy.service.clinical.TimepointType;
 import gov.nih.nci.ispy.service.ihc.IntensityOfStainType;
 import gov.nih.nci.ispy.service.ihc.LocalizationType;
-import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Set;
 
 public class IHCqueryDTO implements QueryDTO {

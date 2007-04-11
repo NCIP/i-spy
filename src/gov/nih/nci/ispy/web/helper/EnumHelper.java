@@ -1,8 +1,5 @@
 package gov.nih.nci.ispy.web.helper;
 
-import gov.nih.nci.ispy.service.common.TimepointType;
-
-import java.util.EnumSet;
 
 /**
  * This class was written to deal with a bug found when running on the dev

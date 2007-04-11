@@ -2,7 +2,6 @@ package gov.nih.nci.ispy.service.common;
 
 import java.awt.Color;
 import java.io.Serializable;
-import java.util.List;
 
 
 

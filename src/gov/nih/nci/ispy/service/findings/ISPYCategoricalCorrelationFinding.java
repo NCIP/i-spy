@@ -1,16 +1,14 @@
 package gov.nih.nci.ispy.service.findings;
 
-import java.util.List;
-
 import gov.nih.nci.caintegrator.analysis.messaging.AnalysisResult;
-import gov.nih.nci.caintegrator.analysis.messaging.CategoricalCorrelationResult;
 import gov.nih.nci.caintegrator.analysis.messaging.CategoricalCorrelationRequest;
-import gov.nih.nci.caintegrator.analysis.messaging.CorrelationResult;
+import gov.nih.nci.caintegrator.analysis.messaging.CategoricalCorrelationResult;
 import gov.nih.nci.caintegrator.analysis.messaging.DataPointVector;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.service.findings.AnalysisFinding;
-import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.service.clinical.ContinuousType;
+
+import java.util.List;
 
 public class ISPYCategoricalCorrelationFinding extends AnalysisFinding {
 

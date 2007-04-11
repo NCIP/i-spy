@@ -1,6 +1,5 @@
 package gov.nih.nci.ispy.util;
 
-import java.io.Serializable;
 
 /**
 * caIntegrator License

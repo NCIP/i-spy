@@ -1,10 +1,9 @@
 package gov.nih.nci.ispy.service.clinical;
 
+import java.awt.Color;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.awt.Color;
 
 /**
  * Disease Stage 

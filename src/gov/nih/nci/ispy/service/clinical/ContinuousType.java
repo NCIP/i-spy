@@ -1,8 +1,6 @@
 package gov.nih.nci.ispy.service.clinical;
 
-import java.awt.Color;
 import java.io.Serializable;
-import java.util.List;
 
 
 

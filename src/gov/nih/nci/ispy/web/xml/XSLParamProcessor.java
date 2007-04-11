@@ -1,7 +1,5 @@
 package gov.nih.nci.ispy.web.xml;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class XSLParamProcessor {

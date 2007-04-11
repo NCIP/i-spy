@@ -2,7 +2,6 @@ package gov.nih.nci.ispy.service.findings.strategies;
 
 import gov.nih.nci.caintegrator.analysis.messaging.CorrelationRequest;
 import gov.nih.nci.caintegrator.analysis.messaging.DataPoint;
-import gov.nih.nci.caintegrator.analysis.messaging.DoubleVector;
 import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
 import gov.nih.nci.caintegrator.analysis.messaging.IdList;
 import gov.nih.nci.caintegrator.analysis.messaging.ReporterInfo;
@@ -16,7 +15,6 @@ import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
-import gov.nih.nci.caintegrator.service.findings.CorrelationFinding;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
 import gov.nih.nci.ispy.dto.query.CorrelationQueryDTO;

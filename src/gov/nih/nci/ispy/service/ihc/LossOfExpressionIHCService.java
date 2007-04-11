@@ -1,5 +1,6 @@
 package gov.nih.nci.ispy.service.ihc;
 
+import gov.nih.nci.caintegrator.application.configuration.SpringContext;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.study.SpecimenCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.ihc.LossOfExpressionIHCFindingHandler;
@@ -35,7 +36,7 @@ public class LossOfExpressionIHCService {
      * @return theFindings
      */
     public Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> getFindings(LossOfExpressionIHCFindingCriteria criteria){
-        LossOfExpressionIHCFindingHandler theHandler = criteria.getHandler();
+        LossOfExpressionIHCFindingHandler theHandler = (LossOfExpressionIHCFindingHandler) SpringContext.getBean("lossOfExpressionFindingsHandler");
         Collection<? extends gov.nih.nci.caintegrator.domain.finding.bean.Finding> theFindings = theHandler.getLossExpFindings(criteria);
         return theFindings;
     }

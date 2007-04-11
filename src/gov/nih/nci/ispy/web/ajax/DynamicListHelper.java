@@ -1,39 +1,16 @@
 package gov.nih.nci.ispy.web.ajax;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-
-import gov.nih.nci.caintegrator.application.lists.ListManager;
 import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ListType;
-import gov.nih.nci.caintegrator.application.lists.UserList;
-import gov.nih.nci.caintegrator.application.lists.UserListBean;
-import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.application.lists.ajax.CommonListFunctions;
-import gov.nih.nci.ispy.util.ispyConstants;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.naming.OperationNotSupportedException;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang.StringUtils;
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import uk.ltd.getahead.dwr.ExecutionContext;
 
 public class DynamicListHelper {
 /**
