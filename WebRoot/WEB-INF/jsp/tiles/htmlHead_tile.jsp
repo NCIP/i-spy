@@ -21,6 +21,7 @@
 	<script language="javascript" src="js/moveUpDown.js"></script>
 	<script type="text/javascript" src="js/menuSwapper.js"></script>
 	<script language="javascript" src="js/overlib.js"></script>
+	<script type='text/javascript' src='dwr/interface/Inbox.js'></script>
 	<script language="javascript" src="js/overlib_hideform.js"></script>
 		
 	<style type="text/css" media="screen">@import "css/tabs.css";</style>
