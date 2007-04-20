@@ -6,7 +6,6 @@
     <session-factory>
  		<!-- Database connection settings -->
 		<property name="connection.datasource">java:/ispy</property>
-		<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
 		
         <property name="hibernate.show_sql">false</property>
 		<property name="hibernate.max_fetch_depth">1</property>
