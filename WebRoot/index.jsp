@@ -87,7 +87,7 @@ response.setHeader("Location",newLocn);
 												</p>
 												
 												<br /><br />version 1.0</br/>
-												<span style="font-style:italic">Latest data refresh: 1/30/07</span><br /><br />
+												<span style="font-style:italic">Latest data refresh: (Clinical 4/17/2007)</span><br /><br />
 													
 													
 											</div>
