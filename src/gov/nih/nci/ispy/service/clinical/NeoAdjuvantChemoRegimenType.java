@@ -42,7 +42,9 @@ public enum NeoAdjuvantChemoRegimenType {
 	AC_TD_NAVELBINE_XELODA { public String toString() { return "22=AC->Td->Navelbine->Xeloda"; }
 	 						 public String getLookupString() { return toString();}},
 	AC_TP_VINORELBINE_TARCENA { public String toString() { return "23=AC->Tp->Vinorelbine->Tarcena"; }
-	 							public String getLookupString() { return toString();}};
+	 							public String getLookupString() { return toString();}},
+	C_TP 				{ public String toString() { return "24=C->Tp"; }
+	 					  public String getLookupString() { return toString();}};
    
 	public abstract String getLookupString();
 	
