@@ -2,6 +2,7 @@
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <%@ page buffer="none" %>
 <%@ page import="gov.nih.nci.caintegrator.application.cache.*" %>
+<%@ page import="java.util.ArrayList" %>
 
 <html>
 	<head>
@@ -36,6 +37,17 @@
 String key = "test";
 if(request.getParameter("taskId")!=null)
 	key = (String) request.getParameter("taskId");
+	
+
+String newReport="";
+if(request.getParameter("newReport")!=null){
+	newReport = (String) request.getParameter("newReport");	
+		if(session.getAttribute("clinical_tmpSampleList")!=null){
+			ArrayList al = new ArrayList();
+			al = (ArrayList) session.getAttribute("clinical_tmpSampleList");
+			al.clear();
+		}
+	}
 
 
 String xhtml = "nada";

@@ -1,5 +1,6 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
+import gov.nih.nci.caintegrator.application.bean.FindingReportBean;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
@@ -56,14 +57,17 @@ public class ClinicalFindingStrategyFile extends ClinicalFindingStrategy{
 	    
 	    
 	    //put the result into the finding
-	    clinicalFinding.setPatientData(new ArrayList<PatientData>(patientData));
-       
+	    clinicalFinding.setPatientData(new ArrayList<PatientData>(patientData));        
+        FindingReportBean frb = new FindingReportBean();
+        frb.setFinding(clinicalFinding);
+        ApplicationFactory.getPresentationTierCache().addPersistableToSessionCache(clinicalFinding.getSessionId(),clinicalFinding.getTaskId(), frb);
+        
 	    return true;
 	}
 
 	public boolean analyzeResultSet() throws FindingsAnalysisException {
-        cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), clinicalFinding);
         clinicalFinding.setStatus(FindingStatus.Completed);
+        cacheManager.addToSessionCache(this.getSessionId(), this.getTaskId(), clinicalFinding);        
 		return true;
 	}
 

@@ -5,8 +5,10 @@ import gov.nih.nci.caintegrator.application.cache.CacheFactory;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.report.LevelOfExpressionIHCReport;
 import gov.nih.nci.caintegrator.application.report.LossOfExpressionIHCReport;
+import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLevelOfExpressionFinding;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLossOfExpressionFinding;
+import gov.nih.nci.ispy.web.reports.quick.QuickClinicalReport;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -84,7 +86,7 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
                         ptc.addPersistableToSessionCache(frb.getFinding().getSessionId(), frb.getFinding().getTaskId(), frb);
                     }                  
                 }
-                if(frb.getFinding() instanceof ISPYIHCLossOfExpressionFinding){
+                else if(frb.getFinding() instanceof ISPYIHCLossOfExpressionFinding){
                     if(frb.getExcelDoc()!=null){
                         wb = frb.getExcelDoc();
                     }
@@ -94,6 +96,17 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
                         ptc.addPersistableToSessionCache(frb.getFinding().getSessionId(), frb.getFinding().getTaskId(), frb);
                     }  
                 }
+                else if(frb.getFinding() instanceof ISPYClinicalFinding){
+                    if(frb.getExcelDoc()!=null){
+                        wb = frb.getExcelDoc();
+                    }
+                    else{                        
+                        wb = QuickClinicalReport.getReportExcel(frb.getFinding());                        
+                        frb.setExcelDoc(wb);
+                        ptc.addPersistableToSessionCache(frb.getFinding().getSessionId(), frb.getFinding().getTaskId(), frb);
+                    }  
+                }
+
 
                
                 if (wb != null) {

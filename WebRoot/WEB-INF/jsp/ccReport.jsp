@@ -2,6 +2,7 @@
 <%@ taglib uri="/WEB-INF/ispy.tld" prefix="app" %>
 <%@ page buffer="none" %>
 <%@ page import="gov.nih.nci.caintegrator.application.cache.*" %>
+<%@ page import="java.util.ArrayList" %>
 
 <html>
 	<head>
@@ -33,9 +34,20 @@
 //get the main params from the request
 //these will actually be given to the XSL for transformation via AJAX
 
-String key = "test";
+String key="test";
 if(request.getParameter("key")!=null)
 	key = (String) request.getParameter("key");
+	
+String newReport="";
+if(request.getParameter("newReport")!=null){
+	newReport = (String) request.getParameter("newReport");	
+		if(session.getAttribute("tmpGeneList")!=null){
+			ArrayList al = new ArrayList();
+			al = (ArrayList) session.getAttribute("tmpGeneList");
+			al.clear();
+		}
+	}
+	
 
 
 String xhtml = "nada";
@@ -123,6 +135,9 @@ else	{
 			//html is nothing now
 			imgC.style.display = "none";
 			location.replace(window.location);
+			
+			
+			
 			//location.replace("/rembrandt/testReport.do?key=<%=key%>");
 		}
 		

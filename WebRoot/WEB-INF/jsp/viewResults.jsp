@@ -101,13 +101,13 @@
 						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('quickClinical.do?taskId=" + f.getTaskId() + "', 750, 500,'clinical_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Clinical)</i> ");
 					}
 					if(f instanceof ISPYIHCLevelOfExpressionFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=" + f.getTaskId() + "', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Level)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=" + f.getTaskId() + "&newReport=true', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Level)</i> ");
 					}
 					if(f instanceof ISPYIHCLossOfExpressionFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=" + f.getTaskId() + "', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Loss)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=" + f.getTaskId() + "&newReport=true', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Loss)</i> ");
 					}
 					if(f instanceof ClassComparisonFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('testReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(CC)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('testReport.do?key=" + f.getTaskId() + "&newReport=true', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(CC)</i> ");
 					}
 					if(f instanceof HCAFinding){
 						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('hcReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + " </a> <i>(HC)</i> ");

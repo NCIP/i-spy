@@ -1,7 +1,8 @@
 <%@ page language="java" %>
 <%@ page import="java.util.*, java.lang.*, java.net.URLEncoder " %>
 <%@ page import="java.util.ArrayList, gov.nih.nci.ispy.web.reports.quick.*" %>
-<script language="javascript" src="js/Help.js"></script>
+
+
 <%
 	String[] sampleArray = request.getParameterValues("sampleList");
 	String taskId = request.getParameter("taskId");
@@ -22,12 +23,19 @@
 %>
 <html>
 	<head>
-		<link href="xsl/css.css" rel="stylesheet" type="text/css" />
+		<LINK href="xsl/css.css" rel="stylesheet" type="text/css" />
+		<script language="JavaScript" src="js/box/browserSniff.js"></script>
 		<script type="text/javascript" src="js/stripeScript.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/prototype_1.5pre.js"></script>
 		<script language="JavaScript" type="text/javascript" src="js/event-selectors.js"></script>
 		<script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
 		<script type='text/javascript' src='dwr/engine.js'></script>
+		<script language="JavaScript" type="text/javascript" src="js/overlib.js"></script>
+		<script language="JavaScript" type="text/javascript" src="js/overlib_hideform.js"></script>
+		<script language="JavaScript" type="text/javascript" src="js/caIntScript.js"></script> 
+		<script language="javascript" src="js/Help.js"></script>
+		
+		
 		
 		<style>
 			.reportTable input, #reportTable input	{
@@ -177,19 +185,30 @@
 		</style>
 	</head>
 	<body>
+	<div style="background-color: #ffffff"><img src="images/ispyPortalHeader.gif" /></div>
+  
 		<%
 		String fromGraph = request.getParameter("fromGraph");		
 		if(fromGraph!=null && fromGraph.equalsIgnoreCase("true")){
 		
 		%>
-		<div>
 		
-			<a href="javascript:history.back()">&lt;&lt;&lt;back</a><br/>
-			
+		<div>
+		<a href="javascript:history.back()">&lt;&lt;&lt;back</a><br/>
 	
 		</div>
 		<%}%>
 		<div>
+		
+		<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;">Help</div>
+		
+		
+		<div>
+			
+			<a href="clinical.excelReport?key=<%= taskId %>"><img align="right" src="images/excel.png" border="0" alt="download for excel" onmouseover="return overlib('Download for Excel.', CAPTION, 'Help', CSSCLASS,TEXTFONTCLASS,'fontClass',FGCLASS,'fgClass',BGCLASS,'bgClass',CAPTIONFONTCLASS,'capfontClass', OFFSETX, -50);" onmouseout="return nd();"/></a>
+		  <a href="#" onclick="javascript:window.print();"><img align="right" src="images/print.png" border="0" onmouseover="return overlib('Print this report.', CAPTION, 'Help', CSSCLASS,TEXTFONTCLASS,'fontClass',FGCLASS,'fgClass',BGCLASS,'bgClass',CAPTIONFONTCLASS,'capfontClass', OFFSETX, -50);" onmouseout="return nd();"/> </a> 
+		  <a href="#queryInfo"><img align="right" src="images/text.png" border="0" onmouseover="return overlib('View Query Information (To be implemented in future)', CAPTION, 'Help', CSSCLASS,TEXTFONTCLASS,'fontClass',FGCLASS,'fgClass',BGCLASS,'bgClass',CAPTIONFONTCLASS,'capfontClass', OFFSETX, -50);" onmouseout="return nd();"/></a>
+		  </div><br />
 		<script type="text/javascript">Help.insertHelp("Clinical_report", " align='left'", "padding:2px;");</script>
 		
 		Save Selected: <input type="text" id="listName"/>

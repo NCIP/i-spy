@@ -160,7 +160,8 @@ var SaveGenes = {
 			SaveGenes.A_saveTmpGene_cb(txt);
 			//now, check the ones if theyve been previously selected
 			var field = document.getElementsByName('tmpReporter');
-			if(field.length > 1 && SaveGenes.currentTmpReporters != "")	{
+			
+			if(field.length >= 1 && SaveGenes.currentTmpReporters != "")	{				
 				for (i = 0; i < field.length; i++)	{
 					if(SaveGenes.currentTmpReporters.indexOf(field[i].value) != -1 )
 						field[i].checked = true ;

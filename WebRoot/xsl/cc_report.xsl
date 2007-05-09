@@ -225,7 +225,7 @@
 	  <xsl:text>&#160;</xsl:text>
 	  <select name="changeStep" onchange="javascript: goPageChangeStep('{$p_page}', this.value);">
 	  	<option value=""><xsl:value-of select="$p_step"/> per page</option>
-	  	<option value="1">1</option>
+	  	
 	  	<option value="5">5</option>
 	  	<option value="10">10</option>
 	  	<option value="25">25</option>

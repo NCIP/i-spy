@@ -14,6 +14,8 @@ response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
 String newLocn = "simpleSearch.do";
 response.setHeader("Location",newLocn);
 }
+String update = System.getProperty("gov.nih.nci.ispyportal.data_updates");
+String[] updates = update.split(",");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -88,8 +90,16 @@ response.setHeader("Location",newLocn);
 													The NCI Center for Bioinformatics (NCICB) is designing a web-based system to support correlative data analysis and centralized reporting of results.
 												</p>
 												
-												<br /><br />version 1.0</br/>
-												<span style="font-style:italic">Latest data refresh: 1/30/07</span><br /><br />
+												<br /><span style="font-weight:bold;font-style:italic">version 1.0</span><br/><br/>
+													<span style="text-decoration:underline">Latest data updates</span>
+														<ul>
+														<%
+														for(int i=0;i<updates.length;i++){
+															out.print("<li>" + updates[i] + "</li>");
+														}
+														%>															
+														</ul>
+														
 													
 													
 											</div>
@@ -101,6 +111,7 @@ response.setHeader("Location",newLocn);
 													<!--login form/table begins-->
 													<html:form action="login.do">
 														<div style="width:200px">
+															<br /><span style="font-size:16px;color:gray;text-align:left">login</span>
 															<html:errors property="invalidLogin" />
 														</div>
 														<table border="0">
