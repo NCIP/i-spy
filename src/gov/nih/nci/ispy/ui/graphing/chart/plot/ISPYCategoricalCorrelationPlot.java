@@ -4,6 +4,7 @@ import gov.nih.nci.caintegrator.analysis.messaging.DataPointVector;
 import gov.nih.nci.caintegrator.analysis.messaging.ReporterInfo;
 import gov.nih.nci.ispy.service.clinical.ContinuousType;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,9 +14,13 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.CategoryToolTipGenerator;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BoxAndWhiskerRenderer;
+import gov.nih.nci.caintegrator.ui.graphing.chart.plot.BoxAndWhiskerCoinPlotRenderer;
+import gov.nih.nci.caintegrator.ui.graphing.chart.plot.FaroutOutlierBoxAndWhiskerCalculator;
+
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
 
@@ -50,17 +55,51 @@ public class ISPYCategoricalCorrelationPlot {
 		
 		CategoryAxis domainAxis = new CategoryAxis(null);
 		NumberAxis rangeAxis = new NumberAxis(yLabel);
-		BoxAndWhiskerRenderer renderer = new BoxAndWhiskerRenderer();
+		//BoxAndWhiskerRenderer renderer = new BoxAndWhiskerRenderer();
+		
+		BoxAndWhiskerCoinPlotRenderer renderer = new BoxAndWhiskerCoinPlotRenderer();
+		renderer.setDisplayAllOutliers(true);
 		CategoryPlot plot = new CategoryPlot(chartData, domainAxis, rangeAxis, renderer);
 		
         domainAxis.setCategoryLabelPositions(
                 CategoryLabelPositions.createUpRotationLabelPositions(
                         45.0 * Math.PI / 180.0));
 		catCorrChart = new JFreeChart(title, plot);
+		catCorrChart.removeLegend();
 	    //renderer.setFillBox(false);
 	    String cat =(String) chartData.getColumnKey(0);
 	   	    
-	    renderer.setToolTipGenerator(new StandardCategoryToolTipGenerator());
+	    //renderer.setToolTipGenerator(new StandardCategoryToolTipGenerator());
+	    renderer.setToolTipGenerator(new CategoryToolTipGenerator() { 
+		public String generateToolTip(CategoryDataset dataset,int series, int item) {
+			String tt="";
+			NumberFormat formatter = new DecimalFormat(".####");
+			String key = "";
+		    //String s = formatter.format(-1234.567);  // -001235
+		    if(dataset instanceof DefaultBoxAndWhiskerCategoryDataset){
+			    DefaultBoxAndWhiskerCategoryDataset ds = (DefaultBoxAndWhiskerCategoryDataset)dataset;
+			    try	{
+					String med = formatter.format(ds.getMedianValue(series, item));
+					tt += "Median: " + med + "<br/>";
+					tt += "Mean: " + formatter.format(ds.getMeanValue(series, item))+"<br/>";
+					tt += "Q1: " + formatter.format(ds.getQ1Value(series, item))+"<br/>";
+					tt += "Q3: " + formatter.format(ds.getQ3Value(series, item))+"<br/>";
+					tt += "Max: " + formatter.format(
+							FaroutOutlierBoxAndWhiskerCalculator.getMaxFaroutOutlier(ds,series, item))+"<br/>";
+					tt += "Min: " + formatter.format(
+							FaroutOutlierBoxAndWhiskerCalculator.getMinFaroutOutlier(ds,series, item))+"<br/>";
+					//tt += "<br/><br/>Please click on the box and whisker to view a plot for this reporter.<br/>";
+					//tt += "X: " + ds.getValue(series, item).toString()+"<br/>";
+					//tt += "<br/><a href=\\\'#\\\' id=\\\'"+ds.getRowKeys().get(series)+"\\\' onclick=\\\'alert(this.id);return false;\\\'>"+ds.getRowKeys().get(series)+" plot</a><br/><br/>";
+					key = ds.getRowKeys().get(series).toString();
+			    }
+			    catch(Exception e) {}
+		    }
+		    
+			return  tt;						}
+
+	});
+	    
 	    
 //        renderer.setToolTipGenerator(new CategoryToolTipGenerator() {
 //        	
