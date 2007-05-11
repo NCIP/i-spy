@@ -7,7 +7,7 @@
 
        
 <%
-if(session.getAttribute("logged") == "yes")
+if(session.getAttribute("logged")!=null &&  session.getAttribute("logged").equals("yes"))
 {
 //youre already logged in, why are you here?
 response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
@@ -22,10 +22,10 @@ String[] updates = update.split(",");
 <html>
 	<head>
 		<title>ISPY Post Analysis Portal-Login</title>
-		<tiles:insert attribute="htmlHead" />
+		
 		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 		<META HTTP-EQUIV="Expires" CONTENT="-1">
-
+		
 		<LINK href="css/bigStyle.css" rel="stylesheet" type="text/css">
 		<script language="javascript" src="js/caIntScript.js"></script>
 		<script language="javascript" src="js/box/browserSniff.js"></script>
@@ -36,6 +36,7 @@ String[] updates = update.split(",");
 		<script language="javascript" src="js/overlib.js"></script>
 		<script language="javascript" src="js/overlib_hideform.js"></script>
 
+		
 		<style type="text/css" media="screen">@import "css/tabs.css";</style>
 
 	</head>

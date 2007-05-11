@@ -159,9 +159,9 @@ if(request.getParameter("key")!=null)
 					try	{
 						if(!window.opener.closed)	{
 							if(reportType == "GENE")
-								window.opener.SidebarHelper.loadGeneUL();
+								window.opener.SidebarHelper.loadSidebar();
 							else
-								window.opener.SidebarHelper.loadPatientUL();
+								window.opener.SidebarHelper.loadSidebar();
 						}
 						
 					}

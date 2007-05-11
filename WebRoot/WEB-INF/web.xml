@@ -8,6 +8,25 @@
 		<param-value>/WEB-INF/applicationContext.xml, classpath*:applicationContext-services.xml</param-value>
 	</context-param>
 	
+	<filter> 
+       <filter-name>checkLoginFilter</filter-name>
+       <filter-class>gov.nih.nci.ispy.web.filters.CheckLoginFilter</filter-class>
+       <init-param>
+            <param-name>unauthorizedPage</param-name>
+            <param-value>/unauthorized.jsp</param-value>
+        </init-param>        
+   </filter>
+   
+   <filter-mapping>
+       <filter-name>checkLoginFilter</filter-name>
+       <url-pattern>*.xls</url-pattern>       
+   </filter-mapping>
+   
+   <filter-mapping>
+       <filter-name>checkLoginFilter</filter-name>
+       <url-pattern>*.do</url-pattern>       
+   </filter-mapping>
+	
 	<listener>
 		<listener-class>
 			gov.nih.nci.caintegrator.application.configuration.ConfigurationListener
