@@ -156,8 +156,9 @@ else
 		if(!f)	{ return; }
 		//set up the form
 		f.setAttribute("method", "post");
-		f.setAttribute("action", "quickClinical.do");
+		f.setAttribute("action", "quickClinical.do?taskId=<%=key%>");
 		f.setAttribute("name", "quickClinicalWrapper");
+		
 		
 		for(var i=0; i<pendingSamples.length; i++)	{
 			var hid = document.createElement("input");

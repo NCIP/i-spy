@@ -1,6 +1,8 @@
 package gov.nih.nci.ispy.web.reports.quick;
 
+import gov.nih.nci.caintegrator.application.bean.FindingReportBean;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.service.findings.Finding;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
@@ -254,7 +256,7 @@ public class QuickClinicalReport {
       return html;         
     }
 	
-	public static StringBuffer quickSampleReport(List<String> sampleIds){
+	public static StringBuffer quickSampleReport(List<String> sampleIds,String sessionId, String taskId){
 		Set set = new HashSet();
 		set.addAll(sampleIds);
 		 
@@ -279,6 +281,9 @@ public class QuickClinicalReport {
 				//List<ClinicalData> clinicalDataList = new ArrayList<ClinicalData>();
 				ClinicalDataService cqs = ClinicalDataServiceFactory.getInstance();
 				
+                List<PatientData> pdList = new ArrayList<PatientData>();
+                
+                
 				if(samples.isEmpty())	{
 					html.append("No Data");
 					return html;
@@ -355,7 +360,11 @@ public class QuickClinicalReport {
                             ISPYclinicalDataQueryDTO dto = new ISPYclinicalDataQueryDTO();
                             dto.setRestrainingSamples(ispyIds);
                             Set<PatientData> pdSet = cqs.getClinicalData(dto);
-                            for(PatientData pd:pdSet){    						
+                            
+                            
+                            
+                            for(PatientData pd:pdSet){   
+                                pdList.add(pd);
     							tr = table.addElement("tr").addAttribute("class", "data");
     							
     							String tmp = "";
@@ -604,6 +613,13 @@ public class QuickClinicalReport {
 						}
 						
 					}
+                    if(!pdList.isEmpty()){
+                        ISPYClinicalFinding clinicalFinding = new ISPYClinicalFinding(sessionId, taskId, null, FindingStatus.Running);
+                        clinicalFinding.setPatientData(pdList);
+                        FindingReportBean frb = new FindingReportBean();
+                        frb.setFinding(clinicalFinding);
+                        ApplicationFactory.getPresentationTierCache().addPersistableToSessionCache(clinicalFinding.getSessionId(),clinicalFinding.getTaskId(), frb);
+                    }
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -621,6 +637,7 @@ public class QuickClinicalReport {
          HSSFSheet sheet = wb.createSheet(clinicalFinding.getTaskId());
          
          List<PatientData> patientsData = clinicalFinding.getPatientData();
+         
          
          String longHeaders = "ISPY_ID, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, " +
                 "SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, " +

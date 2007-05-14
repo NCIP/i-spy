@@ -102,11 +102,11 @@ public class HCPlotReport extends TagSupport {
 	            //ok, what did we cluster by?...can only be 1
 	            if(hcaFinding.getClusteredReporterIDs()!=null && hcaFinding.getClusteredReporterIDs().size() > 0)	{
 	            	clusterByIds = (List) hcaFinding.getClusteredReporterIDs();
-	            	xhtml.append(quickReporterReport(clusterByIds));
+	            	xhtml.append(quickReporterReport(clusterByIds,session.getId(),hcaFinding.getTaskId()));
 	            }
 	            else if(hcaFinding.getClusteredSampleIDs()!=null && hcaFinding.getClusteredSampleIDs().size() > 0)	{
 	            	clusterByIds = (List) hcaFinding.getClusteredSampleIDs();
-	            	xhtml.append(quickSampleReport(clusterByIds));
+	            	xhtml.append(quickSampleReport(clusterByIds,session.getId(),hcaFinding.getTaskId()));
 	            }
 	            
 				out.println(xhtml.toString());
@@ -140,9 +140,9 @@ public class HCPlotReport extends TagSupport {
 		this.taskId = taskId;
 	}
 	
-	public StringBuffer quickReporterReport(List<String> reporters){
+	public StringBuffer quickReporterReport(List<String> reporters,String sessionId, String taskId){
 		
-		return QuickReporterReport.quickReporterReport(reporters);
+		return QuickReporterReport.quickReporterReport(reporters,sessionId,taskId);
 		
 		/*
 		StringBuffer html = new StringBuffer();
@@ -219,8 +219,8 @@ public class HCPlotReport extends TagSupport {
 		
 		*/
 	}
-	public StringBuffer quickSampleReport(List<String> sampleIds){
-		return QuickClinicalReport.quickSampleReport(sampleIds);
+	public StringBuffer quickSampleReport(List<String> sampleIds,String sessionId, String taskId){
+		return QuickClinicalReport.quickSampleReport(sampleIds,sessionId,taskId);
 	}
 	
 }

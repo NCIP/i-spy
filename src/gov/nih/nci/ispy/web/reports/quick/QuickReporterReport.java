@@ -14,7 +14,7 @@ import org.dom4j.Element;
 
 public class QuickReporterReport {
 
-	public static StringBuffer quickReporterReport(List<String> reporters){
+	public static StringBuffer quickReporterReport(List<String> reporters,String session,String taskId){
 		StringBuffer html = new StringBuffer();
 		Document document = DocumentHelper.createDocument();
 		Element table = document.addElement("table").addAttribute("id", "reportTable").addAttribute("class", "report");

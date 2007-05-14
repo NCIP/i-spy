@@ -6,14 +6,16 @@
 <%
 	String[] sampleArray = request.getParameterValues("sampleList");
 	String taskId = request.getParameter("taskId");
+	String fromGraph = request.getParameter("fromGraph");	
 	StringBuffer sb = new StringBuffer();
 	
 	
-	if(sampleArray != null && sampleArray.length > 0)	{
+	if(taskId != null && sampleArray != null && sampleArray.length > 0 
+		&& fromGraph!=null && fromGraph.equals("true"))	{
 		List samples = Arrays.asList(sampleArray);		
-		sb = QuickClinicalReport.quickSampleReport(samples);
+		sb = QuickClinicalReport.quickSampleReport(samples,request.getSession().getId(), taskId);
 	}
-	else if(taskId != null){
+	else if(taskId != null && fromGraph == null){
 		sb = QuickClinicalReport.quickSampleReport(request.getSession().getId(), taskId);
 	}
 	else	{
@@ -188,7 +190,7 @@
 	<div style="background-color: #ffffff"><img src="images/ispyPortalHeader.gif" /></div>
   
 		<%
-		String fromGraph = request.getParameter("fromGraph");		
+		fromGraph = request.getParameter("fromGraph");		
 		if(fromGraph!=null && fromGraph.equalsIgnoreCase("true")){
 		
 		%>
