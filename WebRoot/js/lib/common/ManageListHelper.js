@@ -26,6 +26,7 @@
 					
 					var lists = listContainer.listItems;
 					
+					
 					//Note:  $('..'+"ListDiv") needs be be defined in the HTML src
 					// ^ now, should be auto generated 
 					
@@ -49,6 +50,12 @@
 						var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
 						var theName = lists[t].listName;
 						var itemCount = lists[t].itemCount;
+						var author = lists[t].author;
+						var date = lists[t].listDate;
+						var notes = lists[t].notes;
+						var lib = "Author: " + lists[t].author + "<br />" +
+								  "Date Created: " + lists[t].listDate 	+ "<br />" +
+								  "Notes: <br />"  + lists[t].notes;
 						
 						var listSubTypes = (lists[t].listSubTypes && lists[t].listSubTypes.length > 0) ? lists[t].listSubTypes.join(",") : "";
 						var lstyle = listSubTypes.indexOf(listContainer.highlightType)!= -1 ? "color:#000000;" : "";			
@@ -57,7 +64,7 @@
 		                	+ theName
 		                    + "' class='dlistListing'>" 
 		                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +theName+ "'/>"
-		                    + "<b style='"+lstyle+"' title='"+theName+"'>"
+		                    + "<b style='"+lstyle+"' onmouseover=\"overlib('" + lib +"', CAPTION, '"+ theName+ "');\" onmouseout='return nd();'>"
 		                    + shortName + "</b><br/><div style='margin-left:10px'> Type: " + listSubTypes + " - "
 		                    + "<span id='"+theName+"_count'>" + itemCount + "</span> item(s)" 
 		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;' onclick='ManageListHelper.getDetails(\""
@@ -232,7 +239,10 @@
 				var items = list.validItems ? list.validItems : Array();
 				var invalidItems = list.invalidItems ? list.invalidItems : Array();
 				
+								
 				var itemId;
+				var itemRank = "";
+				var itemNotes = "";
 		 		var value;
 		 		var dDIV = document.createElement("div");
 		 		dDIV.setAttribute("id",listName + "detailsDiv");
@@ -246,10 +256,18 @@
 		 		wDiv.style.marginLeft = "20px";
 				wDiv.style.width="300px";
 		 		if(items.length > 0)	{
-		 			var tmp = "";
+		 			var tmp = "";		 				 			
 					for(var i=0; i<items.length; i++)	{
-						itemId = items[i];
-						tmp += "<li id='"+listName + itemId + "_div"+"' class='detailsList'>"+(i+1) +") " +listType + " " + itemId;
+						itemId = items[i].name;
+						itemRank = "";
+						itemNotes = "";	
+							if(items[i].rank!=null){
+								itemRank = " rank: " + items[i].rank;
+							}
+							if(items[i].notes!=null){
+								itemNotes = " notes: " + items[i].notes;
+							}						
+						tmp += "<li id='"+listName + itemId + "_div"+"' class='detailsList'>"+(i+1) +") " +listType + " " + itemId + itemRank + itemNotes;						
 						var oc = new Function("deleteItem('"+listName+ "','" + itemId + "');return false;");
 						tmp += "<a href=\"#\" onclick=\"ManageListHelper.deleteItem('"+listName+ "','" + itemId + "');return false;\">[delete]</a></li>";
 					}  
