@@ -278,7 +278,18 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		return retList;	
 	}
 	
+	/**
+	 * This method gets the all patient DIDs without any constraints in the 
+	 * clinical data query dto . 
+	 */
 	
+	public Set<String> getAllPatientDIDs() {
+		Set<String> patientDIDs = new HashSet<String>();
+		for (PatientData pd : patientDataMap.values()) {
+		      patientDIDs.add(pd.getISPY_ID());
+		  }
+		return patientDIDs;		
+	}	
 	
 	/**
 	 * This method gets the patient DIDs corresponding to the constraints in the 
@@ -297,13 +308,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		if ((cDTO.getClinicalStageValues() != null)&&(!cDTO.getClinicalStageValues().isEmpty())) {			
 		  queryResult = getPatientDIDsForClinicalStage(cDTO.getClinicalStageValues());
 			
-		  if (patientDIDs == null) {
-		     patientDIDs = new HashSet<String>();
-		     patientDIDs.addAll(queryResult);
-		  }
-		  else {
-		    patientDIDs.retainAll(queryResult);
-		  }
+		  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);
 		}
 		
 		//Get IDs for ER status
@@ -311,13 +316,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			
 			queryResult = getPatientDIDsForERstatus(cDTO.getErStatusValues());
 			
-		    if (patientDIDs == null) {
-		      patientDIDs = new HashSet<String>();
-		      patientDIDs.addAll(queryResult);
-		    }
-		    else {
-		     patientDIDs.retainAll(queryResult);
-		    }	  
+			patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  
 		}
 		
 		//Get IDs for HER2 status
@@ -325,13 +324,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  
 			queryResult = getPatientDIDsForHER2status(cDTO.getHer2StatusValues());
 			
-		    if (patientDIDs == null) {
-		      patientDIDs = new HashSet<String>();
-		      patientDIDs.addAll(queryResult);
-		    }
-		    else {
-		     patientDIDs.retainAll(queryResult);
-		    }	  			
+			patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  			
 		}
 		
 		//Get IDs for PR status
@@ -339,13 +332,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		 		 
 		  queryResult = getPatientDIDsForPRstatus(cDTO.getPrStatusValues());
 			
-	      if (patientDIDs == null) {
-	        patientDIDs = new HashSet<String>();
-	        patientDIDs.addAll(queryResult);
-	      } 
-	      else {
-	        patientDIDs.retainAll(queryResult);
-	      }	  			
+		  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  			
 		  
 		}
 				
@@ -357,13 +344,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		      
 			  queryResult = getPatientDIDsForClinicalResponse(tp,cDTO.getClinicalResponseValues());
 				
-		      if (patientDIDs == null) {
-		        patientDIDs = new HashSet<String>();
-		        patientDIDs.addAll(queryResult);
-		      } 
-		      else {
-		        patientDIDs.retainAll(queryResult);
-		      }	  		
+			  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  		
 		    }
 		}
 		
@@ -372,13 +353,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  //patientDIDs.addAll(getPatientDIDsForNeoAdjuvantChemoRegimen(cDTO.getAgentValues()));
 		  queryResult = getPatientDIDsForNeoAdjuvantChemoRegimen(cDTO.getAgentValues());
 			
-	      if (patientDIDs == null) {
-	        patientDIDs = new HashSet<String>();
-	        patientDIDs.addAll(queryResult);
-	      } 
-	      else {
-	        patientDIDs.retainAll(queryResult);
-	      }	  	
+		  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  	
 		}
 		
 		//Get IDs for % LD change
@@ -393,13 +368,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  
 		  queryResult = getPatientDIDsForPctLDchange(ldPctChange, changeType, operator);
 		  
-		  if (patientDIDs == null) {
-		     patientDIDs = new HashSet<String>();
-		     patientDIDs.addAll(queryResult);
-		  } 
-		  else {
-		     patientDIDs.retainAll(queryResult);
-		  }	  	
+		  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  	
 			
 		}
 		
@@ -409,13 +378,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  
 		  queryResult = getPatientsDIDsForPrimaryPathoMicroscopicTumorSize(size, operator);
 		  
-		  if (patientDIDs == null) {
-		     patientDIDs = new HashSet<String>();
-		     patientDIDs.addAll(queryResult);
-		  } 
-		  else {
-		     patientDIDs.retainAll(queryResult);
-		  }	  
+		  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  
 		  
 		}
 		
@@ -423,26 +386,14 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		if (cDTO.getAgeCategoryValues()!=null) {
 			  queryResult = getPatientDIDsForAgeCategory(cDTO.getAgeCategoryValues());
 				
-		      if (patientDIDs == null) {
-		        patientDIDs = new HashSet<String>();
-		        patientDIDs.addAll(queryResult);
-		      } 
-		      else {
-		        patientDIDs.retainAll(queryResult);
-		      }	  	
+			  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  	
 		}
 		
 		//Get IDs for Race		
 		if (cDTO.getRaceValues()!=null) {
 		  queryResult = getPatientDIDsForRace(cDTO.getRaceValues());
 			
-	      if (patientDIDs == null) {
-	        patientDIDs = new HashSet<String>();
-	        patientDIDs.addAll(queryResult);
-	      } 
-	      else {
-	        patientDIDs.retainAll(queryResult);
-	      }	  	
+		  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  	
 		}
 		
 		
@@ -451,22 +402,16 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		      
 			  queryResult = getPatientDIDsForMorphology(cDTO.getMorphologyValues());
 				
-		      if (patientDIDs == null) {
-		        patientDIDs = new HashSet<String>();
-		        patientDIDs.addAll(queryResult);
-		      } 
-		      else {
-		        patientDIDs.retainAll(queryResult);
-		      }	  		
+			  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  		
 		}
 		
 				
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
-		  if (patientDIDs != null) {
-		    patientDIDs.retainAll(restrainingSamples);
-		  }  
-          else
-            patientDIDs = restrainingSamples;
+		  //if (patientDIDs != null) {
+		  patientDIDs.retainAll(restrainingSamples);
+		  //}  
+          //else
+           //patientDIDs = restrainingSamples;
 		}
 		
 		
@@ -476,6 +421,17 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		
 		return Collections.emptySet();
 		
+	}
+
+	private Set<String> addToPatientDIDs(Set<String>patientDIDs, Set<String>queryResult){
+		if (patientDIDs == null) {
+			patientDIDs = new HashSet<String>();
+			patientDIDs.addAll(queryResult);
+		} 
+		else {
+			patientDIDs.retainAll(queryResult);
+		}
+		return patientDIDs;
 	}
 	
 	private Set<String> getPatientDIDsForMorphology(Set<MorphologyType> morphologySet) {
@@ -617,7 +573,11 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	
 
 	public Set<PatientData> getClinicalData(ISPYclinicalDataQueryDTO dto) {
-		Set<String> patientDIDs = getPatientDIDs(dto);
+		Set<String> patientDIDs = null;
+		if (dto.isReturnAll())
+			patientDIDs = getAllPatientDIDs();
+		else
+			patientDIDs = getPatientDIDs(dto);
 		List<PatientData> patientDataList = getPatientDataForPatientDIDs(new ArrayList<String>(patientDIDs));
 		return new HashSet<PatientData>(patientDataList);
 	}
