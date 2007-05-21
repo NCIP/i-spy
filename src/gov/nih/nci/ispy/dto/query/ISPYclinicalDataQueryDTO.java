@@ -55,6 +55,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
     private Operator pathTumorSizeOperator;
     private Double pathTumorSize = null;
     
+    private boolean returnAll = true;
 //    private String[] morphology;
     
 //    private String ldLengthOperator;
@@ -369,6 +370,16 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
 
 	public void setRaceValues(EnumSet<RaceType> raceValues) {
 		this.raceValues = raceValues;
+	}
+
+
+	public boolean isReturnAll() {
+		return returnAll;
+	}
+
+
+	public void setReturnAll(boolean returnAll) {
+		this.returnAll = returnAll;
 	}
 
 }
