@@ -143,13 +143,14 @@ public class ClinicalQueryAction extends DispatchAction {
          */
         
         //set custom patient group
-        
+        boolean returnAll = true;
         if(clinicalForm.getPatientGroup()!=null && !clinicalForm.getPatientGroup().equals("none")){
         	Set<String> patientGroupIds = new HashSet<String>();
         	String[] patientGroupNames = new String[1];
         	patientGroupNames[0] = clinicalForm.getPatientGroup();
         	addSamplesFromUserLists(helper, patientGroupIds, patientGroupNames);
         	intersectOrAddSamples(restrainingSamples, patientGroupIds);
+        	returnAll = false;
         }
                 
         //set disease stage groups        
@@ -158,6 +159,7 @@ public class ClinicalQueryAction extends DispatchAction {
             String[] stages = clinicalForm.getClinicalStages();
             addSamplesFromUserLists(helper, clinicalStageIds, stages );
             intersectOrAddSamples(restrainingSamples,clinicalStageIds);
+            returnAll = false;
         }       
         
         //set histology type groups        
@@ -166,6 +168,7 @@ public class ClinicalQueryAction extends DispatchAction {
             String[] histology = clinicalForm.getHistologyType();
             addSamplesFromUserLists(helper, histologyIds, histology);
             intersectOrAddSamples(restrainingSamples, histologyIds);
+            returnAll = false;
         }
                       
         //set agent groups
@@ -182,6 +185,7 @@ public class ClinicalQueryAction extends DispatchAction {
                 }                
             }
             dto.setAgentValues(agentSet);
+            returnAll = false;
         }
         
         //set clinical response groups
@@ -190,7 +194,8 @@ public class ClinicalQueryAction extends DispatchAction {
 	    	Set<String> clinicalResponseIds = new HashSet<String>();
 	        String[] responses = clinicalForm.getResponse();
 	        addSamplesFromUserLists(helper, clinicalResponseIds, responses);
-	        intersectOrAddSamples(restrainingSamples,clinicalResponseIds);            
+	        intersectOrAddSamples(restrainingSamples,clinicalResponseIds);  
+	        returnAll = false;
         }
         
         
@@ -202,6 +207,7 @@ public class ClinicalQueryAction extends DispatchAction {
             String[] receptors = clinicalForm.getReceptorStatus();
             addSamplesFromUserLists(helper, receptorIds, receptors);
             intersectOrAddSamples(restrainingSamples, receptorIds);
+            returnAll = false;
         }
                        
         if(!restrainingSamples.isEmpty()){
@@ -222,6 +228,7 @@ public class ClinicalQueryAction extends DispatchAction {
                 }                
             }
             dto.setAgeCategoryValues(ageSet);
+            returnAll = false;
         }
         
         //set race params
@@ -238,18 +245,21 @@ public class ClinicalQueryAction extends DispatchAction {
                 }                
             }
             dto.setRaceValues(raceSet);
+            returnAll = false;
         }
         
         //set diameter
         if(clinicalForm.getDiameter()!=null && clinicalForm.getDiameter().trim().length()>0){
             dto.setDiameter(Double.parseDouble(clinicalForm.getDiameter()));
             dto.setDiameterOperator(Operator.valueOf(clinicalForm.getDiameterOperator()));
+            returnAll = false;
         }
         
         //set micro size
         if(clinicalForm.getPathTumorSize()!=null && clinicalForm.getPathTumorSize().trim().length()>0){
             dto.setPathTumorSize(Double.parseDouble(clinicalForm.getPathTumorSize()));
             dto.setPathTumorSizeOperator(Operator.valueOf(clinicalForm.getPathTumorSizeOperator()));
+            returnAll = false;
         }
         
         //set morphology keywords
@@ -269,6 +279,7 @@ public class ClinicalQueryAction extends DispatchAction {
             //separate the keywords by parsing string separated by lines
             //String[] keywords = clinicalForm.getMorphology().split(System.getProperty("line.separator"));
             dto.setMorphologyValues(morphologySet);
+            returnAll = false;
         }
         
         //set ld size ... future impl
@@ -289,8 +300,9 @@ public class ClinicalQueryAction extends DispatchAction {
             
             dto.setLdPercentChange(clinicalForm.getLdPercentChange());
             dto.setLdPercentChangeOperator(Operator.valueOf(clinicalForm.getLdPercentChangeOperator()));
+            returnAll = false;
         }
-      
+        dto.setReturnAll(returnAll);
 		return dto;
 	}
     
