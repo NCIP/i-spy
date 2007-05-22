@@ -62,6 +62,13 @@ private String  ispy_id,
     private Double mriPctChangeT1_T2;
     private Double mriPctChangeT1_T3;
     private Double mriPctChangeT1_T4;
+    private Double mriPctChangeT2_T3;
+    private Double mriPctChangeT2_T4;
+    private Double mriPctChangeT3_T4;
+    private Double ldT1;
+    private Double ldT2;
+    private Double ldT3;
+    private Double ldT4;
     
     private Double ptumor1szcm_micro;
     
@@ -722,5 +729,62 @@ private String  ispy_id,
 	public void setLES_T4(String les_t4) {
 		LES_T4 = les_t4;
 	}
+
+	public Double getLdT1() {
+		return ldT1;
+	}
+
+	public void setLdT1(Double ldT1) {
+		this.ldT1 = ldT1;
+	}
+
+	public Double getLdT2() {
+		return ldT2;
+	}
+
+	public void setLdT2(Double ldT2) {
+		this.ldT2 = ldT2;
+	}
+
+	public Double getLdT3() {
+		return ldT3;
+	}
+
+	public void setLdT3(Double ldT3) {
+		this.ldT3 = ldT3;
+	}
+
+	public Double getLdT4() {
+		return ldT4;
+	}
+
+	public void setLdT4(Double ldT4) {
+		this.ldT4 = ldT4;
+	}
+
+	public Double getMriPctChangeT2_T3() {
+		return mriPctChangeT2_T3;
+	}
+
+	public void setMriPctChangeT2_T3(Double mriPctChangeT2_T3) {
+		this.mriPctChangeT2_T3 = mriPctChangeT2_T3;
+	}
+
+	public Double getMriPctChangeT2_T4() {
+		return mriPctChangeT2_T4;
+	}
+
+	public void setMriPctChangeT2_T4(Double mriPctChangeT2_T4) {
+		this.mriPctChangeT2_T4 = mriPctChangeT2_T4;
+	}
+
+	public Double getMriPctChangeT3_T4() {
+		return mriPctChangeT3_T4;
+	}
+
+	public void setMriPctChangeT3_T4(Double mriPctChangeT3_T4) {
+		this.mriPctChangeT3_T4 = mriPctChangeT3_T4;
+	}
+	
 
 }

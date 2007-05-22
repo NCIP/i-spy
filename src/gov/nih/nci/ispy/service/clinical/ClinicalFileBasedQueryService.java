@@ -135,25 +135,58 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setLES_T3(getToken(tokens,50));
 				pd.setLES_T4(getToken(tokens,51));
 				
-				
 				doubleStr = getToken(tokens,52);
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+					  pd.setLdT1(Double.valueOf(doubleStr.trim()));
+				}
+				
+				doubleStr = getToken(tokens,53);
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+					  pd.setLdT2(Double.valueOf(doubleStr.trim()));
+				}
+				
+				doubleStr = getToken(tokens,54);
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+					  pd.setLdT3(Double.valueOf(doubleStr.trim()));
+				}
+				
+				doubleStr = getToken(tokens,55);
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+					  pd.setLdT4(Double.valueOf(doubleStr.trim()));
+				}
+				
+				doubleStr = getToken(tokens,56);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
 				}
 //				
-				doubleStr = getToken(tokens,53);
+				doubleStr = getToken(tokens,57);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
 			    }
 //				
-				doubleStr = getToken(tokens,54);
+				doubleStr = getToken(tokens,58);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
 			    }
-//				
-//				
-//
-				pd.setMorphology(getToken(tokens,55));
+				
+				doubleStr = getToken(tokens,59);
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+				  pd.setMriPctChangeT2_T3(Double.valueOf(doubleStr.trim()));
+			    }
+				
+				doubleStr = getToken(tokens,60);
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+				  pd.setMriPctChangeT2_T4(Double.valueOf(doubleStr.trim()));
+			    }
+				
+				doubleStr = getToken(tokens,61);
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+				  pd.setMriPctChangeT3_T4(Double.valueOf(doubleStr.trim()));
+			    }
+								
+				
+				pd.setMorphology(getToken(tokens,62));
 				
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
@@ -526,7 +559,17 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			else if (changeType == PercentLDChangeType.PERCENT_LD_CHANGE_T1_T4) {
 			  changeValue = pd.getMriPctChangeT1_T4();
 			}
+			else if (changeType == PercentLDChangeType.PERCENT_LD_CHANGE_T2_T3) {
+			  changeValue = pd.getMriPctChangeT2_T3();
+			}
+			else if (changeType == PercentLDChangeType.PERCENT_LD_CHANGE_T2_T4) {
+			  changeValue = pd.getMriPctChangeT2_T4();
+			}
+			else if (changeType == PercentLDChangeType.PERCENT_LD_CHANGE_T3_T4) {
+			  changeValue = pd.getMriPctChangeT3_T4();
+			}
 			
+		
 			if (changeValue == null) { continue; }
 			
 			if (operator == Operator.GE) {
