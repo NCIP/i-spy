@@ -55,7 +55,7 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
     private Operator pathTumorSizeOperator;
     private Double pathTumorSize = null;
     
-    private boolean returnAll = true;
+    private boolean returnAll = false;
 //    private String[] morphology;
     
 //    private String ldLengthOperator;
