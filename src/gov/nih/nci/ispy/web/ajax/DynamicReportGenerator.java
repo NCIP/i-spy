@@ -184,8 +184,9 @@ public class DynamicReportGenerator {
 		//put the element into an arraylist in the session...doesnt exist? create it
 		ArrayList al = new ArrayList();
 		if(session.getAttribute(type) != null)	{
-			al = (ArrayList) session.getAttribute(type);
+			al = (ArrayList) session.getAttribute(type);            
 		}
+        
 		if(!elem.equals("") && !al.contains(elem)){
 			al.add(elem); // add it
 			session.setAttribute(type, al); //put back in session

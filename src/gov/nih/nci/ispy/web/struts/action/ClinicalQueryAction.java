@@ -211,7 +211,7 @@ public class ClinicalQueryAction extends DispatchAction {
         }
                        
         if(!restrainingSamples.isEmpty()){
-            dto.setRestrainingSamples(restrainingSamples);
+            dto.setRestrainingSamples(restrainingSamples);            
         }
         
         //set age params

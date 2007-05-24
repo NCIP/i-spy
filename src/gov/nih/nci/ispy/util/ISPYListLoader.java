@@ -2,6 +2,7 @@ package gov.nih.nci.ispy.util;
 
 import gov.nih.nci.caintegrator.application.lists.ListLoader;
 import gov.nih.nci.caintegrator.application.lists.ListManager;
+import gov.nih.nci.caintegrator.application.lists.ListOrigin;
 import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
@@ -17,7 +18,9 @@ import gov.nih.nci.ispy.service.clinical.PRstatusType;
 import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.web.helper.ISPYListValidator;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
@@ -79,8 +82,9 @@ public class ISPYListLoader extends ListLoader{
                             List<String> dids = new ArrayList<String>(clinicalResponsePatients);
                             ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,dids);
                             UserList myList = listManager.createList(ListType.PatientDID,clinicalResponse.toString()+TimepointType.T1.toString()+"_"+type.toString(),dids,listValidator);
+                            
                             if(!myList.getList().isEmpty()){
-                                myList.setListSubType(ListSubType.Default);
+                                myList.setListOrigin(ListOrigin.Default);
                                 userListBean.addList(myList);
                             }
                         }
@@ -100,7 +104,7 @@ public class ISPYListLoader extends ListLoader{
                     ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,dids);
                     UserList myList = listManager.createList(ListType.PatientDID,clinicalStage.toString(),dids,listValidator);
                     if(!myList.getList().isEmpty()){
-                    	myList.setListSubType(ListSubType.Default);
+                    	myList.setListOrigin(ListOrigin.Default);
                         userListBean.addList(myList);
                     }
                 }
@@ -118,7 +122,7 @@ public class ISPYListLoader extends ListLoader{
                    ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,dids);
                    UserList myList = listManager.createList(ListType.PatientDID,erStatus.toString(),dids,listValidator);
                    if(!myList.getList().isEmpty()){
-                	   myList.setListSubType(ListSubType.Default);
+                	   myList.setListOrigin(ListOrigin.Default);
                        userListBean.addList(myList);
                    }
                }
@@ -136,7 +140,7 @@ public class ISPYListLoader extends ListLoader{
                    ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,dids);
                    UserList myList = listManager.createList(ListType.PatientDID,her2Status.toString(),dids,listValidator);
                    if(!myList.getList().isEmpty()){
-                	   myList.setListSubType(ListSubType.Default);
+                	   myList.setListOrigin(ListOrigin.Default);
                        userListBean.addList(myList);
                    }
                }
@@ -154,7 +158,7 @@ public class ISPYListLoader extends ListLoader{
                    ISPYListValidator listValidator = new ISPYListValidator(ListType.PatientDID,dids);
                    UserList myList = listManager.createList(ListType.PatientDID,prStatus.toString(),dids,listValidator);
                    if(!myList.getList().isEmpty()){
-                	   myList.setListSubType(ListSubType.Default);
+                	   myList.setListOrigin(ListOrigin.Default);
                        userListBean.addList(myList);
                    }
                }

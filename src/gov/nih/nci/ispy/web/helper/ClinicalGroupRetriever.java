@@ -1,5 +1,6 @@
 package gov.nih.nci.ispy.web.helper;
 
+import gov.nih.nci.caintegrator.application.lists.ListOrigin;
 import gov.nih.nci.caintegrator.application.lists.ListSubType;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
@@ -148,7 +149,7 @@ public class ClinicalGroupRetriever {
  
     public List<LabelValueBean> getCustomPatientCollection(){
         List<LabelValueBean> customPatientCollection = new ArrayList<LabelValueBean>();
-        List<UserList> customList = helper.getLists(ListType.PatientDID, ListSubType.Custom); 
+        List<UserList> customList = helper.getLists(ListType.PatientDID, ListOrigin.Custom); 
         for(UserList list : customList){
             customPatientCollection.add(new LabelValueBean(list.getName(),list.getName()));
         }        
