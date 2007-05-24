@@ -440,11 +440,11 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		
 				
 		if ((restrainingSamples!=null)&&(!restrainingSamples.isEmpty())) {
-		  //if (patientDIDs != null) {
+		  if (patientDIDs != null) {
 		  patientDIDs.retainAll(restrainingSamples);
-		  //}  
-          //else
-           //patientDIDs = restrainingSamples;
+		   }  
+          else
+           patientDIDs = restrainingSamples;
 		}
 		
 		
