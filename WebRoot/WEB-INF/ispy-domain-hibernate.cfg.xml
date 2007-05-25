@@ -67,6 +67,8 @@
 	<mapping resource="gov/nih/nci/caintegrator/domain/annotation/snp/bean/SNPPanel.hbm.xml"/>
 	<mapping resource="gov/nih/nci/caintegrator/domain/annotation/gene/bean/GeneAlias.hbm.xml"/>
 	<mapping resource="gov/nih/nci/caintegrator/domain/annotation/gene/bean/GeneExprReporter.hbm.xml"/>
+	<mapping resource="gov/nih/nci/caintegrator/domain/analysis/snp/bean/OddsRatio.hbm.xml" />
+	
 
     </session-factory>
 <!-- "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"> -->
