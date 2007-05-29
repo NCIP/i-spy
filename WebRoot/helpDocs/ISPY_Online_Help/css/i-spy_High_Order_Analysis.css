@@ -739,7 +739,7 @@ div.Chapter_Name
   margin-left: 0pt;
   margin-right: 0pt;
   margin-top: 0.0pt;
-  text-align: Right;
+  text-align: left;
   text-indent: 0pt;
   text-transform: none;
   vertical-align: baseline;
@@ -759,7 +759,7 @@ div.Chapter_Name
   font-size: 27.0pt;
   font-style: normal;
   font-weight: bold;
-  text-align: Right;
+  text-align: left;
   text-transform: none;
   vertical-align: baseline;
   margin-left: 0pt;
@@ -1344,7 +1344,7 @@ div.Heading4
   margin-top: 12.0pt;
   padding-bottom: 10px;
   text-align: Left;
-  text-indent: 36pt;
+  text-indent: 0pt;
   text-transform: none;
   vertical-align: baseline;
 }
@@ -1386,7 +1386,7 @@ div.Lettered_List
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  margin-bottom: 6.0pt;
+  margin-bottom: 3px;
   margin-left: 72pt;
   margin-right: 0pt;
   margin-top: 0.0pt;
@@ -1398,7 +1398,7 @@ div.Lettered_List
 
 .Lettered_List_outer
 {
-  margin-bottom: 6.0pt;
+  margin-bottom: 3px;
   margin-right: 0pt;
   margin-top: 0.0pt;
 }
@@ -1432,7 +1432,7 @@ div.Lettered_List_1
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  margin-bottom: 0.0pt;
+  margin-bottom: 3px;
   margin-left: 72pt;
   margin-right: 0pt;
   margin-top: 5.0pt;
@@ -1444,7 +1444,7 @@ div.Lettered_List_1
 
 .Lettered_List_1_outer
 {
-  margin-bottom: 0.0pt;
+  margin-bottom: 3px;
   margin-right: 0pt;
   margin-top: 5.0pt;
 }
@@ -1573,18 +1573,23 @@ div.Note
   margin-bottom: 6.0pt;
   margin-left: 68.4pt;
   margin-right: 0pt;
-  margin-top: 2pt;
+  margin-top: -8px;
+  padding-bottom: 12px;
+  padding-top: 8px;
+  position: relative;
   text-align: Left;
   text-indent: -25px;
   text-transform: none;
-  vertical-align: baseline;
+  vertical-align: top;
 }
 
 .Note_outer
 {
   margin-bottom: 6.0pt;
   margin-right: 0pt;
-  margin-top: 2pt;
+  margin-top: -8px;
+  padding-bottom: 12px;
+  padding-top: 8px;
 }
 
 .Note_inner
@@ -1595,9 +1600,10 @@ div.Note
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
+  position: relative;
   text-align: Left;
   text-transform: none;
-  vertical-align: baseline;
+  vertical-align: top;
   margin-left: 0pt;
   margin-right: 0pt;
   margin-top: 0pt;

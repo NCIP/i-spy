@@ -1,16 +1,16 @@
 function  WWHBookData_AddTOCEntries(P)
 {
-var A=P.fN("Welcome to I-SPY 1.0 Online Help","0");
+var A=P.fN("Welcome to I-SPY Online Help","0");
 A=P.fN("Application Support","1");
 A=P.fN("Online Help Tips","2");
-A=P.fN("About I-SPY 1.0","3");
-var B=A.fN("About I-SPY","4");
-B=A.fN("About I-SPY Functions","5");
-A=P.fN("Getting Started with I-SPY 1.0","6");
+A=P.fN("About Biospecimen Research Data\u00adbase","3");
+var B=A.fN("About Biospecimen Research Database","4");
+B=A.fN("About Biospecimen Research Database Functions","5");
+A=P.fN("Getting Started with Biospecimen Research Database","6");
 B=A.fN("Creating a User Account","7");
 B=A.fN("Logging In","8");
-B=A.fN("Accepting I-SPY Provisions","9");
-B=A.fN("Welcome to I-SPY 1.0","10");
+B=A.fN("Accepting Biospecimen Research Database Provisions","9");
+B=A.fN("Welcome to Biospecimen Research Database","10");
 B=A.fN("Getting Help","11");
 B=A.fN("Application Support","12");
 B=A.fN("Logging Out","13");

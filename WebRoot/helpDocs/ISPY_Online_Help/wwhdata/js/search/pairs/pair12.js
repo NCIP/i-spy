@@ -1,5 +1,6 @@
 function FileData_Pairs(x)
 {
+x.t("biospecimen","research");
 x.t("site.","access");
 x.t("support","getting");
 x.t("support","link");
@@ -15,19 +16,19 @@ x.t("link","i-spy");
 x.t("appears.","obtain");
 x.t("group","page");
 x.t("obtain","help");
-x.t("i-spy","getting");
-x.t("i-spy","1.0");
 x.t("i-spy","menu.");
 x.t("find","additional");
 x.t("web","site.");
-x.t("started","i-spy");
-x.t("1.0","application");
+x.t("started","biospecimen");
 x.t("menu.","ncicb");
+x.t("database","getting");
+x.t("database","application");
 x.t("click","support");
 x.t("additional","support");
+x.t("research","database");
 x.t("site","following:");
 x.t("page","appears.");
-x.t("help","i-spy");
+x.t("help","biospecimen");
 x.t("application","support");
 x.t("ncicb","applications");
 x.t("applications","support");

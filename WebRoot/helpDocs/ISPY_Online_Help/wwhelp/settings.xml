@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WebWorksHelpSettings version="5.0" xmlns="urn:WebWorks-Help-Settings-Schema">
   <Common>
-    <Cookies daystoexpire="30" enable="true" id="B4C1723EBBA21C5F" />
+    <Cookies daystoexpire="30" enable="true" id="E39E8B7FE5668189" />
     <Accessible value="false" />
     <SeeAlso showbook="false">
       <Size width="250" />

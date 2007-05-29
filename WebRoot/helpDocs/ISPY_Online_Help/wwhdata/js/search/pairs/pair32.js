@@ -1,16 +1,16 @@
 function FileData_Pairs(x)
 {
 x.t("icons","search");
+x.t("biospecimen","research");
 x.t("describes","reports");
+x.t("results","biospecimen");
 x.t("results","overview");
 x.t("results","high");
-x.t("results","i-spy");
 x.t("results","viewing");
 x.t("results","section");
 x.t("overview","using");
 x.t("high","order");
 x.t("i-spy","report");
-x.t("i-spy","returns");
 x.t("search","results");
 x.t("queries","high");
 x.t("viewing","results");
@@ -18,7 +18,9 @@ x.t("report","icons");
 x.t("section","describes");
 x.t("section","include");
 x.t("reports","search");
+x.t("database","returns");
 x.t("include","following:");
+x.t("research","database");
 x.t("analyses.","topics");
 x.t("topics","section");
 x.t("following:","results");

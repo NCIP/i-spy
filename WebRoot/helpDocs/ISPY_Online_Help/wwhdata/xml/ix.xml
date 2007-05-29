@@ -48,29 +48,6 @@
         <j l="50#1120317" />
       </i>
     </i>
-    <i t="blue panel">
-      <i t="manage list information">
-        <j l="53#1087974" />
-        <j l="54#1088233" />
-      </i>
-    </i>
-    <i t="Blue panel">
-      <i t="description">
-        <j l="10#1111492" />
-      </i>
-      <i t="red Gene list (Class Comparison)">
-        <j l="43#1124659" />
-      </i>
-      <i t="red name user created">
-        <j l="37#1133786" />
-      </i>
-      <i t="red PatientDID list (Clinical report)">
-        <j l="37#1133786" />
-      </i>
-      <i t="red PatientDID list (Search)">
-        <j l="19#1140954" />
-      </i>
-    </i>
     <i t="Box and Whisker plot">
       <i t="Categorical Plot">
         <j l="31#1101987" />
@@ -518,7 +495,7 @@
         <j l="31#1101631" />
       </i>
       <i t="overview">
-        <j l="52#1096256" />
+        <j l="52#1096297" />
       </i>
     </i>
     <i t="Manually Type List options, description">
@@ -547,7 +524,7 @@
         <j l="15#1088879" />
       </i>
       <i t="managing lists">
-        <j l="52#1096256" />
+        <j l="52#1096297" />
       </i>
       <i t="Search function">
         <j l="21#1145107" />
@@ -582,7 +559,7 @@
       <i t="saving on Clinical report">
         <j l="37#1133784" />
       </i>
-      <i t="user list blue panel">
+      <i t="user list side bar">
         <j l="37#1133786" />
       </i>
     </i>
@@ -732,6 +709,27 @@
     <i t="Selecting">
       <i t="genes (Select Genes Toolbar)">
         <j l="43#1083043" />
+      </i>
+    </i>
+    <i t="Side bar">
+      <i t="description">
+        <j l="10#1111492" />
+      </i>
+      <i t="manage list information">
+        <j l="53#1087974" />
+        <j l="54#1088233" />
+      </i>
+      <i t="red Gene list (Class Comparison)">
+        <j l="43#1124659" />
+      </i>
+      <i t="red name user created">
+        <j l="37#1133786" />
+      </i>
+      <i t="red PatientDID list (Clinical report)">
+        <j l="37#1133786" />
+      </i>
+      <i t="red PatientDID list (Search)">
+        <j l="19#1140954" />
       </i>
     </i>
     <i t="Single linkage, definition">
