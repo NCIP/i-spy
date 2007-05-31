@@ -88,6 +88,14 @@ public class IdMapperFileBasedService {
 				sample.addDataType(ISPYDataType.CDNA);
 			  }
 			  
+			  if (sampleData.length>=8 &&(sampleData[7]!=null)&&(sampleData[6].trim().length()>0)) {
+					sample.addDataType(ISPYDataType.FISH);
+			  }
+			  
+			  if (sampleData.length>=9 &&(sampleData[8]!=null)&&(sampleData[6].trim().length()>0)) {
+					sample.addDataType(ISPYDataType.IHC);
+			  }
+			  
 
 			  //String calgbId = sampleData[6];
 			  //idMap.put(calgbId, entry); UNCOMMENT THIS LINE WHEN WE HAVE REAL CALGBIDS
