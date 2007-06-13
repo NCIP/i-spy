@@ -396,7 +396,7 @@
 <fieldset id="lookupDiv">
 	<legend>Patient or Sample Id(s)</legend><br/>
 	<form id="theForm" action="#" method="get" onsubmit="return false;">
-	Please enter ID(s) in a comma seperated format (ex. 123,456,789)
+	Please enter ID(s) in a comma separated format (ex. 123,456,789)
 	<app:help help="You may enter Patient Ids or Sample Ids.  Use a comma to separate multiple Ids.  The results will display id information about the corresponding patients." />
 	
 	<br/>
