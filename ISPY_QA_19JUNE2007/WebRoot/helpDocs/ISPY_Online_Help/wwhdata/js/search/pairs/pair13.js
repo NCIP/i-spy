@@ -1,0 +1,26 @@
+function FileData_Pairs(x)
+{
+x.t("biospecimen","research");
+x.t("getting","started");
+x.t("link","upper");
+x.t("upper","right-hand");
+x.t("steps.","biospecimen");
+x.t("right-hand","corner.");
+x.t("i-spy","login");
+x.t("logging","getting");
+x.t("logging","logging");
+x.t("logging","log");
+x.t("started","biospecimen");
+x.t("workspace","click");
+x.t("corner.","i-spy");
+x.t("follow","steps.");
+x.t("database","logging");
+x.t("database","workspace");
+x.t("database","follow");
+x.t("login","page");
+x.t("click","logout");
+x.t("research","database");
+x.t("page","appears.");
+x.t("logout","link");
+x.t("log","biospecimen");
+}
