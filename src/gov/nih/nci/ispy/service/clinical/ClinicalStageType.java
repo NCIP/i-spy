@@ -43,7 +43,10 @@ public enum ClinicalStageType implements Serializable {
 	        
     IV { public Color getColor() { return Color.CYAN.brighter(); }
         public String toString() { return "Stage 4"; }},
-	
+        
+    INFLAMMATORY { public Color getColor() { return Color.BLUE; }
+    	public String toString() { return "Inflammatory";}},
+    
 	UNKNOWN { public Color getColor() { return Color.GRAY; }},
 	
 	MISSING { public Color getColor() { return Color.GRAY; }};

@@ -59,6 +59,10 @@ private String  ispy_id,
 				LES_T3,
 				LES_T4;
 
+	private String histTypeOfInvasiveTumor;
+	private String reasonNoSurg;
+
+	private Double patientAge;
     private Double mriPctChangeT1_T2;
     private Double mriPctChangeT1_T3;
     private Double mriPctChangeT1_T4;
@@ -784,6 +788,30 @@ private String  ispy_id,
 
 	public void setMriPctChangeT3_T4(Double mriPctChangeT3_T4) {
 		this.mriPctChangeT3_T4 = mriPctChangeT3_T4;
+	}
+
+	public String getHistTypeOfInvasiveTumor() {
+		return histTypeOfInvasiveTumor;
+	}
+
+	public void setHistTypeOfInvasiveTumor(String histTypeOfInvasiveTumor) {
+		this.histTypeOfInvasiveTumor = histTypeOfInvasiveTumor;
+	}
+
+	public Double getPatientAge() {
+		return patientAge;
+	}
+
+	public void setPatientAge(Double patientAge) {
+		this.patientAge = patientAge;
+	}
+
+	public String getReasonNoSurg() {
+		return reasonNoSurg;
+	}
+
+	public void setReasonNoSurg(String reasonNoSurg) {
+		this.reasonNoSurg = reasonNoSurg;
 	}
 	
 

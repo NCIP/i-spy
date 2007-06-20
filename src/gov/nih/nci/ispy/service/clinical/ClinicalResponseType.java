@@ -31,6 +31,12 @@ public enum ClinicalResponseType implements Serializable{
   PD { public Color getColor() { return Color.RED; }
        public String toString() { return "Progressive Disease";}},
        
+  INTER_REGIMEN_CHEMO_NOT_GIVEN { public Color getColor() { return Color.GRAY; }
+  		public String toString() { return "Inter-Regimen Chemo not given";}},
+  		
+  NO_SURGERY_PERFORMED { public Color getColor() { return Color.GRAY; }
+	public String toString() { return "No surgery performed";}},
+       
   UNKNOWN { public Color getColor() { return Color.GRAY; }},
   
   MISSING { public Color getColor() { return Color.GRAY; }}, 
@@ -63,6 +69,8 @@ public enum ClinicalResponseType implements Serializable{
 	  case 2: return ClinicalResponseType.PR;
 	  case 3: return ClinicalResponseType.SD;
 	  case 4: return ClinicalResponseType.PD;
+	  case 5: return ClinicalResponseType.INTER_REGIMEN_CHEMO_NOT_GIVEN;
+	  case 6: return ClinicalResponseType.NO_SURGERY_PERFORMED;
 	  default: return ClinicalResponseType.UNKNOWN;
 	  }
 	  
