@@ -49,7 +49,7 @@ public class QuickClinicalReport {
                 Element td = null;
                 tr = table.addElement("tr").addAttribute("class", "header");
                 
-                String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
+                String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
                 "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4";
 
                 String[] heads = StringUtils.split(longHeaders, ",");
@@ -154,6 +154,9 @@ public class QuickClinicalReport {
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getSurgeryMastectomy()!=null  ? pd.getSurgeryMastectomy() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        tmp = pd.getHistTypePS()!=null  ? pd.getHistTypePS() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getINITLUMP_FUPMAST()!=null  ? pd.getINITLUMP_FUPMAST() : dv;
@@ -342,7 +345,7 @@ public class QuickClinicalReport {
 					Element td = null;
 					tr = table.addElement("tr").addAttribute("class", "header");
 					
-                    String longHeaders = "ISPY_ID, LabTrak ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
+                    String longHeaders = "ISPY_ID, LabTrak ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
                 "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4";
                     String[] heads = StringUtils.split(longHeaders, ",");
 					for(String h : heads){
@@ -491,6 +494,9 @@ public class QuickClinicalReport {
     								td = tr.addElement("td").addText(tmp);
     								
     								tmp = pd.getSurgeryMastectomy()!=null  ? pd.getSurgeryMastectomy() : dv;
+    								td = tr.addElement("td").addText(tmp);
+    								
+    								tmp = pd.getHistTypePS()!=null  ? pd.getHistTypePS() : dv;
     								td = tr.addElement("td").addText(tmp);
     								
     								tmp = pd.getINITLUMP_FUPMAST()!=null  ? pd.getINITLUMP_FUPMAST() : dv;
@@ -712,10 +718,10 @@ public class QuickClinicalReport {
          List<PatientData> patientsData = clinicalFinding.getPatientData();
          
          
-         String longHeaders = "ISPY_ID, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, " +
+         String longHeaders = "ISPY_ID, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, " +
                 "SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, " +
-                "SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, " +
-                "HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, " +
+                "SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, " +
+                "HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, " +
                 "RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, " +
                 "STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1," +
                 "LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
@@ -748,6 +754,14 @@ public class QuickClinicalReport {
                  cell.setCellValue(rowData); 
                  
                  cell = dataRow.createCell((short) 2);
+                 Double age = data.getPatientAge();
+                 if(age!=null) {
+                	rowData = age.toString(); 
+                 }
+                 else rowData = noRowData;
+                 cell.setCellValue(rowData); 
+                 
+                 cell = dataRow.createCell((short) 3);
                  AgeCategoryType ageCat = data.getAgeCategory();
                  if(ageCat!=null){
                      rowData = ageCat.toString();
@@ -755,7 +769,7 @@ public class QuickClinicalReport {
                  else rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 3);
+                 cell = dataRow.createCell((short) 4);
                  RaceType rt = data.getRace();
                  if(rt!=null){
                      rowData = rt.toString();
@@ -763,224 +777,234 @@ public class QuickClinicalReport {
                  else rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 4);
+                 cell = dataRow.createCell((short) 5);
                  rowData = data.getSSTAT();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 5);
+                 cell = dataRow.createCell((short) 6);
                  rowData = data.getSURVDTD();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 6);
+                 cell = dataRow.createCell((short) 7);
                  rowData = data.getChemoCat();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 7);
+                 cell = dataRow.createCell((short) 8);
                  rowData = data.getChemo();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 8);
+                 cell = dataRow.createCell((short) 9);
                  rowData = data.getTAM();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 9);
+                 cell = dataRow.createCell((short) 10);
                  rowData = data.getHerceptin();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 10);
+                 cell = dataRow.createCell((short) 11);
                  rowData = data.getDosedenseanthra();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 11);
+                 cell = dataRow.createCell((short) 12);
                  rowData = data.getDosedensetaxane();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 12);
+                 cell = dataRow.createCell((short) 13);
                  rowData = data.getMenoStatus();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 13);
+                 cell = dataRow.createCell((short) 14);
                  rowData = data.getSentinelNodeSample();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 14);
+                 cell = dataRow.createCell((short) 15);
                  rowData = data.getSentinelNodeResult();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 15);
+                 cell = dataRow.createCell((short) 16);
                  rowData = data.getHistologicGradeOS();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 16);
+                 cell = dataRow.createCell((short) 17);
                  rowData = data.getER_TS();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 17);
+                 cell = dataRow.createCell((short) 18);
                  rowData = data.getPGR_TS();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 18);
+                 cell = dataRow.createCell((short) 19);
                  rowData = data.getHER2CommunityPOS();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 19);
+                 cell = dataRow.createCell((short) 20);
                  rowData = data.getHER2CommunityMethod();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 20);
+                 cell = dataRow.createCell((short) 21);
                  rowData = data.getSurgeryLumpectomy();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 21);
+                 cell = dataRow.createCell((short) 22);
                  rowData = data.getSurgeryMastectomy();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 22);
-                 rowData = data.getINITLUMP_FUPMAST();
-                 if(rowData==null)rowData = noRowData;
-                 cell.setCellValue(rowData);
-                 
                  cell = dataRow.createCell((short) 23);
-                 rowData = data.getSurgery();
+                 rowData = data.getHistTypePS();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 24);
-                 rowData = data.getDCISOnly();
+                 rowData = data.getINITLUMP_FUPMAST();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 25);
+                 rowData = data.getSurgery();
+                 if(rowData==null)rowData = noRowData;
+                 cell.setCellValue(rowData);
+                 
+                 cell = dataRow.createCell((short) 26);
+                 rowData = data.getDCISOnly();
+                 if(rowData==null)rowData = noRowData;
+                 cell.setCellValue(rowData);
+                 
+                 cell = dataRow.createCell((short) 27);
                  rowDouble = data.getPTumor1SZCM_Micro();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
                  }
                      else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 26);
+                 cell = dataRow.createCell((short) 28);
                  rowData = data.getHistologicGradePS();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 27);
+                 cell = dataRow.createCell((short) 29);
                  rowData = data.getNumPosNodes();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 28);
+                 cell = dataRow.createCell((short) 30);
                  rowData = data.getNodesExamined();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 29);
+                 cell = dataRow.createCell((short) 31);
                  rowData = data.getPathologyStage();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 30);
-                 rowData = data.getRTTherapy();
-                 if(rowData==null)rowData = noRowData;
-                 cell.setCellValue(rowData);
-                 
-                 cell = dataRow.createCell((short) 31);
-                 rowData = data.getRTBreast();
-                 if(rowData==null)rowData = noRowData;
-                 cell.setCellValue(rowData);
-                 
                  cell = dataRow.createCell((short) 32);
-                 rowData = data.getRTBOOST();
+                 rowData = data.getReasonNoSurg();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 33);
-                 rowData = data.getRTAXILLA();
+                 rowData = data.getRTTherapy();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 34);
-                 rowData = data.getRTSNODE();
+                 rowData = data.getRTBreast();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 35);
-                 rowData = data.getRTIMAMNODE();
+                 rowData = data.getRTBOOST();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 36);
-                 rowData = data.getRTChestW();
+                 rowData = data.getRTAXILLA();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 37);
-                 rowData = data.getRTOTHER();
+                 rowData = data.getRTSNODE();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 38);
-                 rowData = data.getTSizeClinical();
+                 rowData = data.getRTIMAMNODE();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 39);
+                 rowData = data.getRTChestW();
                  if(rowData==null)rowData = noRowData;
-                 rowData = data.getNSizeClinical();
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 40);
-                 rowData = data.getStageTE();
+                 rowData = data.getRTOTHER();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 41);
-                 rowData = data.getStageNE();
+                 rowData = data.getTSizeClinical();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 42);
-                 rowData = data.getSTAGEME();
                  if(rowData==null)rowData = noRowData;
+                 rowData = data.getNSizeClinical();
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 43);
-                 rowData = data.getClinicalStageStr();
+                 rowData = data.getStageTE();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 44);
-                 rowData = data.getClinRespT1_T2();
+                 rowData = data.getStageNE();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 45);
-                 rowData = data.getClinRespT1_T3();
+                 rowData = data.getSTAGEME();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 46);
-                 rowData = data.getClinRespT1_T4();
+                 rowData = data.getClinicalStageStr();
                  if(rowData==null)rowData = noRowData;
                  cell.setCellValue(rowData);
                  
                  cell = dataRow.createCell((short) 47);
+                 rowData = data.getClinRespT1_T2();
+                 if(rowData==null)rowData = noRowData;
+                 cell.setCellValue(rowData);
+                 
+                 cell = dataRow.createCell((short) 48);
+                 rowData = data.getClinRespT1_T3();
+                 if(rowData==null)rowData = noRowData;
+                 cell.setCellValue(rowData);
+                 
+                 cell = dataRow.createCell((short) 49);
+                 rowData = data.getClinRespT1_T4();
+                 if(rowData==null)rowData = noRowData;
+                 cell.setCellValue(rowData);
+                 
+                 cell = dataRow.createCell((short) 50);
                  MorphologyType mt = data.getMorphology();
                  if(mt!=null){
                      rowData = mt.toString();
@@ -991,44 +1015,44 @@ public class QuickClinicalReport {
                  cell.setCellValue(rowData);                
                  
                  
-                 cell = dataRow.createCell((short) 48);
+                 cell = dataRow.createCell((short) 51);
                  rowData = data.getLES_T1();
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 49);
+                 cell = dataRow.createCell((short) 52);
                  rowData = data.getLES_T2();
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 50);
+                 cell = dataRow.createCell((short) 53);
                  rowData = data.getLES_T3();
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 51);
+                 cell = dataRow.createCell((short) 54);
                  rowData = data.getLES_T4();
                  cell.setCellValue(rowData);
                  
-                 cell = dataRow.createCell((short) 52);
+                 cell = dataRow.createCell((short) 55);
                  rowDouble = data.getLdT1();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
                  }
                 else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 53);
+                 cell = dataRow.createCell((short) 56);
                  rowDouble = data.getLdT2();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
                  }
                 else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 54);
+                 cell = dataRow.createCell((short) 57);
                  rowDouble = data.getLdT3();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
                  }
                 else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 55);
+                 cell = dataRow.createCell((short) 58);
                  rowDouble = data.getLdT4();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
@@ -1036,42 +1060,42 @@ public class QuickClinicalReport {
                 else cell.setCellValue(noRowData);                 
                  
                  
-                 cell = dataRow.createCell((short) 56);
+                 cell = dataRow.createCell((short) 59);
                  rowDouble = data.getMriPctChangeT1_T2();
                  if(rowDouble!=null){
                  cell.setCellValue(rowDouble);
                  }
                  else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 57);
+                 cell = dataRow.createCell((short) 60);
                  rowDouble = data.getMriPctChangeT1_T3();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
                  }
                  else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 58);
+                 cell = dataRow.createCell((short) 61);
                  rowDouble = data.getMriPctChangeT1_T4();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
                  }
                 else cell.setCellValue(noRowData);                 
                     
-                 cell = dataRow.createCell((short) 59);
+                 cell = dataRow.createCell((short) 62);
                  rowDouble = data.getMriPctChangeT2_T3();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
                  }
                 else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 60);
+                 cell = dataRow.createCell((short) 63);
                  rowDouble = data.getMriPctChangeT2_T4();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
                  }
                 else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 61);
+                 cell = dataRow.createCell((short) 64);
                  rowDouble = data.getMriPctChangeT3_T4();
                  if(rowDouble!=null){
                      cell.setCellValue(rowDouble);
