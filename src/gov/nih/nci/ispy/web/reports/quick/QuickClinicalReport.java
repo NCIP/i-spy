@@ -49,7 +49,7 @@ public class QuickClinicalReport {
                 Element td = null;
                 tr = table.addElement("tr").addAttribute("class", "header");
                 
-                String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
+                String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
                 "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4";
 
                 String[] heads = StringUtils.split(longHeaders, ",");
@@ -129,6 +129,9 @@ public class QuickClinicalReport {
                         tmp = pd.getSentinelNodeResult()!=null  ? pd.getSentinelNodeResult() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
+                        tmp = pd.getHistTypeOfInvasiveTumor()!=null  ? pd.getHistTypeOfInvasiveTumor() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
                         tmp = pd.getHistologicGradeOS()!=null  ? pd.getHistologicGradeOS() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
@@ -172,6 +175,9 @@ public class QuickClinicalReport {
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getPathologyStage()!=null  ? pd.getPathologyStage() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        tmp = pd.getReasonNoSurg()!=null  ? pd.getReasonNoSurg() : dv;
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getRTTherapy()!=null  ? pd.getRTTherapy() : dv;
