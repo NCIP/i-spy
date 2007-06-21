@@ -60,6 +60,7 @@ private String  ispy_id,
 				LES_T4;
 
 	private String histTypeOfInvasiveTumor;
+	private String histTypePS;
 	private String reasonNoSurg;
 
 	private Double patientAge;
@@ -812,6 +813,14 @@ private String  ispy_id,
 
 	public void setReasonNoSurg(String reasonNoSurg) {
 		this.reasonNoSurg = reasonNoSurg;
+	}
+	
+	public void setHistTypePS(String histTypePS) {
+	    this.histTypePS = histTypePS;
+	}
+
+	public String getHistTypePS() {
+		return histTypePS;
 	}
 	
 
