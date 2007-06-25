@@ -1095,15 +1095,14 @@ public class QuickClinicalReport {
                  }
                 else cell.setCellValue(noRowData);
                  
-                 cell = dataRow.createCell((short) 64);
-                 rowDouble = data.getMriPctChangeT3_T4();
-                 if(rowDouble!=null){
-                     cell.setCellValue(rowDouble);
-                 }
+                cell = dataRow.createCell((short) 64);
+                rowDouble = data.getMriPctChangeT3_T4();
+                if(rowDouble!=null){
+                   cell.setCellValue(rowDouble);
+                }
                 else cell.setCellValue(noRowData);
              
          }
-         
          
          return wb;
      }
