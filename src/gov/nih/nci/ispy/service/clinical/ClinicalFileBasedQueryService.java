@@ -62,7 +62,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	public int setPatientDataMap(String patientDataFileName) {
 		
 		int numRecordsLoaded = 0;
-		
+		int lineNum=0;
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(patientDataFileName));
 			
@@ -72,6 +72,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			patientDataMap.clear();
 			
 			while ((line=in.readLine()) != null) {
+				lineNum++;
 				tokens = line.split("\t", -2);
 								
 				PatientData pd = new PatientData(getToken(tokens,0));
@@ -79,114 +80,123 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setDataExtractDT(getToken(tokens,1));
 				pd.setInst_ID(getToken(tokens,2));
 				pd.setAgeCategory(getToken(tokens,3));
-				pd.setRace_ID(getToken(tokens,4));
-				pd.setSSTAT(getToken(tokens,5));
-				pd.setSURVDTD(getToken(tokens,6));
-				pd.setChemo(getToken(tokens,7));
-				pd.setTAM(getToken(tokens,8));
-				pd.setHerceptin(getToken(tokens,9));
-				pd.setMenoStatus(getToken(tokens,10));
-				pd.setSentinelNodeSample(getToken(tokens,11));
-				pd.setSentinelNodeResult(getToken(tokens,12));
-				pd.setHistologicGradeOS(getToken(tokens,13));
-				pd.setER_TS(getToken(tokens,14));
-				pd.setPGR_TS(getToken(tokens,15));
-				pd.setHER2CommunityPOS(getToken(tokens,16));
-				pd.setHER2CommunityMethod(getToken(tokens,17));
-				pd.setSurgeryLumpectomy(getToken(tokens,18));
-				pd.setSurgeryMastectomy(getToken(tokens,19));
-				pd.setINITLUMP_FUPMAST(getToken(tokens,20));
-				pd.setSurgery(getToken(tokens,21));
-				pd.setDCISOnly(getToken(tokens,22));
 				
-				String doubleStr = getToken(tokens,23);
+				String ageStr = getToken(tokens,4);
+				if ((ageStr!=null)&&(ageStr.trim().length()>0)) {
+				  pd.setPatientAge(Double.valueOf(ageStr.trim()));					  
+				}
+								
+				pd.setRace_ID(getToken(tokens,5));
+				pd.setSSTAT(getToken(tokens,6));
+				pd.setSURVDTD(getToken(tokens,7));
+				pd.setChemo(getToken(tokens,8));
+				pd.setChemoCat(getToken(tokens,9));
+				pd.setDosedenseanthra(getToken(tokens,10));
+				pd.setDosedensetaxane(getToken(tokens,11));
+				pd.setTAM(getToken(tokens,12));
+				pd.setHerceptin(getToken(tokens,13));
+				pd.setMenoStatus(getToken(tokens,14));
+				pd.setSentinelNodeSample(getToken(tokens,15));
+				pd.setSentinelNodeResult(getToken(tokens,16));
+				pd.setHistTypeOfInvasiveTumor(getToken(tokens,17));
+				pd.setHistologicGradeOS(getToken(tokens,18));
+				pd.setER_TS(getToken(tokens,19));
+				pd.setPGR_TS(getToken(tokens,20));
+				pd.setHER2CommunityPOS(getToken(tokens,21));
+				pd.setHER2CommunityMethod(getToken(tokens,22));
+				pd.setSurgeryLumpectomy(getToken(tokens,23));
+				pd.setSurgeryMastectomy(getToken(tokens,24));
+				pd.setINITLUMP_FUPMAST(getToken(tokens,25));
+				pd.setSurgery(getToken(tokens,26));
+				pd.setDCISOnly(getToken(tokens,27));
+				
+				String doubleStr = getToken(tokens,28);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setPTumor1SZCM_MICRO(Double.valueOf(doubleStr.trim()));					  
 				}
 				
-				pd.setHistologicGradePS(getToken(tokens,24));
-				pd.setNumPosNodes(getToken(tokens,25));
-				pd.setNodesExamined(getToken(tokens,26));
-				pd.setPathologyStage(getToken(tokens,27));
-				pd.setRTTherapy(getToken(tokens,28));
-				pd.setRTBreast(getToken(tokens,29));
-				pd.setRTBOOST(getToken(tokens,30));
-				pd.setRTAXILLA(getToken(tokens,31));
-				pd.setRTSNODE(getToken(tokens,32));
-				pd.setRTIMAMNODE(getToken(tokens,33));
-				pd.setRTChestW(getToken(tokens,34));
-				pd.setRTOTHER(getToken(tokens,35));
-				pd.setTSizeClinical(getToken(tokens,36));
-				pd.setNSizeClinical(getToken(tokens,37));
-				pd.setStageTE(getToken(tokens,38));
-				pd.setStageNE(getToken(tokens,39));
-				pd.setStageME(getToken(tokens,40));
-				pd.setClinicalStage(getToken(tokens,41));
-				pd.setClinRespT1_T2(getToken(tokens,42));
-				pd.setClinRespT1_T3(getToken(tokens,43));
-				pd.setClinRespT1_T4(getToken(tokens,44));	
+				pd.setHistTypePS(getToken(tokens,29));
 				
-				pd.setChemoCat(getToken(tokens,45));
-				pd.setDosedenseanthra(getToken(tokens,46));
-				pd.setDosedensetaxane(getToken(tokens,47));
+				pd.setHistologicGradePS(getToken(tokens,30));
+				pd.setNumPosNodes(getToken(tokens,31));
+				pd.setNodesExamined(getToken(tokens,32));
+				pd.setPathologyStage(getToken(tokens,33));
+				pd.setReasonNoSurg(getToken(tokens,34));
+				pd.setRTTherapy(getToken(tokens,35));
+				pd.setRTBreast(getToken(tokens,36));
+				pd.setRTBOOST(getToken(tokens,37));
+				pd.setRTAXILLA(getToken(tokens,38));
+				pd.setRTSNODE(getToken(tokens,39));
+				pd.setRTIMAMNODE(getToken(tokens,40));
+				pd.setRTChestW(getToken(tokens,41));
+				pd.setRTOTHER(getToken(tokens,42));
+				pd.setTSizeClinical(getToken(tokens,43));
+				pd.setNSizeClinical(getToken(tokens,44));
+				pd.setStageTE(getToken(tokens,45));
+				pd.setStageNE(getToken(tokens,46));
+				pd.setStageME(getToken(tokens,47));
+				pd.setClinicalStage(getToken(tokens,48));
+				pd.setClinRespT1_T2(getToken(tokens,49));
+				pd.setClinRespT1_T3(getToken(tokens,50));
+				pd.setClinRespT1_T4(getToken(tokens,51));	
 				
-				pd.setLES_T1(getToken(tokens,48));
-				pd.setLES_T2(getToken(tokens,49));
-				pd.setLES_T3(getToken(tokens,50));
-				pd.setLES_T4(getToken(tokens,51));
+				pd.setLES_T1(getToken(tokens,52));
+				pd.setLES_T2(getToken(tokens,53));
+				pd.setLES_T3(getToken(tokens,54));
+				pd.setLES_T4(getToken(tokens,55));
 				
-				doubleStr = getToken(tokens,52);
+				doubleStr = getToken(tokens,56);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 					  pd.setLdT1(Double.valueOf(doubleStr.trim()));
 				}
 				
-				doubleStr = getToken(tokens,53);
+				doubleStr = getToken(tokens,57);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 					  pd.setLdT2(Double.valueOf(doubleStr.trim()));
 				}
 				
-				doubleStr = getToken(tokens,54);
+				doubleStr = getToken(tokens,58);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 					  pd.setLdT3(Double.valueOf(doubleStr.trim()));
 				}
 				
-				doubleStr = getToken(tokens,55);
+				doubleStr = getToken(tokens,59);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 					  pd.setLdT4(Double.valueOf(doubleStr.trim()));
 				}
 				
-				doubleStr = getToken(tokens,56);
+				doubleStr = getToken(tokens,60);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
 				}
 //				
-				doubleStr = getToken(tokens,57);
+				doubleStr = getToken(tokens,61);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
 			    }
 //				
-				doubleStr = getToken(tokens,58);
+				doubleStr = getToken(tokens,62);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
 			    }
 				
-				doubleStr = getToken(tokens,59);
+				doubleStr = getToken(tokens,63);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT2_T3(Double.valueOf(doubleStr.trim()));
 			    }
 				
-				doubleStr = getToken(tokens,60);
+				doubleStr = getToken(tokens,64);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT2_T4(Double.valueOf(doubleStr.trim()));
 			    }
 				
-				doubleStr = getToken(tokens,61);
+				doubleStr = getToken(tokens,65);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT3_T4(Double.valueOf(doubleStr.trim()));
 			    }
 								
 				
-				pd.setMorphology(getToken(tokens,62));
+				pd.setMorphology(getToken(tokens,66));
 				
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
@@ -195,7 +205,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	
 			
 		}  catch (IOException e) {
-			logger.error("Error reading patientDataFileName=" + patientDataFileName);
+			logger.error("Error reading patientDataFileName=" + patientDataFileName + " lineNum=" + lineNum);
 			logger.error(e);
 			return -numRecordsLoaded;
 		}
