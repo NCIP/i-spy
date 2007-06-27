@@ -1,0 +1,274 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Selenium_ISPY_TC11</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Selenium_ISPY_TC11</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>https://caintegrator-qa.nci.nih.gov/ispy/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userName</td>
+	<td>NCIISPYGuest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>!Spy1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CLICKING HERE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Search</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='IHC Loss of Expression Query']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Complete ResponseT1_T2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Complete ResponseT1_T3</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Complete ResponseT1_T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Partial ResponseT1_T2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Partial ResponseT1_T3</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Partial ResponseT1_T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stable DiseaseT1_T2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stable DiseaseT1_T3</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stable DiseaseT1_T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Progressive DiseaseT1_T2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Progressive DiseaseT1_T3</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Progressive DiseaseT1_T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 2_All</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 2_A</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 2_B</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 3_All</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 3_A</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 3_B</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 3_C</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=ER+</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=ER-</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=HER2+</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=HER2-</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=PR+</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=PR-</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T1</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>timepoints</td>
+	<td>label=T1</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T2</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>timepoints</td>
+	<td>label=T2</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T3</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>timepoints</td>
+	<td>label=T3</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>invasiveRangeOperator</td>
+	<td>label==</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>invasiveRangeOperator</td>
+	<td>label=&gt;=</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>invasiveRangeOperator</td>
+	<td>label=&lt;=</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>benignRangeOperator</td>
+	<td>label==</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>benignRangeOperator</td>
+	<td>label=&gt;=</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>benignRangeOperator</td>
+	<td>label=&lt;=</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>lossResult</td>
+	<td>label=NO LOSS</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>lossResult</td>
+	<td>label=NO LOSS</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>lossResult</td>
+	<td>label=PARTIAL LOSS</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>lossResult</td>
+	<td>label=PARTIAL LOSS</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>lossResult</td>
+	<td>label=TOTAL LOSS</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>analysisResultName</td>
+	<td>NAKTest_IHCLoss</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submittalButton</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
