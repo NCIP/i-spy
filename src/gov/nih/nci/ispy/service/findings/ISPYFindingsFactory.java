@@ -8,6 +8,7 @@ import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.HierarchicalClusteringQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.PrincipalComponentAnalysisQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
+import gov.nih.nci.ispy.dto.query.GpIntegrationQueryDTO;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
@@ -39,6 +40,8 @@ import gov.nih.nci.ispy.service.findings.strategies.IHCLevelOfExpressionFindingS
 import gov.nih.nci.ispy.service.findings.strategies.IHCLossOfExpressionFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.PrincipalComponentAnalysisFindingStrategy;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.service.findings.strategies.GPIntegrationFindingStrategy;
+import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
 
 import java.util.List;
 
@@ -338,6 +341,44 @@ public class ISPYFindingsFactory implements FindingsFactory {
         return finding;
 	}
 
+	public SampleGroup createHCASampleIds(HierarchicalClusteringQueryDTO queryDTO,String sessionID, String taskID) throws FrameworkException {
+		SampleGroup sampleGroup = null;
+        try {
+            HierarchicalClusteringFindingStrategy strategy = new  HierarchicalClusteringFindingStrategy(sessionID,queryDTO.getQueryName(),queryDTO );
+            strategy.createQuery();
+            strategy.executeQuery();
+            sampleGroup = strategy.getSampleGroup();
+
+        } catch (ValidationException e) {
+            logger.error(e);
+            changeStatusToError(sessionID,queryDTO.getQueryName(),e.getMessage());
+            throw(e);
+        } catch (FindingsQueryException e) {
+            logger.error(e);
+            changeStatusToError(sessionID,queryDTO.getQueryName(),e.getMessage());
+            throw(e);
+        } 
+        return sampleGroup;
+	}
+	public void createGPIntegrationSampleIds(GpIntegrationQueryDTO queryDTO,String sessionID) throws FrameworkException {
+		//SampleGroup[] sampleGroups = null;
+        try {
+        	GPIntegrationFindingStrategy strategy = new  GPIntegrationFindingStrategy(sessionID,queryDTO.getQueryName(),queryDTO );
+            strategy.createQuery();
+            strategy.executeQuery();
+            //sampleGroups = strategy.getSampleGroups();
+
+        } catch (ValidationException e) {
+            logger.error(e);
+            changeStatusToError(sessionID,queryDTO.getQueryName(),e.getMessage());
+            throw(e);
+        } catch (FindingsQueryException e) {
+            logger.error(e);
+            changeStatusToError(sessionID,queryDTO.getQueryName(),e.getMessage());
+            throw(e);
+        } 
+        //return sampleGroups;
+	}
 	public GEIntensityFinding createGEIntensityFinding(QueryDTO query) {
 		// TODO Auto-generated method stub
 		return null;
