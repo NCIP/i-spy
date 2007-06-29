@@ -420,11 +420,12 @@ function saveMe(tbox,fbox) {
 
 var strValues = "";
 
-if(tbox == null || fbox == null || !tbox.length || !fbox.length)
+if(tbox == null || fbox == null || !tbox.length)
 	return;
 	
 var boxLength = 0;
 if(tbox.length)	{ boxLength = tbox.length; }
+
 
 var fboxLength = 0;
 if(fbox.length) { fboxLength = fbox.length;}
@@ -441,6 +442,7 @@ if (boxLength != 0) {
 		}
 	count++;
    }
+   
 }
 if (strValues.length == 0) {
 //alert("You have not made any selections");
