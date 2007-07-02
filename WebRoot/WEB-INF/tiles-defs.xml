@@ -129,6 +129,20 @@
 	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
 	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
     </definition>
+     <definition name="ispy.gpIntegration" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=gpIntegration" />
+	  <put name="title" value="Gene Pattern Integration Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+    </definition>
+	<definition name="ispy.gpJobView" extends="baseDef">
+		<put name="title" value="I-SPY View Gene Pattern Job" />
+		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+		<put name="mainForm" value="/WEB-INF/jsp/gpJobView.jsp" />
+		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=6" />
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
+    </definition> 
     <!-- 
 	<definition name="ispy.menu" extends="baseDef">
       <put name="mainForm" value="/jsp/menu.jsp" />
