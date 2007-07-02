@@ -43,6 +43,7 @@
 							"<li><a href=\"hierarchicalclusteringInit.do?method=setup\">HC</a></li>\n" +										
 							"<li><a href=\"correlationScatterInit.do?method=setup\">Correlation Scatter</a></li>\n" +
 							"<li><a href=\"categoricalCorrelationInit.do?method=setup\">Categorical Plot</a></li>\n" +
+							"<li><a href=\"gpintegrationInit.do?method=setup\">GP Integration</a></li>\n" +
 							"</ul>\n";
 							
 	String s = (String) request.getParameter("s");
@@ -88,6 +89,14 @@
 				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<span>Manage Lists</span>\n";
+				break;
+			case 6:
+			    //6 is to vew gene pattern job view
+				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
+				adv = "<a href=\"advancedHome.do\">Search</a>";
+				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
+				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
+				list = "<a href=\"manageLists.do\">Manage Lists</a>";
 				break;
 			default:
 				//simple = "<span>Simple Search</span>\n" + simpleSecondary;
