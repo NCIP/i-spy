@@ -8,6 +8,7 @@ import gov.nih.nci.caintegrator.dto.query.QueryType;
 import gov.nih.nci.caintegrator.service.findings.FindingsFactory;
 import gov.nih.nci.ispy.dto.query.ClassComparisonQueryDTOImpl;
 import gov.nih.nci.ispy.dto.query.HierarchicalClusteringQueryDTOImpl;
+import gov.nih.nci.ispy.dto.query.ISPYGPIntegrationQueryDTO;
 import gov.nih.nci.ispy.dto.query.PrincipalComponentAnalysisQueryDTOImpl;
 import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
 
@@ -80,7 +81,8 @@ public class ApplicationFactory{
         }else if (queryType == QueryType.HC_QUERY) {              
             return new HierarchicalClusteringQueryDTOImpl();
         }else {
-        	return null;
+        	//return null;
+        	return new ISPYGPIntegrationQueryDTO();
         }
 	}
 	public static PresentationTierCache getPresentationTierCache() {
