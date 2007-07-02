@@ -109,7 +109,7 @@ public ActionErrors validate(ActionMapping mapping,
             if(user != null)
             {                
                 userLoggedIn = true ;
-                userName = user.getFirstName();
+                //userName = user.getFirstName();
             } 
             else {
                 errors.add("invalidLogin", new ActionMessage(
