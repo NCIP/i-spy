@@ -1,10 +1,19 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
-import gov.nih.nci.caintegrator.analysis.messaging.ClassComparisonRequest;
+import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
+import gov.nih.nci.caintegrator.application.service.annotation.GeneExprAnnotationService;
+import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
+import gov.nih.nci.ispy.service.annotation.GeneExprAnnotationServiceFactory;
 import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
+import gov.nih.nci.caintegrator.analysis.messaging.ReporterGroup;
+import gov.nih.nci.ispy.service.annotation.RegistrantInfo;
+import gov.nih.nci.caintegrator.application.lists.UserList;
+import gov.nih.nci.caintegrator.analysis.messaging.ClassComparisonRequest;
 import gov.nih.nci.caintegrator.application.analysis.AnalysisServerClientManager;
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
+import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
 import gov.nih.nci.caintegrator.dto.de.ExprFoldChangeDE;
+import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.query.ClassComparisonQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.ClinicalQueryDTO;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
@@ -26,6 +35,7 @@ import gov.nih.nci.ispy.service.annotation.IdMapperFileBasedService;
 import gov.nih.nci.ispy.service.annotation.SampleInfo;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
+import gov.nih.nci.ispy.service.common.TimepointType;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
 import gov.nih.nci.ispy.dto.query.GpIntegrationQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYGPIntegrationQueryDTO;
@@ -33,7 +43,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import java.util.Collection;
+import java.util.Iterator;
 import javax.jms.JMSException;
 import javax.naming.NamingException;
 
@@ -126,130 +137,49 @@ public class GPIntegrationFindingStrategy extends SessionBasedFindingStrategy {
 	 */
 	public boolean executeQuery() throws FindingsQueryException {
 		ISPYGPIntegrationQueryDTO ispyDTO = (ISPYGPIntegrationQueryDTO)myQueryDTO;
-	/*	
-		Set<String> labtrackIds = new HashSet<String>();
-        ClinicalDataService qs = ClinicalDataServiceFactory.getInstance();
-		IdMapperFileBasedService idMapper = IdMapperFileBasedService.getInstance();
 		
-		for (ClinicalQueryDTO cq : clinicalQueries) {
-           List<String> patientDIDs;
-           Set<SampleInfo> samples = null;
-           SampleGroup sg = new SampleGroup(cq.getQueryName());
-          
-          if(cq.getClass().isInstance(new ISPYclinicalDataQueryDTO())){
-              ISPYclinicalDataQueryDTO icq = (ISPYclinicalDataQueryDTO) cq;
-    		  patientDIDs = new ArrayList<String>(qs.getPatientDIDs(icq));
-              
-              //get the labtrack ids for the patients               
-              if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.AGILENT) {              
-                samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.AGILENT,icq.getTimepointValues());
-              }
-              else if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.CDNA_ARRAY_PLATFORM){
-                samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.CDNA, icq.getTimepointValues());
-              }
-              if (icq.isBaseline()) {
-                classComparisonRequest.setBaselineGroup(sg);
-              }
-              else {
-                classComparisonRequest.setGroup1(sg);
-              }
-          }
-          else if(cq.getClass().isInstance(new PatientUserListQueryDTO())){              
-              PatientUserListQueryDTO pq = (PatientUserListQueryDTO) cq;
-              patientDIDs = pq.getPatientDIDs();             
-              //get the labtrack ids for the patients             
-              
-              if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.AGILENT) {              
-                samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.AGILENT,pq.getTimepointValues());
-              }
-              else if (myQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()== ArrayPlatformType.CDNA_ARRAY_PLATFORM){
-                samples = idMapper.getSamplesForDataTypeAndTimepoints(patientDIDs, ISPYDataType.CDNA, pq.getTimepointValues());
-              }
-              if (pq.isBaseline()) {
-                classComparisonRequest.setBaselineGroup(sg);
-              }
-              else {
-                classComparisonRequest.setGroup1(sg);
-              }
-          }
-		  
-		  
-		  */
-		  /*
-		  List<String> sampleIds = new ArrayList<String>();
-		  
-		  if (samples != null) {		  
-			  for (SampleInfo si : samples) {
-			    sampleIds.add(si.getLabtrackId());    
-			  }	
-		  }
-		  sg.addAll(sampleIds);
-			*/  
+		Set<String> keySet = ispyDTO.getPatientLists().keySet();
+		SampleGroup[] sampleGroups = new SampleGroup[keySet.size()];
 
-		//}
+		ArrayPlatformDE arrayPlatformDE = ispyDTO.getArrayPlatformDE();
+        ISPYDataType dataType = null;
+        if (arrayPlatformDE.getValueObjectAsArrayPlatformType()== ArrayPlatformType.AGILENT){
+        	dataType = ISPYDataType.AGILENT;
+        }
+        else if (arrayPlatformDE.getValueObjectAsArrayPlatformType()== ArrayPlatformType.CDNA_ARRAY_PLATFORM) {
+        	dataType = ISPYDataType.CDNA;
+        }
+        else {
+        	logger.error("Unrecognized ArrayPlatform type for ISPY application");
+        }
+        int count = 0;
+		for (String key : keySet){
+			UserList userlist = ispyDTO.getPatientLists().get(key);
+			Set<TimepointType> timePoints = ispyDTO.getTimepointLists().get(key);
+			SampleGroup sg = getSampleGroupForPatientList(userlist, dataType, timePoints, key);
+			sampleGroups[count++] = sg;
+		}
+		ispyDTO.setSampleGroups(sampleGroups);
 		
-//		if(clinicalQueries != null){
-//		CompoundQuery compoundQuery;
-//			    for (ClinicalDataQuery clinicalDataQuery: clinicalQueries){
-//			    Resultant resultant;
-//				try {
-//					compoundQuery = new CompoundQuery(clinicalDataQuery);
-//					compoundQuery.setAssociatedView(ViewFactory
-//		                .newView(ViewType.CLINICAL_VIEW));
-//					InstitutionCriteria institutionCriteria = new InstitutionCriteria();
-//					institutionCriteria.setInstitutions(myQueryDTO.getInstitutionDEs());
-//					compoundQuery.setInstitutionCriteria( institutionCriteria);
-//					resultant = ResultsetManager.executeCompoundQuery(compoundQuery);
-//		  		}
-//		  		catch (Throwable t)	{
-//		  			logger.error("Error Executing the query/n"+ t.getMessage());
-//		  			throw new FindingsQueryException("Error executing clinical query/n"+t.getMessage());
-//		  		}
-//
-//				if(resultant != null) {      
-//			 		ResultsContainer  resultsContainer = resultant.getResultsContainer(); 
-//			 		Viewable view = resultant.getAssociatedView();
-//			 		if(resultsContainer != null)	{
-//			 			if(view instanceof ClinicalSampleView){
-//			 				try {
-//			 					//1. Get the sample Ids from the return Clinical query
-//								Collection<SampleIDDE> sampleIDDEs = StrategyHelper.extractSampleIDDEs(resultsContainer);
-//								//2. validate samples so that GE data exsists for these samples
-//								Collection<SampleIDDE> validSampleIDDEs = DataValidator.validateSampleIds(sampleIDDEs);
-//								//3. Extracts sampleIds as Strings
-//								Collection<String> sampleIDs = StrategyHelper.extractSamples(validSampleIDDEs);
-//								if(sampleIDs != null){
-//									//3.1 add them to SampleGroup
-//									SampleGroup sampleGroup = new SampleGroup(clinicalDataQuery.getQueryName(),validSampleIDDEs.size());
-//									sampleGroup.addAll(sampleIDs);
-//									sampleGroups.add(sampleGroup);
-////									//3.2 Find out any samples that were not processed  
-//									Set<SampleIDDE> set = new HashSet<SampleIDDE>();
-//									set.addAll(sampleIDDEs); //samples from the original query
-//									//3.3 Remove all samples that are validated	
-//									set.removeAll(validSampleIDDEs);
-//									samplesNotFound.addAll(set);									
-//							}
-//							} catch (OperationNotSupportedException e) {
-//								logger.error(e.getMessage());
-//					  			throw new FindingsQueryException(e.getMessage());
-//							} catch (Exception e) {
-//								e.printStackTrace();
-//								logger.error(e.getMessage());
-//					  			throw new FindingsQueryException(e.getMessage());
-//							}
-//
-//		 				}	
-//			 		}
-//				}
-//			 }
-//		}
-//		if(samplesNotFound != null && samplesNotFound.size() > 0){
-//			setSamplesNotFound(samplesNotFound);
-//		}
+		Collection<GeneIdentifierDE> geneIdentifierDECollection = ispyDTO.getGeneIdentifierDEs();
+		if (geneIdentifierDECollection != null && !geneIdentifierDECollection.isEmpty()){
+			Collection<String> reporters = new HashSet<String>();
+			Collection<String> genes = new ArrayList<String>();
+			for (Iterator it = geneIdentifierDECollection.iterator(); it.hasNext();){
+				GeneIdentifierDE de = (GeneIdentifierDE)it.next();
+				genes.add(de.getValueObject());
+			}
+			GeneExprAnnotationService gs = GeneExprAnnotationServiceFactory.getInstance();
+			reporters = gs.getReporterNamesForGeneSymbols(genes,arrayPlatformDE.getValueObjectAsArrayPlatformType());
+			if (reporters != null && !reporters.isEmpty()){
+				ReporterGroup reporterGroup = new ReporterGroup(ispyDTO.getReportersName());
+				for (String reporter : reporters){
+					reporterGroup.add(reporter);
+				}
+				ispyDTO.setReporterGroup(reporterGroup);
+			}
+		}
 	    return true;
-
-
 	}
 
 	/* (non-Javadoc)
@@ -263,50 +193,26 @@ public class GPIntegrationFindingStrategy extends SessionBasedFindingStrategy {
 		return null;
 	}
 
-
+	private SampleGroup getSampleGroupForPatientList(UserList patientList, ISPYDataType dataType,
+			Set<TimepointType> timePoints, String key) {
+		 IdMapperFileBasedService im = IdMapperFileBasedService.getInstance();
+		 List<RegistrantInfo> infoList = im.getMapperEntriesForIds(patientList.getList());
+		 SampleGroup group = new SampleGroup(key);
+		 Set<SampleInfo> infoSet;
+		 for (RegistrantInfo info : infoList) {
+		   infoSet = info.getSamplesForDataTypeAndTimepoints(dataType, timePoints);
+		   for (SampleInfo sampleInfo : infoSet) {
+		     group.add(sampleInfo.getLabtrackId());
+		   }
+		 }
+		 return group;		 
+	}
 
 	public boolean validate(QueryDTO queryDTO) throws ValidationException {
 		boolean _valid = false;
-		if(queryDTO instanceof ClassComparisonQueryDTO){
-			ClassComparisonQueryDTO classComparisonQueryDTO = (ClassComparisonQueryDTO)queryDTO;
-			try {
-				ValidationUtility.checkForNull(classComparisonQueryDTO.getInstitutionDEs());
-				ValidationUtility.checkForNull(classComparisonQueryDTO.getArrayPlatformDE()) ;
-				ValidationUtility.checkForNull(classComparisonQueryDTO.getComparisonGroups());
-				ValidationUtility.checkForNull(classComparisonQueryDTO.getExprFoldChangeDE());
-				ValidationUtility.checkForNull(classComparisonQueryDTO.getMultiGroupComparisonAdjustmentTypeDE());
-				ValidationUtility.checkForNull(classComparisonQueryDTO.getQueryName());
-				ValidationUtility.checkForNull(classComparisonQueryDTO.getStatisticalSignificanceDE());
-				ValidationUtility.checkForNull(classComparisonQueryDTO.getStatisticTypeDE());
-					switch (classComparisonQueryDTO.getMultiGroupComparisonAdjustmentTypeDE().getValueObject()){
-						case NONE:
-							if(classComparisonQueryDTO.getStatisticalSignificanceDE().getStatisticType() != StatisticalSignificanceType.pValue)
-								throw(new ValidationException("When multiGroupComparisonAdjustmentTypeDE is NONE, Statistical Type should be pValue"));
-							break;
-						case FWER:
-						case FDR:
-							if(classComparisonQueryDTO.getStatisticalSignificanceDE().getStatisticType() != StatisticalSignificanceType.adjustedpValue)
-								throw(new ValidationException("When multiGroupComparisonAdjustmentTypeDE is FWER or FDR, Statistical Type should be adjusted pValue"));
-							break;
-						default:
-								throw(new ValidationException("multiGroupComparisonAdjustmentTypeDE is does not match any options"));
-					}
-					_valid = true;
-				} catch (ValidationException ex) {
-					logger.error(ex.getMessage());
-					throw ex;
-				}
+		if(queryDTO instanceof ISPYGPIntegrationQueryDTO){
+			ISPYGPIntegrationQueryDTO ispyDTO = (ISPYGPIntegrationQueryDTO)queryDTO;
 		}		
 		return _valid;
 	}
-//	private void setSamplesNotFound(Collection<SampleIDDE>  samplesNotFound ){
-//		classComparisonFinding = (ClassComparisonFinding) cacheManager.getSessionFinding(getSessionId(), getTaskId());
-//		if(classComparisonFinding != null){
-//			classComparisonFinding.setSamplesNotFound(samplesNotFound);
-//			
-//		}
-//		cacheManager.addToSessionCache(getSessionId(), getTaskId(), classComparisonFinding);
-//
-//	}
-
 }
