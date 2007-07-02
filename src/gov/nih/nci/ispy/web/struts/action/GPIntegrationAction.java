@@ -372,7 +372,7 @@ public class GPIntegrationAction extends DispatchAction {
         return gpQueryDTO;
     }    
     private String getIdsAsDelimitedString(IdGroup idGroup, String token){
-		StringBuffer sb = new StringBuffer(idGroup.getGroupName() + "=");
+		StringBuffer sb = new StringBuffer(replaceSpace(idGroup.getGroupName()) + "=");
 		for (Iterator i = idGroup.iterator(); i.hasNext(); ) {
 		  //sb.append(DOUBLE_QUOTE+(String)i.next()+DOUBLE_QUOTE);
 		  sb.append((String)i.next());
@@ -397,7 +397,8 @@ public class GPIntegrationAction extends DispatchAction {
 					fileExtension = ".cls";
 				else
 					fileExtension = ".txt";
-				File idFile =File.createTempFile(fileName, fileExtension); //, new File("C:\\temp\\ispy"));
+				//File idFile =File.createTempFile(fileName, fileExtension, new File("C:\\temp\\ispy"));
+				File idFile =File.createTempFile(fileName, fileExtension);
 				FileWriter idFw = new FileWriter(idFile);
 				for (String ids : list){
 					idFw.write(ids);
@@ -460,6 +461,9 @@ public class GPIntegrationAction extends DispatchAction {
 			}
 			total++;
 		}
+    }
+    private String replaceSpace(String text){
+    	return text.replaceAll(" ", "_");
     }
 }
 
