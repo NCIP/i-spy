@@ -22,6 +22,9 @@
     <create creator="new" javascript="DynamicListHelper">
       <param name="class" value="gov.nih.nci.ispy.web.ajax.DynamicListHelper"/>
     </create>
+    <create creator="new" javascript="GenePatternHelper">
+      <param name="class" value="gov.nih.nci.ispy.web.ajax.GenePatternHelper"/>
+    </create>
     <!-- 
     <create creator="new" javascript="UserPreferences">
       <param name="class" value="gov.nih.nci.rembrandt.web.helper.UserPreferencesHelper"/>
