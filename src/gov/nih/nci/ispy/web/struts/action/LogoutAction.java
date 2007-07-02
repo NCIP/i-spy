@@ -1,6 +1,8 @@
 package gov.nih.nci.ispy.web.struts.action;
 
+import gov.nih.nci.ispy.util.ISPYPublicUserPool;
 import gov.nih.nci.ispy.util.ispyConstants;
+import gov.nih.nci.ispy.util.ISPYPublicUserPool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,6 +81,11 @@ public final class LogoutAction extends Action
     {
         HttpSession session = request.getSession();
         try{
+        	String gpUser = (String)session.getAttribute("gpUsername");
+        	if (gpUser != null){
+				ISPYPublicUserPool pool = ISPYPublicUserPool.getInstance();
+				pool.returnPublicUser(gpUser);
+        	}
             session.invalidate(); 
             return (mapping.findForward("logout"));
         }
