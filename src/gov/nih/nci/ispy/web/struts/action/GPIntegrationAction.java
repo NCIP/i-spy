@@ -198,7 +198,7 @@ public class GPIntegrationAction extends DispatchAction {
 			fileNameList.add("reproterIdsFile");
 		}
 		else {
-			reportIdStringList.add("NONE");
+			reportIdStringList.add("reporter=NONE");
 			allStringList.add(reportIdStringList);
 			fileNameList.add("reproterIdsFile");
 		}
