@@ -17,7 +17,7 @@
 	      
 	       
 		 <logic:present name="ihcLevelQueryForm">
-		 	&nbsp;&nbsp;<html:select property="biomarkers" multiple="true" size="4">						
+		 	&nbsp;&nbsp;<html:select property="biomarkers">						
 						<html:optionsCollection property="biomarkersCollection" />
 			</html:select>		
 		 </logic:present>
