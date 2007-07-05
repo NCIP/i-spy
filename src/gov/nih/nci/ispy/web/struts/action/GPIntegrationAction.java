@@ -329,7 +329,7 @@ public class GPIntegrationAction extends DispatchAction {
         if (gpQueryForm.getSelectedGroups() != null && gpQueryForm.getSelectedGroups().length > 0){
         	for(int i=0; i<gpQueryForm.getSelectedGroups().length;i++){    
         		groupTimepoint = gpQueryForm.getSelectedGroups()[i];
-        		int index = groupTimepoint.indexOf("---");
+        		int index = groupTimepoint.lastIndexOf("---");
         		groupName = groupTimepoint.substring(0, index);
         		timePointName = groupTimepoint.substring(index + 3);
         		UserList userList = listHelper.getUserList(groupName);
