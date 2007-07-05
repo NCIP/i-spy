@@ -1,12 +1,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Selenium_ISPY_TC9</title>
+<title>Selenium_ISPY_TC9_NoLogin</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Selenium_ISPY_TC9</td></tr>
+<tr><td rowspan="1" colspan="3">Selenium_ISPY_TC9_NoLogin</td></tr>
 </thead><tbody>
 <!-- Modified to skip the login step
 <tr>
@@ -303,6 +303,106 @@
 <tr>
 	<td>click</td>
 	<td>//input[@id='' and @name='PatientDID' and @value='PR+']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Complete ResponseT1_T2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@onclick='ManageListHelper.getDetails("Complete ResponseT1_T2");return false;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>export list</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@onclick='ManageListHelper.getDetails("Complete ResponseT1_T2");return false;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@onclick='ManageListHelper.deleteList("Complete ResponseT1_T2");return false;']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='' and @name='PatientDID' and @value='PR+']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='' and @name='PatientDID' and @value='PR-']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>PatientDIDGroupName</td>
+	<td>PR_NewList</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Join Selected']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='' and @name='PatientDID' and @value='PR_NewList']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='' and @name='PatientDID' and @value='PR-']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>PatientDIDGroupName</td>
+	<td>PR-Diff</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Difference']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>PatientDIDGroupName</td>
+	<td>PR+HER+</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='' and @name='PatientDID' and @value='PR+']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@id='' and @name='PatientDID' and @value='HER2+']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Intersect Selected']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>typeSelector</td>
+	<td>label=Gene-GENESYMBOL</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>uploadButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertAlert</td>
+	<td>please enter a name for this list. <br />please enter a file for this list.</td>
 	<td></td>
 </tr>
 
