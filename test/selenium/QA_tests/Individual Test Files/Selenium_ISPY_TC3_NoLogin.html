@@ -41,34 +41,19 @@
 	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>timepoints</td>
-	<td>label=T1</td>
+	<td>verifyTextPresent</td>
+	<td>T1</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>timepoints</td>
-	<td>label=T1</td>
+	<td>verifyTextPresent</td>
+	<td>T2</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>timepoints</td>
-	<td>label=T2</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>timepoints</td>
-	<td>label=T2</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>timepoints</td>
-	<td>label=T3</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>timepoints</td>
-	<td>label=T3</td>
+	<td>verifyTextPresent</td>
+	<td>T3</td>
+	<td></td>
 </tr>
 <tr>
 	<td>addSelection</td>
@@ -118,7 +103,7 @@
 <tr>
 	<td>type</td>
 	<td>analysisResultName</td>
-	<td>JG_PCA_ClearTest</td>
+	<td>QA_PCA_ClearTest</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -128,7 +113,7 @@
 
 <tr>
 	<td>click</td>
-	<td>JG_PCA_ClearTest_link</td>
+	<td>QA_PCA_ClearTest_link</td>
 	<td></td>
 </tr>
 <tr>
@@ -141,6 +126,11 @@
 	<td>hoa_report</td>
 	<td></td>
 </tr>
+
+<!-- WARNING - Manually lasso some data values,
+     as Selenium does not catch the lasso function action
+-->
+
 <tr>
 	<td>clickAndWait</td>
 	<td>link=view clinical data</td>
