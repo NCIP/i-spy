@@ -1,12 +1,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Selenium_ISPY_TC10a</title>
+<title>Selenium_ISPY_TC10_NoLogin</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Selenium_ISPY_TC10a</td></tr>
+<tr><td rowspan="1" colspan="3">Selenium_ISPY_TC10_NoLogin</td></tr>
 </thead><tbody>
 <!-- Modified to skip the login step
 <tr>
@@ -34,22 +34,12 @@
 	<td>link=CLICKING HERE</td>
 	<td></td>
 </tr>
--->
 <tr>
 	<td>clickAndWait</td>
 	<td>link=Search</td>
 	<td></td>
 </tr>
-<tr>
-	<td>click</td>
-	<td>helpIcon</td>
-	<td></td>
-</tr>
-<tr>
-	<td>waitForPopUp</td>
-	<td>Help</td>
-	<td>30000</td>
-</tr>
+-->
 <tr>
 	<td>clickAndWait</td>
 	<td>//input[@value='IHC Level of Expression Query']</td>
@@ -181,204 +171,104 @@
 	<td>label=PR-</td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>timepoints</td>
-	<td>label=T1</td>
+	<td>verifyTextPresent</td>
+	<td>T1</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>timepoints</td>
-	<td>label=T1</td>
+	<td>verifyTextPresent</td>
+	<td>T2</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>timepoints</td>
-	<td>label=T2</td>
+	<td>verifyTextPresent</td>
+	<td>T3</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>timepoints</td>
-	<td>label=T2</td>
+	<td>verifyTextPresent</td>
+	<td>CYCLIN_D1</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>timepoints</td>
-	<td>label=T3</td>
+	<td>verifyTextPresent</td>
+	<td>EGFR</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>timepoints</td>
-	<td>label=T3</td>
+	<td>verifyTextPresent</td>
+	<td>FAK</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>timepoints</td>
-	<td>label=T4</td>
+	<td>verifyTextPresent</td>
+	<td>HER2</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>biomarkers</td>
-	<td>label=CYCLIN_D1</td>
+	<td>verifyTextPresent</td>
+	<td>KI-67</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>biomarkers</td>
-	<td>label=CYCLIN_D1</td>
+	<td>verifyTextPresent</td>
+	<td>P53</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>biomarkers</td>
-	<td>label=EGFR</td>
+	<td>verifyTextPresent</td>
+	<td>BCL2</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>biomarkers</td>
-	<td>label=EGFR</td>
+	<td>verifyTextPresent</td>
+	<td>BORDERLINE</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>biomarkers</td>
-	<td>label=FAK</td>
+	<td>verifyTextPresent</td>
+	<td>MODERATE/STRONG</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>biomarkers</td>
-	<td>label=FAK</td>
+	<td>verifyTextPresent</td>
+	<td>NEGATIVE</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>biomarkers</td>
-	<td>label=HER2</td>
+	<td>verifyTextPresent</td>
+	<td>CYTOPLASM</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>biomarkers</td>
-	<td>label=HER2</td>
+	<td>verifyTextPresent</td>
+	<td>MEMBRANE</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>biomarkers</td>
-	<td>label=KI-67</td>
+	<td>verifyTextPresent</td>
+	<td>MEMBRANE AND CYTOPLASM</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>biomarkers</td>
-	<td>label=KI-67</td>
+	<td>verifyTextPresent</td>
+	<td>MEMBRANE AND NUCLEAR</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>biomarkers</td>
-	<td>label=P53</td>
+	<td>verifyTextPresent</td>
+	<td>NONE&lt;</td>
+	<td></td>
 </tr>
 <tr>
-	<td>removeSelection</td>
-	<td>biomarkers</td>
-	<td>label=P53</td>
+	<td>verifyTextPresent</td>
+	<td>NUCLEAR AND CYTOPLASM</td>
+	<td></td>
 </tr>
 <tr>
-	<td>addSelection</td>
-	<td>biomarkers</td>
-	<td>label=BCL2</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainIntensity</td>
-	<td>label=BORDERLINE</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainIntensity</td>
-	<td>label=BORDERLINE</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainIntensity</td>
-	<td>label=MODERATE/STRONG</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainIntensity</td>
-	<td>label=MODERATE/STRONG</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainIntensity</td>
-	<td>label=NEGATIVE</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainIntensity</td>
-	<td>label=NEGATIVE</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainIntensity</td>
-	<td>label=WEAK</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainLocalization</td>
-	<td>label=CYTOPLASM</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainLocalization</td>
-	<td>label=CYTOPLASM</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainLocalization</td>
-	<td>label=MEMBRANE</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainLocalization</td>
-	<td>label=MEMBRANE</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainLocalization</td>
-	<td>label=MEMBRANE AND CYTOPLASM</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainLocalization</td>
-	<td>label=MEMBRANE AND CYTOPLASM</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainLocalization</td>
-	<td>label=MEMBRANE AND NUCLEAR</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainLocalization</td>
-	<td>label=MEMBRANE AND NUCLEAR</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainLocalization</td>
-	<td>label=NONE</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainLocalization</td>
-	<td>label=NONE</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainLocalization</td>
-	<td>label=NUCLEAR AND CYTOPLASM</td>
-</tr>
-<tr>
-	<td>removeSelection</td>
-	<td>stainLocalization</td>
-	<td>label=NUCLEAR AND CYTOPLASM</td>
-</tr>
-<tr>
-	<td>addSelection</td>
-	<td>stainLocalization</td>
-	<td>label=NUCLEUS</td>
+	<td>verifyTextPresent</td>
+	<td>NUCLEUS</td>
+	<td></td>
 </tr>
 <tr>
 	<td>click</td>
@@ -393,6 +283,101 @@
 <tr>
 	<td>clickAndWait</td>
 	<td>submittalButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>NAKTest_IHC_link</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>loe_report</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>loe_report</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTitle</td>
+	<td>ISPY Report</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>query_details</td>
+	<td>Query Details: <br />Query Name: NAKTest_IHC <br /> Biomarker(s): CYCLIN_D1 <br /> Timepoint(s): T1 <br /> Intensity: <br /> % Positive Min: 0 <br /> % Positive Max: 100 <br /> Localization:</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>PatientDID</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Biomarker</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>% Positive</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>T1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Intensity</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>T1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Localization</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>T1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Result Code</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>T1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>T1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[1]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
 	<td></td>
 </tr>
 
