@@ -1,0 +1,401 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Selenium_ISPY_TC10a</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Selenium_ISPY_TC10a</td></tr>
+</thead><tbody>
+<!-- Modified to skip the login step
+<tr>
+	<td>open</td>
+	<td>https://caintegrator-qa.nci.nih.gov/ispy/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userName</td>
+	<td>NCIISPYGuest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>!Spy1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CLICKING HERE</td>
+	<td></td>
+</tr>
+-->
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Search</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>helpIcon</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>Help</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='IHC Level of Expression Query']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Complete ResponseT1_T2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Complete ResponseT1_T3</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Complete ResponseT1_T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Partial ResponseT1_T2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Partial ResponseT1_T3</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Partial ResponseT1_T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stable DiseaseT1_T2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stable DiseaseT1_T3</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stable DiseaseT1_T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Progressive DiseaseT1_T2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Progressive DiseaseT1_T3</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Progressive DiseaseT1_T4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 2_All</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 2_A</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 2_B</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 3_All</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 3_A</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 3_B</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Stage 3_C</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=ER+</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=ER-</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=HER2+</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=HER2-</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=PR+</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=PR-</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T1</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>timepoints</td>
+	<td>label=T1</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T2</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>timepoints</td>
+	<td>label=T2</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T3</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>timepoints</td>
+	<td>label=T3</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T4</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>biomarkers</td>
+	<td>label=CYCLIN_D1</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>biomarkers</td>
+	<td>label=CYCLIN_D1</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>biomarkers</td>
+	<td>label=EGFR</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>biomarkers</td>
+	<td>label=EGFR</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>biomarkers</td>
+	<td>label=FAK</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>biomarkers</td>
+	<td>label=FAK</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>biomarkers</td>
+	<td>label=HER2</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>biomarkers</td>
+	<td>label=HER2</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>biomarkers</td>
+	<td>label=KI-67</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>biomarkers</td>
+	<td>label=KI-67</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>biomarkers</td>
+	<td>label=P53</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>biomarkers</td>
+	<td>label=P53</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>biomarkers</td>
+	<td>label=BCL2</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainIntensity</td>
+	<td>label=BORDERLINE</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainIntensity</td>
+	<td>label=BORDERLINE</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainIntensity</td>
+	<td>label=MODERATE/STRONG</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainIntensity</td>
+	<td>label=MODERATE/STRONG</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainIntensity</td>
+	<td>label=NEGATIVE</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainIntensity</td>
+	<td>label=NEGATIVE</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainIntensity</td>
+	<td>label=WEAK</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainLocalization</td>
+	<td>label=CYTOPLASM</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainLocalization</td>
+	<td>label=CYTOPLASM</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainLocalization</td>
+	<td>label=MEMBRANE</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainLocalization</td>
+	<td>label=MEMBRANE</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainLocalization</td>
+	<td>label=MEMBRANE AND CYTOPLASM</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainLocalization</td>
+	<td>label=MEMBRANE AND CYTOPLASM</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainLocalization</td>
+	<td>label=MEMBRANE AND NUCLEAR</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainLocalization</td>
+	<td>label=MEMBRANE AND NUCLEAR</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainLocalization</td>
+	<td>label=NONE</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainLocalization</td>
+	<td>label=NONE</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainLocalization</td>
+	<td>label=NUCLEAR AND CYTOPLASM</td>
+</tr>
+<tr>
+	<td>removeSelection</td>
+	<td>stainLocalization</td>
+	<td>label=NUCLEAR AND CYTOPLASM</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>stainLocalization</td>
+	<td>label=NUCLEUS</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>clearButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>analysisResultName</td>
+	<td>NAKTest_IHC</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submittalButton</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
