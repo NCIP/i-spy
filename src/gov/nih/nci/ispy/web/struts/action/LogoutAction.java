@@ -81,11 +81,6 @@ public final class LogoutAction extends Action
     {
         HttpSession session = request.getSession();
         try{
-        	String gpUser = (String)session.getAttribute("gpUsername");
-        	if (gpUser != null){
-				ISPYPublicUserPool pool = ISPYPublicUserPool.getInstance();
-				pool.returnPublicUser(gpUser);
-        	}
             session.invalidate(); 
             return (mapping.findForward("logout"));
         }
