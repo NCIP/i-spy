@@ -46,6 +46,7 @@ import gov.nih.nci.ispy.web.helper.EnumHelper;
 import gov.nih.nci.ispy.web.struts.form.GpIntegrationForm;
 
 ///////////////
+import gov.nih.nci.caintegrator.security.PublicUserPool;
 import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
 import gov.nih.nci.caintegrator.analysis.messaging.ReporterGroup;
 import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
@@ -234,11 +235,12 @@ public class GPIntegrationAction extends DispatchAction {
 			
 			GPServer gpServer = null;
 			if (ispyUser.equals(publicUser)){
-				String gpUser = (String)session.getAttribute("gpUsername");
+				String gpUser = (String)session.getAttribute(ISPYPublicUserPool.PUBLIC_USER_NAME);
 				if (gpUser == null){
-					ISPYPublicUserPool pool = ISPYPublicUserPool.getInstance();
+					PublicUserPool pool = ISPYPublicUserPool.getInstance();
 					gpUser = pool.borrowPublicUser();
-					session.setAttribute("gpUsername", gpUser);
+					session.setAttribute(ISPYPublicUserPool.PUBLIC_USER_NAME, gpUser);
+					session.setAttribute(ISPYPublicUserPool.PUBLIC_USER_POOL, pool);
 				}
 				ispyUser = gpUser;
 			}
