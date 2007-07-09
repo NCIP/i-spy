@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.commons.pool.ObjectPool;
 import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.StackObjectPool;
-
+import gov.nih.nci.caintegrator.security.PublicUserPool;
 /**
  * This class uses the loadLists method from list loader to read any text files
  * placed in the dat_files directory of the project. It also loads (as "userLists")
@@ -14,9 +14,9 @@ import org.apache.commons.pool.impl.StackObjectPool;
  *
  */
 
-public class ISPYPublicUserPool {
+public class ISPYPublicUserPool implements PublicUserPool{
 	private static Logger logger = Logger.getLogger(ISPYPublicUserPool.class);
-	private static ISPYPublicUserPool instance = null;
+	private static PublicUserPool instance = null;
 
     private ObjectPool pool;
 
@@ -27,7 +27,7 @@ public class ISPYPublicUserPool {
         pool = new StackObjectPool(factory, Integer.parseInt(size));
     }
     
-    public static ISPYPublicUserPool getInstance(){
+    public static PublicUserPool getInstance(){
     	if (instance != null)
     		return instance;
     	else 
