@@ -180,7 +180,7 @@ public class GPIntegrationAction extends DispatchAction {
         List<String> idStringList = new ArrayList<String>();
         List<String> reportIdStringList = new ArrayList<String>();
 
-		String gpModule =  "ConvertToGctAndClsFile"; //run this one by default "PreprocessDataset";
+		String gpModule =  System.getProperty("gov.nih.nci.ispyportal.gp.modulename");
 		String analysisResultName = (gpForm.getAnalysisResultName()!=null && !gpForm.getAnalysisResultName().equals("")) 
 			? (String)gpForm.getAnalysisResultName() : "unnamed_task";
 
@@ -256,14 +256,9 @@ public class GPIntegrationAction extends DispatchAction {
             	URLConnection conn = url.openConnection();
             	final int size = conn.getContentLength();
             	logger.debug(Integer.toString(size));
-            	//byte[] b = new byte[size]; 
-            	//conn.getInputStream().read(b);
-            	//String s = new String(b);
-            	//System.out.println(s); //for testing
+
             } catch (Exception e) {
-            	// TODO Auto-generated catch block
             	logger.error(e.getMessage());
-            	//e.printStackTrace();
             }
 			gpServer = new GPServer(gpserverURL, ispyUser, password);
 			//*/
@@ -271,20 +266,13 @@ public class GPIntegrationAction extends DispatchAction {
 			Parameter[] par = new Parameter[filePathList.size() + 3 + 2];
 			int currpos= 1;
 			for (int i = 0; i < filePathList.size(); i++){
-				if (i != filePathList.size() - 1)
-					par[i] = new Parameter("input.filename"+currpos, filePathList.get(i));
-				else
-					par[i] = new Parameter("input.filename" + currpos, filePathList.get(i));
-				currpos = currpos+1;
+				par[i] = new Parameter("input.filename" + currpos++, filePathList.get(i));
 			}
-			currpos = currpos - 1;
-			par[currpos] = new Parameter("project.name", "ispy");
-			
-			currpos = currpos+1;
+			par[--currpos] = new Parameter("project.name", "ispy");
+
 			//r_fileName = "'/usr/local/genepattern/resources/DataMatrix_ISPY_306cDNA_17May07.Rda'";
-			par[currpos] = new Parameter("array.filename", r_fileName);
-			currpos = currpos+1;
-			par[currpos] = new Parameter("analysis.name", analysisResultName);
+			par[++currpos] = new Parameter("array.filename", r_fileName);
+			par[++currpos] = new Parameter("analysis.name", analysisResultName);
 
 			//always just 2
 			par[++currpos] = new Parameter("output.cls.file",analysisResultName+".cls");
@@ -293,27 +281,19 @@ public class GPIntegrationAction extends DispatchAction {
 			//JobResult preprocess = gpServer.runAnalysis(gpModule, par);
 			int nowait = gpServer.runAnalysisNoWait(gpModule, par);
 
-			//tid = String.valueOf(preprocess.getJobNumber());
 			tid = String.valueOf(nowait);
 			//LSID = urn:lsid:8080.root.localhost:genepatternmodules:20:2.1.7
 			request.setAttribute("jobId", tid);
 			request.setAttribute("gpStatus", "running");
-			//ISPYPublicUserPool pool = ISPYPublicUserPool.getInstance();
-			//String ticketString = gpserverURL+"gp?ticket="+ EncryptionUtil.encrypt(gpuname+ gpPoolString);
 			session.setAttribute("genePatternServer", gpServer);
 			request.setAttribute("genePatternURL", ticketString);
 			request.getSession().setAttribute("gptid", tid);
 			//session.setAttribute("genePatternPreprocess", preprocess);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			//System.out.println(gpModule + " failed.");
-			//System.out.println(e.getMessage());
-			//e.printStackTrace();
 			logger.error(gpModule + " failed...." + e.getMessage());
 			throw new Exception(e.getMessage());
 		}
-        //return setup(mapping, form, request, response);
 		return mapping.findForward("viewJob");
     }
 
@@ -399,8 +379,8 @@ public class GPIntegrationAction extends DispatchAction {
 					fileExtension = ".cls";
 				else
 					fileExtension = ".txt";
-				//File idFile =File.createTempFile(fileName, fileExtension, new File("C:\\temp\\ispy"));
-				File idFile =File.createTempFile(fileName, fileExtension);
+				File idFile =File.createTempFile(fileName, fileExtension, new File("C:\\temp\\ispy"));
+				//File idFile =File.createTempFile(fileName, fileExtension);
 				FileWriter idFw = new FileWriter(idFile);
 				for (String ids : list){
 					idFw.write(ids);
