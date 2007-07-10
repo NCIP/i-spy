@@ -379,8 +379,8 @@ public class GPIntegrationAction extends DispatchAction {
 					fileExtension = ".cls";
 				else
 					fileExtension = ".txt";
-				File idFile =File.createTempFile(fileName, fileExtension, new File("C:\\temp\\ispy"));
-				//File idFile =File.createTempFile(fileName, fileExtension);
+				//File idFile =File.createTempFile(fileName, fileExtension, new File("C:\\temp\\ispy"));
+				File idFile =File.createTempFile(fileName, fileExtension);
 				FileWriter idFw = new FileWriter(idFile);
 				for (String ids : list){
 					idFw.write(ids);
