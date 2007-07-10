@@ -162,7 +162,7 @@ public class GPIntegrationAction extends DispatchAction {
         try{
         	findingFactory.createGPIntegrationSampleIds(ispyGPIntegrationQueryDTO, sessionId);
         }catch (FrameworkException fwe){
-			System.out.println(fwe.getMessage());
+			logger.error(fwe.getMessage());
 			fwe.printStackTrace();	
         }
         SampleGroup[] sampleGroups = ispyGPIntegrationQueryDTO.getSampleGroups();
@@ -249,7 +249,7 @@ public class GPIntegrationAction extends DispatchAction {
 			urlString = URLEncoder.encode(urlString, "UTF-8");
 			String ticketString = gpserverURL+"gp?ticket="+ urlString;
 			
-			System.out.println(ticketString);
+			logger.debug(ticketString);
 			URL url;
             try {
             	url = new java.net.URL(ticketString);
