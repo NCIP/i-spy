@@ -11,6 +11,8 @@ import gov.nih.nci.caintegrator.exceptions.FrameworkException;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -291,6 +293,10 @@ public class GPIntegrationAction extends DispatchAction {
 			//session.setAttribute("genePatternPreprocess", preprocess);
 			
 		} catch (Exception e) {
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			logger.error(sw.toString());
 			logger.error(gpModule + " failed...." + e.getMessage());
 			throw new Exception(e.getMessage());
 		}
