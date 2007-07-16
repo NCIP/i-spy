@@ -11,7 +11,7 @@ Select Timepoint
 <table border="0">
 	<tr><td valign="top">Timepoint:</td>
 	    
-			<td>&nbsp;&nbsp;<html:select property="timepoints">
+			<td>&nbsp;&nbsp;<html:select multiple="true" property="timepoints">
 								<html:optionsCollection property="timepointCollection" /> 
 							</html:select>
 			&nbsp;&nbsp;</td>
