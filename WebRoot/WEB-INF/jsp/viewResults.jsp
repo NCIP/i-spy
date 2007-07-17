@@ -98,28 +98,28 @@
 					
 					//check the type of finding and create the appropriate link
 					if(f instanceof ISPYClinicalFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('quickClinical.do?taskId=" + f.getTaskId() + "', 750, 500,'clinical_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Clinical)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('quickClinical.do?taskId=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "'), 750, 500,'clinical_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Clinical)</i> ");
 					}
 					if(f instanceof ISPYIHCLevelOfExpressionFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=" + f.getTaskId() + "&newReport=true', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Level)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=' + encodeURIComponent('"  + URLEncoder.encode(f.getTaskId()) + "') + '&newReport=true', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Level)</i> ");
 					}
 					if(f instanceof ISPYIHCLossOfExpressionFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=" + f.getTaskId() + "&newReport=true', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Loss)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "') + '&newReport=true', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Loss)</i> ");
 					}
 					if(f instanceof ClassComparisonFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('testReport.do?key=" + f.getTaskId() + "&newReport=true', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(CC)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('testReport.do?key=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "') + '&newReport=true', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(CC)</i> ");
 					}
 					if(f instanceof HCAFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('hcReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + " </a> <i>(HC)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('hcReport.do?key=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "'), 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + " </a> <i>(HC)</i> ");
 					}
 					if(f instanceof PrincipalComponentAnalysisFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('pcaReport.do?key=" + f.getTaskId() + "', 900, 600,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(PCA)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('pcaReport.do?key=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "'), 900, 600,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(PCA)</i> ");
 					}
 					if(f instanceof ISPYCorrelationFinding){					
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('corrReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Correlation)</i> ");	
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('corrReport.do?key=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "'), 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Correlation)</i> ");	
 					}
 					if(f instanceof ISPYCategoricalCorrelationFinding){
-						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('catCorrReport.do?key=" + f.getTaskId() + "', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Categorical Plot)</i> ");
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('catCorrReport.do?key=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "'), 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(Categorical Plot)</i> ");
 					}
 					
 					out.println("<span style=\"font-size:10px\">(elapsed time: <span id=\"" + f.getTaskId() + "_time\" >" + f.getElapsedTime() + "</span>ms) </span>");

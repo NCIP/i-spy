@@ -1,4 +1,4 @@
-<project name="target-test" default="selenese" basedir=".">
+<project name="ispy-test" default="selenese" basedir=".">
 	<property file="build.properties" />
 	<property file="test.properties" />	
 
@@ -6,7 +6,7 @@
 	
 	<taskdef resource="selenium-ant.properties">
 	    <classpath>
-	        <pathelement location="${source.lib.dir}/selenium-server.jar"/>
+	        <pathelement location="${source.nondeploy.lib.dir}/selenium-server.jar"/>
 	    </classpath>
 	</taskdef>
 	
