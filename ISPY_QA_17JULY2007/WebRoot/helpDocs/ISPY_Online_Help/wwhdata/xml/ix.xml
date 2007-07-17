@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebWorksHelpIX version="5.0" xmlns="urn:WebWorks-Help-Index-Schema">
+  <g t="A" o="002">
+    <i t="Across Timepoints, definition">
+      <j l="27#1095990" />
+    </i>
+    <i t="Adding">
+      <i t="custom list (uploading or typing)">
+        <j l="59#1084870" />
+      </i>
+      <i t="new list (combining)">
+        <j l="57#1093865" />
+      </i>
+      <i t="new list (removing data items)">
+        <j l="56#1084855" />
+      </i>
+      <i t="user account">
+        <j l="7#1096472" />
+      </i>
+    </i>
+    <i t="Analyses">
+      <i t="Categorical Plot">
+        <j l="31#1101720" />
+      </i>
+      <i t="Class Comparison">
+        <j l="27#1103569" />
+      </i>
+      <i t="Correlation Scatter Plot">
+        <j l="30#1096218" />
+      </i>
+      <i t="Hierarchical Clustering">
+        <j l="29#1102930" />
+      </i>
+      <i t="Principal Component">
+        <j l="28#1103575" />
+      </i>
+    </i>
+    <i t="Average linkage, definition">
+      <j l="29#1088360" />
+    </i>
+  </g>
+  <g t="B" o="002">
+    <i t="Baseline, assigning">
+      <j l="27#1095918" />
+    </i>
+    <i t="Black dot in box">
+      <i t="on Categorical Plot">
+        <j l="50#1120317" />
+      </i>
+    </i>
+    <i t="Box and Whisker plot">
+      <i t="Categorical Plot">
+        <j l="31#1101987" />
+      </i>
+    </i>
+  </g>
+  <g t="C" o="002">
+    <i t="Categorical Plot">
+      <i t="Analysis Form,description">
+        <j l="31#1101720" />
+      </i>
+      <i t="Analysis, description">
+        <j l="31#1101631" />
+      </i>
+      <i t="Analysis, report, description">
+        <j l="50#1120315" />
+      </i>
+      <i t="black dot in box defined">
+        <j l="50#1120317" />
+      </i>
+      <i t="circles defined">
+        <j l="50#1115113" />
+      </i>
+      <i t="High Order Analysis">
+        <j l="31#1101720" />
+      </i>
+      <i t="line in box defined">
+        <j l="50#1115111" />
+      </i>
+      <i t="triangles defined">
+        <j l="50#1115115" />
+      </i>
+      <i t="uses for">
+        <j l="50#1112818" />
+      </i>
+      <i t="uses for Box and Whisker plot">
+        <j l="31#1101987" />
+      </i>
+      <i t="using Managing Lists">
+        <j l="31#1101631" />
+      </i>
+    </i>
+    <i t="Circles">
+      <i t="on Categorical Plot">
+        <j l="50#1115113" />
+      </i>
+    </i>
+    <i t="Class Comparison">
+      <i t="Analysis Form,description">
+        <j l="27#1103569" />
+      </i>
+      <i t="Analysis, definition">
+        <j l="27#1103569" />
+      </i>
+      <i t="example (View Results)">
+        <j l="42#1121889" />
+      </i>
+      <i t="High Order Analysis">
+        <j l="27#1103569" />
+      </i>
+      <i t="report description (View Results)">
+        <j l="42#1121889" />
+      </i>
+    </i>
+    <i t="Clinical plot">
+      <i t="selecting samples of interest">
+        <j l="47#1114971" />
+      </i>
+    </i>
+    <i t="Clinical Query">
+      <i t="definition">
+        <j l="22#1157282" />
+      </i>
+      <i t="filling in form">
+        <j l="22#1157284" />
+      </i>
+      <i t="Form page, description">
+        <j l="22#1148607" />
+      </i>
+    </i>
+    <i t="Clinical report">
+      <i t="creating PatientDID list">
+        <j l="37#1133749" />
+      </i>
+      <i t="description">
+        <j l="36#1114047" />
+      </i>
+      <i t="saving genes">
+        <j l="43#1123885" />
+      </i>
+      <i t="saving samples">
+        <j l="37#1133784" />
+      </i>
+      <i t="selecting samples">
+        <j l="37#1133751" />
+      </i>
+    </i>
+    <i t="Closing">
+      <i t="a report">
+        <j l="34#1128922" />
+      </i>
+    </i>
+    <i t="Combining lists">
+      <j l="57#1093865" />
+    </i>
+    <i t="Complete linkage, definition">
+      <j l="29#1088362" />
+    </i>
+    <i t="Constrain by GeneList, definition">
+      <j l="28#1085562" />
+      <j l="29#1088331" />
+    </i>
+    <i t="Constrain reporters by variance (Gene Vector) percentile, definition">
+      <j l="28#1085556" />
+      <j l="29#1088325" />
+    </i>
+    <i t="Correlation Coefficient, definition">
+      <j l="49#1121151" />
+    </i>
+    <i t="Correlation Scatter Plot">
+      <i t="Analysis Form,description">
+        <j l="30#1096218" />
+      </i>
+      <i t="Analysis, definition">
+        <j l="30#1101557" />
+      </i>
+      <i t="examples of">
+        <j l="30#1101586" />
+      </i>
+      <i t="High Order Analysis">
+        <j l="30#1096218" />
+      </i>
+      <i t="report, description">
+        <j l="49#1111207" />
+      </i>
+    </i>
+    <i t="Correlation, definition">
+      <j l="30#1096290" />
+    </i>
+    <i t="Creating">
+      <i t="custom list (uploading or typing)">
+        <j l="59#1084870" />
+      </i>
+      <i t="new list (combining)">
+        <j l="57#1093865" />
+      </i>
+      <i t="new list (removing data items)">
+        <j l="56#1084855" />
+      </i>
+      <i t="user account">
+        <j l="7#1096472" />
+      </i>
+    </i>
+  </g>
+  <g t="D" o="002">
+    <i t="Data items">
+      <i t="removing from a list">
+        <j l="56#1084855" />
+      </i>
+      <i t="viewing in a list">
+        <j l="55#1080938" />
+      </i>
+    </i>
+    <i t="defaultGene1, description">
+      <j l="29#1102404" />
+    </i>
+    <i t="Deleting">
+      <i t="list">
+        <j l="58#1082089" />
+      </i>
+    </i>
+    <i t="Difference option, description">
+      <j l="57#1092465" />
+    </i>
+    <i t="Distance Matrix, definition">
+      <j l="29#1088349" />
+    </i>
+    <i t="Downloading">
+      <i t="ID Lookup data">
+        <j l="18#1142251" />
+      </i>
+    </i>
+  </g>
+  <g t="E" o="002">
+    <i t="E-mailing">
+      <i t="NCICB Application Support">
+        <j l="7#1096472" />
+      </i>
+    </i>
+    <i t="Euclidean distance, definition">
+      <j l="29#1088353" />
+    </i>
+    <i t="Excel file">
+      <i t="downloading ID Lookup data">
+        <j l="18#1142251" />
+      </i>
+    </i>
+  </g>
+  <g t="F" o="002">
+    <i t="Fixed Timepoint, definition">
+      <j l="27#1095904" />
+    </i>
+    <i t="Fold Change, definition">
+      <j l="27#1101149" />
+    </i>
+  </g>
+  <g t="G" o="002">
+    <i t="Gene list">
+      <i t="creating with Manage Lists">
+        <j l="57#1093865" />
+      </i>
+      <i t="creating with Select Genes toolbar">
+        <j l="43#1083043" />
+      </i>
+      <i t="saving on Class Comparison report">
+        <j l="43#1123885" />
+      </i>
+      <i t="selecting and saving">
+        <j l="43#1083043" />
+      </i>
+    </i>
+    <i t="Group">
+      <i t="selecting">
+        <j l="22#1154000" />
+      </i>
+    </i>
+  </g>
+  <g t="H" o="002">
+    <i t="Help">
+      <i t="obtaining">
+        <j l="11#1115539" />
+      </i>
+    </i>
+    <i t="Help link">
+      <j l="11#1115322" />
+    </i>
+    <i t="Hierarchical Clustering">
+      <i t="Analysis Form,description">
+        <j l="29#1102930" />
+      </i>
+      <i t="Analysis, definition">
+        <j l="29#1102930" />
+      </i>
+      <i t="dendogram description">
+        <j l="48#1133041" />
+      </i>
+      <i t="High Order Analysis">
+        <j l="29#1102930" />
+      </i>
+      <i t="NCIA icon">
+        <j l="38#1133102" />
+      </i>
+      <i t="page description (View Results)">
+        <j l="48#1088996" />
+      </i>
+      <i t="report, description">
+        <j l="48#1088996" />
+      </i>
+    </i>
+    <i t="High Order Analysis function">
+      <i t="Categorical Plot">
+        <j l="31#1101720" />
+      </i>
+      <i t="Class Comparison">
+        <j l="27#1103569" />
+      </i>
+      <i t="Correlation Scatter Plot">
+        <j l="30#1096218" />
+      </i>
+      <i t="Hierarchical Clustering">
+        <j l="29#1102930" />
+      </i>
+      <i t="overview">
+        <j l="26#1100416" />
+      </i>
+      <i t="Principal Component">
+        <j l="28#1103575" />
+      </i>
+    </i>
+    <i t="Horizontal line in box">
+      <i t="on Categorical Plot">
+        <j l="50#1115111" />
+      </i>
+    </i>
+  </g>
+  <g t="I" o="002">
+    <i t="ID Lookup function">
+      <i t="creating PatientDID list">
+        <j l="19#1143088" />
+      </i>
+      <i t="displaying patient sample information">
+        <j l="17#1141676" />
+      </i>
+      <i t="downloading data">
+        <j l="18#1142251" />
+      </i>
+      <i t="overview">
+        <j l="15#1088879" />
+      </i>
+      <i t="steps">
+        <j l="16#1144327" />
+      </i>
+    </i>
+    <i t="IHC Expression X/Y axis, Color By, definition">
+      <j l="49#1121149" />
+    </i>
+    <i t="IHC Level of Expression">
+      <i t="defined">
+        <j l="23#1153081" />
+      </i>
+      <i t="filling in Query form">
+        <j l="23#1151927" />
+      </i>
+      <i t="report, description">
+        <j l="39#1137350" />
+      </i>
+      <i t="report, example">
+        <j l="39#1137350" />
+      </i>
+    </i>
+    <i t="IHC Loss of Expression">
+      <i t="defined">
+        <j l="24#1155447" />
+      </i>
+      <i t="filling in Query form">
+        <j l="24#1155449" />
+      </i>
+      <i t="Form page, description">
+        <j l="24#1155452" />
+      </i>
+      <i t="report, description">
+        <j l="40#1121285" />
+      </i>
+      <i t="report, example">
+        <j l="40#1121285" />
+      </i>
+    </i>
+    <i t="Image Control bar">
+      <j l="48#1088996" />
+    </i>
+    <i t="Intersect option, description">
+      <j l="57#1082419" />
+    </i>
+    <i t="I-SPY">
+      <i t="creating user account">
+        <j l="7#1096472" />
+      </i>
+      <i t="description">
+        <j l="4#1092150" />
+      </i>
+      <i t="functions">
+        <j l="5#1092020" />
+      </i>
+      <i t="getting help">
+        <j l="11#1115539" />
+      </i>
+      <i t="logging in">
+        <j l="8#1094522" />
+      </i>
+      <i t="logging out">
+        <j l="13#1095031" />
+      </i>
+      <i t="menu">
+        <j l="11#1115539" />
+      </i>
+      <i t="workspace description">
+        <j l="10#1111492" />
+      </i>
+      <i t="workspace screen">
+        <j l="9#1117803" />
+      </i>
+    </i>
+    <i t="ISPY ID">
+      <i t="definition">
+        <j l="17#1141716" />
+      </i>
+    </i>
+  </g>
+  <g t="J" o="002">
+    <i t="Join option, description">
+      <j l="57#1082418" />
+    </i>
+  </g>
+  <g t="L" o="002">
+    <i t="LabTrak ID">
+      <i t="definition">
+        <j l="17#1141720" />
+      </i>
+    </i>
+    <i t="Legal Rules of the Road page">
+      <j l="9#1109711" />
+    </i>
+    <i t="Line in box">
+      <i t="on Categorical Plot">
+        <j l="50#1115111" />
+      </i>
+    </i>
+    <i t="Linkage Method, definition">
+      <j l="29#1088357" />
+    </i>
+    <i t="Lists">
+      <i t="adding a custom list">
+        <j l="59#1084870" />
+      </i>
+      <i t="combining lists">
+        <j l="57#1093865" />
+      </i>
+      <i t="creating a new list">
+        <j l="56#1084855" />
+        <j l="57#1093865" />
+      </i>
+      <i t="deleting">
+        <j l="58#1082089" />
+      </i>
+      <i t="removing data items">
+        <j l="56#1084855" />
+      </i>
+      <i t="viewing data items">
+        <j l="55#1080938" />
+      </i>
+    </i>
+    <i t="Logging in">
+      <i t="I-SPY">
+        <j l="8#1094522" />
+      </i>
+    </i>
+    <i t="Logging out">
+      <i t="I-SPY">
+        <j l="13#1095031" />
+      </i>
+    </i>
+    <i t="Logout link">
+      <j l="13#1100819" />
+    </i>
+  </g>
+  <g t="M" o="002">
+    <i t="Managing Lists function">
+      <i t="creating Gene list">
+        <j l="43#1083043" />
+      </i>
+      <i t="creating PatientDID list">
+        <j l="37#1133749" />
+      </i>
+      <i t="for Categorical Plot analysis">
+        <j l="31#1101631" />
+      </i>
+      <i t="overview">
+        <j l="52#1096299" />
+      </i>
+    </i>
+    <i t="Manually Type List options, description">
+      <j l="59#1082958" />
+    </i>
+    <i t="Microsoft Excel">
+      <i t="downloading ID Lookup data">
+        <j l="18#1142251" />
+      </i>
+    </i>
+    <i t="Morphology, definition">
+      <j l="22#1154050" />
+    </i>
+  </g>
+  <g t="N" o="002">
+    <i t="NCIA icon">
+      <j l="38#1133102" />
+    </i>
+  </g>
+  <g t="O" o="002">
+    <i t="Overview">
+      <i t="High Order Analysis function">
+        <j l="26#1100416" />
+      </i>
+      <i t="ID Lookup function">
+        <j l="15#1088879" />
+      </i>
+      <i t="managing lists">
+        <j l="52#1096299" />
+      </i>
+      <i t="Search function">
+        <j l="21#1145107" />
+      </i>
+      <i t="View Results function">
+        <j l="33#1092727" />
+      </i>
+    </i>
+  </g>
+  <g t="P" o="002">
+    <i t="Patient ID">
+      <i t="displaying sample information">
+        <j l="17#1141676" />
+      </i>
+      <i t="searching for">
+        <j l="16#1144327" />
+      </i>
+    </i>
+    <i t="PatientDID list">
+      <i t="creating with ID Lookup">
+        <j l="19#1143088" />
+      </i>
+      <i t="creating with Manage Lists">
+        <j l="57#1093865" />
+      </i>
+      <i t="description">
+        <j l="53#1087974" />
+      </i>
+      <i t="in Clinical report">
+        <j l="37#1133749" />
+      </i>
+      <i t="saving on Clinical report">
+        <j l="37#1133784" />
+      </i>
+      <i t="user list side bar">
+        <j l="37#1133786" />
+      </i>
+    </i>
+    <i t="Pearson correlation, definition">
+      <j l="29#1101119" />
+      <j l="30#1103434" />
+    </i>
+    <i t="Percent LD, definition">
+      <j l="22#1154056" />
+    </i>
+    <i t="PERCENT LD_CHANGE, definition">
+      <j l="30#1096998" />
+      <j l="31#1097537" />
+    </i>
+    <i t="Principal Component">
+      <i t="Analysis Form,description">
+        <j l="28#1103575" />
+      </i>
+      <i t="Analysis report, description">
+        <j l="46#1082927" />
+      </i>
+      <i t="Analysis, defined">
+        <j l="28#1103575" />
+      </i>
+      <i t="High Order Analysis">
+        <j l="28#1103575" />
+      </i>
+      <i t="report example">
+        <j l="46#1082927" />
+      </i>
+    </i>
+    <i t="Printing">
+      <i t="a report">
+        <j l="34#1129107" />
+      </i>
+    </i>
+    <i t="p-value, definition">
+      <j l="27#1101228" />
+    </i>
+  </g>
+  <g t="R" o="002">
+    <i t="Red list name">
+      <i t="user created list">
+        <j l="37#1133786" />
+      </i>
+    </i>
+    <i t="Removing">
+      <i t="data items in a list">
+        <j l="56#1084855" />
+      </i>
+    </i>
+    <i t="Reports">
+      <i t="Categorical Plot">
+        <j l="50#1120315" />
+      </i>
+      <i t="Class Comparison">
+        <j l="42#1121889" />
+      </i>
+      <i t="Correlation Scatter Plot report example">
+        <j l="49#1111207" />
+      </i>
+      <i t="Hierarchical Clustering">
+        <j l="48#1088996" />
+      </i>
+      <i t="Principal Component Analysis">
+        <j l="46#1082927" />
+      </i>
+      <i t="using icons">
+        <j l="34#1128909" />
+      </i>
+      <i t="viewing">
+        <j l="33#1092727" />
+      </i>
+    </i>
+  </g>
+  <g t="S" o="002">
+    <i t="Sample">
+      <i t="selecting on Clinical report">
+        <j l="37#1133751" />
+      </i>
+      <i t="selecting on plot">
+        <j l="47#1114971" />
+      </i>
+    </i>
+    <i t="Sample ID">
+      <i t="displaying patient information">
+        <j l="17#1141676" />
+      </i>
+      <i t="searching for">
+        <j l="16#1144327" />
+      </i>
+    </i>
+    <i t="Samples area">
+      <i t="selecting samples">
+        <j l="47#1115006" />
+      </i>
+    </i>
+    <i t="Samples of interest">
+      <i t="">
+        <j l="47#1114971" />
+      </i>
+    </i>
+    <i t="Saving">
+      <i t="a report">
+        <j l="34#1128918" />
+      </i>
+      <i t="Gene list (Select Genes Toolbar)">
+        <j l="43#1083043" />
+      </i>
+      <i t="genes on Class Comparison">
+        <j l="43#1123885" />
+      </i>
+      <i t="samples on Clinical report">
+        <j l="37#1133784" />
+      </i>
+    </i>
+    <i t="Search function">
+      <i t="Clinical Query">
+        <j l="22#1157284" />
+      </i>
+      <i t="IHC Level of Expression Query">
+        <j l="23#1151927" />
+      </i>
+      <i t="IHC Loss of Expression Query">
+        <j l="24#1155449" />
+      </i>
+      <i t="overview">
+        <j l="21#1145107" />
+      </i>
+    </i>
+    <i t="Searching">
+      <i t="patient IDs and samples">
+        <j l="16#1144327" />
+      </i>
+    </i>
+    <i t="Select Genes toolbar">
+      <j l="43" />
+      <i t="creating Genes list">
+        <j l="43#1083043" />
+      </i>
+    </i>
+    <i t="Select Group">
+      <i t="assigning">
+        <j l="22#1153998" />
+      </i>
+    </i>
+    <i t="Selecting">
+      <i t="genes (Select Genes Toolbar)">
+        <j l="43#1083043" />
+      </i>
+    </i>
+    <i t="Side bar">
+      <i t="description">
+        <j l="10#1111492" />
+      </i>
+      <i t="manage list information">
+        <j l="53#1087974" />
+        <j l="54#1088233" />
+      </i>
+      <i t="red Gene list (Class Comparison)">
+        <j l="43#1124659" />
+      </i>
+      <i t="red name user created">
+        <j l="37#1133786" />
+      </i>
+      <i t="red PatientDID list (Clinical report)">
+        <j l="37#1133786" />
+      </i>
+      <i t="red PatientDID list (Search)">
+        <j l="19#1140954" />
+      </i>
+    </i>
+    <i t="Single linkage, definition">
+      <j l="29#1088361" />
+    </i>
+    <i t="Sorting">
+      <i t="report columns">
+        <j l="44#1113341" />
+      </i>
+    </i>
+    <i t="Spearman, definition">
+      <j l="30#1103432" />
+    </i>
+    <i t="Spreadsheet">
+      <i t="saving report to">
+        <j l="34#1128918" />
+      </i>
+    </i>
+    <i t="Statistical Method, definition">
+      <j l="27#1095940" />
+    </i>
+    <i t="Support link">
+      <j l="11#1100705" />
+    </i>
+  </g>
+  <g t="T" o="002">
+    <i t="Timepoint, definition">
+      <j l="17#1141724" />
+    </i>
+    <i t="Triangles">
+      <i t="on Categorical Plot">
+        <j l="50#1115115" />
+      </i>
+      <i t="top of columns to sort">
+        <j l="44#1113341" />
+      </i>
+    </i>
+    <i t="T-test Two Sample Test">
+      <i t="definition">
+        <j l="27#1095945" />
+      </i>
+      <i t="output">
+        <j l="42#1121889" />
+      </i>
+    </i>
+    <i t="Typing">
+      <i t="a list (Manage List function)">
+        <j l="59#1084870" />
+      </i>
+    </i>
+  </g>
+  <g t="U" o="002">
+    <i t="Uploading">
+      <i t="list (Manage List function)">
+        <j l="59#1084870" />
+      </i>
+    </i>
+    <i t="User account">
+      <i t="creating">
+        <j l="7#1096472" />
+      </i>
+    </i>
+    <i t="User guide link">
+      <j l="11#1100713" />
+    </i>
+  </g>
+  <g t="V" o="002">
+    <i t="View Results function">
+      <i t="overview">
+        <j l="33#1092727" />
+      </i>
+    </i>
+    <i t="Viewing">
+      <i t="data items in a list">
+        <j l="55#1080938" />
+      </i>
+    </i>
+  </g>
+  <g t="W" o="002">
+    <i t="Wilcoxon Test Man-Whitney Test">
+      <i t="definition">
+        <j l="27#1101891" />
+      </i>
+      <i t="output">
+        <j l="42#1121889" />
+      </i>
+    </i>
+  </g>
+  <g t="Y" o="002">
+    <i t="Yellow circle">
+      <i t="meaning on plot">
+        <j l="47#1120596" />
+      </i>
+    </i>
+  </g>
+</WebWorksHelpIX>
