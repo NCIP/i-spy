@@ -76,7 +76,7 @@
 		This will build the war file and should be used instead of the 
 		build_war_anthill task (which is intended to be used by SCM)
 	-->
-	<target name="build_war_anthill" depends="config_application_context,copy_resources">
+	<target name="build_war_anthill" depends="copy_resources">
 		<delete file="${app.war.name}.war"/>
 		<war destfile="${app.war.name}.war" webxml="${webapp.dir}/WEB-INF/web.xml">
 			<fileset file="${webapp.dir}/*.*"/>
@@ -97,11 +97,5 @@
 		<copy file="${app.war.name}.war" todir="${anthill.artifacts.dir}"/>
 	</target>
 	
-	<target name="config_application_context">		
-			<delete file="DataSourceContext.properties"/>
-			<copy file="conf/DataSourceContext.properties.template" tofile="DataSourceContext.properties"/>
-	        <replaceregexp file="DataSourceContext.properties" match="__APPLICATION_NAME__" replace="${application_name}" flags="g"/>
-			<move file="DataSourceContext.properties" todir="${source.dir}"/>
-	</target>
 
 </project>

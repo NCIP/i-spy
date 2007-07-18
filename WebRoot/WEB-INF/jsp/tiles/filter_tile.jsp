@@ -27,7 +27,7 @@
 <script language="javascript">
 
 	function getGeneList(){
-    	UserListHelper.getGeneSymbolListNames(createGeneList);
+    	UserListHelper.getGenericListNamesFromString("Gene",createGeneList);
 	}
 	function createGeneList(data){    	
     	DWRUtil.removeAllOptions("geneList", data);

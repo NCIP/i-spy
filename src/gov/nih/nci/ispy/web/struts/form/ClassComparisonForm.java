@@ -139,7 +139,7 @@ public class ClassComparisonForm extends ActionForm {
         }        
         
         for (StatisticalMethodType statisticalMethodType : StatisticalMethodType.values()){
-            if(!(statisticalMethodType.equals(StatisticalMethodType.FTest)) && !(statisticalMethodType.equals(StatisticalMethodType.GLM))){
+            if(!(statisticalMethodType.equals(StatisticalMethodType.FTest)) && !(statisticalMethodType.equals(StatisticalMethodType.GLM)) && !(statisticalMethodType.equals(StatisticalMethodType.ANOVA))){
             statisticalMethodCollection.add(new LabelValueBean(statisticalMethodType.toString(),statisticalMethodType.name())); 
             }
         }
