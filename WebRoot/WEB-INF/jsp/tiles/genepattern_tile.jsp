@@ -11,32 +11,38 @@
 <html:errors property="selectedGroups1"/>
 <table align="center" border="0">
     <tr>
-    	<td style="vertical-align:middle">Select 2 or More Groups
+    	<td style="vertical-align:middle">Existing Groups
 			<br/>
 			<html:select styleId="nonselectedGroups"  style="width:200px" property="existingGroups">
 			     <html:optionsCollection property="existingGroupsList"/>
 			</html:select>
-			<br/><br/>
-			Select 1 or More Time Points
-			<br/>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<html:select multiple="true" property="timepoint" styleId="timePoint">
-				<html:optionsCollection property="timepointCollection" /> 
-			</html:select>
 		</td>
-			<td style="vertical-align:middle">
-			<input onclick="removeSelected(document.getElementById('selectedGroups'))" value="<<" type="button"/><br/>
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Time Points
+			<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<html:select multiple="true" property="timepoint" styleId="timePoint">
+								<html:optionsCollection property="timepointCollection" /> 
+								
+							</html:select>
+		</td>
+	</tr>
+	<tr>
+			<td align="right">
+			<input onclick="removeSelected(document.getElementById('selectedGroups'))" value="<<" type="button"/><br />
+			</td>
+			<td align="left">
 			<input onclick="moveGroupAndTime(document.getElementById('nonselectedGroups'),document.getElementById('selectedGroups'), document.getElementById('timePoint'))" value=">>" type="button"/>
 		</td>
-		<td colspan="2" align="center" style="vertical-align:middle">Selected Groups
+	</tr>
+	<tr>
+		<td colspan="2" align="center">Selected Groups
 			<br/>
 			<logic:notEmpty name="gpIntegrationForm" property="selectedGroups">
-			<html:select styleId="selectedGroups" size="5" multiple="true" style="width:270px; overflow:none;" property="selectedGroups">
+			<html:select styleId="selectedGroups" size="5" multiple="true" style="width:300px; overflow:none;" property="selectedGroups">
 				<html:options property="selectedGroups"/>
 			</html:select>
 			</logic:notEmpty>
 			<logic:empty name="gpIntegrationForm" property="selectedGroups">
-			<html:select styleId="selectedGroups" size="5" multiple="true" style="width:270px; overflow:none;" property="selectedGroups">
+			<html:select styleId="selectedGroups" size="5" multiple="true" style="width:300px; overflow:none;" property="selectedGroups">
 			</html:select>
 			</logic:empty>
 			<br/>	
