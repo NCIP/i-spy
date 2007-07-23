@@ -1,0 +1,343 @@
+<html>
+<head><style type='text/css'>
+body, table {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 12;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+}
+
+a {
+    text-decoration: none;
+}
+
+.title {
+    font-style: italic;
+}
+
+.selected {
+    background-color: #ffffcc;
+}
+
+.status_done {
+    background-color: #eeffee;
+}
+
+.status_passed {
+    background-color: #ccffcc;
+}
+
+.status_failed {
+    background-color: #ffcccc;
+}
+
+.breakpoint {
+    background-color: #cccccc;
+    border: 1px solid black;
+}
+</style><title>Test suite results</title></head>
+<body>
+<h1>Test suite results </h1>
+
+<table>
+<tr>
+<td>result:</td>
+<td>failed</td>
+</tr>
+<tr>
+<td>totalTime:</td>
+<td>4</td>
+</tr>
+<tr>
+<td>numTestPasses:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>numTestFailures:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>numCommandPasses:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>numCommandFailures:</td>
+<td>0</td>
+</tr>
+<tr>
+<td>numCommandErrors:</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Selenium Version:</td>
+<td>0.8.2-SNAPSHOT</td>
+</tr>
+<tr>
+<td>Selenium Revision:</td>
+<td>1726</td>
+</tr>
+<tr>
+<td><TABLE>
+<TBODY>
+<TR class="title  status_failed">
+<TD>Test suite for the I-SPY application </TD></TR>
+<TR class="  status_passed">
+<TD><A href="#testresult0">Login</A> </TD></TR>
+<TR class="  status_failed">
+<TD><A href="#testresult1">QA TC1 ID Search</A> </TD></TR>
+<TR class="  status_passed">
+<TD><A href="#testresult2">Logout</A> </TD></TR>
+<TR class="  status_failed">
+<TD><A href="#testresult3">Class Comparison</A> </TD></TR></TBODY></TABLE></td>
+<td>&nbsp;</td>
+</tr>
+</table><table><tr>
+<td><a name="testresult0">QA_tests/QA_Login.html</a><br/><DIV>
+<TABLE cellSpacing=1 cellPadding=1 border=1>
+<THEAD>
+<TR class="title status_passed">
+<TD colSpan=3>Login</TD></TR></THEAD>
+<TBODY><!-- Login -->
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>open</TD>
+<TD>/ispy/</TD>
+<TD originalHTML="10000">10000</TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>userName</TD>
+<TD originalHTML="NCIISPYGuest">NCIISPYGuest</TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>password</TD>
+<TD originalHTML="!spy1234">!spy1234</TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>clickAndWait</TD>
+<TD>//input[@value='Submit']</TD>
+<TD originalHTML></TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>clickAndWait</TD>
+<TD>link=CLICKING HERE</TD>
+<TD originalHTML></TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult1">QA_tests/Individual Test Files/Selenium_ISPY_TC1_NoLogin.html</a><br/><DIV>
+<TABLE cellSpacing=1 cellPadding=1 border=1>
+<THEAD>
+<TR class="title status_failed">
+<TD colSpan=3>Selenium_ISPY_TC1 ID Lookup</TD></TR></THEAD>
+<TBODY><!-- Modified to skip the login step
+<tr>
+	<td>open</td>
+	<td>https://caintegrator-qa.nci.nih.gov/ispy/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userName</td>
+	<td>NCIISPYGuest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>!Spy1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CLICKING HERE</td>
+	<td></td>
+</tr>
+-->
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>clickAndWait</TD>
+<TD>link=Analysis Home</TD>
+<TD originalHTML></TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>link=ID Lookup</TD>
+<TD originalHTML></TD></TR>
+<TR class="  status_failed" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>lookupButton</TD>
+<TD originalHTML>Element&nbsp;lookupButton&nbsp;not&nbsp;found</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>lookupString</TD>
+<TD originalHTML="xxx111">xxx111</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>lookupButton</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>lookupString</TD>
+<TD originalHTML="1066,1077">1066,1077</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>lookupButton</TD>
+<TD originalHTML></TD></TR><!-- Commented out for automated testing
+<tr>
+	<td>click</td>
+	<td>link=Logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>https://caintegrator-qa.nci.nih.gov/ispy/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userName</td>
+	<td>NCIISPYGuest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>!Spy1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=CLICKING HERE</td>
+	<td></td>
+</tr>
+-->
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>link=ID Lookup</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>lookupString</TD>
+<TD originalHTML="1002">1002</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>lookupButton</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>checkAllBox</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>regName</TD>
+<TD originalHTML="text box">text box</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>regButton</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>lookupString</TD>
+<TD originalHTML="1066, 1077">1066, 1077</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>lookupButton</TD>
+<TD originalHTML></TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult2">QA_tests/QA_Logout.html</a><br/><DIV>
+<TABLE cellSpacing=1 cellPadding=1 border=1>
+<THEAD>
+<TR class="title status_passed">
+<TD colSpan=3>Logout</TD></TR></THEAD>
+<TBODY><!-- Logout -->
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>clickAndWait</TD>
+<TD>link=Logout</TD>
+<TD originalHTML></TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr><tr>
+<td><a name="testresult3">classComparisonTest.html</a><br/><DIV>
+<TABLE cellSpacing=1 cellPadding=1 border=1>
+<THEAD>
+<TR class="title status_failed">
+<TD colSpan=3>classComparisonTest</TD></TR></THEAD>
+<TBODY>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>open</TD>
+<TD>/ispy/</TD>
+<TD originalHTML="30000">30000</TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>userName</TD>
+<TD originalHTML="NCIISPYGuest">NCIISPYGuest</TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>password</TD>
+<TD originalHTML="!Spy1234">!Spy1234</TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>clickAndWait</TD>
+<TD>//input[@value='Submit']</TD>
+<TD originalHTML></TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>clickAndWait</TD>
+<TD>link=CLICKING HERE</TD>
+<TD originalHTML></TD></TR>
+<TR class="  status_done" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>//input[@value='Class Comparison Analysis']</TD>
+<TD originalHTML></TD></TR>
+<TR class="  status_failed" style="CURSOR: pointer">
+<TD>addSelection</TD>
+<TD>nonselectedGroups</TD>
+<TD originalHTML="label=HER2+">Element&nbsp;nonselectedGroups&nbsp;not&nbsp;found</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>addSelection</TD>
+<TD>nonselectedGroups</TD>
+<TD originalHTML="label=HER2-">label=HER2-</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>//input[@value='&gt;&gt;']</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>type</TD>
+<TD>analysisResultName</TD>
+<TD originalHTML="cc1">cc1</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>clickAndWait</TD>
+<TD>submittalButton</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>cc1_link</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>waitForPopUp</TD>
+<TD>hoa_report</TD>
+<TD originalHTML="30000">30000</TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>selectWindow</TD>
+<TD>hoa_report</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>click</TD>
+<TD>//a[1]/img</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>selectWindow</TD>
+<TD>null</TD>
+<TD originalHTML></TD></TR>
+<TR class="" style="CURSOR: pointer">
+<TD>clickAndWait</TD>
+<TD>link=Logout</TD>
+<TD originalHTML></TD></TR></TBODY></TABLE></DIV></td>
+<td>&nbsp;</td>
+</tr></table></body></html>

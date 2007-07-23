@@ -1,0 +1,124 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Selenium_ISPY_Defect_</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Selenium_ISPY_Defect_</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ispy/viewResults.do</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=High Order Analysis</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Correlation Scatter Plot Analysis']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>xaxis</td>
+	<td>label=Gene</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>geneSymbolX</td>
+	<td>AGR2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>lookupButtonX</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>yaxis</td>
+	<td>label=Gene</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>geneSymbolY</td>
+	<td>AGR2</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>lookupButtonY</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>analysisResultName</td>
+	<td>CSA_NoSamples_Defect</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submittalButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>CSA_NoSamples_Defect_link</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>CSA_NoSamples_Defect_link</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>hoa_report</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>hoa_report</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTitle</td>
+	<td>I-SPY CorrelationPlots</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=view clinical data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>No Samples Selected. Please click back, and then select some samples.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=&lt;&lt;&lt;back</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTable</td>
+	<td>//table.0.1</td>
+	<td>exact:Samples:<br /><br /> <br /><br /> 218012<br /> 217408<br /> 212312<br /> 244234<br /> 226749<br /> 240957<br /> 252038<br /> <br /> <br /> view clinical data<br /><br /> <br /> [clear samples]</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=view clinical data</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>No Samples Selected. Please click back, and then select some samples.</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
