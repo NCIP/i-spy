@@ -135,6 +135,4 @@ function moveGroupAndTime(fbox, tbox, timebox) {
 			tbox[tbox.length] = op;
 	}
 }
-	
-	//initBaseline();
 </script>
