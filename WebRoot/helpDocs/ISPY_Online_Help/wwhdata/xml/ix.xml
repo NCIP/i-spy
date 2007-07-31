@@ -4,7 +4,7 @@
     <i t="Across Timepoints, definition">
       <j l="27#1095990" />
     </i>
-    <i t="Adding">
+    <i t="adding">
       <i t="custom list (uploading or typing)">
         <j l="59#1084870" />
       </i>
@@ -18,7 +18,7 @@
         <j l="7#1096472" />
       </i>
     </i>
-    <i t="Analyses">
+    <i t="analyses">
       <i t="Categorical Plot">
         <j l="31#1101720" />
       </i>
@@ -43,7 +43,7 @@
     <i t="Baseline, assigning">
       <j l="27#1095918" />
     </i>
-    <i t="Black dot in box">
+    <i t="black dot in box">
       <i t="on Categorical Plot">
         <j l="50#1120317" />
       </i>
@@ -90,12 +90,19 @@
         <j l="31#1101631" />
       </i>
     </i>
-    <i t="Circles">
+    <i t="CGAP">
+      <j l="69#1065445" />
+    </i>
+    <i t="Chemotherapy Summary data dictionary">
+      <j l="63#1092169" />
+    </i>
+    <i t="circles">
       <i t="on Categorical Plot">
         <j l="50#1115113" />
       </i>
     </i>
     <i t="Class Comparison">
+      <j l="69#1065450" />
       <i t="Analysis Form,description">
         <j l="27#1103569" />
       </i>
@@ -145,12 +152,12 @@
         <j l="37#1133751" />
       </i>
     </i>
-    <i t="Closing">
+    <i t="closing">
       <i t="a report">
         <j l="34#1128922" />
       </i>
     </i>
-    <i t="Combining lists">
+    <i t="combining lists">
       <j l="57#1093865" />
     </i>
     <i t="Complete linkage, definition">
@@ -187,7 +194,7 @@
     <i t="Correlation, definition">
       <j l="30#1096290" />
     </i>
-    <i t="Creating">
+    <i t="creating">
       <i t="custom list (uploading or typing)">
         <j l="59#1084870" />
       </i>
@@ -203,7 +210,28 @@
     </i>
   </g>
   <g t="D" o="002">
-    <i t="Data items">
+    <i t="data dictionary">
+      <j l="61#1093525" />
+      <i t="Chemotherapy Summary">
+        <j l="63#1092169" />
+      </i>
+      <i t="Follow-Up Summary">
+        <j l="66#1092206" />
+      </i>
+      <i t="MR">
+        <j l="68#1093664" />
+      </i>
+      <i t="Patient Demographic">
+        <j l="62#1092160" />
+      </i>
+      <i t="Post-Surgery Summary">
+        <j l="65#1092200" />
+      </i>
+      <i t="Reponse Evaluation">
+        <j l="67#1092219" />
+      </i>
+    </i>
+    <i t="data items">
       <i t="removing from a list">
         <j l="56#1084855" />
       </i>
@@ -214,7 +242,7 @@
     <i t="defaultGene1, description">
       <j l="29#1102404" />
     </i>
-    <i t="Deleting">
+    <i t="deleting">
       <i t="list">
         <j l="58#1082089" />
       </i>
@@ -225,14 +253,14 @@
     <i t="Distance Matrix, definition">
       <j l="29#1088349" />
     </i>
-    <i t="Downloading">
+    <i t="downloading">
       <i t="ID Lookup data">
         <j l="18#1142251" />
       </i>
     </i>
   </g>
   <g t="E" o="002">
-    <i t="E-mailing">
+    <i t="e-mailing">
       <i t="NCICB Application Support">
         <j l="7#1096472" />
       </i>
@@ -247,15 +275,27 @@
     </i>
   </g>
   <g t="F" o="002">
+    <i t="False Discovery Rate (FDR)">
+      <j l="69#1065456" />
+    </i>
+    <i t="Family-wise Error Rate (FWER">
+      <j l="69#1065462" />
+    </i>
     <i t="Fixed Timepoint, definition">
       <j l="27#1095904" />
     </i>
     <i t="Fold Change, definition">
       <j l="27#1101149" />
     </i>
+    <i t="Follow-Up Summary">
+      <i t="data dictionary">
+        <j l="66#1092206" />
+      </i>
+    </i>
   </g>
   <g t="G" o="002">
     <i t="Gene list">
+      <j l="69#1065468" />
       <i t="creating with Manage Lists">
         <j l="57#1093865" />
       </i>
@@ -269,6 +309,9 @@
         <j l="43#1083043" />
       </i>
     </i>
+    <i t="group">
+      <j l="69#1065474" />
+    </i>
     <i t="Group">
       <i t="selecting">
         <j l="22#1154000" />
@@ -276,15 +319,16 @@
     </i>
   </g>
   <g t="H" o="002">
-    <i t="Help">
+    <i t="help">
       <i t="obtaining">
         <j l="11#1115539" />
       </i>
     </i>
-    <i t="Help link">
+    <i t="help link">
       <j l="11#1115322" />
     </i>
     <i t="Hierarchical Clustering">
+      <j l="69#1065480" />
       <i t="Analysis Form,description">
         <j l="29#1102930" />
       </i>
@@ -307,6 +351,9 @@
         <j l="48#1088996" />
       </i>
     </i>
+    <i t="High Order Analysis">
+      <j l="69#1065486" />
+    </i>
     <i t="High Order Analysis function">
       <i t="Categorical Plot">
         <j l="31#1101720" />
@@ -327,7 +374,7 @@
         <j l="28#1103575" />
       </i>
     </i>
-    <i t="Horizontal line in box">
+    <i t="horizontal line in box">
       <i t="on Categorical Plot">
         <j l="50#1115111" />
       </i>
@@ -350,6 +397,9 @@
       <i t="steps">
         <j l="16#1144327" />
       </i>
+    </i>
+    <i t="IHC (Immunohistochemistry)">
+      <j l="69#1065492" />
     </i>
     <i t="IHC Expression X/Y axis, Color By, definition">
       <j l="49#1121149" />
@@ -387,6 +437,9 @@
     </i>
     <i t="Image Control bar">
       <j l="48#1088996" />
+    </i>
+    <i t="integrated data file link">
+      <j l="11#1118474" />
     </i>
     <i t="Intersect option, description">
       <j l="57#1082419" />
@@ -437,10 +490,22 @@
         <j l="17#1141720" />
       </i>
     </i>
+    <i t="LD">
+      <i t="Longest Diameter">
+        <j l="22#1154058" />
+        <j l="30#1103721" />
+        <j l="68#1094081" />
+      </i>
+    </i>
     <i t="Legal Rules of the Road page">
       <j l="9#1109711" />
     </i>
-    <i t="Line in box">
+    <i t="LES">
+      <i t="lesion type">
+        <j l="68#1093709" />
+      </i>
+    </i>
+    <i t="line in box">
       <i t="on Categorical Plot">
         <j l="50#1115111" />
       </i>
@@ -448,7 +513,7 @@
     <i t="Linkage Method, definition">
       <j l="29#1088357" />
     </i>
-    <i t="Lists">
+    <i t="lists">
       <i t="adding a custom list">
         <j l="59#1084870" />
       </i>
@@ -469,17 +534,17 @@
         <j l="55#1080938" />
       </i>
     </i>
-    <i t="Logging in">
+    <i t="logging in">
       <i t="I-SPY">
         <j l="8#1094522" />
       </i>
     </i>
-    <i t="Logging out">
+    <i t="logging out">
       <i t="I-SPY">
         <j l="13#1095031" />
       </i>
     </i>
-    <i t="Logout link">
+    <i t="logout link">
       <j l="13#1100819" />
     </i>
   </g>
@@ -495,11 +560,16 @@
         <j l="31#1101631" />
       </i>
       <i t="overview">
-        <j l="52#1096299" />
+        <j l="52#1096900" />
       </i>
     </i>
     <i t="Manually Type List options, description">
       <j l="59#1082958" />
+    </i>
+    <i t="mappings">
+      <i t="file with Patient ID to Sample IDs">
+        <j l="11#1118474" />
+      </i>
     </i>
     <i t="Microsoft Excel">
       <i t="downloading ID Lookup data">
@@ -509,14 +579,35 @@
     <i t="Morphology, definition">
       <j l="22#1154050" />
     </i>
+    <i t="MR">
+      <i t="data dictionary">
+        <j l="68#1093664" />
+      </i>
+    </i>
   </g>
   <g t="N" o="002">
+    <i t="NCI">
+      <j l="69#1065504" />
+    </i>
+    <i t="NCIA">
+      <j l="69#1065498" />
+    </i>
     <i t="NCIA icon">
       <j l="38#1133102" />
     </i>
+    <i t="NCICB">
+      <j l="69#1065509" />
+    </i>
   </g>
   <g t="O" o="002">
-    <i t="Overview">
+    <i t="On-Study data dictionary">
+      <i t="data dictionary">
+        <i t="On-Study">
+          <j l="64#1092186" />
+        </i>
+      </i>
+    </i>
+    <i t="overview">
       <i t="High Order Analysis function">
         <j l="26#1100416" />
       </i>
@@ -524,7 +615,7 @@
         <j l="15#1088879" />
       </i>
       <i t="managing lists">
-        <j l="52#1096299" />
+        <j l="52#1096900" />
       </i>
       <i t="Search function">
         <j l="21#1145107" />
@@ -535,15 +626,22 @@
     </i>
   </g>
   <g t="P" o="002">
+    <i t="Patient Demographic data dictionary">
+      <j l="62#1092160" />
+    </i>
     <i t="Patient ID">
       <i t="displaying sample information">
         <j l="17#1141676" />
+      </i>
+      <i t="mappings to sample ID">
+        <j l="11#1118474" />
       </i>
       <i t="searching for">
         <j l="16#1144327" />
       </i>
     </i>
     <i t="PatientDID list">
+      <j l="69#1065515" />
       <i t="creating with ID Lookup">
         <j l="19#1143088" />
       </i>
@@ -574,6 +672,11 @@
       <j l="30#1096998" />
       <j l="31#1097537" />
     </i>
+    <i t="Post-Surgery Summary">
+      <i t="data dictionary">
+        <j l="65#1092200" />
+      </i>
+    </i>
     <i t="Principal Component">
       <i t="Analysis Form,description">
         <j l="28#1103575" />
@@ -591,7 +694,10 @@
         <j l="46#1082927" />
       </i>
     </i>
-    <i t="Printing">
+    <i t="Principal Component Analysis">
+      <j l="69#1065521" />
+    </i>
+    <i t="printing">
       <i t="a report">
         <j l="34#1129107" />
       </i>
@@ -601,17 +707,17 @@
     </i>
   </g>
   <g t="R" o="002">
-    <i t="Red list name">
+    <i t="red list name">
       <i t="user created list">
         <j l="37#1133786" />
       </i>
     </i>
-    <i t="Removing">
+    <i t="removing">
       <i t="data items in a list">
         <j l="56#1084855" />
       </i>
     </i>
-    <i t="Reports">
+    <i t="reports">
       <i t="Categorical Plot">
         <j l="50#1120315" />
       </i>
@@ -634,9 +740,14 @@
         <j l="33#1092727" />
       </i>
     </i>
+    <i t="Response Evaluation">
+      <i t="data dictionary">
+        <j l="67#1092219" />
+      </i>
+    </i>
   </g>
   <g t="S" o="002">
-    <i t="Sample">
+    <i t="sample">
       <i t="selecting on Clinical report">
         <j l="37#1133751" />
       </i>
@@ -648,6 +759,9 @@
       <i t="displaying patient information">
         <j l="17#1141676" />
       </i>
+      <i t="mappings to Patient ID">
+        <j l="11#1118474" />
+      </i>
       <i t="searching for">
         <j l="16#1144327" />
       </i>
@@ -657,12 +771,12 @@
         <j l="47#1115006" />
       </i>
     </i>
-    <i t="Samples of interest">
+    <i t="samples of interest">
       <i t="">
         <j l="47#1114971" />
       </i>
     </i>
-    <i t="Saving">
+    <i t="saving">
       <i t="a report">
         <j l="34#1128918" />
       </i>
@@ -690,7 +804,7 @@
         <j l="21#1145107" />
       </i>
     </i>
-    <i t="Searching">
+    <i t="searching">
       <i t="patient IDs and samples">
         <j l="16#1144327" />
       </i>
@@ -706,12 +820,12 @@
         <j l="22#1153998" />
       </i>
     </i>
-    <i t="Selecting">
+    <i t="selecting">
       <i t="genes (Select Genes Toolbar)">
         <j l="43#1083043" />
       </i>
     </i>
-    <i t="Side bar">
+    <i t="side bar">
       <i t="description">
         <j l="10#1111492" />
       </i>
@@ -735,7 +849,7 @@
     <i t="Single linkage, definition">
       <j l="29#1088361" />
     </i>
-    <i t="Sorting">
+    <i t="sorting">
       <i t="report columns">
         <j l="44#1113341" />
       </i>
@@ -743,7 +857,7 @@
     <i t="Spearman, definition">
       <j l="30#1103432" />
     </i>
-    <i t="Spreadsheet">
+    <i t="spreadsheet">
       <i t="saving report to">
         <j l="34#1128918" />
       </i>
@@ -751,15 +865,40 @@
     <i t="Statistical Method, definition">
       <j l="27#1095940" />
     </i>
-    <i t="Support link">
+    <i t="support link">
       <j l="11#1100705" />
     </i>
   </g>
   <g t="T" o="002">
+    <i t="T1">
+      <i t="Pre-treatment - Baseline timepoint">
+        <j l="68#1094168" />
+      </i>
+    </i>
+    <i t="T2">
+      <i t="Early Treatment timepoint">
+        <j l="68#1094169" />
+      </i>
+    </i>
+    <i t="T3">
+      <i t="Between Treatment Regimes timepoint">
+        <j l="68#1094170" />
+      </i>
+    </i>
+    <i t="T4">
+      <i t="Pre-surgery timepoint">
+        <j l="68#1094166" />
+      </i>
+    </i>
     <i t="Timepoint, definition">
       <j l="17#1141724" />
     </i>
-    <i t="Triangles">
+    <i t="timepoints">
+      <i t="T1 through T4 define">
+        <j l="68#1094053" />
+      </i>
+    </i>
+    <i t="triangles">
       <i t="on Categorical Plot">
         <j l="50#1115115" />
       </i>
@@ -775,24 +914,24 @@
         <j l="42#1121889" />
       </i>
     </i>
-    <i t="Typing">
+    <i t="typing">
       <i t="a list (Manage List function)">
         <j l="59#1084870" />
       </i>
     </i>
   </g>
   <g t="U" o="002">
-    <i t="Uploading">
+    <i t="uploading">
       <i t="list (Manage List function)">
         <j l="59#1084870" />
       </i>
     </i>
-    <i t="User account">
+    <i t="user account">
       <i t="creating">
         <j l="7#1096472" />
       </i>
     </i>
-    <i t="User guide link">
+    <i t="user guide link">
       <j l="11#1100713" />
     </i>
   </g>
@@ -802,7 +941,7 @@
         <j l="33#1092727" />
       </i>
     </i>
-    <i t="Viewing">
+    <i t="viewing">
       <i t="data items in a list">
         <j l="55#1080938" />
       </i>
@@ -819,7 +958,7 @@
     </i>
   </g>
   <g t="Y" o="002">
-    <i t="Yellow circle">
+    <i t="yellow circle">
       <i t="meaning on plot">
         <j l="47#1120596" />
       </i>

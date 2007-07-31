@@ -72,5 +72,6 @@ B=A.fN("On-Study Data Dictionary","64");
 B=A.fN("Post-Surgery Summary Data Dictionary","65");
 B=A.fN("Follow-Up Data Dictionary","66");
 B=A.fN("Response Evaluation Data Dictionary","67");
-A=P.fN("Glossary","68");
+B=A.fN("MR Data Dictionary","68");
+A=P.fN("Glossary","69");
 }

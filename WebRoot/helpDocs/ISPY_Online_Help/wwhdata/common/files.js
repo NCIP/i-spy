@@ -68,5 +68,6 @@ P.fA("On-Study Data Dictionary","i-spy_appa_datadictionary.11.5.html");
 P.fA("Post-Surgery Summary Data Dictionary","i-spy_appa_datadictionary.11.6.html");
 P.fA("Follow-Up Data Dictionary","i-spy_appa_datadictionary.11.7.html");
 P.fA("Response Evaluation Data Dictionary","i-spy_appa_datadictionary.11.8.html");
+P.fA("MR Data Dictionary","i-spy_appa_datadictionary.11.9.html");
 P.fA("Glossary","i-spy_Glossary.12.1.html");
 }
