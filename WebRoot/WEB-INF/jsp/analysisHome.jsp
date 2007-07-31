@@ -4,12 +4,12 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ page import="java.util.*"%>
 
-<!--<%@ page import="gov.nih.nci.ispy.util.ISPYGenePatternHome" %>
-<%
+<!--<%@ page import="gov.nih.nci.ispy.util.ISPYGenePatternHome" %> -->
+<!-- <%
 	String gpHomeURL = ISPYGenePatternHome.gpHomeURL(request);
 	gpHomeURL = gpHomeURL + "&target=new";
-%> 
--->
+%> --> 
+
 
 
 <table width="80%" border="0" cellspacing="4" cellpadding="3">
