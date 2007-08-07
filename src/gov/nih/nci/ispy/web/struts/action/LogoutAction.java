@@ -1,8 +1,6 @@
 package gov.nih.nci.ispy.web.struts.action;
 
-import gov.nih.nci.ispy.util.ISPYPublicUserPool;
 import gov.nih.nci.ispy.util.ispyConstants;
-import gov.nih.nci.ispy.util.ISPYPublicUserPool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

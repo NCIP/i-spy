@@ -4,9 +4,10 @@
 <%@ taglib uri="/WEB-INF/struts-logic.tld" prefix="logic" %>
 <%@ page import="java.util.*"%>
 
-<%@ page import="gov.nih.nci.ispy.util.ISPYGenePatternHome" %>
+<%@ page import="gov.nih.nci.caintegrator.application.analysis.gp.GenePatternIntegrationHelper" %>
 <%
-	String gpHomeURL = ISPYGenePatternHome.gpHomeURL(request);
+	//String gpHomeURL = ISPYGenePatternHome.gpHomeURL(request);
+	String gpHomeURL = GenePatternIntegrationHelper.gpHomeURL(request);
 	gpHomeURL = gpHomeURL + "&target=new";
 %>  
 

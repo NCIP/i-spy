@@ -54,7 +54,8 @@ import gov.nih.nci.caintegrator.analysis.messaging.ReporterGroup;
 import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
 import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
 import gov.nih.nci.caintegrator.security.EncryptionUtil;
-import gov.nih.nci.ispy.util.ISPYPublicUserPool;
+//import gov.nih.nci.ispy.util.ISPYPublicUserPool;
+import gov.nih.nci.caintegrator.application.analysis.gp.GenePatternPublicUserPool;
 ///////////////
 /**
 * caIntegrator License
@@ -182,7 +183,7 @@ public class GPIntegrationAction extends DispatchAction {
         List<String> idStringList = new ArrayList<String>();
         List<String> reportIdStringList = new ArrayList<String>();
 
-		String gpModule =  System.getProperty("gov.nih.nci.ispyportal.gp.modulename");
+		String gpModule =  System.getProperty("gov.nih.nci.caintegrator.gp.modulename");
 		String analysisResultName = (gpForm.getAnalysisResultName()!=null && !gpForm.getAnalysisResultName().equals("")) 
 			? (String)gpForm.getAnalysisResultName() : "unnamed_task";
 
@@ -225,28 +226,28 @@ public class GPIntegrationAction extends DispatchAction {
 		//*** RUN TASK ON THE GP SERVER
 		String tid = "209";
 
-		String gpserverURL = System.getProperty("gov.nih.nci.ispyportal.gp.server")!=null ? 
-				(String)System.getProperty("gov.nih.nci.ispyportal.gp.server") : "localhost:8080"; //default to localhost
+		String gpserverURL = System.getProperty("gov.nih.nci.caintegrator.gp.server")!=null ? 
+				(String)System.getProperty("gov.nih.nci.caintegrator.gp.server") : "localhost:8080"; //default to localhost
 		try {
 		//*	
 			String ispyUser = (String)session.getAttribute("name");
-			String publicUser = System.getProperty("gov.nih.nci.ispyportal.gp.publicuser.name");
-			String password = System.getProperty("gov.nih.nci.ispyportal.gp.publicuser.password");
+			String publicUser = System.getProperty("gov.nih.nci.caintegrator.gp.publicuser.name");
+			String password = System.getProperty("gov.nih.nci.caintegrator.gp.publicuser.password");
 			
 			//Check to see the user is already created otherwise create one.
 			
 			GPServer gpServer = null;
 			if (ispyUser.equals(publicUser)){
-				String gpUser = (String)session.getAttribute(ISPYPublicUserPool.PUBLIC_USER_NAME);
+				String gpUser = (String)session.getAttribute(GenePatternPublicUserPool.PUBLIC_USER_NAME);
 				if (gpUser == null){
-					PublicUserPool pool = ISPYPublicUserPool.getInstance();
+					PublicUserPool pool = GenePatternPublicUserPool.getInstance();
 					gpUser = pool.borrowPublicUser();
-					session.setAttribute(ISPYPublicUserPool.PUBLIC_USER_NAME, gpUser);
-					session.setAttribute(ISPYPublicUserPool.PUBLIC_USER_POOL, pool);
+					session.setAttribute(GenePatternPublicUserPool.PUBLIC_USER_NAME, gpUser);
+					session.setAttribute(GenePatternPublicUserPool.PUBLIC_USER_POOL, pool);
 				}
 				ispyUser = gpUser;
 			}
-			String encryptKey = System.getProperty("gov.nih.nci.ispyportal.gp.desencrypter.key");
+			String encryptKey = System.getProperty("gov.nih.nci.caintegrator.gp.desencrypter.key");
 			String urlString = EncryptionUtil.encrypt(ispyUser+ gpPoolString, encryptKey);
 			urlString = URLEncoder.encode(urlString, "UTF-8");
 			String ticketString = gpserverURL+"gp?ticket="+ urlString;
