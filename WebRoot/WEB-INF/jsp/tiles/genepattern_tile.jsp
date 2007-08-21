@@ -44,8 +44,8 @@
 	</tr>
 </table>
 </fieldset>
-  <script language="javascript">
 
+<script language="javascript">
 function removeSelected(fbox) {
 	var arrLookup = new Array();
 
