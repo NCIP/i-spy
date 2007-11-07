@@ -13,8 +13,10 @@ import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.MorphologyType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
+import gov.nih.nci.ispy.service.clinical.PcrType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
 import gov.nih.nci.ispy.service.clinical.RaceType;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,6 +91,16 @@ public class ClinicalGroupRetriever {
             ldPercentChangeCollection.add(new LabelValueBean(percentLDChangeType.toString(),percentLDChangeType.getDeclaringClass().getCanonicalName() + "#" + percentLDChangeType.name()));
         }        
         return ldPercentChangeCollection;
+    }
+    
+  
+    
+    public List<LabelValueBean> getPcrCollection(){
+        List<LabelValueBean> pcrCollection = new ArrayList<LabelValueBean>();
+        for(PcrType pcrType: PcrType.values()){
+        	pcrCollection.add(new LabelValueBean(pcrType.toString(),pcrType.getDeclaringClass().getCanonicalName() + "#" + pcrType.name()));
+        }        
+        return pcrCollection;
     }
     
     public List<LabelValueBean> getClinicalStageCollection(){

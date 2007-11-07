@@ -109,7 +109,16 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     private String diameterOperator;    
     private String diameter = null;
     private String pathTumorSizeOperator;
-    private String pathTumorSize;
+    private String pathTumorSize; 
+    private String rcbOperator;
+    private String rcbSize;
+    private String rcbTimepointRange;
+    private List rcbTimepointRangeCollection = new ArrayList();
+    private String[] receptorStatus;
+    private List receptorCollection;  
+ 
+    
+    
     private String[] age;
     private List ageCollection;
     private String[] race;
@@ -127,8 +136,8 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
     private List ldTimepointRangeCollection = new ArrayList();
     
     //Receptor status
-    private String[] receptorStatus;
-    private List receptorCollection;
+    private String[] pcrStatus;
+    private List pcrCollection;
     
     private String analysisResultName = "";
   
@@ -453,7 +462,58 @@ public class ClinicalQueryForm extends BaseForm implements Serializable{
 
 
 
-    /**
+    public String getRcbOperator() {
+		return rcbOperator;
+	}
+
+	public void setRcbOperator(String rcbOperator) {
+		this.rcbOperator = rcbOperator;
+	}
+
+	public String getRcbSize() {
+		return rcbSize;
+	}
+
+	public void setRcbSize(String rcbSize) {
+		this.rcbSize = rcbSize;
+	}
+	
+	
+
+	public String getRcbTimepointRange() {
+		return rcbTimepointRange;
+	}
+
+	public void setRcbTimepointRange(String rcbTimepointRange) {
+		this.rcbTimepointRange = rcbTimepointRange;
+	}
+
+	public List getRcbTimepointRangeCollection() {
+		return rcbTimepointRangeCollection;
+	}
+
+	public void setRcbTimepointRangeCollection(List rcbTimepointRangeCollection) {
+		this.rcbTimepointRangeCollection = rcbTimepointRangeCollection;
+	}
+
+	
+	public List getPcrCollection() {
+		return pcrCollection;
+	}
+
+	public void setPcrCollection(List pcrCollection) {
+		this.pcrCollection = pcrCollection;
+	}
+
+	public String[] getPcrStatus() {
+		return pcrStatus;
+	}
+
+	public void setPcrStatus(String[] pcrStatus) {
+		this.pcrStatus = pcrStatus;
+	}
+
+	/**
      * @return Returns the morphology.
      */
     public String[] getMorphology() {

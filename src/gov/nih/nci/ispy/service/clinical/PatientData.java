@@ -59,6 +59,9 @@ private String  ispy_id,
 				LES_T3,
 				LES_T4;
 
+                
+                
+
 	private String histTypeOfInvasiveTumor;
 	private String histTypePS;
 	private String reasonNoSurg;
@@ -75,7 +78,131 @@ private String  ispy_id,
     private Double ldT3;
     private Double ldT4;
     
+    
     private Double ptumor1szcm_micro;
+    
+    // private rcb index size
+    
+    private Double rcbIndexSize;
+    
+    // pathology complete response (pcr)
+    private String pcr;
+    
+    private PcrType pcrType;
+    
+    private String inSituHisto;
+    
+    private String invDzHisto;
+    
+    private String invDzMultiFoc;
+    
+    private String invDzCellularity;
+    
+    private String surgMargins;
+    
+    private String yT;
+    
+    private String yN;
+    
+    private String yM;
+    
+    private String inSituDz;
+    
+    private String inSituSpan;
+    
+    private String percentInSitu;
+    
+    private String inSituGrade;
+    
+    private String invDz;
+    
+    
+    private String lVI;
+    
+    private String metSzLN;
+    
+    private String rcbClass;
+    
+    private String rCB_PATHSZ_1;
+    
+    private String rCB_PATHSZ_2;
+    
+    private String ptumor1szcm_micro_1;
+    
+    private String ptumor1szcm_micro_2;
+    
+    // below are new patient clinical fields with new clinical data received in september, 2007
+    
+    private Long height;
+    
+    private Long weight;
+    
+    private Double  bsa;
+    
+    private Long eRpos;
+    
+    private Long pgRpos;
+    
+    private Long fineNeedle;
+    
+    private Long coreNeedle;
+    
+    private Long incisional;
+    
+    private Long bilateralCa;
+    
+    private Long laterality;
+    
+    
+    private Long RtBrTD;
+    
+    private Long RtBoTD;
+    
+    private Long RtAxTD;
+    
+    private Long RtSNTD;
+    
+    private Long RtIMTD;
+    
+    private Long RtCWTD;
+    
+    private Long RtOtTD;
+    
+    private Long localProgress;
+    
+    private Long distProgress;
+    
+    private Long t4Baseline;
+    private Long t4Early;
+    private Long t4Int;
+    private Long t4PreS;
+
+    private Long baseAxillary ;
+    private Long earlyAxillary ;
+    private Long intAxillary;
+    private Long preSAxillary ;
+    private Long baseInternalM ;
+    private Long earlyInternalM ;
+    private Long intInternalM ;
+    private Long preSInternalM ;
+    
+    private Long baseSupra ;
+    private Long earlySupra ;
+    private Long intSupra;
+    private Long preSSupra;
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //private String morphPatternBsl;
     
@@ -399,6 +526,526 @@ private String  ispy_id,
 		this.ptumor1szcm_micro = ptumor1szcm_micro;
 	}
 
+
+	public Double getRcbIndexSize() {
+		return rcbIndexSize;
+	}
+
+	public void setRcbIndexSize(Double rcbIndexSize) {
+		this.rcbIndexSize = rcbIndexSize;
+	}
+
+	public String getPcr() {
+		return pcr;
+	}
+
+	public void setPcr(String pcr) {		
+		pcrType = PcrType.getValueForString(pcr);
+	}
+
+	
+	public PcrType getPcrType() {
+		return pcrType;
+	}
+
+	public void setPcrType(PcrType pcrType) {
+		this.pcrType = pcrType;
+	}
+
+	
+	public String getInSituHisto() {
+		return inSituHisto;
+	}
+
+	public void setInSituHisto(String inSituHisto) {
+		this.inSituHisto = inSituHisto;
+	}
+
+	
+	public String getInvDzHisto() {
+		return invDzHisto;
+	}
+
+	public void setInvDzHisto(String invDzHisto) {
+		this.invDzHisto = invDzHisto;
+	}
+ 
+		public String getInvDzMultiFoc() {
+		return invDzMultiFoc;
+	}
+
+	public void setInvDzMultiFoc(String invDzMultiFoc) {
+		this.invDzMultiFoc = invDzMultiFoc;
+	}
+
+	 
+	public String getInvDzCellularity() {
+		return invDzCellularity;
+	}
+
+	public void setInvDzCellularity(String invDzCellularity) {
+		this.invDzCellularity = invDzCellularity;
+	}
+
+	
+	
+	public String getSurgMargins() {
+		return surgMargins;
+	}
+
+	public void setSurgMargins(String surgMargins) {
+		this.surgMargins = surgMargins;
+	}
+
+	
+	public String getYT() {
+		return yT;
+	}
+
+	public void setYT(String yt) {
+		yT = yt;
+	}
+	
+	
+
+	public String getYN() {
+		return yN;
+	}
+
+	public void setYN(String yn) {
+		yN = yn;
+	}
+
+	 
+	public String getYM() {
+		return yM;
+	}
+
+	public void setYM(String ym) {
+		yM = ym;
+	}
+	
+	
+
+	public String getInSituDz() {
+		return inSituDz;
+	}
+
+	public void setInSituDz(String inSituDz) {
+		this.inSituDz = inSituDz;
+	}
+
+	
+	public String getInSituSpan() {
+		return inSituSpan;
+	}
+	
+	
+
+	public String getPercentInSitu() {
+		return percentInSitu;
+	}
+
+	public void setPercentInSitu(String percentInSitu) {
+		this.percentInSitu = percentInSitu;
+	}
+
+	public void setInSituSpan(String inSituSpan) {
+		this.inSituSpan = inSituSpan;
+	}
+	
+	
+
+	public String getInSituGrade() {
+		return inSituGrade;
+	}
+
+	public void setInSituGrade(String inSituGrade) {
+		this.inSituGrade = inSituGrade;
+	}
+
+	
+	public String getInvDz() {
+		return invDz;
+	}
+
+	public void setInvDz(String invDz) {
+		this.invDz = invDz;
+	}
+	
+	
+
+	public String getLVI() {
+		return lVI;
+	}
+
+	public void setLVI(String lvi) {
+		lVI = lvi;
+	}
+	
+	
+
+	public String getMetSzLN() {
+		return metSzLN;
+	}
+
+	public void setMetSzLN(String metSzLN) {
+		this.metSzLN = metSzLN;
+	}
+
+	
+	public String getRcbClass() {
+		return rcbClass;
+	}
+
+	public void setRcbClass(String rcbClass) {
+		this.rcbClass = rcbClass;
+	}
+
+	
+	public String getRCB_PATHSZ_1() {
+		return rCB_PATHSZ_1;
+	}
+
+	public void setRCB_PATHSZ_1(String rcb_pathsz_1) {
+		rCB_PATHSZ_1 = rcb_pathsz_1;
+	}
+ 
+	 
+	public String getRCB_PATHSZ_2() {
+		return rCB_PATHSZ_2;
+	}
+
+	public void setRCB_PATHSZ_2(String rcb_pathsz_2) {
+		rCB_PATHSZ_2 = rcb_pathsz_2;
+	}
+
+	
+	public String getPtumor1szcm_micro_1() {
+		return ptumor1szcm_micro_1;
+	}
+
+	public void setPtumor1szcm_micro_1(String ptumor1szcm_micro_1) {
+		this.ptumor1szcm_micro_1 = ptumor1szcm_micro_1;
+	}
+
+	public String getPtumor1szcm_micro_2() {
+		return ptumor1szcm_micro_2;
+	}
+
+	public void setPtumor1szcm_micro_2(String ptumor1szcm_micro_2) {
+		this.ptumor1szcm_micro_2 = ptumor1szcm_micro_2;
+	}
+
+	
+	
+	public Long getBaseAxillary() {
+		return baseAxillary;
+	}
+
+	public void setBaseAxillary(Long baseAxillary) {
+		this.baseAxillary = baseAxillary;
+	}
+
+	public Long getBaseInternalM() {
+		return baseInternalM;
+	}
+
+	public void setBaseInternalM(Long baseInternalM) {
+		this.baseInternalM = baseInternalM;
+	}
+
+	public Long getBaseSupra() {
+		return baseSupra;
+	}
+
+	public void setBaseSupra(Long baseSupra) {
+		this.baseSupra = baseSupra;
+	}
+
+	public Long getBilateralCa() {
+		return bilateralCa;
+	}
+
+	public void setBilateralCa(Long bilateralCa) {
+		this.bilateralCa = bilateralCa;
+	}
+
+	public Double getBsa() {
+		return bsa;
+	}
+
+	public void setBsa(Double bsa) {
+		this.bsa = bsa;
+	}
+
+	public Long getCoreNeedle() {
+		return coreNeedle;
+	}
+
+	public void setCoreNeedle(Long coreNeedle) {
+		this.coreNeedle = coreNeedle;
+	}
+
+	public Long getDistProgress() {
+		return distProgress;
+	}
+
+	public void setDistProgress(Long distProgress) {
+		this.distProgress = distProgress;
+	}
+
+	public Long getEarlyAxillary() {
+		return earlyAxillary;
+	}
+
+	public void setEarlyAxillary(Long earlyAxillary) {
+		this.earlyAxillary = earlyAxillary;
+	}
+
+	public Long getEarlyInternalM() {
+		return earlyInternalM;
+	}
+
+	public void setEarlyInternalM(Long earlyInternalM) {
+		this.earlyInternalM = earlyInternalM;
+	}
+
+	public Long getEarlySupra() {
+		return earlySupra;
+	}
+
+	public void setEarlySupra(Long earlySupra) {
+		this.earlySupra = earlySupra;
+	}
+
+	public Long getERpos() {
+		return eRpos;
+	}
+
+	public void setERpos(Long rpos) {
+		eRpos = rpos;
+	}
+
+	public Long getFineNeedle() {
+		return fineNeedle;
+	}
+
+	public void setFineNeedle(Long fineNeedle) {
+		this.fineNeedle = fineNeedle;
+	}
+
+	public Long getHeight() {
+		return height;
+	}
+
+	public void setHeight(Long height) {
+		this.height = height;
+	}
+
+	public Long getIncisional() {
+		return incisional;
+	}
+
+	public void setIncisional(Long incisional) {
+		this.incisional = incisional;
+	}
+
+	public Long getIntAxillary() {
+		return intAxillary;
+	}
+
+	public void setIntAxillary(Long intAxillary) {
+		this.intAxillary = intAxillary;
+	}
+
+	public Long getIntInternalM() {
+		return intInternalM;
+	}
+
+	public void setIntInternalM(Long intInternalM) {
+		this.intInternalM = intInternalM;
+	}
+
+	public Long getIntSupra() {
+		return intSupra;
+	}
+
+	public void setIntSupra(Long intSupra) {
+		this.intSupra = intSupra;
+	}
+
+	public Long getLaterality() {
+		return laterality;
+	}
+
+	public void setLaterality(Long laterality) {
+		this.laterality = laterality;
+	}
+
+	public Long getLocalProgress() {
+		return localProgress;
+	}
+
+	public void setLocalProgress(Long localProgress) {
+		this.localProgress = localProgress;
+	}
+
+	public Long getPgRpos() {
+		return pgRpos;
+	}
+
+	public void setPgRpos(Long pgRpos) {
+		this.pgRpos = pgRpos;
+	}
+
+	public Long getPreSAxillary() {
+		return preSAxillary;
+	}
+
+	public void setPreSAxillary(Long preSAxillary) {
+		this.preSAxillary = preSAxillary;
+	}
+
+	public Long getPreSInternalM() {
+		return preSInternalM;
+	}
+
+	public void setPreSInternalM(Long preSInternalM) {
+		this.preSInternalM = preSInternalM;
+	}
+
+	public Long getPreSSupra() {
+		return preSSupra;
+	}
+
+	public void setPreSSupra(Long preSSupra) {
+		this.preSSupra = preSSupra;
+	}
+
+	public String getRtaxilla() {
+		return rtaxilla;
+	}
+
+	public void setRtaxilla(String rtaxilla) {
+		this.rtaxilla = rtaxilla;
+	}
+
+	public Long getRtAxTD() {
+		return RtAxTD;
+	}
+
+	public void setRtAxTD(Long rtAxTD) {
+		RtAxTD = rtAxTD;
+	}
+
+	public String getRtboost() {
+		return rtboost;
+	}
+
+	public void setRtboost(String rtboost) {
+		this.rtboost = rtboost;
+	}
+
+	public Long getRtBoTD() {
+		return RtBoTD;
+	}
+
+	public void setRtBoTD(Long rtBoTD) {
+		RtBoTD = rtBoTD;
+	}
+
+	public String getRtbreast() {
+		return rtbreast;
+	}
+
+	public void setRtbreast(String rtbreast) {
+		this.rtbreast = rtbreast;
+	}
+
+	public Long getRtBrTD() {
+		return RtBrTD;
+	}
+
+	public void setRtBrTD(Long rtBrTD) {
+		RtBrTD = rtBrTD;
+	}
+
+	public Long getRtCWTD() {
+		return RtCWTD;
+	}
+
+	public void setRtCWTD(Long rtCWTD) {
+		RtCWTD = rtCWTD;
+	}
+
+	public Long getRtIMTD() {
+		return RtIMTD;
+	}
+
+	public void setRtIMTD(Long rtIMTD) {
+		RtIMTD = rtIMTD;
+	}
+
+	public Long getRtOtTD() {
+		return RtOtTD;
+	}
+
+	public void setRtOtTD(Long rtOtTD) {
+		RtOtTD = rtOtTD;
+	}
+
+	public Long getRtSNTD() {
+		return RtSNTD;
+	}
+
+	public void setRtSNTD(Long rtSNTD) {
+		RtSNTD = rtSNTD;
+	}
+
+	public Long getT4Baseline() {
+		return t4Baseline;
+	}
+
+	public void setT4Baseline(Long baseline) {
+		t4Baseline = baseline;
+	}
+
+	public Long getT4Early() {
+		return t4Early;
+	}
+
+	public void setT4Early(Long early) {
+		t4Early = early;
+	}
+
+	public Long getT4Int() {
+		return t4Int;
+	}
+
+	public void setT4Int(Long int1) {
+		t4Int = int1;
+	}
+
+	public Long getT4PreS() {
+		return t4PreS;
+	}
+
+	public void setT4PreS(Long preS) {
+		t4PreS = preS;
+	}
+
+	public Long getWeight() {
+		return weight;
+	}
+
+	public void setWeight(Long weight) {
+		this.weight = weight;
+	}
+
+	public void setPrStatus(PRstatusType prStatus) {
+		this.prStatus = prStatus;
+	}
 
 	public RaceType getRace() {
 		return race;

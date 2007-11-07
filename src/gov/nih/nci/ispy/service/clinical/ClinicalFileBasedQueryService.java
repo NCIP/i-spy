@@ -72,6 +72,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			patientDataMap.clear();
 			
 			while ((line=in.readLine()) != null) {
+				System.out.println(" line = :"+line);
 				lineNum++;
 				tokens = line.split("\t", -2);
 								
@@ -191,6 +192,8 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			    }
 				
 				doubleStr = getToken(tokens,65);
+				System.out.println("doubleStr1=:"+doubleStr);
+				
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT3_T4(Double.valueOf(doubleStr.trim()));
 			    }
@@ -198,9 +201,109 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				
 				pd.setMorphology(getToken(tokens,66));
 				
+			// make sure it is 68 or 67 when real file gets generated
+				// residual cancer burden index, number field
+				doubleStr = getToken(tokens,68);
+				System.out.println("doubleStr2=:"+doubleStr);
+				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+				  pd.setRcbIndexSize(Double.valueOf(doubleStr.trim()));
+			    }
+				
+				System.out.println("pcr _before=:"+getToken(tokens,69));
+				
+				// pathology complete response
+				pd.setPcr(getToken(tokens,69));
+				System.out.println("pcr_after=:"+pd.getPcr());
+				
+               // InSituHisto
+				pd.setInSituHisto(getToken(tokens,70));		
+				
+				
+				//invDzHisto
+				
+				pd.setInvDzHisto(getToken(tokens,71));		
+				
+				
+	            //invDzMultiFoc
+				
+				pd.setInvDzMultiFoc(getToken(tokens,72));		
+			
+			    // invDzCellularity				
+				
+				pd.setInvDzCellularity(getToken(tokens,73));	
+				
+				
+               // surgMargins			
+				
+				pd.setSurgMargins(getToken(tokens,74));	
+				
+               // yT			
+				
+				pd.setYT(getToken(tokens,75));	
+				
+              // yN		
+				
+				pd.setYN(getToken(tokens,76));	
+				
+              // yM		
+				
+				pd.setYM(getToken(tokens,77));	
+				
+				//inSituDz
+
+				pd.setInSituDz(getToken(tokens,78));	
+				
+                //	inSituSpan
+
+				pd.setInSituSpan(getToken(tokens,79));
+				
+				//%InSitu
+				
+				pd.setPercentInSitu(getToken(tokens,80));
+				
+			
+	            //inSituGrade
+				
+				pd.setInSituGrade(getToken(tokens,81));
+				
+               //invDz
+				
+				pd.setInvDz(getToken(tokens,82));
+				
+				//lVI
+				
+				pd.setLVI(getToken(tokens,83));
+				
+				
+               //metSzLN
+				
+				pd.setMetSzLN(getToken(tokens,84));
+				
+				//rcbClass
+				
+				pd.setRcbClass(getToken(tokens,85));
+				
+				// rCB_PATHSZ_1
+				
+				pd.setRCB_PATHSZ_1(getToken(tokens,86));
+				
+              // rCB_PATHSZ_2
+				
+				pd.setRCB_PATHSZ_2(getToken(tokens,87));
+				
+              // ptumor1szcm_micro_1, this is to replace ptumor1szcm_micro
+				
+				pd.setPtumor1szcm_micro_1(getToken(tokens,88));
+			
+              // ptumor1szcm_micro_2
+				
+				pd.setPtumor1szcm_micro_2(getToken(tokens,89));
+			
+			
+				
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
-				
+			
 			}
 	
 			
@@ -425,6 +528,29 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		  
 		}
 		
+		// get ids for residual cancer burden index
+		
+		if (cDTO.getRcbSize()!=null) {
+			  Double size = cDTO.getRcbSize();
+			  Operator operator = cDTO.getRcbOperator();
+			  
+			  queryResult = getPatientsDIDsForRCBIndexSize(size, operator);
+			  
+			  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  
+			  
+			}
+		
+		// get patient ids for patholology complete response
+		
+		if ((cDTO.getPcrValues()!= null)&&(!cDTO.getPcrValues().isEmpty())) {
+		      
+			  queryResult = getPatientDIDsForPcr(cDTO.getPcrValues());
+				
+			  patientDIDs = addToPatientDIDs(patientDIDs, queryResult);	  		
+		}
+		
+		
+		
 		//Get IDs for AgeCategory
 		if (cDTO.getAgeCategoryValues()!=null) {
 			  queryResult = getPatientDIDsForAgeCategory(cDTO.getAgeCategoryValues());
@@ -488,6 +614,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		return patientDIDs;
 	}
 	
+	
 
 	/**
 	 * 
@@ -526,6 +653,30 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		
 		return patientDIDs;
 	}
+	
+	// get pt dids for rcb index size
+	
+	private Set<String> getPatientsDIDsForRCBIndexSize(Double size, Operator operator) {
+		Double pdSize = null;
+		Set<String> patientDIDs = new HashSet<String>();
+		
+		for (PatientData pd : patientDataMap.values()) {
+		  
+		  pdSize = pd.getRcbIndexSize();
+			
+		  if (pdSize != null) {
+			  if ((operator == Operator.GE) && (pdSize >= size)) {
+			    patientDIDs.add(pd.getISPY_ID());
+			  }
+			  else if ((operator == Operator.LE) && (pdSize <= size)) {
+			    patientDIDs.add(pd.getISPY_ID());
+			  }
+		  }					  			
+		}
+		
+		return patientDIDs;
+	}
+	
 	
 	private Set<String> getPatientDIDsForClinicalMeasurement(Double diameter, Operator operator) {
 //		Double pdSize = null;
@@ -614,8 +765,13 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	
 	private Set<String> getPatientDIDsForRace(EnumSet<RaceType> raceValues) {
 		Set<String> patientDIDs = new HashSet<String>();
+		
+		for(int i=0;  i<raceValues.size();i++) 
+		{System.out.println("raceValues.toString()"+raceValues.toString());
+			}
 
 		for (PatientData pd : patientDataMap.values()) {
+			System.out.println("pd.getRace():"+pd.getRace());
 			
 		    if (raceValues.contains(pd.getRace())) {
 		      patientDIDs.add(pd.getISPY_ID());
@@ -624,6 +780,22 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		return patientDIDs;
 	}
 	
+//	 get patient dids for patholgoy complete response
+	private Set<String> getPatientDIDsForPcr(EnumSet<PcrType> pcrSet) {
+		Set<String> patientDIDs = new HashSet<String>();
+		for(int i=0;  i<pcrSet.size();i++) 
+		{System.out.println("pcrSet.toString()"+pcrSet.toString());
+			}
+		
+		for (PatientData pd : patientDataMap.values()) {
+			System.out.println("pd.getPcr():"+pd.getPcr());
+			
+			if (pcrSet.contains(pd.getPcrType())) {
+			  patientDIDs.add(pd.getISPY_ID());
+			}
+		}
+		return patientDIDs;
+	}
 
 	public Set<PatientData> getClinicalData(ISPYclinicalDataQueryDTO dto) {
 		Set<String> patientDIDs = null;

@@ -12,6 +12,7 @@ import gov.nih.nci.ispy.service.clinical.ClinicalDataService;
 import gov.nih.nci.ispy.service.clinical.ClinicalDataServiceFactory;
 import gov.nih.nci.ispy.service.clinical.MorphologyType;
 import gov.nih.nci.ispy.service.clinical.PatientData;
+import gov.nih.nci.ispy.service.clinical.PcrType;
 import gov.nih.nci.ispy.service.clinical.RaceType;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.imaging.ImagingFileBasedQueryService;
@@ -50,7 +51,7 @@ public class QuickClinicalReport {
                 tr = table.addElement("tr").addAttribute("class", "header");
                 
                 String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
-                "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4";
+                "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4,InSituHisto, InvDzHisto, InvDzMultiFoc, InvDzCellularity, SurgMargins, yT, yN, yM, RCBIndex";
 
                 String[] heads = StringUtils.split(longHeaders, ",");
                 for(String h : heads){
@@ -280,7 +281,55 @@ public class QuickClinicalReport {
                         td = tr.addElement("td").addText(tmp);
                         
                         tmp = pd.getMriPctChangeT3_T4()!=null  ? Double.toString(pd.getMriPctChangeT3_T4()) : dv;
+                        td = tr.addElement("td").addText(tmp); 
+                        
+                        // InSituHisto
+                        tmp = pd.getInSituHisto()!=null  ? pd.getInSituHisto() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        // invDzHisto
+                        tmp = pd.getInvDzHisto()!=null  ? pd.getInvDzHisto() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        //invDzMultiFoc
+                        
+                        tmp = pd.getInvDzMultiFoc()!=null  ? pd.getInvDzMultiFoc() : dv;
                         td = tr.addElement("td").addText(tmp);                        
+                      
+                        
+                       //invDzCellularity
+                        
+                        tmp = pd.getInvDzCellularity()!=null  ? pd.getInvDzCellularity() : dv;
+                        td = tr.addElement("td").addText(tmp);
+                        
+                        //surgMargins
+                        
+                        tmp = pd.getSurgMargins()!=null  ? pd.getSurgMargins() : dv;
+                        td = tr.addElement("td").addText(tmp);                     
+                    
+                        //yT
+                        
+                        tmp = pd.getYT()!=null  ? pd.getYT() : dv;
+                        td = tr.addElement("td").addText(tmp);  
+                        
+                       //yN
+                        
+                        tmp = pd.getYN()!=null  ? pd.getYN() : dv;
+                        td = tr.addElement("td").addText(tmp);     
+                        
+                        
+                       //yM
+                        
+                        tmp = pd.getYM()!=null  ? pd.getYM() : dv;
+                        td = tr.addElement("td").addText(tmp);     
+                    
+                     
+                        // rcb index
+                        tmp = pd.getRcbIndexSize()!=null  ? Double.toString(pd.getRcbIndexSize()) : dv;
+                        td = tr.addElement("td").addText(tmp);  
+                        
+                       
+                        
                         
                     }
                 }  
@@ -640,7 +689,9 @@ public class QuickClinicalReport {
                 "RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, " +
                 "STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1," +
                 "LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
-                "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4";
+                "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4, InSituDz, InSituHisto, InSituSpan, %InSitu, InSituGrade," +
+                "InvDz, InvDzHisto, LVI, InvDzMultiFoc, InvDzCellularity, SurgMargins, MetSzLN, yT, yN, yM, PCR, RCB Index, RCBclass, RCB_PATHSZ_1," +
+                "RCB_PATHSZ_2, PTUMOR1SZCM_MICRO_1, PTUMOR1SZCM_MICRO_2";
          String[] heads = StringUtils.split(longHeaders, ",");
          HSSFRow row = sheet.createRow((short) 0);
          for(int j=0;j<heads.length;j++){
@@ -1021,7 +1072,165 @@ public class QuickClinicalReport {
                    cell.setCellValue(rowDouble);
                 }
                 else cell.setCellValue(noRowData);
+                
+                //inSituDz
+                cell = dataRow.createCell((short) 66);
+                rowData = data.getInSituDz();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+                //inSituHisto
+                cell = dataRow.createCell((short) 67);
+                rowData = data.getInSituHisto();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //inSituSpan
+                cell = dataRow.createCell((short) 68);
+                rowData = data.getInSituSpan();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+                //%InSitu
+                cell = dataRow.createCell((short) 69);
+                rowData = data.getPercentInSitu();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //InSituGrade
+                
+                cell = dataRow.createCell((short) 70);
+                rowData = data.getInSituGrade();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // invDz
+                
+                cell = dataRow.createCell((short) 71);
+                rowData = data.getInvDz();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //invDzHisto
              
+                cell = dataRow.createCell((short) 72);
+                rowData = data.getInvDzHisto();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //lVI
+                
+                cell = dataRow.createCell((short) 73);
+                rowData = data.getLVI();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+               // invDzMultiFoc
+                
+                cell = dataRow.createCell((short) 74);
+                rowData = data.getInvDzMultiFoc();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //invDzCellularity
+                
+                cell = dataRow.createCell((short) 75);
+                rowData = data.getInvDzCellularity();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+             
+             //surgMargins
+                
+                cell = dataRow.createCell((short) 76);
+                rowData = data.getSurgMargins();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+              //  metSzLN
+                
+                cell = dataRow.createCell((short) 77);
+                rowData = data.getMetSzLN();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+               // yT
+                
+                cell = dataRow.createCell((short) 78);
+                rowData = data.getYT();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+               // yN
+                
+                cell = dataRow.createCell((short) 79);
+                rowData = data.getYN();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+                 // yM
+                
+                cell = dataRow.createCell((short) 80);
+                rowData = data.getYM();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+                // PCR
+                
+                cell = dataRow.createCell((short) 81);               
+                PcrType pcrType = data.getPcrType();
+                if(pcrType!=null){
+                    rowData = pcrType.toString();
+                }
+                else rowData = noRowData;
+                cell.setCellValue(rowData);
+               
+                // RCB Index
+                cell = dataRow.createCell((short) 82);
+                if(data.getRcbIndexSize()!= null) {
+                      rowData = data.getRcbIndexSize().toString();
+                }
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //rcbClass
+                
+                cell = dataRow.createCell((short) 83);
+                rowData = data.getRcbClass();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //rCB_PATHSZ_1
+                
+                cell = dataRow.createCell((short) 84);
+                rowData = data.getRCB_PATHSZ_1();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+               //rCB_PATHSZ_2
+                
+                cell = dataRow.createCell((short) 85);
+                rowData = data.getRCB_PATHSZ_2();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+              // once implement this, make sure to remove PTUMOR1SZCM_MICRO
+                //PTUMOR1SZCM_MICRO_1
+                
+                cell = dataRow.createCell((short) 86);
+                rowData = data.getPtumor1szcm_micro_1();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // PTUMOR1SZCM_MICRO_2
+                cell = dataRow.createCell((short) 87);
+                rowData = data.getPtumor1szcm_micro_2();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
          }
          
          return wb;

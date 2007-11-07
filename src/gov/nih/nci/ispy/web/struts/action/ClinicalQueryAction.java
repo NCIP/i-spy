@@ -9,6 +9,7 @@ import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
 import gov.nih.nci.ispy.service.clinical.AgeCategoryType;
 import gov.nih.nci.ispy.service.clinical.MorphologyType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
+import gov.nih.nci.ispy.service.clinical.PcrType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
 import gov.nih.nci.ispy.service.clinical.RaceType;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
@@ -209,7 +210,16 @@ public class ClinicalQueryAction extends DispatchAction {
             intersectOrAddSamples(restrainingSamples, receptorIds);
             returnAll = false;
         }
-                       
+            
+        // set pathology complete Response groups
+        if(clinicalForm.getPcrStatus()!=null && clinicalForm.getPcrStatus().length>0){
+        	Set<String> pcrIds = new HashSet<String>();
+            String[] pcrs = clinicalForm.getPcrStatus();
+            addSamplesFromUserLists(helper, pcrIds, pcrs);
+            intersectOrAddSamples(restrainingSamples, pcrIds);
+            returnAll = false;
+        }
+        
         if(!restrainingSamples.isEmpty()){
             dto.setRestrainingSamples(restrainingSamples);            
         }
@@ -259,6 +269,32 @@ public class ClinicalQueryAction extends DispatchAction {
         if(clinicalForm.getPathTumorSize()!=null && clinicalForm.getPathTumorSize().trim().length()>0){
             dto.setPathTumorSize(Double.parseDouble(clinicalForm.getPathTumorSize()));
             dto.setPathTumorSizeOperator(Operator.valueOf(clinicalForm.getPathTumorSizeOperator()));
+            returnAll = false;
+        }
+        
+        // set residual cancer burden index
+        
+        if(clinicalForm.getRcbSize()!=null && clinicalForm.getRcbSize().trim().length()>0){
+            dto.setRcbSize(Double.parseDouble(clinicalForm.getRcbSize()));
+            dto.setRcbOperator(Operator.valueOf(clinicalForm.getRcbOperator()));
+            returnAll = false;
+        }
+        
+        
+        //set pathology complete response
+        if(clinicalForm.getPcrStatus()!=null && clinicalForm.getPcrStatus().length>0){
+            EnumSet<PcrType> pcrSet = EnumSet.noneOf(PcrType.class);
+            String[] pcrs = clinicalForm.getPcrStatus();
+            for(int i=0; i<pcrs.length;i++){
+                String[] uiDropdownString = pcrs[i].split("#");
+                String myClassName = uiDropdownString[0];
+                String myValueName = uiDropdownString[1];    
+                Enum myType = EnumHelper.createType(myClassName,myValueName);
+                if (myType.getDeclaringClass() == gov.nih.nci.ispy.service.clinical.PcrType.class) {
+                	pcrSet.add((PcrType) myType);
+                }                
+            }
+            dto.setPcrValues(pcrSet);
             returnAll = false;
         }
         
@@ -354,6 +390,7 @@ public class ClinicalQueryAction extends DispatchAction {
         clinicalForm.setPatientGroupCollection(clinicalGroupRetriever.getCustomPatientCollection());
         clinicalForm.setAgentsCollection((clinicalGroupRetriever.getAgentsCollection()));
         clinicalForm.setLdTimepointRangeCollection(clinicalGroupRetriever.getLdPercentChangeCollection());
+        clinicalForm.setPcrCollection(clinicalGroupRetriever.getPcrCollection());        
         clinicalForm.setRaceCollection(clinicalGroupRetriever.getRaceCollection());
         clinicalForm.setAgeCollection(clinicalGroupRetriever.getAgeCollection());
         clinicalForm.setMorphologyCollection(clinicalGroupRetriever.getMorphologyCollection());

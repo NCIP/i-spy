@@ -10,6 +10,7 @@ import gov.nih.nci.ispy.service.clinical.HER2statusType;
 import gov.nih.nci.ispy.service.clinical.MorphologyType;
 import gov.nih.nci.ispy.service.clinical.NeoAdjuvantChemoRegimenType;
 import gov.nih.nci.ispy.service.clinical.PRstatusType;
+import gov.nih.nci.ispy.service.clinical.PcrType;
 import gov.nih.nci.ispy.service.clinical.PercentLDChangeType;
 import gov.nih.nci.ispy.service.clinical.RaceType;
 import gov.nih.nci.ispy.service.common.TimepointType;
@@ -54,6 +55,15 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
     
     private Operator pathTumorSizeOperator;
     private Double pathTumorSize = null;
+    
+    // RCB index info
+    
+    private Operator rcbOperator;
+    private Double rcbSize = null;
+    
+    // pathology complete response
+    private EnumSet<PcrType> pcrValues = null;   
+    
     
     private boolean returnAll = false;
 //    private String[] morphology;
@@ -277,7 +287,39 @@ public class ISPYclinicalDataQueryDTO implements ClinicalQueryDTO {
     }
 
     
-    /**
+    
+    
+    public Operator getRcbOperator() {
+		return rcbOperator;
+	}
+
+
+	public void setRcbOperator(Operator rcbOperator) {
+		this.rcbOperator = rcbOperator;
+	}
+
+
+	public Double getRcbSize() {
+		return rcbSize;
+	}
+
+
+	public void setRcbSize(Double rcbSize) {
+		this.rcbSize = rcbSize;
+	}
+
+
+	public EnumSet<PcrType> getPcrValues() {
+		return pcrValues;
+	}
+
+
+	public void setPcrValues(EnumSet<PcrType> pcrValues) {
+		this.pcrValues = pcrValues;
+	}
+
+
+	/**
      * @return Returns the morphologyValues.
      */
     public EnumSet<MorphologyType> getMorphologyValues() {
