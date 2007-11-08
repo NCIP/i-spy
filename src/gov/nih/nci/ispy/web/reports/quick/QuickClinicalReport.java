@@ -691,7 +691,12 @@ public class QuickClinicalReport {
                 "LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
                 "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4, InSituDz, InSituHisto, InSituSpan, %InSitu, InSituGrade," +
                 "InvDz, InvDzHisto, LVI, InvDzMultiFoc, InvDzCellularity, SurgMargins, MetSzLN, yT, yN, yM, PCR, RCB Index, RCBclass, RCB_PATHSZ_1," +
-                "RCB_PATHSZ_2, PTUMOR1SZCM_MICRO_1, PTUMOR1SZCM_MICRO_2";
+                "RCB_PATHSZ_2, PTUMOR1SZCM_MICRO_2, Height, weight, BSA, ERpos,  PgRpos, FineNeedle, CoreNeedle, Incisional, BilateralCa,"+
+                "Laterality,  RtBrTD, RtBoTD, RtAxTD, RtSNTD, RtIMTD, RtCWTD, RtOtTD, LocalProgress, DistProgress, T4Baseline, T4Early, "+
+                "T4Int, T4PreS, BaseAxillary, EarlyAxillary, IntAxillary, PreSAxillary, BaseInternalM, EarlyInternalM, IntInternalM,"+
+                "PreSInternalM, BaseSupra, EarlySupra, IntSupra, PreSSupra, BaseInfra, EarlyInfra, IntInfra, PreSInfra";
+         
+         
          String[] heads = StringUtils.split(longHeaders, ",");
          HSSFRow row = sheet.createRow((short) 0);
          for(int j=0;j<heads.length;j++){
@@ -707,6 +712,8 @@ public class QuickClinicalReport {
              String rowData = "";
              String noRowData = "--";
              Double rowDouble = 0.0;
+             
+             Long  rowLong = new Long(0);
              HSSFCell cell = null;
              
                  cell = dataRow.createCell( (short) 0);
@@ -1220,16 +1227,271 @@ public class QuickClinicalReport {
               // once implement this, make sure to remove PTUMOR1SZCM_MICRO
                 //PTUMOR1SZCM_MICRO_1
                 
-                cell = dataRow.createCell((short) 86);
+               /*cell = dataRow.createCell((short) 86);
                 rowData = data.getPtumor1szcm_micro_1();
                 if(rowData==null)rowData = noRowData;
                 cell.setCellValue(rowData);
+                */
                 
                 // PTUMOR1SZCM_MICRO_2
-                cell = dataRow.createCell((short) 87);
+                cell = dataRow.createCell((short) 86);
                 rowData = data.getPtumor1szcm_micro_2();
                 if(rowData==null)rowData = noRowData;
                 cell.setCellValue(rowData);
+                
+                // Height               
+                cell = dataRow.createCell((short) 87);
+                rowLong = data.getHeight();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+                // Weight               
+                cell = dataRow.createCell((short) 88);
+                rowLong = data.getWeight();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+               
+                // BSA             
+                cell = dataRow.createCell((short) 89);
+                rowDouble = data.getBsa();
+                if(rowDouble!=null){
+                    cell.setCellValue(rowDouble);
+                }
+                else cell.setCellValue(noRowData);
+                
+                //  ERpos
+                cell = dataRow.createCell((short) 90);
+                rowData = data.getERpos();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              PgRpos
+                cell = dataRow.createCell((short) 91);
+                rowData = data.getPgRpos();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // FineNeedle
+                cell = dataRow.createCell((short) 92);
+                rowData = data.getFineNeedle();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // CoreNeedle
+                cell = dataRow.createCell((short) 93);
+                rowData = data.getCoreNeedle();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // Incisional
+                cell = dataRow.createCell((short) 94);
+                rowData = data.getIncisional();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // BilateralCa
+                cell = dataRow.createCell((short) 95);
+                rowData = data.getBilateralCa();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // Laterality
+                cell = dataRow.createCell((short) 96);
+                rowData = data.getCoreNeedle();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // RtBrTD
+                cell = dataRow.createCell((short) 97);
+                rowData = data.getRtBrTD();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //  RtBoTD
+                cell = dataRow.createCell((short) 98);
+                rowData = data.getRtBoTD();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+
+
+                //  RtAxTD
+                cell = dataRow.createCell((short) 99);
+                rowData = data.getRtAxTD();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                // RtSNTD
+                cell = dataRow.createCell((short) 100);
+                rowData = data.getRtSNTD();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //  RtIMTD
+                cell = dataRow.createCell((short) 101);
+                rowData = data.getRtIMTD();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //  RtCWTD
+                cell = dataRow.createCell((short) 102);
+                rowData = data.getRtCWTD();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                //  RtOtTD
+                cell = dataRow.createCell((short) 103);
+                rowData = data.getRtOtTD();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+  //              LocalProgress
+                cell = dataRow.createCell((short) 104);
+                rowData = data.getLocalProgress();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+         //     DistProgress
+                cell = dataRow.createCell((short) 105);
+                rowData = data.getDistProgress();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              T4Baseline
+                cell = dataRow.createCell((short) 106);
+                rowData = data.getT4Baseline();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              T4Early
+                cell = dataRow.createCell((short) 107);
+                rowData = data.getT4Early();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+//              T4Int
+                cell = dataRow.createCell((short) 108);
+                rowData = data.getT4Int();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+//              T4PreS
+                cell = dataRow.createCell((short) 109);
+                rowData = data.getT4PreS();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+//              BaseAxillary
+                cell = dataRow.createCell((short) 110);
+                rowData = data.getBaseAxillary();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              EarlyAxillary
+                cell = dataRow.createCell((short) 111);
+                rowData = data.getEarlyAxillary();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+//              IntAxillary
+                cell = dataRow.createCell((short) 112);
+                rowData = data.getIntAxillary();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              PreSAxillary
+                cell = dataRow.createCell((short) 113);
+                rowData = data.getPreSAxillary();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              BaseInternalM
+                cell = dataRow.createCell((short) 114);
+                rowData = data.getBaseInternalM();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              EarlyInternalM
+                cell = dataRow.createCell((short) 115);
+                rowData = data.getEarlyInternalM();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+//              IntInternalM
+                cell = dataRow.createCell((short) 116);
+                rowData = data.getIntInternalM();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              PreSInternalM
+                cell = dataRow.createCell((short) 117);
+                rowData = data.getPreSInternalM();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              BaseSupra
+                cell = dataRow.createCell((short) 118);
+                rowData = data.getBaseSupra();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              EarlySupra
+                cell = dataRow.createCell((short) 119);
+                rowData = data.getEarlySupra();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+//              IntSupra
+                cell = dataRow.createCell((short) 120);
+                rowData = data.getIntSupra();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              PreSSupra
+                cell = dataRow.createCell((short) 121);
+                rowData = data.getPreSSupra();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              BaseInfra
+                cell = dataRow.createCell((short) 122);
+                rowData = data.getBaseInfra();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+                
+//              EarlyInfra
+                cell = dataRow.createCell((short) 123);
+                rowData = data.getEarlyInfra();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+//              IntInfra
+                cell = dataRow.createCell((short) 124);
+                rowData = data.getIntInfra();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+                
+//              PreSInfra
+                cell = dataRow.createCell((short) 125);
+                rowData = data.getPreSInfra();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData); 
+                
+                
                 
          }
          
