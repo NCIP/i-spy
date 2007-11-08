@@ -139,57 +139,62 @@ private String  ispy_id,
     
     private Double  bsa;
     
-    private Long eRpos;
+    private String eRpos;
     
-    private Long pgRpos;
+    private String pgRpos;
     
-    private Long fineNeedle;
+    private String fineNeedle;
     
-    private Long coreNeedle;
+    private String coreNeedle;
     
-    private Long incisional;
+    private String incisional;
     
-    private Long bilateralCa;
+    private String bilateralCa;
     
-    private Long laterality;
+    private String laterality;
     
     
-    private Long RtBrTD;
+    private String RtBrTD;
     
-    private Long RtBoTD;
+    private String RtBoTD;
     
-    private Long RtAxTD;
+    private String RtAxTD;
     
-    private Long RtSNTD;
+    private String RtSNTD;
     
-    private Long RtIMTD;
+    private String RtIMTD;
     
-    private Long RtCWTD;
+    private String RtCWTD;
     
-    private Long RtOtTD;
+    private String RtOtTD;
     
-    private Long localProgress;
+    private String localProgress;
     
-    private Long distProgress;
+    private String distProgress;
     
-    private Long t4Baseline;
-    private Long t4Early;
-    private Long t4Int;
-    private Long t4PreS;
+    private String t4Baseline;
+    private String t4Early;
+    private String t4Int;
+    private String t4PreS;
 
-    private Long baseAxillary ;
-    private Long earlyAxillary ;
-    private Long intAxillary;
-    private Long preSAxillary ;
-    private Long baseInternalM ;
-    private Long earlyInternalM ;
-    private Long intInternalM ;
-    private Long preSInternalM ;
+    private String baseAxillary ;
+    private String earlyAxillary ;
+    private String intAxillary;
+    private String preSAxillary ;
+    private String baseInternalM ;
+    private String earlyInternalM ;
+    private String intInternalM ;
+    private String preSInternalM ;
     
-    private Long baseSupra ;
-    private Long earlySupra ;
-    private Long intSupra;
-    private Long preSSupra;
+    private String baseSupra ;
+    private String earlySupra ;
+    private String intSupra;
+    private String preSSupra;
+    
+    private String baseInfra ;
+    private String earlyInfra ;
+    private String intInfra;
+    private String preSInfra;
 
 
 
@@ -739,35 +744,35 @@ private String  ispy_id,
 
 	
 	
-	public Long getBaseAxillary() {
+	public String getBaseAxillary() {
 		return baseAxillary;
 	}
 
-	public void setBaseAxillary(Long baseAxillary) {
+	public void setBaseAxillary(String baseAxillary) {
 		this.baseAxillary = baseAxillary;
 	}
 
-	public Long getBaseInternalM() {
+	public String getBaseInternalM() {
 		return baseInternalM;
 	}
 
-	public void setBaseInternalM(Long baseInternalM) {
+	public void setBaseInternalM(String baseInternalM) {
 		this.baseInternalM = baseInternalM;
 	}
 
-	public Long getBaseSupra() {
+	public String getBaseSupra() {
 		return baseSupra;
 	}
 
-	public void setBaseSupra(Long baseSupra) {
+	public void setBaseSupra(String baseSupra) {
 		this.baseSupra = baseSupra;
 	}
 
-	public Long getBilateralCa() {
+	public String getBilateralCa() {
 		return bilateralCa;
 	}
 
-	public void setBilateralCa(Long bilateralCa) {
+	public void setBilateralCa(String bilateralCa) {
 		this.bilateralCa = bilateralCa;
 	}
 
@@ -779,59 +784,59 @@ private String  ispy_id,
 		this.bsa = bsa;
 	}
 
-	public Long getCoreNeedle() {
+	public String getCoreNeedle() {
 		return coreNeedle;
 	}
 
-	public void setCoreNeedle(Long coreNeedle) {
+	public void setCoreNeedle(String coreNeedle) {
 		this.coreNeedle = coreNeedle;
 	}
 
-	public Long getDistProgress() {
+	public String getDistProgress() {
 		return distProgress;
 	}
 
-	public void setDistProgress(Long distProgress) {
+	public void setDistProgress(String distProgress) {
 		this.distProgress = distProgress;
 	}
 
-	public Long getEarlyAxillary() {
+	public String getEarlyAxillary() {
 		return earlyAxillary;
 	}
 
-	public void setEarlyAxillary(Long earlyAxillary) {
+	public void setEarlyAxillary(String earlyAxillary) {
 		this.earlyAxillary = earlyAxillary;
 	}
 
-	public Long getEarlyInternalM() {
+	public String getEarlyInternalM() {
 		return earlyInternalM;
 	}
 
-	public void setEarlyInternalM(Long earlyInternalM) {
+	public void setEarlyInternalM(String earlyInternalM) {
 		this.earlyInternalM = earlyInternalM;
 	}
 
-	public Long getEarlySupra() {
+	public String getEarlySupra() {
 		return earlySupra;
 	}
 
-	public void setEarlySupra(Long earlySupra) {
+	public void setEarlySupra(String earlySupra) {
 		this.earlySupra = earlySupra;
 	}
 
-	public Long getERpos() {
+	public String getERpos() {
 		return eRpos;
 	}
 
-	public void setERpos(Long rpos) {
+	public void setERpos(String rpos) {
 		eRpos = rpos;
 	}
 
-	public Long getFineNeedle() {
+	public String getFineNeedle() {
 		return fineNeedle;
 	}
 
-	public void setFineNeedle(Long fineNeedle) {
+	public void setFineNeedle(String fineNeedle) {
 		this.fineNeedle = fineNeedle;
 	}
 
@@ -843,84 +848,117 @@ private String  ispy_id,
 		this.height = height;
 	}
 
-	public Long getIncisional() {
+	public String getIncisional() {
 		return incisional;
 	}
 
-	public void setIncisional(Long incisional) {
+	public void setIncisional(String incisional) {
 		this.incisional = incisional;
 	}
 
-	public Long getIntAxillary() {
+	public String getIntAxillary() {
 		return intAxillary;
 	}
 
-	public void setIntAxillary(Long intAxillary) {
+	public void setIntAxillary(String intAxillary) {
 		this.intAxillary = intAxillary;
 	}
 
-	public Long getIntInternalM() {
+	public String getIntInternalM() {
 		return intInternalM;
 	}
 
-	public void setIntInternalM(Long intInternalM) {
+	public void setIntInternalM(String intInternalM) {
 		this.intInternalM = intInternalM;
 	}
 
-	public Long getIntSupra() {
+	public String getIntSupra() {
 		return intSupra;
 	}
 
-	public void setIntSupra(Long intSupra) {
+	public void setIntSupra(String intSupra) {
 		this.intSupra = intSupra;
 	}
 
-	public Long getLaterality() {
+	public String getLaterality() {
 		return laterality;
 	}
 
-	public void setLaterality(Long laterality) {
+	public void setLaterality(String laterality) {
 		this.laterality = laterality;
 	}
 
-	public Long getLocalProgress() {
+	public String getLocalProgress() {
 		return localProgress;
 	}
 
-	public void setLocalProgress(Long localProgress) {
+	public void setLocalProgress(String localProgress) {
 		this.localProgress = localProgress;
 	}
 
-	public Long getPgRpos() {
+	public String getPgRpos() {
 		return pgRpos;
 	}
 
-	public void setPgRpos(Long pgRpos) {
+	public void setPgRpos(String pgRpos) {
 		this.pgRpos = pgRpos;
 	}
 
-	public Long getPreSAxillary() {
+	public String getPreSAxillary() {
 		return preSAxillary;
 	}
 
-	public void setPreSAxillary(Long preSAxillary) {
+	public void setPreSAxillary(String preSAxillary) {
 		this.preSAxillary = preSAxillary;
 	}
 
-	public Long getPreSInternalM() {
+	public String getPreSInternalM() {
 		return preSInternalM;
 	}
 
-	public void setPreSInternalM(Long preSInternalM) {
+	public void setPreSInternalM(String preSInternalM) {
 		this.preSInternalM = preSInternalM;
 	}
 
-	public Long getPreSSupra() {
+	public String getPreSSupra() {
 		return preSSupra;
 	}
 
-	public void setPreSSupra(Long preSSupra) {
+	public void setPreSSupra(String preSSupra) {
 		this.preSSupra = preSSupra;
+	}
+
+	
+	public String getBaseInfra() {
+		return baseInfra;
+	}
+
+	public void setBaseInfra(String baseInfra) {
+		this.baseInfra = baseInfra;
+	}
+
+	public String getEarlyInfra() {
+		return earlyInfra;
+	}
+
+	public void setEarlyInfra(String earlyInfra) {
+		this.earlyInfra = earlyInfra;
+	}
+
+	public String getIntInfra() {
+		return intInfra;
+	}
+
+	public void setIntInfra(String intInfra) {
+		this.intInfra = intInfra;
+	}
+
+	public String getPreSInfra() {
+		return preSInfra;
+	}
+
+	public void setPreSInfra(String preSInfra) {
+		this.preSInfra = preSInfra;
 	}
 
 	public String getRtaxilla() {
@@ -931,11 +969,11 @@ private String  ispy_id,
 		this.rtaxilla = rtaxilla;
 	}
 
-	public Long getRtAxTD() {
+	public String getRtAxTD() {
 		return RtAxTD;
 	}
 
-	public void setRtAxTD(Long rtAxTD) {
+	public void setRtAxTD(String rtAxTD) {
 		RtAxTD = rtAxTD;
 	}
 
@@ -947,11 +985,11 @@ private String  ispy_id,
 		this.rtboost = rtboost;
 	}
 
-	public Long getRtBoTD() {
+	public String getRtBoTD() {
 		return RtBoTD;
 	}
 
-	public void setRtBoTD(Long rtBoTD) {
+	public void setRtBoTD(String rtBoTD) {
 		RtBoTD = rtBoTD;
 	}
 
@@ -963,75 +1001,75 @@ private String  ispy_id,
 		this.rtbreast = rtbreast;
 	}
 
-	public Long getRtBrTD() {
+	public String getRtBrTD() {
 		return RtBrTD;
 	}
 
-	public void setRtBrTD(Long rtBrTD) {
+	public void setRtBrTD(String rtBrTD) {
 		RtBrTD = rtBrTD;
 	}
 
-	public Long getRtCWTD() {
+	public String getRtCWTD() {
 		return RtCWTD;
 	}
 
-	public void setRtCWTD(Long rtCWTD) {
+	public void setRtCWTD(String rtCWTD) {
 		RtCWTD = rtCWTD;
 	}
 
-	public Long getRtIMTD() {
+	public String getRtIMTD() {
 		return RtIMTD;
 	}
 
-	public void setRtIMTD(Long rtIMTD) {
+	public void setRtIMTD(String rtIMTD) {
 		RtIMTD = rtIMTD;
 	}
 
-	public Long getRtOtTD() {
+	public String getRtOtTD() {
 		return RtOtTD;
 	}
 
-	public void setRtOtTD(Long rtOtTD) {
+	public void setRtOtTD(String rtOtTD) {
 		RtOtTD = rtOtTD;
 	}
 
-	public Long getRtSNTD() {
+	public String getRtSNTD() {
 		return RtSNTD;
 	}
 
-	public void setRtSNTD(Long rtSNTD) {
+	public void setRtSNTD(String rtSNTD) {
 		RtSNTD = rtSNTD;
 	}
 
-	public Long getT4Baseline() {
+	public String getT4Baseline() {
 		return t4Baseline;
 	}
 
-	public void setT4Baseline(Long baseline) {
+	public void setT4Baseline(String baseline) {
 		t4Baseline = baseline;
 	}
 
-	public Long getT4Early() {
+	public String getT4Early() {
 		return t4Early;
 	}
 
-	public void setT4Early(Long early) {
+	public void setT4Early(String early) {
 		t4Early = early;
 	}
 
-	public Long getT4Int() {
+	public String getT4Int() {
 		return t4Int;
 	}
 
-	public void setT4Int(Long int1) {
+	public void setT4Int(String int1) {
 		t4Int = int1;
 	}
 
-	public Long getT4PreS() {
+	public String getT4PreS() {
 		return t4PreS;
 	}
 
-	public void setT4PreS(Long preS) {
+	public void setT4PreS(String preS) {
 		t4PreS = preS;
 	}
 
