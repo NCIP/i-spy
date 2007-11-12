@@ -23,6 +23,25 @@
 							<html:optionsCollection property="receptorCollection" />
 					</html:select>
 			</div>
+				<div>					
+					<b class="subfield">Residual Cancer Burden Index</b><br/>
+					
+					    <html:select property="rcbOperator">			
+						<html:optionsCollection property="operators" />
+	  				    </html:select>	  				
+					<html:text property="rcbSize" />
+					
+			</div>
+			
+			 <div>
+	        <b class="subfield">Path. Complete Response</b>
+					<html:select property="pcrStatus" multiple="true" size="2">
+							<html:optionsCollection property="pcrCollection" />
+					</html:select>
+			</div>
+			
+			
+			
 		</div>
 			
 </fieldset>
