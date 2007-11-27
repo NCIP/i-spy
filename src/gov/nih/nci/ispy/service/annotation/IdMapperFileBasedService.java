@@ -149,7 +149,7 @@ public class IdMapperFileBasedService {
 		  }
 		  else {
 		    logger.warn("Could not find id mapper entry for id=" + id);
-		  }
+		    }
 		}
 		
 		return retList;
