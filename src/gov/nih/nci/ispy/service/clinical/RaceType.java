@@ -1,7 +1,7 @@
 package gov.nih.nci.ispy.service.clinical;
 
 public enum RaceType {
-	AMERICAN_INDIAN_OR_ALASKA_NATIVE { public String toString() { return "American Indian or Alaska Native"; }
+	/*AMERICAN_INDIAN_OR_ALASKA_NATIVE { public String toString() { return "American Indian or Alaska Native"; }
     								   public String getLookupString() { return toString();}} ,
 	ASIAN { public String toString() { return "Asian"; }
     		public String getLookupString() { return toString();}} ,
@@ -13,6 +13,28 @@ public enum RaceType {
     		public String getLookupString() { return toString();}}, 
     UKNOWN  { public String toString() { return "Unknown"; }
 			   public String getLookupString() { return toString();}};
+	*/		   
+	
+	
+	
+	WHITE { public String toString() { return "1=Caucasian"; }
+	public String getLookupString() { return toString();}}, 
+	
+	BLACK_OR_AFRICAN_AMERICAN { public String toString() { return "3=African American"; }
+	public String getLookupString() { return toString();}} ,
+	
+	ASIAN { public String toString() { return "4=Asian"; }
+	public String getLookupString() { return toString();}} ,
+	
+	NATIVE_HAWAIIAN_OR_PACIFIC_ISLANDER { public String toString() { return "5=Native Hawaiian/Pacific Islander"; }
+	  public String getLookupString() { return toString();}} ,	
+	  
+AMERICAN_INDIAN_OR_ALASKA_NATIVE { public String toString() { return "6=American Indian/Alaskan Native"; }
+			   public String getLookupString() { return toString();}} ,
+			   
+MULTI_RACIAL { public String toString() { return "136=multi-racial (Caucasian, African American and American Indian or Alaska Native)";}
+public String getLookupString() { return toString();}}; 
+
 	
 	
 	public abstract String getLookupString();
@@ -32,9 +54,10 @@ public enum RaceType {
 	  }
 	  
 	  for (int i=0; i < raceValues.length; i++) {
-		 lookupStr = raceValues[i].getLookupString();
-	     if (raceStr.equalsIgnoreCase(lookupStr)) {
+		 lookupStr = raceValues[i].getLookupString().trim();
+		   if (raceStr.trim().equalsIgnoreCase(lookupStr)) {	    	
 	    	return raceValues[i];
+	    	
 	     }
 	  }
 	  return null;

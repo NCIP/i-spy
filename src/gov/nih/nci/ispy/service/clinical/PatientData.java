@@ -11,6 +11,7 @@ private String  ispy_id,
 				dataextractdt, 
 				inst_id, 
 				//race_id, 
+				race_type,
 				sstat, 
 				survdtd, 
 				//chemo, 
@@ -83,7 +84,7 @@ private String  ispy_id,
     
     // private rcb index size
     
-    private Double rcbIndexSize;
+    private String rcbIndexSize;
     
     // pathology complete response (pcr)
     private String pcr;
@@ -532,11 +533,11 @@ private String  ispy_id,
 	}
 
 
-	public Double getRcbIndexSize() {
+	public String getRcbIndexSize() {
 		return rcbIndexSize;
 	}
 
-	public void setRcbIndexSize(Double rcbIndexSize) {
+	public void setRcbIndexSize(String rcbIndexSize) {
 		this.rcbIndexSize = rcbIndexSize;
 	}
 
@@ -1085,12 +1086,22 @@ private String  ispy_id,
 		this.prStatus = prStatus;
 	}
 
+	
+	public String getRace_type() {
+		return race_type;
+	}
+
+	public void setRace_type(String race_type) {
+		this.race_type = race_type;
+	}
+
 	public RaceType getRace() {
 		return race;
 	}
 
 
 	public void setRace_ID(String raceStr) {
+		
 	  race = RaceType.getValueForString(raceStr);
 	}
 	

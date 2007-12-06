@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.apache.commons.validator.GenericValidator;
 
 public class ClinicalFileBasedQueryService implements ClinicalDataService {
 
@@ -72,18 +73,18 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			patientDataMap.clear();
 			
 			while ((line=in.readLine()) != null) {
-				System.out.println(" line = :"+line);
 				lineNum++;
 				tokens = line.split("\t", -2);
 								
 				PatientData pd = new PatientData(getToken(tokens,0));
 				
 				pd.setDataExtractDT(getToken(tokens,1));
+				
 				pd.setInst_ID(getToken(tokens,2));
 				pd.setAgeCategory(getToken(tokens,3));
 				
 				String ageStr = getToken(tokens,4);
-				if ((ageStr!=null)&&(ageStr.trim().length()>0)) {
+					if ((ageStr!=null)&&(ageStr.trim().length()>0)) {
 				  pd.setPatientAge(Double.valueOf(ageStr.trim()));					  
 				}
 								
@@ -92,7 +93,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setSURVDTD(getToken(tokens,7));
 				pd.setChemo(getToken(tokens,8));
 				pd.setChemoCat(getToken(tokens,9));
-				pd.setDosedenseanthra(getToken(tokens,10));
+			    pd.setDosedenseanthra(getToken(tokens,10));
 				pd.setDosedensetaxane(getToken(tokens,11));
 				pd.setTAM(getToken(tokens,12));
 				pd.setHerceptin(getToken(tokens,13));
@@ -110,11 +111,15 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setINITLUMP_FUPMAST(getToken(tokens,25));
 				pd.setSurgery(getToken(tokens,26));
 				pd.setDCISOnly(getToken(tokens,27));
-				
-				String doubleStr = getToken(tokens,28);
+				//  this is original Ptumor1szcm_micro, came from the clinical table, now it needs
+				// to be replaced with Ptumor1szcm_micro_1, from the pathology table, and the field should be String, not double anymore
+				/*String doubleStr = getToken(tokens,28);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setPTumor1SZCM_MICRO(Double.valueOf(doubleStr.trim()));					  
 				}
+				*/
+				
+				pd.setPtumor1szcm_micro_1(getToken(tokens,28));
 				
 				pd.setHistTypePS(getToken(tokens,29));
 				
@@ -146,11 +151,10 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setLES_T3(getToken(tokens,54));
 				pd.setLES_T4(getToken(tokens,55));
 				
-				doubleStr = getToken(tokens,56);
+				String doubleStr = getToken(tokens,56);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 					  pd.setLdT1(Double.valueOf(doubleStr.trim()));
 				}
-				
 				doubleStr = getToken(tokens,57);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 					  pd.setLdT2(Double.valueOf(doubleStr.trim()));
@@ -160,7 +164,6 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 					  pd.setLdT3(Double.valueOf(doubleStr.trim()));
 				}
-				
 				doubleStr = getToken(tokens,59);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 					  pd.setLdT4(Double.valueOf(doubleStr.trim()));
@@ -175,7 +178,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
 			    }
-//				
+//				System.out.println(" line = in the  setPatientDataMap()M method: 017");
 				doubleStr = getToken(tokens,62);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
@@ -185,14 +188,12 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT2_T3(Double.valueOf(doubleStr.trim()));
 			    }
-				
 				doubleStr = getToken(tokens,64);
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT2_T4(Double.valueOf(doubleStr.trim()));
 			    }
 				
 				doubleStr = getToken(tokens,65);
-				System.out.println("doubleStr1=:"+doubleStr);
 				
 				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
 				  pd.setMriPctChangeT3_T4(Double.valueOf(doubleStr.trim()));
@@ -203,17 +204,13 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				
 			// make sure it is 68 or 67 when real file gets generated
 				// residual cancer burden index, number field
-				doubleStr = getToken(tokens,68);
-				System.out.println("doubleStr2=:"+doubleStr);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-				  pd.setRcbIndexSize(Double.valueOf(doubleStr.trim()));
-			    }
 				
-				System.out.println("pcr _before=:"+getToken(tokens,69));
+				pd.setRcbIndexSize(getToken(tokens,68));
+			    
+				
 				
 				// pathology complete response
 				pd.setPcr(getToken(tokens,69));
-				System.out.println("pcr_after=:"+pd.getPcr());
 				
                // InSituHisto
 				pd.setInSituHisto(getToken(tokens,70));		
@@ -291,13 +288,187 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				
 				pd.setRCB_PATHSZ_2(getToken(tokens,87));
 				
-              // ptumor1szcm_micro_1, this is to replace ptumor1szcm_micro
+				// ptumor1szcm_micro_2
 				
-				pd.setPtumor1szcm_micro_1(getToken(tokens,88));
+              // ptumor1szcm_micro_1, this is to replace ptumor1szcm_micro, which is token 28
+				
+				pd.setPtumor1szcm_micro_2(getToken(tokens,88));
 			
-              // ptumor1szcm_micro_2
+              // Height			
+						
+				pd.setHeight(new Long(getToken(tokens,89)));
 				
-				pd.setPtumor1szcm_micro_2(getToken(tokens,89));
+				 // Weight			
+				
+				pd.setWeight(new Long(getToken(tokens,90)));
+			
+				
+				 // BSA		
+				
+				pd.setBsa(new Double(getToken(tokens,91)));
+			
+				
+				 // ERPOS			
+				
+				pd.setERpos(getToken(tokens,92));
+			
+				
+				 // PGRPOS		
+				
+				pd.setPgRpos(getToken(tokens,93));
+				
+                // FINENEEDLE		
+				
+				pd.setFineNeedle(getToken(tokens,94));		
+			
+				
+                 // CORENEEDLE
+		
+				
+				pd.setCoreNeedle(getToken(tokens,95));
+			
+			
+				
+                // INCISIONAL
+		
+				
+				pd.setIncisional(getToken(tokens,96));
+				
+                // BILATERALCA	
+				
+				pd.setBilateralCa(getToken(tokens,97));
+				
+                 // LATERALITY	
+				
+				pd.setLaterality(getToken(tokens,98));
+				
+               // RTBRTD
+				
+				pd.setRtBrTD(getToken(tokens,99));
+				
+              // RTBOTD				
+				pd.setRtBoTD(getToken(tokens,100));
+			
+              // RTAXTD				
+				pd.setRtAxTD(getToken(tokens,101));
+			
+              // RTSNTD				
+				pd.setRtSNTD(getToken(tokens,102));
+			
+              // RTIMTD				
+				pd.setRtIMTD(getToken(tokens,103));
+			
+              // RTCWTD
+				
+				pd.setRtCWTD(getToken(tokens,104));
+			
+              // RTOTTD
+
+				
+				pd.setRtOtTD(getToken(tokens,105));
+			
+              // LOCALPROGRESS		
+
+				
+				pd.setLocalProgress(getToken(tokens,106));
+			
+              // DISTPROGRESS
+
+				
+				pd.setDistProgress(getToken(tokens,107));
+			
+              // T4BASELINE
+
+				
+				pd.setT4Baseline(getToken(tokens,108));
+			
+              // T4EARLY
+			
+				pd.setT4Early(getToken(tokens,109));
+			
+              // T4INT
+				
+				pd.setT4Int(getToken(tokens,110));
+				
+              // T4PRES
+
+				
+				pd.setT4PreS(getToken(tokens,111));
+				
+              // BASEAXILLARY
+
+				
+				pd.setBaseAxillary(getToken(tokens,112));
+				
+              // EARLYAXILLARY
+
+				
+				pd.setEarlyAxillary(getToken(tokens,113));
+				
+              // INTAXILLARY
+
+				
+				pd.setIntAxillary(getToken(tokens,114));
+				
+              // PRESAXILLARY
+
+				
+				pd.setPreSAxillary(getToken(tokens,115));
+				
+              // BASEINTERNALM
+
+				
+				pd.setBaseInternalM(getToken(tokens,116));
+				
+              // EARLYINTERNALM
+
+				
+				pd.setEarlyInternalM(getToken(tokens,117));
+				
+              // INTINTERNALM
+
+				
+				pd.setIntInternalM(getToken(tokens,118));
+				
+              // PRESINTERNALM
+
+				
+				pd.setPreSInternalM(getToken(tokens,119));
+				
+              // BASESUPRA
+
+				
+				pd.setBaseSupra(getToken(tokens,120));
+				
+              // EARLYSUPRA
+				
+				pd.setEarlySupra(getToken(tokens,121));
+				
+              // INTSUPRA
+				
+				pd.setIntSupra(getToken(tokens,122));
+				
+              // PRESSUPRA				
+				pd.setPreSSupra(getToken(tokens,123));
+				
+              // BASEINFRA
+				
+				pd.setBaseInfra(getToken(tokens,124));
+				
+              // EARLYINFRA
+				
+				pd.setEarlyInfra(getToken(tokens,125));
+				
+              // INTINFRA
+				
+				pd.setIntInfra(getToken(tokens,126));
+				
+              // PRESINFRA
+				
+				pd.setPreSInfra(getToken(tokens,127));
+			
+			
+			
 			
 			
 				
@@ -616,23 +787,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 	
 	
 
-	/**
-	 * 
-	 * @param ageCategoryValues
-	 * @return
-	 */
-	private Set<String> getPatientDIDsForAgeCategory(EnumSet<AgeCategoryType> ageCategoryValues) {
-		Set<String> patientDIDs = new HashSet<String>();
-		AgeCategoryType ageCategory;
-		for (PatientData pd : patientDataMap.values()) {
-			ageCategory = pd.getAgeCategory();
-		    if (ageCategoryValues.contains(pd.getAgeCategory())) {
-		      patientDIDs.add(pd.getISPY_ID());
-		    }
-		  }
-		return patientDIDs;
-	}
-
+	
 	private Set<String> getPatientsDIDsForPrimaryPathoMicroscopicTumorSize(Double size, Operator operator) {
 		Double pdSize = null;
 		Set<String> patientDIDs = new HashSet<String>();
@@ -661,8 +816,10 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 		Set<String> patientDIDs = new HashSet<String>();
 		
 		for (PatientData pd : patientDataMap.values()) {
-		  
-		  pdSize = pd.getRcbIndexSize();
+			if(GenericValidator.isDouble(pd.getRcbIndexSize())) {		  
+		      pdSize = Double.valueOf(pd.getRcbIndexSize());
+		      System.out.println("pdSize:"+pdSize);
+			
 			
 		  if (pdSize != null) {
 			  if ((operator == Operator.GE) && (pdSize >= size)) {
@@ -672,8 +829,8 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			    patientDIDs.add(pd.getISPY_ID());
 			  }
 		  }					  			
+		 }
 		}
-		
 		return patientDIDs;
 	}
 	
@@ -774,6 +931,20 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			System.out.println("pd.getRace():"+pd.getRace());
 			
 		    if (raceValues.contains(pd.getRace())) {
+		      patientDIDs.add(pd.getISPY_ID());
+		    }
+		  }
+		System.out.println("patientDIDs"+patientDIDs.size());
+		
+		return patientDIDs;
+	}
+	
+	private Set<String> getPatientDIDsForAgeCategory(EnumSet<AgeCategoryType> ageCategoryValues) {
+		Set<String> patientDIDs = new HashSet<String>();
+		AgeCategoryType ageCategory;
+		for (PatientData pd : patientDataMap.values()) {
+			ageCategory = pd.getAgeCategory();
+		    if (ageCategoryValues.contains(pd.getAgeCategory())) {
 		      patientDIDs.add(pd.getISPY_ID());
 		    }
 		  }
