@@ -928,13 +928,11 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			}
 
 		for (PatientData pd : patientDataMap.values()) {
-			System.out.println("pd.getRace():"+pd.getRace());
 			
 		    if (raceValues.contains(pd.getRace())) {
 		      patientDIDs.add(pd.getISPY_ID());
 		    }
 		  }
-		System.out.println("patientDIDs"+patientDIDs.size());
 		
 		return patientDIDs;
 	}

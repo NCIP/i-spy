@@ -415,8 +415,14 @@ public class QuickClinicalReport {
                     //String longHeaders = "ISPY_ID, LabTrak ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
                 //"MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4";
                     
-                    String longHeaders = "ISPY_ID, LabTrak ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
-                    "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4";
+                   // String longHeaders = "ISPY_ID, LabTrak ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, DCISONLY, PTUMOR1SZCM_MICRO, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
+                   // "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4";
+					
+					// these are the fields from the new clincial data and pathology data file: 10/22-2007, this method is used when trying to obtain clincial data from hoa reports
+                    
+                    String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, ERPOS, PGRPOS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
+                    "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4, DCISONLY, PTUMOR1SZCM_MICRO_1, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE,InSituHisto, InvDzHisto, InvDzMultiFoc, InvDzCellularity, SurgMargins, yT, yN, yM, RCBIndex";
+
                     
                     String[] heads = StringUtils.split(longHeaders, ",");
 					for(String h : heads){
@@ -549,25 +555,7 @@ public class QuickClinicalReport {
     		                        td = tr.addElement("td").addText(tmp);
     		                        
     		                        tmp = pd.getSurgery()!=null  ? pd.getSurgery() : dv;
-    		                        td = tr.addElement("td").addText(tmp);
-    		                        
-    		                        tmp = pd.getDCISOnly()!=null  ? pd.getDCISOnly() : dv;
-    		                        td = tr.addElement("td").addText(tmp);
-    		                        
-    		                        tmp = pd.getPTumor1SZCM_Micro()!=null  ? pd.getPTumor1SZCM_Micro().toString() : dv;
-    		                        td = tr.addElement("td").addText(tmp);
-    		                        
-    		                        tmp = pd.getHistologicGradePS()!=null  ? pd.getHistologicGradePS() : dv;
-    		                        td = tr.addElement("td").addText(tmp);
-    		                        
-    		                        tmp = pd.getNumPosNodes()!=null  ? pd.getNumPosNodes() : dv;
-    		                        td = tr.addElement("td").addText(tmp);
-    		                        
-    		                        tmp = pd.getNodesExamined()!=null  ? pd.getNodesExamined() : dv;
-    		                        td = tr.addElement("td").addText(tmp);
-    		                        
-    		                        tmp = pd.getPathologyStage()!=null  ? pd.getPathologyStage() : dv;
-    		                        td = tr.addElement("td").addText(tmp);
+    		                        td = tr.addElement("td").addText(tmp);    		                        
     		                        
     		                        tmp = pd.getReasonNoSurg()!=null  ? pd.getReasonNoSurg() : dv;
     		                        td = tr.addElement("td").addText(tmp);
@@ -666,7 +654,88 @@ public class QuickClinicalReport {
     		                        td = tr.addElement("td").addText(tmp);
     		                        
     		                        tmp = pd.getMriPctChangeT3_T4()!=null  ? Double.toString(pd.getMriPctChangeT3_T4()) : dv;
-    		                        td = tr.addElement("td").addText(tmp);              
+    		                        td = tr.addElement("td").addText(tmp);   
+    		                        
+    		                        
+    		                        
+    		                        // dispaly path data
+    		                        
+    		                        // dcisonly
+    		                        
+    		                        tmp = pd.getDCISOnly()!=null  ? pd.getDCISOnly() : dv;
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        // Ptumor1szcm_micro_1
+    		                        tmp = pd.getPtumor1szcm_micro_1()!=null  ? pd.getPtumor1szcm_micro_1().toString() : dv;
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        // HistologicGradePS
+    		                        
+    		                        tmp = pd.getHistologicGradePS()!=null  ? pd.getHistologicGradePS() : dv;
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        //NumPosNodes
+    		                        tmp = pd.getNumPosNodes()!=null  ? pd.getNumPosNodes() : dv;
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        //NodesExamined
+    		                        tmp = pd.getNodesExamined()!=null  ? pd.getNodesExamined() : dv;
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        // PathologyStage
+    		                        tmp = pd.getPathologyStage()!=null  ? pd.getPathologyStage() : dv;
+    		                        td = tr.addElement("td").addText(tmp);                       
+    		                        
+    		                        
+    		                        // InSituHisto
+    		                        tmp = pd.getInSituHisto()!=null  ? pd.getInSituHisto() : dv;
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        // invDzHisto
+    		                        tmp = pd.getInvDzHisto()!=null  ? pd.getInvDzHisto() : dv;
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        //invDzMultiFoc
+    		                        
+    		                        tmp = pd.getInvDzMultiFoc()!=null  ? pd.getInvDzMultiFoc() : dv;
+    		                        td = tr.addElement("td").addText(tmp);                        
+    		                      
+    		                        
+    		                       //invDzCellularity
+    		                        
+    		                        tmp = pd.getInvDzCellularity()!=null  ? pd.getInvDzCellularity() : dv;
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        //surgMargins
+    		                        
+    		                        tmp = pd.getSurgMargins()!=null  ? pd.getSurgMargins() : dv;
+    		                        td = tr.addElement("td").addText(tmp);                     
+    		                    
+    		                        //yT
+    		                        
+    		                        tmp = pd.getYT()!=null  ? pd.getYT() : dv;
+    		                        td = tr.addElement("td").addText(tmp);  
+    		                        
+    		                       //yN
+    		                        
+    		                        tmp = pd.getYN()!=null  ? pd.getYN() : dv;
+    		                        td = tr.addElement("td").addText(tmp);     
+    		                        
+    		                        
+    		                       //yM
+    		                        
+    		                        tmp = pd.getYM()!=null  ? pd.getYM() : dv;
+    		                        td = tr.addElement("td").addText(tmp);     
+    		                    
+    		                     
+    		                        // rcb index
+    		                        tmp = pd.getRcbIndexSize()!=null  ? pd.getRcbIndexSize() : dv;
+    		                        td = tr.addElement("td").addText(tmp);  
+    		                        
+    		                       
+    		                        
+    		                        
+    		                    
                                     
     							}
                             }
