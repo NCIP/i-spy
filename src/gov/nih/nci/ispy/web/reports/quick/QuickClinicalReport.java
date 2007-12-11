@@ -420,7 +420,7 @@ public class QuickClinicalReport {
 					
 					// these are the fields from the new clincial data and pathology data file: 10/22-2007, this method is used when trying to obtain clincial data from hoa reports
                     
-                    String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, ERPOS, PGRPOS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
+                    String longHeaders = "ISPY_ID, LabTrak ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, ERPOS, PGRPOS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
                     "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4, DCISONLY, PTUMOR1SZCM_MICRO_1, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE,InSituHisto, InvDzHisto, InvDzMultiFoc, InvDzCellularity, SurgMargins, yT, yN, yM, RCBIndex";
 
                     
@@ -536,6 +536,12 @@ public class QuickClinicalReport {
     		                        tmp = pd.getPGR_TS()!=null  ? pd.getPGR_TS() : dv;
     		                        td = tr.addElement("td").addText(tmp);
     		                        
+    		                        tmp = pd.getERpos()!=null  ? pd.getERpos() : dv;                        
+    		                        td = tr.addElement("td").addText(tmp);
+    		                        
+    		                        tmp = pd.getPgRpos()!=null  ? pd.getPgRpos() : dv;                        
+    		                        td = tr.addElement("td").addText(tmp); 
+    		                        
     		                        tmp = pd.getHER2CommunityPOS()!=null  ? pd.getHER2CommunityPOS() : dv;
     		                        td = tr.addElement("td").addText(tmp);
     		                        
@@ -558,7 +564,8 @@ public class QuickClinicalReport {
     		                        td = tr.addElement("td").addText(tmp);    		                        
     		                        
     		                        tmp = pd.getReasonNoSurg()!=null  ? pd.getReasonNoSurg() : dv;
-    		                        td = tr.addElement("td").addText(tmp);
+    		                        td = tr.addElement("td").addText(tmp);                      
+    		                        
     		                        
     		                        tmp = pd.getRTTherapy()!=null  ? pd.getRTTherapy() : dv;
     		                        td = tr.addElement("td").addText(tmp);
