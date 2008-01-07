@@ -42,7 +42,8 @@
 							"<li><a href=\"principalcomponentInit.do?method=setup\">PCA</a></li>\n" +
 							"<li><a href=\"hierarchicalclusteringInit.do?method=setup\">HC</a></li>\n" +										
 							"<li><a href=\"correlationScatterInit.do?method=setup\">Correlation Scatter</a></li>\n" +
-							"<li><a href=\"categoricalCorrelationInit.do?method=setup\">Categorical Plot</a></li>\n" +						
+							"<li><a href=\"categoricalCorrelationInit.do?method=setup\">Categorical Plot</a></li>\n" +
+							"<li><a href=\"gpintegrationInit.do?method=setup\">GP Analysis</a></li>\n" +
 							"</ul>\n";
 							
 	String s = (String) request.getParameter("s");
