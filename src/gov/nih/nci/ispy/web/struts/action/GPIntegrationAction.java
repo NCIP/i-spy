@@ -217,11 +217,16 @@ public class GPIntegrationAction extends DispatchAction {
 		
 		//Now get the R-binary file name:
 		String r_fileName = null;
+		String a_fileName = null;
 		if (ispyGPIntegrationQueryDTO.getArrayPlatformDE().getValueObjectAsArrayPlatformType()
-				== ArrayPlatformType.AGILENT)
+				== ArrayPlatformType.AGILENT){
 			r_fileName = System.getProperty("gov.nih.nci.ispyportal.agilent_data_matrix");
-		else
+			a_fileName = System.getProperty("gov.nih.nci.ispyportal.agilent_data_annotation");
+		}
+		else {
 			r_fileName = System.getProperty("gov.nih.nci.ispyportal.cdna_data_matrix");
+			a_fileName = System.getProperty("gov.nih.nci.ispyportal.cdna_data_annotation");
+		}
 		
 		//*** RUN TASK ON THE GP SERVER
 		String tid = "209";
@@ -229,7 +234,6 @@ public class GPIntegrationAction extends DispatchAction {
 		String gpserverURL = System.getProperty("gov.nih.nci.caintegrator.gp.server")!=null ? 
 				(String)System.getProperty("gov.nih.nci.caintegrator.gp.server") : "localhost:8080"; //default to localhost
 		try {
-		//*	
 			String ispyUser = (String)session.getAttribute("name");
 			String publicUser = System.getProperty("gov.nih.nci.caintegrator.gp.publicuser.name");
 			String password = System.getProperty("gov.nih.nci.caintegrator.gp.publicuser.password");
@@ -264,9 +268,9 @@ public class GPIntegrationAction extends DispatchAction {
             	logger.error(e.getMessage());
             }
 			gpServer = new GPServer(gpserverURL, ispyUser, password);
-			//*/
+
 			//GPServer gpServer = new GPServer(gpserverURL, gpuname, password);
-			Parameter[] par = new Parameter[filePathList.size() + 3 + 2];
+			Parameter[] par = new Parameter[filePathList.size() + 3 + 3];
 			int currpos= 1;
 			for (int i = 0; i < filePathList.size(); i++){
 				par[i] = new Parameter("input.filename" + currpos++, filePathList.get(i));
@@ -275,6 +279,8 @@ public class GPIntegrationAction extends DispatchAction {
 
 			//r_fileName = "'/usr/local/genepattern/resources/DataMatrix_ISPY_306cDNA_17May07.Rda'";
 			par[++currpos] = new Parameter("array.filename", r_fileName);
+			par[++currpos] = new Parameter("annotation.filename", a_fileName);
+			
 			par[++currpos] = new Parameter("analysis.name", analysisResultName);
 
 			//always just 2
