@@ -91,7 +91,7 @@ String[] updates = update.split(",");
 													The NCI Center for Bioinformatics (NCICB) is designing a web-based system to support correlative data analysis and centralized reporting of results.
 												</p>
 												
-												<br /><span style="font-weight:bold;font-style:italic">version 1.0</span><br/><br/>
+												<br /><span style="font-weight:bold;font-style:italic">version 1.5</span><br/><br/>
 													<span style="text-decoration:underline">Latest data updates</span>
 														<ul>
 														<%
@@ -100,8 +100,10 @@ String[] updates = update.split(",");
 														}
 														%>															
 														</ul>
-														
-													
+											
+														<span style="text-decoration:underline">Additional Information:</span>
+															<ul> <li><a style="font-size:.9em;" href="docs/Release1.5Note.doc">Release Note</a></li>
+															<li><a style="font-size:.9em" href="javascript:Help.popHelp('Cite_data');">How to Cite Ispy Data</a></li></ul>
 													
 											</div>
 
@@ -112,7 +114,7 @@ String[] updates = update.split(",");
 													<!--login form/table begins-->
 													<html:form action="login.do">
 														<div style="width:200px">
-															<br /><span style="font-size:16px;color:gray;text-align:left">login</span>
+															<br /> <br /><br /><span style="font-size:16px;color:gray;text-align:left">login</span>
 															<html:errors property="invalidLogin" />
 														</div>
 														<table border="0">
