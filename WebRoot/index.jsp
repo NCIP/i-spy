@@ -102,8 +102,8 @@ String[] updates = update.split(",");
 														</ul>
 											
 														<span style="text-decoration:underline">Additional Information:</span>
-															<ul> <li><a style="font-size:.9em;" href="docs/Release1.5Note.doc">Release Note</a></li>
-															<li><a style="font-size:.9em" href="javascript:Help.popHelp('Cite_data');">How to Cite Ispy Data</a></li></ul>
+															<ul> <li><a style="font-size:.9em;" href="docs/ReleaseNote_1.5.doc">Release Note</a></li>
+															<li><a style="font-size:.9em" href="javascript:Help.popHelp('Cite_data');">How to Cite I-spy Data</a></li></ul>
 													
 											</div>
 
