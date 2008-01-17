@@ -785,7 +785,7 @@ div.Chapter_Name
   margin-left: 0pt;
   margin-right: 0pt;
   margin-top: 0.0pt;
-  text-align: left;
+  text-align: Right;
   text-indent: 0pt;
   text-transform: none;
   vertical-align: baseline;
@@ -805,7 +805,7 @@ div.Chapter_Name
   font-size: 27.0pt;
   font-style: normal;
   font-weight: bold;
-  text-align: left;
+  text-align: Right;
   text-transform: none;
   vertical-align: baseline;
   margin-left: 0pt;
@@ -1803,23 +1803,20 @@ div.Note
   margin-bottom: 6.0pt;
   margin-left: 68.4pt;
   margin-right: 0pt;
-  margin-top: -8px;
-  padding-bottom: 12px;
-  padding-top: 8px;
-  position: relative;
+  margin-top: -5px;
+  padding-bottom: 18px;
   text-align: Left;
   text-indent: -25px;
   text-transform: none;
-  vertical-align: top;
+  vertical-align: baseline;
 }
 
 .Note_outer
 {
   margin-bottom: 6.0pt;
   margin-right: 0pt;
-  margin-top: -8px;
-  padding-bottom: 12px;
-  padding-top: 8px;
+  margin-top: -5px;
+  padding-bottom: 18px;
 }
 
 .Note_inner
@@ -1830,10 +1827,9 @@ div.Note
   font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  position: relative;
   text-align: Left;
   text-transform: none;
-  vertical-align: top;
+  vertical-align: baseline;
   margin-left: 0pt;
   margin-right: 0pt;
   margin-top: 0pt;
@@ -2090,7 +2086,6 @@ div.Popup_Text
   text-indent: 0pt;
   text-transform: none;
   vertical-align: baseline;
-  width: 250px;
 }
 
 .Popup_Text_outer
@@ -2111,7 +2106,6 @@ div.Popup_Text
   text-align: left;
   text-transform: none;
   vertical-align: baseline;
-  width: 250px;
   margin-left: 0pt;
   margin-right: 0pt;
   margin-top: 0pt;
@@ -2772,22 +2766,20 @@ span.Note
   font-style: normal;
   font-variant: normal;
   font-weight: bold;
-  left: -20px;
-  position: relative;
   text-transform: none;
-  top: 5px;
   vertical-align: baseline;
 }
 
 span.Popup
 {
-  color: #0000ff;
+  border-bottom-color: Maroon;
+  border-bottom-style: dotted;
+  color: Maroon;
   font-family: Arial;
   font-size: 11.0pt;
-  font-style: italic;
+  font-style: normal;
   font-variant: normal;
   font-weight: normal;
-  text-decoration: underline;
   text-transform: none;
   vertical-align: baseline;
 }
@@ -2952,15 +2944,20 @@ table.Table_-_Header
 
 table.Table_-_List
 {
-  margin-bottom: 12.0pt;
-  margin-left: 0pt;
-  margin-right: 0pt;
-  margin-top: 12.0pt;
+  border-bottom-style: none;
+  border-left-style: none;
+  border-right-style: none;
+  border-top-style: none;
+  margin-bottom: 0px;
+  margin-left: 40px;
+  margin-right: 0px;
+  margin-top: 0px;
   padding-bottom: 4pt;
   padding-left: 6pt;
   padding-right: 4pt;
   padding-top: 4pt;
   text-align: right;
+  width: 90%;
 }
 
 table.Table_-_No_Border
