@@ -73,13 +73,13 @@
 	        moves all the bundle resources to the WebRoot/docs/ folder
 	    -->
 	
-	<target name="move_datafiles" >
-		<move todir="${docs.dir}">
+	<target name="copy_datafiles" >
+		<copy todir="${docs.dir}">
 		    <fileset dir="${ispytemp.dir}">
 		      <include name="**/*.*"/>
 		      <exclude name="**/*.jar"/>
 		    </fileset>
-		 </move>		 
+		 </copy>		 
 	</target>
 			
 		
@@ -91,7 +91,7 @@
 		This will build the war file and should be used instead of the 
 		build_war_anthill task (which is intended to be used by SCM)
 	-->
-	<target name="build_war_anthill" depends="copy_resources,move_datafiles">
+	<target name="build_war_anthill" depends="copy_resources,copy_datafiles">
 		<delete file="${app.war.name}.war"/>
 		<war destfile="${app.war.name}.war" webxml="${webapp.dir}/WEB-INF/web.xml">
 			<fileset file="${webapp.dir}/*.*"/>
