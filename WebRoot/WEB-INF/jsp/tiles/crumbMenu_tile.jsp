@@ -20,9 +20,6 @@
 </span>
 
 
-
-
-
 <% if(session.getAttribute("logged").equals("yes")){ %>
   <span style="text-align:right;font-size:.85em;">
     Welcome, &nbsp;
