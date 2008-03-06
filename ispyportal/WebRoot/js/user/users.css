@@ -1,0 +1,48 @@
+p.status {
+ margin-left:5px;
+ font-weight:bold;
+}
+
+p.status span {
+ color:#AB0303;
+}
+
+
+table.user_account {
+ width:100%;
+ margin:10px;
+ background-color:#DDDDDD;
+}
+
+table.user_account th,
+table.user_account td {
+ padding:6px 4px;
+ border:1px solid #DDDDDD;
+ background-color:#FFFFFF;
+ font-size:0.9em;
+}
+
+table.user_account th {
+ text-align:right;
+ width:25%;
+ padding-right:10px;
+}
+
+table.user_account td input {
+ font-size:1.1em;
+ padding:1px;
+ width:98%;
+ cursor:text;
+}
+
+.form_controls {
+ margin:5px 10px;
+}
+
+/*=======================================*/ 
+
+table#unique_id tr.deactivated td,
+table#unique_id tr.deactivated td a {
+ color:#777777;
+ background-color:#FAFAFA;
+}

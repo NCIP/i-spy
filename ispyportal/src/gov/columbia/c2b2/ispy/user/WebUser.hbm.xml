@@ -1,0 +1,78 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	
+
+
+<hibernate-mapping>
+    <class name="gov.columbia.c2b2.ispy.user.WebUser" table="WEBUSER">
+
+        <id name="id" type="long" column="USER_ID">            
+            <generator class="increment"/>
+        </id>
+        <property name="username" column="USERNAME" type="string" length="100">
+            <meta attribute="field-description">The username (often the user's email).</meta>
+        </property>
+        <property name="email" column="EMAIL" type="string" length="100">
+            <meta attribute="field-description">The user email.</meta>
+        </property>
+        <property name="password" column="PASSWORD" type="string" length="32">
+            <meta attribute="field-description">The user's password</meta>
+        </property>
+        <property name="firstName" column="FIRSTNAME" type="string" length="100">
+            <meta attribute="field-description">User first name.</meta>
+        </property>
+        <property name="lastName" type="string" length="100" column="LASTNAME">
+            <meta attribute="field-description">User last name.</meta>            
+        </property>
+        <property name="title" column="TITLE" type="string" length="100">
+            <meta attribute="field-description">The user's job title.</meta>
+        </property>
+        <property name="institution" column="INSTITUTION" type="string" length="100">
+            <meta attribute="field-description">The user's institution.</meta>
+        </property>
+        <property name="department" column="DEPARTMENT" type="string" length="100">
+            <meta attribute="field-description">The user's department.</meta>
+        </property>
+        <property name="address1" column="ADDRESS1" type="string" length="255"/>
+        <property name="address2" column="ADDRESS2" type="string" length="255"/>
+        <property name="city" column="CITY" type="string" length="128"/>
+        <property name="state" column="STATE" type="string" length="32"/>
+        <property name="zip" column="ZIP" type="string" length="32"/>
+        <property name="country" column="COUNTRY" type="string" length="128"/>
+        <property name="phone" column="PHONE" type="string" length="64"/>
+        <property name="intendedUse" column="INTENDEDUSE" type="string" length="1024">
+            <meta attribute="field-description">Brief Description of Intended Data Use.</meta>
+        </property>
+
+        <property name="registeredDate" column="REGISTEREDDATE" type="date">
+            <meta attribute="field-description">The date the user registered.</meta>
+        </property>
+
+        <property name="registrationKey" column="REGISTRATIONKEY" type="int" />
+
+        <property name="acceptDate" column="ACCEPTDATE" type="timestamp"/>
+        
+        <!--update tracking -->
+        <component name="status" class="gov.columbia.c2b2.ispy.user.Status">
+            <property name="status" column="STATUS" type="char"/>
+        </component>
+
+        <component name="auditInfo" class="gov.columbia.c2b2.ispy.user.AuditInfo">
+            <property name="createBy" column="CREATEBY" type="string" length="64"/>
+            <property name="createDate" column="CREATEDATE" type="timestamp"/>
+            <property name="updateBy" column="UPDATEBY" type="string" length="64"/>
+            <property name="updateDate" column="UPDATEDATE" type="timestamp"/>
+        </component>
+
+        <!-- May not be needed, but this tracks logins by user -->
+        <set name="logins" lazy="true" cascade="delete" inverse="true">
+            <meta attribute="field-description">Login tracking information.</meta>
+            <key column="USER_ID"/>
+            <one-to-many class="gov.columbia.c2b2.ispy.user.Login"/>
+        </set>
+
+       
+
+    </class>
+</hibernate-mapping>

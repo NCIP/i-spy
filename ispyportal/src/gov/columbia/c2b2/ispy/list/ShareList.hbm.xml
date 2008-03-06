@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gov.columbia.c2b2.ispy.list" >
+	
+
+
+    	
+	<class name="ShareList" table="LIST_SHARE" lazy="true">
+
+		<id name="shareId" type="java.lang.Long" column="SHARE_ID" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="listId"
+                 type="java.lang.Long"
+                 column="LIST_ID"
+                 insert="true"
+                 update="true" />
+        
+ 		<property name="grId"
+                 type="java.lang.Long"
+                 column="GR_ID"
+                 insert="true"
+                 update="true" />
+             
+        <property name="updateTime"
+                 type="timestamp"
+                 column="UPDATE_DATE"
+                 insert="true"
+                 update="true" /> 
+ <!--                    
+		<set name="groups" order-by="GR_ID" lazy="false" fetch="select" inverse="false" cascade="all" node="externalReferences" embed-xml="true">
+        	    <cache usage="read-write" />
+           	 	<key foreign-key="GR_ID">
+            	    <column name="GR_ID" sql-type="BIGINT"/>
+            	</key>
+            	<one-to-many class="gov.columbia.c2b2.ispy.web.struts.form.GroupManager" not-found="exception"/>
+		</set>
+-->                          
+	</class>
+</hibernate-mapping>

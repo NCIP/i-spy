@@ -1,0 +1,25 @@
+function FileData_Pairs(x)
+{
+x.t("site.","access");
+x.t("support","link");
+x.t("support","group");
+x.t("support","find");
+x.t("support","web");
+x.t("support","application");
+x.t("support","ncicb");
+x.t("access","site");
+x.t("link","i-spy");
+x.t("group","page");
+x.t("i-spy","menu.");
+x.t("find","additional");
+x.t("web","site.");
+x.t("menu.","ncicb");
+x.t("click","support");
+x.t("additional","support");
+x.t("site","following:");
+x.t("page","appears.");
+x.t("application","support");
+x.t("ncicb","applications");
+x.t("applications","support");
+x.t("following:","click");
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gov.columbia.c2b2.ispy.fileLoad" >
+
+	<class name="LoadLog" table="UPLOAD_LOG" lazy="true">
+
+		<id name="recId" type="java.lang.Long" column="REC_ID" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="usrId"
+                 type="java.lang.Long"
+                 column="USER_ID"
+                 insert="true"
+                 update="true" />
+ 
+        <property name="fileName"
+                 type="java.lang.String"
+                 column="FILE_NAME"
+                 insert="true"
+                 update="true" /> 
+ 
+         <property name="validScriptName"
+                 type="java.lang.String"
+                 column="VALIDATION_SCRIPT_NAME"
+                 insert="true"
+                 update="true" /> 
+                 
+        <property name="uploadScriptName"
+                 type="java.lang.String"
+                 column="UPLOAD_SCRIPT_NAME"
+                 insert="true"
+                 update="true" /> 
+                 
+        <property name="outFileName"
+                 type="java.lang.String"
+                 column="OUT_FILE_NAME"
+                 insert="true"
+                 update="true" /> 
+                 
+        <property name="uploadStatus"
+                 type="character"
+                 column="UPLOAD_STATUS"
+                 insert="true"
+                 update="true" /> 
+           
+		<property name="numRecs"
+                 type="java.lang.Long"
+                 column="NUM_OF_RECS"
+                 insert="true"
+                 update="true" />
+        
+
+        <property name="updateDate"
+                 type="timestamp"
+                 column="UPDATE_DATE"
+                 insert="true"
+                 update="true" />
+                 
+       <property name="outContent"
+                 type="java.lang.String"
+                 column="OUT_CONTENT"
+                 insert="true"
+                 update="true" />
+
+
+		</class>
+</hibernate-mapping>

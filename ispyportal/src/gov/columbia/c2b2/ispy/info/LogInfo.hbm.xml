@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gov.columbia.c2b2.ispy.info" >
+	  	
+	<class name="LogInfo" table="LOG_TABLE" lazy="true">
+
+		<id name="recId" type="java.lang.Long" column="REC_ID" >
+			<generator class="increment" />
+		</id>
+		
+ 		<property name="usrId"
+                 type="java.lang.Long"
+                 column="USER_ID"
+                 insert="true"
+                 update="true" />
+                 
+         <property name="refId"
+                 type="java.lang.Long"
+                 column="REF_ID"
+                 insert="true"
+                 update="true" />
+                 
+        <property name="actionRef"
+                 type="java.lang.Long"
+                 column="ACTION_REF"
+                 insert="true"
+                 update="true" />
+                 
+        <property name="userAction"
+                 type="java.lang.String"
+                 column="USER_ACTION"
+                 insert="true"
+                 update="true" />
+                  
+        <property name="actionStatus"
+                 type="character"
+                 column="ACTION_STATUS"
+                 insert="true"
+                 update="true" />
+
+        <property name="updateTime"
+                 type="timestamp"
+                 column="UPDATE_DATE"
+                 insert="true"
+                 update="true" />
+      
+		</class>
+</hibernate-mapping>

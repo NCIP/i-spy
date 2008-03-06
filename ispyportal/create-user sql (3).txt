@@ -1,0 +1,57 @@
+ 
+ 
+drop table if exists webuser; 
+drop table if exists login; 
+drop table if exists user_session;
+ 
+create table webuser (
+   user_id INTEGER NOT NULL,
+   username VARCHAR2(100),
+   email VARCHAR2(100),
+   password VARCHAR2(32),
+   firstName VARCHAR2(100),
+   lastName VARCHAR2(255),
+   title VARCHAR2(100),
+   institution VARCHAR2(100),
+   department VARCHAR2(100),
+   address1 VARCHAR2(255),
+   address2 VARCHAR2(255),
+   city VARCHAR2(128),
+   state VARCHAR2(32),
+   zip VARCHAR2(32),
+   country VARCHAR2(128),
+   phone VARCHAR2(64),
+   intendedUse VARCHAR(500),
+   registeredDate DATE,
+   registrationKey INTEGER,
+   status CHAR(1),
+   createBy VARCHAR2(64),
+   createDate DATE,
+   updateBy VARCHAR(64),
+   updateDate DATE,
+   acceptDate DATE,
+   primary key (user_id)
+);
+ 
+create table login (
+   login_id INTEGER NOT NULL,
+   loginDate DATE,
+   ipAddress VARCHAR(64),
+   user_id INTEGER,
+   primary key (login_id)
+);
+ 
+create table user_session (
+   session_id VARCHAR(255) not null,
+   user_id INTEGER,
+   lastLoginTime DATE,
+   expirationTime DATE
+   primary key (session_id)
+);
+  
+create index IDX_USER_LAST_NAME on webuser (lastName); 
+create index IDX_LOGIN_USER_ID on login (user_id);
+create index IDX_LOGIN_LOGIN_DATE on login (loginDate);
+alter table login add constraint FK625EF69F73AEE0F foreign key (user_id) references webuser (user_id);
+alter table user_session add constraint User_fk foreign key (user_id) references webuser (user_id);
+ 

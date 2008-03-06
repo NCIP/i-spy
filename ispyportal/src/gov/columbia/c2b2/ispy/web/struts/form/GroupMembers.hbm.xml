@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gov.columbia.c2b2.ispy.web.struts.form" >
+	
+
+
+    	
+	<class name="GroupMembers" table="GROUP_MEMBERS" lazy="true">
+
+		<id name="memberId" type="java.lang.Long" column="MEMBER_ID" >
+			<generator class="increment" />
+		</id>
+		
+ 
+        <property name="memberStatus"
+                 type="character"
+                 column="MEMBER_STATUS"
+                 insert="true"
+                 update="true" /> 
+        
+ 
+        <property name="shareStatus"
+                 type="character"
+                 column="SHARE_STATUS"
+                 insert="true"
+                 update="true" /> 
+           
+		<property name="GrId"
+                 type="java.lang.Long"
+                 column="GR_ID"
+                 insert="true"
+                 update="true" />
+        
+        <property name="usrId"
+                 type="java.lang.Long"
+                 column="USER_ID"
+                 insert="true"
+                 update="true" />
+
+             
+        <property name="updateTime"
+                 type="timestamp"
+                 column="UPDATE_DATE"
+                 insert="true"
+                 update="true" />
+<!--                    
+        <many-to-one 	name="userInfo"
+        				class="gov.columbia.c2b2.ispy.web.struts.form.UserInfo"
+        				lazy="false"
+        				column="USER_ID"
+        				insert="false"
+        				update="false"
+        				unique="true"
+        				not-null="true"
+        />
+ -->
+ <!--  
+    <join table="CSM_USER" lazy="false">
+        <key column="USER_ID"
+        	property-ref="usrId"/>
+        
+         <property name="firstName"
+                 type="java.lang.String"
+                 column="FIRST_NAME"
+                 insert="false"
+                 update="false" /> 
+           
+		<property name="lastName"
+                 type="java.lang.String"
+                 column="LAST_NAME"
+                 insert="false"
+                 update="false" />
+    </join>               
+ -->                         
+		</class>
+</hibernate-mapping>

@@ -1,0 +1,40 @@
+table.sortable {
+	border-collapse: collapse;
+}
+
+table.sortable td,
+table.sortable th {
+	padding: 0.5em;
+	border: 1px solid #CCC;
+}
+
+table.sortable thead,
+table.sortable tfoot {
+	background-color: #DDD;
+}
+
+table.sortable tr.rowodd {
+	background-color: #FFF;
+}
+
+table.sortable tr.roweven {
+	background-color: #F2F2F2;
+}
+
+table.sortable .sortcol {
+	cursor: pointer;
+	padding-right: 20px;
+	background-repeat: no-repeat;
+	background-position: right center;
+}
+table.sortable .sortasc {
+	background-color: #DDFFAC;
+	background-image: url(files/up.gif);
+}
+table.sortable .sortdesc {
+	background-color: #B9DDFF;
+	background-image: url(files/down.gif);
+}
+table.sortable .nosort {
+	cursor: default;
+}

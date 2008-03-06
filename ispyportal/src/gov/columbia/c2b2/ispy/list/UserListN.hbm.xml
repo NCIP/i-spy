@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping
+	package="gov.columbia.c2b2.ispy.list" >
+	
+	<typedef name="ListType" class="gov.nih.nci.caintegrator.util.EnumUserType">
+              <param name="enumClassName">gov.columbia.c2b2.ispy.list.ListType</param>
+     </typedef>
+     
+     <typedef name="ListSubType" class="gov.nih.nci.caintegrator.util.EnumUserType">
+              <param name="enumClassName">gov.columbia.c2b2.ispy.list.ListSubType</param>
+     </typedef>
+     
+     <typedef name="ListOrigin" class="gov.nih.nci.caintegrator.util.EnumUserType">
+              <param name="enumClassName">gov.columbia.c2b2.ispy.list.ListOrigin</param>
+     </typedef>
+     
+    	
+	<class name="UserListN" table="LIST" lazy="true" >
+
+		<id name="id"  type="java.lang.Long" column="LIST_ID" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="name"
+                 type="java.lang.String"
+                 column="NAME"
+                 insert="true"
+                 update="true" />
+        
+       <property name='listType' column="TYPE" type="ListType" />
+       
+       <property name='listSubType' column="SUBTYPE" type="ListSubType" />
+       
+       <property name='listOrigin' column="ORIGIN" type="ListOrigin" />       
+               
+        <property name="author"
+                 type="java.lang.String"
+                 column="AUTHOR"
+                 insert="true"
+                 update="true" /> 
+        
+        <property name="institute"
+                 type="java.lang.String"
+                 column="INSTITUTION"
+                 insert="true"
+                 update="true" />   
+        
+        <property name="dateCreated"
+                 type="java.util.Date"
+                 column="UPDATE_DATE"
+                 insert="true"
+                 update="true" /> 
+                 
+         <property name="category"
+                 type="java.lang.String"
+                 column="CATEGORY"
+                 insert="true"
+                 update="true" />  
+                 
+         <property name="notes"
+                 type="java.lang.String"
+                 column="DESCRIPTION"
+                 insert="true"
+                 update="true" />
+                 
+         <property name="shareStatus"
+                 type="character"
+                 column="SHARE_STATUS"
+                 insert="true"
+                 update="true" />                   
+ 
+          <property name="userId"
+                 type="java.lang.Long"
+                 column="USER_ID"
+                 insert="true"
+                 update="true" />               
+ 
+ 
+ 		<set name="listItemsT" order-by="ITEM_NAME" lazy="false" fetch="select" inverse="false" cascade="all" node="externalReferences" embed-xml="true">
+        	    <cache usage="read-write" />
+           	 	<key foreign-key="LIST_ID">
+            	    <column name="LIST_ID" sql-type="BIGINT"/>
+            	</key>
+            	<one-to-many class="gov.columbia.c2b2.ispy.list.ListItem" not-found="exception"/>
+		</set> 
+		
+   		<set name="listShares" order-by="LIST_ID" lazy="false" fetch="select" inverse="false" cascade="all" node="externalReferences" embed-xml="true">
+        	    <cache usage="read-write" />
+           	 	<key foreign-key="LIST_ID">
+            	    <column name="LIST_ID" sql-type="BIGINT"/>
+            	</key>
+            	<one-to-many class="gov.columbia.c2b2.ispy.list.ShareList" not-found="exception"/>
+		</set> 
+ <!--  
+                 <bag name="listItems" lazy="false">
+                        <key column="LIST_ID"/>
+                        <one-to-many class="gov.columbia.c2b2.ispy.list.ListItem"/>
+                </bag>
+ -->      
+<!--  	
+		<bag name="listItems" lazy="false" type="integer" fetch="select" inverse="false" cascade="all" node="externalReferences" embed-xml="true">	
+			<cache usage="read-write" />
+			<collection-id type="java.lang.Long" column="ITEM_ID">
+				<generator class="sequense"/>
+			</collection-id>		
+			<key column="LIST_ID"/>
+			<element type="integer" column="LIST_ID" not-null="true"/>
+			<one-to-many class="gov.columbia.c2b2.ispy.list.ListItem"/>		
+		</bag>		
+-->		
+                 
+		</class>
+</hibernate-mapping>

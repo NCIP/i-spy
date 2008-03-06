@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping
+	package="gov.columbia.c2b2.ispy.list" >
+	<class name="ListItem" lazy="true"
+		table="LIST_ITEM" >	
+		
+		<id name="id"  type="java.lang.Long" column="ITEM_ID" >
+			<generator class="increment" />
+		</id>	
+		
+		<property name="listId"
+				type="java.lang.Long"
+				column="LIST_ID"
+				insert="true"
+                 update="false" />
+		
+		<property name="name"
+                 type="java.lang.String"
+                 column="ITEM_NAME"
+                 insert="true"
+                 update="true" />
+                 
+        <property name="rank"
+                 type="java.lang.Long"
+                 column="RANK"
+                 insert="true"
+                 update="true" />
+        
+        <property name="notes"
+                 type="java.lang.String"
+                 column="ITEM_DESCRIPTION"
+                 insert="true"
+                 update="true" />
+        
+        <property name="listName"
+                 type="java.lang.String"
+                 column="LIST_NAME"
+                 insert="true"
+                 update="true" />
+                 
+        <property name="updateDate"
+                 type="java.util.Date"
+                 column="UPDATE_DATE"
+                 insert="true"
+                 update="true" /> 
+                       
+	</class>
+<!--          
+    <query name="ListItem.containmentReport">
+         	<![CDATA[select distinct li from ListItem li where li.name = (:item) and li.listId in (:listIds)]]>
+    </query>
+ -->
+        
+</hibernate-mapping>

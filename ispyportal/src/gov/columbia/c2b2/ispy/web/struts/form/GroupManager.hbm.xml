@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gov.columbia.c2b2.ispy.web.struts.form" >
+	
+
+
+    	
+	<class name="GroupManager" table="GROUPS" lazy="true">
+
+		<id name="grId" type="java.lang.Long" column="GR_ID" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="ownId"
+                 type="java.lang.Long"
+                 column="OWN_ID"
+                 insert="true"
+                 update="true" />
+        
+ 
+        <property name="grName"
+                 type="java.lang.String"
+                 column="GR_NAME"
+                 insert="true"
+                 update="true" /> 
+        
+        <property name="grStatus"
+                 type="character"
+                 column="GR_STATUS"
+                 insert="true"
+                 update="true" />   
+        
+        <property name="shareStatus"
+                 type="character"
+                 column="SHARE_STATUS"
+                 insert="true"
+                 update="true" /> 
+ <!--                
+        <property name="updateTime"
+                 type="java.lang.String"
+                 column="UPDATE_TIME"
+                 insert="true"
+                 update="true" /> 
+ -->
+             
+        <property name="updateTime"
+                 type="timestamp"
+                 column="UPDATE_DATE"
+                 insert="true"
+                 update="true" /> 
+                    
+		<set name="members" order-by="MEMBER_ID" lazy="false" fetch="select" inverse="false" cascade="all" node="externalReferences" embed-xml="true">
+        	    <cache usage="read-write" />
+           	 	<key foreign-key="GR_ID">
+            	    <column name="GR_ID" sql-type="BIGINT"/>
+            	</key>
+            	<one-to-many class="gov.columbia.c2b2.ispy.web.struts.form.GroupMembers" not-found="exception"/>
+		</set>
+
+<!--  
+		<set name="members" cascade="all">
+        
+           	 	<key column="GR_ID"/>
+        
+            	<one-to-many class="gov.columbia.c2b2.ispy.web.struts.form.GroupMembers"/>
+		</set>
+-->
+
+                
+                          
+	</class>
+</hibernate-mapping>

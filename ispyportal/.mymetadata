@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ispyportal"
+  id="myeclipse.1202152123670"
+  context-root="/ispyportal"
+  j2ee-spec="5.0"
+  archive="ispyportal.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+
