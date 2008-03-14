@@ -80,7 +80,11 @@ public class UserListBeanHelper{
      * @deprecated
      */    
     public UserListBeanHelper(HttpSession session){
-        this.userListBean = (UserListBean)presentationTierCache.getNonPersistableObjectFromSessionCache(session.getId(),CacheConstants.USER_LISTS);                 
+//        this.userListBean = (UserListBean)presentationTierCache.getNonPersistableObjectFromSessionCache(session.getId(),CacheConstants.USER_LISTS);
+        User currentUser = (User) session.getAttribute("currentUser");
+        UserListBean newList = new UserListBean();
+		UserListLoaderDB userListLoaderDB = (UserListLoaderDB)SpringContext.getBean("userListLoaderDB");
+        this.userListBean = userListLoaderDB.loadUserListFromDB(currentUser.getUserId());
     }
     
     /**
