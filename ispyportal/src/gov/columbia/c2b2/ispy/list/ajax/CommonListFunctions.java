@@ -275,7 +275,7 @@ public class CommonListFunctions {
                     jsonListName.put("notes", listNotes);
 	                
 	                jsonListName.put("listSubType", listSubType);
-	                jsonListName.put("listName", ul.getName());
+	                jsonListName.put("listName", ul.getName().replaceAll("'", "&#180;").replaceAll("\"", "&#34;").replaceAll("\\\\", "/"));
 	                jsonListName.put("listID", ul.getId().toString());
                     if(ul.getDateCreated()!=null){
                         jsonListName.put("listDate", dateFormat.format(ul.getDateCreated()).toString());

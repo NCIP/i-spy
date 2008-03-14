@@ -5,13 +5,18 @@ import gov.nih.nci.ispy.util.UserGroupBean;
 import gov.nih.nci.ispy.util.UserListHelperDB;
 import gov.nih.nci.security.authorization.domainobjects.User;
 import gov.columbia.c2b2.ispy.web.ajax.CommonListFunctions;
+import gov.columbia.c2b2.ispy.web.struts.form.GroupMembers;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import gov.columbia.c2b2.ispy.fileLoad.LoadLog;
+import gov.columbia.c2b2.ispy.fileLoad.LogFileContent;
 import gov.nih.nci.ispy.util.LoadLogBean;
 import java.sql.Blob;
 
@@ -78,31 +83,53 @@ public class WebGroupDisplay {
     	
     	String respond;
     	String content;
-        Long numOfRecords;
+    	String outOfValidation;
+//        Long numOfRecords;
         JSONObject jsonMess = new JSONObject();
         
         HttpSession session = ExecutionContext.get().getSession(false);
-    	
+        User currentUser = (User) session.getAttribute("currentUser");
     	respond = CommonListFunctions.processFile(input, validScript, uploadScript);
- //   	session.setAttribute("outFile", respond);
-    	
- /*   	
-    	if("PROCESSED".equals(respond.substring(0, 9))){
-    		jsonMess.put("message", "The file was processed with no error");
-    	} else{
-    		jsonMess.put("message", "The file was processed with found duplicates");
-    	}
- */ 	
+
     	content = CommonListFunctions.getContentOfOut(respond);
     	jsonMess.put("message", content);
-    	CommonListFunctions.mvOutFile(respond);
+    	outOfValidation=CommonListFunctions.mvOutFile(respond);
+    	
+	    LoadLog entry = new LoadLog();
+	    entry.setFileName(input);
+	    entry.setUsrId(currentUser.getUserId());
+//	    entry.setUploadScriptName(uploadScript);
+	    entry.setValidScriptName(validScript);
+	    entry.setUpdateDate(new Timestamp(new Date().getTime()));
+	    entry.setUploadStatus('P');
+//	        entry.setoutFileName((String) session.getAttribute("outFile"));
+	    entry.setProcOutFileName(outOfValidation);
+	    
+		LoadLogBean loadLogRec = (LoadLogBean)SpringContext.getBean("loadLogBean");
+//		Long recID = loadLogRec.insertLogRec(entry);
+		ArrayList<LogFileContent> files = new ArrayList<LogFileContent>();
+		
+	    LogFileContent fileContent = new LogFileContent();   
+//	    fileContent.setLogId(recID);
+	    fileContent.setFileName(validScript);
+	    fileContent.setFileContent(CommonListFunctions.getContentOfFile("upload/work", validScript));
+	    files.add(fileContent);
+//	    recID = loadLogRec.insertContentRec(fileContent);
+	    fileContent = new LogFileContent();
+	    fileContent.setFileName(outOfValidation);
+	    fileContent.setFileContent(CommonListFunctions.getContentOfFile("upload/work/outDir", outOfValidation));
+	    files.add(fileContent);
+//	    recID = loadLogRec.insertContentRec(fileContent);
+	    
+//	    entry.setFiles(files);
+	    Long recID = loadLogRec.insertLogRec(entry, files);
+ 	
     	session.setAttribute("inputFileName", input);
-    	session.setAttribute("validScriptName", validScript);
+ //   	session.setAttribute("validScriptName", validScript);
     	session.setAttribute("uploadScriptName", uploadScript);
-    	session.setAttribute("FileOutContent", content);
+    	session.setAttribute("RecordID", recID);
     	return jsonMess.toString();
  
- //   	return "test";
     }
     
     public static String processConfUpload(){
@@ -111,43 +138,60 @@ public class WebGroupDisplay {
         JSONObject jsonMess = new JSONObject();
     	HttpSession session = ExecutionContext.get().getSession(false);
     	String uploadScript = (String) session.getAttribute("uploadScriptName");
+    	String input = (String) session.getAttribute("inputFileName");
 		String userID = (String) session.getAttribute("name");
+		Long recID = (Long) session.getAttribute("RecordID");
         String extension = new Timestamp(new Date().getTime()).toString();
         String time = extension.replace(' ', '-');
         time = time.replaceAll(":", "-");
         String outFileName = userID+time;
     	
-		respond = CommonListFunctions.processUpload(uploadScript, outFileName);
+//		respond = CommonListFunctions.processUpload(uploadScript, outFileName);
+        respond = CommonListFunctions.processUploadInput(uploadScript, outFileName, input);
+		CommonListFunctions.rmOutFile("out.upload");
+//	    User currentUser = (User) session.getAttribute("currentUser");
+//	    String validScript = (String) session.getAttribute("validScriptName");
+//	    String outContent = (String) session.getAttribute("FileOutContent");
+	    LoadLogBean loadLogRec = (LoadLogBean)SpringContext.getBean("loadLogBean");
+	    LoadLog entry = loadLogRec.getLoadLogById(recID); 
+//	    entry.setFileName(input);
+//	    entry.setUsrId(currentUser.getUserId());
+//	    entry.setUploadScriptName(uploadScript);
+//	    entry.setValidScriptName(validScript);
+	    entry.setUpdateDate(new Timestamp(new Date().getTime()));
+	    entry.setUploadStatus('S');
+//	        entry.setoutFileName((String) session.getAttribute("outFile"));
+	    entry.setoutFileName(outFileName);
+//	        entry.setOutContent(CommonListFunctions.getContentOfOutF(outFileName));
+//	    entry.setOutContent(respond);
+
 		String[] process = respond.split(" ");
 		if(process[22].equals("logical") && process[23].equals("record") && process[24].equals("count")){
-	//		String nuOfR = process[25];
-//			int index = process[25].indexOf("\n");
-			CommonListFunctions.rmOutFile("out.dat");
 			numOfRecords = Long.parseLong(process[25].substring(0, process[25].indexOf("\n")));
-	        User currentUser = (User) session.getAttribute("currentUser");
-	        String input = (String) session.getAttribute("inputFileName");
-	        String validScript = (String) session.getAttribute("validScriptName");
-	        String outContent = (String) session.getAttribute("FileOutContent");
-	        LoadLog entry = new LoadLog();
-	        entry.setFileName(input);
 	        entry.setNumRecs(numOfRecords);
-	        entry.setUsrId(currentUser.getUserId());
-	        entry.setUploadScriptName(uploadScript);
-	        entry.setValidScriptName(validScript);
-	        entry.setUpdateDate(new Timestamp(new Date().getTime()));
-	        entry.setUploadStatus('S');
-//	        entry.setoutFileName((String) session.getAttribute("outFile"));
-	        entry.setoutFileName(outFileName);
-//	        entry.setOutContent(CommonListFunctions.getContentOfOutF(outFileName));
-	        entry.setOutContent(respond);
-			LoadLogBean loadLogRec = (LoadLogBean)SpringContext.getBean("loadLogBean");
-			loadLogRec.insertLogRec(entry);
 			jsonMess.put("messageF", "The file was uploaded to database successfully");
 		} else{
+	        entry.setNumRecs(Long.parseLong("0"));
 			jsonMess.put("messageF", "The Errors returned by upload script");
 		}
-
-//		return jsonMess.toString();
-		return "The file was uploaded to database successfully";
+			
+		ArrayList<LogFileContent> files = new ArrayList<LogFileContent>(entry.getFiles());
+	    LogFileContent fileContent = new LogFileContent();
+	    
+	    fileContent.setLogId(recID);
+	    fileContent.setFileName(uploadScript);
+	    fileContent.setFileContent(CommonListFunctions.getContentOfFile("upload/work", uploadScript));
+	    files.add(fileContent);
+//	    recID = loadLogRec.insertContentRec(fileContent);
+	    fileContent = new LogFileContent();
+	    fileContent.setLogId(recID);
+	    fileContent.setFileName(outFileName);
+	    fileContent.setFileContent(respond);
+	    files.add(fileContent);
+//	    recID = loadLogRec.insertContentRec(fileContent);		
+		
+		
+		loadLogRec.insertLogRec(entry, files);
+		return jsonMess.toString();
     }
 }

@@ -81,8 +81,10 @@ public class CommonListFunctions {
 
 			JSONArray myJSONmembers = new JSONArray();
 			JSONArray myJSONusers = new JSONArray();
-
-			groupContainer.put("groupName", groupPrcs.getGrName());
+			
+			groupContainer.put("groupName", groupPrcs.getGrName().replaceAll("'", "&#180;").replaceAll("\"", "&#34;").replaceAll("\\\\", "/"));
+//			groupContainer.put("groupName", groupPrcs.getGrName().replaceAll("'", "&#180;").replaceAll("\"", "&#34;"));
+//			groupContainer.put("groupName", groupPrcs.getGrName());
 			groupContainer.put("groupID", groupPrcs.getGrId().toString());
 
 			ArrayList<GroupMembers> members = new ArrayList<GroupMembers>(
@@ -225,10 +227,16 @@ public class CommonListFunctions {
 			jsonLog.put("recID", logPrcs.getRecId().toString());
 			jsonLog.put("inputFileName", logPrcs.getFileName());
 			jsonLog.put("validationScript", logPrcs.getValidScriptName());
-			jsonLog.put("uploadScript", logPrcs.getUploadScriptName());
-			jsonLog.put("outFileName", logPrcs.getoutFileName());
+			if(null !=logPrcs.getUploadScriptName()){
+				jsonLog.put("uploadScript", logPrcs.getUploadScriptName());
+			} else jsonLog.put("uploadScript", "N/A");
+			if(null != logPrcs.getoutFileName()){
+				jsonLog.put("outFileName", logPrcs.getoutFileName());
+			} else jsonLog.put("outFileName", "N/A");
 //			jsonLog.put("uploadStatus", logPrcs.getUploadStatus());
-			jsonLog.put("numOfRecords", logPrcs.getNumRecs().toString());
+			if(null != logPrcs.getNumRecs()){
+				jsonLog.put("numOfRecords", logPrcs.getNumRecs().toString());
+			} else jsonLog.put("numOfRecords", "N/A");
 			jsonLog.put("logDate", dateFormat.format(logPrcs.getUpdateDate()).toString());
 			loadLogsArray.add(jsonLog);
 		}
@@ -309,6 +317,14 @@ public class CommonListFunctions {
 		
 	}
 	
+	public static String getContentOfFile(String dir, String fileName) {
+        String cmdout = "";
+        RemoteHelper.connectMgc();
+        cmdout = RemoteHelper.sendCommand("cd "+dir+"; cat "+fileName);        
+		return cmdout;
+		
+	}
+	
 	public static String getContentOfOut(String fileName) {
         String cmdout = "";
         RemoteHelper.connectMgc();
@@ -339,14 +355,24 @@ public class CommonListFunctions {
 		
 	}
 	
-	public static void mvOutFile(String outFile) {
+	public static String processUploadInput(String uploadScript, String outFileName, String inputFile) {
+        String cmdout = "";
+        RemoteHelper.connectMgc();
+
+        cmdout = RemoteHelper.sendCommand(". ./.bash_profile; cd upload/work; sqlldr ispy/ispy4u@CABIG control="+uploadScript+" data="+inputFile+" log=./outUpload/"+outFileName+".log skip=1");
+  
+		return cmdout;
+		
+	}
+	public  static String mvOutFile(String outFile) {
         String cmdout = "";
         String extension = new Timestamp(new Date().getTime()).toString();
         String time = extension.replace(' ', '-');
+        String newName = outFile+time;
         RemoteHelper.connectMgc();
 
-        cmdout = RemoteHelper.sendCommand("cd upload/work; mv -f "+outFile+" ./outDir/"+outFile+time);
-  
+        cmdout = RemoteHelper.sendCommand("cd upload/work; mv -f "+outFile+" ./outDir/"+newName);
+        return newName;
 		
 	}
 	

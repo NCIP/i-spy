@@ -2,10 +2,11 @@ package gov.nih.nci.ispy.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import gov.columbia.c2b2.ispy.fileLoad.LoadLog;
-import gov.columbia.c2b2.ispy.web.struts.form.GroupManager;
-import gov.columbia.c2b2.ispy.web.struts.form.UserInfo;
+import gov.columbia.c2b2.ispy.fileLoad.LogFileContent;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,7 +17,6 @@ public class LoadLogBean {
 
 	private SessionFactory sessionFactory;
 
-	private ArrayList<UserInfo> users = new ArrayList<UserInfo>();
 	/**
 	 * @return Returns the sessionFactory.
 	 */
@@ -37,7 +37,6 @@ public class LoadLogBean {
 		String theHQL = "";
 		Query theQuery = null;
 		Collection objs = null;
-		Long user_ID;
 
 		Session theSession = this.sessionFactory.getCurrentSession();
 		
@@ -49,6 +48,15 @@ public class LoadLogBean {
 		ArrayList<LoadLog> logs = new ArrayList<LoadLog>(objs);
 //        this.users = new ArrayList<UserInfo>(objs);
 		return logs;
+	}
+	
+	public LoadLog getLoadLogById(Long id){
+		LoadLog lRec = new LoadLog();
+		
+		Session theSession = this.sessionFactory.getCurrentSession();
+		lRec = (LoadLog) theSession.get(LoadLog.class, id);
+		
+		return lRec;
 	}
 	
 	public void removeRecords(String[] recID) {
@@ -72,15 +80,34 @@ public class LoadLogBean {
 
 	}
 	
-	public void insertLogRec(LoadLog entry) {
-		String theHQL = "";
-		Query theQuery = null;
+	public Long insertLogRec(LoadLog entry, ArrayList<LogFileContent> files) {
+		Set<LogFileContent> filesDB = new HashSet<LogFileContent>();
+		Session theSession = this.sessionFactory.getCurrentSession();
+		Transaction tx = theSession.beginTransaction();	
+/*
+	        theSession.saveOrUpdate(entry);
+	        for(LogFileContent contPrcs : files){
+	        	contPrcs.setLogId(entry.getRecId());
+	        }
+*/
+	        filesDB.addAll(files);
+	        entry.setFiles(filesDB);
+	        theSession.saveOrUpdate(entry);
+			theSession.flush();
+			tx.commit();
+		return entry.getRecId();	
+			
+		}
+	
+	public Long insertContentRec(LogFileContent entry) {
 
 		Session theSession = this.sessionFactory.getCurrentSession();
 		Transaction tx = theSession.beginTransaction();
 	        theSession.save(entry);
 			theSession.flush();
 			tx.commit();
+		return entry.getRecId();	
+			
 		}
 	
 }
