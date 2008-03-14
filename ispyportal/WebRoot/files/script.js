@@ -15,12 +15,13 @@ $(document).ready( function(){
 function file_browser( _html, _name ){
 //alert(_name);
 //	window.open( _name, 'height=220,width=500' );
-    window.open( _html, _name, "height=220,width=500");
+//debugger;
+    window.open( _html, _name, "height=500,width=770");
 
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
+/*
 function return_file( _select, _field ){
 //alert(_select);
 //alert(_field);
@@ -30,6 +31,20 @@ function return_file( _select, _field ){
 
 	return false;
 
+}
+*/
+function return_file( _select, _field ){
+//debugger;
+       var _options = document.getElementById( _select ).options;    
+       for( var i = 0; i < _options.length; i++ ){            
+              if( _options[ i ].selected ){            
+//                     window.opener.document.getElementById( _field ).value = _selectedValue;
+                     window.opener.document.getElementById( _field ).value = _options[i].value;
+                     window.close();
+                     break;
+              }      
+       }
+       return false;
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

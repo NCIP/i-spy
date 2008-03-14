@@ -3,7 +3,11 @@
 *	// src='dwr/interface/DynamicListHelper.js'
 *	// also dependent on browserSniff.js, SidebarHelper.js, and prototype.js 1.5.x
 */
+    var win1;
+    var win2;
 	var ManageLoads = {
+
+
 
 		'getAllLoadInfo' : function()	{
         	WebGroupDisplay.getAllUploadLogs(ManageLoads.getLoadFilesInfo_sb);
@@ -27,7 +31,8 @@
 				for(var i=0; i<fileArray.length; i++)	{
 					var file = fileArray[i];
 					var name = file.FileName;
- 					tst += "<option onClick=\"_selectedValue='"+name+"'\">"+name+"</option>";
+ //					tst += "<option onclick=\"_selectedValue='"+name+"'\">"+name+"</option>";
+                    tst += "<option value='"+name+"'>"+name+"</option>";
  				}
 				tst += "</select>";				
 				
@@ -73,8 +78,10 @@
                    alert("Please select some upload script file");
                    throw("no upload script selected");
                 }
+			win1 = window.open('confirmUpload.jsp', 'confirm_upload', 'height=800,width=1000');
+ 
  			WebGroupDisplay.processFile(input, valid, upload, ManageLoads.confirmUpload);
- 			
+ 		
  			
  			 } catch(err) {
                   alert("ERR: " + err);
@@ -83,10 +90,10 @@
           
           
          'uploadFinal' : function()    {
+   
 		 try{
-//alert("DEBUG");
+
 		 WebGroupDisplay.processConfUpload(ManageLoads.dispUploadMes);
-		 
 
  			 } catch(err) {
                   alert("ERR: " + err);
@@ -94,19 +101,14 @@
           },
           
           'dispUploadMes' : function(txt)	{
-
 			try	{
-//alert(txt);
+
 				var confMessage = eval('(' + txt + ')');
 
 				var message = confMessage.messageF;
-		//		var content = confMessage.content;
-				var win1 = window.open('dispUploadMes.html', 'dispUploadMes', 'height=800,width=1000');
- 
-				win1.onload = function(){
-            		win1.document.getElementById('messageF').innerHTML = message;
- 
-				}
+				
+				if($('messageF'))
+					$('messageF').innerHTML = message;
 
    			}
 			catch(err)	{
@@ -114,19 +116,13 @@
 			}
 			 
 		},
-		
-		'confirmUpload' : function(txt)	{
 
+		'confirmUpload' : function(txt)	{
 			try	{
 				var confMessage = eval('(' + txt + ')');
 				var message = confMessage.message;
-		//		var content = confMessage.content;
-				var win1 = window.open('confirmUpload.html', 'confirm_upload', 'height=800,width=1000');
- 
-				win1.onload = function(){
+
             		win1.document.getElementById('message').innerHTML = message;
-            //		win1.document.getElementById('content').innerHTML = content;
-				}
 
    			}
 			catch(err)	{
