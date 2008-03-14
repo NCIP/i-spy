@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gov.columbia.c2b2.ispy.fileLoad" >
+
+	<class name="LogFileContent" table="FILE_CONTENT" lazy="true">
+
+		<id name="recId" type="java.lang.Long" column="REC_ID" >
+			<generator class="increment" />
+		</id>
+		
+		<property name="logId"
+                 type="java.lang.Long"
+                 column="LOG_ID"
+                 insert="true"
+                 update="true" />
+ 
+        <property name="fileName"
+                 type="java.lang.String"
+                 column="FILE_NAME"
+                 insert="true"
+                 update="true" /> 
+ 
+
+       <property name="fileContent"
+                 type="java.lang.String"
+                 column="FILE_CONTENT"
+                 insert="true"
+                 update="true" />
+
+
+		</class>
+</hibernate-mapping>
