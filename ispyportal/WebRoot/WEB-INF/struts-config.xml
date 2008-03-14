@@ -375,6 +375,7 @@
 	
 	<action path="/uploadFile" forward="ispy.uploadFile" />
  	
+ 		<action path="/upload" forward="/dispUploadMes.jsp" />
  	
  	<!-- 
 	<action path="/manageGroups"
