@@ -4,19 +4,8 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-	<link href="files/bigStyle.css" rel="stylesheet" type="text/css">
-	<link href="files/users.css" rel="stylesheet" type="text/css">
-	<link href="files/tbl/style.css" rel="stylesheet" type="text/css">
-<%-- 
-<script type="text/javascript" language="javascript" src="files/jquery-1.2.1.pack.js"></script>
-	<script type="text/javascript" language="javascript" src="files/array.extend.js"></script>	
-	<script type="text/javascript" language="javascript" src="files/validate.js"></script>
---%>
-	<script type="text/javascript" language="javascript" src="files/script.js"></script>
-
-	<style type="text/css" media="screen">@import "files/tabs.css";</style>
-	
-
+<script type="text/javascript" language="javascript" src="files/script.js"></script>
+<link rel='stylesheet' href='css/style.css'></link>
 <script type='text/javascript' src='js/lib/scriptaculous/effects.js'></script>
 <script type='text/javascript' src='dwr/interface/WebGroupDisplay.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>
@@ -61,7 +50,7 @@ span.error {
 								<br/>
 								
 								
-								<form method="post" enctype="multipart/form-data" onsubmit="ManageLoads.processFile('file_input', 'validation_script','upload_script'); return false" action="confirmUpload.html">
+								<form method="post" enctype="multipart/form-data" onsubmit="ManageLoads.processFile('file_input', 'validation_script','upload_script'); return false" >
 								<input type="hidden" name="message" id="message" value="" />
 								<input type="hidden" name="content" id="content" value="" />
 									<table cellpadding="0" cellspacing="12" border="0">
@@ -91,7 +80,7 @@ span.error {
 								</form>							 
 <script type="text/javascript" language="javascript">
 <!--
-
+/*
 	function openwin( url, name, h, w ){	
 	
 		window.open( url, name, "width="+w+",height="+h );
@@ -99,7 +88,7 @@ span.error {
 		return false;
 	
 	}
-
+*/
 //-->
 </script>							 	
 								
