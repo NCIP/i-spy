@@ -83,6 +83,7 @@
     <mapping resource ="gov/columbia/c2b2/ispy/list/ShareList.hbm.xml"/>
     <mapping resource ="gov/columbia/c2b2/ispy/info/LogInfo.hbm.xml"/>
     <mapping resource ="gov/columbia/c2b2/ispy/fileLoad/LoadLog.hbm.xml"/>
+    <mapping resource ="gov/columbia/c2b2/ispy/fileLoad/LogFileContent.hbm.xml"/>
 
     <mapping resource ="gov/columbia/c2b2/ispy/user/Login.hbm.xml"/>
     <mapping resource ="gov/columbia/c2b2/ispy/user/UserSession.hbm.xml"/>
