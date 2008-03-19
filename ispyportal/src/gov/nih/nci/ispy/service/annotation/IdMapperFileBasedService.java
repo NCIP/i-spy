@@ -140,6 +140,7 @@ public class IdMapperFileBasedService {
 	 */
 	public List<RegistrantInfo> getMapperEntriesForIds(List<String> ids) {
 		List<RegistrantInfo> retList = new ArrayList<RegistrantInfo>();
+		System.out.println("DEBUG");
 		RegistrantInfo entry;
 		for (String id:ids) {
 		  entry = idMap.get(id);

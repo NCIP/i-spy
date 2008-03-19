@@ -184,6 +184,7 @@ public class ApplicationContext{
            logger.info("Initializing file based id mapper service fileName=" + idMapperFileName);
            int idRecLoaded = idMapper.setMappingFile(idMapperFileName);
            logger.info("Id mapper service initialized successfully loaded numRecords=" + idRecLoaded);
+           System.out.println("DEBUG");
            
            @SuppressWarnings("unused") AnalysisServerClientManager analysisServerClientManager = AnalysisServerClientManager.getInstance();
 		   analysisServerClientManager.setCache(ApplicationFactory.getBusinessTierCache());

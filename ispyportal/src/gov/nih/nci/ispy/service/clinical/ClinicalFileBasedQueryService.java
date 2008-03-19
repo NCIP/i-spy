@@ -295,16 +295,16 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setPtumor1szcm_micro_2(getToken(tokens,88));
 			
               // Height			
-						
+			if(null != getToken(tokens,89))			
 				pd.setHeight(new Long(getToken(tokens,89)));
 				
 				 // Weight			
-				
+			if(null != getToken(tokens,90))	
 				pd.setWeight(new Long(getToken(tokens,90)));
 			
 				
 				 // BSA		
-				
+			if(null != getToken(tokens,91))
 				pd.setBsa(new Double(getToken(tokens,91)));
 			
 				
