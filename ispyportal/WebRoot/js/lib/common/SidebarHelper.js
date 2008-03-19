@@ -36,12 +36,18 @@ var SidebarHelper = {
 					//	var status = "<span id=\""+lists[t].listName+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
 						var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
 						var theName = lists[t].listName;
+//debugger;
+//alert(lists[t].listItems);
 						var listItems = lists[t].listItems ? lists[t].listItems : "none";
 						var listSubType = lists[t].listSubType;
+						var listID = lists[t].listID;
 						var lstyle = lists[t].highlightType;
+						if(theName.indexOf('\"') != -1){
+                   			theName = theName.replace(/\"/g, "&#34;");
+                    	}
 //	alert("highlitetype in reg list|"+lstyle+"|");			
 						//generate the LIs
-						tst += "<li style=\""+lstyle+"\" id=\""+theName+"\" title=\"" + theName + ":<br/>" +listItems+"\">" + shortName + "</li>\n";
+						tst += "<li style=\""+lstyle+"\" id=\""+theName+"\" value=\""+listID+"\" title=\"" + theName + ":<br/>" +listItems+"\">" + shortName + "</li>\n";
 					}
 					tst += "</ul>";
 					
@@ -91,12 +97,16 @@ var SidebarHelper = {
 					//	var status = "<span id=\""+lists[t].listName+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
 						var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
 						var theName = lists[t].listName;
+						var listID = lists[t].listID;
 						var listItems = lists[t].listItems ? lists[t].listItems : "none";
 						var listSubType = lists[t].listSubType;
 						var lstyle = lists[t].highlightType;
+						if(theName.indexOf('\"') != -1){
+                   			theName = theName.replace(/\"/g, "&#34;");
+                    	}
 //alert("highlitetype in shared list|"+lstyle+"|");			
 						//generate the LIs
-						tst += "<li style=\""+lstyle+"\" id=\""+theName+"\" title=\"" + theName + ":<br/>" +listItems+"\">" + shortName + "</li>\n";
+						tst += "<li style=\""+lstyle+"\" id=\""+theName+"\" value=\""+listID+"\" title=\"" + theName + ":<br/>" +listItems+"\">" + shortName + "</li>\n";
 					}
 					tst += "</ul>";
 					
@@ -138,6 +148,7 @@ var SidebarHelper = {
 */
 	'createOnClicks' : function(theId)	{
 		var lis = $(theId).getElementsByTagName("li");
+//debugger;
 
 		var tmpp = new Array();
 
@@ -145,14 +156,17 @@ var SidebarHelper = {
 		
 		for(var i=0; i<lis.length; i++)	{
 			lis[i].ondblclick = function() { 
-				var eid = encodeURIComponent(this.id);
+//alert("value |"+this.value+"|");
+				var eid = encodeURIComponent(this.value);
 				var url = eurl+"?list="+eid;
 				location.href=url;
 				//this = the li we want
 				//alert(this.innerHTML); 
 			};
 			lis[i].onmouseover = function() { 
+//alert("value |"+this.value+"|");
 				tmpp[this.id] = this.title;
+//				var name = this.title;
 				this.title = "";
 				return overlib(tmpp[this.id].split(",").join("<br/>"), CAPTION, this.id + " Elements:");
 			};

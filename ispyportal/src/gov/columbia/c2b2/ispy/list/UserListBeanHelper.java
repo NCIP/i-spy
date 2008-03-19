@@ -144,8 +144,10 @@ public class UserListBeanHelper{
         userList.setItemCount(userList.getItemCount()+1); 
     }
     
-    public void removeItemFromList(String listName, String listItem, String itemID) {        
+    public String removeItemFromList(String listId, String listItem, String itemID) {        
         String[] listItemArray;
+        String res = "";
+        Integer resFrom = 0;
         if(listItem.contains(" notes")){
             listItemArray = listItem.split(" notes");
             listItem = listItemArray[0];
@@ -154,8 +156,8 @@ public class UserListBeanHelper{
             listItemArray = listItem.split(" rank");
             listItem = listItemArray[0];
         }
-        
-        UserListN userList =  userListBean.getList(listName);
+        Long lid = Long.parseLong(listId.trim());
+        UserListN userList =  userListBean.getListByID(listId);
         for(ListItem l:userList.getListItems()){
             if(l.getName().equalsIgnoreCase(listItem)){
                 userList.getListItems().remove(l);
@@ -167,8 +169,11 @@ public class UserListBeanHelper{
    		Long itemId = Long.parseLong(itemID.trim());
 //   		dbPrcs.dataBasePrcsDelItemN(userList);
 //        dbPrcs.dataBasePrcsDelItem(itemId);
-   		dbPrcs.dataBasePrcsDelItemS(userList.getId(), itemId);
-        userList.setItemCount(userList.getItemCount()-1);           
+   		resFrom = dbPrcs.dataBasePrcsDelItemS(userList.getId(), itemId);
+        userList.setItemCount((userList.getItemCount()-1));
+        if(resFrom > 0) res = "N";
+        else res = "Y";
+        return res;
     }
     
     public UserListN getUserList(String listName){
@@ -360,8 +365,9 @@ public class UserListBeanHelper{
         return allList;
     }
     
-    public List<String> getItemsFromList(String listName){
-        UserListN userList = userListBean.getList(listName);
+    public List<String> getItemsFromList(String listId){
+       	Long lId = Long.parseLong(listId.trim());
+        UserListN userList = userListBean.getListById(lId);
         List<String> items = userList.getList();        
         return items;
     }

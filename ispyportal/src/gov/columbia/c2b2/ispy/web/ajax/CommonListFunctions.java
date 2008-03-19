@@ -82,9 +82,9 @@ public class CommonListFunctions {
 			JSONArray myJSONmembers = new JSONArray();
 			JSONArray myJSONusers = new JSONArray();
 			
-			groupContainer.put("groupName", groupPrcs.getGrName().replaceAll("'", "&#180;").replaceAll("\"", "&#34;").replaceAll("\\\\", "/"));
+//			groupContainer.put("groupName", groupPrcs.getGrName().replaceAll("'", "&#180;").replaceAll("\"", "&#34;").replaceAll("\\\\", "/"));
 //			groupContainer.put("groupName", groupPrcs.getGrName().replaceAll("'", "&#180;").replaceAll("\"", "&#34;"));
-//			groupContainer.put("groupName", groupPrcs.getGrName());
+			groupContainer.put("groupName", groupPrcs.getGrName());
 			groupContainer.put("groupID", groupPrcs.getGrId().toString());
 
 			ArrayList<GroupMembers> members = new ArrayList<GroupMembers>(

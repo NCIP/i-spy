@@ -158,6 +158,17 @@ public class UserListBean implements Serializable {
         return null;
         
     }
+    
+    public UserListN getListByID(String listId){
+    	Long lId = Long.parseLong(listId.trim());
+        for(UserListN list : userLists){
+            if(list.getId().equals(lId)){
+                return list;
+            }            
+        }
+        return null;
+        
+    }
 
     public UserListN getListById(Long listID){
     	UserListN list = new UserListN();

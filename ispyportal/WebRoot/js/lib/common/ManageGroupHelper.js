@@ -165,34 +165,78 @@
 				var groupContainerArray = eval('(' + txt + ')');
 				var tst = "";
 				var groupType = "GROUP";
-				
+//debugger;				
 				if(groupContainerArray.length>0){
 				for(var i=0; i<groupContainerArray.length; i++)	{
 					var groupContainer = groupContainerArray[i];
                     var groupName = groupContainer.groupName;
-                    
+                    var displayName = "";
+ /*           
+                    if(groupName.indexOf('\\') != -1){
+                    	displayName = groupName.replace(/\\/g, "\\\\");
+                    	groupName = groupName.replace(/\\/g, "&#92;");
+                    } else
+           			if(groupName.indexOf('\"') != -1){
+                    	groupName = groupName.replace(/\"/g, "&#34;");
+                    	displayName = groupName;
+         			} else
+           			if(groupName.indexOf('\'') != -1){
+           			    displayName = groupName.replace(/\'/g, "\\\'");
+                    	groupName = groupName.replace(/\'/g, "&#39;");
+         			} else
+          			if(groupName.indexOf(';') != -1){
+           			    displayName = groupName.replace(/;/g, "\;");
+                    	groupName = groupName.replace(/;/g, "&#59;");
+         			}  
+ */        			
+         			var displayName = groupName;
+
+						if(groupName.indexOf('\'') != -1 || groupName.indexOf('\"') != -1 || groupName.indexOf('\\') != -1){
+						if(displayName.lastIndexOf('\\') != -1)
+								displayName = displayName+" ";
+						if(groupName.indexOf('\\') != -1){
+                    		displayName = displayName.replace(/\\/g, "\\\\");
+                    		groupName = groupName.replace(/\\/g, "&#92;");
+                    	}
+						if(groupName.indexOf('\'') != -1){
+                    		displayName = displayName.replace(/\'/g, "\\\'");
+                    		groupName = groupName.replace(/\'/g, "&#39;");
+                   		
+                    	}
+						if(groupName.indexOf('\"') != -1){
+                   			groupName = groupName.replace(/\"/g, "&#34;");
+							displayName = displayName.replace(/\"/g, "&#34;");
+                    	}
+
+                    	} else{
+                    		displayName = groupName;
+                    	}		
+         			
+         			
+         			
+         			       			
 					var members = groupContainer.members;
 					var memberCount = members.length;
 					var groupId = groupContainer.groupID;
 					var users = groupContainer.users;
 					
-					tst += "<div id='" + groupName
+					tst += "<div id='" + groupId
 		                    + "' class='listListing'> <p class='group-title'>"
 		                    + groupName + "</p>"
 		                    + "<div style='margin-left: 10px;'>"
-		                    + "<span id='" + groupName + "_count'>" + memberCount + "</span> member(s)"
+		                    + "<span id='" + groupId + "_count'>" + memberCount + "</span> member(s)"
 		                    
 		                    + "<div style='cursor: pointer; margin-left: 20px; display: inline;' "
-		                    + "onClick=\"Effect.toggle('" + groupName + "_details','blind'); return false\">"
+		                    + "onClick=\"Effect.toggle('" + groupId + "_details','blind'); return false\">"
 		                    + "<img src='files/arrowPane20.png' style='vertical-align: text-bottom;' border='0'>show/hide member(s)</div>"
 		                    
 		                    + "<div style='cursor: pointer; margin-left: 20px; display: inline;' "
-		                    + "onClick=\"ManageGroupHelper.deleteGoup('" + groupId + "', '" + groupName + "'); return false\">"
+		                    + "onClick=\"ManageGroupHelper.deleteGoup('" + groupId + "', '" + displayName + "'); return false\">"
 		                    + "<img src='files/deleteCross20.png' style='vertical-align: text-bottom;' border='0'>delete group</div>"
 		                    + "</div><br>"
-		                    + "<div id='" + groupName + "_details' style='display:none;'>"
+		                    + "<div id='" + groupId + "_details' style='display:none;'>"
 		                    + "<form class='member_form'>"
-		                    + "<div id='" + groupName + "_RemoveUser'><ul>";
+		                    + "<div id='" + groupId + "_RemoveUser'><ul>";
 		            
 		            for(var t=0; t<members.length; t++){
 		            	var memberContainer = members[t];
@@ -203,24 +247,24 @@
 		            	var userID = memberContainer.UserID;
 		            	var userIni = lastName + ", " + firstName;
 		            	
-		            	tst += "<li><input type='checkbox' id='" + userIni + "' name='" + groupName + "' "
+		            	tst += "<li><input type='checkbox' id='" + userIni + "' name='" + groupId + "' "
                                     + "value='" +memberID+ "' title='" + userID + "'>"
                                     +"\&nbsp;" + lastName + ", " + firstName + "</li>";
 		        
 		            }
                         tst += "</ul><p class='btns'><input value='add user(s)' type='submit' "
                             + "onClick=\""
-                            + "Effect.toggle('" + groupName + "_RemoveUser', 'blind'); "
-                            + "Effect.toggle('" + groupName + "_AddUser','blind'); "
+                            + "Effect.toggle('" + groupId + "_RemoveUser', 'blind'); "
+                            + "Effect.toggle('" + groupId + "_AddUser','blind'); "
                             + "return false\">\&nbsp;\&nbsp;"
                             + "<input value='remove selected user(s)' name='remove_user' type='submit' "
                             + "onClick=\""
-                            + "Effect.toggle('" + groupName + "_details','blind'); "
+                            + "Effect.toggle('" + groupId + "_details','blind'); "
 
-                            + "ManageGroupHelper.deleteSelectedMembers('" + groupName + "_RemoveUser', '" + groupId + "', 'delete'); "
+                            + "ManageGroupHelper.deleteSelectedMembers('" + groupId + "_RemoveUser', '" + groupId + "', 'delete'); "
 
                             + "return false\"></p></div>"
-                            + "<div id='" + groupName + "_AddUser' style='display:none'>"
+                            + "<div id='" + groupId + "_AddUser' style='display:none'>"
                             + "<select type='text' name='newMembers' size='10' style='width: 250px;' multiple='multiple'>";
 
 
@@ -237,15 +281,15 @@
 		            }
 		           
 		            tst += "</select><p><input value='add selected users' name='add_user' type='submit' "
-		                + "onClick=\"Effect.toggle('" + groupName + "_AddUser','blind'); "
-		                + "Effect.toggle('" + groupName + "_details','blind'); "
-		                + "Effect.toggle('" + groupName + "_RemoveUser','blind'); "
-		                + "ManageGroupHelper.addSelectedMembers('"+groupName+"_AddUser', '"+groupId+"', "
-		                + "'"+groupName+"', 'Add Members'); "
+		                + "onClick=\"Effect.toggle('" + groupId + "_AddUser','blind'); "
+		                + "Effect.toggle('" + groupId + "_details','blind'); "
+		                + "Effect.toggle('" + groupId + "_RemoveUser','blind'); "
+		                + "ManageGroupHelper.addSelectedMembers('"+groupId+"_AddUser', '"+groupId+"', "
+		                + "'"+displayName+"', 'Add Members'); "
 		                + "return false\">\&nbsp;\&nbsp;"
 		                + "<input value='cancel' type='submit' "
-		                + "onClick=\"Effect.toggle('" + groupName + "_AddUser','blind'); "
-		                + "Effect.toggle('" + groupName + "_RemoveUser','blind'); return false\"></p></div>"
+		                + "onClick=\"Effect.toggle('" + groupId + "_AddUser','blind'); "
+		                + "Effect.toggle('" + groupId + "_RemoveUser','blind'); return false\"></p></div>"
 		                + "</form></div></div>";     		               
 				}
 			 
@@ -270,6 +314,7 @@
 		 // and delete the list under the name it passes as a param. Then finds
 		 // the div with an id matching this name and removes it from the DOM. -KR
 		'deleteGoup' : function(name, grName){
+//debugger;
 			if(confirm("Delete this group? - \"" + grName + "\""))
 				WebGroupDisplay.removeGroupFromAjax(name, ManageGroupHelper.generic_cb);
 //				WebGroupDisplay.removeGroupFromAjax(name);

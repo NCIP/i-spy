@@ -190,10 +190,10 @@ public class CommonListFunctions {
 		return success;
 	}
 	
-	public static String exportListasTxt(String name, HttpSession session){
+	public static String exportListasTxt(String id, HttpSession session){
 		String txt = "";
 		UserListBeanHelper helper = new UserListBeanHelper(session);
-        List<String> listItems = helper.getItemsFromList(name);
+        List<String> listItems = helper.getItemsFromList(id);
         txt = StringUtils.join(listItems.toArray(), "\r\n");
 		return txt;
 	}
@@ -275,7 +275,9 @@ public class CommonListFunctions {
                     jsonListName.put("notes", listNotes);
 	                
 	                jsonListName.put("listSubType", listSubType);
-	                jsonListName.put("listName", ul.getName().replaceAll("'", "&#180;").replaceAll("\"", "&#34;").replaceAll("\\\\", "/"));
+//	                jsonListName.put("listName", ul.getName().replaceAll("'", "&#180;").replaceAll("\"", "&#34;").replaceAll("\\\\", "/"));
+//	                jsonListName.put("listName", ul.getName().replaceAll("'", "&#180;").replaceAll("\"", "\\\"").replaceAll("\\\\", "/"));
+	                jsonListName.put("listName", ul.getName());
 	                jsonListName.put("listID", ul.getId().toString());
                     if(ul.getDateCreated()!=null){
                         jsonListName.put("listDate", dateFormat.format(ul.getDateCreated()).toString());

@@ -247,7 +247,7 @@ public class UserListHelperDB {
 		tx.commit();
 	}
 	
-	public void dataBasePrcsDelItemS(Long listId, Long itemId) {
+	public Integer dataBasePrcsDelItemS(Long listId, Long itemId) {
 		String theHQL = "";
 		Query theQuery = null;
 		Collection objs = null;
@@ -256,6 +256,7 @@ public class UserListHelperDB {
 		UserListN listD = new UserListN();
 		Long tempId;
 		Long memID;
+		Integer res = 0;
 
 		Session theSession = this.sessionFactory.getCurrentSession();
 
@@ -276,7 +277,9 @@ public class UserListHelperDB {
 						theSession.delete(itemPrcs);
 						listD.getListItems().remove(itemPrcs);
 						theSession.save(listD);
-					}				
+						res = 0;
+						break;
+					} else res = 1;				
 			}
 		}
 		
@@ -287,11 +290,15 @@ public class UserListHelperDB {
 						theSession.delete(itemPrcs);
 						listD.getListItemsT().remove(itemPrcs);
 						theSession.save(listD);
-					}				
+						res = 0;
+						break;
+					} else res = 1;				
 			}
 		}
 
 		theSession.flush();
+		theSession.clear();
 		tx.commit();
+		return res;
 	}
 }

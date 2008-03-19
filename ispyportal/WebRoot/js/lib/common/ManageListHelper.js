@@ -34,7 +34,7 @@
 					if(listType == "none") {
 						continue;
 					}
-					
+//debugger;					
 					var lists = listContainer.listItems;
 
 					if(lists.length == 0)	{
@@ -53,9 +53,33 @@
 					var tst = "";
 					for(var t=0; t<lists.length; t++)	{
 					
-						var status = "<span id=\""+lists[t].listName+"statusS\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
+						var status = "<span id=\""+lists[t].listID+"statusS\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
 						var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
 						var theName = lists[t].listName;
+						
+						var displayName = theName;
+
+						if(theName.indexOf('\'') != -1 || theName.indexOf('\"') != -1 || theName.indexOf('\\') != -1){
+						if(displayName.lastIndexOf('\\') != -1)
+								displayName = displayName+" ";
+						if(theName.indexOf('\\') != -1){
+                    		displayName = displayName.replace(/\\/g, "\\\\");
+                    		theName = theName.replace(/\\/g, "&#92;");
+                    	}
+						if(theName.indexOf('\'') != -1){
+                    		displayName = displayName.replace(/\'/g, "\\\'");
+                    		theName = theName.replace(/\'/g, "&#39;");
+                   		
+                    	}
+						if(theName.indexOf('\"') != -1){
+                   			theName = theName.replace(/\"/g, "&#34;");
+							displayName = displayName.replace(/\"/g, "&#34;");
+                    	}
+
+                    	} else{
+                    		displayName = theName;
+                    	}						
+						
 						var itemCount = lists[t].itemCount;
 						var author = lists[t].author;
 						var date = lists[t].listDate;
@@ -72,16 +96,16 @@
 		                	+ theName
 		                    + "' class='SlistListing'>" 
 //		                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +theName+ "'/>"
-		                    + "<b style='"+lstyle+"' onmouseover=\"overlib('" + lib +"', CAPTION, '"+ theName+ "');\" onmouseout='return nd();'>"
+		                    + "<b style='"+lstyle+"' onmouseover=\"overlib('" + lib +"', CAPTION, '"+ displayName+ "');\" onmouseout='return nd();'>"
 		                    + shortName + "</b>\&nbsp\&nbsp<span class='owner'>( " +author+" )</span><br/><div style='margin-left:10px'>"
 		                    + " Type: Default - " + listSubType 
-		                    + "<span id='"+theName+"_count'>" + itemCount + "</span> item(s)" 
+		                    + "<span id='"+listID+"_count'>" + itemCount + "</span> item(s)" 
 		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;' onclick='ManageListHelper.getDetailsS(\""
-		                    + theName
+		                    + listID
 		                    + "\", \""+listID+"\");return false;'>"
 		                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>details" + status + "</div>"
 		                    + "<br /><div id='S"
-		                    + theName
+		                    + listID
 		                    + "detailsS'></div></div><br/><br/>";    
 					}
 					if($(listType+'ListDivS'))
@@ -158,9 +182,34 @@
 
 					for(var t=0; t<lists.length; t++)	{
 					
-						var status = "<span id=\""+lists[t].listName+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
+						var status = "<span id=\""+lists[t].listID+"status\" style=\"display:none\"><img src=\"images/indicator.gif\"/></span>";
 						var shortName = lists[t].listName.length>25 ? lists[t].listName.substring(0,23) + "..." : lists[t].listName;
 						var theName = lists[t].listName;
+						var displayName = theName;
+//						var tempName = theName;
+//debugger;
+						if(theName.indexOf('\'') != -1 || theName.indexOf('\"') != -1 || theName.indexOf('\\') != -1){
+						if(displayName.lastIndexOf('\\') != -1)
+								displayName = displayName+" ";
+						if(theName.indexOf('\\') != -1){
+                    		displayName = displayName.replace(/\\/g, "\\\\");
+                    		theName = theName.replace(/\\/g, "&#92;");
+                    	}
+						if(theName.indexOf('\'') != -1){
+                    		displayName = displayName.replace(/\'/g, "\\\'");
+                    		theName = theName.replace(/\'/g, "&#39;");
+                   		
+                    	}
+						if(theName.indexOf('\"') != -1){
+                   			theName = theName.replace(/\"/g, "&#34;");
+							displayName = displayName.replace(/\"/g, "&#34;");
+                    	}
+
+                    	} else{
+                    		displayName = theName;
+                    	}
+                    	
+                    	
 						var itemCount = lists[t].itemCount;
 						var author = lists[t].author;
 						var date = lists[t].listDate;
@@ -182,11 +231,11 @@
 		                	+ theName
 		                    + "' class='dlistListing'>" 
 		                    + "<input type='checkbox' style='border:0px;' id='' name='" + listType + "' value='" +theName+ "'/>"
-		                    + "<b style='"+lstyle+"' onmouseover=\"overlib('" + lib +"', CAPTION, '"+ theName+ "');\" onmouseout='return nd();'>"
+		                    + "<b style='"+lstyle+"' onmouseover=\"overlib('" + lib +"', CAPTION, '"+ displayName+ "');\" onmouseout='return nd();'>"
 		                    + shortName + "</b><br/><div style='margin-left:10px'>" + listSubType 
-		                    + "<span id='"+theName+"_count'>" + itemCount + "</span> item(s)" 	                    
+		                    + "<span id='"+listID+"_count'>" + itemCount + "</span> item(s)" 	                    
 		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;' onclick='ManageListHelper.getDetails(\""
-		                    + theName
+		                    + listID
 		                    + "\",\""+listID+"\");return false;'>"
 		                    + "<img src='images/arrowPane20.png' border='0' style='vertical-align:text-bottom'/>details" + status + "</div>"
 		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;'  onclick='ManageListHelper.deleteList(\""
@@ -194,15 +243,15 @@
 		                    + "\");return false;'>"
 		                    + "<img src='images/deleteCross20.png' border='0' style='vertical-align:text-bottom;'/>delete</div>"
 		                    + "<div style='cursor:pointer;margin-left:20px;width:200px;display:inline;'"
-		                    + "  onclick=\"Effect.toggle('"+theName+"detailsS', 'blind'); return false\">"
+		                    + "  onclick=\"Effect.toggle('"+listID+"detailsS', 'blind'); return false\">"
 		                    + "<img src='files/share.gif' border='0' style='vertical-align:text-bottom;'/>sharing</div>"
 		                    + "</div>"
 		                    + "<br/>"
 		             //       + "<div id='"+theName +"details'></div>"		             
-		                    + "<div id='"+theName+"detailsS' style='display:none;'>"
-		                    + "<p><a href='javascript:void(0);' name='share_add' title='Click to Expand' onClick=\"Effect.toggle('"+theName+"groupsNS', 'blind'); return false\">"
+		                    + "<div id='"+listID+"detailsS' style='display:none;'>"
+		                    + "<p><a href='javascript:void(0);' name='share_add' title='Click to Expand' onClick=\"Effect.toggle('"+listID+"groupsNS', 'blind'); return false\">"
 		                    + "Select Group(s) to Share List with [+]</a></p>"
-		                    + "<div id='"+theName+"groupsNS' class='share_add' style='display:none;'>"
+		                    + "<div id='"+listID+"groupsNS' class='share_add' style='display:none;'>"
 		                    + "<select type='text' name='group' multiple='multiple' size='6' class='share_groups' style='width: 250px;'>";
 
 		                    if(groupsNS.length>0){
@@ -220,12 +269,12 @@
 						    tst += "</select>"
 						    + "<p class='btns'><input type='submit' value='Share from Selected Group(s)' onClick=\""
 				//		    + "alert( 'This Will Share This List With the Groups Selected Above' ); "
-						    + "ManageListHelper.shareToSelectedGroups('"+theName+"groupsNS', '"+listID+"', '"+theName+"'); return false "
+						    + "ManageListHelper.shareToSelectedGroups('"+listID+"groupsNS', '"+listID+"', '"+displayName+"'); return false "
 						    + "\" /></p>"
 						    + "</div>"
-						    + "<p><a href='javascript:void(0);' name='share_groups' title='Click to Expand' onClick=\"Effect.toggle('"+theName+"groupsS', 'blind'); return false\">"
+						    + "<p><a href='javascript:void(0);' name='share_groups' title='Click to Expand' onClick=\"Effect.toggle('"+listID+"groupsS', 'blind'); return false\">"
 						    + "Group(s) You Have Shared This List With [+]</a></p>"
-						    + "<div id='"+theName+"groupsS' class='share_groups' style='display:none;'>"
+						    + "<div id='"+listID+"groupsS' class='share_groups' style='display:none;'>"
 						    + "<ul>";
 							tst += "<table cellpadding=\"8\" cellspacing=\"0\" border=\"0\">"
 							    + "<tr><th></th><th>Group</th><th>Date</th></tr>";
@@ -247,9 +296,9 @@
 						   tst += "</table>"; 
 						   tst += "</ul>"
 						    + "</div>"
-						    + "<p><a href='javascript:void(0);' name='share_members' title='Click to Expand' onClick=\"Effect.toggle('"+theName+"membersS', 'blind'); return false\">"
+						    + "<p><a href='javascript:void(0);' name='share_members' title='Click to Expand' onClick=\"Effect.toggle('"+listID+"membersS', 'blind'); return false\">"
 						    + "Member(s) You Have Shared This List With [+]</a></p>"
-						    + "<div id='"+theName+"membersS' class='share_members' style='display:none;'>"
+						    + "<div id='"+listID+"membersS' class='share_members' style='display:none;'>"
 						    + "<ul>";
 						    
 						    tst += "<table cellpadding=\"8\" cellspacing=\"0\" border=\"0\">"
@@ -273,7 +322,7 @@
 						   tst += "</ul>"
 						    + "</div>"
 				            + "</div><br/>"
-                            + "<div id='" + theName +"details' class='details'></div>"
+                            + "<div id='" + listID +"details' class='details'></div>"
 		                    + "\n</div>\n";  		                   
 					}	
 					if($(listType+'ListDiv'))
@@ -287,7 +336,7 @@
 			
 		'groupSelectedLists' : function(groupType, listGroup, groupName, action)	{
 			//params:  String listType, DOM where the selected boxes are, new list name, action to perform
-			 
+//debugger;			 
 			var sLists = Array();
 			try	{
 				if(groupName == "")	{
@@ -396,6 +445,7 @@
 		// requires name+"detailsDiv" and name+"status" elements(ids) to be in the HTML
 		'getDetailsS' : function(name, id){   
 //alert("Debug in getDetailsS");
+//debugger;
 			if(document.getElementById(name+ "detailsDivS")==null){	    
 				if($(name+"statusS"))
 					$(name+"statusS").style.display = "";
@@ -434,22 +484,36 @@
 		//function to make an AJAX call to the userListBean in the session
 		// and delete the list item under the list name it passes as params. Then finds
 		// the div with an id matching this item name and removes it from the DOM. -KR
-		'deleteItem' : function (name, itemId, itemID){
+		'deleteItem' : function (listId, itemId, itemID){
 
-			UserListHelper.removeItemFromList(name,itemId, itemID);
-
-			Element.remove(name + itemId + "_div");	
 			try	{
-			    DynamicListHelper.getAllLists(ManageListHelper.getGenericLists_cb);
-				SidebarHelper.loadSidebar();
-//alert("DEBUG in deleteItem");
+//			alert("REMOVE process done");
+				UserListHelper.removeItemFromList(listId,itemId, itemID, ManageListHelper.tempF);
+				
+				Element.remove(listId + itemId + "_div");
+
 				//update the count
-				if($(name+"_count"))	{
-					var tmp = $(name+"_count").innerHTML;
-					$(name+"_count").innerHTML = parseInt(tmp) - 1;
+				if($(listId+"_count"))	{
+					var tmp = $(listId+"_count").innerHTML;
+//debugger;				
+					tmp--;
+					$(listId+"_count").innerHTML = parseInt(tmp);
 				}
 			}
 			catch(err){} 	
+		},
+		
+		
+		'tempF' : function (txt){
+//debugger;
+		try{
+			if(txt == "Y")
+				SidebarHelper.loadSidebar();
+
+		
+			}
+			catch(err){}		
+
 		},
 		//this is the callback function from the getDetails AJAX function (above). This
 		//function recieves a Document object back from the getDetails call and parses
@@ -465,8 +529,12 @@
 			// Array validItems
 			// Array invalidItems
 		 	try	{
+//debugger;
 				var list = eval('(' + userList + ')');
 				listName = list.listName;
+				if(listName.indexOf('\\') != -1){
+                    listName = listName.replace(/\\/g, "\\\\");
+                }
 				listType = list.listType;
 				listType = ""; //clear this for now
 				var lId = list.listID;
@@ -480,13 +548,13 @@
 				var itemNotes = "";
 		 		var value;
 		 		var dDIV = document.createElement("div");
-		 		dDIV.setAttribute("id",listName + "detailsDiv");
+		 		dDIV.setAttribute("id",lId + "detailsDiv");
 		 		dDIV.setAttribute("class", "listItemsDiv");
 		 		
 		 		//rcl - create and append our container
-		 		 document.getElementById(listName + "details").appendChild(dDIV);
+		 		 document.getElementById(lId + "details").appendChild(dDIV);
 		 		//setup a handle to the working container
-		 		var wDiv = $(listName + "detailsDiv");
+		 		var wDiv = $(lId + "detailsDiv");
 		 		wDiv.style.borderLeft = "1px dashed red";
 		 		wDiv.style.marginLeft = "20px";
 				wDiv.style.width="300px";
@@ -504,19 +572,19 @@
 							if(items[i].notes!=null){
 								itemNotes = " notes: " + items[i].notes;
 							}						
-						tmp += "<li id='"+listName + itemId + "_div"+"' class='detailsList'>"+(i+1) +") " +listType + " " + itemId + itemRank + itemNotes;						
-						var oc = new Function("deleteItem('"+listName+ "','" + itemId + "', '"+iId+"');return false;");
+						tmp += "<li id='"+lId + itemId + "_div"+"' class='detailsList'>"+(i+1) +") " +listType + " " + itemId + itemRank + itemNotes;						
+						var oc = new Function("deleteItem('"+lId+ "','" + itemId + "', '"+iId+"');return false;");
 						
-						tmp += "<a href=\"#\" onclick=\"ManageListHelper.deleteItem('"+listName+ "','" + itemId + "', '"+iId+"');return false;\">[delete]</a></li>";
+						tmp += "<a href=\"#\" onclick=\"ManageListHelper.deleteItem('"+lId+ "','" + itemId + "', '"+iId+"');return false;\">[delete]</a></li>";
 
 					}  
 					wDiv.innerHTML += tmp;
 					     
 					var eid = encodeURIComponent(listName);
-					wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+eid+"';\" style='margin:20px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
+					wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+lId+"';\" style='margin:20px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
 				}
 				else{
-			    	document.getElementById(listName + "details").appendChild(dDIV);
+			    	document.getElementById(lId + "details").appendChild(dDIV);
 			    	wDiv.innerHTML = "<span>No valid items found</span><br />";
 				}
 			     
@@ -546,8 +614,8 @@
 				}
 			}
 		 		
-			if($(listName+"status"))	{
-				setTimeout(function()	{$(listName+"status").style.display = "none";}, 500);
+			if($(lId+"status"))	{
+				setTimeout(function()	{$(lId+"status").style.display = "none";}, 500);
 			}		
 		},
 		
@@ -568,10 +636,14 @@
 		 	try	{
 				var list = eval('(' + userList + ')');
 				listName = list.listName;
+				if(listName.indexOf('\\') != -1){
+                    listName = listName.replace(/\\/g, "\\\\");
+                }
 				listType = list.listType;
 				listType = ""; //clear this for now
 				var lId = list.listID;
-//	alert(lId);			
+//	alert(lId);	
+//debugger;		
 				var items = list.validItems ? list.validItems : Array();
 				var invalidItems = list.invalidItems ? list.invalidItems : Array();
 				
@@ -581,13 +653,13 @@
 				var itemNotes = "";
 		 		var value;
 		 		var dDIV = document.createElement("divS");
-		 		dDIV.setAttribute("id",listName + "detailsDivS");
+		 		dDIV.setAttribute("id",lId + "detailsDivS");
 		 		dDIV.setAttribute("class", "listItemsDivS");
 		 		
 		 		//rcl - create and append our container
-		 		 document.getElementById("S"+listName + "detailsS").appendChild(dDIV);
+		 		 document.getElementById("S"+lId + "detailsS").appendChild(dDIV);
 		 		//setup a handle to the working container
-		 		var wDiv = $(listName + "detailsDivS");
+		 		var wDiv = $(lId + "detailsDivS");
 		 		wDiv.style.borderLeft = "1px dashed red";
 		 		wDiv.style.marginLeft = "20px";
 				wDiv.style.width="300px";
@@ -605,7 +677,7 @@
 							if(items[i].notes!=null){
 								itemNotes = " notes: " + items[i].notes;
 							}						
-						tmp += "<li id='"+listName + itemId + "_divS"+"' class='detailsListS'>"+(i+1) +") " +listType + " " + itemId + itemRank + itemNotes;	
+						tmp += "<li id='"+lId + itemId + "_divS"+"' class='detailsListS'>"+(i+1) +") " +listType + " " + itemId + itemRank + itemNotes;	
 											
 				//		var oc = new Function("deleteItem('"+listName+ "','" + itemId + "', '"+iId+"');return false;");
 /*
@@ -615,10 +687,10 @@
 					wDiv.innerHTML += tmp;
 					     
 					var eid = encodeURIComponent(listName);
-			//		wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+eid+"';\" style='margin:20px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
+					wDiv.innerHTML += "<div onclick=\"location.href='listExport.jsp?list="+lId+"';\" style='margin:20px;cursor:pointer; width:90px;height:20px'><img src='images/downArrow20.png'/><u>export list</u></div>";
 				}
 				else{
-			    	document.getElementById("S"+listName + "detailsS").appendChild(dDIV);
+			    	document.getElementById("S"+lId + "detailsS").appendChild(dDIV);
 			    	wDiv.innerHTML = "<span>No valid items found</span><br />";
 				}
 			     
@@ -648,8 +720,8 @@
 				}
 			}
 		 		
-			if($(listName+"statusS"))	{
-				setTimeout(function()	{$(listName+"statusS").style.display = "none";}, 500);
+			if($(lId+"statusS"))	{
+				setTimeout(function()	{$(lId+"statusS").style.display = "none";}, 500);
 			}		
 		},
 		//all form validation is done client side. The name and file fields are checked for null

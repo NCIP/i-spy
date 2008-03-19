@@ -97,8 +97,8 @@ public class DynamicListHelper {
         return CommonListFunctions.createGenericList(ListType.Gene, list, name, listValidator);
 	}
 
-	public static String exportListasTxt(String name, HttpSession session){
-		return CommonListFunctions.exportListasTxt(name, session);
+	public static String exportListasTxt(String id, HttpSession session){
+		return CommonListFunctions.exportListasTxt(id, session);
 	}
 
 	public static String getAllPatientLists()	{
