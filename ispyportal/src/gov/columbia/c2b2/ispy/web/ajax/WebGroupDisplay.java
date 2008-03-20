@@ -156,7 +156,7 @@ public class WebGroupDisplay {
 	    LoadLog entry = loadLogRec.getLoadLogById(recID); 
 //	    entry.setFileName(input);
 //	    entry.setUsrId(currentUser.getUserId());
-//	    entry.setUploadScriptName(uploadScript);
+	    entry.setUploadScriptName(uploadScript);
 //	    entry.setValidScriptName(validScript);
 	    entry.setUpdateDate(new Timestamp(new Date().getTime()));
 	    entry.setUploadStatus('S');

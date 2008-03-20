@@ -77,10 +77,18 @@
 		} else{
 		label = "Shared "+lts[i].toString(); 
 		}
- 
+     if(k==1 && i==0){
 %>
-	<a href="#<%=label%>Lists"><%=label%> Lists</a> | 
-<% } }%>
+	<a href="#<%=label%>Lists"><%=label%>&nbsp;Lists</a> |<br> 
+<%      
+     } else{
+%>
+	<a href="#<%=label%>Lists"><%=label%>&nbsp;Lists</a> |
+<% 
+}
+}
+ }
+ %>
 	<a href="#addList">Add List</a>
 </div>
 <br/><br/>

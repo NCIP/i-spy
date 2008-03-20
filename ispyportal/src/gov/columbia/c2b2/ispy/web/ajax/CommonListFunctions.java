@@ -5,6 +5,7 @@ import gov.columbia.c2b2.ispy.web.struts.form.GroupMembers;
 import gov.columbia.c2b2.ispy.web.struts.form.UserInfo;
 import gov.columbia.c2b2.ispy.info.LogInfo;
 import gov.columbia.c2b2.ispy.fileLoad.LoadLog;
+import gov.columbia.c2b2.ispy.fileLoad.LogFileContent;
 import gov.nih.nci.security.UserProvisioningManager;
 
 
@@ -35,6 +36,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import java.util.HashSet;
+import java.util.Set;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -238,6 +240,27 @@ public class CommonListFunctions {
 				jsonLog.put("numOfRecords", logPrcs.getNumRecs().toString());
 			} else jsonLog.put("numOfRecords", "N/A");
 			jsonLog.put("logDate", dateFormat.format(logPrcs.getUpdateDate()).toString());
+			
+			JSONArray fileContArray = new JSONArray();
+			Set<LogFileContent> theFiles = logPrcs.getFiles();
+			for(LogFileContent contPrcs : theFiles){
+				JSONObject jsonLogFile = new JSONObject();
+				if(null != contPrcs.getRecId()){
+					jsonLogFile.put("recID", contPrcs.getRecId().toString());
+				}
+				if(null != contPrcs.getLogId()){
+					jsonLogFile.put("logID", contPrcs.getLogId().toString());
+				}
+				if(null != contPrcs.getFileName()){
+					jsonLogFile.put("logName", contPrcs.getFileName());
+				}
+				if(null != contPrcs.getFileContent()){
+					jsonLogFile.put("fileContent", contPrcs.getFileContent());
+				}
+				fileContArray.add(jsonLogFile);
+			}
+			
+			jsonLog.put("files", fileContArray);
 			loadLogsArray.add(jsonLog);
 		}
 

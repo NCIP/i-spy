@@ -1,6 +1,5 @@
 package gov.columbia.c2b2.ispy.fileLoad;
 
-import gov.columbia.c2b2.ispy.web.struts.form.GroupMembers;
 
 import java.sql.Timestamp;
 import java.sql.Blob;
