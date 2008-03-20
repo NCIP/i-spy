@@ -101,8 +101,12 @@ public final class LoginAction extends Action
 //            if(fsi != null)
 //                fsi.close();
 //         }
-//		
-        HttpSession session = request.getSession();
+//	
+   
+        
+        
+        
+ //       HttpSession session = request.getSession();
     	if(f.isUserLoggedIn())
 		{
 			if (f.isAdminRole())

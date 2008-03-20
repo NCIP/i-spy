@@ -95,7 +95,40 @@ public ActionErrors validate(ActionMapping mapping,
 
 	}    
    
+	
+//////////////////////////////////////////////////////////////////
+/*	
+    HttpSession session = request.getSession(false);
+
+    if(session!=null) {
+    	String UID = (String)session.getAttribute("name");
+    	if(UID.equals(userName)){
+    		errors.add("User Name:",new ActionMessage("error.userName"));
+    		errors.add("Password:",new ActionMessage("error.password"));
+            errors.add("invalidLogin", new ActionMessage(
+            "gov.nih.nci.nautilus.ui.struts.form.invalidLogin.error"));   		
+    	}
+        session.invalidate();
+    } else{
+   
+   // Create a new session for the user.
+    session = request.getSession(true);
+
+
+    session.setMaxInactiveInterval(2400);        
+    
+    }
+ */   
+    
+    
+    
+///////////////////////////////////////////////////////////////////     
+	
+	
+	
+	
     HttpSession session = request.getSession();
+    session.setMaxInactiveInterval(2400);
     FileInputStream fsi = null;
 
     Properties props = new Properties();
