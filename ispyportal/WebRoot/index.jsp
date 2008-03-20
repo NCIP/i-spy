@@ -66,7 +66,7 @@ String[] updates = update.split(",");
 
 <div style="width:765px; margin:0px;">
 	<map name="hicccMap">
-		<area alt="HICCC Analysis Portal Logo" coords="5,3,166,61" href="http://156.145.29.122:8080/ispyportal">
+		<area alt="HICCC Analysis Portal Logo" coords="5,3,166,61" href="/ispyportal">
 	</map>
 
 	<img src="images/hiccc_header_04.png" width="765" height="67" border="0" usemap="#hicccMap">

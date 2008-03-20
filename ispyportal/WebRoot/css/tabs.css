@@ -55,6 +55,10 @@
 	margin-top: 0;
 }
 
+#header ul#primary span {
+ padding-bottom:5px;
+}
+
 #header ul#primary a {
 	background: #FFFAE1;
 	border: 1px solid #AAA;
