@@ -84,9 +84,10 @@ public class WebGroupDisplay {
     	String respond;
     	String content;
     	String outOfValidation;
-//        Long numOfRecords;
+
         JSONObject jsonMess = new JSONObject();
-        
+        String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
+        String outDir= System.getProperty("gov.c2b2.columbia.ispyportal.outProcDir");
         HttpSession session = ExecutionContext.get().getSession(false);
         User currentUser = (User) session.getAttribute("currentUser");
     	respond = CommonListFunctions.processFile(input, validScript, uploadScript);
@@ -98,34 +99,26 @@ public class WebGroupDisplay {
 	    LoadLog entry = new LoadLog();
 	    entry.setFileName(input);
 	    entry.setUsrId(currentUser.getUserId());
-//	    entry.setUploadScriptName(uploadScript);
 	    entry.setValidScriptName(validScript);
 	    entry.setUpdateDate(new Timestamp(new Date().getTime()));
 	    entry.setUploadStatus('P');
-//	        entry.setoutFileName((String) session.getAttribute("outFile"));
 	    entry.setProcOutFileName(outOfValidation);
 	    
 		LoadLogBean loadLogRec = (LoadLogBean)SpringContext.getBean("loadLogBean");
-//		Long recID = loadLogRec.insertLogRec(entry);
 		ArrayList<LogFileContent> files = new ArrayList<LogFileContent>();
 		
 	    LogFileContent fileContent = new LogFileContent();   
-//	    fileContent.setLogId(recID);
 	    fileContent.setFileName(validScript);
-	    fileContent.setFileContent(CommonListFunctions.getContentOfFile("upload/work", validScript));
+	    fileContent.setFileContent(CommonListFunctions.getContentOfFile(procDir, validScript));
 	    files.add(fileContent);
-//	    recID = loadLogRec.insertContentRec(fileContent);
 	    fileContent = new LogFileContent();
 	    fileContent.setFileName(outOfValidation);
-	    fileContent.setFileContent(CommonListFunctions.getContentOfFile("upload/work/outDir", outOfValidation));
+	    fileContent.setFileContent(CommonListFunctions.getContentOfFile(outDir, outOfValidation));
 	    files.add(fileContent);
-//	    recID = loadLogRec.insertContentRec(fileContent);
-	    
-//	    entry.setFiles(files);
+
 	    Long recID = loadLogRec.insertLogRec(entry, files);
  	
     	session.setAttribute("inputFileName", input);
- //   	session.setAttribute("validScriptName", validScript);
     	session.setAttribute("uploadScriptName", uploadScript);
     	session.setAttribute("RecordID", recID);
     	return jsonMess.toString();
@@ -135,6 +128,7 @@ public class WebGroupDisplay {
     public static String processConfUpload(){
     	String respond;
     	Long numOfRecords;
+    	String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
         JSONObject jsonMess = new JSONObject();
     	HttpSession session = ExecutionContext.get().getSession(false);
     	String uploadScript = (String) session.getAttribute("uploadScriptName");
@@ -146,24 +140,14 @@ public class WebGroupDisplay {
         time = time.replaceAll(":", "-");
         String outFileName = userID+time;
     	
-//		respond = CommonListFunctions.processUpload(uploadScript, outFileName);
         respond = CommonListFunctions.processUploadInput(uploadScript, outFileName, input);
 		CommonListFunctions.rmOutFile("out.upload");
-//	    User currentUser = (User) session.getAttribute("currentUser");
-//	    String validScript = (String) session.getAttribute("validScriptName");
-//	    String outContent = (String) session.getAttribute("FileOutContent");
 	    LoadLogBean loadLogRec = (LoadLogBean)SpringContext.getBean("loadLogBean");
 	    LoadLog entry = loadLogRec.getLoadLogById(recID); 
-//	    entry.setFileName(input);
-//	    entry.setUsrId(currentUser.getUserId());
 	    entry.setUploadScriptName(uploadScript);
-//	    entry.setValidScriptName(validScript);
 	    entry.setUpdateDate(new Timestamp(new Date().getTime()));
 	    entry.setUploadStatus('S');
-//	        entry.setoutFileName((String) session.getAttribute("outFile"));
 	    entry.setoutFileName(outFileName);
-//	        entry.setOutContent(CommonListFunctions.getContentOfOutF(outFileName));
-//	    entry.setOutContent(respond);
 
 		String[] process = respond.split(" ");
 		if(process[22].equals("logical") && process[23].equals("record") && process[24].equals("count")){
@@ -180,16 +164,14 @@ public class WebGroupDisplay {
 	    
 	    fileContent.setLogId(recID);
 	    fileContent.setFileName(uploadScript);
-	    fileContent.setFileContent(CommonListFunctions.getContentOfFile("upload/work", uploadScript));
+	    fileContent.setFileContent(CommonListFunctions.getContentOfFile(procDir, uploadScript));
 	    files.add(fileContent);
-//	    recID = loadLogRec.insertContentRec(fileContent);
 	    fileContent = new LogFileContent();
 	    fileContent.setLogId(recID);
 	    fileContent.setFileName(outFileName);
 	    fileContent.setFileContent(respond);
 	    files.add(fileContent);
-//	    recID = loadLogRec.insertContentRec(fileContent);		
-		
+
 		
 		loadLogRec.insertLogRec(entry, files);
 		return jsonMess.toString();

@@ -310,9 +310,11 @@ public class CommonListFunctions {
 	public static String getInputFile(String ext) {
         String cmdout = "";
         RemoteHelper.connectMgc();
+        String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
 //           cmdout = RemoteHelper.sendCommand("ls -ltr; /ou1/home/bin/sqlldr ispy/wxdmbov@test control=/home/oracle/work/clin.ctl log=sample_load.log skip=1");
 //        System.out.println(cmdout);
-        cmdout = RemoteHelper.sendCommand("cd upload/work; ls -r *."+ext);
+//        cmdout = RemoteHelper.sendCommand("cd upload/work; ls -r *."+ext);
+        cmdout = RemoteHelper.sendCommand("cd "+procDir+"; ls -r *."+ext);
 //        cmdout = RemoteHelper.sendCommand("/Users/bvd7001/work/test/process1.pl input.dat");
 //        cmdout = RemoteHelper.sendCommand("/usr/local/SDK/jdk/bin/java RunCommand");
  //       cmdout = RemoteHelper.sendCommand(". ./.bash_profile; echo $ORACLE_SID; cd work; sqlldr ispy/wxdmbov@test control=clin.ctl log=sample_load.log skip=1");
@@ -334,8 +336,9 @@ public class CommonListFunctions {
 	
 	public static String processFile(String input, String validScript, String uploadScript) {
         String cmdout = "";
+        String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
         RemoteHelper.connectMgc();
-        cmdout = RemoteHelper.sendCommand("cd upload/work; ./"+validScript+" "+input);
+        cmdout = RemoteHelper.sendCommand("cd "+procDir+"; ./"+validScript+" "+input);
 		return cmdout;
 		
 	}
@@ -349,52 +352,68 @@ public class CommonListFunctions {
 	}
 	
 	public static String getContentOfOut(String fileName) {
+		String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
         String cmdout = "";
         RemoteHelper.connectMgc();
-        cmdout = RemoteHelper.sendCommand("cd upload/work; cat "+fileName);        
+        cmdout = RemoteHelper.sendCommand("cd "+procDir+"; cat "+fileName);        
 		return cmdout;
 		
 	}
 	
 	public static String getContentOfOutF(String fileName) {
         String cmdout = "";
+        String uploadDir= System.getProperty("gov.c2b2.columbia.ispyportal.uploadDir");
         RemoteHelper.connectMgc();
-        cmdout = RemoteHelper.sendCommand("cd upload/work/outUpload; cat "+fileName);        
+        cmdout = RemoteHelper.sendCommand("cd "+uploadDir+"; cat "+fileName);        
 		return cmdout;
 		
 	}
 	public static void rmOutFile(String fileName) {
+		String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
         RemoteHelper.connectMgc();
-        RemoteHelper.sendCommand("cd upload/work; rm -f "+fileName);        
+        RemoteHelper.sendCommand("cd "+procDir+"; rm -f "+fileName);        
 		
 	}
 	public static String processUpload(String uploadScript, String outFileName) {
+		String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
+		String dbUser= System.getProperty("gov.c2b2.columbia.ispyportal.dbuser");
+		String dbPass= System.getProperty("gov.c2b2.columbia.ispyportal.dbpass");
+		String dbSID= System.getProperty("gov.c2b2.columbia.ispyportal.dbsid");
+		String outDir= System.getProperty("gov.c2b2.columbia.ispyportal.uploadDir");
         String cmdout = "";
         RemoteHelper.connectMgc();
 
-        cmdout = RemoteHelper.sendCommand(". ./.bash_profile; cd upload/work; sqlldr ispy/ispy4u@CABIG control="+uploadScript+" log=./outUpload/"+outFileName+".log skip=0");
+        cmdout = RemoteHelper.sendCommand(". ./.bash_profile; cd "+procDir+"; sqlldr "+dbUser+"/"+dbPass+"@"+dbSID+" control="+uploadScript+" log="+outDir+"/"+outFileName+".log skip=0");
   
 		return cmdout;
 		
 	}
 	
 	public static String processUploadInput(String uploadScript, String outFileName, String inputFile) {
+		String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
+		String dbUser= System.getProperty("gov.c2b2.columbia.ispyportal.dbuser");
+		String dbPass= System.getProperty("gov.c2b2.columbia.ispyportal.dbpass");
+		String dbSID= System.getProperty("gov.c2b2.columbia.ispyportal.dbsid");
+		String outDir= System.getProperty("gov.c2b2.columbia.ispyportal.uploadDir");
+		
         String cmdout = "";
         RemoteHelper.connectMgc();
 
-        cmdout = RemoteHelper.sendCommand(". ./.bash_profile; cd upload/work; sqlldr ispy/ispy4u@CABIG control="+uploadScript+" data="+inputFile+" log=./outUpload/"+outFileName+".log skip=1");
+        cmdout = RemoteHelper.sendCommand(". ./.bash_profile; cd "+procDir+"; sqlldr "+dbUser+"/"+dbPass+"@"+dbSID+" control="+uploadScript+" data="+inputFile+" log="+outDir+"/"+outFileName+".log skip=1");
   
 		return cmdout;
 		
 	}
 	public  static String mvOutFile(String outFile) {
+		String procDir= System.getProperty("gov.c2b2.columbia.ispyportal.procDir");
+		String outDir= System.getProperty("gov.c2b2.columbia.ispyportal.outProcDir");
         String cmdout = "";
         String extension = new Timestamp(new Date().getTime()).toString();
         String time = extension.replace(' ', '-');
         String newName = outFile+time;
         RemoteHelper.connectMgc();
 
-        cmdout = RemoteHelper.sendCommand("cd upload/work; mv -f "+outFile+" ./outDir/"+newName);
+        cmdout = RemoteHelper.sendCommand("cd "+procDir+"; mv -f "+outFile+" "+outDir+"/"+newName);
         return newName;
 		
 	}
@@ -414,21 +433,7 @@ private	static Integer FindUser(Long userID, ArrayList<GroupMembers> members){
 		return flag;
 	}
 	public static void removeGroup (Long groupID){
-/*		
-		HttpSession session = ExecutionContext.get().getSession(false);
-		String userID = (String) session.getAttribute("name");
-		UserInfoBean userFind = (UserInfoBean) SpringContext.getBean("userInfoBean");
-		Long userId = userFind.getUidByID(userID);
-*/
-/*
-        try{
-        	UserProvisioningManager userProvisioningManager = SecurityManager.getUserProvisioningManager();
-        	User user = userProvisioningManager.getUser(userID);
-        	Long temp = user.getUserId();
-        }  catch (Exception e) {
- 
-          }
- */  
+
 		HttpSession session = ExecutionContext.get().getSession(false);
         User currentUser = (User) session.getAttribute("currentUser");
 		
@@ -445,12 +450,7 @@ private	static Integer FindUser(Long userID, ArrayList<GroupMembers> members){
 	}
 
 	public static void removeMembers (Long groupID, String[] membersID){
-		/*
-				HttpSession session = ExecutionContext.get().getSession(false);
-				String userID = (String) session.getAttribute("name");
-				UserInfoBean userFind = (UserInfoBean) SpringContext.getBean("userInfoBean");
-				Long userId = userFind.getUidByID(userID);
-		*/
+
 				HttpSession session = ExecutionContext.get().getSession(false);
 		        User currentUser = (User) session.getAttribute("currentUser");
 				
@@ -474,16 +474,12 @@ private	static Integer FindUser(Long userID, ArrayList<GroupMembers> members){
 		
 		HttpSession session = ExecutionContext.get().getSession(false);
         User currentUser = (User) session.getAttribute("currentUser");
-//		String userID = (String) session.getAttribute("name");
-		
+
 		
 		UserGroupHelper grAdd = (UserGroupHelper) SpringContext
         			.getBean("userGroupHelper");
 		groupID=grAdd.addMembersPrcs(groupID, grName, currentUser.getUserId(), membersID);
-/*		
-		UserInfoBean userFind = (UserInfoBean) SpringContext.getBean("userInfoBean");
-		Long userId = userFind.getUidByID(userID);
-*/		
+
 		UserInfoHelper setLog = (UserInfoHelper) SpringContext.getBean("userInfoHelper");
 		setLog.setLogInfo(currentUser.getUserId(), membersID, "GRADD", groupID);
 	}

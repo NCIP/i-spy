@@ -59,18 +59,19 @@ public class RemoteHelper {
         catch(Exception e) {
                 System.out.println("EXCEPTION:"+e.toString());
         }
-        System.out.println("Output:" + output);
+ //       System.out.println("Output:" + output);
         channel.disconnect();
     return output;
     }
     public  static void connectMgc(){
-
+    	String sysUser= System.getProperty("gov.c2b2.columbia.ispyportal.sysuser");
+    	String sysIP= System.getProperty("gov.c2b2.columbia.ispyportal.sysip");
         try {
 
                 UserInfo ui = new MyUserInfo();
                 JSch jsch = new JSch();
 
-                sessionS = jsch.getSession("oracle10g", "156.111.188.60", 22);
+                sessionS = jsch.getSession(sysUser, sysIP, 22);
                 sessionS.setUserInfo(ui);
                 sessionS.connect();
                 System.out.println("Session Connected.");

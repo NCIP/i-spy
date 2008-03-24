@@ -2,8 +2,9 @@ package gov.columbia.c2b2.ispy.fileLoad;
 
 import com.jcraft.jsch.UserInfo;
 public class MyUserInfo implements UserInfo{
+private	String sysPas = System.getProperty("gov.c2b2.columbia.ispyportal.syspass");
     public String getPassword() {
-        return "oracle9i";
+        return (this.sysPas);
       }
 
       public String getPassphrase() {
