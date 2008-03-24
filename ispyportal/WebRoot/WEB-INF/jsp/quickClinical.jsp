@@ -110,11 +110,14 @@
 			var SaveElements = {
 			
 				'save' : function()	{
+//alert("DEBUG");
+//debugger;
 					//get the name
 					$('statusImg').style.display = "";
 					$('statusSpan').innerHTML = "Saving...";
 					
 					var name = $("listName").value;
+//alert("listName |"+name+"|");
 					if(name != "")	{
 						//convert the overlib list to a comma seperated list
 						if(tmpElements.length > 0)	{
