@@ -426,7 +426,7 @@
 		// from the userListBean sitting in the session. -KR
 		// requires name+"detailsDiv" and name+"status" elements(ids) to be in the HTML
 		'getDetails' : function(name,id){   
-
+//debugger;
 			if(document.getElementById(name+ "detailsDiv")==null){	    
 				if($(name+"status"))
 					$(name+"status").style.display = "";

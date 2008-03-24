@@ -59,7 +59,7 @@
 <tr>
 <td><a>Message From process Action:</a></td>
 <td></td>
-<td><pre id='message'></pre></td>
+<td><pre id='message'></pre></td><td><span id='statusProc' style='display:'><img src='images/indicator.gif'></span></td>
 </tr>
 <tr><br></br></tr>
 

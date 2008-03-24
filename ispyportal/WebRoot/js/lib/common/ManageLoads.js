@@ -32,11 +32,10 @@
 				for(var i=0; i<fileArray.length; i++)	{
 					var file = fileArray[i];
 					var name = file.FileName;
- //					tst += "<option onclick=\"_selectedValue='"+name+"'\">"+name+"</option>";
                     tst += "<option value='"+name+"'>"+name+"</option>";
  				}
 				tst += "</select>";				
-				
+				$('statusProc').style.display = "none";
 				if($('ValidScript'))
 					$('ValidScript').innerHTML = tst;
 			  } else{
@@ -55,13 +54,13 @@
 		
 		
 		 'processFile' : function(inTag, validTag, uploadTag)    {
-		 try{
+//		 try{
 
 		     var input = document.getElementById( inTag ).value;
 		     var valid = document.getElementById( validTag ).value;
 			var upload = document.getElementById( uploadTag ).value;
 		     
-		     
+//debugger;		     
 		     if(input.length < 1){
                    alert("Please select some input file");
                    throw("no input files selected");
@@ -77,15 +76,22 @@
                    throw("no upload script selected");
                 }
 			win1 = window.open('confirmUpload.jsp', 'confirm_upload', 'height=800,width=1000');
- 
- 			WebGroupDisplay.processFile(input, valid, upload, ManageLoads.confirmUpload);
- 		
- 			
- 			 } catch(err) {
-                  alert("ERR: " + err);
-             }
+			WebGroupDisplay.processFile(input, valid, upload, ManageLoads.confirmUpload);
+
           },
           
+          'confirmUpload' : function(txt)	{
+			try	{
+				var confMessage = eval('(' + txt + ')');
+				var message = confMessage.message;
+					win1.document.getElementById('statusProc').style.display = "none";
+            		win1.document.getElementById('message').innerHTML = message;
+   			}
+			catch(err)	{
+				alert("ERR: " + err);
+			}			 
+		},       
+                   
           'displayFileContent' : function(fileName, fileContent)    {
           	if(fileContent.indexOf('<') != -1){
                    	fileContent = fileContent.replace(/</g, "&lt;");
@@ -96,9 +102,6 @@
 		//					displayName = displayName.replace(/\"/g, "&#34;");
              }
           
-          
-//   alert(fileName);
-//   alert(fileContent);
 		 try{
 		 
  			winFile = window.open('dispFileContent.jsp', 'display_content', 'location=1,status=1,scrollbars=1,height=800,width=1000');
@@ -132,7 +135,7 @@
 				var confMessage = eval('(' + txt + ')');
 
 				var message = confMessage.messageF;
-				
+				$('statusProc').style.display = "none";
 				if($('messageF'))
 					$('messageF').innerHTML = message;
 
@@ -143,38 +146,24 @@
 			 
 		},
 
-		'confirmUpload' : function(txt)	{
-			try	{
-				var confMessage = eval('(' + txt + ')');
-				var message = confMessage.message;
-
-            		win1.document.getElementById('message').innerHTML = message;
-
-   			}
-			catch(err)	{
-				alert("ERR: " + err);
-			}
-			 
-		},       
-
         'deleteSelectedRecs' : function(recTag)    {
 //  alert("DEBUG in delete");
             try{
                 var sMembers = Array();
-				var confirmMsg = "Delete the following records?\n";
+				var confirmMsg = "Delete the checked records?\n";
                 var ls = $(recTag) ? $(recTag).getElementsByTagName('input') : Array();
 
                 for(var i=0; i<ls.length; i++){
                    if(ls[i].type=='checkbox' && (ls[i].selected || ls[i].checked)){
                         sMembers.push(ls[i].name);
-                        confirmMsg += ls[i].name + "\n";
+             //           confirmMsg += ls[i].name + "\n";
                     }
                 }
                 if(sMembers.length < 1){
                    alert("Please select some records to Delete");
                    throw("no records selected");
                 }
-    //    alert("debug -|" + sMembers + "|");
+ 
 					 if(confirm(confirmMsg)){
                      	WebGroupDisplay.deleteSelectedRecs(sMembers, ManageLoads.generic_cb);
                       }

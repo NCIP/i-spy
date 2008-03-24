@@ -13,9 +13,40 @@
 
 <head>
 <title>ISPY Post Analysis Portal-Login</title>
+
+
 		<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 		<META HTTP-EQUIV="Expires" CONTENT="-1">
-<style type="text/css" media="screen">@import "css/tabs.css";</style>
+<style type="text/css" media="all">
+
+*{
+ margin:0;
+ padding:0;
+}
+
+#container {
+ width:90%;
+ display:block;
+ margin:10px auto;
+}
+
+#container #file_select {
+ width:100%;
+ padding:1px 4px;
+}
+
+#container #select_btn {
+ width:15%;
+ display:block;
+ padding:1px;
+ font-size:9pt;
+ font-weight:bold;
+ cursor:pointer;
+ text-transform:uppercase;
+ margin:5px auto;
+}
+
+</style>
 <script type='text/javascript' src='files/prototype_1.js'></script>
 <script type='text/javascript' src='js/lib/scriptaculous/effects.js'></script>
 <script type='text/javascript' src='dwr/interface/WebGroupDisplay.js'></script>
@@ -46,12 +77,12 @@
 
 <br/>
 
-<form method="post" action="loadFilesInfo.do">
+<form method="post">
 <table>
 <tr>
 <td><a>Message From Upload Action:</a></td>
 <td></td>
-<td><pre id='messageF'></pre></td>
+<td><pre id='messageF'></pre></td><td><span id='statusProc' style='display:'><img src='images/indicator.gif'></span></td>
 </tr>
 <tr><br></br></tr>
 

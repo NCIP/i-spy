@@ -16,7 +16,7 @@ function file_browser( _html, _name ){
 //alert(_name);
 //	window.open( _name, 'height=220,width=500' );
 //debugger;
-    window.open( _html, _name, "height=500,width=770");
+    window.open( _html, _name, "height=500,width=800");
 
 }
 
