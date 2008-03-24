@@ -74,6 +74,15 @@ public class LoadLogBean {
 			theHQL = theHQL.substring(0, (theHQL.length() -2)) +")";
 			theQuery = theSession.createQuery(theHQL);
 			theQuery.executeUpdate();
+			
+			theHQL = "delete from LogFileContent where logId in (";
+			for(int i=0;i<recID.length;i++){
+				theHQL += recID[i] +", ";
+			}
+			theHQL = theHQL.substring(0, (theHQL.length() -2)) +")";
+			theQuery = theSession.createQuery(theHQL);
+			theQuery.executeUpdate();
+			
 			theSession.flush();
 			tx.commit();
 		}
