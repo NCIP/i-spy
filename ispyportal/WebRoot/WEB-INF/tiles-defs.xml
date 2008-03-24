@@ -46,7 +46,7 @@
       
     
     <definition name="ispy.loadFilesInfo" extends="baseDef">
-		<put name="title" value="I-SPY Manage List" />
+		<put name="title" value="I-SPY Manage Upload" />
 		<!--  the common criteria  -->
 		<put name="htmlHead" value="/WEB-INF/jsp/tiles/htmlHead_tile.jsp" />
 		<put name="overlib" value="/WEB-INF/jsp/tiles/overlib_tile.jsp" />
@@ -60,7 +60,7 @@
     </definition>
     
     <definition name="ispy.uploadFile" extends="baseDef">
-		<put name="title" value="I-SPY Manage List" />
+		<put name="title" value="I-SPY Manage Upload" />
 		<!--  the common criteria  -->
 		<put name="htmlHead" value="/WEB-INF/jsp/tiles/htmlHead_tile.jsp" />
 		<put name="overlib" value="/WEB-INF/jsp/tiles/overlib_tile.jsp" />
@@ -213,7 +213,7 @@
     </definition>  
     
     <definition name="ispy.analysisHomeWithAdmin" extends="baseDef">
-		<put name="title" value="I-SPY Manage List" />
+		<put name="title" value="I-SPY Manage User" />
 		<!--  the common criteria  -->
 		   <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
 	    <put name="mainForm" value="/WEB-INF/jsp/userList.jsp" />
