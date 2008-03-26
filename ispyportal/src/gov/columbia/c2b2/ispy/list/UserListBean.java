@@ -36,8 +36,8 @@ public class UserListBean implements Serializable {
     	
 		String theHQL = "";
 		String groupId = "";
-		groupId = StringUtils.join(groupIds, ',');
-		theHQL = "delete from ShareList where listId =" + listID + " and grId in ("+groupId+")";
+//		groupId = StringUtils.join(groupIds, ',');
+//		theHQL = "delete from ShareList where listId =" + listID + " and grId in ("+groupId+")";
 		
     	
     	List<ShareList> newShares = new ArrayList<ShareList>();

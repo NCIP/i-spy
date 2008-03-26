@@ -136,6 +136,7 @@ public class UserListHelperDB {
 	}
 	
 	public void addNewShares(Long listID, List<ShareList> newShares){
+	
 		String theHQL = "";
 		Query theQuery = null;
         UserListN tempList = new UserListN();
@@ -160,7 +161,14 @@ public class UserListHelperDB {
 		theSession.saveOrUpdate(tempList);
 		theSession.flush();
 		tx.commit();
-
+/*		
+		groupId = StringUtils.join(groupIds, ',');
+		theHQL = "delete from ShareList where listId =" + listID + " and grId in ("+groupId+")";      
+			Session theSession = this.sessionFactory.getCurrentSession();	
+			Transaction tx = theSession.beginTransaction();
+			theQuery = theSession.createQuery(theHQL);
+			tempList = (UserListN) theQuery.uniqueResult();
+*/
 	}
 	
 	public void deleteShares(Long listID, String[] groupIds){

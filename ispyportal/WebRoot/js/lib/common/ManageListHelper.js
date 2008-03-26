@@ -135,14 +135,23 @@
                    throw("no members selected");
                 }
 					 if(confirm(confirmMsg))
-                     	UserListHelper.shareTheList(listId, sGroups);
-                     	ManageListHelper.generic_cb();
+                     	UserListHelper.shareTheList(listId, sGroups, ManageListHelper.listShared);
+              //       	ManageListHelper.generic_cb();
 						
 			} catch(err) {
                alert("ERR: " + err);
             }
 		},
-				
+		
+		'listShared' : function (txt){
+//debugger;
+		try{
+			if(txt == "Y")
+				ManageListHelper.generic_cb();	
+			}
+			catch(err){}		
+
+		},				
 		'getGenericLists_cb' : function(txt)	{
 			//accepts a JSON object	<- now accepts a json array
 			// String listType : patient | gene | defaultPatient		

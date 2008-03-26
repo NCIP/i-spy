@@ -133,8 +133,10 @@ public class UserListBeanHelper{
         return listID;
     }
     
-    public void shareTheList(Long listID, String[] groupIds){
+    public String shareTheList(Long listID, String[] groupIds){
+    	String res = "";
     	userListBean.shareListGroup(listID, groupIds);
+    	return "Y";
     }
     
     public void addItemToList(String listName, String listItem) {
