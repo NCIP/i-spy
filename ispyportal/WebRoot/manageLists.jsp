@@ -104,7 +104,7 @@
 		<legend onclick="new Effect.toggle('<%=label%>Container')">
 			<%=label%> Lists
 		</legend>
-		<div id="<%=label%>Container">
+		<div id="<%=label%>Container"><span id="<%=label%>Proc" style='display:'><img src='images/indicator.gif'></span>
 			<br/>
 			<div id="<%=label%>ListDiv"></div>	
 			
@@ -149,7 +149,7 @@
 		<legend onclick="new Effect.toggle('<%=label%>ContainerS')">
 			Shared <%=label%> Lists
 		</legend>
-		<div id="<%=label%>ContainerS">
+		<div id="<%=label%>ContainerS"><span id="<%=label%>ProcS" style='display:'><img src='images/indicator.gif'></span>
 			<br/>
 			<div id="<%=label%>ListDivS"></div>	
 			

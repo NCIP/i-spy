@@ -40,6 +40,7 @@
 					if(lists.length == 0)	{
 						if($(listType+'ListDivS')){
 							$(listType+'ListDivS').innerHTML = "<b>No "+ listType + " lists currently saved</b><br/><br/>";
+							$(listType+'ProcS').style.display = "none";
 					    }
 					    if($(listType+'UniteDivS')){
 					    	$(listType+'UniteDivS').style.display = "none";
@@ -110,6 +111,7 @@
 					}
 					if($(listType+'ListDivS'))
 						$(listType+'ListDivS').innerHTML = tst;
+					$(listType+'ProcS').style.display = "none";
 				}
 			}
 			catch(err)	{
@@ -177,6 +179,7 @@
 					if(lists.length == 0)	{
 						if($(listType+'ListDiv')){
 							$(listType+'ListDiv').innerHTML = "<b>No "+ listType + " lists currently saved</b><br/><br/>";
+							$(listType+'Proc').style.display = "none";
 					    }
 					    if($(listType+'UniteDiv')){
 					    	$(listType+'UniteDiv').style.display = "none";
@@ -336,6 +339,7 @@
 					}	
 					if($(listType+'ListDiv'))
 						$(listType+'ListDiv').innerHTML = tst;
+					$(listType+'Proc').style.display = "none";
 				}
 			}
 			catch(err)	{
