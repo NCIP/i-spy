@@ -82,6 +82,7 @@
           
           'confirmUpload' : function(txt)	{
 			try	{
+//debugger;
 				var confMessage = eval('(' + txt + ')');
 				var message = confMessage.message;
 					win1.document.getElementById('statusProc').style.display = "none";
@@ -92,29 +93,55 @@
 			}			 
 		},       
                    
-          'displayFileContent' : function(fileName, fileContent)    {
-          	if(fileContent.indexOf('<') != -1){
-                   	fileContent = fileContent.replace(/</g, "&lt;");
-		
-           	}
-            if(fileContent.indexOf('>') != -1){
-                  fileContent = fileContent.replace(/>/g, "&gt;");
-		//					displayName = displayName.replace(/\"/g, "&#34;");
-             }
+          'displayFileContent' : function(fileID)    {
+ 			winFile = window.open("dispFileContent.jsp?id='"+fileID+"'", "display_content", "location=1,status=1,scrollbars=1,height=800,width=1000");
+          },
           
-		 try{
-		 
- 			winFile = window.open('dispFileContent.jsp', 'display_content', 'location=1,status=1,scrollbars=1,height=800,width=1000');
-			winFile.onload = function(){
- 
-      		if( winFile.focus ){ winFile.focus(); }
-      			winFile.document.getElementById('fileName').innerHTML = fileName;
-      			winFile.document.getElementById('contentF').innerHTML = fileContent;
-			}
+          
+          'startContent' : function(id){
+//  alert("id |"+id+"|");        
+          		WebGroupDisplay.getFile(id, ManageLoads.contentLoad);
+          },
+			
+          'contentLoad' : function(txt) {
+			try	{
+				var file = eval('(' + txt + ')');
+				var fileName = file.fileName;
+				var fileContent = file.fileContent;
 
- 			 } catch(err) {
-                  alert("ERR: " + err);
-             }
+				$('statusProc').style.display = "none";		
+      			$('fileName').innerHTML = fileName;
+      			if(fileContent.indexOf('<') != -1){
+                   	fileContent = fileContent.replace(/</g, "&lt;");		
+           		}
+            	if(fileContent.indexOf('>') != -1){
+                  fileContent = fileContent.replace(/>/g, "&gt;");
+             	}
+ /*            	
+             	if(fileContent.indexOf('\\') != -1){
+                 	  		fileContent = fileContent.replace(/\\/g, "\\\\\\");
+                 }
+   */
+                 if(fileContent.indexOf('\'') != -1){
+                    		fileContent = fileContent.replace(/\'/g, "\\\'");                 		
+                 }
+				if(fileContent.indexOf('\"') != -1){
+                   			fileContent = fileContent.replace(/\"/g, "&#34;");
+                }
+                    	
+				if(fileContent.indexOf('\n') != -1){
+				var	app=navigator.appName.substring(0,1);
+//	alert(app);
+					if(app == 'M'){
+ //                  			fileContent = fileContent.replace(/\n/g, "&ltbr&gt");
+ 						fileContent = fileContent.replace(/\n/g, "<br>");
+                   	}
+                 }
+      			$('contentF').innerHTML = fileContent;
+   				}
+			catch(err)	{
+				alert("ERR: " + err);
+			} 
           },
           
           
@@ -194,9 +221,7 @@
                     	+"<tbody>";
 				
 				if(logArray.length>0){
-//var shortName = lists[t].listName.length>27 ? lists[t].listName.substring(0,26) + "..." : lists[t].listName;
 
-//debugger;
 				for(var i=0; i<logArray.length; i++)	{
 					var logCont = logArray[i];
                     var recID = logCont.recID;
@@ -218,17 +243,24 @@
                     var vsContent = "";
                     var usContent = "";
                     var outContent = "";
+                    var vsId = "";
+                    var usId = "";
+                    var outId = "";
 // debugger;
                     for(var j=0; j<files.length; j++){
                     var fCont = files[j];
                     	if(fCont.logName == logCont.validationScript){
                     		vsContent = fCont.fileContent;
+                    		vsId = fCont.recID;
+                    		
                     	}else
                     	if(fCont.logName == logCont.uploadScript){
                     		usContent = fCont.fileContent;
+                    		usId = fCont.recID;
                     	}else
                     	if(fCont.logName == logCont.outFileName){
                     		outContent = fCont.fileContent;
+                    		outId = fCont.recID;
                     	} 
                     }
  
@@ -274,13 +306,13 @@
 						+ inputFileName
 						+"</dt>"
 						+"<td>"
-						+"<a onclick=\"ManageLoads.displayFileContent('"+validationScript+"', '"+vsContent+"')\" href='#'>"+ShortvalidationScript+"</a>"
+						+"<a onclick=\"ManageLoads.displayFileContent('"+vsId+"')\" href='#'>"+ShortvalidationScript+"</a>"
 						+"</dt>"
 						+"<td>";
 						if(uploadScript == "N/A"){
 							tst += uploadScript;
 						} else{
-							tst +="<a onclick=\"ManageLoads.displayFileContent('"+uploadScript+"', '"+usContent+"')\" href='#'>"+ShortuploadScript+"</a>"
+							tst +="<a onclick=\"ManageLoads.displayFileContent('"+usId+"')\" href='#'>"+ShortuploadScript+"</a>"
 					//		tst +="<a onclick=\"alert(Open '+(this).text()+'')\" href='#'>"+uploadScript+"</a>";
 						}
 						tst +="</dt>"
@@ -288,7 +320,7 @@
 						if(outFileName == "N/A"){
 							tst += outFileName;
 						} else{
-							tst +="<a onclick=\"ManageLoads.displayFileContent('"+outFileName+"', '"+outContent+"')\" href='#'>"+ShortoutFileName+"</a>"
+							tst +="<a onclick=\"ManageLoads.displayFileContent('"+outId+"')\" href='#'>"+ShortoutFileName+"</a>"
 						//	tst +="<a onclick=\"alert(Open '+(this).text()+'')\" href='#'>"+outFileName+"</a>";
 						}						
 						tst +="</dt>"

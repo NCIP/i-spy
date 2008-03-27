@@ -30,13 +30,12 @@
 
 
 
-
 <script type='text/javascript' src='js/lib/common/TextFormList.js'></script>
 <script type='text/javascript' src='js/lib/common/FormChanger.js'></script>
 <script type='text/javascript' src='js/lib/common/StatusMessage.js'></script>
 
-<script type="text/javascript" language="javascript" src="files/script.js"></script>
-
+ <script type="text/javascript" language="javascript" src="files/querystring.js"></script> 
+<%-- <script defer src="files/ie_onload.js" type="text/javascript"></script>  --%>
 </head>
 <body>
 
@@ -48,7 +47,7 @@
 
 <div id="container">
 
-<h2>Uploaded files content</h2>
+<h2>Uploaded files content</h2><span id='statusProc' style='display:'><img src='images/indicator.gif'></span>
 
 <br/>
 
@@ -59,13 +58,7 @@
 <td><pre id='contentF'></pre></td>
 </tr>
 <tr><br></br></tr>
-
 </table>
-
-
-
-
-	
 	<br/><br/>
 	
     <table><tr>
@@ -74,6 +67,13 @@
     <td><input type="button" value="Close" onclick="window.close()"/></td>
 
 </div>
-	
+<script type="text/javascript">
+
+var qs = new Querystring();
+var id = qs.get("id");
+//alert("ID |"+id+"|");
+ManageLoads.startContent(id); 
+
+</script>	
 </body>
 </html>

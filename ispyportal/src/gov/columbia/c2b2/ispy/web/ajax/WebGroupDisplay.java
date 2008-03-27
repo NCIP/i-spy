@@ -49,6 +49,12 @@ public class WebGroupDisplay {
 		return CommonListFunctions.getAllUplodaInfo();
 	}
 	
+	public static String getFile(String fileID)	{
+		//create a list of allowable types		
+//System.out.println("FEILD"+fileID);
+		return CommonListFunctions.getFileContentById(fileID);
+	}
+	
     public static String getUsersList(){
     	return CommonListFunctions.getAllUsers();
     }

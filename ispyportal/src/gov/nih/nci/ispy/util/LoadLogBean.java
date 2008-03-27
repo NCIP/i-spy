@@ -58,6 +58,15 @@ public class LoadLogBean {
 		
 		return lRec;
 	}
+
+	public LogFileContent getFilebyID(Long id){
+		LogFileContent lRec = new LogFileContent();
+		
+		Session theSession = this.sessionFactory.getCurrentSession();
+		lRec = (LogFileContent) theSession.get(LogFileContent.class, id);
+		
+		return lRec;
+	}
 	
 	public void removeRecords(String[] recID) {
 		String theHQL = "";

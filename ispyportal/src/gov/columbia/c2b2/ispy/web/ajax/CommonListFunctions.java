@@ -267,6 +267,28 @@ public class CommonListFunctions {
 		return loadLogsArray.toString();
 		
 	}
+
+	public static String getFileContentById(String fileID) {
+		String fId = fileID.substring(1, (fileID.length() -1));
+		Long id = Long.parseLong(fId.trim());
+		LoadLogBean logLoader = (LoadLogBean) SpringContext.getBean("loadLogBean");
+		LogFileContent file = (LogFileContent) logLoader.getFilebyID(id);
+		
+				JSONObject jsonLogFile = new JSONObject();
+
+				if(null != file.getFileName()){
+					jsonLogFile.put("fileName", file.getFileName());
+				}
+				if(null != file.getFileContent()){
+					jsonLogFile.put("fileContent", file.getFileContent());
+				}
+
+
+
+		return jsonLogFile.toString();
+		
+	}	
+	
 	
 	private static ArrayList<User> getUserInfo (){
 		HttpSession session = ExecutionContext.get().getSession(false);
