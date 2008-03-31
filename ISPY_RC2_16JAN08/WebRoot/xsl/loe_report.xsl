@@ -349,7 +349,9 @@
   	</div>
   	</xsl:if><!-- no records -->
   	<xsl:if test="$recordCount = 0">
-  		<h3 style="text-align:center; margin-top:200px;">No records were returned.  <br/><a href="javascript:window.close()">Close</a><br/><a href="javascript:history.back()">Back</a></h3>
+  	<!--	<h3 style="text-align:center; margin-top:200px;">No records were returned.  <br/><a href="javascript:window.close()">Close</a><br/><a href="javascript:history.back()">Back</a></h3>
+  	-->
+  		<h3 style="text-align:center; margin-top:200px;">No records were returned.  <br/><a href="javascript:window.close()">Close</a><br/></h3>
   	</xsl:if>
   </xsl:for-each>
 
