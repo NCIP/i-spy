@@ -254,12 +254,11 @@
                    { 
                      Date lastAccessDate = WebUserHelper.findUserLastAccess(u);
                      lastAccessDateStr = Util.formatDateUS(lastAccessDate);
-                     
-                  
+                                     
                   %>                  
-                    <td><%=lastAccessDateStr%></td>
+                     
                   <%}%>
-                  
+                  <td><%=lastAccessDateStr%></td>
                   <td><%=Constants.getStatus(u.getStatus())%></td>
             </tr>
         </div>
