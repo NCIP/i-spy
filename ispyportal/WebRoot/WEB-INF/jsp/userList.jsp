@@ -221,12 +221,12 @@
 									<thead>
 										<tr>
 											<th height="51">&nbsp;</th>
-										   <th class="sortable">First Name</th>
-										   <th class="sortable">Last Name</th>
+										   <th class="sortable">First<br>Name</th>
+										   <th class="sortable">Last<br>Name</th>
 										   <th class="sortable">Institution</th>
 								
-											<th class="sortable">Create Date</th>
-											<th class="sortable">Last Access Date</th>
+											<th class="sortable">Create<br>Date</th>
+											<th class="sortable">Last<br>Access<br>Date</th>
 											<th class="sortable">Status</th>
 										</tr>
 									</thead>
