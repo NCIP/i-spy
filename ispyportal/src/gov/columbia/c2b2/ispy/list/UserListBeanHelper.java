@@ -431,12 +431,14 @@ public class UserListBeanHelper{
          return setListNames;
     }
     
-    public void differenceLists(List<String> listNames, String newListName, ListType listType)  {
+    public String differenceLists(List<String> listNames, String newListName, ListType listType)  {
         
         //we're only expecting 2 lists here
+    	String res = "fail";
         if(listNames.size()!=2) {
-            return;
+            return res;
         }
+        
         UserListN ulist = userListBean.getList(listNames.get(0));
         List<String> s1 = ulist.getList();
         ulist = userListBean.getList(listNames.get(1));
@@ -460,6 +462,7 @@ public class UserListBeanHelper{
             newList.setItemCount(dList.size());
 //            userListBean.addList(newList);
             userListBean.addListToDB(newList);
+            res = "pass";
         }
         Set<String> difference2 = new HashSet<String>(s2);
         difference2.removeAll(s1);
@@ -473,8 +476,9 @@ public class UserListBeanHelper{
             newList.setItemCount(dList2.size());
 //            userListBean.addList(newList);
             userListBean.addListToDB(newList);
+            res = "pass";
         }
-        
+        return res;
     }
     
     public void uniteLists(List<String> listNames, String newListName, ListType listType) {

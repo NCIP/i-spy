@@ -384,7 +384,7 @@
 			//String groupType
 			try	{
 				var res = eval('(' + txt + ')');
-				
+//debugger;				
 				if(res.results.indexOf("pass")!=-1)	{
 					$(res.groupType+'GroupName').value = "";
 					
@@ -395,8 +395,9 @@
 				else {
 					if(res.action == "join"){
 						alert("List did not save, please try again.");
-					}
-					else{
+					} else if(res.action == "difference"){
+						alert("The selected lists are identical.");
+					} else{
 						alert("The selected lists do not have any common entries.");
 					}
 				}
@@ -747,6 +748,7 @@
      	'validateForm' : function()	{
 			//optional args: listName, upload, uploadStatus
 			//loosely checking for presence
+//debugger;
 			var listName = arguments.length>0 ? arguments[0] : 'listName';
 			var upload = arguments.length>1 ? arguments[1] : 'upload';
 			var uploadStatus = arguments.length> 2 ? arguments[2] : 'uploadStatus';

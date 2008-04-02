@@ -6,6 +6,7 @@ import gov.columbia.c2b2.ispy.list.ListSubType;
 import gov.columbia.c2b2.ispy.list.ListType;
 import gov.columbia.c2b2.ispy.list.ListValidator;
 import gov.columbia.c2b2.ispy.list.UserListN;
+import gov.columbia.c2b2.ispy.list.ListItem;
 import gov.columbia.c2b2.ispy.list.UserListBeanHelper;
 import gov.columbia.c2b2.ispy.list.UserListBean;
 import gov.columbia.c2b2.ispy.web.struts.form.GroupManager;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -102,7 +104,35 @@ public class CommonListFunctions {
 			UserListBeanHelper ulbh = new UserListBeanHelper();
 			if(ulbh!=null)	{
 				ulbh.addList(mylist);
-				success = "pass";
+								
+				JSONArray validList = new JSONArray();
+				JSONArray invalidList = new JSONArray();
+				JSONObject listContainer = new JSONObject();
+				Set<ListItem> valid = mylist.getListItemsT();
+				List<ListItem> invalid = mylist.getInvalidListItems();
+				if(valid.size()>0){
+					for(ListItem prcsv : valid){
+						JSONObject item = new JSONObject();
+						item.put("NAME", prcsv.getName());
+						validList.add(item);
+					}
+					
+				}
+				if(invalid.size()>0){
+					for(ListItem prcsi : invalid){
+						JSONObject item = new JSONObject();
+						item.put("NAME", prcsi.getName());
+						invalidList.add(item);						
+					}
+					
+				}
+				listContainer.put("VALID", validList);
+				listContainer.put("INVALID", invalidList);
+				listContainer.put("LISTNAME", mylist.getName());
+				
+				return listContainer.toString();				
+				
+//				success = "pass";
 			}
 		}
 		catch (Exception e) {
@@ -148,6 +178,7 @@ public class CommonListFunctions {
 		//no duplicates
 //		UserListBean userListBean = new UserListBean();
 //		UserListBeanHelper ulbh = new UserListBeanHelper();
+		UserListN mylist = new UserListN();
 		ListToDBFromFile upload = new ListToDBFromFile();
 		HashSet<String> h = new HashSet<String>();
 		for (int i = 0; i < list.size(); i++)
@@ -159,7 +190,7 @@ public class CommonListFunctions {
 		String success = "fail";
 		ListManager um = ListManager.getInstance();
 		try	{
-			UserListN mylist = um.createList(type, name, cleanList, lv);
+			mylist = um.createList(type, name, cleanList, lv);
 			if(listSubType!=null){
 				mylist.setListSubType(listSubType);
                 mylist.setListOrigin(ListOrigin.Custom);
@@ -171,7 +202,38 @@ public class CommonListFunctions {
 //			UserListBeanHelper ulbh = new UserListBeanHelper();
 			
 	/* the code added to store the list from file*/
-			upload.loadListFromFile(name, type, list, session);
+			upload.loadListFromFile(name, type, mylist, session);
+		
+			
+			
+			
+			JSONArray validList = new JSONArray();
+			JSONArray invalidList = new JSONArray();
+			JSONObject listContainer = new JSONObject();
+			Set<ListItem> valid = mylist.getListItemsT();
+			List<ListItem> invalid = mylist.getInvalidListItems();
+			if(valid.size()>0){
+				for(ListItem prcsv : valid){
+					JSONObject item = new JSONObject();
+					item.put("NAME", prcsv.getName());
+					validList.add(item);
+				}
+				
+			}
+			if(invalid.size()>0){
+				for(ListItem prcsi : invalid){
+					JSONObject item = new JSONObject();
+					item.put("NAME", prcsi.getName());
+					invalidList.add(item);						
+				}
+				
+			}
+			listContainer.put("VALID", validList);
+			listContainer.put("INVALID", invalidList);
+			listContainer.put("LISTNAME", mylist.getName());
+			
+			success = listContainer.toString();
+	
 	/*
 			UserListN newList = new UserListN(name,type,list,new ArrayList<String>(),new Date());
 	    	ProcessHelper getUserID = (ProcessHelper) SpringContext.getBean("processHelper");
@@ -184,9 +246,10 @@ public class CommonListFunctions {
 	/*                                              */		
 			
 //			ulbh.addList(mylist);
-			success = "pass";
+//			success = "pass";
 		}
 		catch (Exception e) {}
+//		return mylist;
 		return success;
 	}
 	
@@ -395,7 +458,7 @@ public class CommonListFunctions {
 				helper.uniteLists(al, groupName, ListType.valueOf(groupType));
 			}
 			else if(action.equalsIgnoreCase("difference"))	{
-				helper.differenceLists(al, groupName, ListType.valueOf(groupType));
+				results = helper.differenceLists(al, groupName, ListType.valueOf(groupType));
 			}
 			else	{
                 if(helper.isIntersection(al)){
