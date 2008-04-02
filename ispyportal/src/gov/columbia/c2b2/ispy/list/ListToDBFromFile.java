@@ -24,4 +24,15 @@ public class ListToDBFromFile {
     dbPrcs.dataBasePrcsS(newList, session);
        
    }
+    
+    public void loadListFromFile(String name, ListType type, UserListN newList, HttpSession session) {
+//    	UserListBean helper = new UserListBean();
+//   	 UserListN newList = new UserListN(name, type, list,new ArrayList<String>(),new Date());
+//       newList.setListOrigin(ListOrigin.Custom);
+//       newList.setItemCount(list.size());
+       
+	UserListHelperDB dbPrcs = (UserListHelperDB) SpringContext.getBean("userListHelperDB");
+    dbPrcs.dataBasePrcsS(newList, session);
+       
+   }
 }

@@ -11,6 +11,7 @@
 			$(uploadButton).onclick = function() { TextFormList.processTextForm(); };
 		},
 		'type2upload' : function()	{
+//debugger;
 			var uploadRow = arguments.length > 0 ? arguments[0] : "uploadRow";
 			var textRow = arguments.length > 1 ? arguments[1] : "textRow";
 			var uploadButton = arguments.length > 2 ? arguments[2] : "uploadButton";

@@ -2,6 +2,7 @@
 	import="gov.columbia.c2b2.ispy.list.ListType,
 	gov.columbia.c2b2.ispy.list.ListSubType,
 	gov.columbia.c2b2.ispy.list.UserListN,
+	gov.columbia.c2b2.ispy.list.ListItem,
 	gov.columbia.c2b2.ispy.list.UserListBean,
 	gov.nih.nci.ispy.web.helper.ISPYListValidator,
 	gov.columbia.c2b2.ispy.list.ListManager,
@@ -16,6 +17,7 @@
 	java.util.HashMap,
 	java.util.HashSet,
 	java.util.Iterator,
+	java.util.Set,
 	java.util.List,
 	gov.columbia.c2b2.ispy.list.ajax.*,
 	org.dom4j.Document"%>
@@ -81,15 +83,17 @@
 			myUndefinedList.clear();
 			myUndefinedList = cleanList;
 			
-			ListManager uploadManager = (ListManager) ListManager.getInstance();            
-            UserListN myList = new UserListN();
-            UserListBeanHelper helper = new UserListBeanHelper(request.getSession());
+//			ListManager uploadManager = (ListManager) ListManager.getInstance();            
+//            UserListN myList = new UserListN();
+//            UserListBeanHelper helper = new UserListBeanHelper(request.getSession());
             
             String[] tps = CommonListFunctions.parseListType(type);
 			String res = "fail";
+			String message = "";
             ListSubType lst = null;
+            UserListN mylist = new UserListN();
             
-			ISPYListValidator listValidator = new ISPYListValidator();
+//			ISPYListValidator listValidator = new ISPYListValidator();
             try	{
 			
 
@@ -102,6 +106,31 @@
 			else if(tps.length >0 && tps[0] != null)	{
 				//no subtype, only a primary type - typically a PatientDID then
 				res = CommonListFunctions.createGenericListWithSession(lt, null, myUndefinedList, name, new ISPYListValidator(ListType.valueOf(tps[0]), myUndefinedList), session);
+/*				
+				if(mylist.getItemCount()>0){
+
+					message = "The list "+mylist.getName()+" saved with : \n";
+//					Set<ListItem> valid = mylist.getListItemsT();
+					ArrayList<ListItem> invalid = mylist.getInvalidListItems();
+		//			if(valid.size()>0){
+					//	for(ListItem prcsv : valid){
+							message += mylist.getItemCount()+" Valid Items\n";
+					//	}
+				
+			//		}
+					if(invalid.size()>0){
+						message += invalid.size()+" Invalid Items excluded from the list: \n";
+						for(ListItem prcsi : invalid){
+							message += prcsi.getName()+"\n";				
+						}
+				
+					}
+				} else{
+					message = "The list "+mylist.getName()+"will be saved empty\n";
+					message += "The input File contains no valid items";
+				
+				}
+*/
 			}
 			else	{
 				//no type or subtype, not good, force to clinical in catch
@@ -129,6 +158,36 @@
 
             %>
 		<script type="text/javascript">
+			var res = '<%=res%>';
+
+	    	if(res != "fail"){   	
+	    	var listContainerArray = eval('(' + res + ')');
+
+	    		var validList = listContainerArray.VALID;
+	    		var invalidList = listContainerArray.INVALID;
+	    		var listName = listContainerArray.LISTNAME;
+	    		var validCount = validList.length;
+	    		var invalidCount = invalidList.length;
+	    		var message = "The list "+listName+" saved with : \n";
+	    			message += validCount+" Valid Items\n";
+
+	    		if(invalidCount>0){
+	    		    message += invalidCount+" Invalid Items excluded from the list: \n";
+	    			for(var i=0;i<invalidList.length;i++){
+	    				message += invalidList[i].NAME+"\n";
+	    			}
+	    		}
+//	    		StatusMessage.showStatus(message);
+				alert(message);
+	    	
+	    	
+//	    		StatusMessage.showStatus("List Saved...");
+
+	    	} else{
+	    		alert("List did not save correctly, please try again.");
+	    	}		
+		
+				
 			var my_params= new Array()
 
 			window.parent.handleResponse(my_params);

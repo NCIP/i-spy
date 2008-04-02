@@ -1,7 +1,7 @@
    var TextFormList =	{
     	'processTextForm' : function ()	{
     		//optional args:  commaListOfIds, listName, listType, statusSpanId
-    		
+// debugger;   		
     		var typeListIdsLabel = arguments.length > 0 ? arguments[0] : "typeListIds";
   			var listNameLabel = arguments.length > 1 ? arguments[1] : "listName";
   			var typeSelectorLabel = arguments.length > 2 ? arguments[2] : "typeSelector";
@@ -56,13 +56,45 @@
 	    },
 	    'processTextForm_cb' : function(res)	{
 	    	//clear form, refresh lists
+//debugger;	 
+	    	if(res.length>0){   	
+	    	var listContainerArray = eval('(' + res + ')');
+
+	    		var validList = listContainerArray.VALID;
+	    		var invalidList = listContainerArray.INVALID;
+	    		var listName = listContainerArray.LISTNAME;
+	    		var validCount = validList.length;
+	    		var invalidCount = invalidList.length;
+	    		var message = "The list "+listName+" saved with : \n";
+	    			message += validCount+" Valid Items\n";
+
+	    		if(invalidCount>0){
+	    		    message += invalidCount+" Invalid Items excluded from the list: \n";
+	    			for(var i=0;i<invalidList.length;i++){
+	    				message += invalidList[i].NAME+"\n";
+	    			}
+	    		}
+//	    		StatusMessage.showStatus(message);
+				alert(message);
+	    	
+	    	
+//	    		StatusMessage.showStatus("List Saved...");
+	    	} else{
+	    		alert("List did not save correctly, please try again.");
+	    	}
+	    	
+/*	    	
 	    	var r = res.split(",");
 	    	if(r[0] != "pass")	{
 	    		alert("List did not save correctly, please try again.");
 			}	
 			else	{
-				//StatusMessage.showStatus("List Saved...");
-			}    		
+				StatusMessage.showStatus("List Saved...");
+			}  
+*/		
+			
+			
+			  		
 			if( $('uploadStatus') && $('uploadStatus').style.display != 'none'){
 				$('uploadStatus').style.display = "none";
 			}
