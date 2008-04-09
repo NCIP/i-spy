@@ -51,7 +51,7 @@ public class QuickClinicalReport {
                 tr = table.addElement("tr").addAttribute("class", "header");
                 
                 String longHeaders = "ISPY_ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, ERPOS, PGRPOS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
-                "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4, DCISONLY, PTUMOR1SZCM_MICRO_1, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE,InSituHisto, InvDzHisto, InvDzMultiFoc, InvDzCellularity, SurgMargins, yT, yN, yM, RCBIndex";
+                "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4, DCISONLY, PTUMOR1SZCM_MICRO_1, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE,InSituHisto, InvDzHisto, InvDzMultiFoc, InvDzCellularity, SurgMargins, yT, yN, yM, RCBIndex, localProgTimeD (days), distProgTimeD (days)";
 
                 String[] heads = StringUtils.split(longHeaders, ",");
                 for(String h : heads){
@@ -70,9 +70,7 @@ public class QuickClinicalReport {
                         tmp = pd.getISPY_ID()!=null  ? pd.getISPY_ID() : dv;
                         td = tr.addElement("td").addText(tmp).addAttribute("name", "patient").addAttribute("class", "patient").addAttribute("id",tmp).addElement("input").addAttribute("type","checkbox").addAttribute("name","checkable").addAttribute("class","saveElement").addAttribute("value",pd.getISPY_ID());
                         
-              //  tmp = pd.getDataExtractDT()!=null  ? pd.getDataExtractDT() : dv;
-//                        td = tr.addElement("td").addText(tmp);
-                        
+                    
                         if(iqs.hasImagingData(pd.getISPY_ID())){
                             String link = iqs.buildImagingLink(pd);
                             try {
@@ -346,7 +344,15 @@ public class QuickClinicalReport {
                         tmp = pd.getRcbIndexSize()!=null  ? pd.getRcbIndexSize() : dv;
                         td = tr.addElement("td").addText(tmp);  
                         
-                       
+                        //localProgTimeD:days
+                        
+                        tmp = pd.getLocalProgTimeD()!=null  ? pd.getLocalProgTimeD().toString() : dv;
+                        td = tr.addElement("td").addText(tmp);  
+                        
+                        //distProgTimeD:days
+                        
+                        tmp = pd.getDistProgTimeD()!=null  ? pd.getDistProgTimeD().toString() : dv;
+                        td = tr.addElement("td").addText(tmp);                      
                         
                         
                     }
@@ -421,7 +427,7 @@ public class QuickClinicalReport {
 					// these are the fields from the new clincial data and pathology data file: 10/22-2007, this method is used when trying to obtain clincial data from hoa reports
                     
                     String longHeaders = "ISPY_ID, LabTrak ID, NCIA_IMAGE, INST_ID, AGE, AGECAT, RACE_ID, SSTAT, SURVDTD, CHEMOCAT, CHEMO, TAM, HERCEPTIN, DOSEDENSEANTHRA, DOSEDENSETAXANE, MENOSTATUS, SENTINELNODESAMPLE, SENTINELNODERESULT, HIST_TYPE_INV_OS, HISTOLOGICGRADEOS, ER_TS, PGR_TS, ERPOS, PGRPOS, HER2COMMUNITYPOS, HER2COMMUNITYMETHOD, SURGERYLUMPECTOMY, SURGERYMASTECTOMY, HISTOLOGICTYPEPS, INITLUMP_FUPMAST, SURGERY, REASON_NO_SURG, RTTHERAPY, RTBREAST, RTBOOST, RTAXILLA, RTSNODE, RTIMAMNODE, RTCHESTW, RTOTHER, TSIZECLINICAL, NSIZECLINICAL, STAGETE, STAGENE, STAGEME, CLINICALSTAGE, CLINRESPT1_T2, CLINRESPT1_T3, CLINRESPT1_T4, Morphologic pattern at T1, LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4, MRI % change T1_T2, MRI % change T1_T3, MRI % change T1_T4," +
-                    "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4, DCISONLY, PTUMOR1SZCM_MICRO_1, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE,InSituHisto, InvDzHisto, InvDzMultiFoc, InvDzCellularity, SurgMargins, yT, yN, yM, RCBIndex";
+                    "MRI % change T2_T3, MRI % change T2_T4, MRI % change T3_T4, DCISONLY, PTUMOR1SZCM_MICRO_1, HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE,InSituHisto, InvDzHisto, InvDzMultiFoc, InvDzCellularity, SurgMargins, yT, yN, yM, RCBIndex,localProgTimeD (ays),distProgTimeD (days)";
 
                     
                     String[] heads = StringUtils.split(longHeaders, ",");
@@ -739,6 +745,14 @@ public class QuickClinicalReport {
     		                        tmp = pd.getRcbIndexSize()!=null  ? pd.getRcbIndexSize() : dv;
     		                        td = tr.addElement("td").addText(tmp);  
     		                        
+    		                        // LocalProgTimeD
+    		                        tmp = pd.getLocalProgTimeD()!=null  ? pd.getLocalProgTimeD().toString() : dv;
+    		                        td = tr.addElement("td").addText(tmp);  
+    		                        
+    		                     // DistProgTimeD
+    		                        tmp = pd.getDistProgTimeD()!=null  ? pd.getDistProgTimeD().toString() : dv;
+    		                        td = tr.addElement("td").addText(tmp);  
+    		                                      
     		                       
     		                        
     		                        
@@ -788,7 +802,7 @@ public class QuickClinicalReport {
                 "PreSInternalM, BaseSupra, EarlySupra, IntSupra, PreSSupra, BaseInfra, EarlyInfra, IntInfra, PreSInfra,DCISONLY, PTUMOR1SZCM_MICRO_1, " +
                 "HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, InSituDz, InSituHisto, InSituSpan, %InSitu, InSituGrade," +
                 "InvDz, InvDzHisto, LVI, InvDzMultiFoc, InvDzCellularity, SurgMargins, MetSzLN, yT, yN, yM, PCR, RCB Index, RCBclass, RCB_PATHSZ_1," +
-                "RCB_PATHSZ_2, PTUMOR1SZCM_MICRO_2";
+                "RCB_PATHSZ_2, PTUMOR1SZCM_MICRO_2, DFS, DFS_ind, LocalSiteIpBreast,LocalSiteAxillaryNode,LocalSiteSupraNode,LocalSiteChestW,LocalSiteIMammaryN,LocalSiteInfrNodes,LocalSiteAxilla,DistSite,LocalProgTimeD (days),DistProgTimeD (days)";
          
          
          String[] heads = StringUtils.split(longHeaders, ",");
@@ -1587,6 +1601,113 @@ public class QuickClinicalReport {
                 if(rowData==null)rowData = noRowData;
                 cell.setCellValue(rowData);
                 
+                // DFS
+                
+                cell = dataRow.createCell((short) 126);
+                rowLong = data.getDFS();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+               // DFS_ind
+                
+                cell = dataRow.createCell((short) 127);
+                rowLong = data.getDFS_ind();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+             // LocalSiteIpBreast
+                
+                cell = dataRow.createCell((short) 128);
+                rowLong = data.getLocalSiteIpBreast();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+             // LocalSiteAxillaryNode
+                
+                cell = dataRow.createCell((short) 129);
+                rowLong = data.getLocalSiteAxillaryNode();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+            // LocalSiteAxillaryNode
+                
+                cell = dataRow.createCell((short) 130);
+                rowLong = data.getLocalSiteSupraNode();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+           // LocalSiteChestW
+                
+                cell = dataRow.createCell((short) 131);
+                rowLong = data.getLocalSiteChestW();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+           // LocalSiteIMammaryN
+                
+                cell = dataRow.createCell((short) 132);
+                rowLong = data.getLocalSiteIMammaryN();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+         // LocalSiteInfrNodes
+                
+                cell = dataRow.createCell((short) 133);
+                rowLong = data.getLocalSiteInfrNodes();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+         // LocalSiteAxilla
+                
+                cell = dataRow.createCell((short) 134);
+                rowLong = data.getLocalSiteAxilla();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+         //DistSite
+                
+                cell = dataRow.createCell((short) 135);
+                rowData = data.getDistSite();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
+                
+          // LocalProgTimeD
+                
+                cell = dataRow.createCell((short) 136);
+                rowLong = data.getLocalProgTimeD();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+                
+          // DistProgTimeD
+                
+                cell = dataRow.createCell((short) 137);
+                rowLong = data.getDistProgTimeD();
+                if(rowLong!=null){
+                    cell.setCellValue(rowLong);
+                }
+                else cell.setCellValue(noRowData);
+              
+               
                                 
          }
          
