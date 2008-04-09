@@ -465,12 +465,110 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				
               // PRESINFRA
 				
-				pd.setPreSInfra(getToken(tokens,127));
+				pd.setPreSInfra(getToken(tokens,127));		
+				
+				
+				//DFS
+				
+				String longStr = getToken(tokens,128);
+				
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setDFS(new Long(longStr));
+				}
+				
+              //DFS_ind
+				
+				longStr = getToken(tokens,129);
+				
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setDFS_ind(new Long(longStr));
+				}
+				
 			
-			
-			
-			
-			
+				
+				//LocalSiteIpBreast
+				
+				longStr = getToken(tokens,130);
+				
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setLocalSiteIpBreast(new Long(longStr));
+				}
+				
+               //LocalSiteAxillaryNode
+				longStr = getToken(tokens,131);
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setLocalSiteAxillaryNode(new Long(longStr));
+				}
+				
+                //LocalSiteSupraNode
+				
+				longStr = getToken(tokens,132);
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setLocalSiteSupraNode(new Long(longStr));
+				}
+				
+				
+                 //LocalSiteChestW
+				
+				longStr = getToken(tokens,133);
+				
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setLocalSiteChestW(new Long(longStr));
+				}
+				
+				
+				
+				// LocalSiteIMammaryN
+				
+				longStr = getToken(tokens,134);
+				
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setLocalSiteIMammaryN(new Long(longStr));
+				}			
+				
+				
+	           // LocalSiteInfrNodes
+				
+				longStr = getToken(tokens,135);
+				
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setLocalSiteInfrNodes(new Long(longStr));
+				}	
+				
+				
+				
+               // LocalSiteAxilla
+				
+				longStr = getToken(tokens,136);
+				
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setLocalSiteAxilla(new Long(longStr));
+				}	
+				
+				
+					
+                // DistSite
+				
+				pd.setDistSite(getToken(tokens,137));
+				
+				
+                // LocalProgTimeD
+				
+                longStr = getToken(tokens,138);
+				
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+				    pd.setLocalProgTimeD(new Long(longStr));
+				}	
+				
+				
+               // DistProgTimeD
+				
+				 longStr = getToken(tokens,139);
+					
+				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+					    pd.setDistProgTimeD(new Long(longStr));
+					}	
+				
 				
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
