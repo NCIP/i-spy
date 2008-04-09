@@ -196,9 +196,22 @@ private String  ispy_id,
     private String earlyInfra ;
     private String intInfra;
     private String preSInfra;
+    
+    
+    
+    private Long  dFS;    
+    private Long  dFS_ind;
+    private Long  localSiteIpBreast;
+    private Long  localSiteAxillaryNode;
+    private Long  localSiteSupraNode;
+    private Long  localSiteChestW;
+    private Long  localSiteIMammaryN;
+    private Long  localSiteInfrNodes;
+    private Long  localSiteAxilla;
 
-
-
+    private String distSite;
+    private Long localProgTimeD;
+    private Long distProgTimeD;
 
     
     
@@ -1518,6 +1531,104 @@ private String  ispy_id,
 	public String getHistTypePS() {
 		return histTypePS;
 	}
+
+	public Long getDFS() {
+		return dFS;
+	}
+
+	public void setDFS(Long dfs) {
+		dFS = dfs;
+	}
+
+	public Long getDFS_ind() {
+		return dFS_ind;
+	}
+
+	public void setDFS_ind(Long dfs_ind) {
+		dFS_ind = dfs_ind;
+	}
+
+	public Long getLocalSiteIpBreast() {
+		return localSiteIpBreast;
+	}
+
+	public void setLocalSiteIpBreast(Long localSiteIpBreast) {
+		this.localSiteIpBreast = localSiteIpBreast;
+	}
+
+	public Long getLocalSiteAxillaryNode() {
+		return localSiteAxillaryNode;
+	}
+
+	public void setLocalSiteAxillaryNode(Long localSiteAxillaryNode) {
+		this.localSiteAxillaryNode = localSiteAxillaryNode;
+	}
+
+	public Long getLocalSiteSupraNode() {
+		return localSiteSupraNode;
+	}
+
+	public void setLocalSiteSupraNode(Long localSiteSupraNode) {
+		this.localSiteSupraNode = localSiteSupraNode;
+	}
+
+	public Long getLocalSiteChestW() {
+		return localSiteChestW;
+	}
+
+	public void setLocalSiteChestW(Long localSiteChestW) {
+		this.localSiteChestW = localSiteChestW;
+	}
+
+	public Long getLocalSiteIMammaryN() {
+		return localSiteIMammaryN;
+	}
+
+	public void setLocalSiteIMammaryN(Long localSiteIMammaryN) {
+		this.localSiteIMammaryN = localSiteIMammaryN;
+	}
+
+	public Long getLocalSiteInfrNodes() {
+		return localSiteInfrNodes;
+	}
+
+	public void setLocalSiteInfrNodes(Long localSiteInfrNodes) {
+		this.localSiteInfrNodes = localSiteInfrNodes;
+	}
+
+	public Long getLocalSiteAxilla() {
+		return localSiteAxilla;
+	}
+
+	public void setLocalSiteAxilla(Long localSiteAxilla) {
+		this.localSiteAxilla = localSiteAxilla;
+	}
+
+	public String getDistSite() {
+		return distSite;
+	}
+
+	public void setDistSite(String distSite) {
+		this.distSite = distSite;
+	}
+
+	public Long getLocalProgTimeD() {
+		return localProgTimeD;
+	}
+
+	public void setLocalProgTimeD(Long localProgTimeD) {
+		this.localProgTimeD = localProgTimeD;
+	}
+
+	public Long getDistProgTimeD() {
+		return distProgTimeD;
+	}
+
+	public void setDistProgTimeD(Long distProgTimeD) {
+		this.distProgTimeD = distProgTimeD;
+	}
+
+	
 	
 
 }
