@@ -1,0 +1,182 @@
+{\rtf1\ansi\ansicpg1252\deff0\deflang1033\deflangfe1033{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\fswiss\fprq2\fcharset0 Arial;}{\f2\fmodern\fprq1\fcharset0 Courier New;}{\f3\froman\fprq2\fcharset2 Symbol;}{\f4\fswiss\fcharset0 Arial;}{\f5\fswiss\fprq2\fcharset0 Verdana;}}
+{\colortbl ;\red255\green255\blue0;\red0\green0\blue0;\red192\green192\blue192;\red255\green255\blue255;}
+{\stylesheet{ Normal;}{\s1 heading 1;}{\s2 heading 2;}}
+{\*\generator Msftedit 5.41.15.1507;}\viewkind4\uc1\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat3\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b\f0\fs20 Application and Submitter Information\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx4593\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx6731\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b0 Submitted by\cell Michael Harris\cell Date\cell 12/06/2006\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx4593\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx6731\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0 Application\cell ISPY\cell Release/Version\cell 1.0\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat3\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b Build Information\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1113\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx4593\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx6731\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b0 Module\cell ispyportal\par
+caintegrator-analysis-commons\par
+caintegrator-spec\par
+caintegrator-application-commons\cell Tag\cell\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1113\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0 Associated change requests\cell\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat3\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b Dependencies\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b0 Project Background\cell\pard\intbl\nowidctlpar\hyphpar0\sb60\sa60\sl240\slmult0\f1 **********************************************************************************\par
+Technology Stack (jdk1.5.0_04, jboss 4.0.4.GA, ant 1.6.2)\par
+**********************************************************************************\par
+An Anthill friendly build script has been written so that the above dependencies are checked out and placed in the appropriate locations by Anthill.  This is the default task for the build script.  If you choose not to use Anthill to grab these dependencies, you will need to acquire the above dependencies manually.\par
+**********************************************************************************\par
+ISPY also has a dependency on the Common Security Module.  Included in the instructions and the build script are the means to deploy and setup the CSM as we have for development.  Since we are not integrating our CSM deployment with any other application on the dev tier, it is understood that Systems may take some latitude in determining the best procedure for handling this dependency on the Staging  tier.  However, I would desire that any changes that are made to accommodate these tiers is made known to the ISPY team POC so that we are able to make any changes on our development server deployment that are required. \f0\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0 Hardware\cell\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0 Database\cell\pard\intbl\nowidctlpar\hyphpar0\sb60\sa60\sl240\slmult0\f1 This deployment is intended be configured to use our QA or staging database.  This configuration information and credentials are to be retrieved from the Systems DBAs and copied to the externalized ispy-domain-hibernate.cfg.xml file\f2\fs18\par
+\f1\fs20\par
+For this deployment to be successful we need a complete copy of the qa database placed in our staging database.\par
+\par
+Please ensure all triggers and PL/SQL scripts are successfully imported and statistics and indexes are properly executed.\par
+\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\f0\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat3\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b Deployment Instructions \cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b0 Files need to be delivered to system group\cell\pard\intbl\nowidctlpar\fi-360\li720\sb60\sa60\sl240\slmult0\tx720\f2 o1\tab\ul\b\i\f1 War file\ulnone\b0\i0\par
+\pard\intbl\nowidctlpar\fi-360\li1440\sb60\sa60\sl240\slmult0\tx1440\f2 o\tab\f1 ispy.war\par
+\pard\intbl\nowidctlpar\fi-360\li720\sb60\sa60\sl240\slmult0\tx720\b\f2 o2\tab\ul\f1 ISPY data files\par
+\pard\intbl\nowidctlpar\fi-360\li1440\sb60\sa60\sl240\slmult0\tx1440\ulnone\f2 o\tab\b0\f1 ISPYDataFiles_Date.jar             \ul\b\par
+\pard\intbl\nowidctlpar\fi-360\li720\sb60\sa60\sl240\slmult0\tx720\ulnone\i\f2 o3\tab\ul\f1 Externalized Properties Files\par
+\pard\intbl\nowidctlpar\fi-360\li1440\sb60\sa60\sl240\slmult0\tx1440\ulnone\b0\i0\f2 o\tab\f1 ispy-domain-hibernate.cfg.xml   \par
+\f2 o\tab\f1 caIntegratorConfig.xml               \par
+\f2 o\tab\f1 ispyportal.properties               \par
+\pard\intbl\nowidctlpar\fi-360\li720\sb60\sa60\sl240\slmult0\tx720\b\i\f2 o4\tab\ul\f1 CSM Configuration File\par
+\pard\intbl\nowidctlpar\fi-360\li1440\sb60\sa60\sl240\slmult0\tx1440\ulnone\b0\i0\f2 o\tab\f1 ispy.hibernate.cfg.xml             \cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\f0 First Time  Deployment Instructions\cell\pard\intbl\nowidctlpar\hyphpar0\sb60\sa60\sl240\slmult0\f1 Setup Externalized Properties\par
+\pard\intbl\nowidctlpar\fi-360\li360\sb60\sa60\sl240\slmult0\tx360 1.\tab Edit /usr/local/jboss404/server/ncicb-caint/deploy/properties-service.xml file, Scroll down to \par
+\pard\intbl\nowidctlpar\li519\sb60\sa60\sl240\slmult0 <mbean code="org.jboss.varia.property.SystemPropertiesService" name="jboss:type=Service,name=SystemProperties">\par
+\pard\intbl\nowidctlpar\fi-360\li360\sb60\sa60\sl240\slmult0\tx360 2.\tab Verify (and add  if necessary) that the following attribute tags exist inside the node\par
+\pard\intbl\nowidctlpar\sb60\sa60\sl240\slmult0        Assume the JBoss is installed in the directory /usr/local/jboss404/\par
+\pard\intbl\nowidctlpar\li519\b\fs16 <attribute name="Properties">\par
+      gov.nih.nci.caintegrator.configFile=/usr/local/jboss404/server/ncicb-caint/conf/caIntegratorConfig.xml\par
+</attribute>\par
+<attribute name="Properties">\par
+      gov.nih.nci.ispyportal.propertiesFile=/local/content/ispyportal/config/ispyportal.properties\par
+    </attribute>\par
+\par
+\pard\intbl\nowidctlpar\sb60\sa60\sl240\slmult0\b0\fs20 Verify that the file caIntegratorConfig.xml exists in the \b\fs16 /usr/local/jboss404/server/ncicb-caint/conf \b0\fs20 directory.\par
+\pard\intbl\nowidctlpar\fi-360\li720\sb60\sa60\sl240\slmult0\tx720\f3\'b71\tab\f1 If not  copy the caIntegratorConfig.xml file provided by the ispy.war build process into the directory \b\fs16 /usr/local/jboss404/server/ncicb-caint/conf .\b0\fs20\par
+\f3\'b72\tab\f1 If it does exist, you will need to edit the existing caIntegratorConfig.xml file to insert the ISPY block between the  <application-list>   \'85 </application-list> tags. \par
+\pard\intbl\nowidctlpar\li720\sb60\sa60\sl240\slmult0\b\fs16        <application>\par
+                        <context-name>\par
+                                ispy\par
+                        </context-name>\par
+                        <hibernate-config-file>\par
+                                /local/content/ispyportal/config/ispy-domain-hibernate.cfg.xml\par
+                        </hibernate-config-file>\par
+        </application>\b0\fs20\par
+\pard\intbl\nowidctlpar\sb60\sa60\sl240\slmult0\par
+Copy the files ispy-domain-hibernate.cfg.xml and ispyportal.properties provided by the ispy.war build process into the directory \b\fs16 /local/content/ispyportal/config/ .  \b0\fs20 Overwrite the files if they already exist.\fs16  \fs20  \par
+\par
+\pard\intbl\nowidctlpar\fi-360\li360\sb60\sa60\sl240\slmult0\tx360 3.\tab Modify \ldblquote ispy-domain-hibernate.cfg.xml\rdblquote  to have the proper database url, username and password by setting the following properties\par
+\pard\intbl\nowidctlpar\b\f2\fs16                <property name="connection.url">YOUR_CONNECTION_URL</property>\tab\tab         \par
+\tab\tab <property name="connection.username">YOUR_CONNECTION_USERNAME</property>\par
+\pard\intbl\nowidctlpar\li519\tab\tab <property name="connection.password">YOUR_CONNECTION_PASSWORD</property>\f1\par
+\pard\intbl\nowidctlpar\fi-360\li360\tx360\b0\fs20 4.\tab Modify the ispyportal.properties file and set the JNDI port in the property\par
+\pard\intbl\nowidctlpar  \par
+     gov.nih.nci.ispyportal.jms.jboss.url=localhost:YOUR_JNDI_PORT\par
+ \par
+\pard\intbl\nowidctlpar\fi-360\li360\sb60\sa60\sl240\slmult0\tx360 5.\tab Go to the directory /local/content/ispyportal/data and remove all files in the directory. Next,\par
+\pard\intbl\nowidctlpar\sb60\sa60\sl240\slmult0 ftp the application data file named   AnalysisPortalDataFiles_13NOV06.jar from the  \par
+ISPY-ANALYSIS-PORTAL directory of the caintegrator ftp site and place it in the directory /local/content/ispyportal/data .  Extract the data files using the command  \par
+\tab\b jar -xvf AnalysisPortalDataFiles_12-11-06.jar\par
+\pard\intbl\nowidctlpar\fi-360\li360\sb60\sa60\sl240\slmult0\tx360\b0 6.\tab Verify that the files ispy-jbossmq-destinations-service.xml and caintegrator-jbossmq-destinations-service.xml exist in the directory \b\fs16 /usr/local/jboss404/server/ncicb-caint/deploy/jms\b0\fs20\par
+      If not, copy the files (provided by the ispy.war build process) into the directory.\par
+\pard\intbl\nowidctlpar\hyphpar0\sb60\sa60\sl240\slmult0\b Database \par
+\b0 Ensure that the ISPY database has been successfully copied to the appropriate tier\f0\fs24\par
+\pard\intbl\f4\fs20{\pict\wmetafile8\picwgoal8856\pichgoal345 
+0100090000037800000002001c00000000000400000003010800050000000b0200000000050000
+000c029700780e040000002e0118001c000000fb021000070000000000bc020000000001020222
+53797374656d0000780e0000c3c60000645411007083823990d633080c020000040000002d0100
+0004000000020101001c000000fb029cff0000000000009001000000000440001254696d657320
+4e657720526f6d616e0000000000000000000000000000000000040000002d0101000500000009
+02000000020d000000320a5a0000000100040000000000740e960020002d00040000002d010000
+030000000000
+}\b\f1 Configure CSM v3.1\fs24\par
+\pard\intbl\nowidctlpar\fi-360\li660\sb60\sa60\sl240\slmult0\tx660\b0\fs20 1.\tab copy ispy.hibernate.cfg.xml to /usr/local/jboss404/server/ncicb-caint/conf\f0\par
+\pard\intbl\nowidctlpar\fi-360\li660\sb60\sa60\sl240\slmult0\f1 2.\tab Add the following content into /usr/local/jboss404/server/ncicb-caint/conf/login-config.xml\par
+\pard\intbl\nowidctlpar\li300\sb60\sa60    <application-policy name="ispy">\par
+         <authentication>\par
+            <login-module code="gov.nih.nci.security.authentication.loginmodules.LDAPLoginModule" flag="required">\par
+                <module-option name="ldapHost">ldaps://ncids4a.nci.nih.gov:636</module-option>\par
+                <module-option name="ldapSearchableBase">ou=nci,o=nih</module-option>\par
+                <module-option name="ldapUserIdLabel">cn</module-option>\par
+            </login-module>\par
+         </authentication>\par
+    </application-policy>\par
+\pard\intbl\nowidctlpar\fi-360\li660\sb60\sa60\sl240\slmult0\tx660 3.\tab Copy the following contents in to /usr/local/jboss404/server/ncicb-caint/deploy/oracle-ds.xml \par
+\pard\intbl\nowidctlpar\li300\sb60\sa60   <local-tx-datasource>\par
+               <jndi-name>ispycsm</jndi-name>\par
+               <connection-url>\highlight1\b jdbc:url\highlight0\b0 </connection-url>\par
+               <user-name>\highlight1\b user name\highlight0\b0 </user-name>\par
+               <password>\highlight1\b password\highlight0\b0 </password>\par
+               <driver-class>oracle.jdbc.driver.OracleDriver</driver-class>\par
+               <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-c\par
+lass-name>\par
+   </local-tx-datasource>\par
+\pard\intbl\nowidctlpar\fi-360\li660\sb60\sa60\sl240\slmult0\tx660 4.\tab if the following does not exist in /usr/local/jboss404/server/ncicb-caint/deploy/properties-service.xml, then add it\par
+\pard\intbl\nowidctlpar\li300\sb60\sa60 <attribute name="Properties">\par
+gov.nih.nci.security.configFile=/usr/local/jboss404/server/ncicb-caint/conf/ApplicationSecurityConfig.xml\par
+</attribute>\par
+\pard\intbl\nowidctlpar\hyphpar0\fi-360\li660\sb60\sa60\sl240\slmult0\tx660 5.\tab copy the following into /usr/local/jboss404/server/ncicb-caint/conf\f0 /\f1  ApplicationSecurityConfig\par
+\pard\intbl\nowidctlpar\sb60\sa60                 <application>\par
+                        <context-name>\par
+                                ispy\par
+                        </context-name>\par
+                        <authentication>\par
+                                <authentication-provider-class>\par
+                                <!-- Fully qualified class name-->\par
+                                </authentication-provider-class>\par
+                        </authentication>\par
+                        <authorization>\par
+                                <authorization-provider-class>\par
+                                        <!-- Fully qualified class name-->\par
+                                </authorization-provider-class>\par
+                                <hibernate-config-file>\par
+                                        /usr/local/jboss-4.0.4.GA/server/ncicb-caint/conf/ispy.hibernate.cfg.xml\par
+                                </hibernate-config-file>\par
+                        </authorization>\par
+                </application>\par
+\pard\intbl\brdrb\brdrs\brdrw15\brsp20 \nowidctlpar\hyphpar0\sb60\sa60\sl240\slmult0\b\par
+\pard\intbl\nowidctlpar\hyphpar0\sb60\sa60\sl240\slmult0 Deploy war file\par
+\b0 Deploy the \b\i ispy.war\b0\i0  file to the appropriate server by copying it to /usr/local/jboss404/server/ncicb-caint/deploy and start JBoss.\par
+\par
+-------------------------------------------------------------------------------------------------------------------------------\par
+\b Configure URL\par
+\b0  \ul http://caintegrator-stage.nci.nih.gov/ispy/\ulnone\par
+ should be configured\par
+\pard\intbl\nowidctlpar\hyphpar0\li300\sb60\sa60\sl240\slmult0\fs16\par
+\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\f0\fs20\par
+\pard\intbl\nowidctlpar\hyphpar0\sb60\sa60\sl240\slmult0\cf2\f5\fs18\par
+\par
+\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\cf0\f0\fs20\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat3\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b Proposed deployment to staging\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b0 Requested Date\cell Dec 7, 2006\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0 Actual Date\cell\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat3\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b Approval For Promotion to Production\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b0 Date\cell\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\tx1560 Decision\cell __Approved\par
+__Not Approved  \cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0 Approved by\cell\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat3\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b Proposed deployment to production\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b0 Requested Date\cell\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx1135\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0 Actual Date\cell\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat3\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b Notes\cell\row\trowd\trgaph115\trleft-115\trqc\trrh20\trpaddl115\trpaddr115\trpaddfl3\trpaddfr3
+\clcbpat4\clbrdrl\brdrw15\brdrs\brdrcf2\clbrdrt\brdrw15\brdrs\clbrdrr\brdrw15\brdrs\brdrcf2\clbrdrb\brdrw15\brdrs\brdrcf2 \cellx10347\pard\intbl\nowidctlpar\hyphpar0\sl240\slmult0\b0\cell\row\pard\keepn\nowidctlpar\hyphpar0\s1\sb240\sa120\sl240\slmult0\tx0\b\fs32\page\f1 Field Definitions\par
+\pard\nowidctlpar\hyphpar0\sa120\sl240\slmult0\b0\f0\fs20 Most of the fields should be self-explanatory, so this section will only cover those that are not.  If you have any questions about filling out this form, please contact the NCICB SCM Administrator\par
+\pard\keepn\nowidctlpar\hyphpar0\s2\sb240\sa120\sl240\slmult0\tx0\b\i\f1\fs28 Application and Submitter Information\par
+\pard\nowidctlpar\hyphpar0\fi-360\li720\sa120\sl240\slmult0\tx720\b0\i0\f3\fs18\'b7\tab\f0\fs20 Release/Version.  This section should include the product's official version number, in the form <major>.<minor>.<patch>.  For example, 2.3.04.\par
+\pard\keepn\nowidctlpar\hyphpar0\s2\sb240\sa120\sl240\slmult0\tx0\b\i\f1\fs28 Build Information\par
+\pard\nowidctlpar\hyphpar0\fi-360\li720\sa120\sl240\slmult0\tx720\b0\i0\f3\fs18\'b7\tab\f0\fs20 Module \endash  the name of your software module in CVS (i.e., the name you pass in to the CVS checkout command.)\par
+\f3\fs18\'b7\tab\f0\fs20 Tag \endash  the tag that you have created to denote the build you wish to be promoted. This should ideally consist of the application name, version number, and date.\par
+\pard\keepn\nowidctlpar\hyphpar0\s2\sb240\sa120\sl240\slmult0\tx0\b\i\f1\fs28 Dependencies\par
+\pard\nowidctlpar\hyphpar0\sa120\sl240\slmult0\b0\i0\f0\fs20 Most of this information should have already been covered in the Deployment Instructions Guide, but if some of those dependencies have changed, and deployment  coordination between your application and the other application, is necessary, document it here.\par
+\pard\keepn\nowidctlpar\hyphpar0\s2\sb240\sa120\sl240\slmult0\tx0\b\i\f1\fs28 Additional Instructions\par
+\pard\nowidctlpar\hyphpar0\sa120\sl240\slmult0\b0\i0\f0\fs20 Again, most of this information should be covered in the Deployment Instructions Guide, but if there are additional deployment or test instructions that apply only to this build, include them here.  If the deployment process changes are going to be permanent, they need to get included in the Deployment Instructions Guide.\par
+\pard\keepn\nowidctlpar\hyphpar0\s2\sb240\sa120\sl240\slmult0\tx0\b\i\f1\fs28 Proposed Deployment to Staging\par
+\pard\nowidctlpar\hyphpar0\fi-360\li720\sa120\sl240\slmult0\tx720\b0\i0\f3\fs18\'b7\tab\f0\fs20 Keeping in mind the published deployment windows and the 24-hour turn-around time on requests, enter the date you want to deploy here. The Systems Team/SCM administrator will fill in the actual date after deployment.\par
+\f3\fs18\'b7\tab\f0\fs20 Document any emergency/expedited deployment request in the Notes section\par
+\pard\keepn\nowidctlpar\hyphpar0\s2\sb240\sa120\sl240\slmult0\tx0\b\i\f1\fs28 Proposed Deployment to Production\par
+\pard\nowidctlpar\hyphpar0\fi-360\li720\sa120\sl240\slmult0\tx720\b0\i0\f3\fs18\'b7\tab\f0\fs20 Again, keeping in mind the published deployment windows, and the 24 hour staging requirement, enter the date you wish to go live here.  The Systems Team/SCM administrator will fill in the actual date after deployment.\par
+\f3\fs18\'b7\tab\f0\fs20 As discussed above, applications successfully staged will never be automatically deployed to production without a formal request.\par
+\f3\fs18\'b7\tab\f0\fs20 Document any emergency/expedited deployment request in the Notes section.\par
+\pard\keepn\nowidctlpar\hyphpar0\s2\sb240\sa120\sl240\slmult0\tx0\b\i\f1\fs28 Notes\par
+\pard\nowidctlpar\hyphpar0\fi-360\li720\sa120\sl240\slmult0\tx720\b0\i0\f3\fs18\'b7\tab\f0\fs20 This section can include any other information that is not covered elsewhere that you feel is important.\par
+\f3\fs18\'b7\tab\f0\fs20 If this is an emergency deployment request, please document it here, including a detailed justification of why this deployment should occur outside a scheduled window.\par
+\pard\nowidctlpar\hyphpar0\sa120\sl240\slmult0\par
+}
+ 
