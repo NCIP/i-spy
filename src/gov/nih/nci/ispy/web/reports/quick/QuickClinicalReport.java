@@ -1620,67 +1620,53 @@ public class QuickClinicalReport {
                 else cell.setCellValue(noRowData);
                 
              // LocalSiteIpBreast
-                
+                               
                 cell = dataRow.createCell((short) 128);
-                rowLong = data.getLocalSiteIpBreast();
-                if(rowLong!=null){
-                    cell.setCellValue(rowLong);
-                }
-                else cell.setCellValue(noRowData);
+                rowData = data.getLocalSiteIpBreast();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
                 
              // LocalSiteAxillaryNode
                 
                 cell = dataRow.createCell((short) 129);
-                rowLong = data.getLocalSiteAxillaryNode();
-                if(rowLong!=null){
-                    cell.setCellValue(rowLong);
-                }
-                else cell.setCellValue(noRowData);
+                rowData = data.getLocalSiteAxillaryNode();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
                 
             // LocalSiteAxillaryNode
                 
                 cell = dataRow.createCell((short) 130);
-                rowLong = data.getLocalSiteSupraNode();
-                if(rowLong!=null){
-                    cell.setCellValue(rowLong);
-                }
-                else cell.setCellValue(noRowData);
+                rowData = data.getLocalSiteSupraNode();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
                 
            // LocalSiteChestW
                 
                 cell = dataRow.createCell((short) 131);
-                rowLong = data.getLocalSiteChestW();
-                if(rowLong!=null){
-                    cell.setCellValue(rowLong);
-                }
-                else cell.setCellValue(noRowData);
+                rowData = data.getLocalSiteChestW();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
                 
            // LocalSiteIMammaryN
                 
                 cell = dataRow.createCell((short) 132);
-                rowLong = data.getLocalSiteIMammaryN();
-                if(rowLong!=null){
-                    cell.setCellValue(rowLong);
-                }
-                else cell.setCellValue(noRowData);
+                rowData = data.getLocalSiteIMammaryN();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
                 
          // LocalSiteInfrNodes
                 
                 cell = dataRow.createCell((short) 133);
-                rowLong = data.getLocalSiteInfrNodes();
-                if(rowLong!=null){
-                    cell.setCellValue(rowLong);
-                }
-                else cell.setCellValue(noRowData);
+                rowData = data.getLocalSiteInfrNodes();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
                 
          // LocalSiteAxilla
                 
                 cell = dataRow.createCell((short) 134);
-                rowLong = data.getLocalSiteAxilla();
-                if(rowLong!=null){
-                    cell.setCellValue(rowLong);
-                }
-                else cell.setCellValue(noRowData);
+                rowData = data.getLocalSiteAxilla();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
                 
          //DistSite
                 
