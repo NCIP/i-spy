@@ -201,13 +201,13 @@ private String  ispy_id,
     
     private Long  dFS;    
     private Long  dFS_ind;
-    private Long  localSiteIpBreast;
-    private Long  localSiteAxillaryNode;
-    private Long  localSiteSupraNode;
-    private Long  localSiteChestW;
-    private Long  localSiteIMammaryN;
-    private Long  localSiteInfrNodes;
-    private Long  localSiteAxilla;
+    private String  localSiteIpBreast;
+    private String  localSiteAxillaryNode;
+    private String  localSiteSupraNode;
+    private String  localSiteChestW;
+    private String  localSiteIMammaryN;
+    private String  localSiteInfrNodes;
+    private String  localSiteAxilla;
 
     private String distSite;
     private Long localProgTimeD;
@@ -1548,59 +1548,60 @@ private String  ispy_id,
 		dFS_ind = dfs_ind;
 	}
 
-	public Long getLocalSiteIpBreast() {
+	
+	public String getLocalSiteIpBreast() {
 		return localSiteIpBreast;
 	}
 
-	public void setLocalSiteIpBreast(Long localSiteIpBreast) {
+	public void setLocalSiteIpBreast(String localSiteIpBreast) {
 		this.localSiteIpBreast = localSiteIpBreast;
 	}
 
-	public Long getLocalSiteAxillaryNode() {
+	public String getLocalSiteAxillaryNode() {
 		return localSiteAxillaryNode;
 	}
 
-	public void setLocalSiteAxillaryNode(Long localSiteAxillaryNode) {
+	public void setLocalSiteAxillaryNode(String localSiteAxillaryNode) {
 		this.localSiteAxillaryNode = localSiteAxillaryNode;
 	}
 
-	public Long getLocalSiteSupraNode() {
+	public String getLocalSiteSupraNode() {
 		return localSiteSupraNode;
 	}
 
-	public void setLocalSiteSupraNode(Long localSiteSupraNode) {
+	public void setLocalSiteSupraNode(String localSiteSupraNode) {
 		this.localSiteSupraNode = localSiteSupraNode;
 	}
 
-	public Long getLocalSiteChestW() {
+	public String getLocalSiteChestW() {
 		return localSiteChestW;
 	}
 
-	public void setLocalSiteChestW(Long localSiteChestW) {
+	public void setLocalSiteChestW(String localSiteChestW) {
 		this.localSiteChestW = localSiteChestW;
 	}
 
-	public Long getLocalSiteIMammaryN() {
+	public String getLocalSiteIMammaryN() {
 		return localSiteIMammaryN;
 	}
 
-	public void setLocalSiteIMammaryN(Long localSiteIMammaryN) {
+	public void setLocalSiteIMammaryN(String localSiteIMammaryN) {
 		this.localSiteIMammaryN = localSiteIMammaryN;
 	}
 
-	public Long getLocalSiteInfrNodes() {
+	public String getLocalSiteInfrNodes() {
 		return localSiteInfrNodes;
 	}
 
-	public void setLocalSiteInfrNodes(Long localSiteInfrNodes) {
+	public void setLocalSiteInfrNodes(String localSiteInfrNodes) {
 		this.localSiteInfrNodes = localSiteInfrNodes;
 	}
 
-	public Long getLocalSiteAxilla() {
+	public String getLocalSiteAxilla() {
 		return localSiteAxilla;
 	}
 
-	public void setLocalSiteAxilla(Long localSiteAxilla) {
+	public void setLocalSiteAxilla(String localSiteAxilla) {
 		this.localSiteAxilla = localSiteAxilla;
 	}
 
