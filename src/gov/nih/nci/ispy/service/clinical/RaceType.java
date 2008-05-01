@@ -27,12 +27,12 @@ public enum RaceType {
 	public String getLookupString() { return toString();}} ,
 	
 	NATIVE_HAWAIIAN_OR_PACIFIC_ISLANDER { public String toString() { return "5=Native Hawaiian/Pacific Islander"; }
-	  public String getLookupString() { return toString();}} ,	
+	  public String getLookupString() { return toString();}} ,	             
 	  
 AMERICAN_INDIAN_OR_ALASKA_NATIVE { public String toString() { return "6=American Indian/Alaskan Native"; }
 			   public String getLookupString() { return toString();}} ,
 			   
-MULTI_RACIAL { public String toString() { return "136=multi-racial (Caucasian, African American and American Indian or Alaska Native)";}
+MULTI_RACIAL { public String toString() { return "50=Multiple race";}
 public String getLookupString() { return toString();}}; 
 
 	
