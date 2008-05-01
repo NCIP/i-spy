@@ -73,6 +73,9 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			patientDataMap.clear();
 			
 			while ((line=in.readLine()) != null) {
+				if(line.indexOf("1125")!=-1){
+				  System.out.println("line+:"+line);
+				}
 				lineNum++;
 				tokens = line.split("\t", -2);
 								
@@ -488,62 +491,36 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				
 				//LocalSiteIpBreast
 				
-				longStr = getToken(tokens,130);
+				pd.setLocalSiteIpBreast(getToken(tokens,130));
 				
-				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setLocalSiteIpBreast(new Long(longStr));
-				}
+				
 				
                //LocalSiteAxillaryNode
-				longStr = getToken(tokens,131);
-				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setLocalSiteAxillaryNode(new Long(longStr));
-				}
+				
+				pd.setLocalSiteAxillaryNode(getToken(tokens,131));
 				
                 //LocalSiteSupraNode
 				
-				longStr = getToken(tokens,132);
-				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setLocalSiteSupraNode(new Long(longStr));
-				}
-				
+			  pd.setLocalSiteSupraNode(getToken(tokens,132));
+			
 				
                  //LocalSiteChestW
-				
-				longStr = getToken(tokens,133);
-				
-				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setLocalSiteChestW(new Long(longStr));
-				}
-				
+			  
+			  pd.setLocalSiteChestW(getToken(tokens,133));				
 				
 				
 				// LocalSiteIMammaryN
 				
-				longStr = getToken(tokens,134);
-				
-				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setLocalSiteIMammaryN(new Long(longStr));
-				}			
+			  pd.setLocalSiteIMammaryN(getToken(tokens,134));					
 				
 				
 	           // LocalSiteInfrNodes
-				
-				longStr = getToken(tokens,135);
-				
-				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setLocalSiteInfrNodes(new Long(longStr));
-				}	
+			  pd.setLocalSiteInfrNodes(getToken(tokens,135));			
 				
 				
 				
                // LocalSiteAxilla
-				
-				longStr = getToken(tokens,136);
-				
-				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setLocalSiteAxilla(new Long(longStr));
-				}	
+			  pd.setLocalSiteAxilla( getToken(tokens,136));
 				
 				
 					
