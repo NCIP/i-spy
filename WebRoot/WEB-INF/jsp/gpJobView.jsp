@@ -73,7 +73,7 @@
 					out.println("<br clear=\"all\" />");
 					out.println("<br clear=\"all\" />");
 				%>
-       				Please click the above link to lunch GenePattern.  If your task does not appear in 
+       				Please click the above link to launch GenePattern.  If your task does not appear in 
        				the sidebar, please wait a minute and refresh the GenePattern page to try again.
      			</tr>
      		</table>
