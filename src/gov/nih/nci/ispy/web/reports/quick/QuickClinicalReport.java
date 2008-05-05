@@ -346,7 +346,7 @@ public class QuickClinicalReport {
                         
                         //localProgTimeD:days
                         
-                        tmp = pd.getLocalProgTimeD()!=null  ? pd.getLocalProgTimeD().toString() : dv;
+                        tmp = (pd.getLocalProgTimeD()!=null && pd.getLocalProgTimeD().toString().indexOf("-")==-1) ? pd.getLocalProgTimeD().toString() : dv;
                         td = tr.addElement("td").addText(tmp);  
                         
                         //distProgTimeD:days
@@ -1605,7 +1605,7 @@ public class QuickClinicalReport {
                 
                 cell = dataRow.createCell((short) 126);
                 rowLong = data.getDFS();
-                if(rowLong!=null){
+                if(rowLong!=null && rowLong.toString().indexOf("-")==-1){
                     cell.setCellValue(rowLong);
                 }
                 else cell.setCellValue(noRowData);
@@ -1679,7 +1679,7 @@ public class QuickClinicalReport {
                 
                 cell = dataRow.createCell((short) 136);
                 rowLong = data.getLocalProgTimeD();
-                if(rowLong!=null){
+                if(rowLong!=null && rowLong.toString().indexOf("-")==-1){
                     cell.setCellValue(rowLong);
                 }
                 else cell.setCellValue(noRowData);
