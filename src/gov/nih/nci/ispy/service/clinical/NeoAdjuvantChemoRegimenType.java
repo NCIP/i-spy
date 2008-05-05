@@ -19,6 +19,8 @@ public enum NeoAdjuvantChemoRegimenType {
 		   public String getLookupString() { return toString();}},
 	A_TP { public String toString() { return "9=A->Tp"; }
 		   public String getLookupString() { return toString();}},
+	AC_Tp { public String toString() { return "10=AC->Tp"; }
+			public String getLookupString() { return toString();}},
 	AC_TDH { public String toString() { return "12=AC->TdH"; }
 			 public String getLookupString() { return toString();}},
 	AC_TPH { public String toString() { return "13=AC->TpH"; }
@@ -44,7 +46,10 @@ public enum NeoAdjuvantChemoRegimenType {
 	AC_TP_VINORELBINE_TARCENA { public String toString() { return "23=AC->Tp->Vinorelbine->Tarcena"; }
 	 							public String getLookupString() { return toString();}},
 	C_TP { public String toString() { return "24=C->Tp"; }
+	 							public String getLookupString() { return toString();}},
+	ECTP_TP { public String toString() { return "25=ECTp->Tp"; }
 	 							public String getLookupString() { return toString();}};
+   
    
 	public abstract String getLookupString();
 	
