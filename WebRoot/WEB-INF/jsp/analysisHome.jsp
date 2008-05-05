@@ -26,8 +26,8 @@
 				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="Hierarchical Clustering Analysis" onclick="javascript:location.href='hierarchicalclusteringInit.do?method=setup';"></td></tr>			
 				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="Correlation Scatter Plot Analysis" onclick="javascript:location.href='correlationScatterInit.do?method=setup';"></td></tr>			
 				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="Categorical Plot Analysis" onclick="javascript:location.href='categoricalCorrelationInit.do?method=setup';"></td></tr>			
-				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="GenePattern Analysis" onclick="javascript:location.href='gpintegrationInit.do?method=setup';"></td></tr>
-				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="GenePattern Home" onclick="window.open( '<%= gpHomeURL %>');"></td></tr>
+				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="Send the Data to GenePattern" onclick="javascript:location.href='gpintegrationInit.do?method=setup';"></td></tr>
+				<tr><td><input type="button" class="xbutton" style="width:200px;margin-bottom: 5px;" value="Go to GenePattern" onclick="window.open( '<%= gpHomeURL %>');"></td></tr>
 			</table>
 	</fieldset>
 	</td>
