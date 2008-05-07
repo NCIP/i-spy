@@ -1,0 +1,27 @@
+function FileData_Pairs(x)
+{
+x.t("user","account");
+x.t("support","logging");
+x.t("getting","started");
+x.t("obtain","help");
+x.t("creating","user");
+x.t("account","logging");
+x.t("i-spy","getting");
+x.t("i-spy","creating");
+x.t("i-spy","procedures");
+x.t("i-spy","workspace");
+x.t("i-spy","section");
+x.t("include:","i-spy");
+x.t("logging","i-spy");
+x.t("introduces","general");
+x.t("started","i-spy");
+x.t("procedures","obtain");
+x.t("i-spy.","topics");
+x.t("workspace","application");
+x.t("section","include:");
+x.t("section","introduces");
+x.t("help","i-spy.");
+x.t("application","support");
+x.t("topics","section");
+x.t("general","i-spy");
+}
