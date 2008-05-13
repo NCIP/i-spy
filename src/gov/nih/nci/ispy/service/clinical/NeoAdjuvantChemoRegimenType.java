@@ -31,7 +31,7 @@ public enum NeoAdjuvantChemoRegimenType {
 			 public String getLookupString() { return toString();}},
 	EC_TP { public String toString() { return "15=EC->Tp"; }
 	   		public String getLookupString() { return toString();}},
-	AC_TPTD { public String toString() { return "16=AC->TpTd"; }
+	AC_TPTD { public String toString() { return "16=AC-> TpTd"; }
 			  public String getLookupString() { return toString();}},
 	A_TP_C { public String toString() { return "17=A->Tp->C"; }
 			 public String getLookupString() { return toString();}},
@@ -39,7 +39,7 @@ public enum NeoAdjuvantChemoRegimenType {
 	   		 public String getLookupString() { return toString();}},
 	AC_TD_XELODA { public String toString() { return "19=AC->Td->Xeloda"; }
 	  			   public String getLookupString() { return toString();}},
-	EC_TP_CARBOPLATIN { public String toString() { return "20=EC->Tp->Carboplatin"; }
+	EC_TP_CARBOPLATIN { public String toString() { return "20=EC ->Tp-> Carboplatin"; }
 						public String getLookupString() { return toString();}},
 	FEC_TP_ABRAXANE { public String toString() { return "21=FEC->Tp->Abraxane"; }
 					  public String getLookupString() { return toString();}},
