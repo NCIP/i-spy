@@ -1,0 +1,84 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Selenium_ISPY_Defect_tbd_2</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Selenium_ISPY_Defect_tbd_2</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/ispy/ihcLevelQueryInit.do?method=setup</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=IHC Level</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>patientGroup</td>
+	<td>label=Complete ResponseT1_T4</td>
+</tr>
+<tr>
+	<td>addSelection</td>
+	<td>timepoints</td>
+	<td>label=T1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>analysisResultName</td>
+	<td>IHC_LOE_Complete_T1_T4</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>submittalButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>IHC_LOE_Complete_T1_T4_link</td>
+	<td>IHC_LOE_Complete_T1_T4</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>IHC_LOE_Complete_T1_T4_link</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>loe_report</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>loe_report</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTitle</td>
+	<td>ISPY Report</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>No records were returned.<br /><br />Close<br /><br />Back</td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>loe_report</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Close</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
