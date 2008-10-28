@@ -307,9 +307,9 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 			
 				
 				 // BSA		
-				
-				pd.setBsa(new Double(getToken(tokens,91)));
-			
+				if(getToken(tokens,91)!= null && !getToken(tokens,91).equals("")){
+				    pd.setBsa(new Double(getToken(tokens,91)));
+				}
 				
 				 // ERPOS			
 				
