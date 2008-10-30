@@ -6,9 +6,9 @@
 <a style="font-size:.8em" href="javascript:Help.popHelp('Welcome');">help</a>&nbsp;&nbsp;&nbsp;
 <a style="font-size:.8em" href="http://ncicb.nci.nih.gov/NCICB/support" target="_blank">support</a>&nbsp;&nbsp;&nbsp;
 <a style="font-size:.8em" href="docs/I-SPY_User's_Guide_1.10.08.pdf">user guide</a>&nbsp;&nbsp;&nbsp;
-<a style="font-size:.8em" href="docs/Integrated_Clin_Path_MR_Labtrak_fish_05_06_2008.xls">integrated data file</a>&nbsp;&nbsp;&nbsp;
+<a style="font-size:.8em" href="docs/Integrated_Clin_Path_MR_Labtrak_fish_09_18_2008.xls">integrated data file</a>&nbsp;&nbsp;&nbsp;
 <a style="font-size:.8em" href="docs/ACRIN6657_Mammo_08-01-15.xls">mammo data</a>&nbsp;&nbsp;&nbsp;
-<a style="font-size:.8em" href="docs/CondensedDataDictionaryMar08.doc">Clinical Data Dictionary</a>
+<a style="font-size:.8em" href="docs/DataDictionarySept08.doc">Clinical Data Dictionary</a>
 </span>
 <br>
 <span style="float:left">
