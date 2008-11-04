@@ -546,7 +546,18 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 					    pd.setDistProgTimeD(new Long(longStr));
 					}	
 				
+                 // AromataseI
 				
+				pd.setAromataseI(getToken(tokens,140));
+			
+                // OvarianSup
+				
+				pd.setOvarianSup(getToken(tokens,141));
+			
+                // OvarianAbl
+				
+				pd.setOvarianAbl(getToken(tokens,142));
+			
 				patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
 			

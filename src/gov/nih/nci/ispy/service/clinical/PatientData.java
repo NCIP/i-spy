@@ -208,6 +208,9 @@ private String  ispy_id,
     private String  localSiteIMammaryN;
     private String  localSiteInfrNodes;
     private String  localSiteAxilla;
+    private String  aromataseI;
+    private String  ovarianSup;
+    private String  ovarianAbl;
 
     private String distSite;
     private Long localProgTimeD;
@@ -1627,6 +1630,30 @@ private String  ispy_id,
 
 	public void setDistProgTimeD(Long distProgTimeD) {
 		this.distProgTimeD = distProgTimeD;
+	}
+
+	public String getAromataseI() {
+		return aromataseI;
+	}
+
+	public void setAromataseI(String aromataseI) {
+		this.aromataseI = aromataseI;
+	}
+
+	public String getOvarianSup() {
+		return ovarianSup;
+	}
+
+	public void setOvarianSup(String ovarianSup) {
+		this.ovarianSup = ovarianSup;
+	}
+
+	public String getOvarianAbl() {
+		return ovarianAbl;
+	}
+
+	public void setOvarianAbl(String ovarianAbl) {
+		this.ovarianAbl = ovarianAbl;
 	}
 
 	
