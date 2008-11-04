@@ -802,7 +802,8 @@ public class QuickClinicalReport {
                 "PreSInternalM, BaseSupra, EarlySupra, IntSupra, PreSSupra, BaseInfra, EarlyInfra, IntInfra, PreSInfra,DCISONLY, PTUMOR1SZCM_MICRO_1, " +
                 "HISTOLOGICGRADEPS, NUMPOSNODES, NODESEXAMINED, PATHOLOGYSTAGE, InSituDz, InSituHisto, InSituSpan, %InSitu, InSituGrade," +
                 "InvDz, InvDzHisto, LVI, InvDzMultiFoc, InvDzCellularity, SurgMargins, MetSzLN, yT, yN, yM, PCR, RCB Index, RCBclass, RCB_PATHSZ_1," +
-                "RCB_PATHSZ_2, PTUMOR1SZCM_MICRO_2, DFS, DFS_ind, LocalSiteIpBreast,LocalSiteAxillaryNode,LocalSiteSupraNode,LocalSiteChestW,LocalSiteIMammaryN,LocalSiteInfrNodes,LocalSiteAxilla,DistSite,LocalProgTimeD (days),DistProgTimeD (days)";
+                "RCB_PATHSZ_2, PTUMOR1SZCM_MICRO_2, DFS, DFS_ind, LocalSiteIpBreast,LocalSiteAxillaryNode,LocalSiteSupraNode,LocalSiteChestW,LocalSiteIMammaryN,LocalSiteInfrNodes,LocalSiteAxilla,DistSite,LocalProgTimeD (days),DistProgTimeD (days),"+
+                "AromataseI, OvarianSup, OvarianAbl";
          
          
          String[] heads = StringUtils.split(longHeaders, ",");
@@ -1693,7 +1694,26 @@ public class QuickClinicalReport {
                 }
                 else cell.setCellValue(noRowData);
               
-               
+             // AromataseI
+                
+                cell = dataRow.createCell((short) 138);
+                rowData = data.getAromataseI();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData); 
+                
+             // OvarianSup
+                
+                cell = dataRow.createCell((short) 139);
+                rowData = data.getOvarianSup();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData); 
+                
+             // OvarianAbl
+                
+                cell = dataRow.createCell((short) 140);
+                rowData = data.getOvarianAbl();
+                if(rowData==null)rowData = noRowData;
+                cell.setCellValue(rowData);
                                 
          }
          
