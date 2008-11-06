@@ -23,7 +23,7 @@ var Help = {
 	convertHelp: function(topic)	{
 		var ex = arguments[1] ? arguments[1] : "";
 		var exst = arguments[2] ? arguments[2] : "";
-		var ta = "";
+		var ta = "";		
 		switch(topic)	{
 			case "clinicalquery":
 				ta = "Clinical_query_analysis";
@@ -48,7 +48,10 @@ var Help = {
 				break;
 			case "hierarchicalclustering":
 				ta = "HCA_analysis";
-				break;			
+				break;	
+			case "gpintegration":
+				ta = "Genepattern_input";
+				break;							
 			default:
 				break;
 		
