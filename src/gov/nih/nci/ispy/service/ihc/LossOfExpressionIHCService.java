@@ -12,6 +12,7 @@ import java.util.Set;
 
 
 public class LossOfExpressionIHCService {
+	
     private static LossOfExpressionIHCService ourInstance = null;
    
     
