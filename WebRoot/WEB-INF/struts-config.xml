@@ -12,7 +12,8 @@
 		<form-bean name="correlationScatterForm" type="gov.nih.nci.ispy.web.struts.form.CorrelationScatterForm"/>
 		<form-bean name="categoricalCorrelationForm" type="gov.nih.nci.ispy.web.struts.form.CategoricalCorrelationForm"/>
 		<form-bean name="clinicalQueryForm" type="gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm"/>		
-		<form-bean name="fishQueryForm" type="gov.nih.nci.ispy.web.struts.form.FISHQueryForm"/>			
+		<form-bean name="fishQueryForm" type="gov.nih.nci.ispy.web.struts.form.FISHQueryForm"/>	
+		<form-bean name="p53QueryForm" type="gov.nih.nci.ispy.web.struts.form.P53QueryForm"/>			
 		<form-bean name="ihcLevelQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLevelOfExpressionQueryForm"/>	
 		<form-bean name="ihcLossQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLossOfExpressionQueryForm"/>	
 		<form-bean name="userPreferencesBean" type="gov.nih.nci.ispy.web.struts.bean.UserPreferencesBean"/>				
@@ -155,6 +156,29 @@
 		<forward name="fishQuerySetup" path="/fishQueryInit.do?method=setup" />
 		<forward name="viewResults" path="/viewResults.do" />
 	</action>
+	
+	<action path="/p53QueryInit"
+		type="gov.nih.nci.ispy.web.struts.action.P53QueryAction"
+		name="p53QueryForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToP53Query" path="ispy.p53Query" />
+		<forward name="p53QuerySetup" path="/p53QueryInit.do?method=setup" />
+	</action>
+	
+		<action path="/p53query"
+	    input="/p53QueryInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.P53QueryAction"
+		name="p53QueryForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToP53Query" path="ispy.p53Query" />
+		<forward name="p53QuerySetup" path="/p53QueryInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
 	
 	<action path="/ihcLevel"
 		forward="ispy.ihcLevel" />
