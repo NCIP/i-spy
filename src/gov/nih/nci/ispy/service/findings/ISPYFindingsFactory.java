@@ -27,6 +27,7 @@ import gov.nih.nci.caintegrator.service.findings.KMFinding;
 import gov.nih.nci.caintegrator.service.findings.PrincipalComponentAnalysisFinding;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LevelOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
+import gov.nih.nci.caintegrator.studyQueryService.dto.p53.P53FindingCriteria;
 import gov.nih.nci.ispy.dto.query.ISPYCategoricalCorrelationQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYCorrelationScatterQueryDTO;
 import gov.nih.nci.ispy.dto.query.ISPYclinicalDataQueryDTO;
@@ -38,6 +39,7 @@ import gov.nih.nci.ispy.service.findings.strategies.CorrelationFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.HierarchicalClusteringFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.IHCLevelOfExpressionFindingStrategyCGOM;
 import gov.nih.nci.ispy.service.findings.strategies.IHCLossOfExpressionFindingStrategyCGOM;
+import gov.nih.nci.ispy.service.findings.strategies.P53FindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.PrincipalComponentAnalysisFindingStrategy;
 import gov.nih.nci.ispy.service.findings.strategies.GPIntegrationFindingStrategy;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
@@ -181,6 +183,36 @@ public class ISPYFindingsFactory implements FindingsFactory {
 		return null;
 	}
 
+	
+	/**
+	 * Create a P53Finding by executing the P53 strategy
+	 */
+	public void createP53Finding(P53FindingCriteria criteria, String sessionId, String taskId) {
+	    try {
+            P53FindingStrategy strategy = new P53FindingStrategy(sessionId, taskId, criteria);		
+        		try {
+        			
+        			strategy.createQuery();
+        			strategy.executeQuery();
+        		    strategy.analyzeResultSet();
+        		
+        		} catch (FindingsQueryException e) {
+        			logger.error("Caught FindingsQueryExcpetion in IHCLevelFindingStrategy");
+        			logger.error(e);
+        		} catch (FindingsAnalysisException e) {
+        			logger.error("Caught FindingsAnalsysisException in IHCLevelFindingStrategy");
+        			logger.error(e);
+        		}
+		
+        		
+		}
+		catch (ValidationException ex) {
+		  logger.error("Caught validationException when creating ihcLevel finding strategy: sessionId=" + sessionId + " taskId=" + taskId + " queryName=" + criteria.getQueryName());
+		  logger.error(ex);
+		}
+	
+	}
+    
 	
 	/**
 	 * Create a IHCLevelOfExpressionFinding by executing the IHCLevelOfExpression strategy
