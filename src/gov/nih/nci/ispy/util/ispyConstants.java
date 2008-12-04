@@ -107,6 +107,10 @@ public final class ispyConstants {
     
     public static final String IHC_LOSS_RESULTCODES =  "IHC_LOSS_RESULTCODES";
     
+    public static final String P53_MUTATION_STATUS = "P53_MUTATION_STATUS";
+    
+    public static final String P53_MUTATION_TYPE = "P53_MUTATION_TYPE";
+    
     public static final String TIMEPOINTS =  "TIMEPOINTS";
     
     public static final String UI_LOOKUPS = "UI_LOOKUPS";
