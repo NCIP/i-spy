@@ -98,6 +98,14 @@
 	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
     </definition>
     
+     <definition name="ispy.p53Query" extends="baseDef">
+      <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=p53Query" />
+	  <put name="title" value="P53 Query Form" />
+	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
+	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
+	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=2" />
+    </definition>
+    
     <definition name="ispy.ihcLevelQuery" extends="baseDef">
       <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=ihcLevelQuery" />
 	  <put name="title" value="IHC Level of Expression Query Form" />
