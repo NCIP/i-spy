@@ -9,7 +9,7 @@ import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
-import gov.nih.nci.caintegrator.service.findings.P53Finding;
+import gov.nih.nci.ispy.service.findings.P53Finding;
 import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
 import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.p53.P53FindingCriteria;
