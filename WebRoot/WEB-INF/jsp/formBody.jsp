@@ -22,6 +22,7 @@
 String action = "";
 String param = request.getParameter("s");
 action = param.toLowerCase();
+System.out.println("action:"+action);
 %>
 <br/>
 
