@@ -70,6 +70,26 @@ public class UILookupMapLoader {
         lookupMap.put(ispyConstants.IHC_LOSS_RESULTCODES,resultCodes);
         
         
+         //GET P53 mutation status
+        theHQL = "select distinct p53Mutation.mutationStatus from P53MutationFinding p53Mutation where p53Mutation.mutationStatus!=null";
+        theQuery = theSession.createQuery(theHQL);
+        System.out.println("HQL: " + theHQL);        
+        objs = theQuery.list();
+        ArrayList<String> mutationStatuses = new ArrayList<String>(objs);
+        lookupMap.put(ispyConstants.P53_MUTATION_STATUS,mutationStatuses);
+        
+        
+        //GET P53 mutation type
+        theHQL = "select distinct p53Mutation.mutationType from P53MutationFinding p53Mutation where p53Mutation.mutationType!=null";
+        theQuery = theSession.createQuery(theHQL);
+        System.out.println("HQL: " + theHQL);        
+        objs = theQuery.list();
+        ArrayList<String> mutationTypes = new ArrayList<String>(objs);
+        lookupMap.put(ispyConstants.P53_MUTATION_TYPE,mutationTypes);      
+        
+        
+        
+        
         return lookupMap;
     }
 
