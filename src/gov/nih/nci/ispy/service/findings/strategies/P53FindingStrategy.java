@@ -1,7 +1,5 @@
 package gov.nih.nci.ispy.service.findings.strategies;
 
-import java.util.Collection;
-
 import gov.nih.nci.caintegrator.application.cache.BusinessTierCache;
 import gov.nih.nci.caintegrator.dto.query.QueryDTO;
 import gov.nih.nci.caintegrator.enumeration.FindingStatus;
@@ -9,14 +7,13 @@ import gov.nih.nci.caintegrator.exceptions.FindingsAnalysisException;
 import gov.nih.nci.caintegrator.exceptions.FindingsQueryException;
 import gov.nih.nci.caintegrator.exceptions.ValidationException;
 import gov.nih.nci.caintegrator.service.findings.Finding;
-import gov.nih.nci.ispy.service.findings.P53Finding;
 import gov.nih.nci.caintegrator.service.findings.strategies.SessionBasedFindingStrategy;
-import gov.nih.nci.caintegrator.studyQueryService.dto.ihc.LossOfExpressionIHCFindingCriteria;
 import gov.nih.nci.caintegrator.studyQueryService.dto.p53.P53FindingCriteria;
-import gov.nih.nci.ispy.service.findings.ISPYIHCLossOfExpressionFinding;
-import gov.nih.nci.ispy.service.ihc.LossOfExpressionIHCService;
+import gov.nih.nci.ispy.service.findings.P53Finding;
 import gov.nih.nci.ispy.service.ihc.P53Service;
 import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+
+import java.util.Collection;
 
 public class P53FindingStrategy extends SessionBasedFindingStrategy {
 	
