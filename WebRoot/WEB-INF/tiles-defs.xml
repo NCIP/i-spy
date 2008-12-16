@@ -13,6 +13,7 @@
 	    <put name="crumbMenu" value="/WEB-INF/jsp/tiles/crumbMenu_tile.jsp" />
 		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
 		<put name="footer" value="/WEB-INF/jsp/footer.jsp" />
+		<put name="applets" value="/WEB-INF/jsp//decoy.jsp" />
 		<!--  form specific criteria  -->
 		<put name="mainForm" value="" />		<!-- main form page, read from props file -->
 	</definition>
@@ -141,16 +142,25 @@
       <put name="mainForm" value="/WEB-INF/jsp/formBody.jsp?s=gpIntegration" />
 	  <put name="title" value="Gene Pattern Integration Form" />
 	  <put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
-	  <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" />
-	   <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=3" />
+	<!--   <put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/reqdFieldsMsg_tile.jsp" /> -->
+	  <put name="reqdFieldsMsg" value="/jsp/tiles/empty_tile.jsp" />
+	  <put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=4" />
+	  <put name="applets" value="/decoy.jsp" />
     </definition>
+    
+     
 	<definition name="ispy.gpJobView" extends="baseDef">
 		<put name="title" value="I-SPY View Gene Pattern Job" />
 		<put name="sideBar" value="/WEB-INF/jsp/tiles/sideBar_tile.jsp" />
 		<put name="mainForm" value="/WEB-INF/jsp/gpJobView.jsp" />
 		<put name="tabs" value="/WEB-INF/jsp/tiles/tabs_tile.jsp?s=6" />
-		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />		
+		<put name="reqdFieldsMsg" value="/WEB-INF/jsp/tiles/empty_tile.jsp" />	
+		<put name="applets" value="/Applets/gp/gpApplet.jsp" />		
     </definition> 
+    
+   
+    <definition name="ispy.gpApplet" path="/Applets/gp/gpApplet.jsp"></definition> 
+    
     <!-- 
 	<definition name="ispy.menu" extends="baseDef">
       <put name="mainForm" value="/jsp/menu.jsp" />
