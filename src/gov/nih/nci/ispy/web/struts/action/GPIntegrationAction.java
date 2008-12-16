@@ -1,28 +1,46 @@
 package gov.nih.nci.ispy.web.struts.action;
 
+import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
+import gov.nih.nci.caintegrator.analysis.messaging.ReporterGroup;
+import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
+import gov.nih.nci.caintegrator.application.analysis.gp.GenePatternPublicUserPool;
+import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.lists.ListType;
 import gov.nih.nci.caintegrator.application.lists.UserList;
 import gov.nih.nci.caintegrator.application.lists.UserListBeanHelper;
 import gov.nih.nci.caintegrator.dto.de.ArrayPlatformDE;
 import gov.nih.nci.caintegrator.dto.de.GeneIdentifierDE;
 import gov.nih.nci.caintegrator.dto.query.QueryType;
+import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
+import gov.nih.nci.caintegrator.enumeration.FindingStatus;
 import gov.nih.nci.caintegrator.exceptions.FrameworkException;
+import gov.nih.nci.caintegrator.security.EncryptionUtil;
+import gov.nih.nci.caintegrator.security.PublicUserPool;
+import gov.nih.nci.caintegrator.service.task.GPTask;
+import gov.nih.nci.ispy.dto.query.ISPYGPIntegrationQueryDTO;
+import gov.nih.nci.ispy.service.common.TimepointType;
+import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
+import gov.nih.nci.ispy.web.factory.ApplicationFactory;
+import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
+import gov.nih.nci.ispy.web.helper.EnumHelper;
+import gov.nih.nci.ispy.web.struts.form.GpIntegrationForm;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.Iterator;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,24 +56,6 @@ import org.apache.struts.actions.DispatchAction;
 import org.apache.struts.util.LabelValueBean;
 import org.genepattern.client.GPServer;
 import org.genepattern.webservice.Parameter;
-
-import gov.nih.nci.ispy.dto.query.ISPYGPIntegrationQueryDTO;
-import gov.nih.nci.ispy.service.common.TimepointType;
-import gov.nih.nci.ispy.service.findings.ISPYFindingsFactory;
-import gov.nih.nci.ispy.web.factory.ApplicationFactory;
-import gov.nih.nci.ispy.web.helper.ClinicalGroupRetriever;
-import gov.nih.nci.ispy.web.helper.EnumHelper;
-import gov.nih.nci.ispy.web.struts.form.GpIntegrationForm;
-
-///////////////
-import gov.nih.nci.caintegrator.security.PublicUserPool;
-import gov.nih.nci.caintegrator.analysis.messaging.SampleGroup;
-import gov.nih.nci.caintegrator.analysis.messaging.ReporterGroup;
-import gov.nih.nci.caintegrator.analysis.messaging.IdGroup;
-import gov.nih.nci.caintegrator.enumeration.ArrayPlatformType;
-import gov.nih.nci.caintegrator.security.EncryptionUtil;
-//import gov.nih.nci.ispy.util.ISPYPublicUserPool;
-import gov.nih.nci.caintegrator.application.analysis.gp.GenePatternPublicUserPool;
 ///////////////
 /**
 * caIntegrator License
@@ -256,6 +256,8 @@ public class GPIntegrationAction extends DispatchAction {
 			urlString = URLEncoder.encode(urlString, "UTF-8");
 			String ticketString = gpserverURL+"gp?ticket="+ urlString;
 			
+			
+			
 			logger.debug(ticketString);
 			URL url;
             try {
@@ -290,14 +292,18 @@ public class GPIntegrationAction extends DispatchAction {
 			//JobResult preprocess = gpServer.runAnalysis(gpModule, par);
 			int nowait = gpServer.runAnalysisNoWait(gpModule, par);
 
-			tid = String.valueOf(nowait);
-			//LSID = urn:lsid:8080.root.localhost:genepatternmodules:20:2.1.7
+			tid = String.valueOf(nowait);			
 			request.setAttribute("jobId", tid);
 			request.setAttribute("gpStatus", "running");
 			session.setAttribute("genePatternServer", gpServer);
 			request.setAttribute("genePatternURL", ticketString);
 			request.getSession().setAttribute("gptid", tid);
-			//session.setAttribute("genePatternPreprocess", preprocess);
+			request.getSession().setAttribute("gpUserId", ispyUser);
+			request.getSession().setAttribute("ticketString", ticketString);
+			GPTask gpTask = new GPTask(tid, analysisResultName, FindingStatus.Running);
+			PresentationTierCache _cacheManager = ApplicationFactory.getPresentationTierCache();
+			_cacheManager.addNonPersistableToSessionCache(request.getSession().getId(), "latestGpTask",(Serializable) gpTask); 
+		
 			
 		} catch (Exception e) {
 			StringWriter sw = new StringWriter();
