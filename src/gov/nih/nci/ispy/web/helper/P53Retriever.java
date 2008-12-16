@@ -25,7 +25,9 @@ public class P53Retriever {
 	        ArrayList<String> mutationStatusList = new ArrayList<String>(mutationStatusCollectiion);
 	        ArrayList<LabelValueBean> mutationStatusCollectiionList = new ArrayList<LabelValueBean>();
 	        for(String mutationStatusName: mutationStatusList){
+	        	if(mutationStatusName.equalsIgnoreCase("MUTANT")||mutationStatusName.equalsIgnoreCase("WILDTYPE")){
 	        	mutationStatusCollectiionList.add(new LabelValueBean(mutationStatusName,mutationStatusName));
+	        	}
 	        }
 	      return mutationStatusCollectiionList;
 	    }
