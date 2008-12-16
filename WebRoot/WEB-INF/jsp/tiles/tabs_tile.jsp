@@ -25,7 +25,8 @@
 							"<li><a href=\"advancedHome.do\">Search Home</a></li>\n" +
 							"<li><a href=\"clinicalQueryInit.do?method=setup\">Clinical</a></li>\n" +
 							"<li><a href=\"ihcLevelQueryInit.do?method=setup\">IHC Level</a></li>\n" +
-							"<li><a href=\"ihcLossQueryInit.do?method=setup\">IHC Loss</a></li>\n" +										
+							"<li><a href=\"ihcLossQueryInit.do?method=setup\">IHC Loss</a></li>\n" +
+							"<li><a href=\"p53QueryInit.do?method=setup\">P53</a></li>\n" +										
 							//"<li><a href=\"fishQueryInit.do?method=setup\">FISH</a></li>\n" +
 							//"<li><a href=\"#\">p53</a></li>\n" +
 							"</ul>\n";
