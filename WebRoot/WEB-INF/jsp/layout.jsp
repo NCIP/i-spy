@@ -41,6 +41,9 @@
 							<%-- include required message note --%>
 							<tiles:insert attribute="reqdFieldsMsg"/><br/>
 						</td></tr>
+						<tr><td>
+							<tiles:insert attribute="applets"/>
+						</td></tr>	
 					</table>
 				</td>
 				<td valign="top" class="sideBar">

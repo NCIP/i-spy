@@ -106,6 +106,9 @@
 					if(f instanceof ISPYIHCLossOfExpressionFinding){
 						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('loeReport.do?taskId=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "') + '&newReport=true', 750, 500,'loe_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(IHC - Loss)</i> ");
 					}
+					if(f instanceof P53Finding){
+						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('p53Report.do?taskId=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "') + '&newReport=true', 750, 500,'p53_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(P53)</i> ");
+					}
 					if(f instanceof ClassComparisonFinding){
 						out.println("<li><a id=\"" + f.getTaskId() + "_link\" href=\"javascript:spawnx('testReport.do?key=' + encodeURIComponent('" + URLEncoder.encode(f.getTaskId()) + "') + '&newReport=true', 750, 500,'hoa_report');\" onclick=\"" + onclick + "\">" + qname + "</a> <i>(CC)</i> ");
 					}
@@ -141,7 +144,7 @@
      <div style="font-size:9px;text-align:center;">
      (CC) Class Comparison | 
      (HC) Hierarchical Clustering | 
-     (PCA) Principal Component Analysis
+     (PCA) Principal Component Analysis 
      </div>
      
 </fieldset>
