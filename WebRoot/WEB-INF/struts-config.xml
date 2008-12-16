@@ -21,6 +21,7 @@
 		<form-bean name="loginForm" type="gov.nih.nci.ispy.web.struts.form.LoginForm"/>
    		<form-bean name="logoutForm" type="gov.nih.nci.ispy.web.struts.form.LogoutForm"/>
    		<form-bean name="gpIntegrationForm" type="gov.nih.nci.ispy.web.struts.form.GpIntegrationForm"/>
+   		<form-bean name="gpProcessForm" type="gov.nih.nci.ispy.web.struts.form.GpProcessForm"/>	
    	
   </form-beans>
   <!-- ========== Global Exception Definitions ============================ -->
@@ -318,8 +319,6 @@
 		validate="false"
 		parameter="method">
 		<forward name="success" path="ispy.gpIntegration" />
-		<forward name="backToHierarchicalClustering" path="ispy.hierarchicalClustering" />
-		<forward name="hierarchicalClusteringSetup" path="/hierarchicalclustering.do?method=setup" />
 	</action>
 		
 	<action path="/gpintegration"
@@ -330,11 +329,28 @@
 		validate="true"
 		parameter="method">
 		<forward name="success" path="ispy.gpIntegration" />
-		<forward name="hierarchicalClusteringSetup" path="/hierarchicalclustering.do?method=setup" />
-		<forward name="viewJob" path="ispy.gpJobView" />
+		<!-- <forward name="viewJob" path="ispy.gpJobView" /> -->
+		<forward name="viewJob" path="/gpProcess.do?method=setup" />
 	</action>
+	
+		<action path="/gpProcess"
+		input="ispy.gpJobView"
+		type="gov.nih.nci.ispy.web.struts.action.GPProcessAction"
+		name="gpProcessForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="success" path="ispy.gpJobView" />
+		<forward name="appletViewer" path="ispy.gpJobView" />
+		<forward name="viewJob" path="/gpProcess.do?method=setup" />
+	</action>
+	
+		<action path="/gpApplet"
+         forward="/Applets/gp/gpApplet.jsp" />
 
 	<action path="/loeReport" forward="/WEB-INF/jsp/loeReport.jsp" />
+	
+	<action path="/p53Report" forward="/WEB-INF/jsp/p53Report.jsp" />
 	
 	<action path="/pcaReport" forward="/WEB-INF/jsp/pcaReport.jsp" />
 	
