@@ -5,9 +5,11 @@ import gov.nih.nci.caintegrator.application.cache.CacheFactory;
 import gov.nih.nci.caintegrator.application.cache.PresentationTierCache;
 import gov.nih.nci.caintegrator.application.report.LevelOfExpressionIHCReport;
 import gov.nih.nci.caintegrator.application.report.LossOfExpressionIHCReport;
+import gov.nih.nci.caintegrator.application.report.P53Report;
 import gov.nih.nci.ispy.service.findings.ISPYClinicalFinding;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLevelOfExpressionFinding;
 import gov.nih.nci.ispy.service.findings.ISPYIHCLossOfExpressionFinding;
+import gov.nih.nci.ispy.service.findings.P53Finding;
 import gov.nih.nci.ispy.web.reports.quick.QuickClinicalReport;
 
 import java.io.File;
@@ -92,6 +94,17 @@ public void doGet(HttpServletRequest request, HttpServletResponse response)
                     }
                     else{                        
                         wb = LossOfExpressionIHCReport.getReportExcel(frb.getFinding(), new HashMap());                        
+                        frb.setExcelDoc(wb);
+                        ptc.addPersistableToSessionCache(frb.getFinding().getSessionId(), frb.getFinding().getTaskId(), frb);
+                    }  
+                }
+                
+                else if(frb.getFinding() instanceof P53Finding){
+                    if(frb.getExcelDoc()!=null){
+                        wb = frb.getExcelDoc();
+                    }
+                    else{                        
+                        wb = P53Report.getReportExcel(frb.getFinding(), new HashMap());                        
                         frb.setExcelDoc(wb);
                         ptc.addPersistableToSessionCache(frb.getFinding().getSessionId(), frb.getFinding().getTaskId(), frb);
                     }  
