@@ -38,7 +38,7 @@ String key = request.getParameter("key")!=null ? (String) request.getParameter("
 				}
 			}
 			else	{
-				out.println("No Records Available for this query");
+				out.println("No Records Available for this query__");
 			}
 		}
 		else	{
