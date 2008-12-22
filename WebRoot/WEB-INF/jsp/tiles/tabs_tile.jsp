@@ -47,6 +47,11 @@
 							"<li><a href=\"gpintegrationInit.do?method=setup\">GP Analysis</a></li>\n" +
 							"</ul>\n";
 							
+   String resultSecondary = "<ul id=\"secondary\">\n" +
+							//"<li><a href=\"graph.do?method=setup\">Search</a></li>\n" +
+							"<li><a href=\"viewResults.do\">Report Results</a></li>\n" +
+							"<li><a href=\"gpProcess.do?method=setup\">GenePattern Job Results</a></li>\n" +							
+							"</ul>\n";							
 	String s = (String) request.getParameter("s");
 	if(s != null)	{
 		int sect = Integer.parseInt(s);	
@@ -79,7 +84,8 @@
 			    //4 is view results
 				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
 				adv = "<a href=\"advancedHome.do\"> Search</a>";
-				viewResults = "<span>View Results&nbsp;&nbsp;</span>\n";
+				//viewResults = "<span>View Results&nbsp;&nbsp;</span>\n";
+				viewResults = "<span id=\"inboxStatus\">View Results&nbsp;&nbsp;</span>\n" + resultSecondary;
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<a href=\"manageLists.do\">Manage Lists</a>";
 				break;
@@ -95,7 +101,9 @@
 			    //6 is to vew gene pattern job view
 				simple = "<a href=\"simpleSearch.do\">ID Lookup</a>";
 				adv = "<a href=\"advancedHome.do\">Search</a>";
-				viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
+				//viewResults = "<a href=\"viewResults.do\">View Results&nbsp;&nbsp;</a>";
+				//viewResults = "<span>View Results&nbsp;&nbsp;</span>\n";
+				viewResults = "<span id=\"inboxStatus\">View Results&nbsp;&nbsp;</span>\n" + resultSecondary;
 				analysis = "<a href=\"analysisHome.do\">High Order Analysis</a>";
 				list = "<a href=\"manageLists.do\">Manage Lists</a>";
 				break;
