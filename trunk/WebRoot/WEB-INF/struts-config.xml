@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	
+    <!-- ========== Data Source Configuration ============================== -->
+    <data-sources />
+    <!-- ========== Form Bean Definitions ================================== -->
+    <form-beans>
+    	<form-bean name="viewResultsForm" type="gov.nih.nci.ispy.web.struts.form.ViewResultsForm"/>
+   		<form-bean name="classComparisonForm" type="gov.nih.nci.ispy.web.struts.form.ClassComparisonForm"/>
+		<form-bean name="principalComponentForm" type="gov.nih.nci.ispy.web.struts.form.PrincipalComponentForm"/>
+		<form-bean name="correlationScatterForm" type="gov.nih.nci.ispy.web.struts.form.CorrelationScatterForm"/>
+		<form-bean name="categoricalCorrelationForm" type="gov.nih.nci.ispy.web.struts.form.CategoricalCorrelationForm"/>
+		<form-bean name="clinicalQueryForm" type="gov.nih.nci.ispy.web.struts.form.ClinicalQueryForm"/>		
+		<form-bean name="fishQueryForm" type="gov.nih.nci.ispy.web.struts.form.FISHQueryForm"/>	
+		<form-bean name="p53QueryForm" type="gov.nih.nci.ispy.web.struts.form.P53QueryForm"/>			
+		<form-bean name="ihcLevelQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLevelOfExpressionQueryForm"/>	
+		<form-bean name="ihcLossQueryForm" type="gov.nih.nci.ispy.web.struts.form.IHCLossOfExpressionQueryForm"/>	
+		<form-bean name="userPreferencesBean" type="gov.nih.nci.ispy.web.struts.bean.UserPreferencesBean"/>				
+		<form-bean name="hierarchicalClusteringForm" type="gov.nih.nci.ispy.web.struts.form.HierarchicalClusteringForm"/>
+		<form-bean name="loginForm" type="gov.nih.nci.ispy.web.struts.form.LoginForm"/>
+   		<form-bean name="logoutForm" type="gov.nih.nci.ispy.web.struts.form.LogoutForm"/>
+   		<form-bean name="gpIntegrationForm" type="gov.nih.nci.ispy.web.struts.form.GpIntegrationForm"/>
+   		<form-bean name="gpProcessForm" type="gov.nih.nci.ispy.web.struts.form.GpProcessForm"/>	
+   	
+  </form-beans>
+  <!-- ========== Global Exception Definitions ============================ -->
+  <global-exceptions />
+  <!-- ========== Global Forward Definitions ============================== -->
+  <global-forwards>
+  
+  </global-forwards>
+    
+    <!-- ========== Action Mapping Definitions ============================ -->
+    
+  <action-mappings>
+      
+   <action path="/login"
+           type="gov.nih.nci.ispy.web.struts.action.LoginAction"
+           name="loginForm"
+           scope="request"
+           input="/index.jsp">
+    <forward name="success" path="/legal.jsp"/> 
+    <forward name="failure" path="/index.jsp"/>    
+    </action> 
+    
+    <action path="/logout"
+           type="gov.nih.nci.ispy.web.struts.action.LogoutAction"
+           scope="request"
+           input="ispy.analysisHome">
+    <forward name="logout" path="/index.jsp"/>
+    <forward name="dontLogout" path="ispy.analysisHome"/>
+    </action>   
+    
+    <action path="/analysisHome"
+		forward="ispy.analysisHome"/>
+		
+	<action path="/advancedHome"
+		forward="ispy.advancedHome"/>
+		
+	<action path="/clinical"
+		forward="ispy.clinical" />
+		
+	<action path="/clinicalQueryInit"
+		type="gov.nih.nci.ispy.web.struts.action.ClinicalQueryAction"
+		name="clinicalQueryForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToClinicalQuery" path="ispy.clinicalQuery" />
+		<forward name="clinicalQuerySetup" path="/clinicalQueryInit.do?method=setup" />
+	</action>
+	
+	<action path="/clinicalquery"
+	    input="/clinicalQueryInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.ClinicalQueryAction"
+		name="clinicalQueryForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToClinicalQuery" path="ispy.clinicalQuery" />
+		<forward name="clinicalQuerySetup" path="/clinicalQueryInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/correlationScatter"
+		forward="ispy.correlationScatter" />
+		
+	<action path="/correlationScatterInit"
+		type="gov.nih.nci.ispy.web.struts.action.CorrelationScatterAction"
+		name="correlationScatterForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToCorrelationScatter" path="ispy.correlationScatter" />
+		<forward name="correlationScatterSetup" path="/correlationScatterInit.do?method=setup" />
+	</action>
+	
+	<action path="/correlationscatter"
+	    input="/correlationScatterInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.CorrelationScatterAction"
+		name="correlationScatterForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToCorrelationScatter" path="ispy.correlationScatter" />
+		<forward name="correlationScatterSetup" path="/correlationScatterInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/categoricalCorrelation"
+		forward="ispy.categoricalCorrelation" />
+		
+	<action path="/categoricalCorrelationInit"
+		type="gov.nih.nci.ispy.web.struts.action.CategoricalCorrelationAction"
+		name="categoricalCorrelationForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToCategoricalCorrelation" path="ispy.categoricalCorrelation" />
+		<forward name="categoricalCorrelationSetup" path="/categoricalCorrelationInit.do?method=setup" />
+	</action>
+	
+	<action path="/categoricalcorrelation"
+	    input="/categoricalCorrelationInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.CategoricalCorrelationAction"
+		name="categoricalCorrelationForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToCategoricalCorrelation" path="ispy.categoricalCorrelation" />
+		<forward name="categoricalCorrelationSetup" path="/categoricalCorrelationInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/fish"
+		forward="ispy.fish" />
+		
+	<action path="/fishQueryInit"
+		type="gov.nih.nci.ispy.web.struts.action.FISHQueryAction"
+		name="fishQueryForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToFISHQuery" path="ispy.fishQuery" />
+		<forward name="fishQuerySetup" path="/fishQueryInit.do?method=setup" />
+	</action>
+	
+	<action path="/fishquery"
+	    input="/fishQueryInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.FISHQueryAction"
+		name="fishQueryForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToFISHQuery" path="ispy.fishQuery" />
+		<forward name="fishQuerySetup" path="/fishQueryInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/p53QueryInit"
+		type="gov.nih.nci.ispy.web.struts.action.P53QueryAction"
+		name="p53QueryForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToP53Query" path="ispy.p53Query" />
+		<forward name="p53QuerySetup" path="/p53QueryInit.do?method=setup" />
+	</action>
+	
+		<action path="/p53query"
+	    input="/p53QueryInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.P53QueryAction"
+		name="p53QueryForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToP53Query" path="ispy.p53Query" />
+		<forward name="p53QuerySetup" path="/p53QueryInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	
+	<action path="/ihcLevel"
+		forward="ispy.ihcLevel" />
+		
+	<action path="/ihcLevelQueryInit"
+		type="gov.nih.nci.ispy.web.struts.action.IHCLevelOfExpressionQueryAction"
+		name="ihcLevelQueryForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToIHCLevelQuery" path="ispy.ihcLevelQuery" />
+		<forward name="ihcLevelQuerySetup" path="/ihcLevelQueryInit.do?method=setup" />
+	</action>
+	
+	<action path="/ihclevelquery"
+	    input="/ihcLevelQueryInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.IHCLevelOfExpressionQueryAction"
+		name="ihcLevelQueryForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToIHCLevelQuery" path="ispy.ihcLevelQuery" />
+		<forward name="ihcLevelQuerySetup" path="/ihcLevelQueryInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/ihcLoss"
+		forward="ispy.ihcLoss" />
+		
+	<action path="/ihcLossQueryInit"
+		type="gov.nih.nci.ispy.web.struts.action.IHCLossOfExpressionQueryAction"
+		name="ihcLossQueryForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToIHCLossQuery" path="ispy.ihcLossQuery" />
+		<forward name="ihcLossQuerySetup" path="/ihcLossQueryInit.do?method=setup" />
+	</action>
+	
+	<action path="/ihclossquery"
+	    input="/ihcLossQueryInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.IHCLossOfExpressionQueryAction"
+		name="ihcLossQueryForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToIHCLossQuery" path="ispy.ihcLosslQuery" />
+		<forward name="ihcLossQuerySetup" path="/ihcLossQueryInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	   
+	<action path="/classComparison"
+         forward="ispy.classComparison" />
+         
+    <action path="/classcomparisonInit"    	    
+	    type="gov.nih.nci.ispy.web.struts.action.ClassComparisonAction"
+		name="classComparisonForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToClassComparison" path="ispy.classComparison" />
+		<forward name="classComparisonSetup" path="/classcomparisonInit.do?method=setup" />
+	</action>
+	
+	<action path="/classcomparison"
+	    input="/classcomparisonInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.ClassComparisonAction"
+		name="classComparisonForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToClassComparison" path="ispy.classComparison" />
+		<forward name="classComparisonSetup" path="/classcomparisonInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/testReport" forward="/WEB-INF/jsp/ccReport.jsp" />
+	
+	<action path="/awWrapper" forward="/WEB-INF/jsp/awFrame.jsp" />
+	
+	<action path="/idDownload" forward="/WEB-INF/jsp/idMapperCSV.jsp" />
+	
+	<action path="/principalComponent"
+         forward="nautilus.principalComponent" />
+         
+    <action path="/principalcomponentInit"
+		type="gov.nih.nci.ispy.web.struts.action.PrincipalComponentAction"
+		name="principalComponentForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToPrincipalComponent" path="ispy.principalComponent" />
+		<forward name="principalComponentSetup" path="/principalcomponentInit.do?method=setup" />
+	</action>
+	
+	<action path="/principalcomponent"
+	    input="/principalcomponentInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.PrincipalComponentAction"
+		name="principalComponentForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToPrincipalComponent" path="ispy.principalComponent" />
+		<forward name="principalComponentSetup" path="/principalcomponentInit.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/hierarchicalClustering"
+         forward="ispy.hierarchicalClustering" />
+	
+	<action path="/hierarchicalclustering"
+	    input="/hierarchicalclusteringInit.do?method=setup"
+		type="gov.nih.nci.ispy.web.struts.action.HierarchicalClusteringAction"
+		name="hierarchicalClusteringForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="backToHierarchicalClustering" path="ispy.hierarchicalClustering" />
+		<forward name="hierarchicalClusteringSetup" path="/hierarchicalclustering.do?method=setup" />
+		<forward name="viewResults" path="/viewResults.do" />
+	</action>
+	
+	<action path="/hierarchicalclusteringInit"
+		type="gov.nih.nci.ispy.web.struts.action.HierarchicalClusteringAction"
+		name="hierarchicalClusteringForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="backToHierarchicalClustering" path="ispy.hierarchicalClustering" />
+		<forward name="hierarchicalClusteringSetup" path="/hierarchicalclustering.do?method=setup" />
+	</action>
+
+	<action path="/gpintegrationInit"
+		type="gov.nih.nci.ispy.web.struts.action.GPIntegrationAction"
+		name="gpIntegrationForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="success" path="ispy.gpIntegration" />
+	</action>
+		
+	<action path="/gpintegration"
+		input="ispy.gpIntegration"
+		type="gov.nih.nci.ispy.web.struts.action.GPIntegrationAction"
+		name="gpIntegrationForm"
+		scope="request"
+		validate="true"
+		parameter="method">
+		<forward name="success" path="ispy.gpIntegration" />
+		<!-- <forward name="viewJob" path="ispy.gpJobView" /> -->
+		<forward name="viewJob" path="/gpProcess.do?method=setup" />
+	</action>
+	
+		<action path="/gpProcess"
+		input="ispy.gpJobView"
+		type="gov.nih.nci.ispy.web.struts.action.GPProcessAction"
+		name="gpProcessForm"
+		scope="request"
+		validate="false"
+		parameter="method">
+		<forward name="success" path="ispy.gpJobView" />
+		<forward name="appletViewer" path="ispy.gpJobView" />
+		<forward name="viewJob" path="/gpProcess.do?method=setup" />
+	</action>
+	
+		<action path="/gpApplet"
+         forward="/Applets/gp/gpApplet.jsp" />
+
+	<action path="/loeReport" forward="/WEB-INF/jsp/loeReport.jsp" />
+	
+	<action path="/p53Report" forward="/WEB-INF/jsp/p53Report.jsp" />
+	
+	<action path="/pcaReport" forward="/WEB-INF/jsp/pcaReport.jsp" />
+	
+	<action path="/corrReport" forward="/WEB-INF/jsp/corrReport.jsp" />
+	
+	<action path="/catCorrReport" forward="/WEB-INF/jsp/catCorrReport.jsp" />
+	
+	<action path="/hcReport" forward="/WEB-INF/jsp/hcReport.jsp" />
+
+	<action path="/quickClinical" forward="/WEB-INF/jsp/quickClinical.jsp" />
+	
+	<action path="/simpleSearch" forward="ispy.simpleSearch" />
+	
+	<action path="/manageLists" forward="ispy.manageLists" />
+	
+	
+	<action path="/viewResults"
+	    input="ispy.viewResults"
+		type="gov.nih.nci.ispy.web.struts.action.ViewResultsAction"
+		name="viewResultsForm"
+		scope="request">
+		<forward name="success" path="ispy.viewResults" />
+	</action>
+	
+	<action path="/runReport"
+           name="reportGeneratorForm"
+	       type="gov.nih.nci.ispy.web.struts.action.ReportGeneratorAction"
+	       scope="request"
+           parameter="method"
+           validate="false">
+         <forward name="runGeneViewReport" path="/jsp/geneViewReport.jsp" />
+         <forward name="runCSVGeneViewReport" path="/jsp/geneViewReportCSV.jsp" />
+    </action>
+ </action-mappings>
+    
+    <!-- ========== Controller Configuration =============================== -->
+    <controller />
+    <!-- ========== Message Resources Definitions ========================== -->
+    <message-resources parameter="ApplicationResources" />
+    <!-- ========== Plug Ins Configuration ================================= -->
+	 <plug-in className="org.apache.struts.tiles.TilesPlugin" >
+	   <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml" />
+	   <set-property property="definitions-parser-validate" value="true" />
+	   <set-property property="definitions-debug" value="2" />
+	   <set-property property="definitions-parser-details" value="2" />
+	   <set-property property="moduleAware" value="true" />
+	 </plug-in>
+</struts-config>
+
