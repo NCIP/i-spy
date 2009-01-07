@@ -6,7 +6,7 @@
 
 <fieldset class="gray">
 <legend class="red">Clinical Parameters
-<app:help help="Select clinical parameters to further filter the query" />
+<a href="javascript: Help.popHelp('clinical_parameters_tooltip_clinicalq');">[?]</a></legend>
 </legend>
        <div class="mains">
 	       <div>
