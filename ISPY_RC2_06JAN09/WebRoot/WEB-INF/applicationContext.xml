@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation">
+			<value>/WEB-INF/ispy-domain-hibernate.cfg.xml</value>
+		</property>
+
+	</bean>
+	
+	<bean id="uiLookupLoader"
+		class="gov.nih.nci.ispy.util.UILookupMapLoader">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<!-- Transactional advice pointcut definition -->
+	<aop:config>
+		<aop:pointcut id="lookupMethods"
+			expression="execution(* gov.nih.nci.ispy.util.UILookupMapLoader.getMap())" />
+		<aop:advisor advice-ref="txAdvice"
+			pointcut-ref="lookupMethods" />
+	</aop:config>
+
+
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED"
+				read-only="false" />
+		</tx:attributes>
+	</tx:advice>
+	
+
+</beans>
