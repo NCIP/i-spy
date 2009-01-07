@@ -1,0 +1,43 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>I-SPY Login script for QA testing</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Login</td></tr>
+</thead><tbody>
+
+<!-- Login -->
+<tr>
+	<td>open</td>
+	<td>/ispy/</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>userName</td>
+	<td>NCIISPYGuest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>password</td>
+	<td>!spy1234</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Submit']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=CLICKING HERE</td>
+	<td></td>
+</tr>
+
+
+
+</tbody></table>
+</body>
+</html>
