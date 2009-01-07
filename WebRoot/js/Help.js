@@ -1,5 +1,5 @@
 var Help = {
-	url : "helpDocs/ISPY_Online_Help/index.html?single=false&context=I-SPY_Online_Help&topic=",
+	url : "helpDocs/I-SPY_Online_Help/index.html?single=false&context=I-SPY_Online_Help&topic=",
 	popHelp: function(topic) {
 		window.open (Help.url+topic, "Help", "status,scrollbars,resizable,width=800,height=500");  
 		//use the below if you want the "always on top" feature, most dont like it
@@ -51,7 +51,11 @@ var Help = {
 				break;	
 			case "gpintegration":
 				ta = "Genepattern_input";
-				break;							
+				break;	
+			case "p53query":
+				ta = "p53_query_analysis";
+				break;	
+										
 			default:
 				break;
 		
