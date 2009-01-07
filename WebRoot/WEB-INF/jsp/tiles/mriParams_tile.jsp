@@ -6,7 +6,7 @@
 
 <fieldset class="gray">
 <legend class="red">MR Parameters
-<app:help help="Select mri parameters to further filter the query. Morphology text area will parse a line delimited set of keywords." />
+<a href="javascript: Help.popHelp('MR_parameters_tooltip_clinicalq');">[?]</a></legend>
 </legend>
 	<div class="mains">
 	      <div>

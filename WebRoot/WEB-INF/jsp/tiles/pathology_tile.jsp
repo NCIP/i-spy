@@ -6,7 +6,7 @@
 
 <fieldset class="gray">
 <legend class="red">Pathology
-<app:help help="Select receptor status to further filter the query" />
+<a href="javascript: Help.popHelp('pathology_tooltip_clinicalq');">[?]</a></legend>
 </legend>
 	      <div class="mains">
 	      <html:errors property="pathTumorSizeParse" />

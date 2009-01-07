@@ -6,7 +6,7 @@
 
 <fieldset class="gray">
 <legend class="red">P53 Mutation Status
-<app:help help="Select mutation status to further filter the query." />
+<a href="javascript: Help.popHelp('P53_tooltip_mutation_status');">[?]</a></legend>
 </legend>
 	<div class="mains">
 	      <div>&nbsp;&nbsp;	        			
@@ -21,7 +21,7 @@
 
 <fieldset class="gray">
 <legend class="red">Mutation Type
-<app:help help="Select mutation type to further filter the query." />
+<a href="javascript: Help.popHelp('P53_tooltip_mutation_status');">[?]</a></legend>
 </legend>
 	<div class="mains">
 	      <div>	 &nbsp;&nbsp;       			

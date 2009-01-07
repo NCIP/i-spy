@@ -5,7 +5,9 @@
 <fieldset class="gray">
 <legend class="red">
 Select Timepoint 
-<b class="req">*</b></legend>
+<a href="javascript: Help.popHelp('select_group_tooltip_P53');">[?]</a></legend>
+</legend>
+
 
 <html:errors property="timepoints"/><br />
 <table border="0">
