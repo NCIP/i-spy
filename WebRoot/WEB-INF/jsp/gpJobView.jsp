@@ -75,7 +75,7 @@ function turnOffLoadingMessage(){
 </script>
 <br/>
   
-<script type="text/javascript">Help.insertHelp("View_results_overview", " align='right'", "padding:2px;");</script>   
+<script type="text/javascript">Help.insertHelp("Genepattern_job_result", " align='right'", "padding:2px;");</script>   
 
  <fieldset>
      	<legend>GenePattern Modules <a href="javascript: Help.popHelp('genepattern_Modules_tooltip');">[?]</a></legend>
