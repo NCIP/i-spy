@@ -70,12 +70,12 @@
 		  <!-- navigation icons courtesy of:  Anthony J. Brutico, D.O. -->
 		  <a href="#" onclick="javascript:window.close();"><img align="right" src="images/close.png" border="0" onmouseover="return overlib('Close this report.', CAPTION, 'Help', CSSCLASS,TEXTFONTCLASS,'fontClass',FGCLASS,'fgClass',BGCLASS,'bgClass',CAPTIONFONTCLASS,'capfontClass', OFFSETX, -50);" onmouseout="return nd();"/> </a> 
 		  
-		  <!-- insert correct loe help-->
-		  <xsl:if test="/Report[@reportType = 'levelExpression']">
-		  			<script type="text/javascript">Help.insertHelp("IHC_LOE_results", " align='right'", "padding:2px;");</script>
+		  <!-- insert correct p53 help-->
+		  <xsl:if test="/Report[@reportType = 'p53Query']">
+		  			<script type="text/javascript">Help.insertHelp("p53_job_result", " align='right'", "padding:2px;");</script>
 		  </xsl:if>
-		  <xsl:if test="/Report[@reportType != 'levelExpression']">
-		  			<script type="text/javascript">Help.insertHelp("IHC_Loss_results", " align='right'", "padding:2px;");</script>
+		  <xsl:if test="/Report[@reportType != 'p53Query']">
+		  			<script type="text/javascript">Help.insertHelp("p53_job_result", " align='right'", "padding:2px;");</script>
 		  </xsl:if>
 		  
 		  <a href="p53.excelReport?key={$key}"><img align="right" src="images/excel.png" border="0" alt="download for excel" onmouseover="return overlib('Download for Excel.', CAPTION, 'Help', CSSCLASS,TEXTFONTCLASS,'fontClass',FGCLASS,'fgClass',BGCLASS,'bgClass',CAPTIONFONTCLASS,'capfontClass', OFFSETX, -50);" onmouseout="return nd();"/></a>
