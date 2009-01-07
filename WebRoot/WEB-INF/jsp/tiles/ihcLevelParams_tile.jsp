@@ -6,7 +6,7 @@
 
 <fieldset class="gray">
 <legend class="red">Intensity of Stain
-<app:help help="Select intensity of stain to further filter the query." />
+<a href="javascript: Help.popHelp('IHC_LOE_query_intensity_tooltip');">[?]</a></legend>
 </legend>
 	<div class="mains">
 	      <div>&nbsp;&nbsp;	        			
@@ -19,7 +19,7 @@
 
 <fieldset class="gray">
 <legend class="red">Percent Positive
-<app:help help="Select percent positive to further filter the query." />
+<a href="javascript: Help.popHelp('IHC_LOE_query_intensity_tooltip');">[?]</a></legend>
 </legend>
 	<div class="mains">
 	      <div>	        			
@@ -32,7 +32,7 @@
 
 <fieldset class="gray">
 <legend class="red">Localization of Stain
-<app:help help="Select localization of stain to further filter the query." />
+<a href="javascript: Help.popHelp('IHC_LOE_query_intensity_tooltip');">[?]</a></legend>
 </legend>
 	<div class="mains">
 	      <div>	 &nbsp;&nbsp;       			
