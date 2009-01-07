@@ -15,6 +15,7 @@ String newLocn = "simpleSearch.do";
 response.setHeader("Location",newLocn);
 }
 String update = System.getProperty("gov.nih.nci.ispyportal.data_updates");
+
 String[] updates = update.split(",");
 %>
 
@@ -91,7 +92,7 @@ String[] updates = update.split(",");
 													The NCI Center for Bioinformatics (NCICB) is designing a web-based system to support correlative data analysis and centralized reporting of results.
 												</p>
 												
-												<br /><span style="font-weight:bold;font-style:italic">version 1.5</span><br/><br/>
+												<br /><span style="font-weight:bold;font-style:italic">version 1.5.1</span><br/><br/>
 													<span style="text-decoration:underline">Latest data updates</span>
 														<ul>
 														<%
@@ -102,7 +103,7 @@ String[] updates = update.split(",");
 														</ul>
 											
 														<span style="text-decoration:underline">Additional Information:</span>
-															<ul> <li><a style="font-size:.9em;" href="docs/ReleaseNote_1.5.doc">Release Note</a></li>
+															<ul> <li><a style="font-size:.9em;" href="docs/ReleaseNote_1.5.1.doc">Release Note</a></li>
 															<li><a style="font-size:.9em" href="javascript:Help.popHelp('Cite_data');">How to Cite I-spy Data</a></li></ul>
 													
 											</div>
