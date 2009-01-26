@@ -124,7 +124,8 @@ String[] updates = update.split(",");
 																	username:
 																</td>
 																<td>
-																	<html:text property="userName" />
+																	<!--<html:text property="userName" />-->
+																	<input type="text" name="userName"/>
 																</td>
 																<td rowspan="3">
 																	  <script type="text/javascript">Help.insertHelp("Logging_in", " align='right'", "padding:2px;");</script>												
@@ -135,7 +136,8 @@ String[] updates = update.split(",");
 																	password:
 																</td>
 																<td>
-																	<html:password property="password" />
+																	<!--<html:password property="password" />-->
+																	<input type="password" name="password"/>
 																</td>
 															</tr>
 															<tr>
