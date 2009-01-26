@@ -225,8 +225,9 @@
 				  <xsl:variable name="currentone" select="position()"/>
 				  		<td style="color:red" rowspan="{$rowspan}">
 							<xsl:value-of select="Data" />
-							<img id="{$currentone}_sort_img_up" style="margin-left:5px;" src="images/openUpArrow.png" onclick="javascript:goSort('{$currentone}','ascending', '{$key}');" />
+						<!--  <img id="{$currentone}_sort_img_up" style="margin-left:5px;" src="images/openUpArrow.png" onclick="javascript:goSort('{$currentone}','ascending', '{$key}');" />
 							<img id="{$currentone}_sort_img_down" style="margin-left:0px;" src="images/openDownArrow.png" onclick="javascript:goSort('{$currentone}','descending', '{$key}');" />
+						-->
 						</td>
 				  </xsl:otherwise>				  
 			</xsl:choose>
