@@ -15,6 +15,7 @@ String newLocn = "simpleSearch.do";
 response.setHeader("Location",newLocn);
 }
 String update = System.getProperty("gov.nih.nci.ispyportal.data_updates");
+
 String[] updates = update.split(",");
 %>
 
@@ -39,20 +40,11 @@ String[] updates = update.split(",");
 		
 		<style type="text/css" media="screen">@import "css/tabs.css";</style>
 
-<SCRIPT TYPE="text/javascript">
-<!--
-function popuplogin()
-{
-window.location.href = "index2.jsp";
-return false;
-}
-//-->
-</SCRIPT>
 	</head>
 
-	
-	<body onLoad="popuplogin()">
-	
+	<body>
+
+ 
 		<!--header NCI logo-->
 		<table width="765" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#A90101">
 			<tr bgcolor="#A90101">
@@ -100,7 +92,7 @@ return false;
 													The NCI Center for Bioinformatics (NCICB) is designing a web-based system to support correlative data analysis and centralized reporting of results.
 												</p>
 												
-												<br /><span style="font-weight:bold;font-style:italic">version 1.5</span><br/><br/>
+												<br /><span style="font-weight:bold;font-style:italic">version 1.5.1</span><br/><br/>
 													<span style="text-decoration:underline">Latest data updates</span>
 														<ul>
 														<%
@@ -111,7 +103,7 @@ return false;
 														</ul>
 											
 														<span style="text-decoration:underline">Additional Information:</span>
-															<ul> <li><a style="font-size:.9em;" href="docs/ReleaseNote_1.5.doc">Release Note</a></li>
+															<ul> <li><a style="font-size:.9em;" href="docs/ReleaseNote_1.5.1.doc">Release Note</a></li>
 															<li><a style="font-size:.9em" href="javascript:Help.popHelp('Cite_data');">How to Cite I-spy Data</a></li></ul>
 													
 											</div>
@@ -121,49 +113,49 @@ return false;
 													<img src="images/ribbon.gif" alt="cancer robbon with dna strand overlay" />
 
 													<!--login form/table begins-->
-<%--													<html:form action="login.do">--%>
+													<html:form action="login.do">
 														<div style="width:200px">
-															<br /> <br /><br /><a href="index2.jsp"><span style="font-size:16px;color:gray;text-align:left">Click here to login</span></a>
+															<br /> <br /><br /><span style="font-size:16px;color:gray;text-align:left">login</span>
 															<html:errors property="invalidLogin" />
 														</div>
-<%--														<table border="0">--%>
-<%--															<tr>--%>
-<%--																<Td>--%>
-<%--																	username:--%>
-<%--																</td>--%>
-<%--																<td>--%>
-<%--																	<html:text property="userName" />--%>
-<%--																</td>--%>
-<%--																<td rowspan="3">--%>
-<%--																	  <script type="text/javascript">Help.insertHelp("Logging_in", " align='right'", "padding:2px;");</script>												--%>
-<%--																</td>--%>
-<%--															</tr>--%>
-<%--															<tr>--%>
-<%--																<Td>--%>
-<%--																	password:--%>
-<%--																</td>--%>
-<%--																<td>--%>
-<%--																	<html:password property="password" />--%>
-<%--																</td>--%>
-<%--															</tr>--%>
-<%--															<tr>--%>
-<%--																<td colspan="2" align="right">--%>
-<%--																	<html:submit />--%>
-<%--																	&nbsp;&nbsp;--%>
-<%--																	<html:reset />--%>
-<%--																</td>																	      --%>
-<%--															</tr>--%>
-<%--													--%>
-<%--														</table>--%>
-<%----%>
-<%----%>
-<%--													</html:form>--%>
+														<table border="0">
+															<tr>
+																<Td>
+																	username:
+																</td>
+																<td>
+																	<!--<html:text property="userName" />-->
+																	<input type="text" name="userName"/>
+																</td>
+																<td rowspan="3">
+																	  <script type="text/javascript">Help.insertHelp("Logging_in", " align='right'", "padding:2px;");</script>												
+																</td>
+															</tr>
+															<tr>
+																<Td>
+																	password:
+																</td>
+																<td>
+																	<!--<html:password property="password" />-->
+																	<input type="password" name="password"/>
+																</td>
+															</tr>
+															<tr>
+																<td colspan="2" align="right">
+																	<html:submit />
+																	&nbsp;&nbsp;
+																	<html:reset />
+																</td>																	      
+															</tr>
+													
+														</table>
+													</html:form>
 													<!--end login form-->
-<%--													<div style="width:80%;margin-left:-20px;">--%>
-<%--												      <ul>--%>
-<%--												       <li><a style="font-size:.9em;" href="mailto:ncicb@pop.nci.nih.gov?subject=ISPY: Request username/password">request username/password</a></li>--%>
-<%--													  <ul>													--%>
-<%--													</div>													 --%>
+													<div style="width:80%;margin-left:-20px;">
+												      <ul>
+												       <li><a style="font-size:.9em;" href="mailto:ncicb@pop.nci.nih.gov?subject=ISPY: Request username/password">request username/password</a></li>
+													  <ul>													
+													</div>													 
 												</div>
 											</div>
 
