@@ -39,9 +39,9 @@
            type="gov.nih.nci.ispy.web.struts.action.LoginAction"
            name="loginForm"
            scope="request"
-           input="/index.jsp">
+           input="/index2.jsp">
     <forward name="success" path="/legal.jsp"/> 
-    <forward name="failure" path="/index.jsp"/>    
+    <forward name="failure" path="/index2.jsp"/>    
     </action> 
     
     <action path="/logout"
