@@ -121,49 +121,10 @@ return false;
 													<img src="images/ribbon.gif" alt="cancer robbon with dna strand overlay" />
 
 													<!--login form/table begins-->
-<%--													<html:form action="login.do">--%>
 														<div style="width:200px">
-															<br /> <br /><br /><a href="index2.jsp"><span style="font-size:16px;color:gray;text-align:left">Click here to login</span></a>
+															<br/><br/><br/><a href="index2.jsp"><span style="font-size:16px;color:gray;text-align:left">Click here to login</span></a>
 															<html:errors property="invalidLogin" />
 														</div>
-<%--														<table border="0">--%>
-<%--															<tr>--%>
-<%--																<Td>--%>
-<%--																	username:--%>
-<%--																</td>--%>
-<%--																<td>--%>
-<%--																	<html:text property="userName" />--%>
-<%--																</td>--%>
-<%--																<td rowspan="3">--%>
-<%--																	  <script type="text/javascript">Help.insertHelp("Logging_in", " align='right'", "padding:2px;");</script>												--%>
-<%--																</td>--%>
-<%--															</tr>--%>
-<%--															<tr>--%>
-<%--																<Td>--%>
-<%--																	password:--%>
-<%--																</td>--%>
-<%--																<td>--%>
-<%--																	<html:password property="password" />--%>
-<%--																</td>--%>
-<%--															</tr>--%>
-<%--															<tr>--%>
-<%--																<td colspan="2" align="right">--%>
-<%--																	<html:submit />--%>
-<%--																	&nbsp;&nbsp;--%>
-<%--																	<html:reset />--%>
-<%--																</td>																	      --%>
-<%--															</tr>--%>
-<%--													--%>
-<%--														</table>--%>
-<%----%>
-<%----%>
-<%--													</html:form>--%>
-													<!--end login form-->
-<%--													<div style="width:80%;margin-left:-20px;">--%>
-<%--												      <ul>--%>
-<%--												       <li><a style="font-size:.9em;" href="mailto:ncicb@pop.nci.nih.gov?subject=ISPY: Request username/password">request username/password</a></li>--%>
-<%--													  <ul>													--%>
-<%--													</div>													 --%>
 												</div>
 											</div>
 
@@ -187,11 +148,13 @@ return false;
 									<a href="http://www.cancer.gov/"><img src="images/footer_nci.gif" width="63" height="31" alt="National Cancer Institute" border="0"></a> <a href="http://www.dhhs.gov/"><img src="images/footer_hhs.gif" width="39" height="31"
 											alt="Department of Health and Human Services" border="0"></a> <a href="http://www.nih.gov/"><img src="images/footer_nih.gif" width="46" height="31" alt="National Institutes of Health" border="0"></a> <a href="http://www.firstgov.gov/"><img
 											src="images/footer_firstgov.gif" width="91" height="31" alt="FirstGov.gov" border="0"></a>
+								</div>
 							</td>
 						</tr>
 					</table>
 					<!-- End Footer table -->
 				</div>
 			</div>
+		</div>
 	</body>
 </html>

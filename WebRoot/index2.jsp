@@ -154,7 +154,7 @@ String[] updates = update.split(",");
 													<div style="width:80%;margin-left:-20px;">
 												      <ul>
 												       <li><a style="font-size:.9em;" href="mailto:ncicb@pop.nci.nih.gov?subject=ISPY: Request username/password">request username/password</a></li>
-													  <ul>													
+													  </ul>													
 													</div>													 
 												</div>
 											</div>
@@ -179,11 +179,13 @@ String[] updates = update.split(",");
 									<a href="http://www.cancer.gov/"><img src="images/footer_nci.gif" width="63" height="31" alt="National Cancer Institute" border="0"></a> <a href="http://www.dhhs.gov/"><img src="images/footer_hhs.gif" width="39" height="31"
 											alt="Department of Health and Human Services" border="0"></a> <a href="http://www.nih.gov/"><img src="images/footer_nih.gif" width="46" height="31" alt="National Institutes of Health" border="0"></a> <a href="http://www.firstgov.gov/"><img
 											src="images/footer_firstgov.gif" width="91" height="31" alt="FirstGov.gov" border="0"></a>
+								</div>
 							</td>
 						</tr>
 					</table>
 					<!-- End Footer table -->
 				</div>
 			</div>
+		</div>
 	</body>
 </html>
