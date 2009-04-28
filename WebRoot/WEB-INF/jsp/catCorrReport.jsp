@@ -60,7 +60,6 @@ String key = request.getParameter("key")!=null ? (String) request.getParameter("
 		
 	</tr>
 </table>
-</div>
 
 </body>
 </html>
