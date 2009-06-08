@@ -7,7 +7,7 @@
 <fieldset class="gray">
 <legend class="red">P53 Mutation Status
 <a href="javascript: Help.popHelp('P53_tooltip_mutation_status');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>&nbsp;&nbsp;	        			
 					<html:select property="mutationStatus" multiple="true" size="3">						
@@ -22,7 +22,7 @@
 <fieldset class="gray">
 <legend class="red">Mutation Type
 <a href="javascript: Help.popHelp('P53_tooltip_mutation_status');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>	 &nbsp;&nbsp;       			
 					<html:select property="mutationType" multiple="true" size="3">						

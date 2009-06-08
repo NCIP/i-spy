@@ -6,7 +6,7 @@
 <legend class="red">
 Select Timepoint 
 <a href="javascript: Help.popHelp('select_group_tooltip_P53');">[?]</a></legend>
-</legend>
+
 
 
 <html:errors property="timepoints"/><br />

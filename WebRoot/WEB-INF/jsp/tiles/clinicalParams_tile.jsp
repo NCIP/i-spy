@@ -7,7 +7,7 @@
 <fieldset class="gray">
 <legend class="red">Clinical Parameters
 <a href="javascript: Help.popHelp('clinical_parameters_tooltip_clinicalq');">[?]</a></legend>
-</legend>
+
        <div class="mains">
 	       <div>
 	        <b class="subfield">Clinical Stage</b>

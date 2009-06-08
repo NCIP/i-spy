@@ -7,7 +7,7 @@
 <fieldset class="gray">
 <legend class="red">Invasive Range
 <a href="javascript: Help.popHelp('IHC_Loss_query_invasiveSum_tooltip');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>&nbsp;&nbsp;	
 	      			invasive sum	      			        			
@@ -22,7 +22,7 @@
 <fieldset class="gray">
 <legend class="red">Benign Range
 <a href="javascript: Help.popHelp('IHC_Loss_query_benignSum_tooltip');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>&nbsp;&nbsp;	
 	      			benign sum	      			        			
@@ -37,7 +37,7 @@
 <fieldset class="gray">
 <legend class="red">Result Code
 <a href="javascript: Help.popHelp('IHC_Loss_query_invasiveSum_tooltip');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>	 &nbsp;&nbsp;       			
 					<html:select property="lossResult" multiple="true" size="3">						

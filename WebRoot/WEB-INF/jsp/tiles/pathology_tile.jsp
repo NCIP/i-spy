@@ -7,7 +7,7 @@
 <fieldset class="gray">
 <legend class="red">Pathology
 <a href="javascript: Help.popHelp('pathology_tooltip_clinicalq');">[?]</a></legend>
-</legend>
+
 	      <div class="mains">
 	      <html:errors property="pathTumorSizeParse" />
 			<div>

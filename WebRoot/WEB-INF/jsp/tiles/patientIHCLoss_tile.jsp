@@ -7,7 +7,7 @@
 <fieldset class="gray">
 <legend class="red">Select Group
 <a href="javascript: Help.popHelp('IHC_Loss_query_select_group_tooltip');">[?]</a></legend>
-</legend>
+
 
 	<html:errors property="patients" />
       <html:select style="margin-left:20px" property="patientGroup">			

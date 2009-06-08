@@ -7,7 +7,7 @@
 <fieldset class="gray">
 <legend class="red">Select Biomarkers
 <a href="javascript: Help.popHelp('IHC_LOE_query_biomarkers_tooltip');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>
 	      <logic:present name="fishQueryForm">

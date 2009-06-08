@@ -7,7 +7,7 @@
 <fieldset class="gray">
 <legend class="red">MR Parameters
 <a href="javascript: Help.popHelp('MR_parameters_tooltip_clinicalq');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>
 	        <b class="subfield">Morphology</b>

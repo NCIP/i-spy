@@ -6,7 +6,7 @@
 <legend class="red">
 Select Timepoint 
 <a href="javascript: Help.popHelp('IHC_LOE_query_time_point_tooltip');">[?]</a></legend>
-</legend>
+
 
 
 <html:errors property="timepoints"/><br />

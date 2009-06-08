@@ -7,7 +7,7 @@
 <fieldset class="gray">
 <legend class="red">Intensity of Stain
 <a href="javascript: Help.popHelp('IHC_LOE_query_intensity_tooltip');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>&nbsp;&nbsp;	        			
 					<html:select property="stainIntensity" multiple="true" size="3">						
@@ -20,7 +20,7 @@
 <fieldset class="gray">
 <legend class="red">Percent Positive
 <a href="javascript: Help.popHelp('IHC_LOE_query_intensity_tooltip');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>	        			
 					 &nbsp;&nbsp;between &nbsp;&nbsp;<html:text property="lowPercentPositive" />						
@@ -33,7 +33,7 @@
 <fieldset class="gray">
 <legend class="red">Localization of Stain
 <a href="javascript: Help.popHelp('IHC_LOE_query_intensity_tooltip');">[?]</a></legend>
-</legend>
+
 	<div class="mains">
 	      <div>	 &nbsp;&nbsp;       			
 					<html:select property="stainLocalization" multiple="true" size="3">						
