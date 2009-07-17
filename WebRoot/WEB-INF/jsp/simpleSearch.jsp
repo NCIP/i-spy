@@ -25,7 +25,7 @@
 				//alert("cant save : " + TmpRegistrants.length + " : " + $('regName').value.length);
 				//alert("Please select some registrants and enter a name for your group");
 				$('saveStatus').innerHTML = "<br/><br/><b>Error: Please select some patients and enter a name for your group</b>";
-				setTimeout(function() { $('saveStatus').innerHTML = ""; }, 8000);
+				setTimeout(function() { $('saveStatus').innerHTML = ""; }, 15000);
 			}
 		},
 		'save' : function(regArray, name)	{
