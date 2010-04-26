@@ -113,7 +113,7 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				pd.setSurgeryMastectomy(getToken(tokens,24));
 				pd.setINITLUMP_FUPMAST(getToken(tokens,25));
 				pd.setSurgery(getToken(tokens,26));
-				pd.setDCISOnly(getToken(tokens,27));
+				pd.setDCISOnlyPS(getToken(tokens,27));
 				//  this is original Ptumor1szcm_micro, came from the clinical table, now it needs
 				// to be replaced with Ptumor1szcm_micro_1, from the pathology table, and the field should be String, not double anymore
 				/*String doubleStr = getToken(tokens,28);
@@ -124,414 +124,373 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				
 				pd.setPtumor1szcm_micro_1(getToken(tokens,28));
 				
-				pd.setHistTypePS(getToken(tokens,29));
+				// 04-22-2010 HisTypePs deleted in new clinic file
+//				pd.setHistTypePS(getToken(tokens,29));
 				
-				pd.setHistologicGradePS(getToken(tokens,30));
-				pd.setNumPosNodes(getToken(tokens,31));
-				pd.setNodesExamined(getToken(tokens,32));
-				pd.setPathologyStage(getToken(tokens,33));
-				pd.setReasonNoSurg(getToken(tokens,34));
-				pd.setRTTherapy(getToken(tokens,35));
-				pd.setRTBreast(getToken(tokens,36));
-				pd.setRTBOOST(getToken(tokens,37));
-				pd.setRTAXILLA(getToken(tokens,38));
-				pd.setRTSNODE(getToken(tokens,39));
-				pd.setRTIMAMNODE(getToken(tokens,40));
-				pd.setRTChestW(getToken(tokens,41));
-				pd.setRTOTHER(getToken(tokens,42));
-				pd.setTSizeClinical(getToken(tokens,43));
-				pd.setNSizeClinical(getToken(tokens,44));
-				pd.setStageTE(getToken(tokens,45));
-				pd.setStageNE(getToken(tokens,46));
-				pd.setStageME(getToken(tokens,47));
-				pd.setClinicalStage(getToken(tokens,48));
-				pd.setClinRespT1_T2(getToken(tokens,49));
-				pd.setClinRespT1_T3(getToken(tokens,50));
-				pd.setClinRespT1_T4(getToken(tokens,51));	
-				
-				pd.setLES_T1(getToken(tokens,52));
-				pd.setLES_T2(getToken(tokens,53));
-				pd.setLES_T3(getToken(tokens,54));
-				pd.setLES_T4(getToken(tokens,55));
-				
-				String doubleStr = getToken(tokens,56);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-					  pd.setLdT1(Double.valueOf(doubleStr.trim()));
-				}
-				doubleStr = getToken(tokens,57);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-					  pd.setLdT2(Double.valueOf(doubleStr.trim()));
-				}
-				
-				doubleStr = getToken(tokens,58);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-					  pd.setLdT3(Double.valueOf(doubleStr.trim()));
-				}
-				doubleStr = getToken(tokens,59);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-					  pd.setLdT4(Double.valueOf(doubleStr.trim()));
-				}
-				
-				doubleStr = getToken(tokens,60);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
-				}
+				pd.setHistologicGradePS(getToken(tokens,29));
+				pd.setNumPosNodesPS(getToken(tokens,30));
+				pd.setNodesExaminedPS(getToken(tokens,31));
+				pd.setPathologyStagePS(getToken(tokens,32));
+				pd.setReasonNoSurg(getToken(tokens,33));
+				pd.setRTTherapy(getToken(tokens,34));
+				pd.setRTBreast(getToken(tokens,35));
+				pd.setRTBOOST(getToken(tokens,36));
+				pd.setRTAXILLA(getToken(tokens,37));
+				pd.setRTSNODE(getToken(tokens,38));
+				pd.setRTIMAMNODE(getToken(tokens,39));
+				pd.setRTChestW(getToken(tokens,40));
+				pd.setRTOTHER(getToken(tokens,41));
+				pd.setTSizeClinical(getToken(tokens,42));
+				pd.setNSizeClinical(getToken(tokens,43));
+				pd.setStageTE(getToken(tokens,44));
+				pd.setStageNE(getToken(tokens,45));
+				pd.setStageME(getToken(tokens,46));
+				pd.setClinicalStage(getToken(tokens,47));
+				pd.setClinRespT1_T2(getToken(tokens,48));
+				pd.setClinRespT1_T3(getToken(tokens,49));
+				pd.setClinRespT1_T4(getToken(tokens,50));	
+
+				// 04-17-2010, delete LES_T1, LES_T2, LES_T3, LES_T4, LD_T1, LD_T2, LD_T3, LD_T4,
+//				pd.setLES_T1(getToken(tokens,52));
+//				pd.setLES_T2(getToken(tokens,53));
+//				pd.setLES_T3(getToken(tokens,54));
+//				pd.setLES_T4(getToken(tokens,55));
 //				
-				doubleStr = getToken(tokens,61);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
-			    }
-//				System.out.println(" line = in the  setPatientDataMap()M method: 017");
-				doubleStr = getToken(tokens,62);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
-			    }
+//				String doubleStr = getToken(tokens,56);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//					  pd.setLdT1(Double.valueOf(doubleStr.trim()));
+//				}
+//				doubleStr = getToken(tokens,57);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//					  pd.setLdT2(Double.valueOf(doubleStr.trim()));
+//				}
+//				
+//				doubleStr = getToken(tokens,58);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//					  pd.setLdT3(Double.valueOf(doubleStr.trim()));
+//				}
+//				doubleStr = getToken(tokens,59);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//					  pd.setLdT4(Double.valueOf(doubleStr.trim()));
+//				}
 				
-				doubleStr = getToken(tokens,63);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-				  pd.setMriPctChangeT2_T3(Double.valueOf(doubleStr.trim()));
-			    }
-				doubleStr = getToken(tokens,64);
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-				  pd.setMriPctChangeT2_T4(Double.valueOf(doubleStr.trim()));
-			    }
-				
-				doubleStr = getToken(tokens,65);
-				
-				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
-				  pd.setMriPctChangeT3_T4(Double.valueOf(doubleStr.trim()));
-			    }
-								
-				
-				pd.setMorphology(getToken(tokens,66));
+//				String doubleStr = getToken(tokens,52);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT1_T2(Double.valueOf(doubleStr.trim()));
+//				}
+////				
+//				doubleStr = getToken(tokens,53);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT1_T3(Double.valueOf(doubleStr.trim()));
+//			    }
+////				System.out.println(" line = in the  setPatientDataMap()M method: 017");
+//				doubleStr = getToken(tokens,54);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT1_T4(Double.valueOf(doubleStr.trim()));
+//			    }
+//				
+//				doubleStr = getToken(tokens,55);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT2_T3(Double.valueOf(doubleStr.trim()));
+//			    }
+//				doubleStr = getToken(tokens,56);
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT2_T4(Double.valueOf(doubleStr.trim()));
+//			    }
+//				
+//				doubleStr = getToken(tokens,57);
+//				
+//				if ((doubleStr!=null)&&(doubleStr.trim().length()>0)) {
+//				  pd.setMriPctChangeT3_T4(Double.valueOf(doubleStr.trim()));
+//			    }
+//								
+				// not found this column
+//				pd.setMorphology(getToken(tokens,66));
 				
 			// make sure it is 68 or 67 when real file gets generated
 				// residual cancer burden index, number field
-				
-				pd.setRcbIndexSize(getToken(tokens,68));
+				pd.setRcbIndexSize(getToken(tokens,51));
 			    
-				
-				
 				// pathology complete response
-				pd.setPcr(getToken(tokens,69));
+				pd.setPcr(getToken(tokens,52));
 				
                // InSituHisto
-				pd.setInSituHisto(getToken(tokens,70));		
+				pd.setInSituHistoPS(getToken(tokens,53));		
 				
 				
 				//invDzHisto
 				
-				pd.setInvDzHisto(getToken(tokens,71));		
+				pd.setInvDzHistoPS(getToken(tokens,54));		
 				
 				
 	            //invDzMultiFoc
 				
-				pd.setInvDzMultiFoc(getToken(tokens,72));		
+				pd.setInvDzMultiFoc(getToken(tokens,55));		
 			
 			    // invDzCellularity				
 				
-				pd.setInvDzCellularity(getToken(tokens,73));	
+				pd.setInvDzCellularity(getToken(tokens,56));	
 				
 				
                // surgMargins			
 				
-				pd.setSurgMargins(getToken(tokens,74));	
+				pd.setSurgMargins(getToken(tokens,57));	
 				
                // yT			
 				
-				pd.setYT(getToken(tokens,75));	
+				pd.setYT(getToken(tokens,58));	
 				
               // yN		
 				
-				pd.setYN(getToken(tokens,76));	
+				pd.setYN(getToken(tokens,59));	
 				
               // yM		
 				
-				pd.setYM(getToken(tokens,77));	
+				pd.setYM(getToken(tokens,60));	
 				
 				//inSituDz
 
-				pd.setInSituDz(getToken(tokens,78));	
+				pd.setInSituDzPS(getToken(tokens,61));	
 				
                 //	inSituSpan
 
-				pd.setInSituSpan(getToken(tokens,79));
+				pd.setInSituSpan(getToken(tokens,62));
 				
 				//%InSitu
 				
-				pd.setPercentInSitu(getToken(tokens,80));
+				pd.setPercentInSitu(getToken(tokens,63));
 				
 			
 	            //inSituGrade
 				
-				pd.setInSituGrade(getToken(tokens,81));
+				pd.setInSituGradePS(getToken(tokens,64));
 				
                //invDz
 				
-				pd.setInvDz(getToken(tokens,82));
+				pd.setInvDzPS(getToken(tokens,65));
 				
 				//lVI
 				
-				pd.setLVI(getToken(tokens,83));
+				pd.setLVI(getToken(tokens,66));
 				
 				
                //metSzLN
 				
-				pd.setMetSzLN(getToken(tokens,84));
+				pd.setMetSzLN(getToken(tokens,67));
 				
 				//rcbClass
 				
-				pd.setRcbClass(getToken(tokens,85));
+				pd.setRcbClass(getToken(tokens,68));
 				
 				// rCB_PATHSZ_1
 				
-				pd.setRCB_PATHSZ_1(getToken(tokens,86));
+				pd.setRCB_PATHSZ_1(getToken(tokens,69));
 				
               // rCB_PATHSZ_2
 				
-				pd.setRCB_PATHSZ_2(getToken(tokens,87));
+				pd.setRCB_PATHSZ_2(getToken(tokens,70));
 				
 				// ptumor1szcm_micro_2
 				
               // ptumor1szcm_micro_1, this is to replace ptumor1szcm_micro, which is token 28
 				
-				pd.setPtumor1szcm_micro_2(getToken(tokens,88));
+				pd.setPtumor1szcm_micro_2(getToken(tokens,71));
 			
               // Height			
 						
-				pd.setHeight(new Long(getToken(tokens,89)));
+				pd.setHeight(new Long(getToken(tokens,72)));
 				
 				 // Weight			
 				
-				pd.setWeight(new Long(getToken(tokens,90)));
+				pd.setWeight(new Long(getToken(tokens,73)));
 			
 				
 				 // BSA		
-				if(getToken(tokens,91)!= null && !getToken(tokens,91).equals("")){
-				    pd.setBsa(new Double(getToken(tokens,91)));
+				if(getToken(tokens,74)!= null && !getToken(tokens,74).equals("")){
+				    pd.setBsa(new Double(getToken(tokens,74)));
 				}
 				
 				 // ERPOS			
 				
-				pd.setERpos(getToken(tokens,92));
+				pd.setERpos(getToken(tokens,75));
 			
 				
 				 // PGRPOS		
 				
-				pd.setPgRpos(getToken(tokens,93));
+				pd.setPgRpos(getToken(tokens,76));
 				
                 // FINENEEDLE		
 				
-				pd.setFineNeedle(getToken(tokens,94));		
+				pd.setFineNeedle(getToken(tokens,77));		
 			
 				
                  // CORENEEDLE
-		
 				
-				pd.setCoreNeedle(getToken(tokens,95));
-			
-			
+				pd.setCoreNeedle(getToken(tokens,78));
 				
                 // INCISIONAL
-		
 				
-				pd.setIncisional(getToken(tokens,96));
+				pd.setIncisional(getToken(tokens,79));
 				
                 // BILATERALCA	
 				
-				pd.setBilateralCa(getToken(tokens,97));
+				pd.setBilateralCa(getToken(tokens,80));
 				
                  // LATERALITY	
 				
-				pd.setLaterality(getToken(tokens,98));
+				pd.setLaterality(getToken(tokens,81));
 				
                // RTBRTD
-				
-				pd.setRtBrTD(getToken(tokens,99));
+				pd.setRtBrTD(getToken(tokens,82));
 				
               // RTBOTD				
-				pd.setRtBoTD(getToken(tokens,100));
+				pd.setRtBoTD(getToken(tokens,83));
 			
               // RTAXTD				
-				pd.setRtAxTD(getToken(tokens,101));
+				pd.setRtAxTD(getToken(tokens,84));
 			
               // RTSNTD				
-				pd.setRtSNTD(getToken(tokens,102));
+				pd.setRtSNTD(getToken(tokens,85));
 			
               // RTIMTD				
-				pd.setRtIMTD(getToken(tokens,103));
+				pd.setRtIMTD(getToken(tokens,86));
 			
               // RTCWTD
-				
-				pd.setRtCWTD(getToken(tokens,104));
+				pd.setRtCWTD(getToken(tokens,87));
 			
               // RTOTTD
-
-				
-				pd.setRtOtTD(getToken(tokens,105));
+				pd.setRtOtTD(getToken(tokens,88));
 			
-              // LOCALPROGRESS		
-
-				
-				pd.setLocalProgress(getToken(tokens,106));
+              // LOCALPROGRESS
+				pd.setLocalProgress(getToken(tokens,89));
 			
               // DISTPROGRESS
-
-				
-				pd.setDistProgress(getToken(tokens,107));
+				pd.setDistProgress(getToken(tokens,90));
 			
               // T4BASELINE
-
-				
-				pd.setT4Baseline(getToken(tokens,108));
+				pd.setT4Baseline(getToken(tokens,91));
 			
               // T4EARLY
-			
-				pd.setT4Early(getToken(tokens,109));
+				pd.setT4Early(getToken(tokens,92));
 			
               // T4INT
-				
-				pd.setT4Int(getToken(tokens,110));
+				pd.setT4Int(getToken(tokens,93));
 				
               // T4PRES
-
-				
-				pd.setT4PreS(getToken(tokens,111));
+				pd.setT4PreS(getToken(tokens,94));
 				
               // BASEAXILLARY
-
-				
-				pd.setBaseAxillary(getToken(tokens,112));
+				pd.setBaseAxillary(getToken(tokens,95));
 				
               // EARLYAXILLARY
-
-				
-				pd.setEarlyAxillary(getToken(tokens,113));
+				pd.setEarlyAxillary(getToken(tokens,96));
 				
               // INTAXILLARY
-
-				
-				pd.setIntAxillary(getToken(tokens,114));
+				pd.setIntAxillary(getToken(tokens,97));
 				
               // PRESAXILLARY
-
-				
-				pd.setPreSAxillary(getToken(tokens,115));
+				pd.setPreSAxillary(getToken(tokens,98));
 				
               // BASEINTERNALM
-
-				
-				pd.setBaseInternalM(getToken(tokens,116));
+				pd.setBaseInternalM(getToken(tokens,99));
 				
               // EARLYINTERNALM
-
-				
-				pd.setEarlyInternalM(getToken(tokens,117));
+				pd.setEarlyInternalM(getToken(tokens,100));
 				
               // INTINTERNALM
-
-				
-				pd.setIntInternalM(getToken(tokens,118));
+				pd.setIntInternalM(getToken(tokens,101));
 				
               // PRESINTERNALM
-
-				
-				pd.setPreSInternalM(getToken(tokens,119));
+				pd.setPreSInternalM(getToken(tokens,102));
 				
               // BASESUPRA
-
-				
-				pd.setBaseSupra(getToken(tokens,120));
+				pd.setBaseSupra(getToken(tokens,103));
 				
               // EARLYSUPRA
-				
-				pd.setEarlySupra(getToken(tokens,121));
+				pd.setEarlySupra(getToken(tokens,104));
 				
               // INTSUPRA
-				
-				pd.setIntSupra(getToken(tokens,122));
+				pd.setIntSupra(getToken(tokens,105));
 				
               // PRESSUPRA				
-				pd.setPreSSupra(getToken(tokens,123));
+				pd.setPreSSupra(getToken(tokens,106));
 				
               // BASEINFRA
-				
-				pd.setBaseInfra(getToken(tokens,124));
+				pd.setBaseInfra(getToken(tokens,107));
 				
               // EARLYINFRA
 				
-				pd.setEarlyInfra(getToken(tokens,125));
+				pd.setEarlyInfra(getToken(tokens,108));
 				
               // INTINFRA
 				
-				pd.setIntInfra(getToken(tokens,126));
+				pd.setIntInfra(getToken(tokens,109));
 				
               // PRESINFRA
+				pd.setPreSInfra(getToken(tokens,110));		
 				
-				pd.setPreSInfra(getToken(tokens,127));		
 				
-				
-				//DFS
-				
-				String longStr = getToken(tokens,128);
+				//change DFS to RFS
+				String longStr = getToken(tokens,111);
 				
 				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setDFS(new Long(longStr));
+				    pd.setRFS(new Long(longStr));
 				}
 				
-              //DFS_ind
+				//change DFS_ind to RFS_ind and change data type to String
+				pd.setRFS_ind(getToken(tokens,112));
 				
-				longStr = getToken(tokens,129);
-				
-				if ((longStr!=null)&&(longStr.trim().length()>0)) {
-				    pd.setDFS_ind(new Long(longStr));
-				}
+//				longStr = getToken(tokens,112);
+//				
+//				if ((longStr!=null)&&(longStr.trim().length()>0)) {
+//				    pd.setRFS_ind(new Long(longStr));
+//				}
 				
 			
 				
 				//LocalSiteIpBreast
 				
-				pd.setLocalSiteIpBreast(getToken(tokens,130));
+				pd.setLocalSiteIpBreast(getToken(tokens,113));
 				
 				
 				
                //LocalSiteAxillaryNode
 				
-				pd.setLocalSiteAxillaryNode(getToken(tokens,131));
+				pd.setLocalSiteAxillaryNode(getToken(tokens,114));
 				
                 //LocalSiteSupraNode
 				
-			  pd.setLocalSiteSupraNode(getToken(tokens,132));
+			  pd.setLocalSiteSupraNode(getToken(tokens,115));
 			
 				
                  //LocalSiteChestW
 			  
-			  pd.setLocalSiteChestW(getToken(tokens,133));				
+			  pd.setLocalSiteChestW(getToken(tokens,116));				
 				
 				
 				// LocalSiteIMammaryN
 				
-			  pd.setLocalSiteIMammaryN(getToken(tokens,134));					
+			  pd.setLocalSiteIMammaryN(getToken(tokens,117));					
 				
 				
 	           // LocalSiteInfrNodes
-			  pd.setLocalSiteInfrNodes(getToken(tokens,135));			
+			  pd.setLocalSiteInfrNodes(getToken(tokens,118));			
 				
 				
 				
                // LocalSiteAxilla
-			  pd.setLocalSiteAxilla( getToken(tokens,136));
+			  pd.setLocalSiteAxilla( getToken(tokens,119));
 				
 				
 					
                 // DistSite
 				
-				pd.setDistSite(getToken(tokens,137));
+				pd.setDistSite(getToken(tokens,120));
 				
 				
                 // LocalProgTimeD
 				
-                longStr = getToken(tokens,138);
+                longStr = getToken(tokens,121);
 				
 				if ((longStr!=null)&&(longStr.trim().length()>0)) {
 				    pd.setLocalProgTimeD(new Long(longStr));
@@ -540,25 +499,22 @@ public class ClinicalFileBasedQueryService implements ClinicalDataService {
 				
                // DistProgTimeD
 				
-				 longStr = getToken(tokens,139);
+				 longStr = getToken(tokens,122);
 					
 				if ((longStr!=null)&&(longStr.trim().length()>0)) {
 					    pd.setDistProgTimeD(new Long(longStr));
 					}	
 				
                  // AromataseI
+				pd.setAromataseI(getToken(tokens,123));
 				
-				pd.setAromataseI(getToken(tokens,140));
-			
+				// OvarianAbl
+				pd.setOvarianAbl(getToken(tokens,124));
+				
                 // OvarianSup
-				
-				pd.setOvarianSup(getToken(tokens,141));
+				pd.setOvarianSup(getToken(tokens,125));
 			
-                // OvarianAbl
-				
-				pd.setOvarianAbl(getToken(tokens,142));
-			
-				patientDataMap.put(pd.getISPY_ID(), pd);
+                patientDataMap.put(pd.getISPY_ID(), pd);
 				numRecordsLoaded++;
 			
 			}
