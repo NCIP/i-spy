@@ -404,7 +404,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         if (inFinding.getNumNodesExamined() != null)
         {
             Integer theNumNodesExamined = inFinding.getNumNodesExamined().getAbsoluteValue().intValue();
-            thePatientData.setNodesExamined(theNumNodesExamined.toString());
+            thePatientData.setNodesExaminedPS(theNumNodesExamined.toString());
         }
 
         /////////////////////////////////////////////////////////
@@ -413,7 +413,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         if (inFinding.getNumPosNodes() != null)
         {
             Integer theNumPosNodes = inFinding.getNumPosNodes().getAbsoluteValue().intValue();
-            thePatientData.setNumPosNodes(theNumPosNodes.toString());
+            thePatientData.setNumPosNodesPS(theNumPosNodes.toString());
         }
 
         /////////////////////////////////////////////////////////
@@ -461,7 +461,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////////
         if (inFinding.getDcisOnly() != null)
         {
-            thePatientData.setDCISOnly(inFinding.getDcisOnly().getValue());
+            thePatientData.setDCISOnlyPS(inFinding.getDcisOnly().getValue());
         }
 
         /////////////////////////////////////////////////////////
@@ -469,7 +469,7 @@ public class ClinicalCGOMBasedQueryService implements ClinicalDataService
         /////////////////////////////////////////////////////////
         if (inFinding.getPathologyStage() != null)
         {
-            thePatientData.setPathologyStage(inFinding.getPathologyStage().getValue());
+            thePatientData.setPathologyStagePS(inFinding.getPathologyStage().getValue());
         }
 
         logger.debug("Exiting populatePatientData");
