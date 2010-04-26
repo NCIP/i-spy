@@ -29,12 +29,12 @@ private String  ispy_id,
 				surgerymastectomy, 
 				initlump_fupmast, 
 				surgery, 
-				dcisonly, 
+				dcisonlyps, 
 				//ptumor1szcm_micro, 
 				histologicgradeps, 
-				numposnodes, 
-				nodesexamined, 
-				pathologystage, 
+				numposnodesps, 
+				nodesexaminedps, 
+				pathologystageps, 
 				rttherapy, 
 				rtbreast, 
 				rtboost, 
@@ -91,9 +91,9 @@ private String  ispy_id,
     
     private PcrType pcrType;
     
-    private String inSituHisto;
+    private String inSituHistoPS;
     
-    private String invDzHisto;
+    private String invDzHistoPS;
     
     private String invDzMultiFoc;
     
@@ -107,15 +107,15 @@ private String  ispy_id,
     
     private String yM;
     
-    private String inSituDz;
+    private String inSituDzPS;
     
     private String inSituSpan;
     
     private String percentInSitu;
     
-    private String inSituGrade;
+    private String inSituGradePS;
     
-    private String invDz;
+    private String invDzPS;
     
     
     private String lVI;
@@ -199,8 +199,13 @@ private String  ispy_id,
     
     
     
-    private Long  dFS;    
-    private Long  dFS_ind;
+    private Long  rFS;
+    
+
+    // change to String
+//  private Long  rFS_ind;
+    private String rFS_ind;
+    
     private String  localSiteIpBreast;
     private String  localSiteAxillaryNode;
     private String  localSiteSupraNode;
@@ -376,13 +381,13 @@ private String  ispy_id,
 	}
 
 
-	public String getDCISOnly() {
-		return dcisonly;
+	public String getDCISOnlyPS() {
+		return dcisonlyps;
 	}
 
 
-	public void setDCISOnly(String dcisonly) {
-		this.dcisonly = dcisonly;
+	public void setDCISOnlyPS(String dcisonlyps) {
+		this.dcisonlyps = dcisonlyps;
 	}
 
 
@@ -488,13 +493,13 @@ private String  ispy_id,
 	}
 
 
-	public String getNodesExamined() {
-		return nodesexamined;
+	public String getNodesExaminedPS() {
+		return nodesexaminedps;
 	}
 
 
-	public void setNodesExamined(String nodesexamined) {
-		this.nodesexamined = nodesexamined;
+	public void setNodesExaminedPS(String nodesexamined) {
+		this.nodesexaminedps = nodesexamined;
 	}
 
 
@@ -508,23 +513,23 @@ private String  ispy_id,
 	}
 
 
-	public String getNumPosNodes() {
-		return numposnodes;
+	public String getNumPosNodesPS() {
+		return numposnodesps;
 	}
 
 
-	public void setNumPosNodes(String numposnodes) {
-		this.numposnodes = numposnodes;
+	public void setNumPosNodesPS(String numposnodesps) {
+		this.numposnodesps = numposnodesps;
 	}
 
 
-	public String getPathologyStage() {
-		return pathologystage;
+	public String getPathologyStagePS() {
+		return pathologystageps;
 	}
 
 
-	public void setPathologyStage(String pathologystage) {
-		this.pathologystage = pathologystage;
+	public void setPathologyStagePS(String pathologystage) {
+		this.pathologystageps = pathologystage;
 	}
 
 
@@ -575,21 +580,21 @@ private String  ispy_id,
 	}
 
 	
-	public String getInSituHisto() {
-		return inSituHisto;
+	public String getInSituHistoPS() {
+		return inSituHistoPS;
 	}
 
-	public void setInSituHisto(String inSituHisto) {
-		this.inSituHisto = inSituHisto;
+	public void setInSituHistoPS(String inSituHisto) {
+		this.inSituHistoPS = inSituHisto;
 	}
 
 	
-	public String getInvDzHisto() {
-		return invDzHisto;
+	public String getInvDzHistoPS() {
+		return invDzHistoPS;
 	}
 
-	public void setInvDzHisto(String invDzHisto) {
-		this.invDzHisto = invDzHisto;
+	public void setInvDzHistoPS(String invDzHisto) {
+		this.invDzHistoPS = invDzHisto;
 	}
  
 		public String getInvDzMultiFoc() {
@@ -649,12 +654,12 @@ private String  ispy_id,
 	
 	
 
-	public String getInSituDz() {
-		return inSituDz;
+	public String getInSituDzPS() {
+		return inSituDzPS;
 	}
 
-	public void setInSituDz(String inSituDz) {
-		this.inSituDz = inSituDz;
+	public void setInSituDzPS(String inSituDz) {
+		this.inSituDzPS = inSituDz;
 	}
 
 	
@@ -678,21 +683,21 @@ private String  ispy_id,
 	
 	
 
-	public String getInSituGrade() {
-		return inSituGrade;
+	public String getInSituGradePS() {
+		return inSituGradePS;
 	}
 
-	public void setInSituGrade(String inSituGrade) {
-		this.inSituGrade = inSituGrade;
+	public void setInSituGradePS(String inSituGrade) {
+		this.inSituGradePS = inSituGrade;
 	}
 
 	
-	public String getInvDz() {
-		return invDz;
+	public String getInvDzPS() {
+		return invDzPS;
 	}
 
-	public void setInvDz(String invDz) {
-		this.invDz = invDz;
+	public void setInvDzPS(String invDz) {
+		this.invDzPS = invDz;
 	}
 	
 	
@@ -1535,23 +1540,37 @@ private String  ispy_id,
 		return histTypePS;
 	}
 
-	public Long getDFS() {
-		return dFS;
+	public Long getRFS() {
+		return rFS;
 	}
 
-	public void setDFS(Long dfs) {
-		dFS = dfs;
+	public void setRFS(Long ffs) {
+		rFS = ffs;
 	}
 
-	public Long getDFS_ind() {
-		return dFS_ind;
-	}
-
-	public void setDFS_ind(Long dfs_ind) {
-		dFS_ind = dfs_ind;
-	}
+//	public Long getRFS_ind() {
+//		return rFS_ind;
+//	}
+//
+//	public void setRFS_ind(Long rfs_ind) {
+//		rFS_ind = rfs_ind;
+//	}
 
 	
+	/**
+	 * @return the rFS_ind
+	 */
+	public String getRFS_ind() {
+		return rFS_ind;
+	}
+
+	/**
+	 * @param rFSInd the rFS_ind to set
+	 */
+	public void setRFS_ind(String rFSInd) {
+		rFS_ind = rFSInd;
+	}
+
 	public String getLocalSiteIpBreast() {
 		return localSiteIpBreast;
 	}
