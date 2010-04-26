@@ -6,8 +6,8 @@
 <a style="font-size:.8em" href="javascript:Help.popHelp('Welcome');">help</a>&nbsp;&nbsp;&nbsp;
 <a style="font-size:.8em" href="http://ncicb.nci.nih.gov/NCICB/support" target="_blank">support</a>&nbsp;&nbsp;&nbsp;
 <a style="font-size:.8em" href="docs/I-Spy_1.5_Users_Guide.pdf">user guide</a>&nbsp;&nbsp;&nbsp;
-<a style="font-size:.8em" href="docs/Integrated_Clin_Path_MR_Labtrak_fish_04_2009.xls">integrated data file</a>&nbsp;&nbsp;&nbsp;
-<a style="font-size:.8em" href="docs/ClinicalPathologyDataDictionaryApr09.doc">clinical, pathology data dictionary</a>
+<a style="font-size:.8em" href="docs/IntegratedClinicData_Feb_2010.xls">integrated data file</a>&nbsp;&nbsp;&nbsp;
+<a style="font-size:.8em" href="docs/DataDictionaryIntegratedDataJan2010.doc">clinical, pathology data dictionary</a>
 </span>
 <br>
 <span style="float:left; padding-top:0.1em;">
