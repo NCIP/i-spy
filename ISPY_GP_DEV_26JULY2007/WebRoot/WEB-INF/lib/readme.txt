@@ -1,1 +1,0 @@
-This directory contains jar files that get deployed with the application.

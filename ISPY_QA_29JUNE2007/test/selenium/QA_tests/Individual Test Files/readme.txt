@@ -1,1 +1,0 @@
-This directory holds the individual test files.
