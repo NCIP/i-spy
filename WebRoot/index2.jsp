@@ -92,7 +92,7 @@ String[] updates = update.split(",");
 													The NCI Center for Bioinformatics (NCICB) is designing a web-based system to support correlative data analysis and centralized reporting of results.
 												</p>
 												
-												<br /><span style="font-weight:bold;font-style:italic">version 1.5.1</span><br/><br/>
+												<br /><span style="font-weight:bold;font-style:italic">version 1.5.2</span><br/><br/>
 													<span style="text-decoration:underline">Latest data updates</span>
 														<ul>
 														<%
