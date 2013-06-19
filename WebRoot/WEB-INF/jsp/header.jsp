@@ -1,3 +1,10 @@
+<%--L
+   Copyright SAIC
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/i-spy/LICENSE.txt for details.
+L--%>
+
 <!--header NCI logo-->
 <table width="765" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#A90101">
 <tr bgcolor="#A90101">
