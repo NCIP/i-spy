@@ -1,3 +1,10 @@
+<%--L
+   Copyright SAIC
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/i-spy/LICENSE.txt for details.
+L--%>
+
 <%@ page import="gov.columbia.c2b2.ispy.list.ListType,gov.nih.nci.ispy.util.ISPYListFilter"%>
 <!--<script type='text/javascript' src='dwr/interface/DynamicListHelper.js'></script>
 <script type='text/javascript' src='dwr/engine.js'></script>

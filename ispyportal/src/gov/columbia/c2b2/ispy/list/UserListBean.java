@@ -1,3 +1,10 @@
+/*L
+ *  Copyright SAIC
+ *
+ *  Distributed under the OSI-approved BSD 3-Clause License.
+ *  See http://ncip.github.com/i-spy/LICENSE.txt for details.
+ */
+
 /**
  * The userlist bean contains all lists created by the user and has session
  * scope. It is accessed by the UserListBean Helper

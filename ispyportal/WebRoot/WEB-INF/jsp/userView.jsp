@@ -1,3 +1,10 @@
+<%--L
+   Copyright SAIC
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/i-spy/LICENSE.txt for details.
+L--%>
+
 <%@ page import="java.util.List" %>
  <%@ page import="gov.columbia.c2b2.ispy.user.WebUser"%>
 <%@ page import="gov.columbia.c2b2.ispy.util.Constants"%>

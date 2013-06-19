@@ -1,3 +1,10 @@
+/*L
+ *  Copyright SAIC
+ *
+ *  Distributed under the OSI-approved BSD 3-Clause License.
+ *  See http://ncip.github.com/i-spy/LICENSE.txt for details.
+ */
+
 /**
  * The UserListN will define an uploaded list by name, the type of list and the 
  * contained list itself.
