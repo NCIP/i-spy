@@ -1,3 +1,10 @@
+<%--L
+   Copyright SAIC
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/i-spy/LICENSE.txt for details.
+L--%>
+
 <%@ page language="java" %><%@ page buffer="none" %><%@ page import="gov.nih.nci.ispy.web.helper.ReportGeneratorHelper,gov.nih.nci.ispy.util.ispyConstants, org.dom4j.Document,org.dom4j.io.XMLWriter,org.dom4j.io.OutputFormat,gov.nih.nci.caintegrator.service.findings.*,gov.nih.nci.caintegrator.application.bean.*, gov.nih.nci.ispy.web.factory.*,org.dom4j.Document, gov.nih.nci.ispy.util.*,gov.nih.nci.ispy.web.factory.ApplicationFactory,gov.nih.nci.caintegrator.application.cache.*,gov.nih.nci.ispy.web.xml.ClassComparisonReport,java.util.HashMap" %>
 <%
 

@@ -1,4 +1,12 @@
 <?xml version="1.0"?>
+
+<!--L
+   Copyright SAIC
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/i-spy/LICENSE.txt for details.
+L-->
+
 <bindings id="activeui"
 	xmlns="http://www.mozilla.org/xbl"
 	xmlns:html="http://www.w3.org/1999/xhtml"

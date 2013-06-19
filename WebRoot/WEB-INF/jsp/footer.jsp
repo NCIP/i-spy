@@ -1,3 +1,10 @@
+<%--L
+   Copyright SAIC
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/i-spy/LICENSE.txt for details.
+L--%>
+
 <!-- Start Footer Table -->
 	<div style="padding:5px" align="left">
 		<img src="images/caIntegratorLogoPower.png" alt="powered by caIntegrator" />

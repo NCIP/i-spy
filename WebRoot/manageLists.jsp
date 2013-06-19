@@ -1,3 +1,10 @@
+<%--L
+   Copyright SAIC
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/i-spy/LICENSE.txt for details.
+L--%>
+
 <%@ page import="gov.nih.nci.caintegrator.application.lists.ListType,
 				gov.nih.nci.caintegrator.application.lists.ListSubType,
 				gov.nih.nci.caintegrator.application.lists.UserList,

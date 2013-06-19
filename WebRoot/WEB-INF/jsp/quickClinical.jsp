@@ -1,3 +1,10 @@
+<%--L
+   Copyright SAIC
+
+   Distributed under the OSI-approved BSD 3-Clause License.
+   See http://ncip.github.com/i-spy/LICENSE.txt for details.
+L--%>
+
 <%@ page language="java" %>
 <%@ page import="java.util.*, java.lang.*, java.net.URLEncoder " %>
 <%@ page import="java.util.ArrayList, gov.nih.nci.ispy.web.reports.quick.*" %>
