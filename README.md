@@ -12,7 +12,7 @@ I-SPY is an Open Source project and it is written in Java using Spring framework
 The I-SPY is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
 
-You will find more details about the caCORE SDK in the following links:
+You will find more details about the I-SPY in the following links:
  * [Home Page] (https://wiki.nci.nih.gov/display/CIP/I-SPY)
  * [Issue Tracker] (https://gforge.nci.nih.gov/tracker/?group_id=203)
  * [Code Repository] (https://github.com/NCIP/i-spy)
