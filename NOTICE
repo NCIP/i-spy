@@ -9,7 +9,7 @@ This project was developed as part of the NCI caBIG initiative.
 The project was initially developed by SAIC under funding from the CBIIT office of the National Cancer Institute.
 
 In 2013, as part of the National Cancer Informatics Program (NCIP) Open Development Initiative, 
-the caBIO source code was migrated to GitHub to allow further development by the broader community.
+the I-SPY source code was migrated to GitHub to allow further development by the broader community.
 
 This project includes as sub-components other projects that are copyrighted by third parties and that distributed under various licenses. Please find a summary in the list below:
 
@@ -29,7 +29,7 @@ This project includes as sub-components other projects that are copyrighted by t
    Copyright Marty Haught, Thomas Fuchs
    Distributed under
 6) window.js
-   Copyright Sébastien Gruhier
+   Copyright Sï¿½bastien Gruhier
    Distributed under
 7) overlib_hideform.js, overlib.js
    Copyright  Erik Bosrup
@@ -148,9 +148,9 @@ or see http://www.gnu.org/copyleft/lesser.html
 
 
 
-==================== Copyright notice by Sébastien Gruhier =========================
+==================== Copyright notice by Sï¿½bastien Gruhier =========================
 
-// Copyright (c) 2006 Sébastien Gruhier (http://xilinus.com, http://itseb.com)
+// Copyright (c) 2006 Sï¿½bastien Gruhier (http://xilinus.com, http://itseb.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
