@@ -13,8 +13,7 @@ The I-SPY is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
 
 You will find more details about the I-SPY in the following links:
- * [Home Page] (https://wiki.nci.nih.gov/display/CIP/I-SPY)
- * [Issue Tracker] (https://gforge.nci.nih.gov/tracker/?group_id=203)
+ * [Community Wiki] (https://wiki.nci.nih.gov/x/8QrO)
  * [Code Repository] (https://github.com/NCIP/i-spy)
 
 Please join us in further developing and improving I-SPY.
