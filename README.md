@@ -1,8 +1,8 @@
 Welcome to the ISPY Project!
 =====================================
 
-I-spy portal was developed to support I-SPY trial investigarots. I-SPY is a national study to identify biomarkers predictive of response to therapy throughout the treatment cycle for women with Stage 3 breast cancer. 
-I-spy portal allows integrative query, anlysis and visualization of array based data and clinical annotations. 
+I-spy portal was developed to support I-SPY trial investigators researching biomarkers predictive of response to therapy  for women with breast cancer. 
+I-spy portal allows query, anlysis and visualization of array based data together with clinical annotations. 
 
 I-SPY is an Open Source project and it is written in Java using Spring framework, Hibernate, struts, Apache Commons, caCORE CSM.
 
